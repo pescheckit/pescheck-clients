@@ -22,7 +22,7 @@ Create webhook for event notifications.          **Authentication Notes:**      
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -76,7 +76,7 @@ Delete a webhook
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -124,7 +124,7 @@ List webhooks for the organization
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -168,7 +168,7 @@ Verify webhook ownership
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];

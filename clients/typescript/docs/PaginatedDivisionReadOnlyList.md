@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PaginatedDivisionReadOnlyList } from '@pescheck/api-client'
+import type { PaginatedDivisionReadOnlyList } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

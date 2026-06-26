@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { V2ProfileUpdate } from '@pescheck/api-client'
+import type { V2ProfileUpdate } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

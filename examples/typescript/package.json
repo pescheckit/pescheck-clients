@@ -8,7 +8,7 @@
     "start": "node dist/list_check_types.js"
   },
   "dependencies": {
-    "@pescheck/api-client": "file:../../clients/typescript"
+    "@pescheckit/api-client": "file:../../clients/typescript"
   },
   "devDependencies": {
     "@types/node": "^20",

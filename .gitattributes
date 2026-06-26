@@ -1,0 +1,20 @@
+# Limit the Composer/Packagist dist archive (what `composer require
+# pescheckit/pescheck-clients` downloads) to the PHP client only, so PHP users
+# don't pull the other languages. Affects `git archive` / Packagist tarballs.
+/clients/cpp        export-ignore
+/clients/csharp     export-ignore
+/clients/go         export-ignore
+/clients/java       export-ignore
+/clients/javascript export-ignore
+/clients/python     export-ignore
+/clients/ruby       export-ignore
+/clients/rust       export-ignore
+/clients/typescript export-ignore
+/examples           export-ignore
+/scripts            export-ignore
+/config             export-ignore
+/spec               export-ignore
+/.github            export-ignore
+/package.json       export-ignore
+/openapitools.json  export-ignore
+/Makefile           export-ignore

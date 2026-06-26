@@ -12,13 +12,13 @@ command whenever the API changes.
 | Language   | Path                  | Generator         | Package                          | Registry        |
 |------------|-----------------------|-------------------|----------------------------------|-----------------|
 | Python     | `clients/python`      | `python`          | `pescheck`                       | PyPI            |
-| JavaScript | `clients/javascript`  | `javascript`      | `pescheck-api-client`            | npm             |
-| TypeScript | `clients/typescript`  | `typescript-fetch`| `@pescheck/api-client`           | npm             |
+| JavaScript | `clients/javascript`  | `javascript`      | `@pescheckit/api-client-js`            | npm             |
+| TypeScript | `clients/typescript`  | `typescript-fetch`| `@pescheckit/api-client`           | npm             |
 | Java       | `clients/java`        | `java`            | `io.pescheck:pescheck-api-client`| Maven / GH Pkgs |
 | C#         | `clients/csharp`      | `csharp`          | `Pescheck.Client`                | NuGet           |
 | C++        | `clients/cpp`         | `cpp-restsdk`     | `PescheckApi`                    | GitHub Release  |
-| Go         | `clients/go`          | `go`              | `github.com/pescheck/pescheck-clients/clients/go` | Go modules (git tag) |
-| PHP        | `clients/php`         | `php`             | `pescheck/pescheck-php`          | Packagist       |
+| Go         | `clients/go`          | `go`              | `github.com/pescheckit/pescheck-clients/clients/go` | Go modules (git tag) |
+| PHP        | `clients/php`         | `php`             | `pescheckit/pescheck-clients`    | Packagist       |
 | Rust       | `clients/rust`        | `rust`            | `pescheck`                       | crates.io       |
 | Ruby       | `clients/ruby`        | `ruby`            | `pescheck`                       | RubyGems        |
 

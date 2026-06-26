@@ -23,7 +23,7 @@ Create a division (a child organisation under the current parent org). Divisions
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -71,7 +71,7 @@ List method that handles both paginated and unpaginated responses and enforces t
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -125,7 +125,7 @@ A division is a child organisation under a parent org, used only when a customer
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -177,7 +177,7 @@ A division is a child organisation under a parent org, used only when a customer
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -225,7 +225,7 @@ Update an existing division&#39;s contact, billing, and address details.  Overri
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];

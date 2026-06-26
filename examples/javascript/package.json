@@ -8,6 +8,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "pescheck-api-client": "file:../../clients/javascript"
+    "@pescheckit/api-client-js": "file:../../clients/javascript"
   }
 }

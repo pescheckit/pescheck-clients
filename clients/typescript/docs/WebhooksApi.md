@@ -25,11 +25,11 @@ Create webhook for event notifications.          **Authentication Notes:**      
 import {
   Configuration,
   WebhooksApi,
-} from '@pescheck/api-client';
-import type { CreateWebhook2Request } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { CreateWebhook2Request } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -105,11 +105,11 @@ Delete a webhook
 import {
   Configuration,
   WebhooksApi,
-} from '@pescheck/api-client';
-import type { DeleteWebhook2Request } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { DeleteWebhook2Request } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -178,11 +178,11 @@ List webhooks for the organization
 import {
   Configuration,
   WebhooksApi,
-} from '@pescheck/api-client';
-import type { ListWebhooks2Request } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { ListWebhooks2Request } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -242,11 +242,11 @@ Verify webhook ownership
 import {
   Configuration,
   WebhooksApi,
-} from '@pescheck/api-client';
-import type { VerifyWebhook2Request } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { VerifyWebhook2Request } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

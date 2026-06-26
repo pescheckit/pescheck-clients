@@ -121,19 +121,10 @@ jobs:
           git tag "clients/go/v${VERSION}"
           git push origin "clients/go/v${VERSION}"
 
-  # PHP -> Packagist consumes a one-repo-per-package mirror. Push clients/php to
-  # github.com/pescheck/pescheck-php via subtree split; Packagist auto-updates.
-  php:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-      - name: Subtree-split clients/php to mirror repo
-        run: |
-          git subtree split --prefix clients/php -b php-mirror
-          git push "https://x-access-token:${{ secrets.MIRROR_PUSH_TOKEN }}@github.com/pescheck/pescheck-php.git" \
-            php-mirror:main --force
+  # PHP -> Packagist needs no CI job: the repo is published as pescheckit/pescheck-clients
+  # via the root composer.json, and Packagist auto-updates from a GitHub webhook on
+  # every push/tag. `.gitattributes` (export-ignore) keeps the Composer archive PHP-only.
+  # One-time setup: submit the repo on packagist.org and enable the GitHub integration.
 
   # C++ has no canonical registry: attach a source tarball to the GitHub Release.
   cpp:

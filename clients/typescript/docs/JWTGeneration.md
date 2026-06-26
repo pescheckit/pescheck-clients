@@ -15,7 +15,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { JWTGeneration } from '@pescheck/api-client'
+import type { JWTGeneration } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

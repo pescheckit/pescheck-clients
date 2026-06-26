@@ -14,7 +14,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PaginatedV2ProfileListItemList } from '@pescheck/api-client'
+import type { PaginatedV2ProfileListItemList } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -1,6 +1,6 @@
 # TypeScript end-to-end example
 
-Minimal smoke test for the `@pescheck/api-client` TypeScript client
+Minimal smoke test for the `@pescheckit/api-client` TypeScript client
 (typescript-fetch): lists the supported check types via `GET /api/v2/checks/`.
 
 ## Environment

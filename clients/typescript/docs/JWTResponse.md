@@ -17,7 +17,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { JWTResponse } from '@pescheck/api-client'
+import type { JWTResponse } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

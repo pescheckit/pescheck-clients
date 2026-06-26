@@ -1,4 +1,4 @@
-# @pescheck/api-client@0.0.1
+# @pescheckit/api-client@0.0.1
 
 A TypeScript SDK client for the api.pescheck.io API.
 
@@ -7,7 +7,7 @@ A TypeScript SDK client for the api.pescheck.io API.
 First, install the SDK from npm.
 
 ```bash
-npm install @pescheck/api-client --save
+npm install @pescheckit/api-client --save
 ```
 
 Next, try it out.
@@ -17,11 +17,11 @@ Next, try it out.
 import {
   Configuration,
   AuthenticationApi,
-} from '@pescheck/api-client';
-import type { GenerateJWTToken2Request } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { GenerateJWTToken2Request } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

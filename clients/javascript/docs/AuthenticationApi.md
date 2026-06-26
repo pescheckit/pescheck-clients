@@ -21,7 +21,7 @@ Log in with email + password. Returns a JWT pair scoped to the organization or d
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -69,7 +69,7 @@ Log in with email + password. Returns a JWT pair scoped to your current organiza
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -117,7 +117,7 @@ Takes a refresh type JSON web token and returns an access type JSON web token if
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];

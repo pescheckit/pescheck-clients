@@ -25,11 +25,11 @@ All URIs are relative to *https://api.pescheck.io*
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesCreateRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesCreateRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -94,11 +94,11 @@ example().catch(console.error);
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesDestroyRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesDestroyRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -163,11 +163,11 @@ example().catch(console.error);
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesListRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesListRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -252,11 +252,11 @@ Update name and/or description only. Use PUT to change the check list.
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesPartialUpdateRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesPartialUpdateRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -324,11 +324,11 @@ example().catch(console.error);
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesRetrieveRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesRetrieveRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -395,11 +395,11 @@ Replace the profile. Checks matched by profile_check_id are updated in place; en
 import {
   Configuration,
   ProfilesApi,
-} from '@pescheck/api-client';
-import type { V2ProfilesUpdateRequest } from '@pescheck/api-client';
+} from '@pescheckit/api-client';
+import type { V2ProfilesUpdateRequest } from '@pescheckit/api-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheck/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/api-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

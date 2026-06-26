@@ -12,7 +12,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { TokenRefresh } from '@pescheck/api-client'
+import type { TokenRefresh } from '@pescheckit/api-client'
 
 // TODO: Update the object below with actual values
 const example = {

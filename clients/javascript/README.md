@@ -1,6 +1,6 @@
-# pescheck-api-client
+# @pescheckit/api-client-js
 
-PescheckApi - JavaScript client for pescheck-api-client
+PescheckApi - JavaScript client for @pescheckit/api-client-js
 API for Pescheck
 
 ## Authentication
@@ -31,7 +31,7 @@ To publish the library as a [npm](https://www.npmjs.com/), please follow the pro
 Then install it via:
 
 ```shell
-npm install pescheck-api-client --save
+npm install @pescheckit/api-client-js --save
 ```
 
 Finally, you need to build the module:
@@ -54,7 +54,7 @@ Next, [link](https://docs.npmjs.com/cli/link) it globally in npm with the follow
 npm link
 ```
 
-To use the link you just defined in your project, switch to the directory you want to use your pescheck-api-client from, and run:
+To use the link you just defined in your project, switch to the directory you want to use your @pescheckit/api-client-js from, and run:
 
 ```shell
 npm link /path/to/<JAVASCRIPT_CLIENT_DIR>
@@ -110,7 +110,7 @@ module: {
 Please follow the [installation](#installation) instruction and execute the following JS code:
 
 ```javascript
-var PescheckApi = require('pescheck-api-client');
+var PescheckApi = require('@pescheckit/api-client-js');
 
 var defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2

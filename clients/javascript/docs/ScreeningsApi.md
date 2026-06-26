@@ -20,7 +20,7 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -68,7 +68,7 @@ Documents attached to the screening&#39;s checks. Files are delivered inline as 
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -172,7 +172,7 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import PescheckApi from 'pescheck-api-client';
+import PescheckApi from '@pescheckit/api-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];

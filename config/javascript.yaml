@@ -5,7 +5,7 @@ gitHost: github.com
 gitUserId: pescheckit
 gitRepoId: pescheck-clients
 additionalProperties:
-  projectName: pescheck-api-client
+  projectName: "@pescheckit/api-client-js"
   moduleName: PescheckApi
   projectVersion: 0.0.1
   usePromises: "true"
