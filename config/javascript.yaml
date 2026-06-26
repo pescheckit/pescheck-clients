@@ -1,0 +1,12 @@
+generatorName: javascript
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/javascript
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+additionalProperties:
+  projectName: pescheck-api-client
+  moduleName: PescheckApi
+  projectVersion: 2.0.0
+  usePromises: "true"
+  useES6: "true"

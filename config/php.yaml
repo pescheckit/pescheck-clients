@@ -1,0 +1,11 @@
+generatorName: php
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/php
+gitHost: github.com
+gitUserId: pescheckit
+# composer name = pescheckit/pescheck-clients (monorepo; Packagist consumes a subtree-split mirror)
+gitRepoId: pescheck-clients
+additionalProperties:
+  invokerPackage: Pescheck\Client
+  packageName: pescheck-api-client
+  artifactVersion: 2.0.0

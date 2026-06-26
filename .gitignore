@@ -1,0 +1,14 @@
+node_modules/
+.openapi-generator-cli/
+
+# Build artifacts inside generated clients
+clients/**/target/
+clients/**/build/
+clients/**/dist/
+clients/**/bin/
+clients/**/obj/
+clients/**/vendor/
+clients/**/*.egg-info/
+clients/**/__pycache__/
+clients/python/.tox/
+clients/rust/target/

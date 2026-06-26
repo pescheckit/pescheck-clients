@@ -1,0 +1,12 @@
+generatorName: rust
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/rust
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+library: reqwest
+additionalProperties:
+  packageName: pescheck
+  packageVersion: 2.0.0
+  supportAsync: "true"
+  supportMiddleware: "true"

@@ -1,0 +1,12 @@
+generatorName: csharp
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/csharp
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+library: httpclient
+additionalProperties:
+  packageName: Pescheck.Client
+  packageVersion: 2.0.0
+  targetFramework: net8.0
+  hideGenerationTimestamp: "true"

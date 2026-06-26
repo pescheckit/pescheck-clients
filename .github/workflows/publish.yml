@@ -1,0 +1,149 @@
+name: Publish clients
+
+# Build and publish every language SDK to its registry on a release tag (vX.Y.Z).
+# Each job is independent so a failure in one registry does not block the others.
+#
+# Required repo secrets (set the ones you use):
+#   NPM_TOKEN          - npm (TypeScript + JavaScript)
+#   NUGET_API_KEY      - NuGet (C#)
+#   CARGO_REGISTRY_TOKEN - crates.io (Rust)
+#   RUBYGEMS_API_KEY   - RubyGems (Ruby)
+#   MAVEN_* / GPG_*    - Maven Central (Java) — see notes below
+# PyPI uses OIDC trusted publishing (no secret needed once configured).
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # PyPI trusted publishing (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - working-directory: clients/python
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: clients/python/dist
+
+  npm:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dir: [typescript, javascript]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+      - working-directory: clients/${{ matrix.dir }}
+        run: |
+          npm install
+          npm run build --if-present
+          npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - working-directory: clients/csharp
+        run: |
+          dotnet pack -c Release -o ./artifacts
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --api-key "${{ secrets.NUGET_API_KEY }}" \
+            --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - working-directory: clients/rust
+        run: cargo publish --allow-dirty --token "${{ secrets.CARGO_REGISTRY_TOKEN }}"
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - working-directory: clients/ruby
+        run: |
+          gem build *.gemspec
+          mkdir -p ~/.gem
+          printf -- "---\n:rubygems_api_key: %s\n" "${{ secrets.RUBYGEMS_API_KEY }}" > ~/.gem/credentials
+          chmod 600 ~/.gem/credentials
+          gem push *.gem
+
+  # Java -> Maven Central needs GPG signing + Sonatype Central Portal credentials.
+  # Start with GitHub Packages (below); switch to Central once signing is set up.
+  java:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - working-directory: clients/java
+        run: mvn --batch-mode deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Go has no registry: tag the subdir module so `go get` resolves it.
+  # Module path: github.com/pescheck/pescheck-clients/clients/go
+  go:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag Go submodule
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          git tag "clients/go/v${VERSION}"
+          git push origin "clients/go/v${VERSION}"
+
+  # PHP -> Packagist consumes a one-repo-per-package mirror. Push clients/php to
+  # github.com/pescheck/pescheck-php via subtree split; Packagist auto-updates.
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Subtree-split clients/php to mirror repo
+        run: |
+          git subtree split --prefix clients/php -b php-mirror
+          git push "https://x-access-token:${{ secrets.MIRROR_PUSH_TOKEN }}@github.com/pescheck/pescheck-php.git" \
+            php-mirror:main --force
+
+  # C++ has no canonical registry: attach a source tarball to the GitHub Release.
+  cpp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package C++ client
+        run: tar -czf pescheck-cpp-${GITHUB_REF_NAME}.tar.gz -C clients cpp
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: pescheck-cpp-*.tar.gz

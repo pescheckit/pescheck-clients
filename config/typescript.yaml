@@ -1,0 +1,12 @@
+generatorName: typescript-fetch
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/typescript
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+additionalProperties:
+  npmName: "@pescheck/api-client"
+  npmVersion: 2.0.0
+  supportsES6: "true"
+  typescriptThreePlus: "true"
+  withInterfaces: "true"

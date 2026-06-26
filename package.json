@@ -1,0 +1,17 @@
+{
+  "name": "pescheck-clients",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Official Pescheck API SDK clients for 10 languages, generated from the OpenAPI schema.",
+  "type": "module",
+  "scripts": {
+    "fetch": "bash scripts/fetch-spec.sh",
+    "filter": "node scripts/filter-spec.mjs",
+    "generate": "openapi-generator-cli batch config/*.yaml && node scripts/postprocess.mjs",
+    "build": "npm run fetch && npm run filter && npm run generate"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "2.21.5",
+    "js-yaml": "4.1.0"
+  }
+}

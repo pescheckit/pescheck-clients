@@ -1,0 +1,11 @@
+generatorName: ruby
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/ruby
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+library: faraday
+additionalProperties:
+  gemName: pescheck
+  moduleName: Pescheck
+  gemVersion: 2.0.0

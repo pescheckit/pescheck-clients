@@ -1,0 +1,4889 @@
+openapi: 3.0.3
+info:
+  title: Pescheck API
+  version: 2.0.0
+  description: |-
+    API for Pescheck
+
+    ## Authentication
+    This API supports three authentication methods:
+    1. **OAuth2** (recommended for API clients) - Use client credentials flow
+    2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint
+    3. **Cookie** (for browser-based access) - Session authentication via web login
+
+    ## Quick Start for API Clients
+    1. Select your environment from the servers dropdown
+    2. Use OAuth2 with client credentials flow
+    3. Scopes are automatically included: read:api, create:api, update:api
+paths:
+  /api/jwt/:
+    post:
+      operationId: jwt_create
+      description: |-
+        Log in with email + password. Returns a JWT pair scoped to your current
+        organization (last viewed, or first available).
+
+        For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CustomTokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomTokenObtainPair'
+          description: ''
+  /api/jwt/refresh/:
+    post:
+      operationId: jwt_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/v1/checks/:
+    get:
+      operationId: v1_checks_list
+      description: Return a list of all available checks
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Checks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCheckList'
+          description: ''
+  /api/v1/jwt/generate/:
+    post:
+      operationId: generateJWTToken
+      description: |-
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).
+
+        For a plain login, use POST /api/jwt/.
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JWTGeneration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JWTGeneration'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTResponse'
+          description: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/v1/oauth/applications/:
+    post:
+      operationId: createOAuthApplication
+      description: Create OAuth application for API access
+      tags:
+      - OAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthApplicationResponse'
+          description: ''
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '429':
+          description: Rate limit exceeded
+  /api/v1/oauth/applications/{application_id}/:
+    delete:
+      operationId: deleteOAuthApplication
+      description: Delete an OAuth application
+      parameters:
+      - in: path
+        name: application_id
+        schema:
+          type: string
+        description: Application ID to delete
+        required: true
+      tags:
+      - OAuth
+      responses:
+        '204':
+          description: Application deleted
+        '403':
+          description: Forbidden
+        '404':
+          description: Application not found
+  /api/v1/oauth/applications/list/:
+    get:
+      operationId: listOAuthApplications
+      description: List OAuth applications for the organization
+      tags:
+      - OAuth
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OAuthApplicationResponse'
+          description: ''
+        '403':
+          description: Forbidden
+  /api/v1/organisations/divisions/:
+    get:
+      operationId: v1_organisations_divisions_list
+      description: |-
+        List method that handles both paginated and unpaginated responses
+        and enforces the max_total_records limit (500).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Divisions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDivisionReadOnlyList'
+          description: ''
+    post:
+      operationId: v1_organisations_divisions_create
+      description: |-
+        Create a division (a child organisation under the current parent org).
+        Divisions are an advanced, rarely-needed feature: create one ONLY when the
+        user has clearly stated they want to manage a separate business unit,
+        location, or legal entity under their account. Do NOT create a division
+        just to organise screenings, for a single-person or single-member
+        organisation, or without an explicit request to do so. When in doubt, ask
+        the user to confirm before calling this tool.
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+  /api/v1/organisations/divisions/{id}/:
+    get:
+      operationId: v1_organisations_divisions_retrieve
+      description: |-
+        A division is a child organisation under a parent org, used only when a
+        customer needs to manage genuinely separate business units, locations, or
+        legal entities under one account. The vast majority of organisations operate
+        as a single entity and need no divisions. Only top-level (parent)
+        organisations can have divisions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionReadOnly'
+          description: ''
+    put:
+      operationId: v1_organisations_divisions_update
+      description: |-
+        Update an existing division's contact, billing, and address details.
+
+        Override also triggers a webhook on successful PUT and PATCH requests.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+    patch:
+      operationId: v1_organisations_divisions_partial_update
+      description: |-
+        A division is a child organisation under a parent org, used only when a
+        customer needs to manage genuinely separate business units, locations, or
+        legal entities under one account. The vast majority of organisations operate
+        as a single entity and need no divisions. Only top-level (parent)
+        organisations can have divisions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDivisionWrite'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+  /api/v1/packages/:
+    get:
+      operationId: v1_packages_list
+      description: |-
+        List method that handles both paginated and unpaginated responses
+        and enforces the max_total_records limit (500).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Packages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedPackageListList'
+          description: ''
+    post:
+      operationId: v1_packages_create
+      description: |-
+        Legacy screening packages: predefined bundles of checks.
+
+        Being phased out in favour of profiles. Prefer the profiles_* tools for new
+        screenings. Only use packages when the user explicitly asks for one or
+        references one by name.
+      tags:
+      - Packages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Package'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Package'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+          description: ''
+  /api/v1/packages/{id}/:
+    get:
+      operationId: v1_packages_retrieve
+      description: Enhanced retrieve that includes detailed check information
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this package.
+        required: true
+      tags:
+      - Packages
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Package'
+          description: ''
+  /api/v1/screenings/:
+    get:
+      operationId: v1_screenings_list
+      description: |-
+        List method that handles both paginated and unpaginated responses
+        and enforces the max_total_records limit (500).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Screening
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedScreeningList'
+          description: ''
+    post:
+      operationId: v1_screenings_create
+      description: |-
+        Create a new screening.
+
+        Requires email, first_name, last_name, and a package_id. v1 screening
+        creation is package-based; profiles are a v2 concept, created and used
+        through the v2 API.
+      tags:
+      - Screening
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Screening'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Screening'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screening'
+          description: ''
+  /api/v1/screenings/{id}/:
+    get:
+      operationId: v1_screenings_retrieve
+      description: Get details of a screening including its checks and status.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this screening.
+        required: true
+      tags:
+      - Screening
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Screening'
+          description: ''
+  /api/v1/screenings/{id}/document/:
+    get:
+      operationId: v1_screenings_document_retrieve
+      description: Retrieve Base64-encoded documents related to a screening, including
+        ID checks, qualifications, and document reader documents.
+      summary: Retrieve screening documents
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this screening.
+        required: true
+      tags:
+      - Screening
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningDocumentsResponse'
+              examples:
+                DocumentResponseExample:
+                  value:
+                    id_check_documents:
+                    - type: DOCUMENT
+                      extension: .jpg
+                      file: iVBORw0KGgoAAAANSUhEUgAAAAUA...
+                    id2_check_documents:
+                    - type: Front
+                      extension: .png
+                      file: iVBORw0KGgoAAAANSUhEUgAAAAUA...
+                    qualification_documents:
+                    - filename: degree_certificate.pdf
+                      extension: .pdf
+                      file: JVBERi0xLjQKJeLjz9MK...
+                    document_reader_documents:
+                    - type: CRIMINAL_RECORD
+                      country: NL
+                      extension: .jpg
+                      file: JVBORw0KGgoAAAANSUhEUgAAAAUA...
+                      status: CLEAN
+                  summary: Document Response Example
+          description: ''
+  /api/v1/webhooks/:
+    post:
+      operationId: createWebhook
+      description: |-
+        Create webhook for event notifications.
+
+                **Authentication Notes:**
+                - OAuth2: Organization is automatically determined from the OAuth application
+                - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
+
+                **Valid Events:**
+                - `check.started` - Check has been initiated
+                - `check.completed` - Check has been completed successfully
+                - `check.failed` - Check has failed
+                - `screening.created` - New screening has been created
+                - `screening.completed` - Screening has been completed
+                - `screening.archived` - Screening has been archived
+                - `package.created` - New package has been created
+                - `package.updated` - Package has been updated
+                - `division.created` - New division has been created
+                - `division.updated` - Division has been updated
+
+                Limited to 5 webhooks per organization/division.
+      parameters:
+      - in: header
+        name: X-Organization-Id
+        schema:
+          type: string
+        description: Organization ID (for JWT/Session auth only)
+      - in: query
+        name: organization_id
+        schema:
+          type: string
+        description: Organization ID (for JWT/Session auth only)
+      tags:
+      - Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+            examples:
+              CreateWebhookExample:
+                value:
+                  name: My Event Webhook
+                  url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
+                  events:
+                  - check.completed
+                  - screening.created
+                  - screening.completed
+                  active: true
+                  division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                summary: Create Webhook Example
+                description: Example of creating a webhook for check and screening
+                  events
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+              examples:
+                CreateWebhookExample:
+                  value:
+                    name: My Event Webhook
+                    url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
+                    events:
+                    - check.completed
+                    - screening.created
+                    - screening.completed
+                    active: true
+                    division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  summary: Create Webhook Example
+                  description: Example of creating a webhook for check and screening
+                    events
+          description: ''
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden - Organization not found or no permission
+        '409':
+          description: Conflict - Max webhooks reached
+  /api/v1/webhooks/{webhook_id}/:
+    delete:
+      operationId: deleteWebhook
+      description: Delete a webhook
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: string
+        description: Webhook ID to delete
+        required: true
+      tags:
+      - Webhooks
+      responses:
+        '204':
+          description: Webhook deleted
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+  /api/v1/webhooks/{webhook_id}/verify/:
+    post:
+      operationId: verifyWebhook
+      description: Verify webhook ownership
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: string
+        description: Webhook ID
+        required: true
+      tags:
+      - Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyWebhook'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyWebhook'
+        required: true
+      responses:
+        '200':
+          description: Webhook verified
+        '400':
+          description: Invalid verification code
+        '404':
+          description: Webhook not found
+  /api/v1/webhooks/list/:
+    get:
+      operationId: listWebhooks
+      description: List webhooks for the organization
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookResponse'
+          description: ''
+        '403':
+          description: Forbidden
+  /api/v2/checks/:
+    get:
+      operationId: v2_checks_list
+      description: List the check types this API supports. The list is bounded metadata
+        about the available check types (not a paginated collection), so the response
+        is a flat array.
+      parameters:
+      - in: query
+        name: check_type
+        schema:
+          type: string
+        description: Restrict the list to a single check type.
+      tags:
+      - Checks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/V2CheckInfo'
+          description: ''
+  /api/v2/checks/{check_type}/:
+    get:
+      operationId: v2_checks_retrieve
+      parameters:
+      - in: path
+        name: check_type
+        schema:
+          type: string
+          pattern: ^[a-z0-9]+$
+        required: true
+      tags:
+      - Checks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2CheckInfo'
+          description: ''
+  /api/v2/jwt/generate/:
+    post:
+      operationId: generateJWTToken_2
+      description: |-
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).
+
+        For a plain login, use POST /api/jwt/.
+      tags:
+      - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JWTGeneration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JWTGeneration'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JWTResponse'
+          description: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  /api/v2/oauth/applications/:
+    post:
+      operationId: createOAuthApplication_2
+      description: Create OAuth application for API access
+      tags:
+      - OAuth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OAuthApplication'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuthApplicationResponse'
+          description: ''
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '429':
+          description: Rate limit exceeded
+  /api/v2/oauth/applications/{application_id}/:
+    delete:
+      operationId: deleteOAuthApplication_2
+      description: Delete an OAuth application
+      parameters:
+      - in: path
+        name: application_id
+        schema:
+          type: string
+        description: Application ID to delete
+        required: true
+      tags:
+      - OAuth
+      responses:
+        '204':
+          description: Application deleted
+        '403':
+          description: Forbidden
+        '404':
+          description: Application not found
+  /api/v2/oauth/applications/list/:
+    get:
+      operationId: listOAuthApplications_2
+      description: List OAuth applications for the organization
+      tags:
+      - OAuth
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OAuthApplicationResponse'
+          description: ''
+        '403':
+          description: Forbidden
+  /api/v2/organisations/divisions/:
+    get:
+      operationId: v2_organisations_divisions_list
+      description: |-
+        List method that handles both paginated and unpaginated responses
+        and enforces the max_total_records limit (500).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Divisions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDivisionReadOnlyList'
+          description: ''
+    post:
+      operationId: v2_organisations_divisions_create
+      description: |-
+        Create a division (a child organisation under the current parent org).
+        Divisions are an advanced, rarely-needed feature: create one ONLY when the
+        user has clearly stated they want to manage a separate business unit,
+        location, or legal entity under their account. Do NOT create a division
+        just to organise screenings, for a single-person or single-member
+        organisation, or without an explicit request to do so. When in doubt, ask
+        the user to confirm before calling this tool.
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+  /api/v2/organisations/divisions/{id}/:
+    get:
+      operationId: v2_organisations_divisions_retrieve
+      description: |-
+        A division is a child organisation under a parent org, used only when a
+        customer needs to manage genuinely separate business units, locations, or
+        legal entities under one account. The vast majority of organisations operate
+        as a single entity and need no divisions. Only top-level (parent)
+        organisations can have divisions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionReadOnly'
+          description: ''
+    put:
+      operationId: v2_organisations_divisions_update
+      description: |-
+        Update an existing division's contact, billing, and address details.
+
+        Override also triggers a webhook on successful PUT and PATCH requests.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DivisionWrite'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+    patch:
+      operationId: v2_organisations_divisions_partial_update
+      description: |-
+        A division is a child organisation under a parent org, used only when a
+        customer needs to manage genuinely separate business units, locations, or
+        legal entities under one account. The vast majority of organisations operate
+        as a single entity and need no divisions. Only top-level (parent)
+        organisations can have divisions.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this organisation.
+        required: true
+      tags:
+      - Divisions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedDivisionWrite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedDivisionWrite'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionWrite'
+          description: ''
+  /api/v2/profiles/:
+    get:
+      operationId: v2_profiles_list
+      parameters:
+      - in: query
+        name: check_type
+        schema:
+          type: string
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - id2check
+          - integritycheck
+          - openhealthcarecheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+        description: Restrict to profiles containing at least one check of this type.
+      - in: query
+        name: is_custom
+        schema:
+          type: boolean
+        description: Restrict to custom (true) or system (false) profiles.
+      - in: query
+        name: name
+        schema:
+          type: string
+        description: Restrict to profiles whose name contains this value (case-insensitive).
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      - name: sort
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      tags:
+      - Profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedV2ProfileListItemList'
+              examples:
+                ProfileListItem:
+                  value:
+                    count: 1
+                    next: null
+                    previous: null
+                    results:
+                    - id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                      name: VOG + Watchlist Screening
+                      description: Dutch certificate of good behavior plus international
+                        watchlist check.
+                      is_custom: true
+                      check_types:
+                      - vogcheck
+                      - watchlist2check
+                      created_at: '2026-05-13T10:30:00Z'
+                      updated_at: '2026-05-13T10:30:00Z'
+                  summary: Profile list item
+          description: ''
+    post:
+      operationId: v2_profiles_create
+      tags:
+      - Profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ProfileCreate'
+            examples:
+              VOG+WatchlistProfile:
+                value:
+                  name: VOG + Watchlist Screening
+                  description: Dutch certificate of good behavior plus international
+                    watchlist check.
+                  checks:
+                  - check_type: vogcheck
+                    config:
+                      org_name: Pescheck
+                      function: Senior Accountant
+                      profiles:
+                      - '11'
+                      - '12'
+                  - check_type: watchlist2check
+                    config:
+                      threshold: 80
+                      cutoff: 50
+                      topics:
+                      - sanctions
+                      - pep
+                summary: VOG + watchlist profile
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/V2ProfileCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ProfileDetail'
+              examples:
+                ProfileDetail:
+                  value:
+                    id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                    name: VOG + Watchlist Screening
+                    description: Dutch certificate of good behavior plus international
+                      watchlist check.
+                    is_custom: true
+                    checks:
+                    - id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      configured_price:
+                        amount: '7.50'
+                        currency: EUR
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Senior Accountant
+                        profiles:
+                        - '11'
+                        - '12'
+                      input_fields: []
+                      is_system_managed: false
+                    - id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      configured_price:
+                        amount: '16.50'
+                        currency: EUR
+                      config:
+                        threshold: 80
+                        cutoff: 50
+                        topics:
+                        - sanctions
+                        - pep
+                      input_fields:
+                      - name: notes
+                        type: string
+                        required: false
+                        choices: null
+                        help_text: Additional notes for this watchlist search.
+                      is_system_managed: false
+                    total_price:
+                      amount: '24.00'
+                      currency: EUR
+                    supported_countries_of_work:
+                    - NL
+                    - DE
+                    - BE
+                    - FR
+                    - GB
+                    - US
+                    - '...'
+                    supported_countries_of_residence:
+                    - NL
+                    candidate_fields:
+                    - name: first_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: last_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: email
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: initials
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: date_of_birth
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: nationality
+                      type: string
+                      required: false
+                      choices:
+                      - AD
+                      - AE
+                      - AF
+                      - AG
+                      - AI
+                      - '...'
+                      help_text: null
+                    created_at: '2026-05-13T10:30:00Z'
+                    updated_at: '2026-05-13T10:30:00Z'
+                  summary: Profile detail
+          description: ''
+  /api/v2/profiles/{id}/:
+    get:
+      operationId: v2_profiles_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this profile.
+        required: true
+      tags:
+      - Profiles
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ProfileDetail'
+              examples:
+                ProfileDetail:
+                  value:
+                    id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                    name: VOG + Watchlist Screening
+                    description: Dutch certificate of good behavior plus international
+                      watchlist check.
+                    is_custom: true
+                    checks:
+                    - id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      configured_price:
+                        amount: '7.50'
+                        currency: EUR
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Senior Accountant
+                        profiles:
+                        - '11'
+                        - '12'
+                      input_fields: []
+                      is_system_managed: false
+                    - id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      configured_price:
+                        amount: '16.50'
+                        currency: EUR
+                      config:
+                        threshold: 80
+                        cutoff: 50
+                        topics:
+                        - sanctions
+                        - pep
+                      input_fields:
+                      - name: notes
+                        type: string
+                        required: false
+                        choices: null
+                        help_text: Additional notes for this watchlist search.
+                      is_system_managed: false
+                    total_price:
+                      amount: '24.00'
+                      currency: EUR
+                    supported_countries_of_work:
+                    - NL
+                    - DE
+                    - BE
+                    - FR
+                    - GB
+                    - US
+                    - '...'
+                    supported_countries_of_residence:
+                    - NL
+                    candidate_fields:
+                    - name: first_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: last_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: email
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: initials
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: date_of_birth
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: nationality
+                      type: string
+                      required: false
+                      choices:
+                      - AD
+                      - AE
+                      - AF
+                      - AG
+                      - AI
+                      - '...'
+                      help_text: null
+                    created_at: '2026-05-13T10:30:00Z'
+                    updated_at: '2026-05-13T10:30:00Z'
+                  summary: Profile detail
+          description: ''
+    put:
+      operationId: v2_profiles_update
+      description: |-
+        Replace the profile. Checks matched by profile_check_id are updated
+        in place; entries without one are added; existing checks not referenced
+        in the request are removed.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this profile.
+        required: true
+      tags:
+      - Profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ProfileUpdate'
+            examples:
+              ReplaceProfileChecks:
+                value:
+                  name: VOG + Watchlist Screening
+                  description: Dutch certificate of good behavior plus international
+                    watchlist check.
+                  checks:
+                  - profile_check_id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                    check_type: vogcheck
+                    config:
+                      org_name: Pescheck
+                      function: Lead Engineer
+                      profiles:
+                      - '11'
+                      - '12'
+                      - '13'
+                  - check_type: watchlist2check
+                    config:
+                      threshold: 85
+                      topics:
+                      - sanctions
+                      - pep
+                      - crime
+                summary: Replace profile checks
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/V2ProfileUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ProfileDetail'
+              examples:
+                ProfileDetail(afterPUT):
+                  value:
+                    id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                    name: VOG + Watchlist Screening
+                    description: Dutch certificate of good behavior plus international
+                      watchlist check.
+                    is_custom: true
+                    checks:
+                    - id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      configured_price:
+                        amount: '7.50'
+                        currency: EUR
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Lead Engineer
+                        profiles:
+                        - '11'
+                        - '12'
+                        - '13'
+                      input_fields: []
+                      is_system_managed: false
+                    - id: 018e9f1e-5e21-7d30-b4f5-e6a7b8c9d0e1
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      configured_price:
+                        amount: '16.50'
+                        currency: EUR
+                      config:
+                        threshold: 85
+                        topics:
+                        - sanctions
+                        - pep
+                        - crime
+                      input_fields:
+                      - name: notes
+                        type: string
+                        required: false
+                        choices: null
+                        help_text: Additional notes for this watchlist search.
+                      is_system_managed: false
+                    total_price:
+                      amount: '24.00'
+                      currency: EUR
+                    supported_countries_of_work:
+                    - NL
+                    - DE
+                    - BE
+                    - FR
+                    - GB
+                    - US
+                    - '...'
+                    supported_countries_of_residence:
+                    - NL
+                    candidate_fields:
+                    - name: first_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: last_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: email
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: initials
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: date_of_birth
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: nationality
+                      type: string
+                      required: false
+                      choices:
+                      - AD
+                      - AE
+                      - AF
+                      - AG
+                      - AI
+                      - '...'
+                      help_text: null
+                    created_at: '2026-05-13T10:30:00Z'
+                    updated_at: '2026-05-13T11:45:00Z'
+                  summary: Profile detail (after PUT)
+          description: ''
+    patch:
+      operationId: v2_profiles_partial_update
+      description: Update name and/or description only. Use PUT to change the check
+        list.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this profile.
+        required: true
+      tags:
+      - Profiles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedV2ProfilePartialUpdate'
+            examples:
+              EditNameAndDescriptionOnly:
+                value:
+                  name: VOG + Watchlist Screening (NL)
+                  description: Adjusted description for the Dutch market.
+                summary: Edit name and description only
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedV2ProfilePartialUpdate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ProfileDetail'
+              examples:
+                ProfileDetail(afterPATCH):
+                  value:
+                    id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                    name: VOG + Watchlist Screening (NL)
+                    description: Adjusted description for the Dutch market.
+                    is_custom: true
+                    checks:
+                    - id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      configured_price:
+                        amount: '7.50'
+                        currency: EUR
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Senior Accountant
+                        profiles:
+                        - '11'
+                        - '12'
+                      input_fields: []
+                      is_system_managed: false
+                    - id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      configured_price:
+                        amount: '16.50'
+                        currency: EUR
+                      config:
+                        threshold: 80
+                        cutoff: 50
+                        topics:
+                        - sanctions
+                        - pep
+                      input_fields:
+                      - name: notes
+                        type: string
+                        required: false
+                        choices: null
+                        help_text: Additional notes for this watchlist search.
+                      is_system_managed: false
+                    total_price:
+                      amount: '24.00'
+                      currency: EUR
+                    supported_countries_of_work:
+                    - NL
+                    - DE
+                    - BE
+                    - FR
+                    - GB
+                    - US
+                    - '...'
+                    supported_countries_of_residence:
+                    - NL
+                    candidate_fields:
+                    - name: first_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: last_name
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: email
+                      type: string
+                      required: true
+                      choices: null
+                      help_text: null
+                    - name: initials
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: date_of_birth
+                      type: string
+                      required: false
+                      choices: null
+                      help_text: null
+                    - name: nationality
+                      type: string
+                      required: false
+                      choices:
+                      - AD
+                      - AE
+                      - AF
+                      - AG
+                      - AI
+                      - '...'
+                      help_text: null
+                    created_at: '2026-05-13T10:30:00Z'
+                    updated_at: '2026-05-13T11:45:00Z'
+                  summary: Profile detail (after PATCH)
+          description: ''
+    delete:
+      operationId: v2_profiles_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this profile.
+        required: true
+      tags:
+      - Profiles
+      responses:
+        '204':
+          description: No response body
+  /api/v2/screenings/:
+    get:
+      operationId: v2_screenings_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          example: 1
+          description: Page number within the paginated result set.
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 50
+          example: 50
+          description: 'Number of results per page (max: 100)'
+      - name: paginate
+        required: false
+        in: query
+        description: Enable/disable pagination. When false, max 500 records returned.
+        schema:
+          type: boolean
+          default: true
+      tags:
+      - Screenings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedV2ScreeningListItemList'
+              examples:
+                ScreeningListItem:
+                  value:
+                    count: 1
+                    next: null
+                    previous: null
+                    results:
+                    - id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
+                      status: OPEN
+                      profile:
+                        id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                        name: VOG + Watchlist Screening
+                      candidate:
+                        first_name: Jan
+                        last_name: de Vries
+                        email: jan.devries@example.com
+                        initials: J.
+                        date_of_birth: '1985-04-12'
+                      checks:
+                      - id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                        check_type: vogcheck
+                        status: CREATED
+                      - id: 018e9f1e-4b35-7c11-a5f3-d4e5f6a7b8c9
+                        check_type: watchlist2check
+                        status: FINISHED
+                      candidate_wizard_url: null
+                      dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7/home/edit
+                      created_at: '2026-05-13T11:00:00Z'
+                      updated_at: '2026-05-13T11:00:00Z'
+                  summary: Screening list item
+          description: ''
+    post:
+      operationId: v2_screenings_create
+      tags:
+      - Screenings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ScreeningCreate'
+            examples:
+              ScreenACandidate(profileConfigAs-is):
+                value:
+                  profile_id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                    date_of_birth: '1985-04-12'
+                summary: Screen a candidate (profile config as-is)
+              ScreenACandidateWithPer-checkConfigOverrides:
+                value:
+                  profile_id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                    date_of_birth: '1985-04-12'
+                    nationality: NL
+                  checks:
+                  - check_type: vogcheck
+                    config:
+                      function: Interim CFO
+                  - check_type: watchlist2check
+                    config:
+                      threshold: 95
+                summary: Screen a candidate with per-check config overrides
+              ScreenACandidateWithPer-checkInput:
+                value:
+                  profile_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f0
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                  checks:
+                  - check_type: openhealthcarecheck
+                    input:
+                      registration_number: '19000001'
+                summary: Screen a candidate with per-check input
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/V2ScreeningCreate'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ScreeningDetail'
+              examples:
+                ScreeningDetail:
+                  value:
+                    id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
+                    status: OPEN
+                    profile:
+                      id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                      name: VOG + Watchlist Screening
+                    candidate:
+                      first_name: Jan
+                      last_name: de Vries
+                      email: jan.devries@example.com
+                      initials: J.
+                      date_of_birth: '1985-04-12'
+                    checks:
+                    - id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                      profile_check_id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      status: CREATED
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Senior Accountant
+                        profiles:
+                        - '11'
+                        - '12'
+                        reason: null
+                      input: {}
+                      output: {}
+                      candidate_wizard_url: null
+                    - id: 018e9f1e-4b35-7c11-a5f3-d4e5f6a7b8c9
+                      profile_check_id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      status: FINISHED
+                      config:
+                        threshold: 80.0
+                        cutoff: 50.0
+                        topics:
+                        - sanctions
+                        - pep
+                        datasets: []
+                      input: {}
+                      output:
+                        result_data:
+                          responses:
+                            entity:
+                              results: []
+                      candidate_wizard_url: null
+                    candidate_wizard_url: null
+                    dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7/home/edit
+                    created_at: '2026-05-13T11:00:00Z'
+                    updated_at: '2026-05-13T11:00:00Z'
+                  summary: Screening detail
+                ScreeningDetail(withOverridesApplied):
+                  value:
+                    id: 018e9f1e-4c10-7d20-b3e2-d5e6f7a8b9c0
+                    status: OPEN
+                    profile:
+                      id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                      name: VOG + Watchlist Screening
+                    candidate:
+                      first_name: Jan
+                      last_name: de Vries
+                      email: jan.devries@example.com
+                      initials: J.
+                      date_of_birth: '1985-04-12'
+                      nationality: NL
+                    checks:
+                    - id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                      profile_check_id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      status: CREATED
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Interim CFO
+                        profiles:
+                        - '11'
+                        - '12'
+                        reason: null
+                      input: {}
+                      output: {}
+                      candidate_wizard_url: null
+                    - id: 018e9f1e-4b35-7c11-a5f3-d4e5f6a7b8c9
+                      profile_check_id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      status: CREATED
+                      config:
+                        threshold: 95.0
+                        cutoff: 50.0
+                        topics:
+                        - sanctions
+                        - pep
+                        datasets: []
+                      input: {}
+                      output: {}
+                      candidate_wizard_url: null
+                    candidate_wizard_url: null
+                    dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4c10-7d20-b3e2-d5e6f7a8b9c0/home/edit
+                    created_at: '2026-05-13T11:00:00Z'
+                    updated_at: '2026-05-13T11:00:00Z'
+                  summary: Screening detail (with overrides applied)
+          description: ''
+  /api/v2/screenings/{id}/:
+    get:
+      operationId: v2_screenings_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this screening.
+        required: true
+      tags:
+      - Screenings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ScreeningDetail'
+              examples:
+                ScreeningDetail:
+                  value:
+                    id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
+                    status: OPEN
+                    profile:
+                      id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
+                      name: VOG + Watchlist Screening
+                    candidate:
+                      first_name: Jan
+                      last_name: de Vries
+                      email: jan.devries@example.com
+                      initials: J.
+                      date_of_birth: '1985-04-12'
+                    checks:
+                    - id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                      profile_check_id: 018e9f1e-3a85-7f50-a4f3-d4f6e7b9c1d2
+                      check_type: vogcheck
+                      display_name: Dutch Criminal Record
+                      status: CREATED
+                      config:
+                        request_type: basic
+                        org_name: Pescheck
+                        function: Senior Accountant
+                        profiles:
+                        - '11'
+                        - '12'
+                        reason: null
+                      input: {}
+                      output: {}
+                      candidate_wizard_url: null
+                    - id: 018e9f1e-4b35-7c11-a5f3-d4e5f6a7b8c9
+                      profile_check_id: 018e9f1e-3a90-7fa1-9b2e-f5e8d9a7b6c3
+                      check_type: watchlist2check
+                      display_name: Watchlist V2
+                      status: FINISHED
+                      config:
+                        threshold: 80.0
+                        cutoff: 50.0
+                        topics:
+                        - sanctions
+                        - pep
+                        datasets: []
+                      input: {}
+                      output:
+                        result_data:
+                          responses:
+                            entity:
+                              results: []
+                      candidate_wizard_url: null
+                    candidate_wizard_url: null
+                    dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7/home/edit
+                    created_at: '2026-05-13T11:00:00Z'
+                    updated_at: '2026-05-13T11:00:00Z'
+                  summary: Screening detail
+          description: ''
+  /api/v2/screenings/{id}/documents/:
+    get:
+      operationId: v2_screenings_documents_list
+      description: Documents attached to the screening's checks. Files are delivered
+        inline as Base64 in `content`. Narrow the result with `check_id` or `check_type`.
+      summary: Retrieve screening documents
+      parameters:
+      - in: query
+        name: check_id
+        schema:
+          type: string
+          format: uuid
+        description: Only documents from the check with this id.
+      - in: query
+        name: check_type
+        schema:
+          type: string
+        description: Only documents from checks of this type.
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Screenings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/V2Document'
+              examples:
+                ScreeningDocuments(id2checkPassport):
+                  value:
+                  - check_id: 018e9f1e-4b35-7c11-a5f3-d4e5f6a7b8c9
+                    check_type: id2check
+                    filename: id-front.jpg
+                    extension: .jpg
+                    content:
+                      type: base64
+                      data: /9j/4AAQSkZJRgABAQEASABIAAD/...
+                    metadata:
+                      type: FRONT
+                  summary: Screening documents (id2check passport)
+          description: ''
+  /api/v2/webhooks/:
+    post:
+      operationId: createWebhook_2
+      description: |-
+        Create webhook for event notifications.
+
+                **Authentication Notes:**
+                - OAuth2: Organization is automatically determined from the OAuth application
+                - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
+
+                **Valid Events:**
+                - `check.started` - Check has been initiated
+                - `check.completed` - Check has been completed successfully
+                - `check.failed` - Check has failed
+                - `screening.created` - New screening has been created
+                - `screening.completed` - Screening has been completed
+                - `screening.archived` - Screening has been archived
+                - `package.created` - New package has been created
+                - `package.updated` - Package has been updated
+                - `division.created` - New division has been created
+                - `division.updated` - Division has been updated
+
+                Limited to 5 webhooks per organization/division.
+      parameters:
+      - in: header
+        name: X-Organization-Id
+        schema:
+          type: string
+        description: Organization ID (for JWT/Session auth only)
+      - in: query
+        name: organization_id
+        schema:
+          type: string
+        description: Organization ID (for JWT/Session auth only)
+      tags:
+      - Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+            examples:
+              CreateWebhookExample:
+                value:
+                  name: My Event Webhook
+                  url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
+                  events:
+                  - check.completed
+                  - screening.created
+                  - screening.completed
+                  active: true
+                  division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                summary: Create Webhook Example
+                description: Example of creating a webhook for check and screening
+                  events
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Webhook'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookResponse'
+              examples:
+                CreateWebhookExample:
+                  value:
+                    name: My Event Webhook
+                    url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
+                    events:
+                    - check.completed
+                    - screening.created
+                    - screening.completed
+                    active: true
+                    division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+                  summary: Create Webhook Example
+                  description: Example of creating a webhook for check and screening
+                    events
+          description: ''
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden - Organization not found or no permission
+        '409':
+          description: Conflict - Max webhooks reached
+  /api/v2/webhooks/{webhook_id}/:
+    delete:
+      operationId: deleteWebhook_2
+      description: Delete a webhook
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: string
+        description: Webhook ID to delete
+        required: true
+      tags:
+      - Webhooks
+      responses:
+        '204':
+          description: Webhook deleted
+        '403':
+          description: Forbidden
+        '404':
+          description: Webhook not found
+  /api/v2/webhooks/{webhook_id}/verify/:
+    post:
+      operationId: verifyWebhook_2
+      description: Verify webhook ownership
+      parameters:
+      - in: path
+        name: webhook_id
+        schema:
+          type: string
+        description: Webhook ID
+        required: true
+      tags:
+      - Webhooks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyWebhook'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VerifyWebhook'
+        required: true
+      responses:
+        '200':
+          description: Webhook verified
+        '400':
+          description: Invalid verification code
+        '404':
+          description: Webhook not found
+  /api/v2/webhooks/list/:
+    get:
+      operationId: listWebhooks_2
+      description: List webhooks for the organization
+      tags:
+      - Webhooks
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WebhookResponse'
+          description: ''
+        '403':
+          description: Forbidden
+components:
+  schemas:
+    Bucket:
+      type: object
+      description: |-
+        VOG Check serializer mixin.
+
+        Adds vog_org_name, vog_function, vog_profiles fields to serializers.
+        Provides validation and response transformation for VOG check.
+      properties:
+        vog_org_name:
+          type: string
+          description: Organization name for VOG request
+          maxLength: 255
+        vog_function:
+          type: string
+          description: Function or job title for VOG screening
+          maxLength: 40
+        vog_profiles:
+          nullable: true
+          description: VOG screening profiles. Accepts string or list. Returns string
+            in responses for backwards compatibility.
+        adversemedia_regions:
+          type: array
+          items:
+            type: string
+          description: 'Regions/languages for adverse media search. Valid values:
+            NL_BE, NL_NL, EN_GB, EN_US, FR_BE, FR_FR, DE_DE, IT_IT, ES_ES, SV_SE'
+        big_profession:
+          type: string
+          description: 'Healthcare profession for BIG registry search (case-insensitive).
+            Valid options: Apothekers, Arts, Clinical technologist, Dentist, Doctor
+            of medicine, Fysiotherapeut, Geregistreerd-mondhygiënist, Gezondheidszorgpsycholoog,
+            Healthcare psychologist, Klinisch technoloog, Midwife, Nurse, Orthopedagogen-generalistt,
+            Pharmacist, Physician assistant, Physiotherapist, Psychotherapeuten, Psychotherapist,
+            Registered dental hygienist, Remedial educationalist, Tandarts, Verloskundige,
+            Verpleegkundigen'
+        watchlist_threshold:
+          type: string
+          nullable: true
+          description: Watchlist search threshold score (0-100, returned as string
+            for backwards compat)
+        watchlist_cutoff:
+          type: string
+          nullable: true
+          description: Watchlist search cutoff score (0-100, returned as string for
+            backwards compat)
+        watchlist_notes:
+          type: string
+          nullable: true
+          description: Additional notes for watchlist search
+        rtw_requested_country:
+          type: array
+          items:
+            type: string
+          description: 'Country for Right to Work check. Must contain ONLY 1 country
+            code (ISO 3166-1 alpha-2). Example: [''NL''] for Netherlands, [''DE'']
+            for Germany, [''BE''] for Belgium'
+        worldwidecreditcheck_candidate_country:
+          type: string
+          description: 'Country code for Worldwide Credit Check candidate (ISO 3166-1
+            alpha-2). Example: ''NL'' for Netherlands, ''DE'' for Germany, ''GB''
+            for United Kingdom'
+        openhealthcarecheck_registers:
+          type: array
+          items:
+            type: string
+          description: 'Healthcare registers to search. Valid: agb, art_therapy, big,
+            paramedic, rbcz, skj_youth, social_domain. Empty = all.'
+        openhealthcarecheck_lookup_mode:
+          enum:
+          - name
+          - registration_number
+          type: string
+          x-spec-enum-id: 3d071fcbf208af57
+          description: |-
+            Lookup mode: 'name' or 'registration_number'.
+
+            * `name` - name
+            * `registration_number` - registration_number
+        openhealthcarecheck_registration_number:
+          type: string
+          nullable: true
+          description: Registration number for direct register lookup.
+        watchlist_date_of_birth:
+          type: string
+          description: 'DEPRECATED: Use date_of_birth instead. Backwards compatibility
+            only.'
+        watchlist_nationality:
+          type: string
+          description: 'DEPRECATED: Use nationality instead. Backwards compatibility
+            only.'
+    Check:
+      type: object
+      description: |-
+        Serializer for check information returned by the CheckViewSet.
+        Provides information about available checks in the system.
+      properties:
+        id:
+          type: integer
+        display_name:
+          type: string
+        full_name:
+          type: string
+        info:
+          type: string
+          nullable: true
+        display_price:
+          type: string
+        config_fields:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+        config_options:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - config_fields
+      - config_options
+      - display_name
+      - display_price
+      - full_name
+      - id
+      - info
+    Checks:
+      type: object
+      properties:
+        integritycheck:
+          type: boolean
+          default: false
+        permissioncheck:
+          type: boolean
+          default: false
+        vogcheck:
+          type: boolean
+          default: false
+        qualificationcheck:
+          type: boolean
+          default: false
+        criminalrecordscheck:
+          type: boolean
+          default: false
+        workreferencecheck:
+          type: boolean
+          default: false
+        adversemediacheck:
+          type: boolean
+          default: false
+        bigcheck:
+          type: boolean
+          default: false
+        edrcheck:
+          type: boolean
+          default: false
+        customintegritycheck:
+          type: boolean
+          default: false
+        watchlistcheck:
+          type: boolean
+          default: false
+        watchlist2check:
+          type: boolean
+          default: false
+        criminalrecordsuploadcheck:
+          type: boolean
+          default: false
+        righttoworkcheck:
+          type: boolean
+          default: false
+        worldwidecreditcheck:
+          type: boolean
+          default: false
+        id2check:
+          type: boolean
+          default: false
+        addresscheck:
+          type: boolean
+          default: false
+        openhealthcarecheck:
+          type: boolean
+          default: false
+        cvcheck:
+          type: boolean
+          default: false
+    CustomTokenObtainPair:
+      type: object
+      description: Custom JWT serializer that includes organization information in
+        the token.
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+    DivisionReadOnly:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          nullable: true
+          title: Organisation Name
+          maxLength: 255
+        parent:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        city:
+          type: string
+          nullable: true
+          maxLength: 255
+        address:
+          type: string
+          nullable: true
+          maxLength: 255
+        postal:
+          type: string
+          nullable: true
+          maxLength: 20
+        phone:
+          type: string
+          nullable: true
+          maxLength: 20
+        contact_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        contact_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        invoice_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        use_parent_on_email:
+          type: boolean
+        use_parent_on_billing:
+          type: boolean
+        use_parent_on_report:
+          type: boolean
+      required:
+      - created_at
+      - id
+      - parent
+      - updated_at
+    DivisionWrite:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+          maxLength: 255
+        postal:
+          type: string
+          maxLength: 20
+        phone:
+          type: string
+          maxLength: 20
+        contact_name:
+          type: string
+          maxLength: 255
+        contact_email:
+          type: string
+          format: email
+        invoice_email:
+          type: string
+          format: email
+        use_parent_on_email:
+          type: boolean
+        use_parent_on_billing:
+          type: boolean
+        use_parent_on_report:
+          type: boolean
+      required:
+      - address
+      - city
+      - contact_email
+      - contact_name
+      - id
+      - invoice_email
+      - name
+      - phone
+      - postal
+    DocumentReader:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the document (e.g., 'CRIMINAL_RECORD', 'OTHER')
+        country:
+          type: string
+          description: Country code of the document
+        extension:
+          type: string
+          description: File extension (e.g., '.pdf', '.png', '.jpg', '.jpeg')
+        file:
+          type: string
+          nullable: true
+          description: Base64 encoded file content
+        status:
+          type: string
+          description: Document processing status
+      required:
+      - country
+      - extension
+      - status
+      - type
+    Id2CheckDocument:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the document (e.g., 'Front', 'Back')
+        extension:
+          type: string
+          description: File extension (e.g., '.pdf', '.png', '.jpg', '.jpeg')
+        file:
+          type: string
+          nullable: true
+          description: Base64 encoded file content
+      required:
+      - extension
+      - type
+    IdCheckDocument:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Type of the document (e.g., 'DOCUMENT', 'PORTRAIT')
+        extension:
+          type: string
+          description: File extension (e.g., '.pdf', '.png', '.jpg', '.jpeg')
+        file:
+          type: string
+          nullable: true
+          description: Base64 encoded file content
+      required:
+      - extension
+      - type
+    JWTGeneration:
+      type: object
+      description: Serializer for JWT token generation for API users
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the API user
+        password:
+          type: string
+          writeOnly: true
+          description: Password for the API user
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organization ID to generate token for
+        division_id:
+          type: string
+          format: uuid
+          description: Division ID to generate token for (optional)
+      required:
+      - email
+      - password
+    JWTResponse:
+      type: object
+      description: Serializer for JWT token response
+      properties:
+        access_token:
+          type: string
+          description: JWT access token
+        refresh_token:
+          type: string
+          description: JWT refresh token
+        token_type:
+          type: string
+          default: Bearer
+        expires_in:
+          type: integer
+          description: Access token expiration in seconds
+        organisation:
+          type: string
+          description: Organization name
+        organisation_id:
+          type: string
+          format: uuid
+          description: Organization ID
+      required:
+      - access_token
+      - expires_in
+      - organisation
+      - organisation_id
+      - refresh_token
+    OAuthApplication:
+      type: object
+      description: Serializer for OAuth application creation requests
+      properties:
+        name:
+          type: string
+          description: Name for the OAuth application
+          maxLength: 255
+        client_type:
+          enum:
+          - confidential
+          - public
+          type: string
+          x-spec-enum-id: 6de8a18fd0ba1b55
+          default: confidential
+          description: |-
+            Client type (confidential recommended for server-to-server)
+
+            * `confidential` - Confidential
+            * `public` - Public
+        authorization_grant_type:
+          enum:
+          - authorization-code
+          - implicit
+          - password
+          - client-credentials
+          - openid-hybrid
+          type: string
+          x-spec-enum-id: 22f388741b5d4173
+          default: client-credentials
+          description: |-
+            Grant type (client_credentials for API access)
+
+            * `authorization-code` - Authorization code
+            * `implicit` - Implicit
+            * `password` - Resource owner password-based
+            * `client-credentials` - Client credentials
+            * `openid-hybrid` - OpenID connect hybrid
+        redirect_uris:
+          type: string
+          description: Space-separated redirect URIs (optional for client_credentials)
+        division_id:
+          type: string
+          format: uuid
+          description: Division ID to create application for (optional)
+      required:
+      - name
+    OAuthApplicationResponse:
+      type: object
+      description: Serializer for OAuth application responses
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        client_id:
+          type: string
+          maxLength: 100
+        client_secret:
+          type: string
+          readOnly: true
+        client_type:
+          enum:
+          - confidential
+          - public
+          type: string
+          description: |-
+            * `confidential` - Confidential
+            * `public` - Public
+          x-spec-enum-id: 6de8a18fd0ba1b55
+        authorization_grant_type:
+          enum:
+          - authorization-code
+          - implicit
+          - password
+          - client-credentials
+          - openid-hybrid
+          type: string
+          description: |-
+            * `authorization-code` - Authorization code
+            * `implicit` - Implicit
+            * `password` - Resource owner password-based
+            * `client-credentials` - Client credentials
+            * `openid-hybrid` - OpenID connect hybrid
+          x-spec-enum-id: 22f388741b5d4173
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+        updated:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - authorization_grant_type
+      - client_secret
+      - client_type
+      - created
+      - id
+      - updated
+    Package:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        organisation:
+          type: string
+          readOnly: true
+        name:
+          type: string
+        prefill:
+          $ref: '#/components/schemas/Prefill'
+        checks:
+          $ref: '#/components/schemas/Checks'
+        check_details:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties: {}
+          description: Return detailed information about each check in the package.
+          readOnly: true
+        prices:
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: string
+          description: Get the prices for each check in the package.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - check_details
+      - checks
+      - created_at
+      - id
+      - name
+      - organisation
+      - prices
+      - updated_at
+    PackageList:
+      type: object
+      description: |-
+        A simplified serializer for listing packages without complex nested objects
+        that might cause serialization issues.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        organisation:
+          type: string
+          readOnly: true
+        check_count:
+          type: integer
+          description: Return the count of checks in this package
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - check_count
+      - created_at
+      - id
+      - name
+      - organisation
+      - updated_at
+    PaginatedCheckList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Check'
+    PaginatedDivisionReadOnlyList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DivisionReadOnly'
+    PaginatedPackageListList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PackageList'
+    PaginatedScreeningList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Screening'
+    PaginatedV2ProfileListItemList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ProfileListItem'
+    PaginatedV2ScreeningListItemList:
+      type: object
+      required:
+      - count
+      - next
+      - previous
+      - results
+      properties:
+        count:
+          type: integer
+          example: 1
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        previous:
+          type: string
+          format: uri
+          nullable: true
+          example: null
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningListItem'
+    PatchedDivisionWrite:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        city:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+          maxLength: 255
+        postal:
+          type: string
+          maxLength: 20
+        phone:
+          type: string
+          maxLength: 20
+        contact_name:
+          type: string
+          maxLength: 255
+        contact_email:
+          type: string
+          format: email
+        invoice_email:
+          type: string
+          format: email
+        use_parent_on_email:
+          type: boolean
+        use_parent_on_billing:
+          type: boolean
+        use_parent_on_report:
+          type: boolean
+    PatchedV2ProfilePartialUpdate:
+      type: object
+      description: |-
+        PATCH body. Only name and description are editable. Sending `checks`
+        is explicitly rejected - use PUT to replace the full check list.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+    Prefill:
+      type: object
+      description: |-
+        VOG Check serializer mixin.
+
+        Adds vog_org_name, vog_function, vog_profiles fields to serializers.
+        Provides validation and response transformation for VOG check.
+      properties:
+        vog_org_name:
+          type: string
+          description: Organization name for VOG request
+          maxLength: 255
+        vog_function:
+          type: string
+          description: Function or job title for VOG screening
+          maxLength: 40
+        vog_profiles:
+          nullable: true
+          description: VOG screening profiles. Accepts string or list. Returns string
+            in responses for backwards compatibility.
+        adversemedia_regions:
+          type: array
+          items:
+            type: string
+          description: 'Regions/languages for adverse media search. Valid values:
+            NL_BE, NL_NL, EN_GB, EN_US, FR_BE, FR_FR, DE_DE, IT_IT, ES_ES, SV_SE'
+        watchlist_threshold:
+          type: string
+          nullable: true
+          description: Watchlist search threshold score (0-100, returned as string
+            for backwards compat)
+        watchlist_cutoff:
+          type: string
+          nullable: true
+          description: Watchlist search cutoff score (0-100, returned as string for
+            backwards compat)
+        openhealthcarecheck_registers:
+          type: array
+          items:
+            type: string
+          description: 'Healthcare registers to search. Valid: agb, art_therapy, big,
+            paramedic, rbcz, skj_youth, social_domain. Empty = all.'
+        openhealthcarecheck_lookup_mode:
+          enum:
+          - name
+          - registration_number
+          type: string
+          x-spec-enum-id: 3d071fcbf208af57
+          description: |-
+            Lookup mode: 'name' or 'registration_number'.
+
+            * `name` - name
+            * `registration_number` - registration_number
+    QualificationDocument:
+      type: object
+      properties:
+        filename:
+          type: string
+          description: Name of the document file
+        extension:
+          type: string
+          description: File extension (e.g., '.pdf, .png, .jpg, .jpeg')
+        file:
+          type: string
+          nullable: true
+          description: Base64 encoded file content
+      required:
+      - extension
+      - filename
+    Screening:
+      type: object
+      description: |-
+        VOG Check serializer mixin.
+
+        Adds vog_org_name, vog_function, vog_profiles fields to serializers.
+        Provides validation and response transformation for VOG check.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        full_name:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        organisation:
+          type: string
+          readOnly: true
+        package_id:
+          type: string
+          format: uuid
+        bucket:
+          $ref: '#/components/schemas/Bucket'
+        checks:
+          type: object
+          additionalProperties:
+            type: string
+          readOnly: true
+        screening_notes:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+        vog_org_name:
+          type: string
+          description: Organization name for VOG request
+          maxLength: 255
+        vog_function:
+          type: string
+          description: Function or job title for VOG screening
+          maxLength: 40
+        vog_profiles:
+          nullable: true
+          description: VOG screening profiles. Accepts string or list. Returns string
+            in responses for backwards compatibility.
+        adversemedia_regions:
+          type: array
+          items:
+            type: string
+          description: 'Regions/languages for adverse media search. Valid values:
+            NL_BE, NL_NL, EN_GB, EN_US, FR_BE, FR_FR, DE_DE, IT_IT, ES_ES, SV_SE'
+        big_profession:
+          type: string
+          description: 'Healthcare profession for BIG registry search (case-insensitive).
+            Valid options: Apothekers, Arts, Clinical technologist, Dentist, Doctor
+            of medicine, Fysiotherapeut, Geregistreerd-mondhygiënist, Gezondheidszorgpsycholoog,
+            Healthcare psychologist, Klinisch technoloog, Midwife, Nurse, Orthopedagogen-generalistt,
+            Pharmacist, Physician assistant, Physiotherapist, Psychotherapeuten, Psychotherapist,
+            Registered dental hygienist, Remedial educationalist, Tandarts, Verloskundige,
+            Verpleegkundigen'
+        watchlist_threshold:
+          type: string
+          nullable: true
+          description: Watchlist search threshold score (0-100, returned as string
+            for backwards compat)
+        watchlist_notes:
+          type: string
+          nullable: true
+          description: Additional notes for watchlist search
+        watchlist_cutoff:
+          type: string
+          nullable: true
+          description: Watchlist search cutoff score (0-100, returned as string for
+            backwards compat)
+        rtw_requested_country:
+          type: array
+          items:
+            type: string
+          description: 'Country for Right to Work check. Must contain ONLY 1 country
+            code (ISO 3166-1 alpha-2). Example: [''NL''] for Netherlands, [''DE'']
+            for Germany, [''BE''] for Belgium'
+        worldwidecreditcheck_candidate_country:
+          type: string
+          description: 'Country code for Worldwide Credit Check candidate (ISO 3166-1
+            alpha-2). Example: ''NL'' for Netherlands, ''DE'' for Germany, ''GB''
+            for United Kingdom'
+        openhealthcarecheck_registers:
+          type: array
+          items:
+            type: string
+          description: 'Healthcare registers to search. Valid: agb, art_therapy, big,
+            paramedic, rbcz, skj_youth, social_domain. Empty = all.'
+        openhealthcarecheck_lookup_mode:
+          enum:
+          - name
+          - registration_number
+          type: string
+          x-spec-enum-id: 3d071fcbf208af57
+          description: |-
+            Lookup mode: 'name' or 'registration_number'.
+
+            * `name` - name
+            * `registration_number` - registration_number
+        openhealthcarecheck_registration_number:
+          type: string
+          nullable: true
+          description: Registration number for direct register lookup.
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        initials:
+          type: string
+          maxLength: 50
+        date_of_birth:
+          type: string
+          maxLength: 10
+        nationality:
+          type: string
+        house_number:
+          type: string
+          maxLength: 50
+        extension:
+          type: string
+          maxLength: 50
+        gender:
+          type: string
+        postal_code:
+          type: string
+          maxLength: 255
+        watchlist_date_of_birth:
+          type: string
+          description: 'DEPRECATED: Use date_of_birth instead. Backwards compatibility
+            only.'
+        watchlist_nationality:
+          type: string
+          description: 'DEPRECATED: Use nationality instead. Backwards compatibility
+            only.'
+      required:
+      - checks
+      - created_at
+      - email
+      - first_name
+      - full_name
+      - id
+      - last_name
+      - organisation
+      - status
+      - updated_at
+    ScreeningDocumentsResponse:
+      type: object
+      properties:
+        id_check_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IdCheckDocument'
+          description: List of ID check documents
+        id2_check_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/Id2CheckDocument'
+          description: List of ID v2 check documents
+        qualification_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/QualificationDocument'
+          description: List of qualification documents
+        document_reader_documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentReader'
+          description: List of document reader documents
+      required:
+      - document_reader_documents
+      - id2_check_documents
+      - id_check_documents
+      - qualification_documents
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    V2Candidate:
+      type: object
+      description: |-
+        Bucket-level candidate facts. Required-ness varies per profile; serializer is lenient.
+
+        Note: v2 tightens nationality vs v1 - v1 accepted any free-form string, v2 requires
+        an ISO 3166-1 alpha-2 code so downstream consumers (watchlist matching, document
+        readers, etc.) can rely on the value.
+      properties:
+        first_name:
+          type: string
+          maxLength: 255
+        last_name:
+          type: string
+          maxLength: 255
+        email:
+          type: string
+          format: email
+        initials:
+          type: string
+        date_of_birth:
+          type: string
+          maxLength: 10
+        gender:
+          type: string
+        nationality:
+          enum:
+          - AD
+          - AE
+          - AF
+          - AG
+          - AI
+          - AL
+          - AM
+          - AN
+          - AO
+          - AQ
+          - AR
+          - AS
+          - AT
+          - AU
+          - AW
+          - AX
+          - AZ
+          - BA
+          - BB
+          - BD
+          - BE
+          - BF
+          - BG
+          - BH
+          - BI
+          - BJ
+          - BL
+          - BM
+          - BN
+          - BO
+          - BR
+          - BS
+          - BT
+          - BV
+          - BW
+          - BY
+          - BZ
+          - CA
+          - CC
+          - CD
+          - CF
+          - CG
+          - CH
+          - CI
+          - CK
+          - CL
+          - CM
+          - CN
+          - CO
+          - CR
+          - CU
+          - CV
+          - CW
+          - CX
+          - CY
+          - CZ
+          - DE
+          - DJ
+          - DK
+          - DM
+          - DO
+          - DZ
+          - EC
+          - EE
+          - EG
+          - EH
+          - ER
+          - ES
+          - ET
+          - FI
+          - FJ
+          - FK
+          - FM
+          - FO
+          - FR
+          - GA
+          - GB
+          - GD
+          - GE
+          - GF
+          - GG
+          - GH
+          - GI
+          - GL
+          - GM
+          - GN
+          - GP
+          - GQ
+          - GR
+          - GS
+          - GT
+          - GU
+          - GW
+          - GY
+          - HK
+          - HM
+          - HN
+          - HR
+          - HT
+          - HU
+          - ID
+          - IE
+          - IL
+          - IM
+          - IN
+          - IO
+          - IQ
+          - IR
+          - IS
+          - IT
+          - JE
+          - JM
+          - JO
+          - JP
+          - KE
+          - KG
+          - KH
+          - KI
+          - KM
+          - KN
+          - KP
+          - KR
+          - KW
+          - KY
+          - KZ
+          - LA
+          - LB
+          - LC
+          - LI
+          - LK
+          - LR
+          - LS
+          - LT
+          - LU
+          - LV
+          - LY
+          - MA
+          - MC
+          - MD
+          - ME
+          - MG
+          - MH
+          - MK
+          - ML
+          - MM
+          - MN
+          - MO
+          - MP
+          - MQ
+          - MR
+          - MS
+          - MT
+          - MU
+          - MV
+          - MW
+          - MX
+          - MY
+          - MZ
+          - NA
+          - NC
+          - NE
+          - NF
+          - NG
+          - NI
+          - NL
+          - 'NO'
+          - NP
+          - NR
+          - NU
+          - NZ
+          - OM
+          - PA
+          - PE
+          - PF
+          - PG
+          - PH
+          - PK
+          - PL
+          - PM
+          - PN
+          - PR
+          - PS
+          - PT
+          - PW
+          - PY
+          - QA
+          - RE
+          - RO
+          - RS
+          - RU
+          - RW
+          - SA
+          - SB
+          - SC
+          - SD
+          - SE
+          - SG
+          - SH
+          - SI
+          - SJ
+          - SK
+          - SL
+          - SM
+          - SN
+          - SO
+          - SR
+          - ST
+          - SV
+          - SY
+          - SZ
+          - TC
+          - TD
+          - TF
+          - TG
+          - TH
+          - TJ
+          - TK
+          - TL
+          - TM
+          - TN
+          - TO
+          - TR
+          - TT
+          - TV
+          - TW
+          - TZ
+          - UA
+          - UG
+          - UM
+          - US
+          - UY
+          - UZ
+          - VA
+          - VC
+          - VE
+          - VG
+          - VI
+          - VN
+          - VU
+          - WF
+          - WS
+          - XK
+          - YE
+          - YT
+          - ZA
+          - ZM
+          - ZW
+          - ''
+          type: string
+          x-spec-enum-id: bcbf7da1ea0d7ab0
+          description: |-
+            ISO 3166-1 alpha-2 country code (e.g. "NL", "DE", "US").
+
+            * `AD` - AD
+            * `AE` - AE
+            * `AF` - AF
+            * `AG` - AG
+            * `AI` - AI
+            * `AL` - AL
+            * `AM` - AM
+            * `AN` - AN
+            * `AO` - AO
+            * `AQ` - AQ
+            * `AR` - AR
+            * `AS` - AS
+            * `AT` - AT
+            * `AU` - AU
+            * `AW` - AW
+            * `AX` - AX
+            * `AZ` - AZ
+            * `BA` - BA
+            * `BB` - BB
+            * `BD` - BD
+            * `BE` - BE
+            * `BF` - BF
+            * `BG` - BG
+            * `BH` - BH
+            * `BI` - BI
+            * `BJ` - BJ
+            * `BL` - BL
+            * `BM` - BM
+            * `BN` - BN
+            * `BO` - BO
+            * `BR` - BR
+            * `BS` - BS
+            * `BT` - BT
+            * `BV` - BV
+            * `BW` - BW
+            * `BY` - BY
+            * `BZ` - BZ
+            * `CA` - CA
+            * `CC` - CC
+            * `CD` - CD
+            * `CF` - CF
+            * `CG` - CG
+            * `CH` - CH
+            * `CI` - CI
+            * `CK` - CK
+            * `CL` - CL
+            * `CM` - CM
+            * `CN` - CN
+            * `CO` - CO
+            * `CR` - CR
+            * `CU` - CU
+            * `CV` - CV
+            * `CW` - CW
+            * `CX` - CX
+            * `CY` - CY
+            * `CZ` - CZ
+            * `DE` - DE
+            * `DJ` - DJ
+            * `DK` - DK
+            * `DM` - DM
+            * `DO` - DO
+            * `DZ` - DZ
+            * `EC` - EC
+            * `EE` - EE
+            * `EG` - EG
+            * `EH` - EH
+            * `ER` - ER
+            * `ES` - ES
+            * `ET` - ET
+            * `FI` - FI
+            * `FJ` - FJ
+            * `FK` - FK
+            * `FM` - FM
+            * `FO` - FO
+            * `FR` - FR
+            * `GA` - GA
+            * `GB` - GB
+            * `GD` - GD
+            * `GE` - GE
+            * `GF` - GF
+            * `GG` - GG
+            * `GH` - GH
+            * `GI` - GI
+            * `GL` - GL
+            * `GM` - GM
+            * `GN` - GN
+            * `GP` - GP
+            * `GQ` - GQ
+            * `GR` - GR
+            * `GS` - GS
+            * `GT` - GT
+            * `GU` - GU
+            * `GW` - GW
+            * `GY` - GY
+            * `HK` - HK
+            * `HM` - HM
+            * `HN` - HN
+            * `HR` - HR
+            * `HT` - HT
+            * `HU` - HU
+            * `ID` - ID
+            * `IE` - IE
+            * `IL` - IL
+            * `IM` - IM
+            * `IN` - IN
+            * `IO` - IO
+            * `IQ` - IQ
+            * `IR` - IR
+            * `IS` - IS
+            * `IT` - IT
+            * `JE` - JE
+            * `JM` - JM
+            * `JO` - JO
+            * `JP` - JP
+            * `KE` - KE
+            * `KG` - KG
+            * `KH` - KH
+            * `KI` - KI
+            * `KM` - KM
+            * `KN` - KN
+            * `KP` - KP
+            * `KR` - KR
+            * `KW` - KW
+            * `KY` - KY
+            * `KZ` - KZ
+            * `LA` - LA
+            * `LB` - LB
+            * `LC` - LC
+            * `LI` - LI
+            * `LK` - LK
+            * `LR` - LR
+            * `LS` - LS
+            * `LT` - LT
+            * `LU` - LU
+            * `LV` - LV
+            * `LY` - LY
+            * `MA` - MA
+            * `MC` - MC
+            * `MD` - MD
+            * `ME` - ME
+            * `MG` - MG
+            * `MH` - MH
+            * `MK` - MK
+            * `ML` - ML
+            * `MM` - MM
+            * `MN` - MN
+            * `MO` - MO
+            * `MP` - MP
+            * `MQ` - MQ
+            * `MR` - MR
+            * `MS` - MS
+            * `MT` - MT
+            * `MU` - MU
+            * `MV` - MV
+            * `MW` - MW
+            * `MX` - MX
+            * `MY` - MY
+            * `MZ` - MZ
+            * `NA` - NA
+            * `NC` - NC
+            * `NE` - NE
+            * `NF` - NF
+            * `NG` - NG
+            * `NI` - NI
+            * `NL` - NL
+            * `NO` - NO
+            * `NP` - NP
+            * `NR` - NR
+            * `NU` - NU
+            * `NZ` - NZ
+            * `OM` - OM
+            * `PA` - PA
+            * `PE` - PE
+            * `PF` - PF
+            * `PG` - PG
+            * `PH` - PH
+            * `PK` - PK
+            * `PL` - PL
+            * `PM` - PM
+            * `PN` - PN
+            * `PR` - PR
+            * `PS` - PS
+            * `PT` - PT
+            * `PW` - PW
+            * `PY` - PY
+            * `QA` - QA
+            * `RE` - RE
+            * `RO` - RO
+            * `RS` - RS
+            * `RU` - RU
+            * `RW` - RW
+            * `SA` - SA
+            * `SB` - SB
+            * `SC` - SC
+            * `SD` - SD
+            * `SE` - SE
+            * `SG` - SG
+            * `SH` - SH
+            * `SI` - SI
+            * `SJ` - SJ
+            * `SK` - SK
+            * `SL` - SL
+            * `SM` - SM
+            * `SN` - SN
+            * `SO` - SO
+            * `SR` - SR
+            * `ST` - ST
+            * `SV` - SV
+            * `SY` - SY
+            * `SZ` - SZ
+            * `TC` - TC
+            * `TD` - TD
+            * `TF` - TF
+            * `TG` - TG
+            * `TH` - TH
+            * `TJ` - TJ
+            * `TK` - TK
+            * `TL` - TL
+            * `TM` - TM
+            * `TN` - TN
+            * `TO` - TO
+            * `TR` - TR
+            * `TT` - TT
+            * `TV` - TV
+            * `TW` - TW
+            * `TZ` - TZ
+            * `UA` - UA
+            * `UG` - UG
+            * `UM` - UM
+            * `US` - US
+            * `UY` - UY
+            * `UZ` - UZ
+            * `VA` - VA
+            * `VC` - VC
+            * `VE` - VE
+            * `VG` - VG
+            * `VI` - VI
+            * `VN` - VN
+            * `VU` - VU
+            * `WF` - WF
+            * `WS` - WS
+            * `XK` - XK
+            * `YE` - YE
+            * `YT` - YT
+            * `ZA` - ZA
+            * `ZM` - ZM
+            * `ZW` - ZW
+        postal_code:
+          type: string
+          maxLength: 255
+        house_number:
+          type: string
+          maxLength: 50
+        extension:
+          type: string
+      required:
+      - email
+      - first_name
+      - last_name
+    V2CheckField:
+      type: object
+      description: One config or input field a check accepts via the API.
+      properties:
+        name:
+          type: string
+          readOnly: true
+        type:
+          type: string
+          readOnly: true
+          description: '"string" | "integer" | "number" | "boolean" | "array" | "object"'
+        required:
+          type: boolean
+          readOnly: true
+          description: Whether the request body must include this field.
+        choices:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          nullable: true
+          description: Allowed values, or null if the field isn't constrained to a
+            set.
+        help_text:
+          type: string
+          readOnly: true
+          nullable: true
+      required:
+      - choices
+      - help_text
+      - name
+      - required
+      - type
+    V2CheckInfo:
+      type: object
+      description: Everything a client needs to know to use a check type via the API.
+      properties:
+        check_type:
+          type: string
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+          nullable: true
+        has_config:
+          type: boolean
+          readOnly: true
+        is_system_managed:
+          type: boolean
+          readOnly: true
+          description: True for checks added automatically (e.g. as a dependency)
+            - clients neither add nor configure these.
+        requires_checks:
+          type: array
+          items:
+            type: string
+          readOnly: true
+          description: Other check types this check pulls in automatically when added.
+        supported_countries_of_work:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        supported_countries_of_residence:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        default_price:
+          allOf:
+          - $ref: '#/components/schemas/V2Money'
+          readOnly: true
+          nullable: true
+        config_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2CheckField'
+          readOnly: true
+        input_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2CheckField'
+          readOnly: true
+        candidate_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2CheckField'
+          readOnly: true
+          description: Screening-level candidate facts this check needs (name, email,
+            sometimes date of birth, etc.).
+      required:
+      - candidate_fields
+      - check_type
+      - config_fields
+      - default_price
+      - description
+      - display_name
+      - has_config
+      - input_fields
+      - is_system_managed
+      - requires_checks
+      - supported_countries_of_residence
+      - supported_countries_of_work
+    V2Document:
+      type: object
+      description: |-
+        One document attached to a screening's check. `metadata` carries
+        check-specific extras and may be empty.
+      properties:
+        check_id:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - focumcheck
+          - id2check
+          - idcheck
+          - integritycheck
+          - openhealthcarecheck
+          - permissioncheck
+          - pescheckadversemediacheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 59fab1a0c1368839
+          readOnly: true
+        filename:
+          type: string
+          readOnly: true
+        extension:
+          type: string
+          readOnly: true
+        content:
+          allOf:
+          - $ref: '#/components/schemas/V2DocumentContent'
+          readOnly: true
+        metadata:
+          type: object
+          additionalProperties: {}
+          readOnly: true
+      required:
+      - check_id
+      - check_type
+      - content
+      - extension
+      - filename
+      - metadata
+    V2DocumentContent:
+      type: object
+      description: |-
+        How the file is delivered. `type` is the discriminator; today it is always
+        `"base64"` and `data` holds the encoded bytes. Other delivery types may be
+        added later without breaking this contract.
+      properties:
+        type:
+          type: string
+        data:
+          type: string
+          description: Base64-encoded file contents (type == base64).
+      required:
+      - type
+    V2Money:
+      type: object
+      properties:
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+        currency:
+          type: string
+          maxLength: 3
+      required:
+      - amount
+      - currency
+    V2ProfileCheck:
+      type: object
+      description: |-
+        Input serializer for one `{check_type, config}` profile-check entry.
+
+        Used by profile create directly. Subclass with `PARTIAL_CONFIG = True` for
+        screening overrides where only the fields actually being changed should be
+        validated.
+      properties:
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - id2check
+          - integritycheck
+          - openhealthcarecheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `id2check` - id2check
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 228a6aba1c358dfb
+        config:
+          type: object
+          additionalProperties: {}
+      required:
+      - check_type
+    V2ProfileCheckEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - focumcheck
+          - id2check
+          - idcheck
+          - integritycheck
+          - openhealthcarecheck
+          - permissioncheck
+          - pescheckadversemediacheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 59fab1a0c1368839
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        configured_price:
+          allOf:
+          - $ref: '#/components/schemas/V2Money'
+          readOnly: true
+        config:
+          type: object
+          additionalProperties: true
+          readOnly: true
+        input_fields:
+          type: array
+          items:
+            type: object
+          readOnly: true
+        is_system_managed:
+          type: boolean
+          readOnly: true
+      required:
+      - check_type
+      - config
+      - configured_price
+      - display_name
+      - id
+      - input_fields
+      - is_system_managed
+    V2ProfileCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          default: ''
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ProfileCheck'
+      required:
+      - checks
+      - name
+    V2ProfileDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        is_custom:
+          type: boolean
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ProfileCheckEntry'
+          readOnly: true
+        total_price:
+          allOf:
+          - $ref: '#/components/schemas/V2Money'
+          readOnly: true
+        supported_countries_of_work:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        supported_countries_of_residence:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        candidate_fields:
+          type: array
+          items:
+            type: object
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - candidate_fields
+      - checks
+      - created_at
+      - description
+      - id
+      - name
+      - supported_countries_of_residence
+      - supported_countries_of_work
+      - total_price
+      - updated_at
+    V2ProfileListItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        is_custom:
+          type: boolean
+        check_types:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - check_types
+      - created_at
+      - description
+      - id
+      - name
+      - updated_at
+    V2ProfileUpdate:
+      type: object
+      description: |-
+        Replaces the profile - name, description and full checks list. Entries
+        matched by profile_check_id are updated in place; entries without one are
+        added; existing checks not referenced in the request are removed.
+      properties:
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+          default: ''
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ProfileUpdateCheck'
+      required:
+      - checks
+      - name
+    V2ProfileUpdateCheck:
+      type: object
+      description: |-
+        Profile update entry. Same shape as create plus optional profile_check_id
+        for in-place update of an existing check. Absent profile_check_id = add new.
+      properties:
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - focumcheck
+          - id2check
+          - idcheck
+          - integritycheck
+          - openhealthcarecheck
+          - permissioncheck
+          - pescheckadversemediacheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 59fab1a0c1368839
+        config:
+          type: object
+          additionalProperties: {}
+        profile_check_id:
+          type: string
+          format: uuid
+      required:
+      - check_type
+    V2ScreeningCheck:
+      type: object
+      description: |-
+        Per-screening entry: identifies a target ProfileCheck (by check_type when
+        unambiguous, or via profile_check_id when the profile has multiple ProfileChecks
+        of the same type) and supplies optional `config` patch + per-check `input`.
+      properties:
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - id2check
+          - integritycheck
+          - openhealthcarecheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `id2check` - id2check
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 228a6aba1c358dfb
+        config:
+          type: object
+          additionalProperties: {}
+        profile_check_id:
+          type: string
+          format: uuid
+          description: Disambiguator. Use when the profile has multiple ProfileChecks
+            of the same check_type.
+        input: {}
+      required:
+      - check_type
+    V2ScreeningCheckEntry:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        profile_check_id:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - focumcheck
+          - id2check
+          - idcheck
+          - integritycheck
+          - openhealthcarecheck
+          - permissioncheck
+          - pescheckadversemediacheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 59fab1a0c1368839
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        config:
+          type: object
+          additionalProperties: true
+          readOnly: true
+        input:
+          type: object
+          additionalProperties: true
+          readOnly: true
+        output:
+          type: object
+          additionalProperties: true
+          readOnly: true
+        candidate_wizard_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Deep link to this check's candidate wizard step. Null when
+            the check has no dedicated candidate step.
+          readOnly: true
+      required:
+      - candidate_wizard_url
+      - check_type
+      - config
+      - display_name
+      - id
+      - input
+      - output
+      - profile_check_id
+      - status
+    V2ScreeningCheckListItem:
+      type: object
+      description: Minimal check entry shape for screening list items. No config/input/etc.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        check_type:
+          enum:
+          - addresscheck
+          - adversemediacheck
+          - bigcheck
+          - criminalrecordscheck
+          - criminalrecordsuploadcheck
+          - customintegritycheck
+          - cvcheck
+          - edrcheck
+          - focumcheck
+          - id2check
+          - idcheck
+          - integritycheck
+          - openhealthcarecheck
+          - permissioncheck
+          - pescheckadversemediacheck
+          - qualificationcheck
+          - righttoworkcheck
+          - vogcheck
+          - watchlist2check
+          - watchlistcheck
+          - workreferencecheck
+          - worldwidecreditcheck
+          type: string
+          description: |-
+            * `addresscheck` - addresscheck
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+          x-spec-enum-id: 59fab1a0c1368839
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+      required:
+      - check_type
+      - id
+      - status
+    V2ScreeningCreate:
+      type: object
+      properties:
+        profile_id:
+          type: string
+          format: uuid
+        candidate:
+          $ref: '#/components/schemas/V2Candidate'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningCheck'
+      required:
+      - candidate
+      - profile_id
+    V2ScreeningDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        status:
+          type: string
+          readOnly: true
+        profile:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+          nullable: true
+          readOnly: true
+        candidate:
+          allOf:
+          - $ref: '#/components/schemas/V2Candidate'
+          readOnly: true
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningCheckEntry'
+          readOnly: true
+        candidate_wizard_url:
+          type: string
+          format: uri
+          nullable: true
+          description: Public wizard URL for the candidate. Null when no check needs
+            candidate input.
+          readOnly: true
+        dashboard_url:
+          type: string
+          format: uri
+          description: Dashboard URL for this screening.
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - candidate
+      - candidate_wizard_url
+      - checks
+      - created_at
+      - dashboard_url
+      - id
+      - profile
+      - status
+      - updated_at
+    V2ScreeningListItem:
+      type: object
+      description: |-
+        List shape for GET /screenings/. Same candidate as detail; the only thing
+        we slim here is per-check info (status only), since config/input/output are
+        heavy and rarely needed at list time.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        status:
+          type: string
+        profile:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+          nullable: true
+          readOnly: true
+        candidate:
+          allOf:
+          - $ref: '#/components/schemas/V2Candidate'
+          readOnly: true
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningCheckListItem'
+          readOnly: true
+        candidate_wizard_url:
+          type: string
+          format: uri
+          nullable: true
+          readOnly: true
+        dashboard_url:
+          type: string
+          format: uri
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - candidate
+      - candidate_wizard_url
+      - checks
+      - created_at
+      - dashboard_url
+      - id
+      - profile
+      - updated_at
+    VerifyWebhook:
+      type: object
+      description: |-
+        Body shape for POST /webhooks/{id}/verify/. The verification code is the
+        one sent to the webhook URL when the webhook was created; the receiver POSTs
+        it back here to confirm ownership.
+      properties:
+        verification_code:
+          type: string
+          description: The verification code delivered to the webhook URL on creation.
+      required:
+      - verification_code
+    Webhook:
+      type: object
+      description: Serializer for webhook creation/update requests
+      properties:
+        name:
+          type: string
+          description: Descriptive name for this webhook
+          maxLength: 255
+        url:
+          type: string
+          format: uri
+          description: HTTPS URL where webhook events will be sent
+        events:
+          type: array
+          items:
+            enum:
+            - check.status_changed
+            - screening.status_changed
+            - screening.archived
+            - package.created
+            - package.updated
+            - profile.created
+            - profile.updated
+            - division.created
+            - division.updated
+            type: string
+            description: |-
+              * `check.status_changed` - check.status_changed
+              * `screening.status_changed` - screening.status_changed
+              * `screening.archived` - screening.archived
+              * `package.created` - package.created
+              * `package.updated` - package.updated
+              * `profile.created` - profile.created
+              * `profile.updated` - profile.updated
+              * `division.created` - division.created
+              * `division.updated` - division.updated
+            x-spec-enum-id: 4434dcfa22790647
+          description: 'List of events to subscribe to. Valid events: check.status_changed,
+            screening.status_changed, screening.archived, package.created, package.updated,
+            profile.created, profile.updated, division.created, division.updated'
+        active:
+          type: boolean
+          default: true
+          description: Whether the webhook is active
+        division_id:
+          type: string
+          format: uuid
+          description: Division ID to create webhook for (optional)
+      required:
+      - events
+      - name
+      - url
+    WebhookResponse:
+      type: object
+      description: Serializer for webhook responses
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        events:
+          readOnly: true
+        active:
+          type: boolean
+        verified:
+          type: boolean
+          readOnly: true
+        token:
+          type: string
+          readOnly: true
+          nullable: true
+        organisation_name:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - events
+      - id
+      - name
+      - organisation_name
+      - token
+      - updated_at
+      - url
+      - verified
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: __Secure-sessionid
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://api.pescheck.io/api/o/authorize/
+          tokenUrl: https://api.pescheck.io/api/o/token/
+          refreshUrl: https://api.pescheck.io/api/o/token/
+          scopes:
+            read:api: read groups
+            create:api: create groups
+            update:api: update groups
+        clientCredentials:
+          tokenUrl: https://api.pescheck.io/api/o/token/
+          refreshUrl: https://api.pescheck.io/api/o/token/
+          scopes:
+            read:api: read groups
+            create:api: create groups
+            update:api: update groups
+        password:
+          tokenUrl: https://api.pescheck.io/api/o/token/
+          refreshUrl: https://api.pescheck.io/api/o/token/
+          scopes:
+            read:api: read groups
+            create:api: create groups
+            update:api: update groups
+servers:
+- url: '{baseUrl}'
+  description: Current environment
+  variables:
+    baseUrl:
+      default: https://api.pescheck.io
+      description: API base URL
+- url: https://dash-test-api.pescheck.me
+  description: Test server
+- url: https://api.pescheck.io
+  description: Production server
+- url: https://staging-api.pescheck.io
+  description: Staging server
+- url: http://localhost
+  description: Local development server
+externalDocs:
+  description: Find out more about Pescheck
+  url: https://pescheck.io
+security:
+- oauth2:
+  - read:api
+  - create:api
+  - update:api

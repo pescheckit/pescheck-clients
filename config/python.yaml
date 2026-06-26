@@ -1,0 +1,12 @@
+generatorName: python
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/python
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+additionalProperties:
+  packageName: pescheck
+  projectName: pescheck
+  packageVersion: 2.0.0
+  library: urllib3
+  generateSourceCodeOnly: "false"

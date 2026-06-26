@@ -1,0 +1,36 @@
+# Pescheck::WebhookResponse
+
+## Properties
+
+| Name | Type | Description | Notes |
+| ---- | ---- | ----------- | ----- |
+| **id** | **String** |  | [readonly] |
+| **name** | **String** |  |  |
+| **url** | **String** |  |  |
+| **events** | **Object** |  | [readonly] |
+| **active** | **Boolean** |  | [optional] |
+| **verified** | **Boolean** |  | [readonly] |
+| **token** | **String** |  | [readonly] |
+| **organisation_name** | **String** |  | [readonly] |
+| **created_at** | **Time** |  | [readonly] |
+| **updated_at** | **Time** |  | [readonly] |
+
+## Example
+
+```ruby
+require 'pescheck'
+
+instance = Pescheck::WebhookResponse.new(
+  id: null,
+  name: null,
+  url: null,
+  events: null,
+  active: null,
+  verified: null,
+  token: null,
+  organisation_name: null,
+  created_at: null,
+  updated_at: null
+)
+```
+

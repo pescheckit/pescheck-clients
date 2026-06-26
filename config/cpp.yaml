@@ -1,0 +1,9 @@
+generatorName: cpp-restsdk
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/cpp
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+additionalProperties:
+  packageName: PescheckApi
+  packageVersion: 2.0.0

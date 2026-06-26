@@ -1,0 +1,15 @@
+generatorName: java
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/java
+gitHost: github.com
+gitUserId: pescheckit
+gitRepoId: pescheck-clients
+library: okhttp-gson
+additionalProperties:
+  groupId: io.pescheck
+  artifactId: pescheck-api-client
+  artifactVersion: 2.0.0
+  invokerPackage: io.pescheck.client
+  apiPackage: io.pescheck.client.api
+  modelPackage: io.pescheck.client.model
+  hideGenerationTimestamp: "true"

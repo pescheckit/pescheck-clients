@@ -1,0 +1,12 @@
+generatorName: go
+inputSpec: spec/openapi.v2.yaml
+outputDir: clients/go
+gitHost: github.com
+gitUserId: pescheckit
+# Monorepo subdir module path: github.com/pescheckit/pescheck-clients/clients/go
+# (published via tags like clients/go/vX.Y.Z)
+gitRepoId: pescheck-clients/clients/go
+additionalProperties:
+  packageName: pescheck
+  packageVersion: 2.0.0
+  withGoMod: "true"
