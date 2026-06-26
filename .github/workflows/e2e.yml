@@ -105,7 +105,7 @@ jobs:
         uses: ./.github/actions/get-token
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: actions/setup-go@v6
-        with: { go-version: "1.22", cache: false }
+        with: { go-version: "1.23", cache: false }
       - run: cd examples/go && go mod tidy && go run .
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
