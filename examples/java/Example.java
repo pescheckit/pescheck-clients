@@ -3,7 +3,7 @@ import java.util.List;
 import io.pescheck.client.ApiClient;
 import io.pescheck.client.ApiException;
 import io.pescheck.client.Configuration;
-import io.pescheck.client.auth.HttpBearerAuth;
+import io.pescheck.client.auth.OAuth;
 import io.pescheck.client.api.ChecksApi;
 import io.pescheck.client.model.V2CheckInfo;
 
@@ -34,9 +34,9 @@ public class Example {
     ApiClient client = Configuration.getDefaultApiClient();
     client.setBasePath(baseUrl);
 
-    // JWT bearer authentication (scheme "jwtAuth").
-    HttpBearerAuth jwtAuth = (HttpBearerAuth) client.getAuthentication("jwtAuth");
-    jwtAuth.setBearerToken(token);
+    // OAuth2 bearer authentication (scheme "oauth2") — the scheme the operations require.
+    OAuth oauth2 = (OAuth) client.getAuthentication("oauth2");
+    oauth2.setAccessToken(token);
 
     try {
       ChecksApi checksApi = new ChecksApi(client);
