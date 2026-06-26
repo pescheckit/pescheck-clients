@@ -57,7 +57,7 @@ class V2Money implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $openAPITypes = [
-        'amount' => 'float',
+        'amount' => 'string',
         'currency' => 'string'
     ];
 
@@ -69,7 +69,7 @@ class V2Money implements ModelInterface, ArrayAccess, \JsonSerializable
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
-        'amount' => 'decimal',
+        'amount' => null,
         'currency' => null
     ];
 
@@ -313,7 +313,7 @@ class V2Money implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets amount
      *
-     * @return float
+     * @return string
      */
     public function getAmount()
     {
@@ -323,7 +323,7 @@ class V2Money implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets amount
      *
-     * @param float $amount amount
+     * @param string $amount amount
      *
      * @return self
      */

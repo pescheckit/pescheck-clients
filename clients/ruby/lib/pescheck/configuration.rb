@@ -251,7 +251,7 @@ module Pescheck
         'cookieAuth' =>
           {
             type: 'api_key',
-            in: ,
+            in: '',
             key: '__Secure-sessionid',
             value: api_key_with_prefix('__Secure-sessionid')
           },

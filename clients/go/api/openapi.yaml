@@ -3046,7 +3046,6 @@ components:
     V2Money:
       properties:
         amount:
-          format: decimal
           pattern: "^-?\\d{0,18}(?:\\.\\d{0,2})?$"
           type: string
         currency:

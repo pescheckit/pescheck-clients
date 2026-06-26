@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
@@ -54,7 +53,7 @@ public class V2Money {
   public static final String SERIALIZED_NAME_AMOUNT = "amount";
   @SerializedName(SERIALIZED_NAME_AMOUNT)
   @javax.annotation.Nonnull
-  private BigDecimal amount;
+  private String amount;
 
   public static final String SERIALIZED_NAME_CURRENCY = "currency";
   @SerializedName(SERIALIZED_NAME_CURRENCY)
@@ -64,7 +63,7 @@ public class V2Money {
   public V2Money() {
   }
 
-  public V2Money amount(@javax.annotation.Nonnull BigDecimal amount) {
+  public V2Money amount(@javax.annotation.Nonnull String amount) {
     this.amount = amount;
     return this;
   }
@@ -74,11 +73,11 @@ public class V2Money {
    * @return amount
    */
   @javax.annotation.Nonnull
-  public BigDecimal getAmount() {
+  public String getAmount() {
     return amount;
   }
 
-  public void setAmount(@javax.annotation.Nonnull BigDecimal amount) {
+  public void setAmount(@javax.annotation.Nonnull String amount) {
     this.amount = amount;
   }
 

@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **amount** | **Float** |  |  |
+| **amount** | **String** |  |  |
 | **currency** | **String** |  |  |
 
 ## Example

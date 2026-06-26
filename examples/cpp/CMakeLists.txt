@@ -17,5 +17,17 @@ add_subdirectory(
     "${CMAKE_CURRENT_BINARY_DIR}/pescheck_client"
 )
 
+# The generated client's static lib pulls in cpprestsdk, which references
+# OpenSSL and Boost symbols; link them explicitly into the executable.
+find_package(cpprestsdk REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system)
+
 add_executable(e2e main.cpp)
-target_link_libraries(e2e PRIVATE PescheckApi)
+target_link_libraries(e2e PRIVATE
+    PescheckApi
+    cpprestsdk::cpprest
+    OpenSSL::SSL
+    OpenSSL::Crypto
+    Boost::system
+)

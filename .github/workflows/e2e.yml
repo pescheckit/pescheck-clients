@@ -45,7 +45,10 @@ jobs:
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
-      - run: cd examples/javascript && npm install && node index.js
+      # Build the client first (installs babel + produces dist/), then install the
+      # example with --ignore-scripts so it reuses the built client (no babel needed).
+      - run: cd clients/javascript && npm install
+      - run: cd examples/javascript && npm install --ignore-scripts && node index.js
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 

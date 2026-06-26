@@ -2676,7 +2676,6 @@ components:
       properties:
         amount:
           type: string
-          format: decimal
           pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
         currency:
           type: string

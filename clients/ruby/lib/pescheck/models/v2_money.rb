@@ -40,7 +40,7 @@ module Pescheck
     # Attribute type mapping.
     def self.openapi_types
       {
-        :'amount' => :'Float',
+        :'amount' => :'String',
         :'currency' => :'String'
       }
     end

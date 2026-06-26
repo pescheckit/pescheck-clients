@@ -95,6 +95,22 @@ doc.components = newComponents;
 // README repeats the snippet 3x) and at worst broken (the Rust client appends
 // three identical `Authorization` headers -> Cloudflare 400). Client SDKs use
 // client-credentials, so keep only that flow.
+// 5b. Strip `format: decimal` from string properties. The API serialises money
+// amounts as JSON strings (e.g. "15.00"), and the spec correctly types them as
+// `string` — but `format: decimal` makes generators map the field to a numeric
+// type (Go float64, C# decimal), which then fails to unmarshal the string value.
+let decimalFormatsStripped = 0;
+function stripDecimalFormat(node) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) return node.forEach(stripDecimalFormat);
+  if (node.type === "string" && node.format === "decimal") {
+    delete node.format;
+    decimalFormatsStripped++;
+  }
+  for (const v of Object.values(node)) stripDecimalFormat(v);
+}
+stripDecimalFormat(doc.components?.schemas ?? {});
+
 const oauth2 = doc.components?.securitySchemes?.oauth2;
 let trimmedFlows = 0;
 if (oauth2?.flows) {
@@ -114,3 +130,4 @@ console.log(`Filtered spec written to ${outputPath}`);
 console.log(`  paths kept:     ${Object.keys(keptPaths).length} (dropped ${droppedCount})`);
 console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length} (pruned ${prunedSchemas})`);
 console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);
+console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);

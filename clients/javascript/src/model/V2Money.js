@@ -22,7 +22,7 @@ class V2Money {
     /**
      * Constructs a new <code>V2Money</code>.
      * @alias module:model/V2Money
-     * @param amount {Number} 
+     * @param amount {String} 
      * @param currency {String} 
      */
     constructor(amount, currency) { 
@@ -52,7 +52,7 @@ class V2Money {
             obj = obj || new V2Money();
 
             if (data.hasOwnProperty('amount')) {
-                obj['amount'] = ApiClient.convertToType(data['amount'], 'Number');
+                obj['amount'] = ApiClient.convertToType(data['amount'], 'String');
             }
             if (data.hasOwnProperty('currency')) {
                 obj['currency'] = ApiClient.convertToType(data['currency'], 'String');
@@ -91,7 +91,7 @@ class V2Money {
 V2Money.RequiredProperties = ["amount", "currency"];
 
 /**
- * @member {Number} amount
+ * @member {String} amount
  */
 V2Money.prototype['amount'] = undefined;
 

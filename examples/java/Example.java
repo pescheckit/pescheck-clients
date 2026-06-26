@@ -15,19 +15,19 @@ import io.pescheck.client.model.V2CheckInfo;
  *
  * Configuration via environment variables:
  *   PESCHECK_BASE_URL  base URL of the API (e.g. https://api.pescheck.io)
- *   PESCHECK_TOKEN     JWT bearer token for the "jwtAuth" scheme
+ *   PESCHECK_ACCESS_TOKEN     JWT bearer token for the "jwtAuth" scheme
  */
 public class Example {
   public static void main(String[] args) {
     String baseUrl = System.getenv("PESCHECK_BASE_URL");
-    String token = System.getenv("PESCHECK_TOKEN");
+    String token = System.getenv("PESCHECK_ACCESS_TOKEN");
 
     if (baseUrl == null || baseUrl.isEmpty()) {
       System.err.println("PESCHECK_BASE_URL is not set");
       System.exit(1);
     }
     if (token == null || token.isEmpty()) {
-      System.err.println("PESCHECK_TOKEN is not set");
+      System.err.println("PESCHECK_ACCESS_TOKEN is not set");
       System.exit(1);
     }
 

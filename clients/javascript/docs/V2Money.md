@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **Number** |  | 
+**amount** | **String** |  | 
 **currency** | **String** |  | 
 
 

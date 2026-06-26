@@ -21,7 +21,7 @@ var _ MappedNullable = &V2Money{}
 
 // V2Money struct for V2Money
 type V2Money struct {
-	Amount float64 `json:"amount" validate:"regexp=^-?\\\\d{0,18}(?:\\\\.\\\\d{0,2})?$"`
+	Amount string `json:"amount" validate:"regexp=^-?\\\\d{0,18}(?:\\\\.\\\\d{0,2})?$"`
 	Currency string `json:"currency"`
 }
 
@@ -31,7 +31,7 @@ type _V2Money V2Money
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2Money(amount float64, currency string) *V2Money {
+func NewV2Money(amount string, currency string) *V2Money {
 	this := V2Money{}
 	this.Amount = amount
 	this.Currency = currency
@@ -47,9 +47,9 @@ func NewV2MoneyWithDefaults() *V2Money {
 }
 
 // GetAmount returns the Amount field value
-func (o *V2Money) GetAmount() float64 {
+func (o *V2Money) GetAmount() string {
 	if o == nil {
-		var ret float64
+		var ret string
 		return ret
 	}
 
@@ -58,7 +58,7 @@ func (o *V2Money) GetAmount() float64 {
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *V2Money) GetAmountOk() (*float64, bool) {
+func (o *V2Money) GetAmountOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *V2Money) GetAmountOk() (*float64, bool) {
 }
 
 // SetAmount sets field value
-func (o *V2Money) SetAmount(v float64) {
+func (o *V2Money) SetAmount(v string) {
 	o.Amount = v
 }
 

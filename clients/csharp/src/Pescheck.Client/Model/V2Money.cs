@@ -42,8 +42,13 @@ namespace Pescheck.Client.Model
         /// </summary>
         /// <param name="amount">amount (required).</param>
         /// <param name="currency">currency (required).</param>
-        public V2Money(decimal amount = default, string currency = default)
+        public V2Money(string amount = default, string currency = default)
         {
+            // to ensure "amount" is required (not null)
+            if (amount == null)
+            {
+                throw new ArgumentNullException("amount is a required property for V2Money and cannot be null");
+            }
             this.Amount = amount;
             // to ensure "currency" is required (not null)
             if (currency == null)
@@ -57,7 +62,7 @@ namespace Pescheck.Client.Model
         /// Gets or Sets Amount
         /// </summary>
         [DataMember(Name = "amount", IsRequired = true, EmitDefaultValue = true)]
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
 
         /// <summary>
         /// Gets or Sets Currency
@@ -95,12 +100,15 @@ namespace Pescheck.Client.Model
         /// <returns>Validation Result</returns>
         IEnumerable<ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Amount (decimal) pattern
-            Regex regexAmount = new Regex(@"^-?\d{0,18}(?:\.\d{0,2})?$", RegexOptions.CultureInvariant);
-            if (!regexAmount.Match(this.Amount).Success)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
+            if (this.Amount != null) {
+                // Amount (string) pattern
+                Regex regexAmount = new Regex(@"^-?\d{0,18}(?:\.\d{0,2})?$", RegexOptions.CultureInvariant);
+                if (!regexAmount.Match(this.Amount).Success)
+                {
+                    yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Amount, must match a pattern of " + regexAmount, new [] { "Amount" });
+                }
             }
+
             // Currency (string) maxLength
             if (this.Currency != null && this.Currency.Length > 3)
             {

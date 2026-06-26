@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Amount** | **float64** |  | 
+**Amount** | **string** |  | 
 **Currency** | **string** |  | 
 
 ## Methods
 
 ### NewV2Money
 
-`func NewV2Money(amount float64, currency string, ) *V2Money`
+`func NewV2Money(amount string, currency string, ) *V2Money`
 
 NewV2Money instantiates a new V2Money object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAmount
 
-`func (o *V2Money) GetAmount() float64`
+`func (o *V2Money) GetAmount() string`
 
 GetAmount returns the Amount field if non-nil, zero value otherwise.
 
 ### GetAmountOk
 
-`func (o *V2Money) GetAmountOk() (*float64, bool)`
+`func (o *V2Money) GetAmountOk() (*string, bool)`
 
 GetAmountOk returns a tuple with the Amount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAmount
 
-`func (o *V2Money) SetAmount(v float64)`
+`func (o *V2Money) SetAmount(v string)`
 
 SetAmount sets Amount field to given value.
 

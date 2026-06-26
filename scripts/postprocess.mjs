@@ -49,7 +49,23 @@ const auth = patchDir(resolve(root, "clients/typescript/src/apis"), (s) =>
   )
 );
 
+// Fix 3 (ruby): the generated configuration.rb emits `in: ,` (empty value) for
+// the cookieAuth entry in auth_settings. Ruby 3 parses the bare `in` as a method
+// call -> NameError at runtime. Give it a valid empty-string value.
+let ruby = 0;
+const rubyConfig = resolve(root, "clients/ruby/lib/pescheck/configuration.rb");
+try {
+  const before = readFileSync(rubyConfig, "utf8");
+  const after = before.replace(/^(\s*)in: ,$/gm, "$1in: '',");
+  if (after !== before) {
+    writeFileSync(rubyConfig, after);
+    ruby = 1;
+  }
+} catch {
+  /* ruby client not generated */
+}
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
-    `Bearer prefix added in ${auth} api file(s)`
+    `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s)`
 );

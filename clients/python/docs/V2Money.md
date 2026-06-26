@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**amount** | **decimal.Decimal** |  | 
+**amount** | **str** |  | 
 **currency** | **str** |  | 
 
 ## Example
