@@ -4136,22 +4136,7 @@ components:
       type: http
     oauth2:
       flows:
-        authorizationCode:
-          authorizationUrl: https://api.pescheck.io/api/o/authorize/
-          refreshUrl: https://api.pescheck.io/api/o/token/
-          scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
-          tokenUrl: https://api.pescheck.io/api/o/token/
         clientCredentials:
-          refreshUrl: https://api.pescheck.io/api/o/token/
-          scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
-          tokenUrl: https://api.pescheck.io/api/o/token/
-        password:
           refreshUrl: https://api.pescheck.io/api/o/token/
           scopes:
             read:api: read groups

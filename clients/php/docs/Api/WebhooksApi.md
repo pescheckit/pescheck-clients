@@ -32,12 +32,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 
 $apiInstance = new Pescheck\Client\Api\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -71,7 +65,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -98,12 +92,6 @@ Delete a webhook
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -136,7 +124,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -167,12 +155,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 
 $apiInstance = new Pescheck\Client\Api\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -199,7 +181,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -226,12 +208,6 @@ Verify webhook ownership
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -266,7 +242,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 

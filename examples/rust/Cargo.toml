@@ -1,0 +1,13 @@
+[package]
+name = "pescheck-e2e"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "list_checks"
+path = "src/main.rs"
+
+[dependencies]
+pescheck = { path = "../../clients/rust" }
+tokio = { version = "1", features = ["full"] }

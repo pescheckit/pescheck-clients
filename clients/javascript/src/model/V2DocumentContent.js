@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2DocumentContent model module.
  * @module model/V2DocumentContent
- * @version 2.0.0
+ * @version 0.0.1
  */
 class V2DocumentContent {
     /**

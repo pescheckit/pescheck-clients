@@ -1,6 +1,6 @@
 [package]
 name = "pescheck"
-version = "2.0.0"
+version = "0.0.1"
 authors = ["OpenAPI Generator team and contributors"]
 description = "API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api"
 # Override this license by providing a License Object in the OpenAPI.

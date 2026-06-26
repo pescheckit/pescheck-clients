@@ -7,6 +7,6 @@ gitRepoId: pescheck-clients
 additionalProperties:
   projectName: pescheck-api-client
   moduleName: PescheckApi
-  projectVersion: 2.0.0
+  projectVersion: 0.0.1
   usePromises: "true"
   useES6: "true"

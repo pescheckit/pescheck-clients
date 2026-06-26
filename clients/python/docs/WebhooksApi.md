@@ -36,8 +36,6 @@ Create webhook for event notifications.
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -56,10 +54,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -96,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -122,8 +116,6 @@ Delete a webhook
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -140,10 +132,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -174,7 +162,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -199,8 +187,6 @@ List webhooks for the organization
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -218,10 +204,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -250,7 +232,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -274,8 +256,6 @@ Verify webhook ownership
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -293,10 +273,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -329,7 +305,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

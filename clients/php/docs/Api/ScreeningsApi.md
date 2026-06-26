@@ -30,12 +30,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 
 $apiInstance = new Pescheck\Client\Api\ScreeningsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -65,7 +59,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -92,12 +86,6 @@ Documents attached to the screening's checks. Files are delivered inline as Base
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -135,7 +123,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -160,12 +148,6 @@ v2ScreeningsList($page, $page_size, $paginate): \Pescheck\Client\Model\Paginated
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -203,7 +185,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -228,12 +210,6 @@ v2ScreeningsRetrieve($id): \Pescheck\Client\Model\V2ScreeningDetail
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -267,7 +243,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 

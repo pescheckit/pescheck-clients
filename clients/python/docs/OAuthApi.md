@@ -17,8 +17,6 @@ Create OAuth application for API access
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -37,10 +35,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -73,7 +67,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -99,8 +93,6 @@ Delete an OAuth application
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -117,10 +109,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -151,7 +139,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -176,8 +164,6 @@ List OAuth applications for the organization
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -195,10 +181,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -227,7 +209,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

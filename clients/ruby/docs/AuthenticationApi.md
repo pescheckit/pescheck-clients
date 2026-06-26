@@ -26,12 +26,6 @@ require 'pescheck'
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
   config.access_token = 'YOUR ACCESS TOKEN'
-
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
-
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
 end
 
 api_instance = Pescheck::AuthenticationApi.new
@@ -76,7 +70,7 @@ end
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -99,12 +93,6 @@ require 'time'
 require 'pescheck'
 # setup authorization
 Pescheck.configure do |config|
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
-
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
-
   # Configure OAuth2 access token for authorization: oauth2
   config.access_token = 'YOUR ACCESS TOKEN'
 end
@@ -151,7 +139,7 @@ end
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -174,12 +162,6 @@ require 'time'
 require 'pescheck'
 # setup authorization
 Pescheck.configure do |config|
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
-
-  # Configure OAuth2 access token for authorization: oauth2
-  config.access_token = 'YOUR ACCESS TOKEN'
-
   # Configure OAuth2 access token for authorization: oauth2
   config.access_token = 'YOUR ACCESS TOKEN'
 end
@@ -226,7 +208,7 @@ end
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

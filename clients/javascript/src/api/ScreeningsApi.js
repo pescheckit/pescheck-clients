@@ -21,7 +21,7 @@ import V2ScreeningDetail from '../model/V2ScreeningDetail';
 /**
 * Screenings service.
 * @module api/ScreeningsApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class ScreeningsApi {
 
@@ -58,7 +58,7 @@ export default class ScreeningsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = V2ScreeningDetail;
@@ -110,7 +110,7 @@ export default class ScreeningsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [V2Document];
@@ -161,7 +161,7 @@ export default class ScreeningsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = PaginatedV2ScreeningListItemList;
@@ -208,7 +208,7 @@ export default class ScreeningsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = V2ScreeningDetail;

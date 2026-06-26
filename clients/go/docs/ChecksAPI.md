@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -131,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

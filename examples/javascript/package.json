@@ -1,0 +1,13 @@
+{
+  "name": "pescheck-e2e-javascript",
+  "version": "1.0.0",
+  "description": "Minimal end-to-end example: list Pescheck check types via the generated JavaScript client.",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "pescheck-api-client": "file:../../clients/javascript"
+  }
+}

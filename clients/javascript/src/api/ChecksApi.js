@@ -18,7 +18,7 @@ import V2CheckInfo from '../model/V2CheckInfo';
 /**
 * Checks service.
 * @module api/ChecksApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class ChecksApi {
 
@@ -55,7 +55,7 @@ export default class ChecksApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [V2CheckInfo];
@@ -101,7 +101,7 @@ export default class ChecksApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = V2CheckInfo;

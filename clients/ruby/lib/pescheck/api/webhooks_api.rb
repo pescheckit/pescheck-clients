@@ -72,7 +72,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'WebhookResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.create_webhook2",
@@ -131,7 +131,7 @@ module Pescheck
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.delete_webhook2",
@@ -186,7 +186,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'Array<WebhookResponse>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.list_webhooks2",
@@ -256,7 +256,7 @@ module Pescheck
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"WebhooksApi.verify_webhook2",

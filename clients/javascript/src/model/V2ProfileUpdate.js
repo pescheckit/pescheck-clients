@@ -17,7 +17,7 @@ import V2ProfileUpdateCheck from './V2ProfileUpdateCheck';
 /**
  * The V2ProfileUpdate model module.
  * @module model/V2ProfileUpdate
- * @version 2.0.0
+ * @version 0.0.1
  */
 class V2ProfileUpdate {
     /**

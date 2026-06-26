@@ -64,7 +64,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ScreeningDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ScreeningsApi.v2_screenings_create",
@@ -133,7 +133,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'Array<V2Document>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ScreeningsApi.v2_screenings_documents_list",
@@ -207,7 +207,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'PaginatedV2ScreeningListItemList'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ScreeningsApi.v2_screenings_list",
@@ -266,7 +266,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ScreeningDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ScreeningsApi.v2_screenings_retrieve",

@@ -51,7 +51,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.pescheck</groupId>
   <artifactId>pescheck-api-client</artifactId>
-  <version>2.0.0</version>
+  <version>0.0.1</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -67,7 +67,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "io.pescheck:pescheck-api-client:2.0.0"
+     implementation "io.pescheck:pescheck-api-client:0.0.1"
   }
 ```
 
@@ -81,7 +81,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pescheck-api-client-2.0.0.jar`
+* `target/pescheck-api-client-0.0.1.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -103,14 +103,6 @@ public class Example {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("https://api.pescheck.io");
     
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
-
-    // Configure OAuth2 access token for authorization: oauth2
-    OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
-    oauth2.setAccessToken("YOUR ACCESS TOKEN");
-
     // Configure OAuth2 access token for authorization: oauth2
     OAuth oauth2 = (OAuth) defaultClient.getAuthentication("oauth2");
     oauth2.setAccessToken("YOUR ACCESS TOKEN");
@@ -228,30 +220,8 @@ Authentication schemes defined for the API:
 ### oauth2
 
 - **Type**: OAuth
-- **Flow**: password
-- **Authorization URL**: 
-- **Scopes**: 
-  - read:api: read groups
-  - create:api: create groups
-  - update:api: update groups
-
-<a id="oauth2"></a>
-### oauth2
-
-- **Type**: OAuth
 - **Flow**: application
 - **Authorization URL**: 
-- **Scopes**: 
-  - read:api: read groups
-  - create:api: create groups
-  - update:api: update groups
-
-<a id="oauth2"></a>
-### oauth2
-
-- **Type**: OAuth
-- **Flow**: accessCode
-- **Authorization URL**: https://api.pescheck.io/api/o/authorize/
 - **Scopes**: 
   - read:api: read groups
   - create:api: create groups

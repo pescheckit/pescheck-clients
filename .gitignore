@@ -1,6 +1,9 @@
 node_modules/
 .openapi-generator-cli/
 
+# Local secrets — never commit
+.env
+
 # Build artifacts inside generated clients
 clients/**/target/
 clients/**/build/
@@ -12,3 +15,17 @@ clients/**/*.egg-info/
 clients/**/__pycache__/
 clients/python/.tox/
 clients/rust/target/
+
+# Example build artifacts
+examples/**/node_modules/
+examples/**/dist/
+examples/**/vendor/
+examples/**/target/
+examples/**/build/
+examples/**/bin/
+examples/**/obj/
+examples/**/composer.lock
+examples/**/package-lock.json
+examples/**/*.class
+examples/cpp/build/
+cp.txt

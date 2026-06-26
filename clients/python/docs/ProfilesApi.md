@@ -18,8 +18,6 @@ Method | HTTP request | Description
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -38,10 +36,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -74,7 +68,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -95,8 +89,6 @@ Name | Type | Description  | Notes
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -113,10 +105,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -147,7 +135,7 @@ void (empty response body)
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -168,8 +156,6 @@ void (empty response body)
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -187,10 +173,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -235,7 +217,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -258,8 +240,6 @@ Update name and/or description only. Use PUT to change the check list.
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -278,10 +258,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -316,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -337,8 +313,6 @@ Name | Type | Description  | Notes
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -356,10 +330,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -392,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -417,8 +387,6 @@ in the request are removed.
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -437,10 +405,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -475,7 +439,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

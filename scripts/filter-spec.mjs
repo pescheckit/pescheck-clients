@@ -89,9 +89,28 @@ for (const [bucket, entries] of Object.entries(components)) {
 }
 doc.components = newComponents;
 
+// 5. Trim the oauth2 scheme to a single flow (clientCredentials). The upstream
+// scheme declares three flows (authorizationCode, clientCredentials, password);
+// generators emit one auth registration PER flow, which is at best noisy (Java
+// README repeats the snippet 3x) and at worst broken (the Rust client appends
+// three identical `Authorization` headers -> Cloudflare 400). Client SDKs use
+// client-credentials, so keep only that flow.
+const oauth2 = doc.components?.securitySchemes?.oauth2;
+let trimmedFlows = 0;
+if (oauth2?.flows) {
+  const keep = "clientCredentials";
+  for (const flow of Object.keys(oauth2.flows)) {
+    if (flow !== keep) {
+      delete oauth2.flows[flow];
+      trimmedFlows++;
+    }
+  }
+}
+
 const out = yaml.dump(doc, { lineWidth: -1, noRefs: true, sortKeys: false });
 writeFileSync(outputPath, out);
 
 console.log(`Filtered spec written to ${outputPath}`);
 console.log(`  paths kept:     ${Object.keys(keptPaths).length} (dropped ${droppedCount})`);
 console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length} (pruned ${prunedSchemas})`);
+console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);

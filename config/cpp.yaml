@@ -6,4 +6,4 @@ gitUserId: pescheckit
 gitRepoId: pescheck-clients
 additionalProperties:
   packageName: PescheckApi
-  packageVersion: 2.0.0
+  packageVersion: 0.0.1

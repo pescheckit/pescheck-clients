@@ -66,7 +66,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'OAuthApplicationResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"OAuthApi.create_o_auth_application2",
@@ -125,7 +125,7 @@ module Pescheck
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"OAuthApi.delete_o_auth_application2",
@@ -180,7 +180,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'Array<OAuthApplicationResponse>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"OAuthApi.list_o_auth_applications2",

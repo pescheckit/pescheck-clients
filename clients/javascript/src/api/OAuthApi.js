@@ -19,7 +19,7 @@ import OAuthApplicationResponse from '../model/OAuthApplicationResponse';
 /**
 * OAuth service.
 * @module api/OAuthApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class OAuthApi {
 
@@ -57,7 +57,7 @@ export default class OAuthApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = OAuthApplicationResponse;
@@ -103,7 +103,7 @@ export default class OAuthApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = [];
       let returnType = null;
@@ -143,7 +143,7 @@ export default class OAuthApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = [OAuthApplicationResponse];

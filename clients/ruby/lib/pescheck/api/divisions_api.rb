@@ -66,7 +66,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'DivisionWrite'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"DivisionsApi.v2_organisations_divisions_create",
@@ -142,7 +142,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'PaginatedDivisionReadOnlyList'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"DivisionsApi.v2_organisations_divisions_list",
@@ -210,7 +210,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'DivisionWrite'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"DivisionsApi.v2_organisations_divisions_partial_update",
@@ -271,7 +271,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'DivisionReadOnly'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"DivisionsApi.v2_organisations_divisions_retrieve",
@@ -343,7 +343,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'DivisionWrite'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"DivisionsApi.v2_organisations_divisions_update",

@@ -21,7 +21,7 @@ import TokenRefresh from '../model/TokenRefresh';
 /**
 * Authentication service.
 * @module api/AuthenticationApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class AuthenticationApi {
 
@@ -59,7 +59,7 @@ export default class AuthenticationApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = JWTResponse;
@@ -104,7 +104,7 @@ export default class AuthenticationApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = CustomTokenObtainPair;
@@ -149,7 +149,7 @@ export default class AuthenticationApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = TokenRefresh;

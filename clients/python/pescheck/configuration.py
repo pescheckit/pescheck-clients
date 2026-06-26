@@ -114,8 +114,6 @@ AuthSettings = TypedDict(
         "cookieAuth": APIKeyAuthSetting,
         "jwtAuth": BearerFormatAuthSetting,
         "oauth2": OAuth2AuthSetting,
-        "oauth2": OAuth2AuthSetting,
-        "oauth2": OAuth2AuthSetting,
     },
     total=False,
 )
@@ -562,20 +560,6 @@ conf = pescheck.Configuration(
                 'key': 'Authorization',
                 'value': 'Bearer ' + self.access_token
             }
-        if self.access_token is not None:
-            auth['oauth2'] = {
-                'type': 'oauth2',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
-            }
-        if self.access_token is not None:
-            auth['oauth2'] = {
-                'type': 'oauth2',
-                'in': 'header',
-                'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
-            }
         return auth
 
     def to_debug_report(self) -> str:
@@ -587,7 +571,7 @@ conf = pescheck.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 2.0.0\n"\
-               "SDK Package Version: 2.0.0".\
+               "SDK Package Version: 0.0.1".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:

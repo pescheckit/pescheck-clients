@@ -30,12 +30,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
 
 $apiInstance = new Pescheck\Client\Api\ChecksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -65,7 +59,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -90,12 +84,6 @@ v2ChecksRetrieve($check_type): \Pescheck\Client\Model\V2CheckInfo
 <?php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 // Configure OAuth2 access token for authorization: oauth2
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
@@ -129,7 +117,7 @@ try {
 
 ### Authorization
 
-[oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2), [oauth2](../../README.md#oauth2)
+[oauth2](../../README.md#oauth2)
 
 ### HTTP request headers
 

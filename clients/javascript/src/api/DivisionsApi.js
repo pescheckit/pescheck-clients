@@ -21,7 +21,7 @@ import PatchedDivisionWrite from '../model/PatchedDivisionWrite';
 /**
 * Divisions service.
 * @module api/DivisionsApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class DivisionsApi {
 
@@ -59,7 +59,7 @@ export default class DivisionsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = DivisionWrite;
@@ -107,7 +107,7 @@ export default class DivisionsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = PaginatedDivisionReadOnlyList;
@@ -159,7 +159,7 @@ export default class DivisionsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = DivisionWrite;
@@ -207,7 +207,7 @@ export default class DivisionsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = DivisionReadOnly;
@@ -258,7 +258,7 @@ export default class DivisionsApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = DivisionWrite;

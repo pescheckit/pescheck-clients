@@ -145,17 +145,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
+            headerParameters["Authorization"] = `Bearer ${await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"])}`;
         }
 
 
@@ -207,17 +197,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
+            headerParameters["Authorization"] = `Bearer ${await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"])}`;
         }
 
 
@@ -269,17 +249,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
 
         if (this.configuration && this.configuration.accessToken) {
             // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
-        }
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"]);
+            headerParameters["Authorization"] = `Bearer ${await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"])}`;
         }
 
 

@@ -66,7 +66,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'JWTResponse'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"AuthenticationApi.generate_jwt_token2",
@@ -132,7 +132,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'CustomTokenObtainPair'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"AuthenticationApi.jwt_create",
@@ -198,7 +198,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'TokenRefresh'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"AuthenticationApi.jwt_refresh_create",

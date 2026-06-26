@@ -17,7 +17,7 @@ import V2ProfileCheck from './V2ProfileCheck';
 /**
  * The V2ProfileCreate model module.
  * @module model/V2ProfileCreate
- * @version 2.0.0
+ * @version 0.0.1
  */
 class V2ProfileCreate {
     /**

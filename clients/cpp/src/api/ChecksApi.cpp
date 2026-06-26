@@ -105,10 +105,6 @@ pplx::task<std::vector<std::shared_ptr<V2CheckInfo>>> ChecksApi::v2ChecksList(bo
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("GET"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -236,10 +232,6 @@ pplx::task<std::shared_ptr<V2CheckInfo>> ChecksApi::v2ChecksRetrieve(utility::st
         throw ApiException(415, utility::conversions::to_string_t("ChecksApi->v2ChecksRetrieve does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 

@@ -32,11 +32,7 @@ import type { V2OrganisationsDivisionsCreateRequest } from '@pescheck/api-client
 async function example() {
   console.log("🚀 Testing @pescheck/api-client SDK...");
   const config = new Configuration({ 
-    // To configure OAuth2 access token for authorization: oauth2 password
-    accessToken: "YOUR ACCESS TOKEN",
     // To configure OAuth2 access token for authorization: oauth2 application
-    accessToken: "YOUR ACCESS TOKEN",
-    // To configure OAuth2 access token for authorization: oauth2 accessCode
     accessToken: "YOUR ACCESS TOKEN",
   });
   const api = new DivisionsApi(config);
@@ -71,7 +67,7 @@ example().catch(console.error);
 
 ### Authorization
 
-[oauth2 password](../README.md#oauth2-password), [oauth2 application](../README.md#oauth2-application), [oauth2 accessCode](../README.md#oauth2-accessCode)
+[oauth2 application](../README.md#oauth2-application)
 
 ### HTTP request headers
 
@@ -107,11 +103,7 @@ import type { V2OrganisationsDivisionsListRequest } from '@pescheck/api-client';
 async function example() {
   console.log("🚀 Testing @pescheck/api-client SDK...");
   const config = new Configuration({ 
-    // To configure OAuth2 access token for authorization: oauth2 password
-    accessToken: "YOUR ACCESS TOKEN",
     // To configure OAuth2 access token for authorization: oauth2 application
-    accessToken: "YOUR ACCESS TOKEN",
-    // To configure OAuth2 access token for authorization: oauth2 accessCode
     accessToken: "YOUR ACCESS TOKEN",
   });
   const api = new DivisionsApi(config);
@@ -152,7 +144,7 @@ example().catch(console.error);
 
 ### Authorization
 
-[oauth2 password](../README.md#oauth2-password), [oauth2 application](../README.md#oauth2-application), [oauth2 accessCode](../README.md#oauth2-accessCode)
+[oauth2 application](../README.md#oauth2-application)
 
 ### HTTP request headers
 
@@ -188,11 +180,7 @@ import type { V2OrganisationsDivisionsPartialUpdateRequest } from '@pescheck/api
 async function example() {
   console.log("🚀 Testing @pescheck/api-client SDK...");
   const config = new Configuration({ 
-    // To configure OAuth2 access token for authorization: oauth2 password
-    accessToken: "YOUR ACCESS TOKEN",
     // To configure OAuth2 access token for authorization: oauth2 application
-    accessToken: "YOUR ACCESS TOKEN",
-    // To configure OAuth2 access token for authorization: oauth2 accessCode
     accessToken: "YOUR ACCESS TOKEN",
   });
   const api = new DivisionsApi(config);
@@ -230,7 +218,7 @@ example().catch(console.error);
 
 ### Authorization
 
-[oauth2 password](../README.md#oauth2-password), [oauth2 application](../README.md#oauth2-application), [oauth2 accessCode](../README.md#oauth2-accessCode)
+[oauth2 application](../README.md#oauth2-application)
 
 ### HTTP request headers
 
@@ -266,11 +254,7 @@ import type { V2OrganisationsDivisionsRetrieveRequest } from '@pescheck/api-clie
 async function example() {
   console.log("🚀 Testing @pescheck/api-client SDK...");
   const config = new Configuration({ 
-    // To configure OAuth2 access token for authorization: oauth2 password
-    accessToken: "YOUR ACCESS TOKEN",
     // To configure OAuth2 access token for authorization: oauth2 application
-    accessToken: "YOUR ACCESS TOKEN",
-    // To configure OAuth2 access token for authorization: oauth2 accessCode
     accessToken: "YOUR ACCESS TOKEN",
   });
   const api = new DivisionsApi(config);
@@ -305,7 +289,7 @@ example().catch(console.error);
 
 ### Authorization
 
-[oauth2 password](../README.md#oauth2-password), [oauth2 application](../README.md#oauth2-application), [oauth2 accessCode](../README.md#oauth2-accessCode)
+[oauth2 application](../README.md#oauth2-application)
 
 ### HTTP request headers
 
@@ -341,11 +325,7 @@ import type { V2OrganisationsDivisionsUpdateRequest } from '@pescheck/api-client
 async function example() {
   console.log("🚀 Testing @pescheck/api-client SDK...");
   const config = new Configuration({ 
-    // To configure OAuth2 access token for authorization: oauth2 password
-    accessToken: "YOUR ACCESS TOKEN",
     // To configure OAuth2 access token for authorization: oauth2 application
-    accessToken: "YOUR ACCESS TOKEN",
-    // To configure OAuth2 access token for authorization: oauth2 accessCode
     accessToken: "YOUR ACCESS TOKEN",
   });
   const api = new DivisionsApi(config);
@@ -383,7 +363,7 @@ example().catch(console.error);
 
 ### Authorization
 
-[oauth2 password](../README.md#oauth2-password), [oauth2 application](../README.md#oauth2-application), [oauth2 accessCode](../README.md#oauth2-accessCode)
+[oauth2 application](../README.md#oauth2-application)
 
 ### HTTP request headers
 

@@ -16,7 +16,7 @@ import superagent from "superagent";
 
 /**
 * @module ApiClient
-* @version 2.0.0
+* @version 0.0.1
 */
 
 /**
@@ -47,8 +47,6 @@ class ApiClient {
         this.authentications = {
             'cookieAuth': {type: 'apiKey', 'in': 'query', name: '__Secure-sessionid'},
             'jwtAuth': {type: 'bearer'}, // JWT
-            'oauth2': {type: 'oauth2'},
-            'oauth2': {type: 'oauth2'},
             'oauth2': {type: 'oauth2'}
         }
 
@@ -58,7 +56,7 @@ class ApiClient {
          * @default {}
          */
         this.defaultHeaders = {
-            'User-Agent': 'OpenAPI-Generator/2.0.0/Javascript'
+            'User-Agent': 'OpenAPI-Generator/0.0.1/Javascript'
         };
 
         /**

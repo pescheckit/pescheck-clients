@@ -125,10 +125,6 @@ pplx::task<std::shared_ptr<JWTResponse>> AuthenticationApi::generateJWTToken2(st
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -277,10 +273,6 @@ pplx::task<std::shared_ptr<CustomTokenObtainPair>> AuthenticationApi::jwtCreate(
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -427,10 +419,6 @@ pplx::task<std::shared_ptr<TokenRefresh>> AuthenticationApi::jwtRefreshCreate(st
         throw ApiException(415, utility::conversions::to_string_t("AuthenticationApi->jwtRefreshCreate does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 

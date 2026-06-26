@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2ScreeningCheckEntry model module.
  * @module model/V2ScreeningCheckEntry
- * @version 2.0.0
+ * @version 0.0.1
  */
 class V2ScreeningCheckEntry {
     /**

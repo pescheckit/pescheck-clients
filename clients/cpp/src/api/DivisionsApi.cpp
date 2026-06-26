@@ -125,10 +125,6 @@ pplx::task<std::shared_ptr<DivisionWrite>> DivisionsApi::v2OrganisationsDivision
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -263,10 +259,6 @@ pplx::task<std::shared_ptr<PaginatedDivisionReadOnlyList>> DivisionsApi::v2Organ
         throw ApiException(415, utility::conversions::to_string_t("DivisionsApi->v2OrganisationsDivisionsList does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -412,10 +404,6 @@ pplx::task<std::shared_ptr<DivisionWrite>> DivisionsApi::v2OrganisationsDivision
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("PATCH"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -539,10 +527,6 @@ pplx::task<std::shared_ptr<DivisionReadOnly>> DivisionsApi::v2OrganisationsDivis
         throw ApiException(415, utility::conversions::to_string_t("DivisionsApi->v2OrganisationsDivisionsRetrieve does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -692,10 +676,6 @@ pplx::task<std::shared_ptr<DivisionWrite>> DivisionsApi::v2OrganisationsDivision
         throw ApiException(415, utility::conversions::to_string_t("DivisionsApi->v2OrganisationsDivisionsUpdate does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 

@@ -19,8 +19,6 @@ For a plain login, use POST /api/jwt/.
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -39,10 +37,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -75,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -104,8 +98,6 @@ For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -123,10 +115,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -159,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 
@@ -183,8 +171,6 @@ token if the refresh token is valid.
 ### Example
 
 * OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
-* OAuth Authentication (oauth2):
 
 ```python
 import pescheck
@@ -202,10 +188,6 @@ configuration = pescheck.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
-
-configuration.access_token = os.environ["ACCESS_TOKEN"]
 
 configuration.access_token = os.environ["ACCESS_TOKEN"]
 
@@ -238,7 +220,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2), [oauth2](../README.md#oauth2)
+[oauth2](../README.md#oauth2)
 
 ### HTTP request headers
 

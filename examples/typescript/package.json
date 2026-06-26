@@ -1,0 +1,17 @@
+{
+  "name": "pescheck-typescript-example",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal end-to-end example for the Pescheck TypeScript client",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/list_check_types.js"
+  },
+  "dependencies": {
+    "@pescheck/api-client": "file:../../clients/typescript"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5.4"
+  }
+}

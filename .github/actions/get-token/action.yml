@@ -1,0 +1,29 @@
+name: Get Pescheck access token
+description: Exchange OAuth2 client credentials for a (masked) access token.
+inputs:
+  base_url:
+    description: API base URL
+    required: true
+  client_id:
+    description: OAuth2 client id
+    required: true
+  client_secret:
+    description: OAuth2 client secret
+    required: true
+outputs:
+  token:
+    description: The OAuth2 access token (masked in logs)
+    value: ${{ steps.fetch.outputs.token }}
+runs:
+  using: composite
+  steps:
+    - id: fetch
+      shell: bash
+      env:
+        PESCHECK_BASE_URL: ${{ inputs.base_url }}
+        PESCHECK_CLIENT_ID: ${{ inputs.client_id }}
+        PESCHECK_CLIENT_SECRET: ${{ inputs.client_secret }}
+      run: |
+        TOKEN="$(bash scripts/get-token.sh)"
+        echo "::add-mask::$TOKEN"
+        echo "token=$TOKEN" >> "$GITHUB_OUTPUT"

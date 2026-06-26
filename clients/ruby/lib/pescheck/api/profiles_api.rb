@@ -64,7 +64,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ProfileDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_create",
@@ -121,7 +121,7 @@ module Pescheck
       return_type = opts[:debug_return_type]
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_destroy",
@@ -211,7 +211,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'PaginatedV2ProfileListItemList'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_list",
@@ -279,7 +279,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ProfileDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_partial_update",
@@ -338,7 +338,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ProfileDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_retrieve",
@@ -410,7 +410,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2ProfileDetail'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ProfilesApi.v2_profiles_update",

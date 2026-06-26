@@ -1,0 +1,164 @@
+name: E2E tests
+
+# Real end-to-end smoke test: every client obtains an OAuth2 client-credentials
+# token and calls GET /api/v2/checks/ against the staging API, asserting it gets
+# a parsed list back ("E2E OK: <n> check types").
+#
+# Requires repo secrets PESCHECK_CLIENT_ID + PESCHECK_CLIENT_SECRET and
+# (optional) repo variable PESCHECK_BASE_URL (defaults to staging).
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["clients/**", "examples/**", "scripts/**", ".github/workflows/e2e.yml"]
+  schedule:
+    - cron: "0 5 * * *"
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PESCHECK_BASE_URL: ${{ vars.PESCHECK_BASE_URL || 'https://api-staging.pescheck.io' }}
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e clients/python
+      - run: python examples/python/list_check_types.py
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: cd examples/javascript && npm install && node index.js
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - run: cd clients/typescript && npm install
+      - run: cd examples/typescript && npm install && npm run build && npm start
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: "3.3" }
+      - run: cd clients/ruby && gem build pescheck.gemspec && gem install ./pescheck-*.gem
+      - run: cd examples/ruby && ruby list_check_types.rb
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: "8.2", extensions: "curl, mbstring, json" }
+      - run: cd examples/php && composer install --no-interaction
+      - run: cd examples/php && php list_check_types.php
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-go@v5
+        with: { go-version: "1.22" }
+      - run: cd examples/go && go mod tidy && go run .
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: "17", cache: maven }
+      - run: mvn -q -B -f clients/java -DskipTests install
+      - run: mvn -q -B -f clients/java dependency:build-classpath -Dmdep.outputFile=$PWD/cp.txt
+      - run: |
+          CP="clients/java/target/classes:$(cat cp.txt)"
+          javac -cp "$CP" -d examples/java examples/java/Example.java
+          java -cp "examples/java:$CP" Example
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: "8.0.x" }
+      - run: dotnet run --project examples/csharp -c Release
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cd examples/rust && cargo run --quiet
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  cpp:
+    runs-on: ubuntu-latest
+    # cpp-restsdk + cpprestsdk/boost is the heaviest toolchain; don't fail the
+    # whole matrix if its build is flaky.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - id: token
+        uses: ./.github/actions/get-token
+        with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
+      - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev cmake g++
+      - run: cmake -S examples/cpp -B build && cmake --build build -j
+      - run: ./build/e2e
+        env:
+          PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}

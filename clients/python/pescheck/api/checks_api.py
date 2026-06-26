@@ -280,8 +280,6 @@ class ChecksApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -540,8 +538,6 @@ class ChecksApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 

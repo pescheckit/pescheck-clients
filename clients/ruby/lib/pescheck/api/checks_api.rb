@@ -58,7 +58,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'Array<V2CheckInfo>'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ChecksApi.v2_checks_list",
@@ -122,7 +122,7 @@ module Pescheck
       return_type = opts[:debug_return_type] || 'V2CheckInfo'
 
       # auth_names
-      auth_names = opts[:debug_auth_names] || ['oauth2', 'oauth2', 'oauth2']
+      auth_names = opts[:debug_auth_names] || ['oauth2']
 
       new_options = opts.merge(
         :operation => :"ChecksApi.v2_checks_retrieve",

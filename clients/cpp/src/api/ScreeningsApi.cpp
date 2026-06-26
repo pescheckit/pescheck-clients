@@ -125,10 +125,6 @@ pplx::task<std::shared_ptr<V2ScreeningDetail>> ScreeningsApi::v2ScreeningsCreate
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -260,10 +256,6 @@ pplx::task<std::vector<std::shared_ptr<V2Document>>> ScreeningsApi::v2Screenings
         throw ApiException(415, utility::conversions::to_string_t("ScreeningsApi->v2ScreeningsDocumentsList does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -406,10 +398,6 @@ pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> ScreeningsApi::v2S
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("GET"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -533,10 +521,6 @@ pplx::task<std::shared_ptr<V2ScreeningDetail>> ScreeningsApi::v2ScreeningsRetrie
         throw ApiException(415, utility::conversions::to_string_t("ScreeningsApi->v2ScreeningsRetrieve does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 

@@ -8,4 +8,4 @@ gitRepoId: pescheck-clients
 additionalProperties:
   invokerPackage: Pescheck\Client
   packageName: pescheck-api-client
-  artifactVersion: 2.0.0
+  artifactVersion: 0.0.1

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2Candidate model module.
  * @module model/V2Candidate
- * @version 2.0.0
+ * @version 0.0.1
  */
 class V2Candidate {
     /**

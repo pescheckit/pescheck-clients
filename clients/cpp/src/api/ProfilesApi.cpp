@@ -125,10 +125,6 @@ pplx::task<std::shared_ptr<V2ProfileDetail>> ProfilesApi::v2ProfilesCreate(std::
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("POST"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -251,10 +247,6 @@ pplx::task<void> ProfilesApi::v2ProfilesDestroy(utility::string_t id) const
         throw ApiException(415, utility::conversions::to_string_t("ProfilesApi->v2ProfilesDestroy does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -389,10 +381,6 @@ pplx::task<std::shared_ptr<PaginatedV2ProfileListItemList>> ProfilesApi::v2Profi
         throw ApiException(415, utility::conversions::to_string_t("ProfilesApi->v2ProfilesList does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -538,10 +526,6 @@ pplx::task<std::shared_ptr<V2ProfileDetail>> ProfilesApi::v2ProfilesPartialUpdat
 
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
 
     return m_ApiClient->callApi(localVarPath, utility::conversions::to_string_t("PATCH"), localVarQueryParams, localVarHttpBody, localVarHeaderParams, localVarFormParams, localVarFileParams, localVarRequestHttpContentType)
     .then([=, this](web::http::http_response localVarResponse)
@@ -665,10 +649,6 @@ pplx::task<std::shared_ptr<V2ProfileDetail>> ProfilesApi::v2ProfilesRetrieve(uti
         throw ApiException(415, utility::conversions::to_string_t("ProfilesApi->v2ProfilesRetrieve does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 
@@ -818,10 +798,6 @@ pplx::task<std::shared_ptr<V2ProfileDetail>> ProfilesApi::v2ProfilesUpdate(utili
         throw ApiException(415, utility::conversions::to_string_t("ProfilesApi->v2ProfilesUpdate does not consume any supported media type"));
     }
 
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
-    // authentication (oauth2) required
-    // oauth2 authentication is added automatically as part of the http_client_config
     // authentication (oauth2) required
     // oauth2 authentication is added automatically as part of the http_client_config
 

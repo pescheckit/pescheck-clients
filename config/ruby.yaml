@@ -8,4 +8,4 @@ library: faraday
 additionalProperties:
   gemName: pescheck
   moduleName: Pescheck
-  gemVersion: 2.0.0
+  gemVersion: 0.0.1

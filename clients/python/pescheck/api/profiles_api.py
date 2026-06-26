@@ -294,8 +294,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -547,8 +545,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -911,8 +907,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -1203,8 +1197,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -1463,8 +1455,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 
@@ -1755,8 +1745,6 @@ class ProfilesApi:
 
         # authentication setting
         _auth_settings: List[str] = [
-            'oauth2', 
-            'oauth2', 
             'oauth2'
         ]
 

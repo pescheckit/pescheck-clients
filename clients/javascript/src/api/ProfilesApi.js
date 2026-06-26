@@ -22,7 +22,7 @@ import V2ProfileUpdate from '../model/V2ProfileUpdate';
 /**
 * Profiles service.
 * @module api/ProfilesApi
-* @version 2.0.0
+* @version 0.0.1
 */
 export default class ProfilesApi {
 
@@ -59,7 +59,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = V2ProfileDetail;
@@ -103,7 +103,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = [];
       let returnType = null;
@@ -157,7 +157,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = PaginatedV2ProfileListItemList;
@@ -212,7 +212,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = V2ProfileDetail;
@@ -259,7 +259,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = [];
       let accepts = ['application/json'];
       let returnType = V2ProfileDetail;
@@ -309,7 +309,7 @@ export default class ProfilesApi {
       let formParams = {
       };
 
-      let authNames = ['oauth2', 'oauth2', 'oauth2'];
+      let authNames = ['oauth2'];
       let contentTypes = ['application/json', 'multipart/form-data'];
       let accepts = ['application/json'];
       let returnType = V2ProfileDetail;
