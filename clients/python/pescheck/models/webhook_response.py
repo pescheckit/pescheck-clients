@@ -36,8 +36,8 @@ class WebhookResponse(BaseModel):
     events: Optional[Any]
     active: Optional[StrictBool] = None
     verified: StrictBool
-    token: Optional[StrictStr]
-    organisation_name: StrictStr
+    token: Optional[StrictStr] = None
+    organisation_name: Optional[StrictStr] = None
     created_at: datetime
     updated_at: datetime
     __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"]

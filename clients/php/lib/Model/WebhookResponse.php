@@ -361,12 +361,6 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['verified'] === null) {
             $invalidProperties[] = "'verified' can't be null";
         }
-        if ($this->container['token'] === null && !$this->isNullableSetToNull('token')) {
-            $invalidProperties[] = "'token' is required";
-        }
-        if ($this->container['organisation_name'] === null) {
-            $invalidProperties[] = "'organisation_name' can't be null";
-        }
         if ($this->container['created_at'] === null) {
             $invalidProperties[] = "'created_at' can't be null";
         }
@@ -602,7 +596,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets organisation_name
      *
-     * @return string
+     * @return string|null
      */
     public function getOrganisationName()
     {
@@ -612,7 +606,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets organisation_name
      *
-     * @param string $organisation_name organisation_name
+     * @param string|null $organisation_name organisation_name
      *
      * @return self
      */

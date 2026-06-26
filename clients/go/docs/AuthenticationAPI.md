@@ -163,7 +163,7 @@ import (
 )
 
 func main() {
-	tokenRefresh := *openapiclient.NewTokenRefresh("Access_example", "Refresh_example") // TokenRefresh | 
+	tokenRefresh := *openapiclient.NewTokenRefresh("Refresh_example") // TokenRefresh | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -60,13 +60,13 @@ export interface WebhookResponse {
      * @type {string}
      * @memberof WebhookResponse
      */
-    readonly token: string | null;
+    readonly token?: string | null;
     /**
      * 
      * @type {string}
      * @memberof WebhookResponse
      */
-    readonly organisationName: string;
+    readonly organisationName?: string;
     /**
      * 
      * @type {Date}
@@ -90,8 +90,6 @@ export function instanceOfWebhookResponse(value: any): value is WebhookResponse 
     if (!('url' in value) || value['url'] === undefined) return false;
     if (!('events' in value) || value['events'] === undefined) return false;
     if (!('verified' in value) || value['verified'] === undefined) return false;
-    if (!('token' in value) || value['token'] === undefined) return false;
-    if ((!('organisationName' in value) && !('organisation_name' in value)) || (value['organisationName'] === undefined && value['organisation_name'] === undefined)) return false;
     if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
     if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
@@ -113,8 +111,8 @@ export function WebhookResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
         'events': json['events'],
         'active': json['active'] == null ? undefined : json['active'],
         'verified': json['verified'],
-        'token': json['token'],
-        'organisationName': json['organisation_name'],
+        'token': json['token'] == null ? undefined : json['token'],
+        'organisationName': json['organisation_name'] == null ? undefined : json['organisation_name'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };

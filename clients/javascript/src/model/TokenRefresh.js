@@ -22,12 +22,11 @@ class TokenRefresh {
     /**
      * Constructs a new <code>TokenRefresh</code>.
      * @alias module:model/TokenRefresh
-     * @param access {String} 
      * @param refresh {String} 
      */
-    constructor(access, refresh) { 
+    constructor(refresh) { 
         
-        TokenRefresh.initialize(this, access, refresh);
+        TokenRefresh.initialize(this, refresh);
     }
 
     /**
@@ -35,8 +34,7 @@ class TokenRefresh {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, access, refresh) { 
-        obj['access'] = access;
+    static initialize(obj, refresh) { 
         obj['refresh'] = refresh;
     }
 
@@ -88,7 +86,7 @@ class TokenRefresh {
 
 }
 
-TokenRefresh.RequiredProperties = ["access", "refresh"];
+TokenRefresh.RequiredProperties = ["refresh"];
 
 /**
  * @member {String} access

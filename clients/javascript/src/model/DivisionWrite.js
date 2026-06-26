@@ -22,7 +22,6 @@ class DivisionWrite {
     /**
      * Constructs a new <code>DivisionWrite</code>.
      * @alias module:model/DivisionWrite
-     * @param id {String} 
      * @param name {String} 
      * @param city {String} 
      * @param address {String} 
@@ -32,9 +31,9 @@ class DivisionWrite {
      * @param contactEmail {String} 
      * @param invoiceEmail {String} 
      */
-    constructor(id, name, city, address, postal, phone, contactName, contactEmail, invoiceEmail) { 
+    constructor(name, city, address, postal, phone, contactName, contactEmail, invoiceEmail) { 
         
-        DivisionWrite.initialize(this, id, name, city, address, postal, phone, contactName, contactEmail, invoiceEmail);
+        DivisionWrite.initialize(this, name, city, address, postal, phone, contactName, contactEmail, invoiceEmail);
     }
 
     /**
@@ -42,8 +41,7 @@ class DivisionWrite {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, city, address, postal, phone, contactName, contactEmail, invoiceEmail) { 
-        obj['id'] = id;
+    static initialize(obj, name, city, address, postal, phone, contactName, contactEmail, invoiceEmail) { 
         obj['name'] = name;
         obj['city'] = city;
         obj['address'] = address;
@@ -160,7 +158,7 @@ class DivisionWrite {
 
 }
 
-DivisionWrite.RequiredProperties = ["id", "name", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email"];
+DivisionWrite.RequiredProperties = ["name", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email"];
 
 /**
  * @member {String} id

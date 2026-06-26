@@ -24,7 +24,7 @@ export interface TokenRefresh {
      * @type {string}
      * @memberof TokenRefresh
      */
-    readonly access: string;
+    readonly access?: string;
     /**
      * 
      * @type {string}
@@ -37,7 +37,6 @@ export interface TokenRefresh {
  * Check if a given object implements the TokenRefresh interface.
  */
 export function instanceOfTokenRefresh(value: any): value is TokenRefresh {
-    if (!('access' in value) || value['access'] === undefined) return false;
     if (!('refresh' in value) || value['refresh'] === undefined) return false;
     return true;
 }
@@ -52,7 +51,7 @@ export function TokenRefreshFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'access': json['access'],
+        'access': json['access'] == null ? undefined : json['access'],
         'refresh': json['refresh'],
     };
 }

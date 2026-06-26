@@ -54,7 +54,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Access
         /// </summary>
-        [DataMember(Name = "access", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "access", EmitDefaultValue = false)]
         public string Access { get; private set; }
 
         /// <summary>

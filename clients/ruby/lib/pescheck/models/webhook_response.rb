@@ -138,14 +138,10 @@ module Pescheck
 
       if attributes.key?(:'token')
         self.token = attributes[:'token']
-      else
-        self.token = nil
       end
 
       if attributes.key?(:'organisation_name')
         self.organisation_name = attributes[:'organisation_name']
-      else
-        self.organisation_name = nil
       end
 
       if attributes.key?(:'created_at')
@@ -190,10 +186,6 @@ module Pescheck
         invalid_properties.push('invalid value for "verified", verified cannot be nil.')
       end
 
-      if @organisation_name.nil?
-        invalid_properties.push('invalid value for "organisation_name", organisation_name cannot be nil.')
-      end
-
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -215,7 +207,6 @@ module Pescheck
       return false if @url.nil?
       return false if @url.to_s.length > 200
       return false if @verified.nil?
-      return false if @organisation_name.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
       true
@@ -267,16 +258,6 @@ module Pescheck
       end
 
       @verified = verified
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] organisation_name Value to be assigned
-    def organisation_name=(organisation_name)
-      if organisation_name.nil?
-        fail ArgumentError, 'organisation_name cannot be nil'
-      end
-
-      @organisation_name = organisation_name
     end
 
     # Custom attribute writer method with validation

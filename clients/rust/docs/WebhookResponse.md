@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **events** | Option<**serde_json::Value**> |  | [readonly]
 **active** | Option<**bool**> |  | [optional]
 **verified** | **bool** |  | [readonly]
-**token** | Option<**String**> |  | [readonly]
-**organisation_name** | **String** |  | [readonly]
+**token** | Option<**String**> |  | [optional][readonly]
+**organisation_name** | Option<**String**> |  | [optional][readonly]
 **created_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 **updated_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 

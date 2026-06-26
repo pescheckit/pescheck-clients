@@ -13,8 +13,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DivisionWrite {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "city")]
@@ -40,9 +40,9 @@ pub struct DivisionWrite {
 }
 
 impl DivisionWrite {
-    pub fn new(id: uuid::Uuid, name: String, city: String, address: String, postal: String, phone: String, contact_name: String, contact_email: String, invoice_email: String) -> DivisionWrite {
+    pub fn new(name: String, city: String, address: String, postal: String, phone: String, contact_name: String, contact_email: String, invoice_email: String) -> DivisionWrite {
         DivisionWrite {
-            id,
+            id: None,
             name,
             city,
             address,

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **uuid::Uuid** |  | [readonly]
+**id** | Option<**uuid::Uuid**> |  | [optional][readonly]
 **name** | **String** |  | 
 **city** | **String** |  | 
 **address** | **String** |  | 

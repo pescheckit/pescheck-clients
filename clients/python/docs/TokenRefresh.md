@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**access** | **str** |  | [readonly] 
+**access** | **str** |  | [optional] [readonly] 
 **refresh** | **str** |  | 
 
 ## Example

@@ -40,7 +40,6 @@ class TestTokenRefresh(unittest.TestCase):
             )
         else:
             return TokenRefresh(
-                access = '',
                 refresh = '',
         )
         """

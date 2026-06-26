@@ -31,7 +31,7 @@ Pescheck.configure do |config|
 end
 
 api_instance = Pescheck::DivisionsApi.new
-division_write = Pescheck::DivisionWrite.new({id: 'id_example', name: 'name_example', city: 'city_example', address: 'address_example', postal: 'postal_example', phone: 'phone_example', contact_name: 'contact_name_example', contact_email: 'contact_email_example', invoice_email: 'invoice_email_example'}) # DivisionWrite | 
+division_write = Pescheck::DivisionWrite.new({name: 'name_example', city: 'city_example', address: 'address_example', postal: 'postal_example', phone: 'phone_example', contact_name: 'contact_name_example', contact_email: 'contact_email_example', invoice_email: 'invoice_email_example'}) # DivisionWrite | 
 
 begin
   
@@ -318,7 +318,7 @@ end
 
 api_instance = Pescheck::DivisionsApi.new
 id = '38400000-8cf0-11bd-b23e-10b96e4ef00d' # String | A UUID string identifying this organisation.
-division_write = Pescheck::DivisionWrite.new({id: 'id_example', name: 'name_example', city: 'city_example', address: 'address_example', postal: 'postal_example', phone: 'phone_example', contact_name: 'contact_name_example', contact_email: 'contact_email_example', invoice_email: 'invoice_email_example'}) # DivisionWrite | 
+division_write = Pescheck::DivisionWrite.new({name: 'name_example', city: 'city_example', address: 'address_example', postal: 'postal_example', phone: 'phone_example', contact_name: 'contact_name_example', contact_email: 'contact_email_example', invoice_email: 'invoice_email_example'}) # DivisionWrite | 
 
 begin
   

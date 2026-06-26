@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **events** | **object** |  | [readonly] 
 **active** | **bool** |  | [optional] 
 **verified** | **bool** |  | [readonly] 
-**token** | **str** |  | [readonly] 
-**organisation_name** | **str** |  | [readonly] 
+**token** | **str** |  | [optional] [readonly] 
+**organisation_name** | **str** |  | [optional] [readonly] 
 **created_at** | **datetime** |  | [readonly] 
 **updated_at** | **datetime** |  | [readonly] 
 

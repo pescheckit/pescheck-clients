@@ -53,7 +53,7 @@ import io.pescheck.client.JSON;
 public class DivisionWrite {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -125,7 +125,7 @@ public class DivisionWrite {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -407,7 +407,7 @@ public class DivisionWrite {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email", "use_parent_on_email", "use_parent_on_billing", "use_parent_on_report"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("name", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email"));
   }
 
   /**
@@ -438,7 +438,7 @@ public class DivisionWrite {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {

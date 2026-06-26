@@ -29,7 +29,7 @@ class DivisionWrite(BaseModel):
     """
     DivisionWrite
     """ # noqa: E501
-    id: UUID
+    id: Optional[UUID] = None
     name: Annotated[str, Field(strict=True, max_length=255)]
     city: Annotated[str, Field(strict=True, max_length=255)]
     address: Annotated[str, Field(strict=True, max_length=255)]

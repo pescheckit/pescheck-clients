@@ -1638,7 +1638,6 @@ components:
         - city
         - contact_email
         - contact_name
-        - id
         - invoice_email
         - name
         - phone
@@ -1931,7 +1930,6 @@ components:
           type: string
           writeOnly: true
       required:
-        - access
         - refresh
     V2Candidate:
       type: object
@@ -3466,8 +3464,6 @@ components:
         - events
         - id
         - name
-        - organisation_name
-        - token
         - updated_at
         - url
         - verified

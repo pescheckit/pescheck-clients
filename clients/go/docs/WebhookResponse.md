@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Events** | **interface{}** |  | [readonly] 
 **Active** | Pointer to **bool** |  | [optional] 
 **Verified** | **bool** |  | [readonly] 
-**Token** | **NullableString** |  | [readonly] 
-**OrganisationName** | **string** |  | [readonly] 
+**Token** | Pointer to **NullableString** |  | [optional] [readonly] 
+**OrganisationName** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
 
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewWebhookResponse
 
-`func NewWebhookResponse(id string, name string, url string, events interface{}, verified bool, token NullableString, organisationName string, createdAt time.Time, updatedAt time.Time, ) *WebhookResponse`
+`func NewWebhookResponse(id string, name string, url string, events interface{}, verified bool, createdAt time.Time, updatedAt time.Time, ) *WebhookResponse`
 
 NewWebhookResponse instantiates a new WebhookResponse object
 This constructor will assign default values to properties that have it defined,
@@ -188,6 +188,11 @@ and a boolean to check if the value has been set.
 
 SetToken sets Token field to given value.
 
+### HasToken
+
+`func (o *WebhookResponse) HasToken() bool`
+
+HasToken returns a boolean if a field has been set.
 
 ### SetTokenNil
 
@@ -218,6 +223,11 @@ and a boolean to check if the value has been set.
 
 SetOrganisationName sets OrganisationName field to given value.
 
+### HasOrganisationName
+
+`func (o *WebhookResponse) HasOrganisationName() bool`
+
+HasOrganisationName returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

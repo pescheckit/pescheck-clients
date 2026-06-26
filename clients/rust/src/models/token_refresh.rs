@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TokenRefresh {
-    #[serde(rename = "access")]
-    pub access: String,
+    #[serde(rename = "access", skip_serializing_if = "Option::is_none")]
+    pub access: Option<String>,
     #[serde(rename = "refresh")]
     pub refresh: String,
 }
 
 impl TokenRefresh {
-    pub fn new(access: String, refresh: String) -> TokenRefresh {
+    pub fn new(refresh: String) -> TokenRefresh {
         TokenRefresh {
-            access,
+            access: None,
             refresh,
         }
     }

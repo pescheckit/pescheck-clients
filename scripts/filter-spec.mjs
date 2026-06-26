@@ -111,6 +111,52 @@ function stripDecimalFormat(node) {
 }
 stripDecimalFormat(doc.components?.schemas ?? {});
 
+// 5c. Relax over-strict `required` fields. The webhook *list* endpoint omits
+// `token` and `organisation_name` (it doesn't leak tokens in a list), but the
+// spec marks them required on WebhookResponse, so strict clients fail to
+// deserialize the list. Make them optional.
+const RELAX_REQUIRED = { WebhookResponse: ["token", "organisation_name"] };
+let relaxedRequired = 0;
+for (const [name, fields] of Object.entries(RELAX_REQUIRED)) {
+  const schema = doc.components?.schemas?.[name];
+  if (schema?.required) {
+    const before = schema.required.length;
+    schema.required = schema.required.filter((f) => !fields.includes(f));
+    relaxedRequired += before - schema.required.length;
+  }
+}
+
+// 5d. Strip readOnly properties from `required` on request-body schemas. e.g.
+// DivisionWrite marks `id` both readOnly and required, so generated clients
+// demand an id when *creating* a division — impossible to satisfy. Collect the
+// schemas used as request bodies (transitively) and drop readOnly-required.
+const reqBodyNames = new Set();
+const reqQueue = [];
+for (const item of Object.values(doc.paths)) {
+  for (const m of ["post", "put", "patch"]) {
+    const content = item[m]?.requestBody?.content;
+    if (!content) continue;
+    for (const media of Object.values(content)) {
+      for (const ref of collectRefs(media.schema ?? {}, new Set())) reqQueue.push(ref);
+    }
+  }
+}
+while (reqQueue.length) {
+  const parsed = refKey(reqQueue.pop());
+  if (!parsed || parsed.bucket !== "schemas" || reqBodyNames.has(parsed.name)) continue;
+  reqBodyNames.add(parsed.name);
+  const target = doc.components?.schemas?.[parsed.name];
+  if (target) for (const r of collectRefs(target, new Set())) reqQueue.push(r);
+}
+let readOnlyRequiredStripped = 0;
+for (const name of reqBodyNames) {
+  const schema = doc.components?.schemas?.[name];
+  if (!schema?.required || !schema.properties) continue;
+  const before = schema.required.length;
+  schema.required = schema.required.filter((f) => !schema.properties[f]?.readOnly);
+  readOnlyRequiredStripped += before - schema.required.length;
+}
+
 const oauth2 = doc.components?.securitySchemes?.oauth2;
 let trimmedFlows = 0;
 if (oauth2?.flows) {
@@ -131,3 +177,4 @@ console.log(`  paths kept:     ${Object.keys(keptPaths).length} (dropped ${dropp
 console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length} (pruned ${prunedSchemas})`);
 console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);
 console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);
+console.log(`  relaxed required: ${relaxedRequired} field(s); readOnly-required stripped: ${readOnlyRequiredStripped}`);

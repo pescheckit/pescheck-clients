@@ -21,7 +21,7 @@ var _ MappedNullable = &TokenRefresh{}
 
 // TokenRefresh struct for TokenRefresh
 type TokenRefresh struct {
-	Access string `json:"access"`
+	Access *string `json:"access,omitempty"`
 	Refresh string `json:"refresh"`
 }
 
@@ -31,9 +31,8 @@ type _TokenRefresh TokenRefresh
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTokenRefresh(access string, refresh string) *TokenRefresh {
+func NewTokenRefresh(refresh string) *TokenRefresh {
 	this := TokenRefresh{}
-	this.Access = access
 	this.Refresh = refresh
 	return &this
 }
@@ -46,28 +45,36 @@ func NewTokenRefreshWithDefaults() *TokenRefresh {
 	return &this
 }
 
-// GetAccess returns the Access field value
+// GetAccess returns the Access field value if set, zero value otherwise.
 func (o *TokenRefresh) GetAccess() string {
-	if o == nil {
+	if o == nil || IsNil(o.Access) {
 		var ret string
 		return ret
 	}
-
-	return o.Access
+	return *o.Access
 }
 
-// GetAccessOk returns a tuple with the Access field value
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenRefresh) GetAccessOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Access) {
 		return nil, false
 	}
-	return &o.Access, true
+	return o.Access, true
 }
 
-// SetAccess sets field value
+// HasAccess returns a boolean if a field has been set.
+func (o *TokenRefresh) HasAccess() bool {
+	if o != nil && !IsNil(o.Access) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given string and assigns it to the Access field.
 func (o *TokenRefresh) SetAccess(v string) {
-	o.Access = v
+	o.Access = &v
 }
 
 // GetRefresh returns the Refresh field value
@@ -104,7 +111,9 @@ func (o TokenRefresh) MarshalJSON() ([]byte, error) {
 
 func (o TokenRefresh) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["access"] = o.Access
+	if !IsNil(o.Access) {
+		toSerialize["access"] = o.Access
+	}
 	toSerialize["refresh"] = o.Refresh
 	return toSerialize, nil
 }
@@ -114,7 +123,6 @@ func (o *TokenRefresh) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"access",
 		"refresh",
 	}
 

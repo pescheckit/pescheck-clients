@@ -50,7 +50,6 @@ class TestDivisionWrite(unittest.TestCase):
             )
         else:
             return DivisionWrite(
-                id = '',
                 name = '',
                 city = '',
                 address = '',

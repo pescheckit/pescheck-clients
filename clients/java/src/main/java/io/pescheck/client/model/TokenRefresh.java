@@ -52,7 +52,7 @@ import io.pescheck.client.JSON;
 public class TokenRefresh {
   public static final String SERIALIZED_NAME_ACCESS = "access";
   @SerializedName(SERIALIZED_NAME_ACCESS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String access;
 
   public static final String SERIALIZED_NAME_REFRESH = "refresh";
@@ -74,7 +74,7 @@ public class TokenRefresh {
    * Get access
    * @return access
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getAccess() {
     return access;
   }
@@ -146,7 +146,7 @@ public class TokenRefresh {
     openapiFields = new HashSet<String>(Arrays.asList("access", "refresh"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("access", "refresh"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("refresh"));
   }
 
   /**
@@ -177,7 +177,7 @@ public class TokenRefresh {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("access").isJsonPrimitive()) {
+      if ((jsonObj.get("access") != null && !jsonObj.get("access").isJsonNull()) && !jsonObj.get("access").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `access` to be a primitive type in the JSON string but got `%s`", jsonObj.get("access").toString()));
       }
       if (!jsonObj.get("refresh").isJsonPrimitive()) {

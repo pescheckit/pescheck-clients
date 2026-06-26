@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Access** | **string** |  | [readonly] 
+**Access** | Pointer to **string** |  | [optional] [readonly] 
 **Refresh** | **string** |  | 
 
 ## Methods
 
 ### NewTokenRefresh
 
-`func NewTokenRefresh(access string, refresh string, ) *TokenRefresh`
+`func NewTokenRefresh(refresh string, ) *TokenRefresh`
 
 NewTokenRefresh instantiates a new TokenRefresh object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetAccess sets Access field to given value.
 
+### HasAccess
+
+`func (o *TokenRefresh) HasAccess() bool`
+
+HasAccess returns a boolean if a field has been set.
 
 ### GetRefresh
 

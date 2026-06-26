@@ -69,8 +69,6 @@ module Pescheck
 
       if attributes.key?(:'access')
         self.access = attributes[:'access']
-      else
-        self.access = nil
       end
 
       if attributes.key?(:'refresh')
@@ -85,10 +83,6 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @access.nil?
-        invalid_properties.push('invalid value for "access", access cannot be nil.')
-      end
-
       if @refresh.nil?
         invalid_properties.push('invalid value for "refresh", refresh cannot be nil.')
       end
@@ -100,19 +94,8 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @access.nil?
       return false if @refresh.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] access Value to be assigned
-    def access=(access)
-      if access.nil?
-        fail ArgumentError, 'access cannot be nil'
-      end
-
-      @access = access
     end
 
     # Custom attribute writer method with validation

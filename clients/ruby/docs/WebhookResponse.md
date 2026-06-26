@@ -10,8 +10,8 @@
 | **events** | **Object** |  | [readonly] |
 | **active** | **Boolean** |  | [optional] |
 | **verified** | **Boolean** |  | [readonly] |
-| **token** | **String** |  | [readonly] |
-| **organisation_name** | **String** |  | [readonly] |
+| **token** | **String** |  | [optional][readonly] |
+| **organisation_name** | **String** |  | [optional][readonly] |
 | **created_at** | **Time** |  | [readonly] |
 | **updated_at** | **Time** |  | [readonly] |
 

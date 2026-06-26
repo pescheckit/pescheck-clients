@@ -281,9 +281,6 @@ class TokenRefresh implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['access'] === null) {
-            $invalidProperties[] = "'access' can't be null";
-        }
         if ($this->container['refresh'] === null) {
             $invalidProperties[] = "'refresh' can't be null";
         }
@@ -305,7 +302,7 @@ class TokenRefresh implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets access
      *
-     * @return string
+     * @return string|null
      */
     public function getAccess()
     {
@@ -315,7 +312,7 @@ class TokenRefresh implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets access
      *
-     * @param string $access access
+     * @param string|null $access access
      *
      * @return self
      */

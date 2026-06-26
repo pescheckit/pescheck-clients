@@ -123,7 +123,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Token
         /// </summary>
-        [DataMember(Name = "token", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "token", EmitDefaultValue = true)]
         public string Token { get; private set; }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets OrganisationName
         /// </summary>
-        [DataMember(Name = "organisation_name", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "organisation_name", EmitDefaultValue = false)]
         public string OrganisationName { get; private set; }
 
         /// <summary>

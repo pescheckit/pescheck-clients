@@ -5,7 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [readonly] 
+**id** | **UUID** |  | [optional] [readonly] 
 **name** | **str** |  | 
 **city** | **str** |  | 
 **address** | **str** |  | 

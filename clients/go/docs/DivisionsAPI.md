@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	divisionWrite := *openapiclient.NewDivisionWrite("Id_example", "Name_example", "City_example", "Address_example", "Postal_example", "Phone_example", "ContactName_example", "ContactEmail_example", "InvoiceEmail_example") // DivisionWrite | 
+	divisionWrite := *openapiclient.NewDivisionWrite("Name_example", "City_example", "Address_example", "Postal_example", "Phone_example", "ContactName_example", "ContactEmail_example", "InvoiceEmail_example") // DivisionWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -312,7 +312,7 @@ import (
 
 func main() {
 	id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | A UUID string identifying this organisation.
-	divisionWrite := *openapiclient.NewDivisionWrite("Id_example", "Name_example", "City_example", "Address_example", "Postal_example", "Phone_example", "ContactName_example", "ContactEmail_example", "InvoiceEmail_example") // DivisionWrite | 
+	divisionWrite := *openapiclient.NewDivisionWrite("Name_example", "City_example", "Address_example", "Postal_example", "Phone_example", "ContactName_example", "ContactEmail_example", "InvoiceEmail_example") // DivisionWrite | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

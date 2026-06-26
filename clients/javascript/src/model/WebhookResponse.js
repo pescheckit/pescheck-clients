@@ -28,14 +28,12 @@ class WebhookResponse {
      * @param url {String} 
      * @param events {Object} 
      * @param verified {Boolean} 
-     * @param token {String} 
-     * @param organisationName {String} 
      * @param createdAt {Date} 
      * @param updatedAt {Date} 
      */
-    constructor(id, name, url, events, verified, token, organisationName, createdAt, updatedAt) { 
+    constructor(id, name, url, events, verified, createdAt, updatedAt) { 
         
-        WebhookResponse.initialize(this, id, name, url, events, verified, token, organisationName, createdAt, updatedAt);
+        WebhookResponse.initialize(this, id, name, url, events, verified, createdAt, updatedAt);
     }
 
     /**
@@ -43,14 +41,12 @@ class WebhookResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, url, events, verified, token, organisationName, createdAt, updatedAt) { 
+    static initialize(obj, id, name, url, events, verified, createdAt, updatedAt) { 
         obj['id'] = id;
         obj['name'] = name;
         obj['url'] = url;
         obj['events'] = events;
         obj['verified'] = verified;
-        obj['token'] = token;
-        obj['organisation_name'] = organisationName;
         obj['created_at'] = createdAt;
         obj['updated_at'] = updatedAt;
     }
@@ -139,7 +135,7 @@ class WebhookResponse {
 
 }
 
-WebhookResponse.RequiredProperties = ["id", "name", "url", "events", "verified", "token", "organisation_name", "created_at", "updated_at"];
+WebhookResponse.RequiredProperties = ["id", "name", "url", "events", "verified", "created_at", "updated_at"];
 
 /**
  * @member {String} id

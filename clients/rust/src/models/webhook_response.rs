@@ -26,10 +26,10 @@ pub struct WebhookResponse {
     pub active: Option<bool>,
     #[serde(rename = "verified")]
     pub verified: bool,
-    #[serde(rename = "token", deserialize_with = "Option::deserialize")]
-    pub token: Option<String>,
-    #[serde(rename = "organisation_name")]
-    pub organisation_name: String,
+    #[serde(rename = "token", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub token: Option<Option<String>>,
+    #[serde(rename = "organisation_name", skip_serializing_if = "Option::is_none")]
+    pub organisation_name: Option<String>,
     #[serde(rename = "created_at")]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "updated_at")]
@@ -38,7 +38,7 @@ pub struct WebhookResponse {
 
 impl WebhookResponse {
     /// Serializer for webhook responses
-    pub fn new(id: uuid::Uuid, name: String, url: String, events: Option<serde_json::Value>, verified: bool, token: Option<String>, organisation_name: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> WebhookResponse {
+    pub fn new(id: uuid::Uuid, name: String, url: String, events: Option<serde_json::Value>, verified: bool, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> WebhookResponse {
         WebhookResponse {
             id,
             name,
@@ -46,8 +46,8 @@ impl WebhookResponse {
             events,
             active: None,
             verified,
-            token,
-            organisation_name,
+            token: None,
+            organisation_name: None,
             created_at,
             updated_at,
         }

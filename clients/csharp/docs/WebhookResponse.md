@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Events** | **Object** |  | [readonly] 
 **Active** | **bool** |  | [optional] 
 **Verified** | **bool** |  | [readonly] 
-**Token** | **string** |  | [readonly] 
-**OrganisationName** | **string** |  | [readonly] 
+**Token** | **string** |  | [optional] [readonly] 
+**OrganisationName** | **string** |  | [optional] [readonly] 
 **CreatedAt** | **DateTime** |  | [readonly] 
 **UpdatedAt** | **DateTime** |  | [readonly] 
 

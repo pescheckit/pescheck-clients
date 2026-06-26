@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **events** | **Object** |  | [readonly] 
 **active** | **Boolean** |  | [optional] 
 **verified** | **Boolean** |  | [readonly] 
-**token** | **String** |  | [readonly] 
-**organisationName** | **String** |  | [readonly] 
+**token** | **String** |  | [optional] [readonly] 
+**organisationName** | **String** |  | [optional] [readonly] 
 **createdAt** | **Date** |  | [readonly] 
 **updatedAt** | **Date** |  | [readonly] 
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **Guid** |  | [readonly] 
+**Id** | **Guid** |  | [optional] [readonly] 
 **Name** | **string** |  | 
 **City** | **string** |  | 
 **Address** | **string** |  | 

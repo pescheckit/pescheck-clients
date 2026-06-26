@@ -24,7 +24,7 @@ export interface DivisionWrite {
      * @type {string}
      * @memberof DivisionWrite
      */
-    readonly id: string;
+    readonly id?: string;
     /**
      * 
      * @type {string}
@@ -97,7 +97,6 @@ export interface DivisionWrite {
  * Check if a given object implements the DivisionWrite interface.
  */
 export function instanceOfDivisionWrite(value: any): value is DivisionWrite {
-    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('city' in value) || value['city'] === undefined) return false;
     if (!('address' in value) || value['address'] === undefined) return false;
@@ -119,7 +118,7 @@ export function DivisionWriteFromJSONTyped(json: any, ignoreDiscriminator: boole
     }
     return {
         
-        'id': json['id'],
+        'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'],
         'city': json['city'],
         'address': json['address'],

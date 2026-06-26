@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [readonly] |
+| **id** | **String** |  | [optional][readonly] |
 | **name** | **String** |  |  |
 | **city** | **String** |  |  |
 | **address** | **String** |  |  |

@@ -24,6 +24,7 @@ import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -90,7 +91,7 @@ public class WebhookResponse {
 
   public static final String SERIALIZED_NAME_ORGANISATION_NAME = "organisation_name";
   @SerializedName(SERIALIZED_NAME_ORGANISATION_NAME)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String organisationName;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
@@ -230,7 +231,7 @@ public class WebhookResponse {
    * Get organisationName
    * @return organisationName
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getOrganisationName() {
     return organisationName;
   }
@@ -281,9 +282,20 @@ public class WebhookResponse {
         Objects.equals(this.updatedAt, webhookResponse.updatedAt);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(id, name, url, events, active, verified, token, organisationName, createdAt, updatedAt);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -321,7 +333,7 @@ public class WebhookResponse {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "url", "events", "verified", "token", "organisation_name", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "url", "events", "verified", "created_at", "updated_at"));
   }
 
   /**
@@ -364,7 +376,7 @@ public class WebhookResponse {
       if ((jsonObj.get("token") != null && !jsonObj.get("token").isJsonNull()) && !jsonObj.get("token").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `token` to be a primitive type in the JSON string but got `%s`", jsonObj.get("token").toString()));
       }
-      if (!jsonObj.get("organisation_name").isJsonPrimitive()) {
+      if ((jsonObj.get("organisation_name") != null && !jsonObj.get("organisation_name").isJsonNull()) && !jsonObj.get("organisation_name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `organisation_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organisation_name").toString()));
       }
   }

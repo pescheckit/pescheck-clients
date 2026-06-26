@@ -167,7 +167,7 @@ Pescheck.configure do |config|
 end
 
 api_instance = Pescheck::AuthenticationApi.new
-token_refresh = Pescheck::TokenRefresh.new({access: 'access_example', refresh: 'refresh_example'}) # TokenRefresh | 
+token_refresh = Pescheck::TokenRefresh.new({refresh: 'refresh_example'}) # TokenRefresh | 
 
 begin
   

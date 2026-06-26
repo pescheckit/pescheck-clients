@@ -14,8 +14,8 @@ Serializer for webhook responses
 |**events** | **Object** |  |  [readonly] |
 |**active** | **Boolean** |  |  [optional] |
 |**verified** | **Boolean** |  |  [readonly] |
-|**token** | **String** |  |  [readonly] |
-|**organisationName** | **String** |  |  [readonly] |
+|**token** | **String** |  |  [optional] [readonly] |
+|**organisationName** | **String** |  |  [optional] [readonly] |
 |**createdAt** | **OffsetDateTime** |  |  [readonly] |
 |**updatedAt** | **OffsetDateTime** |  |  [readonly] |
 

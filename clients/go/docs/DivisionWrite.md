@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
 **Name** | **string** |  | 
 **City** | **string** |  | 
 **Address** | **string** |  | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewDivisionWrite
 
-`func NewDivisionWrite(id string, name string, city string, address string, postal string, phone string, contactName string, contactEmail string, invoiceEmail string, ) *DivisionWrite`
+`func NewDivisionWrite(name string, city string, address string, postal string, phone string, contactName string, contactEmail string, invoiceEmail string, ) *DivisionWrite`
 
 NewDivisionWrite instantiates a new DivisionWrite object
 This constructor will assign default values to properties that have it defined,
@@ -55,6 +55,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *DivisionWrite) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
