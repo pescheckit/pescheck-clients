@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The OAuthApplicationResponse model module.
  * @module model/OAuthApplicationResponse
- * @version 0.0.3
+ * @version 0.0.4
  */
 class OAuthApplicationResponse {
     /**

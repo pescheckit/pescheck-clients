@@ -17,7 +17,7 @@ import V2ProfileListItem from './V2ProfileListItem';
 /**
  * The PaginatedV2ProfileListItemList model module.
  * @module model/PaginatedV2ProfileListItemList
- * @version 0.0.3
+ * @version 0.0.4
  */
 class PaginatedV2ProfileListItemList {
     /**

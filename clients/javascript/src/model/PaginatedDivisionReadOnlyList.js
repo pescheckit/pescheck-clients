@@ -17,7 +17,7 @@ import DivisionReadOnly from './DivisionReadOnly';
 /**
  * The PaginatedDivisionReadOnlyList model module.
  * @module model/PaginatedDivisionReadOnlyList
- * @version 0.0.3
+ * @version 0.0.4
  */
 class PaginatedDivisionReadOnlyList {
     /**

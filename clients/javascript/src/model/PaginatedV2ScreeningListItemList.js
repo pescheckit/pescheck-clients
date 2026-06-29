@@ -17,7 +17,7 @@ import V2ScreeningListItem from './V2ScreeningListItem';
 /**
  * The PaginatedV2ScreeningListItemList model module.
  * @module model/PaginatedV2ScreeningListItemList
- * @version 0.0.3
+ * @version 0.0.4
  */
 class PaginatedV2ScreeningListItemList {
     /**

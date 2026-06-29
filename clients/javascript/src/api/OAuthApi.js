@@ -19,7 +19,7 @@ import OAuthApplicationResponse from '../model/OAuthApplicationResponse';
 /**
 * OAuth service.
 * @module api/OAuthApi
-* @version 0.0.3
+* @version 0.0.4
 */
 export default class OAuthApi {
 

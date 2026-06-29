@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DivisionReadOnly model module.
  * @module model/DivisionReadOnly
- * @version 0.0.3
+ * @version 0.0.4
  */
 class DivisionReadOnly {
     /**

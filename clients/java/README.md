@@ -40,7 +40,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.pescheck</groupId>
   <artifactId>pescheck-api-client</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +56,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "io.pescheck:pescheck-api-client:0.0.3"
+     implementation "io.pescheck:pescheck-api-client:0.0.4"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pescheck-api-client-0.0.3.jar`
+* `target/pescheck-api-client-0.0.4.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

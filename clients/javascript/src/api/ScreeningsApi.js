@@ -21,7 +21,7 @@ import V2ScreeningDetail from '../model/V2ScreeningDetail';
 /**
 * Screenings service.
 * @module api/ScreeningsApi
-* @version 0.0.3
+* @version 0.0.4
 */
 export default class ScreeningsApi {
 
