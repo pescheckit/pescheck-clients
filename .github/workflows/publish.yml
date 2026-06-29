@@ -29,6 +29,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: npm, path: clients/typescript }
       - name: Install
         working-directory: clients/typescript
         run: npm install
@@ -38,7 +41,13 @@ jobs:
       - name: Publish
         if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/typescript
-        run: npm publish --access public
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "@pescheckit/pescheck-client@$VER" version >/dev/null 2>&1; then
+            echo "@pescheckit/pescheck-client@$VER already published - skipping"
+          else
+            npm publish --access public
+          fi
       - name: Verify from registry (exact version)
         if: env.NODE_AUTH_TOKEN != ''
         uses: ./.github/actions/verify-from-registry
@@ -56,13 +65,22 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: npm, path: clients/javascript }
       - name: Install + build (babel)
         working-directory: clients/javascript
         run: npm install
       - name: Publish
         if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/javascript
-        run: npm publish --access public
+        run: |
+          VER=$(node -p "require('./package.json').version")
+          if npm view "@pescheckit/pescheck-client-js@$VER" version >/dev/null 2>&1; then
+            echo "@pescheckit/pescheck-client-js@$VER already published - skipping"
+          else
+            npm publish --access public
+          fi
       - name: Verify from registry (exact version)
         if: env.NODE_AUTH_TOKEN != ''
         uses: ./.github/actions/verify-from-registry
@@ -80,6 +98,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
         with: { ruby-version: "3.3" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: rubygems, path: clients/ruby }
       - name: Lint (syntax)
         working-directory: clients/ruby
         run: find lib -name '*.rb' -print0 | xargs -0 -n1 ruby -c >/dev/null
@@ -90,10 +111,15 @@ jobs:
         if: env.RUBYGEMS_API_KEY != ''
         working-directory: clients/ruby
         run: |
-          mkdir -p ~/.gem
-          printf -- "---\n:rubygems_api_key: %s\n" "$RUBYGEMS_API_KEY" > ~/.gem/credentials
-          chmod 600 ~/.gem/credentials
-          gem push *.gem
+          VER=$(ls pescheck-client-*.gem | sed -E 's/pescheck-client-(.*)\.gem/\1/')
+          if curl -fsS "https://rubygems.org/api/v1/versions/pescheck-client.json" | grep -q "\"number\":\"$VER\""; then
+            echo "pescheck-client $VER already on RubyGems - skipping"
+          else
+            mkdir -p ~/.gem
+            printf -- "---\n:rubygems_api_key: %s\n" "$RUBYGEMS_API_KEY" > ~/.gem/credentials
+            chmod 600 ~/.gem/credentials
+            gem push *.gem
+          fi
       - name: Verify from registry (exact version)
         if: env.RUBYGEMS_API_KEY != ''
         uses: ./.github/actions/verify-from-registry
@@ -110,13 +136,22 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: cargo, path: clients/rust }
       - name: Lint + build
         working-directory: clients/rust
         run: cargo build
       - name: Publish
         if: env.CARGO_REGISTRY_TOKEN != ''
         working-directory: clients/rust
-        run: cargo publish --allow-dirty --token "$CARGO_REGISTRY_TOKEN"
+        run: |
+          VER=$(grep -m1 '^version' Cargo.toml | sed -E 's/.*"([^"]+)".*/\1/')
+          if curl -fsS -A "pescheck-ci (brampescheck@gmail.com)" "https://crates.io/api/v1/crates/pescheck-client/$VER" | grep -q "\"num\":\"$VER\""; then
+            echo "pescheck-client $VER already on crates.io - skipping"
+          else
+            cargo publish --allow-dirty --token "$CARGO_REGISTRY_TOKEN"
+          fi
       - name: Verify from registry (exact version)
         if: env.CARGO_REGISTRY_TOKEN != ''
         uses: ./.github/actions/verify-from-registry
@@ -152,6 +187,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v5
         with: { dotnet-version: "8.0.x" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: nuget, path: clients/csharp }
       - name: Lint + build
         working-directory: clients/csharp
         run: dotnet build -c Release
@@ -186,6 +224,9 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: python, path: clients/python }
       - name: Lint (compile) + build
         working-directory: clients/python
         run: |
@@ -218,21 +259,30 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: "17" }
+      - name: Set version from tag
+        uses: ./.github/actions/set-version
+        with: { ecosystem: java, path: clients/java }
       - name: Lint + build
         working-directory: clients/java
         run: mvn --batch-mode -DskipTests package
       - name: Publish to GitHub Packages
         working-directory: clients/java
         run: |
-          mkdir -p ~/.m2
-          cat > ~/.m2/settings.xml <<XML
+          VER=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version | tail -1)
+          META="https://maven.pkg.github.com/${GITHUB_REPOSITORY}/io/pescheck/pescheck-client/maven-metadata.xml"
+          if curl -fsSL -u "$GITHUB_ACTOR:$GITHUB_TOKEN" "$META" 2>/dev/null | grep -q "<version>$VER</version>"; then
+            echo "io.pescheck:pescheck-client $VER already on GitHub Packages - skipping"
+          else
+            mkdir -p ~/.m2
+            cat > ~/.m2/settings.xml <<XML
           <settings><servers><server>
             <id>github</id><username>${GITHUB_ACTOR}</username><password>${GITHUB_TOKEN}</password>
           </server></servers></settings>
           XML
-          mvn --batch-mode -DskipTests \
-            -DaltDeploymentRepository=github::https://maven.pkg.github.com/${GITHUB_REPOSITORY} \
-            deploy
+            mvn --batch-mode -DskipTests \
+              -DaltDeploymentRepository=github::https://maven.pkg.github.com/${GITHUB_REPOSITORY} \
+              deploy
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -250,9 +300,12 @@ jobs:
         run: cd clients/go && go mod tidy && go build ./...
       - name: Tag Go submodule
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          git tag "clients/go/v${VERSION}"
-          git push origin "clients/go/v${VERSION}"
+          TAG="clients/go/${GITHUB_REF_NAME}"
+          if git ls-remote --tags origin "$TAG" | grep -q "$TAG"; then
+            echo "$TAG already exists - skipping"
+          else
+            git tag "$TAG" && git push origin "$TAG"
+          fi
 
   # C++: no registry - attach a source tarball to the release.
   cpp:
