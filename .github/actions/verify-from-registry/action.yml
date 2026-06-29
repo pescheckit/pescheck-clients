@@ -42,7 +42,7 @@ runs:
                 && python -c "import importlib.metadata as m; v=m.version('$PKG'); assert v=='$VER', 'version mismatch: '+v; import pescheck; print('imported pescheck from '+'$PKG'+'=='+v)" ;;
             cargo)
               ident=$(printf '%s' "$PKG" | tr '-' '_')
-              ( cd "$work" && cargo init -q . && cargo add "$PKG@=$VER" \
+              ( cd "$work" && cargo init -q --name verify_consumer . && cargo add "$PKG@=$VER" \
                 && printf 'use %s::apis::configuration::Configuration;\nfn main(){ let _=Configuration::new(); println!("used %s"); }\n' "$ident" "$PKG" > src/main.rs \
                 && cargo run --quiet ) ;;
             rubygems)

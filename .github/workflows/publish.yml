@@ -171,6 +171,17 @@ jobs:
         run: find clients/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
       - name: Build (validate manifest)
         run: composer validate --no-check-publish
+      - name: Trigger Packagist update (no GitHub webhook on this package)
+        env:
+          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
+        run: |
+          if [ -n "$PACKAGIST_TOKEN" ]; then
+            curl -fsS -X POST "https://packagist.org/api/update-package?username=pescheck-bram&apiToken=$PACKAGIST_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"repository":{"url":"https://github.com/pescheckit/pescheck-clients"}}' && echo "Packagist update triggered"
+          else
+            echo "PACKAGIST_TOKEN not set - relying on the Packagist GitHub webhook"
+          fi
       - name: Verify from registry (exact version)
         uses: ./.github/actions/verify-from-registry
         with:
