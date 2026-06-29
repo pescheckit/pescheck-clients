@@ -8,18 +8,24 @@
     <OutputType>Library</OutputType>
     <Authors>Pescheck</Authors>
     <Company>Pescheck</Company>
-    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
-    <Description>A library generated from a OpenAPI doc</Description>
-    <Copyright>No Copyright</Copyright>
+    <AssemblyTitle>Pescheck.Client</AssemblyTitle>
+    <Description>Official Pescheck API client for .NET, generated from the OpenAPI specification.</Description>
+    <Copyright>Pescheck</Copyright>
     <RootNamespace>Pescheck.Client</RootNamespace>
     <Version>0.1.0</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Pescheck.Client.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/pescheckit/pescheck-clients.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/pescheckit/pescheck-clients</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>Minor update</PackageReleaseNotes>
     <Nullable>annotations</Nullable>
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JsonSubTypes" Version="2.0.1" />

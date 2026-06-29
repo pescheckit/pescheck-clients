@@ -26,6 +26,21 @@ command whenever the API changes.
 
 Each client directory has its own generated `README.md` with full install and per-endpoint usage.
 
+## Install
+
+| Language | Command |
+|---|---|
+| Python | `pip install pescheck-client` |
+| TypeScript | `npm install @pescheckit/pescheck-client` |
+| JavaScript | `npm install @pescheckit/pescheck-client-js` |
+| Ruby | `gem install pescheck-client` |
+| Rust | `cargo add pescheck-client` |
+| C# | `dotnet add package Pescheck.Client` |
+| PHP | `composer require pescheckit/pescheck-client` |
+| Java | GitHub Packages: `io.pescheck:pescheck-client` (see `clients/java/README.md`) |
+| Go | `go get github.com/pescheckit/pescheck-clients/clients/go` |
+| C++ | download the source zip from the [Releases](https://github.com/pescheckit/pescheck-clients/releases) page |
+
 ## Regenerating
 
 ```bash
@@ -84,8 +99,39 @@ Set the `access` JWT as the client's bearer token the same way.
 `https://api.pescheck.io` (production) and `https://api-staging.pescheck.io` (staging).
 Point a client at staging by setting its base URL / host in the client configuration.
 
+## Testing
+
+Two layers, both run in CI and locally:
+
+- **Unit tests** (`.github/workflows/unit-tests.yml`) - the generator's per-API/per-model test
+  stubs, run offline (no API token) for each language. They prove the test harness compiles
+  against the client; fill in their bodies to add real offline assertions.
+- **Integration tests** (`.github/workflows/e2e.yml`) - real per-language test suites under
+  `examples/<lang>/` that run the full CRUD lifecycle (checks, profiles, screenings, webhooks,
+  divisions) against staging using an OAuth2 token. No mocks, and they each depend on the
+  generated client in `clients/<lang>/`. They **skip cleanly** when no token is set, so they are
+  green without credentials.
+
+Run an integration test locally (Python shown; set up OAuth first):
+
+```bash
+export PESCHECK_CLIENT_ID=...  PESCHECK_CLIENT_SECRET=...
+export PESCHECK_BASE_URL=https://api-staging.pescheck.io
+export PESCHECK_ACCESS_TOKEN=$(bash scripts/get-token.sh)   # client-credentials -> bearer token
+pip install -e clients/python
+cd examples/python && python -m unittest test_crud_integration -v
+```
+
+Per-language test runners: `npm test` (TypeScript, JavaScript), `rspec` (Ruby),
+`vendor/bin/phpunit` (PHP), `go test ./...` (Go, in `examples/go-crud`), `mvn test` (Java),
+`dotnet test` (C#), `cargo test` (Rust), `ctest` (C++). Each reads `PESCHECK_ACCESS_TOKEN` and
+skips if it is unset.
+
 ## CI
 
-- `.github/workflows/generate.yml` - scheduled + manual regeneration; opens a PR on changes.
-- `.github/workflows/publish.yml` - on a release tag (`vX.Y.Z`), publishes each client to its
-  registry. See the workflow header for the required secrets and per-language notes (Maven Central signing, Go tag).
+- `generate.yml` - scheduled + manual regeneration from the upstream schema; opens an **issue**
+  (not a PR) if the regenerated output drifts from what is committed.
+- `e2e.yml` - runs the per-language integration tests against staging; also the gate for publishing.
+- `publish.yml` - on a release (`vX.Y.Z`): build + test gate, then publish each client to its
+  registry at the tag version (skips if that version is already published), then verify the exact
+  version installs back from the registry. See the workflow header for the required tokens/flags.

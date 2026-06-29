@@ -6,6 +6,7 @@ namespace Pescheck\Example\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Pescheck\Client\Configuration;
+use Pescheck\Client\ApiException;
 use Pescheck\Client\Api\ChecksApi;
 use Pescheck\Client\Api\ProfilesApi;
 use Pescheck\Client\Api\ScreeningsApi;
@@ -14,6 +15,8 @@ use Pescheck\Client\Api\DivisionsApi;
 use Pescheck\Client\Model\V2ProfileCreate;
 use Pescheck\Client\Model\V2ProfileCheck;
 use Pescheck\Client\Model\PatchedV2ProfilePartialUpdate;
+use Pescheck\Client\Model\V2ProfileUpdate;
+use Pescheck\Client\Model\V2ProfileUpdateCheck;
 use Pescheck\Client\Model\V2ScreeningCreate;
 use Pescheck\Client\Model\V2Candidate;
 use Pescheck\Client\Model\Webhook;
@@ -104,11 +107,22 @@ final class CrudIntegrationTest extends TestCase
 
         $retrievedProfile = $this->profiles->v2ProfilesRetrieve($this->profileId);
         $this->assertSame($this->profileId, $retrievedProfile->getId());
+        $this->assertSame("E2E test profile {$this->suffix}", $retrievedProfile->getName());
 
         $patched = $this->profiles->v2ProfilesPartialUpdate($this->profileId, new PatchedV2ProfilePartialUpdate([
             'description' => 'updated by e2e',
         ]));
         $this->assertSame('updated by e2e', $patched->getDescription());
+
+        // PUT (full replacement) alongside the PATCH above: name + checks are
+        // required by V2ProfileUpdate, so we resend them plus a new description.
+        $putProfile = $this->profiles->v2ProfilesUpdate($this->profileId, new V2ProfileUpdate([
+            'name' => "E2E test profile {$this->suffix}",
+            'description' => 'replaced by e2e (PUT)',
+            'checks' => [new V2ProfileUpdateCheck(['check_type' => $checkType])],
+        ]));
+        $this->assertSame('replaced by e2e (PUT)', $putProfile->getDescription());
+        $this->assertSame("E2E test profile {$this->suffix}", $putProfile->getName());
 
         $profileList = $this->profiles->v2ProfilesList()->getResults();
         $ids = array_map(static fn ($p) => $p->getId(), $profileList);
@@ -129,6 +143,13 @@ final class CrudIntegrationTest extends TestCase
 
         $retrievedScreening = $this->screenings->v2ScreeningsRetrieve($screeningId);
         $this->assertSame($screeningId, $retrievedScreening->getId());
+        $this->assertSame($this->email, $retrievedScreening->getCandidate()->getEmail());
+
+        // screening should appear in the list
+        $screeningList = $this->screenings->v2ScreeningsList()->getResults();
+        $this->assertNotEmpty($screeningList, 'expected at least the screening we just created');
+        $screeningIds = array_map(static fn ($s) => $s->getId(), $screeningList);
+        $this->assertContains($screeningId, $screeningIds, 'created screening should appear in the screening list');
 
         // documents list should not error (may be empty for a fresh screening)
         $this->screenings->v2ScreeningsDocumentsList($screeningId);
@@ -141,6 +162,8 @@ final class CrudIntegrationTest extends TestCase
         ]));
         $hookId = $hook->getId();
         $this->assertNotEmpty($hookId);
+        $this->assertSame("https://example.com/e2e-hook-{$this->suffix}", $hook->getUrl());
+        $this->assertSame(['screening.status_changed'], $hook->getEvents());
 
         $hookList = $this->webhooks->listWebhooks2();
         $hookIds = array_map(static fn ($w) => $w->getId(), $hookList);
@@ -170,10 +193,78 @@ final class CrudIntegrationTest extends TestCase
             ]));
         }
         $this->assertSame(self::DIVISION_NAME, $div->getName());
+        $divisionId = $div->getId();
 
-        $patchedDiv = $this->divisions->v2OrganisationsDivisionsPartialUpdate($div->getId(), new PatchedDivisionWrite([
+        // retrieve the division by id and assert identity + a couple of fields
+        $retrievedDiv = $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId);
+        $this->assertSame($divisionId, $retrievedDiv->getId());
+        $this->assertSame(self::DIVISION_NAME, $retrievedDiv->getName());
+
+        $patchedDiv = $this->divisions->v2OrganisationsDivisionsPartialUpdate($divisionId, new PatchedDivisionWrite([
             'city' => 'Rotterdam',
         ]));
         $this->assertSame('Rotterdam', $patchedDiv->getCity());
+
+        // PUT (full replacement) alongside the PATCH above.
+        $putDiv = $this->divisions->v2OrganisationsDivisionsUpdate($divisionId, new DivisionWrite([
+            'name' => self::DIVISION_NAME,
+            'city' => 'Utrecht',
+            'address' => 'Teststraat 2',
+            'postal' => '3500AA',
+            'phone' => '+31300000000',
+            'contact_name' => 'E2E PUT',
+            'contact_email' => $this->email,
+            'invoice_email' => $this->email,
+        ]));
+        $this->assertSame(self::DIVISION_NAME, $putDiv->getName());
+        $this->assertSame('Utrecht', $putDiv->getCity());
+
+        // confirm the PUT stuck on a fresh retrieve
+        $reRetrievedDiv = $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId);
+        $this->assertSame('Utrecht', $reRetrievedDiv->getCity());
+        $this->assertSame('Teststraat 2', $reRetrievedDiv->getAddress());
+        $this->assertSame('3500AA', $reRetrievedDiv->getPostal());
+    }
+
+    /**
+     * A ChecksApi built with a bogus access token must be rejected with HTTP 401.
+     */
+    public function testUnauthorized(): void
+    {
+        $baseUrl = getenv('PESCHECK_BASE_URL') ?: 'https://api-staging.pescheck.io';
+        $config = Configuration::getDefaultConfiguration()
+            ->setHost($baseUrl)
+            ->setAccessToken('definitely-not-a-valid-token');
+        $checks = new ChecksApi(new \GuzzleHttp\Client(), $config);
+
+        try {
+            $checks->v2ChecksList();
+            $this->fail('expected ApiException for unauthorized request');
+        } catch (ApiException $e) {
+            $this->assertSame(401, $e->getCode());
+        }
+    }
+
+    /**
+     * Retrieving a profile by a random (non-existent) UUID must yield HTTP 404.
+     */
+    public function testNotFound(): void
+    {
+        $randomUuid = sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            random_int(0, 0xffff), random_int(0, 0xffff),
+            random_int(0, 0xffff),
+            random_int(0, 0x0fff) | 0x4000,
+            random_int(0, 0x3fff) | 0x8000,
+            random_int(0, 0xffff), random_int(0, 0xffff), random_int(0, 0xffff)
+        );
+
+        $this->expectException(ApiException::class);
+        try {
+            $this->profiles->v2ProfilesRetrieve($randomUuid);
+        } catch (ApiException $e) {
+            $this->assertSame(404, $e->getCode());
+            throw $e;
+        }
     }
 }

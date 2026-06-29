@@ -83,9 +83,10 @@ func TestCRUDLifecycle(t *testing.T) {
 	_, _, err = client.ChecksAPI.V2ChecksRetrieve(ctx, checkType).Execute()
 	require.NoError(t, err, "checks retrieve")
 
-	// --- profile: create -> retrieve -> patch -> appears in list ---
+	// --- profile: create -> retrieve -> patch -> put -> appears in list ---
+	profileName := fmt.Sprintf("E2E test profile %s", suffix)
 	profileBody := pescheck.NewV2ProfileCreate(
-		fmt.Sprintf("E2E test profile %s", suffix),
+		profileName,
 		[]pescheck.V2ProfileCheck{*pescheck.NewV2ProfileCheck(checkType)},
 	)
 	profileBody.SetDescription("created by e2e")
@@ -93,15 +94,29 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NoError(t, err, "profile create")
 	profileID = created.GetId()
 	require.NotEmpty(t, profileID, "created profile id")
+	assert.Equal(t, profileName, created.GetName(), "created profile name")
 
-	_, _, err = client.ProfilesAPI.V2ProfilesRetrieve(ctx, profileID).Execute()
+	retrieved, _, err := client.ProfilesAPI.V2ProfilesRetrieve(ctx, profileID).Execute()
 	require.NoError(t, err, "profile retrieve")
+	assert.Equal(t, profileName, retrieved.GetName(), "retrieved profile name")
 
 	profilePatch := pescheck.NewPatchedV2ProfilePartialUpdate()
 	profilePatch.SetDescription("updated by e2e")
 	patched, _, err := client.ProfilesAPI.V2ProfilesPartialUpdate(ctx, profileID).PatchedV2ProfilePartialUpdate(*profilePatch).Execute()
 	require.NoError(t, err, "profile patch")
 	assert.Equal(t, "updated by e2e", patched.GetDescription(), "patched description")
+
+	// Full replace (PUT). Name and checks are required on V2ProfileUpdate.
+	putName := fmt.Sprintf("E2E test profile %s put", suffix)
+	profilePut := pescheck.NewV2ProfileUpdate(
+		putName,
+		[]pescheck.V2ProfileUpdateCheck{*pescheck.NewV2ProfileUpdateCheck(checkType)},
+	)
+	profilePut.SetDescription("replaced by e2e")
+	put, _, err := client.ProfilesAPI.V2ProfilesUpdate(ctx, profileID).V2ProfileUpdate(*profilePut).Execute()
+	require.NoError(t, err, "profile put")
+	assert.Equal(t, putName, put.GetName(), "put profile name")
+	assert.Equal(t, "replaced by e2e", put.GetDescription(), "put profile description")
 
 	profiles, _, err := client.ProfilesAPI.V2ProfilesList(ctx).Execute()
 	require.NoError(t, err, "profile list")
@@ -123,22 +138,47 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NotEmpty(t, screeningID, "created screening id")
 	assert.NotEmpty(t, screening.GetStatus(), "screening status")
 
-	_, _, err = client.ScreeningsAPI.V2ScreeningsRetrieve(ctx, screeningID).Execute()
+	retrievedScreening, _, err := client.ScreeningsAPI.V2ScreeningsRetrieve(ctx, screeningID).Execute()
 	require.NoError(t, err, "screening retrieve")
+	gotCandidate := retrievedScreening.GetCandidate()
+	assert.Equal(t, testEmail, gotCandidate.GetEmail(), "screening candidate email")
+	assert.Equal(t, "E2E", gotCandidate.GetFirstName(), "screening candidate first name")
+	assert.Equal(t, "Tester", gotCandidate.GetLastName(), "screening candidate last name")
 
 	_, _, err = client.ScreeningsAPI.V2ScreeningsDocumentsList(ctx, screeningID).Execute()
 	require.NoError(t, err, "screening documents")
 
+	// list screenings: the one we created must be present (disable pagination
+	// so a fresh screening isn't hidden on a later page).
+	screenings, _, err := client.ScreeningsAPI.V2ScreeningsList(ctx).Paginate(false).Execute()
+	require.NoError(t, err, "screening list")
+	screeningResults := screenings.GetResults()
+	require.NotEmpty(t, screeningResults, "screening list results")
+	foundScreening := false
+	for _, s := range screeningResults {
+		if s.GetId() == screeningID {
+			foundScreening = true
+			break
+		}
+	}
+	assert.True(t, foundScreening, "created screening should appear in list")
+
 	// --- webhook: create -> list -> delete ---
+	webhookName := fmt.Sprintf("E2E webhook %s", suffix)
+	webhookURL := fmt.Sprintf("https://example.com/e2e-hook-%s", suffix)
 	webhookBody := pescheck.NewWebhook(
-		fmt.Sprintf("E2E webhook %s", suffix),
-		fmt.Sprintf("https://example.com/e2e-hook-%s", suffix),
+		webhookName,
+		webhookURL,
 		[]string{"screening.status_changed"},
 	)
 	hook, _, err := client.WebhooksAPI.CreateWebhook2(ctx).Webhook(*webhookBody).Execute()
 	require.NoError(t, err, "webhook create")
 	hookID := hook.GetId()
 	require.NotEmpty(t, hookID, "created webhook id")
+	assert.Equal(t, webhookName, hook.GetName(), "webhook name")
+	assert.Equal(t, webhookURL, hook.GetUrl(), "webhook url")
+	// WebhookResponse.GetEvents() is typed interface{}; assert via string form.
+	assert.Contains(t, fmt.Sprint(hook.GetEvents()), "screening.status_changed", "webhook events")
 
 	_, _, err = client.WebhooksAPI.ListWebhooks2(ctx).Execute()
 	require.NoError(t, err, "webhook list")
@@ -167,8 +207,83 @@ func TestCRUDLifecycle(t *testing.T) {
 	}
 	require.NotEmpty(t, divID, "division id")
 
+	// retrieve: returns DivisionReadOnly; name must match.
+	divRead, _, err := client.DivisionsAPI.V2OrganisationsDivisionsRetrieve(ctx, divID).Execute()
+	require.NoError(t, err, "division retrieve")
+	assert.Equal(t, ciDivisionName, divRead.GetName(), "division name")
+	assert.Equal(t, divID, divRead.GetId(), "division id round-trip")
+
 	divPatch := pescheck.NewPatchedDivisionWrite()
 	divPatch.SetCity("Rotterdam")
-	_, _, err = client.DivisionsAPI.V2OrganisationsDivisionsPartialUpdate(ctx, divID).PatchedDivisionWrite(*divPatch).Execute()
+	patchedDiv, _, err := client.DivisionsAPI.V2OrganisationsDivisionsPartialUpdate(ctx, divID).PatchedDivisionWrite(*divPatch).Execute()
 	require.NoError(t, err, "division patch")
+	assert.Equal(t, "Rotterdam", patchedDiv.GetCity(), "patched division city")
+
+	// Full replace (PUT). Keep the name so reuse-by-name still works next run.
+	divPut := pescheck.NewDivisionWrite(
+		ciDivisionName, "Utrecht", "Teststraat 1", "1011AA",
+		"+31200000000", "E2E", "e2e@example.com", "e2e@example.com",
+	)
+	putDiv, _, err := client.DivisionsAPI.V2OrganisationsDivisionsUpdate(ctx, divID).DivisionWrite(*divPut).Execute()
+	require.NoError(t, err, "division put")
+	assert.Equal(t, "Utrecht", putDiv.GetCity(), "put division city")
+	assert.Equal(t, ciDivisionName, putDiv.GetName(), "put division name")
+}
+
+// TestUnauthorized verifies that calling the API with an invalid access token
+// returns an error and a 401 response. The *http.Response is still returned on
+// HTTP-level errors (see the generated Execute methods).
+func TestUnauthorized(t *testing.T) {
+	if os.Getenv("PESCHECK_ACCESS_TOKEN") == "" {
+		t.Skip("PESCHECK_ACCESS_TOKEN not set")
+	}
+	baseURL := os.Getenv("PESCHECK_BASE_URL")
+	if baseURL == "" {
+		baseURL = "https://api-staging.pescheck.io"
+	}
+
+	cfg := pescheck.NewConfiguration()
+	cfg.Servers = pescheck.ServerConfigurations{{URL: baseURL}}
+	client := pescheck.NewAPIClient(cfg)
+
+	ctx := context.WithValue(context.Background(), pescheck.ContextAccessToken, "invalid")
+	_, httpRes, err := client.ChecksAPI.V2ChecksList(ctx).Execute()
+	require.Error(t, err, "expected error for invalid token")
+	require.NotNil(t, httpRes, "expected http response on auth error")
+	assert.Equal(t, 401, httpRes.StatusCode, "expected 401")
+}
+
+// TestNotFound verifies that retrieving a non-existent (but well-formed) profile
+// id returns a 404.
+func TestNotFound(t *testing.T) {
+	token := os.Getenv("PESCHECK_ACCESS_TOKEN")
+	if token == "" {
+		t.Skip("PESCHECK_ACCESS_TOKEN not set")
+	}
+	baseURL := os.Getenv("PESCHECK_BASE_URL")
+	if baseURL == "" {
+		baseURL = "https://api-staging.pescheck.io"
+	}
+
+	cfg := pescheck.NewConfiguration()
+	cfg.Servers = pescheck.ServerConfigurations{{URL: baseURL}}
+	client := pescheck.NewAPIClient(cfg)
+
+	ctx := context.WithValue(context.Background(), pescheck.ContextAccessToken, token)
+	_, httpRes, err := client.ProfilesAPI.V2ProfilesRetrieve(ctx, randomUUID(t)).Execute()
+	require.Error(t, err, "expected error for unknown profile")
+	require.NotNil(t, httpRes, "expected http response on not-found")
+	assert.Equal(t, 404, httpRes.StatusCode, "expected 404")
+}
+
+// randomUUID returns a random RFC-4122 v4 UUID string, so the not-found test
+// hits a well-formed-but-unknown id (a malformed id could 400 instead of 404).
+func randomUUID(t *testing.T) string {
+	t.Helper()
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	require.NoError(t, err, "crypto/rand")
+	b[6] = (b[6] & 0x0f) | 0x40 // version 4
+	b[8] = (b[8] & 0x3f) | 0x80 // variant 10
+	return fmt.Sprintf("%x-%x-%x-%x-%x", b[0:4], b[4:6], b[6:8], b[8:10], b[10:16])
 }

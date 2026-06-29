@@ -3,6 +3,7 @@ package io.pescheck.examples;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 import io.pescheck.client.ApiClient;
+import io.pescheck.client.ApiException;
 import io.pescheck.client.Configuration;
 import io.pescheck.client.auth.OAuth;
 import io.pescheck.client.api.ChecksApi;
@@ -22,10 +24,13 @@ import io.pescheck.client.model.V2CheckInfo;
 import io.pescheck.client.model.V2ProfileCheck;
 import io.pescheck.client.model.V2ProfileCreate;
 import io.pescheck.client.model.V2ProfileDetail;
+import io.pescheck.client.model.V2ProfileUpdate;
+import io.pescheck.client.model.V2ProfileUpdateCheck;
 import io.pescheck.client.model.PatchedV2ProfilePartialUpdate;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCreate;
 import io.pescheck.client.model.V2ScreeningDetail;
+import io.pescheck.client.model.V2ScreeningListItem;
 import io.pescheck.client.model.Webhook;
 import io.pescheck.client.model.WebhookResponse;
 import io.pescheck.client.model.DivisionWrite;
@@ -59,6 +64,7 @@ class CrudLifecycleIT {
   private static final String SUFFIX = UUID.randomUUID().toString().substring(0, 8);
   private static final String DIVISION_NAME = "E2E CI division";
 
+  private String baseUrl;
   private String testEmail;
   private ChecksApi checks;
   private ProfilesApi profiles;
@@ -70,7 +76,7 @@ class CrudLifecycleIT {
 
   @BeforeEach
   void setUp() {
-    String baseUrl = System.getenv("PESCHECK_BASE_URL");
+    baseUrl = System.getenv("PESCHECK_BASE_URL");
     String token = System.getenv("PESCHECK_ACCESS_TOKEN");
     testEmail = System.getenv("PESCHECK_TEST_EMAIL");
     if (baseUrl == null || baseUrl.isEmpty()) {
@@ -126,14 +132,31 @@ class CrudLifecycleIT {
                 .checkType(V2ProfileCheck.CheckTypeEnum.fromValue(checkType)))));
     profileId = created.getId();
     assertNotNull(profileId, "created profile should have an id");
+    assertEquals("E2E test profile " + SUFFIX, created.getName(),
+        "created profile name should round-trip");
 
     V2ProfileDetail fetched = profiles.v2ProfilesRetrieve(profileId);
     assertEquals(profileId, fetched.getId(), "retrieved profile id should match");
+    assertEquals("E2E test profile " + SUFFIX, fetched.getName(),
+        "retrieved profile name should match");
 
     V2ProfileDetail patched = profiles.v2ProfilesPartialUpdate(
         profileId, new PatchedV2ProfilePartialUpdate().description("updated by e2e"));
     assertEquals("updated by e2e", patched.getDescription(),
         "patched profile description should be updated");
+
+    // PUT (full replace) — V2ProfileUpdate requires name + checks.
+    V2ProfileDetail putUpdated = profiles.v2ProfilesUpdate(
+        profileId,
+        new V2ProfileUpdate()
+            .name("E2E test profile renamed " + SUFFIX)
+            .description("put updated by e2e")
+            .checks(List.of(new V2ProfileUpdateCheck()
+                .checkType(V2ProfileUpdateCheck.CheckTypeEnum.fromValue(checkType)))));
+    assertEquals("E2E test profile renamed " + SUFFIX, putUpdated.getName(),
+        "PUT-updated profile name should be replaced");
+    assertEquals("put updated by e2e", putUpdated.getDescription(),
+        "PUT-updated profile description should be replaced");
 
     boolean inList = profiles.v2ProfilesList(null, null, null, null, null, null, null)
         .getResults().stream()
@@ -152,7 +175,18 @@ class CrudLifecycleIT {
     V2ScreeningDetail fetchedScreening = screenings.v2ScreeningsRetrieve(screening.getId());
     assertEquals(screening.getId(), fetchedScreening.getId(),
         "retrieved screening id should match");
+    assertNotNull(fetchedScreening.getCandidate(), "screening should expose its candidate");
+    assertEquals(testEmail, fetchedScreening.getCandidate().getEmail(),
+        "screening candidate email should match the test email");
     screenings.v2ScreeningsDocumentsList(screening.getId(), null, null);
+
+    // screenings: list (page, pageSize, paginate) -> created screening should be present
+    List<V2ScreeningListItem> screeningResults =
+        screenings.v2ScreeningsList(null, null, null).getResults();
+    assertFalse(screeningResults.isEmpty(), "screening list should not be empty");
+    boolean screeningListed = screeningResults.stream()
+        .anyMatch(s -> screening.getId().equals(s.getId()));
+    assertTrue(screeningListed, "created screening should appear in the list");
 
     // --- webhook: create -> list -> delete ---
     WebhookResponse hook = webhooks.createWebhook2(
@@ -162,6 +196,9 @@ class CrudLifecycleIT {
             .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))),
         null, null);
     assertNotNull(hook.getId(), "created webhook should have an id");
+    assertEquals(URI.create("https://example.com/e2e-hook-" + SUFFIX), hook.getUrl(),
+        "created webhook url should round-trip");
+    assertNotNull(hook.getEvents(), "created webhook should expose its events");
 
     boolean hookListed = webhooks.listWebhooks2().stream()
         .anyMatch(w -> hook.getId().equals(w.getId()));
@@ -188,7 +225,53 @@ class CrudLifecycleIT {
       divisionId = div.getId();
     }
     assertNotNull(divisionId, "division id should be resolved");
+
+    // division: retrieve by id
+    DivisionReadOnly fetchedDivision = divisions.v2OrganisationsDivisionsRetrieve(divisionId);
+    assertEquals(divisionId, fetchedDivision.getId(), "retrieved division id should match");
+    assertEquals(DIVISION_NAME, fetchedDivision.getName(), "retrieved division name should match");
+
+    // division: PUT (full replace) -> city becomes Utrecht
+    DivisionWrite divPut = divisions.v2OrganisationsDivisionsUpdate(
+        divisionId,
+        new DivisionWrite()
+            .name(DIVISION_NAME).city("Utrecht").address("Teststraat 1")
+            .postal("1011AA").phone("+31200000000").contactName("E2E")
+            .contactEmail(testEmail).invoiceEmail(testEmail));
+    assertEquals("Utrecht", divPut.getCity(), "PUT-updated division city should be Utrecht");
+
+    // division: PATCH (partial) -> city becomes Rotterdam
     PatchedDivisionWrite divPatch = new PatchedDivisionWrite().city("Rotterdam");
-    divisions.v2OrganisationsDivisionsPartialUpdate(divisionId, divPatch);
+    DivisionWrite divPatched =
+        divisions.v2OrganisationsDivisionsPartialUpdate(divisionId, divPatch);
+    assertEquals("Rotterdam", divPatched.getCity(), "PATCH-updated division city should be Rotterdam");
+  }
+
+  @Test
+  @DisplayName("unauthorized check list returns 401")
+  void unauthorizedReturns401() {
+    assumeTrue(System.getenv("PESCHECK_ACCESS_TOKEN") != null
+        && !System.getenv("PESCHECK_ACCESS_TOKEN").isEmpty(), "PESCHECK_ACCESS_TOKEN not set");
+
+    // A separate client with a bogus access token — must not touch the shared default client.
+    ApiClient badClient = new ApiClient();
+    badClient.setBasePath(baseUrl);
+    ((OAuth) badClient.getAuthentication("oauth2")).setAccessToken("invalid");
+    ChecksApi unauthChecks = new ChecksApi(badClient);
+
+    ApiException e = assertThrows(ApiException.class, () -> unauthChecks.v2ChecksList(null));
+    assertEquals(401, e.getCode(), "unauthorized request should fail with HTTP 401");
+  }
+
+  @Test
+  @DisplayName("retrieving a non-existent profile returns 404")
+  void retrieveMissingProfileReturns404() {
+    assumeTrue(System.getenv("PESCHECK_ACCESS_TOKEN") != null
+        && !System.getenv("PESCHECK_ACCESS_TOKEN").isEmpty(), "PESCHECK_ACCESS_TOKEN not set");
+
+    UUID missing = UUID.randomUUID();
+    ApiException e =
+        assertThrows(ApiException.class, () -> profiles.v2ProfilesRetrieve(missing));
+    assertEquals(404, e.getCode(), "retrieving an unknown profile should fail with HTTP 404");
   }
 }

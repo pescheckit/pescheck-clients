@@ -82,13 +82,29 @@ public class CrudLifecycleTests
                     description: "created by e2e",
                     checks: new List<V2ProfileCheck> { new V2ProfileCheck(checkType: checkTypeEnum) }));
             profileId = created.Id;
+            Assert.Equal($"E2E test profile {suffix}", created.Name);
 
             V2ProfileDetail retrievedProfile = profiles.V2ProfilesRetrieve(profileId.Value);
             Assert.Equal(profileId.Value, retrievedProfile.Id);
+            Assert.Equal($"E2E test profile {suffix}", retrievedProfile.Name);
 
             V2ProfileDetail patched = profiles.V2ProfilesPartialUpdate(
                 profileId.Value, new PatchedV2ProfilePartialUpdate(description: "updated by e2e"));
             Assert.Equal("updated by e2e", patched.Description);
+
+            // Full replace (PUT). name + checks are both required on V2ProfileUpdate;
+            // the update-check enum follows the same value->member casing as the
+            // create-check enum, so a case-insensitive parse round-trips the raw type.
+            var putCheckTypeEnum = (V2ProfileUpdateCheck.CheckTypeEnum)Enum.Parse(
+                typeof(V2ProfileUpdateCheck.CheckTypeEnum), checkType, ignoreCase: true);
+            V2ProfileDetail putProfile = profiles.V2ProfilesUpdate(
+                profileId.Value,
+                new V2ProfileUpdate(
+                    name: $"E2E test profile {suffix} (PUT)",
+                    description: "replaced by e2e",
+                    checks: new List<V2ProfileUpdateCheck> { new V2ProfileUpdateCheck(checkType: putCheckTypeEnum) }));
+            Assert.Equal($"E2E test profile {suffix} (PUT)", putProfile.Name);
+            Assert.Equal("replaced by e2e", putProfile.Description);
 
             List<V2ProfileListItem> profileList = profiles.V2ProfilesList().Results;
             Assert.Contains(profileList, p => p.Id == profileId.Value);
@@ -103,18 +119,31 @@ public class CrudLifecycleTests
 
             V2ScreeningDetail retrievedScreening = screenings.V2ScreeningsRetrieve(screening.Id);
             Assert.Equal(screening.Id, retrievedScreening.Id);
+            Assert.Equal(testEmail, retrievedScreening.Candidate.Email);
+
+            // The created screening should show up in the (paginated) listing.
+            List<V2ScreeningListItem> screeningList = screenings.V2ScreeningsList().Results;
+            Assert.NotEmpty(screeningList);
+            Assert.Contains(screeningList, s => s.Id == screening.Id);
 
             // Documents endpoint should return a (possibly empty) list, not throw.
             var documents = screenings.V2ScreeningsDocumentsList(screening.Id);
             Assert.NotNull(documents);
 
             // --- webhook: create -> list -> delete ---
+            string hookName = $"E2E webhook {suffix}";
+            string hookUrl = $"https://example.com/e2e-hook-{suffix}";
             WebhookResponse hook = webhooks.CreateWebhook2(
                 new Webhook(
-                    name: $"E2E webhook {suffix}",
-                    url: $"https://example.com/e2e-hook-{suffix}",
+                    name: hookName,
+                    url: hookUrl,
                     events: new List<Webhook.EventsEnum> { Webhook.EventsEnum.ScreeningStatusChanged }));
             Assert.NotEqual(Guid.Empty, hook.Id);
+            Assert.Equal(hookName, hook.Name);
+            Assert.Equal(hookUrl, hook.Url);
+            // Events round-trips as a free-form object on the response model; just
+            // confirm the server echoed something back rather than dropping it.
+            Assert.NotNull(hook.Events);
 
             var hookList = webhooks.ListWebhooks2();
             Assert.NotNull(hookList);
@@ -143,6 +172,20 @@ public class CrudLifecycleTests
             DivisionWrite patchedDiv = divisions.V2OrganisationsDivisionsPartialUpdate(
                 divisionId, new PatchedDivisionWrite(city: "Rotterdam"));
             Assert.Equal("Rotterdam", patchedDiv.City);
+
+            // Full replace (PUT): DivisionWrite carries the complete record.
+            DivisionWrite putDiv = divisions.V2OrganisationsDivisionsUpdate(
+                divisionId,
+                new DivisionWrite(
+                    name: DivisionName, city: "Utrecht", address: "Teststraat 2",
+                    postal: "3511AA", phone: "+31300000000", contactName: "E2E",
+                    contactEmail: "e2e@example.com", invoiceEmail: "e2e@example.com"));
+            Assert.Equal("Utrecht", putDiv.City);
+
+            DivisionReadOnly retrievedDiv = divisions.V2OrganisationsDivisionsRetrieve(divisionId);
+            Assert.Equal(divisionId, retrievedDiv.Id);
+            Assert.Equal(DivisionName, retrievedDiv.Name);
+            Assert.Equal("Utrecht", retrievedDiv.City);
         }
         finally
         {
@@ -153,5 +196,45 @@ public class CrudLifecycleTests
                 catch { /* ignore */ }
             }
         }
+    }
+
+    // A bad bearer token must be rejected by the API with a 401, surfaced as an
+    // ApiException whose ErrorCode is the HTTP status. Guarded by the real token
+    // so it only runs in e2e (we still need a live API to reject against).
+    [Fact]
+    public void UnauthorizedRequestThrows401()
+    {
+        string basePath = Environment.GetEnvironmentVariable("PESCHECK_BASE_URL")
+            ?? "https://api-staging.pescheck.io";
+        string? accessToken = Environment.GetEnvironmentVariable("PESCHECK_ACCESS_TOKEN");
+        if (string.IsNullOrEmpty(accessToken))
+        {
+            return;
+        }
+
+        var config = new Configuration { BasePath = basePath, AccessToken = "invalid" };
+        var checks = new ChecksApi(config);
+
+        var ex = Assert.Throws<ApiException>(() => checks.V2ChecksList());
+        Assert.Equal(401, ex.ErrorCode);
+    }
+
+    // Retrieving a profile that does not exist must yield a 404 ApiException.
+    [Fact]
+    public void RetrieveMissingProfileThrows404()
+    {
+        string basePath = Environment.GetEnvironmentVariable("PESCHECK_BASE_URL")
+            ?? "https://api-staging.pescheck.io";
+        string? accessToken = Environment.GetEnvironmentVariable("PESCHECK_ACCESS_TOKEN");
+        if (string.IsNullOrEmpty(accessToken))
+        {
+            return;
+        }
+
+        var config = new Configuration { BasePath = basePath, AccessToken = accessToken };
+        var profiles = new ProfilesApi(config);
+
+        var ex = Assert.Throws<ApiException>(() => profiles.V2ProfilesRetrieve(Guid.NewGuid()));
+        Assert.Equal(404, ex.ErrorCode);
     }
 }

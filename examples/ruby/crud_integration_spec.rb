@@ -92,6 +92,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
 
     retrieved = @profiles.v2_profiles_retrieve(@state[:profile_id])
     expect(retrieved.id).to eq(@state[:profile_id])
+    expect(retrieved.name).to eq("E2E test profile #{SUFFIX}")
 
     patched = @profiles.v2_profiles_partial_update(
       @state[:profile_id],
@@ -102,6 +103,31 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
     listed = @profiles.v2_profiles_list
     ids = (listed.respond_to?(:results) ? listed.results : listed).map(&:id)
     expect(ids).to include(@state[:profile_id])
+  end
+
+  it 'fully updates a profile via PUT' do
+    # PUT replaces the whole profile: existing checks must be referenced by their
+    # profile_check_id (the check entry's id), otherwise the API rejects a second
+    # check of the same type.
+    current = @profiles.v2_profiles_retrieve(@state[:profile_id])
+    checks = current.checks.map do |entry|
+      Pescheck::V2ProfileUpdateCheck.new(check_type: entry.check_type, profile_check_id: entry.id)
+    end
+
+    new_name = "E2E renamed profile #{SUFFIX}"
+    updated = @profiles.v2_profiles_update(
+      @state[:profile_id],
+      Pescheck::V2ProfileUpdate.new(
+        name: new_name,
+        description: 'put-updated by e2e',
+        checks: checks
+      )
+    )
+    expect(updated.name).to eq(new_name)
+    expect(updated.description).to eq('put-updated by e2e')
+
+    retrieved = @profiles.v2_profiles_retrieve(@state[:profile_id])
+    expect(retrieved.name).to eq(new_name)
   end
 
   it 'creates a screening, retrieves it and lists its documents' do
@@ -115,12 +141,22 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
     )
     expect(screening.id).not_to be_nil
     expect(screening.status).not_to be_nil
+    @state[:screening_id] = screening.id
 
     retrieved = @screenings.v2_screenings_retrieve(screening.id)
     expect(retrieved.id).to eq(screening.id)
+    expect(retrieved.candidate.email).to eq(@test_email)
+    expect(retrieved.candidate.first_name).to eq('E2E')
 
     # documents list should return without error (may be empty)
     expect { @screenings.v2_screenings_documents_list(screening.id) }.not_to raise_error
+  end
+
+  it 'lists screenings and finds the one just created' do
+    listed = @screenings.v2_screenings_list
+    items = listed.respond_to?(:results) ? listed.results : listed
+    expect(items).not_to be_empty
+    expect(items.map(&:id)).to include(@state[:screening_id])
   end
 
   it 'creates, lists and deletes a webhook' do
@@ -132,6 +168,8 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
       )
     )
     expect(hook.id).not_to be_nil
+    expect(hook.url).to eq("https://example.com/e2e-hook-#{SUFFIX}")
+    expect(hook.events).to include('screening.status_changed')
 
     listed = @webhooks.list_webhooks2
     expect(listed).not_to be_nil
@@ -154,11 +192,79 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
       )
     end
     expect(div.id).not_to be_nil
+    expect(div.name).to eq(DIVISION_NAME)
+    @state[:division_id] = div.id
 
     patched = @divisions.v2_organisations_divisions_partial_update(
       div.id,
       patched_division_write: Pescheck::PatchedDivisionWrite.new(city: 'Rotterdam')
     )
     expect(patched.city).to eq('Rotterdam')
+  end
+
+  it 'retrieves a division by id' do
+    retrieved = @divisions.v2_organisations_divisions_retrieve(@state[:division_id])
+    expect(retrieved.id).to eq(@state[:division_id])
+    expect(retrieved.name).to eq(DIVISION_NAME)
+    expect(retrieved.city).to eq('Rotterdam')
+  end
+
+  it 'fully updates a division via PUT' do
+    updated = @divisions.v2_organisations_divisions_update(
+      @state[:division_id],
+      Pescheck::DivisionWrite.new(
+        name: DIVISION_NAME, city: 'Utrecht', address: 'Teststraat 2',
+        postal: '3511AA', phone: '+31300000000', contact_name: 'E2E PUT',
+        contact_email: 'e2e-put@example.com', invoice_email: 'e2e-put@example.com'
+      )
+    )
+    expect(updated.city).to eq('Utrecht')
+    expect(updated.address).to eq('Teststraat 2')
+    expect(updated.contact_name).to eq('E2E PUT')
+
+    retrieved = @divisions.v2_organisations_divisions_retrieve(@state[:division_id])
+    expect(retrieved.city).to eq('Utrecht')
+  end
+end
+
+# Negative cases need a configured client but not the CRUD lifecycle state, so
+# they live in their own describe block.
+RSpec.describe 'Pescheck client error handling (live API)', order: :defined do
+  before(:all) do
+    skip 'PESCHECK_ACCESS_TOKEN not set' if ENV['PESCHECK_ACCESS_TOKEN'].to_s.empty?
+
+    @base_url = ENV.fetch('PESCHECK_BASE_URL', 'https://api-staging.pescheck.io')
+    uri = URI.parse(@base_url)
+
+    Pescheck.configure do |config|
+      config.scheme = uri.scheme
+      config.host = uri.host + (uri.port && uri.default_port != uri.port ? ":#{uri.port}" : '')
+      config.base_path = uri.path
+      config.access_token = ENV['PESCHECK_ACCESS_TOKEN']
+    end
+  end
+
+  it 'raises a 401 ApiError when the access token is invalid' do
+    uri = URI.parse(@base_url)
+    bogus = Pescheck::Configuration.new.tap do |config|
+      config.scheme = uri.scheme
+      config.host = uri.host + (uri.port && uri.default_port != uri.port ? ":#{uri.port}" : '')
+      config.base_path = uri.path
+      config.access_token = 'bogus-invalid-token'
+    end
+    checks = Pescheck::ChecksApi.new(Pescheck::ApiClient.new(bogus))
+
+    expect { checks.v2_checks_list }.to raise_error(Pescheck::ApiError) do |error|
+      expect(error.code).to eq(401)
+    end
+  end
+
+  it 'raises a 404 ApiError when retrieving a non-existent profile' do
+    profiles = Pescheck::ProfilesApi.new
+    missing_id = SecureRandom.uuid
+
+    expect { profiles.v2_profiles_retrieve(missing_id) }.to raise_error(Pescheck::ApiError) do |error|
+      expect(error.code).to eq(404)
+    end
   end
 end
