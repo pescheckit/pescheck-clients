@@ -21,7 +21,7 @@ import PatchedDivisionWrite from '../model/PatchedDivisionWrite';
 /**
 * Divisions service.
 * @module api/DivisionsApi
-* @version 0.0.6
+* @version 0.1.0
 */
 export default class DivisionsApi {
 

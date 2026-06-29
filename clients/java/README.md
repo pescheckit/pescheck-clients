@@ -1,3 +1,5 @@
+> **Official Pescheck API client** - part of the [pescheck-clients](https://github.com/pescheckit/pescheck-clients) SDKs.
+
 # pescheck-client
 
 Pescheck API
@@ -40,7 +42,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>io.pescheck</groupId>
   <artifactId>pescheck-client</artifactId>
-  <version>0.0.6</version>
+  <version>0.1.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "io.pescheck:pescheck-client:0.0.6"
+     implementation "io.pescheck:pescheck-client:0.1.0"
   }
 ```
 
@@ -70,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pescheck-client-0.0.6.jar`
+* `target/pescheck-client-0.1.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

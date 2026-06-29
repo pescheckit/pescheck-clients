@@ -20,7 +20,7 @@ import WebhookResponse from '../model/WebhookResponse';
 /**
 * Webhooks service.
 * @module api/WebhooksApi
-* @version 0.0.6
+* @version 0.1.0
 */
 export default class WebhooksApi {
 

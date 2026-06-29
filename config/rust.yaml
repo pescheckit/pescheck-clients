@@ -7,6 +7,6 @@ gitRepoId: pescheck-clients
 library: reqwest
 additionalProperties:
   packageName: pescheck-client
-  packageVersion: 0.0.6
+  packageVersion: 0.1.0
   supportAsync: "true"
   supportMiddleware: "true"

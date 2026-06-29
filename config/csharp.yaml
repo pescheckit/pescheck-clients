@@ -7,7 +7,7 @@ gitRepoId: pescheck-clients
 library: httpclient
 additionalProperties:
   packageName: Pescheck.Client
-  packageVersion: 0.0.6
+  packageVersion: 0.1.0
   packageProjectUrl: https://pescheck.io
   packageAuthors: Pescheck
   packageCompany: Pescheck

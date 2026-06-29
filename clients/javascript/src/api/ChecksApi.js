@@ -18,7 +18,7 @@ import V2CheckInfo from '../model/V2CheckInfo';
 /**
 * Checks service.
 * @module api/ChecksApi
-* @version 0.0.6
+* @version 0.1.0
 */
 export default class ChecksApi {
 

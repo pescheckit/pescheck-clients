@@ -1,6 +1,6 @@
 [project]
 name = "pescheck-client"
-version = "0.0.6"
+version = "0.1.0"
 description = "Pescheck API"
 authors = [
   {name = "OpenAPI Generator Community",email = "team@openapitools.org"},

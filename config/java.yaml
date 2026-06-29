@@ -8,7 +8,7 @@ library: okhttp-gson
 additionalProperties:
   groupId: io.pescheck
   artifactId: pescheck-client
-  artifactVersion: 0.0.6
+  artifactVersion: 0.1.0
   invokerPackage: io.pescheck.client
   apiPackage: io.pescheck.client.api
   modelPackage: io.pescheck.client.model

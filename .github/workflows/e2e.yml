@@ -157,9 +157,6 @@ jobs:
 
   cpp:
     runs-on: ubuntu-latest
-    # cpp-restsdk + cpprestsdk/boost is the heaviest toolchain; don't fail the
-    # whole matrix if its build is flaky.
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
       - id: token

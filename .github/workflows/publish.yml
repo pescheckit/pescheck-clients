@@ -43,10 +43,13 @@ jobs:
       - name: Test from registry
         if: env.NODE_AUTH_TOKEN != ''
         run: |
+          PKG=@pescheckit/pescheck-client
           mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          for i in $(seq 1 10); do npm install @pescheckit/pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
-          test -f node_modules/@pescheckit/pescheck-client/package.json
-          echo "OK: installed @pescheckit/pescheck-client from npm"
+          ok=""
+          for i in 1 2 3 4 5; do npm install "$PKG" && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then test -f "node_modules/$PKG/package.json" && echo "OK: installed $PKG from npm"
+          elif npm view "$PKG" version >/dev/null 2>&1; then echo "::warning::$PKG is published ($(npm view "$PKG" version)) but still propagating"
+          else echo "::error::$PKG was NOT found on npm - publish did not land"; exit 1; fi
 
   javascript:
     runs-on: ubuntu-latest
@@ -67,9 +70,13 @@ jobs:
       - name: Test from registry
         if: env.NODE_AUTH_TOKEN != ''
         run: |
+          PKG=@pescheckit/pescheck-client-js
           mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          for i in $(seq 1 10); do npm install @pescheckit/pescheck-client-js && break || { echo "propagating… ($i)"; sleep 20; }; done
-          node -e "require('@pescheckit/pescheck-client-js'); console.log('OK: required @pescheckit/pescheck-client-js from npm')"
+          ok=""
+          for i in 1 2 3 4 5; do npm install "$PKG" && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then node -e "require('@pescheckit/pescheck-client-js'); console.log('OK: required $PKG from npm')"
+          elif npm view "$PKG" version >/dev/null 2>&1; then echo "::warning::$PKG is published ($(npm view "$PKG" version)) but still propagating"
+          else echo "::error::$PKG was NOT found on npm - publish did not land"; exit 1; fi
 
   ruby:
     runs-on: ubuntu-latest
@@ -97,8 +104,11 @@ jobs:
       - name: Test from registry
         if: env.RUBYGEMS_API_KEY != ''
         run: |
-          for i in $(seq 1 10); do gem install pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
-          ruby -e "require 'pescheck-client'; puts 'OK: required pescheck-client from RubyGems'"
+          ok=""
+          for i in 1 2 3 4 5; do gem install pescheck-client && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then ruby -e "require 'pescheck-client'; puts 'OK: required pescheck-client from RubyGems'"
+          elif curl -fsS "https://rubygems.org/api/v1/versions/pescheck-client.json" | grep -q '"number"'; then echo "::warning::pescheck-client is published on RubyGems but still propagating"
+          else echo "::error::pescheck-client was NOT found on RubyGems - publish did not land"; exit 1; fi
 
   rust:
     runs-on: ubuntu-latest
@@ -118,10 +128,12 @@ jobs:
       - name: Test from registry
         if: env.CARGO_REGISTRY_TOKEN != ''
         run: |
-          cargo new /tmp/t && cd /tmp/t
-          for i in $(seq 1 10); do cargo add pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
-          cargo build
-          echo "OK: built pescheck from crates.io"
+          cargo new /tmp/t >/dev/null 2>&1 && cd /tmp/t
+          ok=""
+          for i in 1 2 3 4 5; do cargo add pescheck-client && ok=1 && break || { echo "attempt $i: not in index yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then cargo build && echo "OK: built pescheck-client from crates.io"
+          elif curl -fsS -A "pescheck-ci (brampescheck@gmail.com)" "https://crates.io/api/v1/crates/pescheck-client" | grep -q '"newest_version"'; then echo "::warning::pescheck-client is published on crates.io but index still propagating"
+          else echo "::error::pescheck-client was NOT found on crates.io - publish did not land"; exit 1; fi
 
   php:
     runs-on: ubuntu-latest
@@ -134,12 +146,15 @@ jobs:
         run: find clients/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
       - name: Build (validate manifest)
         run: composer validate --no-check-publish
-      - name: Test from registry (Packagist auto-updates from this repo)
+      - name: Test from registry (Packagist)
         run: |
-          mkdir /tmp/t && cd /tmp/t
-          for i in $(seq 1 10); do composer require pescheckit/pescheck-client --no-interaction && break || { echo "propagating… ($i)"; sleep 30; }; done
-          php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "OK: installed pescheckit/pescheck-clients from Packagist\n";'
-    continue-on-error: true # depends on the one-time Packagist Submit being done
+          PKG=pescheckit/pescheck-client
+          mkdir /tmp/t && cd /tmp/t && echo '{}' > composer.json
+          ok=""
+          for i in 1 2 3 4 5; do composer require "$PKG" --no-interaction --no-progress && ok=1 && break || { echo "attempt $i: not indexed yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "OK: installed pescheckit/pescheck-client from Packagist\n";'
+          elif curl -fsS "https://repo.packagist.org/p2/$PKG.json" | grep -q '"version"'; then echo "::warning::$PKG is on Packagist but Composer mirrors are still propagating"
+          else echo "::error::$PKG was NOT found on Packagist - not indexed"; exit 1; fi
 
   csharp:
     runs-on: ubuntu-latest
@@ -171,9 +186,11 @@ jobs:
         if: vars.PUBLISH_NUGET == 'true'
         run: |
           mkdir /tmp/t && cd /tmp/t && dotnet new console >/dev/null
-          for i in $(seq 1 10); do dotnet add package Pescheck.Client && break || { echo "propagating… ($i)"; sleep 30; }; done
-          dotnet build
-          echo "OK: restored Pescheck.Client from NuGet"
+          ok=""
+          for i in 1 2 3 4 5; do dotnet add package Pescheck.Client && ok=1 && break || { echo "attempt $i: not on feed yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then dotnet build && echo "OK: restored Pescheck.Client from NuGet"
+          elif curl -fsS "https://api.nuget.org/v3-flatcontainer/pescheck.client/index.json" | grep -q '"versions"'; then echo "::warning::Pescheck.Client is on NuGet but the feed is still propagating"
+          else echo "::error::Pescheck.Client was NOT found on NuGet - publish did not land"; exit 1; fi
 
   python:
     runs-on: ubuntu-latest
@@ -200,8 +217,11 @@ jobs:
       - name: Test from registry
         if: env.PYPI_API_TOKEN != ''
         run: |
-          for i in $(seq 1 10); do pip install pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
-          python -c "import pescheck; print('OK: imported pescheck from PyPI')"
+          ok=""
+          for i in 1 2 3 4 5; do pip install pescheck-client && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
+          if [ -n "$ok" ]; then python -c "import pescheck; print('OK: imported pescheck from PyPI (pescheck-client)')"
+          elif curl -fsS "https://pypi.org/pypi/pescheck-client/json" | grep -q '"version"'; then echo "::warning::pescheck-client is on PyPI but install mirrors still propagating"
+          else echo "::error::pescheck-client was NOT found on PyPI - publish did not land"; exit 1; fi
 
   java:
     runs-on: ubuntu-latest

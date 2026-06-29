@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2ProfileListItem model module.
  * @module model/V2ProfileListItem
- * @version 0.0.6
+ * @version 0.1.0
  */
 class V2ProfileListItem {
     /**

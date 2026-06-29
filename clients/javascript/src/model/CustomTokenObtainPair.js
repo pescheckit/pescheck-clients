@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The CustomTokenObtainPair model module.
  * @module model/CustomTokenObtainPair
- * @version 0.0.6
+ * @version 0.1.0
  */
 class CustomTokenObtainPair {
     /**

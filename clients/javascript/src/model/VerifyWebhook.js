@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The VerifyWebhook model module.
  * @module model/VerifyWebhook
- * @version 0.0.6
+ * @version 0.1.0
  */
 class VerifyWebhook {
     /**

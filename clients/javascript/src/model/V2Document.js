@@ -17,7 +17,7 @@ import V2DocumentContent from './V2DocumentContent';
 /**
  * The V2Document model module.
  * @module model/V2Document
- * @version 0.0.6
+ * @version 0.1.0
  */
 class V2Document {
     /**

@@ -171,6 +171,30 @@ function stripEmDashesInGeneratedDocs(dir) {
 }
 stripEmDashesInGeneratedDocs(resolve(root, "clients"));
 
+// Brand each generated client README as the OFFICIAL Pescheck client (idempotent).
+const OFFICIAL_BANNER =
+  "> **Official Pescheck API client** - part of the " +
+  "[pescheck-clients](https://github.com/pescheckit/pescheck-clients) SDKs.\n\n";
+let branded = 0;
+try {
+  for (const lang of readdirSync(resolve(root, "clients"))) {
+    const readme = resolve(root, "clients", lang, "README.md");
+    let c;
+    try {
+      c = readFileSync(readme, "utf8");
+    } catch {
+      continue;
+    }
+    if (!c.includes("Official Pescheck API client")) {
+      writeFileSync(readme, OFFICIAL_BANNER + c);
+      branded++;
+    }
+  }
+} catch {
+  /* no clients */
+}
+console.log(`postprocess: branded ${branded} client README(s) as official`);
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
     `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +

@@ -1,7 +1,9 @@
-# Pescheck API Clients
+# Pescheck Clients
 
-Official SDK clients for the [Pescheck API](https://api.pescheck.io/api/schema/swagger-ui/),
-generated from the OpenAPI schema for the **10 most popular programming languages**.
+The **official Pescheck API client libraries** for the
+[Pescheck API](https://api.pescheck.io/api/schema/swagger-ui/), generated from the OpenAPI schema
+for the **10 most popular programming languages**. These are the official, supported SDKs;
+any other Pescheck clients are unofficial.
 
 All clients are generated with [OpenAPI Generator](https://openapi-generator.tech) `7.23.0`
 from a v2-only slice of the schema (`spec/openapi.v2.yaml`). Regenerate everything with a single
