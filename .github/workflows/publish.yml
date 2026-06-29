@@ -6,8 +6,8 @@ name: Publish clients
 # back FROM the registry (retries for propagation, clear error if truly missing).
 #
 # Tokens/flags (Settings -> Secrets and variables -> Actions):
-#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PYPI_API_TOKEN  (secrets)
-#   PUBLISH_NUGET=true (variable, NuGet OIDC trusted publishing)
+#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PACKAGIST_TOKEN  (secrets)
+#   PUBLISH_NUGET=true  PUBLISH_PYPI=true  (variables, OIDC trusted publishing)
 # Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
@@ -171,17 +171,10 @@ jobs:
         run: find clients/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
       - name: Build (validate manifest)
         run: composer validate --no-check-publish
-      - name: Trigger Packagist update (no GitHub webhook on this package)
-        env:
-          PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
-        run: |
-          if [ -n "$PACKAGIST_TOKEN" ]; then
-            curl -fsS -X POST "https://packagist.org/api/update-package?username=pescheck-bram&apiToken=$PACKAGIST_TOKEN" \
-              -H "Content-Type: application/json" \
-              -d '{"repository":{"url":"https://github.com/pescheckit/pescheck-clients"}}' && echo "Packagist update triggered"
-          else
-            echo "PACKAGIST_TOKEN not set - relying on the Packagist GitHub webhook"
-          fi
+      # No explicit Packagist update trigger: the repo already has a Packagist
+      # webhook that crawls on push. Triggering a second crawl here just doubled
+      # the burst of GitHub commits-API calls Packagist makes, tripping GitHub's
+      # secondary rate limit (HTTP 429) and failing the crawl.
       - name: Verify from registry (exact version)
         uses: ./.github/actions/verify-from-registry
         with:
@@ -229,8 +222,8 @@ jobs:
   python:
     runs-on: ubuntu-latest
     needs: test
-    env:
-      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+    permissions:
+      id-token: write # PyPI trusted publishing (OIDC) - no token, no nag summary
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
@@ -244,15 +237,14 @@ jobs:
           python -m compileall -q pescheck
           python -m pip install --upgrade build
           python -m build
-      - name: Publish
-        if: env.PYPI_API_TOKEN != ''
+      - name: Publish (OIDC trusted publishing)
+        if: vars.PUBLISH_PYPI == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: clients/python/dist
-          password: ${{ secrets.PYPI_API_TOKEN }}
           skip-existing: true
       - name: Verify from registry (exact version)
-        if: env.PYPI_API_TOKEN != ''
+        if: vars.PUBLISH_PYPI == 'true'
         uses: ./.github/actions/verify-from-registry
         with:
           ecosystem: pypi
@@ -328,8 +320,10 @@ jobs:
       - uses: actions/checkout@v7
       - name: Package C++ client
         run: tar -czf pescheck-cpp-${GITHUB_REF_NAME}.tar.gz -C clients cpp
-      - uses: softprops/action-gh-release@v2
-        with: { files: pescheck-cpp-*.tar.gz }
+      - name: Upload C++ archive to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${GITHUB_REF_NAME}" pescheck-cpp-*.tar.gz --clobber --repo "${GITHUB_REPOSITORY}"
 
   # Downloadable per-language zips on the Release, for non-package-manager users.
   archives:
@@ -348,6 +342,7 @@ jobs:
             (cd clients && zip -rq "../dist-archives/pescheck-client-${lang}-${V}.zip" "$lang")
           done
           ls -la dist-archives
-      - uses: softprops/action-gh-release@v2
-        with:
-          files: dist-archives/*.zip
+      - name: Upload archives to the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${GITHUB_REF_NAME}" dist-archives/*.zip --clobber --repo "${GITHUB_REPOSITORY}"

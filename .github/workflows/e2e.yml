@@ -94,7 +94,7 @@ jobs:
         with: { ruby-version: "3.3" }
       - run: cd clients/ruby && gem build *.gemspec && gem install ./pescheck-client-*.gem && gem install rspec
       - name: Integration test (rspec)
-        run: cd examples/ruby && rspec crud_integration_spec.rb
+        run: cd examples/ruby && rspec -I ../../clients/ruby/lib crud_integration_spec.rb
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -177,7 +177,7 @@ jobs:
         uses: ./.github/actions/get-token
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev cmake g++
-      - run: cmake -S examples/cpp-crud -B build-crud && cmake --build build-crud -j
+      - run: cmake -S examples/cpp-crud -B build-crud -DCMAKE_CXX_FLAGS="-Wno-return-type" && cmake --build build-crud -j
       - name: Integration test (ctest)
         run: ctest --test-dir build-crud --output-on-failure
         env:

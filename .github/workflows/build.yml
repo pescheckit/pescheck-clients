@@ -94,4 +94,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev cmake g++
-      - run: cmake -S clients/cpp -B build && cmake --build build -j
+      # -Wno-return-type: the generated fromEnum() helpers don't return on the
+      # (unreachable) fall-through path; harmless, silence the warning noise.
+      - run: cmake -S clients/cpp -B build -DCMAKE_CXX_FLAGS="-Wno-return-type" && cmake --build build -j
