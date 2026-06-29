@@ -1,6 +1,6 @@
 /**
  * Pescheck API
- * API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api
+ * Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.
  *
  * The version of the OpenAPI document: 2.0.0
  * 
@@ -59,7 +59,7 @@ import WebhooksApi from './api/WebhooksApi';
 
 
 /**
-* API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api.<br>
+* Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage..<br>
 * The <code>index</code> module provides access to constructors for all the classes which comprise the public API.
 * <p>
 * An AMD (recommended!) or CommonJS application will generally do something equivalent to the following:
@@ -87,7 +87,7 @@ import WebhooksApi from './api/WebhooksApi';
 * </pre>
 * </p>
 * @module index
-* @version 0.0.2
+* @version 0.0.3
 */
 export {
     /**

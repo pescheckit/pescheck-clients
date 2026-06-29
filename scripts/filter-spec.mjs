@@ -173,6 +173,18 @@ for (const name of TOLERANT_SCHEMAS) {
   }
 }
 
+// 5f. Replace the verbose upstream info.description (a run-on auth blurb) with a
+// clean one-paragraph summary. Generators bake info.description into each
+// package's description/summary (e.g. it's what RubyGems shows), so the raw blurb
+// renders badly. Keep it concise plain text that reads well on every registry.
+if (doc.info) {
+  doc.info.description =
+    "Official client library for the Pescheck API (v2), generated from the " +
+    "OpenAPI specification. Authenticate with OAuth2 client credentials and use " +
+    "the checks, profiles, screenings, webhooks and divisions endpoints. " +
+    "See https://github.com/pescheckit/pescheck-clients for installation and usage.";
+}
+
 const oauth2 = doc.components?.securitySchemes?.oauth2;
 let trimmedFlows = 0;
 if (oauth2?.flows) {

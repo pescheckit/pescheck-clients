@@ -6,13 +6,13 @@
     <AssemblyName>Pescheck.Client</AssemblyName>
     <PackageId>Pescheck.Client</PackageId>
     <OutputType>Library</OutputType>
-    <Authors>OpenAPI</Authors>
-    <Company>OpenAPI</Company>
+    <Authors>Pescheck</Authors>
+    <Company>Pescheck</Company>
     <AssemblyTitle>OpenAPI Library</AssemblyTitle>
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>Pescheck.Client</RootNamespace>
-    <Version>0.0.2</Version>
+    <Version>0.0.3</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Pescheck.Client.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/pescheckit/pescheck-clients.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

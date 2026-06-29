@@ -1,6 +1,6 @@
 /**
  * Pescheck API
- * API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api
+ * Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.
  *
  * The version of the OpenAPI document: 2.0.0
  * 
@@ -17,7 +17,7 @@ import V2ProfileCheck from './V2ProfileCheck';
 /**
  * The V2ProfileCreate model module.
  * @module model/V2ProfileCreate
- * @version 0.0.2
+ * @version 0.0.3
  */
 class V2ProfileCreate {
     /**

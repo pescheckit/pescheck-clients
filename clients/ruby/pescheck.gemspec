@@ -3,7 +3,7 @@
 =begin
 #Pescheck API
 
-#API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api
+#Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.
 
 The version of the OpenAPI document: 2.0.0
 
@@ -19,11 +19,12 @@ Gem::Specification.new do |s|
   s.name        = "pescheck"
   s.version     = Pescheck::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["OpenAPI-Generator"]
+  s.authors     = ["Pescheck"]
   s.email       = [""]
-  s.homepage    = "https://openapi-generator.tech"
-  s.summary     = "Pescheck API Ruby Gem"
-  s.description = "API for Pescheck  ## Authentication This API supports three authentication methods: 1. **OAuth2** (recommended for API clients) - Use client credentials flow 2. **JWT Bearer** (for user-based access) - Obtain tokens via /api/jwt/ endpoint 3. **Cookie** (for browser-based access) - Session authentication via web login  ## Quick Start for API Clients 1. Select your environment from the servers dropdown 2. Use OAuth2 with client credentials flow 3. Scopes are automatically included: read:api, create:api, update:api"
+  s.homepage    = "https://pescheck.io"
+  s.metadata = { "source_code_uri" => "https://github.com/pescheckit/pescheck-clients", "homepage_uri" => "https://pescheck.io" }
+  s.summary     = "Official Ruby client for the Pescheck API"
+  s.description = "Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage."
   s.license     = "Unlicense"
   s.required_ruby_version = ">= 2.7"
   s.metadata    = {}

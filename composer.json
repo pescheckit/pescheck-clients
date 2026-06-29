@@ -3,8 +3,12 @@
     "description": "Official Pescheck API PHP SDK (generated). Install via `composer require pescheckit/pescheck-clients`.",
     "type": "library",
     "license": "unlicense",
-    "homepage": "https://github.com/pescheckit/pescheck-clients",
-    "keywords": ["pescheck", "api", "sdk", "rest", "php"],
+    "homepage": "https://pescheck.io",
+    "support": {
+        "source": "https://github.com/pescheckit/pescheck-clients",
+        "issues": "https://github.com/pescheckit/pescheck-clients/issues"
+    },
+    "keywords": ["pescheck", "api", "sdk", "rest", "php", "official"],
     "require": {
         "php": "^8.1",
         "ext-curl": "*",

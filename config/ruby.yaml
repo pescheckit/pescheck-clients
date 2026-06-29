@@ -8,4 +8,7 @@ library: faraday
 additionalProperties:
   gemName: pescheck
   moduleName: Pescheck
-  gemVersion: 0.0.2
+  gemVersion: 0.0.3
+  gemHomepage: https://pescheck.io
+  gemSummary: Official Ruby client for the Pescheck API
+  gemAuthor: Pescheck

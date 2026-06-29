@@ -5,7 +5,7 @@
     <artifactId>pescheck-api-client</artifactId>
     <packaging>jar</packaging>
     <name>pescheck-api-client</name>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <url>https://github.com/openapitools/openapi-generator</url>
     <description>OpenAPI Java</description>
     <scm>

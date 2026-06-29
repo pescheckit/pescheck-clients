@@ -7,6 +7,9 @@ gitRepoId: pescheck-clients
 library: httpclient
 additionalProperties:
   packageName: Pescheck.Client
-  packageVersion: 0.0.2
+  packageVersion: 0.0.3
+  packageProjectUrl: https://pescheck.io
+  packageAuthors: Pescheck
+  packageCompany: Pescheck
   targetFramework: net8.0
   hideGenerationTimestamp: "true"

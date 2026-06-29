@@ -65,7 +65,61 @@ try {
   /* ruby client not generated */
 }
 
+// Fix package metadata URLs (generators default to openapi-generator.tech):
+// homepage -> pescheck.io, repository/source/docs -> GitHub. Generators with a
+// config option (ruby gemHomepage, python packageUrl, csharp packageProjectUrl)
+// already point homepage at pescheck.io; here we add the GitHub links for npm,
+// rust and ruby where the manifest supports them.
+const REPO_URL = "https://github.com/pescheckit/pescheck-clients";
+const HOME_URL = "https://pescheck.io";
+let manifests = 0;
+
+for (const dir of ["typescript", "javascript"]) {
+  const p = resolve(root, `clients/${dir}/package.json`);
+  try {
+    const pkg = JSON.parse(readFileSync(p, "utf8"));
+    pkg.homepage = HOME_URL;
+    pkg.repository = { type: "git", url: `git+${REPO_URL}.git` };
+    pkg.bugs = { url: `${REPO_URL}/issues` };
+    writeFileSync(p, JSON.stringify(pkg, null, 2) + "\n");
+    manifests++;
+  } catch {
+    /* not generated */
+  }
+}
+
+try {
+  const p = resolve(root, "clients/rust/Cargo.toml");
+  let c = readFileSync(p, "utf8");
+  if (!c.includes("homepage =")) {
+    c = c.replace(
+      /(\nversion = "[^"]*"\n)/,
+      `$1homepage = "${HOME_URL}"\nrepository = "${REPO_URL}"\ndocumentation = "${REPO_URL}"\n`
+    );
+    writeFileSync(p, c);
+    manifests++;
+  }
+} catch {
+  /* not generated */
+}
+
+try {
+  const p = resolve(root, "clients/ruby/pescheck.gemspec");
+  let c = readFileSync(p, "utf8");
+  if (!c.includes("source_code_uri")) {
+    c = c.replace(
+      /(\n\s*s\.homepage\s*=.*\n)/,
+      `$1  s.metadata = { "source_code_uri" => "${REPO_URL}", "homepage_uri" => "${HOME_URL}" }\n`
+    );
+    writeFileSync(p, c);
+    manifests++;
+  }
+} catch {
+  /* not generated */
+}
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
-    `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s)`
+    `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +
+    `manifest metadata fixed in ${manifests} file(s)`
 );

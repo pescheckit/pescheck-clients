@@ -218,7 +218,7 @@ jobs:
       - uses: actions/setup-go@v6
         with: { go-version: "1.23", cache: false }
       - name: Build
-        run: cd clients/go && go build ./...
+        run: cd clients/go && go mod tidy && go build ./...
       - name: Tag Go submodule
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
