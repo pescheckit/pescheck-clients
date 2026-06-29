@@ -1,6 +1,11 @@
-// End-to-end CRUD lifecycle test for the Pescheck C++ client (cpp-restsdk).
+// End-to-end CRUD integration test for the Pescheck C++ client (cpp-restsdk).
 //
-// Exercises the full v2 surface against the API and self-cleans where possible:
+// Registered with CTest as `crud_integration`. cpp-restsdk generates no test
+// framework, so this is a standalone executable with hard assertions: any
+// mismatch throws and the process exits non-zero so CTest reports a failure.
+//
+// Exercises the full v2 surface against the real API and self-cleans where
+// possible (NO MOCKS):
 //
 //   checks      list -> retrieve one
 //   profiles    create -> retrieve -> patch -> (best-effort delete)
@@ -8,11 +13,10 @@
 //   webhooks    create -> list -> delete
 //   divisions   list -> reuse-or-create by name -> patch
 //
-// Prints a line per step and "E2E CRUD OK" on success; exits non-zero on error.
-//
 // Env:
-//   PESCHECK_BASE_URL      e.g. https://api.staging.pescheck.example (host root, no path)
-//   PESCHECK_ACCESS_TOKEN  OAuth2 client-credentials access token
+//   PESCHECK_BASE_URL      host root, no path (default https://api-staging.pescheck.io)
+//   PESCHECK_ACCESS_TOKEN  OAuth2 client-credentials access token; if empty the
+//                          test prints "SKIP: no token" and passes (return 0)
 //   PESCHECK_TEST_EMAIL    candidate email (default "noreply@pescheck.nl")
 
 #include <cstdlib>
@@ -20,6 +24,7 @@
 #include <memory>
 #include <random>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -73,20 +78,26 @@ utility::string_t s(const std::string& v) {
     return utility::conversions::to_string_t(v);
 }
 
-void step(const std::string& msg) {
-    std::cout << "  - " << msg << std::endl;
+// Hard assertion: throw on failure so main()'s catch reports a CTest failure
+// and runs cleanup. Used in place of the old print-only steps.
+void check(bool condition, const std::string& what) {
+    if (!condition) {
+        throw std::runtime_error("assertion failed: " + what);
+    }
+    std::cout << "  - OK: " << what << std::endl;
 }
 
 }  // namespace
 
 int main() {
-    const std::string baseUrl = env("PESCHECK_BASE_URL");
+    const std::string baseUrl = env("PESCHECK_BASE_URL", "https://api-staging.pescheck.io");
     const std::string accessToken = env("PESCHECK_ACCESS_TOKEN");
     const std::string testEmail = env("PESCHECK_TEST_EMAIL", "noreply@pescheck.nl");
 
-    if (baseUrl.empty() || accessToken.empty()) {
-        std::cerr << "PESCHECK_BASE_URL and PESCHECK_ACCESS_TOKEN must be set" << std::endl;
-        return 2;
+    // A passing skip when no credentials are available (e.g. PRs from forks).
+    if (accessToken.empty()) {
+        std::cout << "SKIP: no token" << std::endl;
+        return 0;
     }
 
     const std::string suffix = randomSuffix();
@@ -110,10 +121,12 @@ int main() {
     try {
         // --- checks: list -> retrieve one ---
         auto checkList = checksApi.v2ChecksList(boost::optional<utility::string_t>()).get();
+        check(!checkList.empty(), "checks list is non-empty");
         utility::string_t checkType = checkList.at(0)->getCheckType();
-        checksApi.v2ChecksRetrieve(checkType).get();
-        step("checks: " + std::to_string(checkList.size()) + " types, retrieved '" +
-             utility::conversions::to_utf8string(checkType) + "'");
+        check(!checkType.empty(), "first check has a non-empty check_type");
+        auto retrievedCheck = checksApi.v2ChecksRetrieve(checkType).get();
+        check(retrievedCheck->getCheckType() == checkType,
+              "retrieved check matches requested check_type");
 
         // --- profile: create -> retrieve -> patch ---
         auto profileCheck = std::make_shared<V2ProfileCheck>();
@@ -129,15 +142,19 @@ int main() {
         auto created = profilesApi.v2ProfilesCreate(profileCreate).get();
         profileId = created->getId();
         profileCreated = true;
-        profilesApi.v2ProfilesRetrieve(profileId).get();
+        check(!profileId.empty(), "created profile has a non-empty id");
+
+        auto retrievedProfile = profilesApi.v2ProfilesRetrieve(profileId).get();
+        check(retrievedProfile->getId() == profileId,
+              "retrieved profile id matches created id");
 
         auto patch = std::make_shared<PatchedV2ProfilePartialUpdate>();
         patch->setDescription(s("updated by e2e"));
-        profilesApi.v2ProfilesPartialUpdate(
+        auto patched = profilesApi.v2ProfilesPartialUpdate(
             profileId,
             boost::optional<std::shared_ptr<PatchedV2ProfilePartialUpdate>>(patch)).get();
-        step("profile: created+retrieved+patched (" +
-             utility::conversions::to_utf8string(profileId) + ")");
+        check(patched->getDescription() == s("updated by e2e"),
+              "patched profile description was updated");
 
         // --- screening: create -> retrieve -> documents ---
         auto candidate = std::make_shared<V2Candidate>();
@@ -151,18 +168,24 @@ int main() {
 
         auto screening = screeningsApi.v2ScreeningsCreate(screeningCreate).get();
         utility::string_t screeningId = screening->getId();
-        screeningsApi.v2ScreeningsRetrieve(screeningId).get();
+        check(!screeningId.empty(), "created screening has a non-empty id");
+        check(!screening->getStatus().empty(), "created screening has a status");
+
+        auto retrievedScreening = screeningsApi.v2ScreeningsRetrieve(screeningId).get();
+        check(retrievedScreening->getId() == screeningId,
+              "retrieved screening id matches created id");
+
+        // Documents list should return without error (may legitimately be empty).
         screeningsApi.v2ScreeningsDocumentsList(
             screeningId,
             boost::optional<utility::string_t>(),
             boost::optional<utility::string_t>()).get();
-        step("screening: created+retrieved (" +
-             utility::conversions::to_utf8string(screeningId) + ", status=" +
-             utility::conversions::to_utf8string(screening->getStatus()) + ")");
+        check(true, "screening documents listed");
 
         // --- webhook: create -> list -> delete ---
         auto webhook = std::make_shared<Webhook>();
         webhook->setName(s("E2E webhook " + suffix));
+        // Unique URL too: the API rejects duplicate webhook URLs.
         webhook->setUrl(s("https://example.com/e2e-hook-" + suffix));
         // setEvents takes a vector of the generated EventsEnum; map via the converter.
         webhook->setEvents(webhook->toEventsEnum(
@@ -173,10 +196,17 @@ int main() {
             boost::optional<utility::string_t>(),
             boost::optional<utility::string_t>()).get();
         utility::string_t webhookId = hook->getId();
-        webhooksApi.listWebhooks2().get();
+        check(!webhookId.empty(), "created webhook has a non-empty id");
+
+        auto hooks = webhooksApi.listWebhooks2().get();
+        bool found = false;
+        for (const auto& h : hooks) {
+            if (h->getId() == webhookId) { found = true; break; }
+        }
+        check(found, "created webhook appears in the webhook list");
+
         webhooksApi.deleteWebhook2(webhookId).get();
-        step("webhook: created+listed+deleted (" +
-             utility::conversions::to_utf8string(webhookId) + ")");
+        check(true, "webhook deleted");
 
         // --- division: list -> reuse-or-create -> patch ---
         auto listed = divisionsApi.v2OrganisationsDivisionsList(
@@ -208,14 +238,15 @@ int main() {
         } else {
             action = "reused";
         }
+        check(!divisionId.empty(), "division id is non-empty (" + action + ")");
 
         auto divPatch = std::make_shared<PatchedDivisionWrite>();
         divPatch->setCity(s("Rotterdam"));
-        divisionsApi.v2OrganisationsDivisionsPartialUpdate(
+        auto patchedDiv = divisionsApi.v2OrganisationsDivisionsPartialUpdate(
             divisionId,
             boost::optional<std::shared_ptr<PatchedDivisionWrite>>(divPatch)).get();
-        step("division: " + action + "+patched (" +
-             utility::conversions::to_utf8string(divisionId) + ")");
+        check(patchedDiv->getCity() == s("Rotterdam"),
+              "patched division city was updated");
 
         std::cout << "E2E CRUD OK" << std::endl;
     } catch (const ApiException& e) {

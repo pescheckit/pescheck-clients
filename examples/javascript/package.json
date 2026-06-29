@@ -5,9 +5,13 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha test/**/*.spec.js"
   },
   "dependencies": {
     "@pescheckit/pescheck-client-js": "file:../../clients/javascript"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0"
   }
 }

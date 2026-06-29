@@ -6,13 +6,15 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/list_check_types.js",
-    "crud": "node dist/crud_lifecycle.js"
+    "crud": "node dist/crud_lifecycle.js",
+    "test": "vitest run"
   },
   "dependencies": {
     "@pescheckit/pescheck-client": "file:../../clients/typescript"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "typescript": "^5.4"
+    "typescript": "^5.4",
+    "vitest": "^2.1.8"
   }
 }

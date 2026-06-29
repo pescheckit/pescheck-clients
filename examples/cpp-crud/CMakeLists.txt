@@ -31,3 +31,9 @@ target_link_libraries(e2e_crud PRIVATE
     OpenSSL::Crypto
     Boost::system
 )
+
+# Register the CRUD lifecycle as a CTest integration test. The executable
+# returns 0 on success or on a credential-less skip, and non-zero on any
+# failed assertion or API error, which is exactly what CTest checks.
+enable_testing()
+add_test(NAME crud_integration COMMAND e2e_crud)

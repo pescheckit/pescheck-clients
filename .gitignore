@@ -13,6 +13,9 @@ clients/**/obj/
 clients/**/vendor/
 clients/**/*.egg-info/
 clients/**/__pycache__/
+clients/**/package-lock.json
+__pycache__/
+*.pyc
 clients/python/.tox/
 clients/rust/target/
 
