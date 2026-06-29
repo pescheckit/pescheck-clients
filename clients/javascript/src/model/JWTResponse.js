@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The JWTResponse model module.
  * @module model/JWTResponse
- * @version 0.0.1
+ * @version 0.0.2
  */
 class JWTResponse {
     /**

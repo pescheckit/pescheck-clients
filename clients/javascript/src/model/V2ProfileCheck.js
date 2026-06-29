@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2ProfileCheck model module.
  * @module model/V2ProfileCheck
- * @version 0.0.1
+ * @version 0.0.2
  */
 class V2ProfileCheck {
     /**

@@ -18,7 +18,7 @@ import V2ProfileCheckEntry from './V2ProfileCheckEntry';
 /**
  * The V2ProfileDetail model module.
  * @module model/V2ProfileDetail
- * @version 0.0.1
+ * @version 0.0.2
  */
 class V2ProfileDetail {
     /**

@@ -18,7 +18,7 @@ import V2ScreeningCheck from './V2ScreeningCheck';
 /**
  * The V2ScreeningCreate model module.
  * @module model/V2ScreeningCreate
- * @version 0.0.1
+ * @version 0.0.2
  */
 class V2ScreeningCreate {
     /**

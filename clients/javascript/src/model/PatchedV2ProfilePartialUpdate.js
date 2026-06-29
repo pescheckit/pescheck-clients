@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PatchedV2ProfilePartialUpdate model module.
  * @module model/PatchedV2ProfilePartialUpdate
- * @version 0.0.1
+ * @version 0.0.2
  */
 class PatchedV2ProfilePartialUpdate {
     /**

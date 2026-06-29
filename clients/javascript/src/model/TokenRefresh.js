@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The TokenRefresh model module.
  * @module model/TokenRefresh
- * @version 0.0.1
+ * @version 0.0.2
  */
 class TokenRefresh {
     /**

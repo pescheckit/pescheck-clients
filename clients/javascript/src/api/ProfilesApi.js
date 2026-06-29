@@ -22,7 +22,7 @@ import V2ProfileUpdate from '../model/V2ProfileUpdate';
 /**
 * Profiles service.
 * @module api/ProfilesApi
-* @version 0.0.1
+* @version 0.0.2
 */
 export default class ProfilesApi {
 
