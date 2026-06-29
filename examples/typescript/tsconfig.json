@@ -11,5 +11,5 @@
     "outDir": "dist",
     "types": ["node"]
   },
-  "include": ["list_check_types.ts"]
+  "include": ["list_check_types.ts", "crud_lifecycle.ts"]
 }

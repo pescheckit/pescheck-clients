@@ -5,7 +5,8 @@
   "description": "Minimal end-to-end example for the Pescheck TypeScript client",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/list_check_types.js"
+    "start": "node dist/list_check_types.js",
+    "crud": "node dist/crud_lifecycle.js"
   },
   "dependencies": {
     "@pescheckit/api-client": "file:../../clients/typescript"

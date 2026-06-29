@@ -1,8 +1,8 @@
 name: E2E tests
 
-# Real end-to-end smoke test: every client obtains an OAuth2 client-credentials
-# token and calls GET /api/v2/checks/ against the staging API, asserting it gets
-# a parsed list back ("E2E OK: <n> check types").
+# Real end-to-end CRUD test: every client obtains an OAuth2 client-credentials
+# token and runs the full lifecycle (checks, profiles, screenings, webhooks,
+# divisions) against staging, asserting "E2E CRUD OK".
 #
 # Requires repo secrets PESCHECK_CLIENT_ID + PESCHECK_CLIENT_SECRET and
 # (optional) repo variable PESCHECK_BASE_URL (defaults to staging).
@@ -50,7 +50,8 @@ jobs:
       # Build the client first (installs babel + produces dist/), then install the
       # example with --ignore-scripts so it reuses the built client (no babel needed).
       - run: cd clients/javascript && npm install
-      - run: cd examples/javascript && npm install --ignore-scripts && node index.js
+      # Full CRUD lifecycle (checks, profiles, screenings, webhooks, divisions).
+      - run: cd examples/javascript && npm install --ignore-scripts && node crud_lifecycle.js
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -64,7 +65,7 @@ jobs:
       - uses: actions/setup-node@v6
         with: { node-version: "20" }
       - run: cd clients/typescript && npm install
-      - run: cd examples/typescript && npm install && npm run build && npm start
+      - run: cd examples/typescript && npm install && npm run build && node dist/crud_lifecycle.js
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -78,7 +79,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with: { ruby-version: "3.3" }
       - run: cd clients/ruby && gem build pescheck.gemspec && gem install ./pescheck-*.gem
-      - run: cd examples/ruby && ruby list_check_types.rb
+      - run: cd examples/ruby && ruby crud_lifecycle.rb
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -106,7 +107,7 @@ jobs:
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: actions/setup-go@v6
         with: { go-version: "1.23", cache: false }
-      - run: cd examples/go && go mod tidy && go run .
+      - run: cd examples/go-crud && go mod tidy && go run .
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -123,8 +124,8 @@ jobs:
       - run: mvn -q -B -f clients/java dependency:build-classpath -Dmdep.outputFile=$PWD/cp.txt
       - run: |
           CP="clients/java/target/classes:$(cat cp.txt)"
-          javac -cp "$CP" -d examples/java examples/java/Example.java
-          java -cp "examples/java:$CP" Example
+          javac -cp "$CP" -d examples/java examples/java/CrudLifecycle.java
+          java -cp "examples/java:$CP" CrudLifecycle
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -137,7 +138,7 @@ jobs:
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: actions/setup-dotnet@v5
         with: { dotnet-version: "8.0.x" }
-      - run: dotnet run --project examples/csharp -c Release
+      - run: dotnet run --project examples/csharp-crud -c Release
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -149,7 +150,7 @@ jobs:
         uses: ./.github/actions/get-token
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: dtolnay/rust-toolchain@stable
-      - run: cd examples/rust && cargo run --quiet
+      - run: cd examples/rust && cargo run --quiet --bin crud_lifecycle
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
 
@@ -164,7 +165,7 @@ jobs:
         uses: ./.github/actions/get-token
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev cmake g++
-      - run: cmake -S examples/cpp -B build && cmake --build build -j
-      - run: ./build/e2e
+      - run: cmake -S examples/cpp-crud -B build && cmake --build build -j
+      - run: ./build/e2e_crud
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}

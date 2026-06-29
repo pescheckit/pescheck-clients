@@ -22,8 +22,11 @@ examples/**/dist/
 examples/**/vendor/
 examples/**/target/
 examples/**/build/
-examples/**/bin/
-examples/**/obj/
+# .NET build output (scoped so it doesn't catch Rust's src/bin/ source dir)
+examples/csharp/bin/
+examples/csharp/obj/
+examples/csharp-crud/bin/
+examples/csharp-crud/obj/
 examples/**/composer.lock
 examples/**/package-lock.json
 examples/**/*.class
