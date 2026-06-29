@@ -24,7 +24,7 @@ export interface V2ProfileListItem {
      * @type {string}
      * @memberof V2ProfileListItem
      */
-    readonly id: string;
+    readonly id?: string;
     /**
      * 
      * @type {string}
@@ -48,31 +48,27 @@ export interface V2ProfileListItem {
      * @type {Array<string>}
      * @memberof V2ProfileListItem
      */
-    readonly checkTypes: Array<string>;
+    readonly checkTypes?: Array<string>;
     /**
      * 
      * @type {Date}
      * @memberof V2ProfileListItem
      */
-    readonly createdAt: Date;
+    readonly createdAt?: Date;
     /**
      * 
      * @type {Date}
      * @memberof V2ProfileListItem
      */
-    readonly updatedAt: Date;
+    readonly updatedAt?: Date;
 }
 
 /**
  * Check if a given object implements the V2ProfileListItem interface.
  */
 export function instanceOfV2ProfileListItem(value: any): value is V2ProfileListItem {
-    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
-    if ((!('checkTypes' in value) && !('check_types' in value)) || (value['checkTypes'] === undefined && value['check_types'] === undefined)) return false;
-    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
-    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -86,13 +82,13 @@ export function V2ProfileListItemFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'id': json['id'],
+        'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'],
         'description': json['description'],
         'isCustom': json['is_custom'] == null ? undefined : json['is_custom'],
-        'checkTypes': json['check_types'],
-        'createdAt': (new Date(json['created_at'])),
-        'updatedAt': (new Date(json['updated_at'])),
+        'checkTypes': json['check_types'] == null ? undefined : json['check_types'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
     };
 }
 

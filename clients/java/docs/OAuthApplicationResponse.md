@@ -8,14 +8,14 @@ Serializer for OAuth application responses
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **UUID** |  |  [readonly] |
+|**id** | **UUID** |  |  [optional] [readonly] |
 |**name** | **String** |  |  [optional] |
 |**clientId** | **String** |  |  [optional] |
-|**clientSecret** | **String** |  |  [readonly] |
+|**clientSecret** | **String** |  |  [optional] [readonly] |
 |**clientType** | [**ClientTypeEnum**](#ClientTypeEnum) | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public |  |
 |**authorizationGrantType** | [**AuthorizationGrantTypeEnum**](#AuthorizationGrantTypeEnum) | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid |  |
-|**created** | **OffsetDateTime** |  |  [readonly] |
-|**updated** | **OffsetDateTime** |  |  [readonly] |
+|**created** | **OffsetDateTime** |  |  [optional] [readonly] |
+|**updated** | **OffsetDateTime** |  |  [optional] [readonly] |
 
 
 

@@ -21,6 +21,23 @@ require 'uri'
 require 'securerandom'
 require 'pescheck-client'
 
+# Staging intermittently returns HTTP 5xx on read/list calls. Retry those a few
+# times with a short backoff; the client raises Pescheck::ApiError carrying the
+# status as #code. Only server errors (>= 500) are retried — 4xx propagate
+# immediately so the negative 401/404 tests stay meaningful.
+def with_retry(attempts: 3)
+  attempt = 0
+  begin
+    attempt += 1
+    yield
+  rescue Pescheck::ApiError => e
+    raise if attempt >= attempts || e.code.to_i < 500
+
+    sleep 1
+    retry
+  end
+end
+
 # The lifecycle steps build on each other (a screening needs the profile created
 # a step earlier), so they must run in source order rather than RSpec's default
 # random order.
@@ -69,13 +86,13 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
   end
 
   it 'lists check types and retrieves one' do
-    check_list = @checks.v2_checks_list
+    check_list = with_retry { @checks.v2_checks_list }
     expect(check_list).not_to be_empty
 
     check_type = check_list[0].check_type
     @state[:check_type] = check_type
 
-    retrieved = @checks.v2_checks_retrieve(check_type)
+    retrieved = with_retry { @checks.v2_checks_retrieve(check_type) }
     expect(retrieved.check_type).to eq(check_type)
   end
 
@@ -90,7 +107,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
     @state[:profile_id] = created.id
     expect(@state[:profile_id]).not_to be_nil
 
-    retrieved = @profiles.v2_profiles_retrieve(@state[:profile_id])
+    retrieved = with_retry { @profiles.v2_profiles_retrieve(@state[:profile_id]) }
     expect(retrieved.id).to eq(@state[:profile_id])
     expect(retrieved.name).to eq("E2E test profile #{SUFFIX}")
 
@@ -100,7 +117,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
     )
     expect(patched.description).to eq('updated by e2e')
 
-    listed = @profiles.v2_profiles_list
+    listed = with_retry { @profiles.v2_profiles_list }
     ids = (listed.respond_to?(:results) ? listed.results : listed).map(&:id)
     expect(ids).to include(@state[:profile_id])
   end
@@ -143,17 +160,17 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
     expect(screening.status).not_to be_nil
     @state[:screening_id] = screening.id
 
-    retrieved = @screenings.v2_screenings_retrieve(screening.id)
+    retrieved = with_retry { @screenings.v2_screenings_retrieve(screening.id) }
     expect(retrieved.id).to eq(screening.id)
     expect(retrieved.candidate.email).to eq(@test_email)
     expect(retrieved.candidate.first_name).to eq('E2E')
 
     # documents list should return without error (may be empty)
-    expect { @screenings.v2_screenings_documents_list(screening.id) }.not_to raise_error
+    expect { with_retry { @screenings.v2_screenings_documents_list(screening.id) } }.not_to raise_error
   end
 
   it 'lists screenings and finds the one just created' do
-    listed = @screenings.v2_screenings_list
+    listed = with_retry { @screenings.v2_screenings_list }
     items = listed.respond_to?(:results) ? listed.results : listed
     expect(items).not_to be_empty
     expect(items.map(&:id)).to include(@state[:screening_id])
@@ -179,7 +196,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
   end
 
   it 'lists divisions, reuses-or-creates one and patches it' do
-    existing = @divisions.v2_organisations_divisions_list.results
+    existing = with_retry { @divisions.v2_organisations_divisions_list }.results
     div = existing.find { |d| d.name == DIVISION_NAME }
 
     if div.nil?
@@ -203,7 +220,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
   end
 
   it 'retrieves a division by id' do
-    retrieved = @divisions.v2_organisations_divisions_retrieve(@state[:division_id])
+    retrieved = with_retry { @divisions.v2_organisations_divisions_retrieve(@state[:division_id]) }
     expect(retrieved.id).to eq(@state[:division_id])
     expect(retrieved.name).to eq(DIVISION_NAME)
     expect(retrieved.city).to eq('Rotterdam')

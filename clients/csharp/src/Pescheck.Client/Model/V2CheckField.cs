@@ -43,7 +43,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name = "name", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; private set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Pescheck.Client.Model
         /// \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot;
         /// </summary>
         /// <value>\&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot;</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "type", EmitDefaultValue = false)]
         public string Type { get; private set; }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Pescheck.Client.Model
         /// Whether the request body must include this field.
         /// </summary>
         /// <value>Whether the request body must include this field.</value>
-        [DataMember(Name = "required", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "required", EmitDefaultValue = true)]
         public bool Required { get; private set; }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Pescheck.Client.Model
         /// Allowed values, or null if the field isn&#39;t constrained to a set.
         /// </summary>
         /// <value>Allowed values, or null if the field isn&#39;t constrained to a set.</value>
-        [DataMember(Name = "choices", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "choices", EmitDefaultValue = true)]
         public List<string> Choices { get; private set; }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets HelpText
         /// </summary>
-        [DataMember(Name = "help_text", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "help_text", EmitDefaultValue = true)]
         public string HelpText { get; private set; }
 
         /// <summary>

@@ -23,13 +23,10 @@ class V2ScreeningCheckListItem {
      * Constructs a new <code>V2ScreeningCheckListItem</code>.
      * Minimal check entry shape for screening list items. No config/input/etc.
      * @alias module:model/V2ScreeningCheckListItem
-     * @param id {String} 
-     * @param checkType {module:model/V2ScreeningCheckListItem.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-     * @param status {String} 
      */
-    constructor(id, checkType, status) { 
+    constructor() { 
         
-        V2ScreeningCheckListItem.initialize(this, id, checkType, status);
+        V2ScreeningCheckListItem.initialize(this);
     }
 
     /**
@@ -37,10 +34,7 @@ class V2ScreeningCheckListItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, checkType, status) { 
-        obj['id'] = id;
-        obj['check_type'] = checkType;
-        obj['status'] = status;
+    static initialize(obj) { 
     }
 
     /**
@@ -73,12 +67,6 @@ class V2ScreeningCheckListItem {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2ScreeningCheckListItem</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of V2ScreeningCheckListItem.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -98,7 +86,7 @@ class V2ScreeningCheckListItem {
 
 }
 
-V2ScreeningCheckListItem.RequiredProperties = ["id", "check_type", "status"];
+
 
 /**
  * @member {String} id

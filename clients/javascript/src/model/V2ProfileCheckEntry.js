@@ -23,17 +23,10 @@ class V2ProfileCheckEntry {
     /**
      * Constructs a new <code>V2ProfileCheckEntry</code>.
      * @alias module:model/V2ProfileCheckEntry
-     * @param id {String} 
-     * @param checkType {module:model/V2ProfileCheckEntry.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-     * @param displayName {String} 
-     * @param configuredPrice {module:model/V2Money} 
-     * @param config {Object.<String, Object>} 
-     * @param inputFields {Array.<Object>} 
-     * @param isSystemManaged {Boolean} 
      */
-    constructor(id, checkType, displayName, configuredPrice, config, inputFields, isSystemManaged) { 
+    constructor() { 
         
-        V2ProfileCheckEntry.initialize(this, id, checkType, displayName, configuredPrice, config, inputFields, isSystemManaged);
+        V2ProfileCheckEntry.initialize(this);
     }
 
     /**
@@ -41,14 +34,7 @@ class V2ProfileCheckEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, checkType, displayName, configuredPrice, config, inputFields, isSystemManaged) { 
-        obj['id'] = id;
-        obj['check_type'] = checkType;
-        obj['display_name'] = displayName;
-        obj['configured_price'] = configuredPrice;
-        obj['config'] = config;
-        obj['input_fields'] = inputFields;
-        obj['is_system_managed'] = isSystemManaged;
+    static initialize(obj) { 
     }
 
     /**
@@ -93,12 +79,6 @@ class V2ProfileCheckEntry {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2ProfileCheckEntry</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of V2ProfileCheckEntry.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -126,7 +106,7 @@ class V2ProfileCheckEntry {
 
 }
 
-V2ProfileCheckEntry.RequiredProperties = ["id", "check_type", "display_name", "configured_price", "config", "input_fields", "is_system_managed"];
+
 
 /**
  * @member {String} id

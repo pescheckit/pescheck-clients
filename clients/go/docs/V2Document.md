@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CheckId** | **NullableString** |  | [readonly] 
-**CheckType** | **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [readonly] 
-**Filename** | **string** |  | [readonly] 
-**Extension** | **string** |  | [readonly] 
-**Content** | [**V2DocumentContent**](V2DocumentContent.md) |  | [readonly] 
-**Metadata** | **map[string]interface{}** |  | [readonly] 
+**CheckId** | Pointer to **NullableString** |  | [optional] [readonly] 
+**CheckType** | Pointer to **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [optional] [readonly] 
+**Filename** | Pointer to **string** |  | [optional] [readonly] 
+**Extension** | Pointer to **string** |  | [optional] [readonly] 
+**Content** | Pointer to [**V2DocumentContent**](V2DocumentContent.md) |  | [optional] [readonly] 
+**Metadata** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
 
 ## Methods
 
 ### NewV2Document
 
-`func NewV2Document(checkId NullableString, checkType string, filename string, extension string, content V2DocumentContent, metadata map[string]interface{}, ) *V2Document`
+`func NewV2Document() *V2Document`
 
 NewV2Document instantiates a new V2Document object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +49,11 @@ and a boolean to check if the value has been set.
 
 SetCheckId sets CheckId field to given value.
 
+### HasCheckId
+
+`func (o *V2Document) HasCheckId() bool`
+
+HasCheckId returns a boolean if a field has been set.
 
 ### SetCheckIdNil
 
@@ -79,6 +84,11 @@ and a boolean to check if the value has been set.
 
 SetCheckType sets CheckType field to given value.
 
+### HasCheckType
+
+`func (o *V2Document) HasCheckType() bool`
+
+HasCheckType returns a boolean if a field has been set.
 
 ### GetFilename
 
@@ -99,6 +109,11 @@ and a boolean to check if the value has been set.
 
 SetFilename sets Filename field to given value.
 
+### HasFilename
+
+`func (o *V2Document) HasFilename() bool`
+
+HasFilename returns a boolean if a field has been set.
 
 ### GetExtension
 
@@ -119,6 +134,11 @@ and a boolean to check if the value has been set.
 
 SetExtension sets Extension field to given value.
 
+### HasExtension
+
+`func (o *V2Document) HasExtension() bool`
+
+HasExtension returns a boolean if a field has been set.
 
 ### GetContent
 
@@ -139,6 +159,11 @@ and a boolean to check if the value has been set.
 
 SetContent sets Content field to given value.
 
+### HasContent
+
+`func (o *V2Document) HasContent() bool`
+
+HasContent returns a boolean if a field has been set.
 
 ### GetMetadata
 
@@ -159,6 +184,11 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+### HasMetadata
+
+`func (o *V2Document) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

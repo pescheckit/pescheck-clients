@@ -12,8 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the V2ProfileCheckEntry type satisfies the MappedNullable interface at compile time
@@ -21,31 +19,22 @@ var _ MappedNullable = &V2ProfileCheckEntry{}
 
 // V2ProfileCheckEntry struct for V2ProfileCheckEntry
 type V2ProfileCheckEntry struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-	CheckType string `json:"check_type"`
-	DisplayName string `json:"display_name"`
-	ConfiguredPrice V2Money `json:"configured_price"`
-	Config map[string]interface{} `json:"config"`
-	InputFields []map[string]interface{} `json:"input_fields"`
-	IsSystemManaged bool `json:"is_system_managed"`
+	CheckType *string `json:"check_type,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	ConfiguredPrice *V2Money `json:"configured_price,omitempty"`
+	Config map[string]interface{} `json:"config,omitempty"`
+	InputFields []map[string]interface{} `json:"input_fields,omitempty"`
+	IsSystemManaged *bool `json:"is_system_managed,omitempty"`
 }
-
-type _V2ProfileCheckEntry V2ProfileCheckEntry
 
 // NewV2ProfileCheckEntry instantiates a new V2ProfileCheckEntry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ProfileCheckEntry(id string, checkType string, displayName string, configuredPrice V2Money, config map[string]interface{}, inputFields []map[string]interface{}, isSystemManaged bool) *V2ProfileCheckEntry {
+func NewV2ProfileCheckEntry() *V2ProfileCheckEntry {
 	this := V2ProfileCheckEntry{}
-	this.Id = id
-	this.CheckType = checkType
-	this.DisplayName = displayName
-	this.ConfiguredPrice = configuredPrice
-	this.Config = config
-	this.InputFields = inputFields
-	this.IsSystemManaged = isSystemManaged
 	return &this
 }
 
@@ -57,172 +46,228 @@ func NewV2ProfileCheckEntryWithDefaults() *V2ProfileCheckEntry {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *V2ProfileCheckEntry) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetCheckType returns the CheckType field value
+// GetCheckType returns the CheckType field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetCheckType() string {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		var ret string
 		return ret
 	}
-
-	return o.CheckType
+	return *o.CheckType
 }
 
-// GetCheckTypeOk returns a tuple with the CheckType field value
+// GetCheckTypeOk returns a tuple with the CheckType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetCheckTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		return nil, false
 	}
-	return &o.CheckType, true
+	return o.CheckType, true
 }
 
-// SetCheckType sets field value
+// HasCheckType returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasCheckType() bool {
+	if o != nil && !IsNil(o.CheckType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckType gets a reference to the given string and assigns it to the CheckType field.
 func (o *V2ProfileCheckEntry) SetCheckType(v string) {
-	o.CheckType = v
+	o.CheckType = &v
 }
 
-// GetDisplayName returns the DisplayName field value
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetDisplayName() string {
-	if o == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
-
-	return o.DisplayName
+	return *o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName, true
 }
 
-// SetDisplayName sets field value
+// HasDisplayName returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
 func (o *V2ProfileCheckEntry) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName = &v
 }
 
-// GetConfiguredPrice returns the ConfiguredPrice field value
+// GetConfiguredPrice returns the ConfiguredPrice field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetConfiguredPrice() V2Money {
-	if o == nil {
+	if o == nil || IsNil(o.ConfiguredPrice) {
 		var ret V2Money
 		return ret
 	}
-
-	return o.ConfiguredPrice
+	return *o.ConfiguredPrice
 }
 
-// GetConfiguredPriceOk returns a tuple with the ConfiguredPrice field value
+// GetConfiguredPriceOk returns a tuple with the ConfiguredPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetConfiguredPriceOk() (*V2Money, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ConfiguredPrice) {
 		return nil, false
 	}
-	return &o.ConfiguredPrice, true
+	return o.ConfiguredPrice, true
 }
 
-// SetConfiguredPrice sets field value
+// HasConfiguredPrice returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasConfiguredPrice() bool {
+	if o != nil && !IsNil(o.ConfiguredPrice) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfiguredPrice gets a reference to the given V2Money and assigns it to the ConfiguredPrice field.
 func (o *V2ProfileCheckEntry) SetConfiguredPrice(v V2Money) {
-	o.ConfiguredPrice = v
+	o.ConfiguredPrice = &v
 }
 
-// GetConfig returns the Config field value
+// GetConfig returns the Config field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetConfig() map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Config) {
 		var ret map[string]interface{}
 		return ret
 	}
-
 	return o.Config
 }
 
-// GetConfigOk returns a tuple with the Config field value
+// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetConfigOk() (map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Config) {
 		return map[string]interface{}{}, false
 	}
 	return o.Config, true
 }
 
-// SetConfig sets field value
+// HasConfig returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasConfig() bool {
+	if o != nil && !IsNil(o.Config) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
 func (o *V2ProfileCheckEntry) SetConfig(v map[string]interface{}) {
 	o.Config = v
 }
 
-// GetInputFields returns the InputFields field value
+// GetInputFields returns the InputFields field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetInputFields() []map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.InputFields) {
 		var ret []map[string]interface{}
 		return ret
 	}
-
 	return o.InputFields
 }
 
-// GetInputFieldsOk returns a tuple with the InputFields field value
+// GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetInputFieldsOk() ([]map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.InputFields) {
 		return nil, false
 	}
 	return o.InputFields, true
 }
 
-// SetInputFields sets field value
+// HasInputFields returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasInputFields() bool {
+	if o != nil && !IsNil(o.InputFields) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputFields gets a reference to the given []map[string]interface{} and assigns it to the InputFields field.
 func (o *V2ProfileCheckEntry) SetInputFields(v []map[string]interface{}) {
 	o.InputFields = v
 }
 
-// GetIsSystemManaged returns the IsSystemManaged field value
+// GetIsSystemManaged returns the IsSystemManaged field value if set, zero value otherwise.
 func (o *V2ProfileCheckEntry) GetIsSystemManaged() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsSystemManaged) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsSystemManaged
+	return *o.IsSystemManaged
 }
 
-// GetIsSystemManagedOk returns a tuple with the IsSystemManaged field value
+// GetIsSystemManagedOk returns a tuple with the IsSystemManaged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ProfileCheckEntry) GetIsSystemManagedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsSystemManaged) {
 		return nil, false
 	}
-	return &o.IsSystemManaged, true
+	return o.IsSystemManaged, true
 }
 
-// SetIsSystemManaged sets field value
+// HasIsSystemManaged returns a boolean if a field has been set.
+func (o *V2ProfileCheckEntry) HasIsSystemManaged() bool {
+	if o != nil && !IsNil(o.IsSystemManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSystemManaged gets a reference to the given bool and assigns it to the IsSystemManaged field.
 func (o *V2ProfileCheckEntry) SetIsSystemManaged(v bool) {
-	o.IsSystemManaged = v
+	o.IsSystemManaged = &v
 }
 
 func (o V2ProfileCheckEntry) MarshalJSON() ([]byte, error) {
@@ -235,57 +280,28 @@ func (o V2ProfileCheckEntry) MarshalJSON() ([]byte, error) {
 
 func (o V2ProfileCheckEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["check_type"] = o.CheckType
-	toSerialize["display_name"] = o.DisplayName
-	toSerialize["configured_price"] = o.ConfiguredPrice
-	toSerialize["config"] = o.Config
-	toSerialize["input_fields"] = o.InputFields
-	toSerialize["is_system_managed"] = o.IsSystemManaged
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.CheckType) {
+		toSerialize["check_type"] = o.CheckType
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if !IsNil(o.ConfiguredPrice) {
+		toSerialize["configured_price"] = o.ConfiguredPrice
+	}
+	if !IsNil(o.Config) {
+		toSerialize["config"] = o.Config
+	}
+	if !IsNil(o.InputFields) {
+		toSerialize["input_fields"] = o.InputFields
+	}
+	if !IsNil(o.IsSystemManaged) {
+		toSerialize["is_system_managed"] = o.IsSystemManaged
+	}
 	return toSerialize, nil
-}
-
-func (o *V2ProfileCheckEntry) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"check_type",
-		"display_name",
-		"configured_price",
-		"config",
-		"input_fields",
-		"is_system_managed",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varV2ProfileCheckEntry := _V2ProfileCheckEntry{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ProfileCheckEntry)
-
-	if err != nil {
-		return err
-	}
-
-	*o = V2ProfileCheckEntry(varV2ProfileCheckEntry)
-
-	return err
 }
 
 type NullableV2ProfileCheckEntry struct {

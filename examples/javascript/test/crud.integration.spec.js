@@ -21,6 +21,21 @@ const PescheckApi = require('@pescheckit/pescheck-client-js');
 const SUFFIX = crypto.randomBytes(4).toString('hex');
 const DIVISION_NAME = 'E2E CI division';
 
+// Staging intermittently returns HTTP 5xx on read/list calls. Retry those a few
+// times with a short backoff; superagent surfaces the status as err.status. Only
+// server errors (>= 500) are retried — 4xx surface immediately so the negative
+// 401/404 tests stay meaningful.
+async function withRetry(fn, attempts = 3) {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (attempt >= attempts || !(err && err.status >= 500)) throw err;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+}
+
 describe('Pescheck client CRUD lifecycle', function () {
   // Real network calls: give each step generous headroom.
   this.timeout(60000);
@@ -63,10 +78,10 @@ describe('Pescheck client CRUD lifecycle', function () {
   });
 
   it('lists and retrieves checks', async function () {
-    const checkList = await checks.v2ChecksList();
+    const checkList = await withRetry(() => checks.v2ChecksList());
     assert.ok(checkList.length > 0, 'expected at least one check type');
     checkType = checkList[0].check_type;
-    const retrieved = await checks.v2ChecksRetrieve(checkType);
+    const retrieved = await withRetry(() => checks.v2ChecksRetrieve(checkType));
     assert.strictEqual(retrieved.check_type, checkType);
   });
 
@@ -80,7 +95,7 @@ describe('Pescheck client CRUD lifecycle', function () {
     profileId = created.id;
     assert.ok(profileId, 'expected a profile id');
 
-    const retrieved = await profiles.v2ProfilesRetrieve(profileId);
+    const retrieved = await withRetry(() => profiles.v2ProfilesRetrieve(profileId));
     assert.strictEqual(retrieved.id, profileId);
     assert.strictEqual(retrieved.name, name, 'profile should keep the name it was created with');
 
@@ -90,7 +105,7 @@ describe('Pescheck client CRUD lifecycle', function () {
     assert.strictEqual(patched.description, 'updated by e2e');
     assert.strictEqual(patched.name, name, 'PATCH of description should leave the name unchanged');
 
-    const list = await profiles.v2ProfilesList();
+    const list = await withRetry(() => profiles.v2ProfilesList());
     const items = Array.isArray(list) ? list : list.results;
     assert.ok(items.some((p) => p.id === profileId), 'profile should appear in list');
   });
@@ -125,16 +140,16 @@ describe('Pescheck client CRUD lifecycle', function () {
     assert.ok(screening.status, 'expected a screening status');
     screeningId = screening.id;
 
-    const retrieved = await screenings.v2ScreeningsRetrieve(screening.id);
+    const retrieved = await withRetry(() => screenings.v2ScreeningsRetrieve(screening.id));
     assert.strictEqual(retrieved.id, screening.id);
     assert.ok(retrieved.candidate, 'expected the screening to carry a candidate');
     assert.strictEqual(retrieved.candidate.email, testEmail, 'candidate email should round-trip');
 
-    await screenings.v2ScreeningsDocumentsList(screening.id);
+    await withRetry(() => screenings.v2ScreeningsDocumentsList(screening.id));
   });
 
   it('lists screenings and finds the created screening', async function () {
-    const list = await screenings.v2ScreeningsList();
+    const list = await withRetry(() => screenings.v2ScreeningsList());
     const items = Array.isArray(list) ? list : list.results;
     assert.ok(items.length > 0, 'expected at least one screening in the list');
     assert.ok(
@@ -163,7 +178,7 @@ describe('Pescheck client CRUD lifecycle', function () {
   });
 
   it('lists, reuses-or-creates and patches a division', async function () {
-    const existing = (await divisions.v2OrganisationsDivisionsList()).results;
+    const existing = (await withRetry(() => divisions.v2OrganisationsDivisionsList())).results;
     let div = existing.find((d) => d.name === DIVISION_NAME);
     if (!div) {
       div = await divisions.v2OrganisationsDivisionsCreate({
@@ -183,7 +198,7 @@ describe('Pescheck client CRUD lifecycle', function () {
   });
 
   it('retrieves and replaces a division with PUT', async function () {
-    const retrieved = await divisions.v2OrganisationsDivisionsRetrieve(divId);
+    const retrieved = await withRetry(() => divisions.v2OrganisationsDivisionsRetrieve(divId));
     assert.strictEqual(retrieved.id, divId);
     assert.strictEqual(retrieved.name, DIVISION_NAME, 'retrieved division should keep its name');
     // The previous PATCH set the city to Rotterdam.

@@ -4,17 +4,17 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [readonly] |
+| **id** | **String** |  | [optional][readonly] |
 | **name** | **String** |  |  |
 | **description** | **String** |  |  |
 | **is_custom** | **Boolean** |  | [optional] |
-| **checks** | [**Array&lt;V2ProfileCheckEntry&gt;**](V2ProfileCheckEntry.md) |  | [readonly] |
-| **total_price** | [**V2Money**](V2Money.md) |  | [readonly] |
-| **supported_countries_of_work** | **Array&lt;String&gt;** |  | [readonly] |
-| **supported_countries_of_residence** | **Array&lt;String&gt;** |  | [readonly] |
-| **candidate_fields** | **Array&lt;Object&gt;** |  | [readonly] |
-| **created_at** | **Time** |  | [readonly] |
-| **updated_at** | **Time** |  | [readonly] |
+| **checks** | [**Array&lt;V2ProfileCheckEntry&gt;**](V2ProfileCheckEntry.md) |  | [optional][readonly] |
+| **total_price** | [**V2Money**](V2Money.md) |  | [optional][readonly] |
+| **supported_countries_of_work** | **Array&lt;String&gt;** |  | [optional][readonly] |
+| **supported_countries_of_residence** | **Array&lt;String&gt;** |  | [optional][readonly] |
+| **candidate_fields** | **Array&lt;Object&gt;** |  | [optional][readonly] |
+| **created_at** | **Time** |  | [optional][readonly] |
+| **updated_at** | **Time** |  | [optional][readonly] |
 
 ## Example
 

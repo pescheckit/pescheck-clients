@@ -55,7 +55,7 @@ import io.pescheck.client.JSON;
 public class DivisionReadOnly {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -65,17 +65,17 @@ public class DivisionReadOnly {
 
   public static final String SERIALIZED_NAME_PARENT = "parent";
   @SerializedName(SERIALIZED_NAME_PARENT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String parent;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public static final String SERIALIZED_NAME_CITY = "city";
@@ -148,7 +148,7 @@ public class DivisionReadOnly {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -178,7 +178,7 @@ public class DivisionReadOnly {
    * Get parent
    * @return parent
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getParent() {
     return parent;
   }
@@ -189,7 +189,7 @@ public class DivisionReadOnly {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -200,7 +200,7 @@ public class DivisionReadOnly {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -480,7 +480,7 @@ public class DivisionReadOnly {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "parent", "created_at", "updated_at", "city", "address", "postal", "phone", "contact_name", "contact_email", "invoice_email", "use_parent_on_email", "use_parent_on_billing", "use_parent_on_report"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "parent", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -503,21 +503,14 @@ public class DivisionReadOnly {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `DivisionReadOnly` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : DivisionReadOnly.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      if (!jsonObj.get("parent").isJsonPrimitive()) {
+      if ((jsonObj.get("parent") != null && !jsonObj.get("parent").isJsonNull()) && !jsonObj.get("parent").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `parent` to be a primitive type in the JSON string but got `%s`", jsonObj.get("parent").toString()));
       }
       if ((jsonObj.get("city") != null && !jsonObj.get("city").isJsonNull()) && !jsonObj.get("city").isJsonPrimitive()) {

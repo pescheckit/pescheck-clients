@@ -316,23 +316,11 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
         if ($this->container['description'] === null && !$this->isNullableSetToNull('description')) {
             $invalidProperties[] = "'description' is required";
-        }
-        if ($this->container['check_types'] === null) {
-            $invalidProperties[] = "'check_types' can't be null";
-        }
-        if ($this->container['created_at'] === null) {
-            $invalidProperties[] = "'created_at' can't be null";
-        }
-        if ($this->container['updated_at'] === null) {
-            $invalidProperties[] = "'updated_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -352,7 +340,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -362,7 +350,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -467,7 +455,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets check_types
      *
-     * @return string[]
+     * @return string[]|null
      */
     public function getCheckTypes()
     {
@@ -477,7 +465,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets check_types
      *
-     * @param string[] $check_types check_types
+     * @param string[]|null $check_types check_types
      *
      * @return self
      */
@@ -494,7 +482,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets created_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
@@ -504,7 +492,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets created_at
      *
-     * @param \DateTime $created_at created_at
+     * @param \DateTime|null $created_at created_at
      *
      * @return self
      */
@@ -521,7 +509,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets updated_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getUpdatedAt()
     {
@@ -531,7 +519,7 @@ class V2ProfileListItem implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets updated_at
      *
-     * @param \DateTime $updated_at updated_at
+     * @param \DateTime|null $updated_at updated_at
      *
      * @return self
      */

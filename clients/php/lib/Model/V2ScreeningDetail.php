@@ -330,33 +330,6 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
-        if ($this->container['profile'] === null && !$this->isNullableSetToNull('profile')) {
-            $invalidProperties[] = "'profile' is required";
-        }
-        if ($this->container['candidate'] === null) {
-            $invalidProperties[] = "'candidate' can't be null";
-        }
-        if ($this->container['checks'] === null) {
-            $invalidProperties[] = "'checks' can't be null";
-        }
-        if ($this->container['candidate_wizard_url'] === null && !$this->isNullableSetToNull('candidate_wizard_url')) {
-            $invalidProperties[] = "'candidate_wizard_url' is required";
-        }
-        if ($this->container['dashboard_url'] === null) {
-            $invalidProperties[] = "'dashboard_url' can't be null";
-        }
-        if ($this->container['created_at'] === null) {
-            $invalidProperties[] = "'created_at' can't be null";
-        }
-        if ($this->container['updated_at'] === null) {
-            $invalidProperties[] = "'updated_at' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -375,7 +348,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -385,7 +358,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -402,7 +375,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets status
      *
-     * @return string
+     * @return string|null
      */
     public function getStatus()
     {
@@ -412,7 +385,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets status
      *
-     * @param string $status status
+     * @param string|null $status status
      *
      * @return self
      */
@@ -463,7 +436,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets candidate
      *
-     * @return \Pescheck\Client\Model\V2Candidate
+     * @return \Pescheck\Client\Model\V2Candidate|null
      */
     public function getCandidate()
     {
@@ -473,7 +446,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets candidate
      *
-     * @param \Pescheck\Client\Model\V2Candidate $candidate candidate
+     * @param \Pescheck\Client\Model\V2Candidate|null $candidate candidate
      *
      * @return self
      */
@@ -490,7 +463,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets checks
      *
-     * @return \Pescheck\Client\Model\V2ScreeningCheckEntry[]
+     * @return \Pescheck\Client\Model\V2ScreeningCheckEntry[]|null
      */
     public function getChecks()
     {
@@ -500,7 +473,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets checks
      *
-     * @param \Pescheck\Client\Model\V2ScreeningCheckEntry[] $checks checks
+     * @param \Pescheck\Client\Model\V2ScreeningCheckEntry[]|null $checks checks
      *
      * @return self
      */
@@ -551,7 +524,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets dashboard_url
      *
-     * @return string
+     * @return string|null
      */
     public function getDashboardUrl()
     {
@@ -561,7 +534,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets dashboard_url
      *
-     * @param string $dashboard_url Dashboard URL for this screening.
+     * @param string|null $dashboard_url Dashboard URL for this screening.
      *
      * @return self
      */
@@ -578,7 +551,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets created_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
@@ -588,7 +561,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets created_at
      *
-     * @param \DateTime $created_at created_at
+     * @param \DateTime|null $created_at created_at
      *
      * @return self
      */
@@ -605,7 +578,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Gets updated_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getUpdatedAt()
     {
@@ -615,7 +588,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets updated_at
      *
-     * @param \DateTime $updated_at updated_at
+     * @param \DateTime|null $updated_at updated_at
      *
      * @return self
      */

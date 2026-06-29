@@ -129,8 +129,6 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'name')
@@ -139,20 +137,14 @@ module Pescheck
 
       if attributes.key?(:'parent')
         self.parent = attributes[:'parent']
-      else
-        self.parent = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
-      else
-        self.created_at = nil
       end
 
       if attributes.key?(:'updated_at')
         self.updated_at = attributes[:'updated_at']
-      else
-        self.updated_at = nil
       end
 
       if attributes.key?(:'city')
@@ -201,24 +193,8 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
       if !@name.nil? && @name.to_s.length > 255
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
-      end
-
-      if @parent.nil?
-        invalid_properties.push('invalid value for "parent", parent cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       if !@city.nil? && @city.to_s.length > 255
@@ -256,11 +232,7 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @id.nil?
       return false if !@name.nil? && @name.to_s.length > 255
-      return false if @parent.nil?
-      return false if @created_at.nil?
-      return false if @updated_at.nil?
       return false if !@city.nil? && @city.to_s.length > 255
       return false if !@address.nil? && @address.to_s.length > 255
       return false if !@postal.nil? && @postal.to_s.length > 20
@@ -272,16 +244,6 @@ module Pescheck
     end
 
     # Custom attribute writer method with validation
-    # @param [Object] id Value to be assigned
-    def id=(id)
-      if id.nil?
-        fail ArgumentError, 'id cannot be nil'
-      end
-
-      @id = id
-    end
-
-    # Custom attribute writer method with validation
     # @param [Object] name Value to be assigned
     def name=(name)
       if !name.nil? && name.to_s.length > 255
@@ -289,36 +251,6 @@ module Pescheck
       end
 
       @name = name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] parent Value to be assigned
-    def parent=(parent)
-      if parent.nil?
-        fail ArgumentError, 'parent cannot be nil'
-      end
-
-      @parent = parent
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] created_at Value to be assigned
-    def created_at=(created_at)
-      if created_at.nil?
-        fail ArgumentError, 'created_at cannot be nil'
-      end
-
-      @created_at = created_at
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] updated_at Value to be assigned
-    def updated_at=(updated_at)
-      if updated_at.nil?
-        fail ArgumentError, 'updated_at cannot be nil'
-      end
-
-      @updated_at = updated_at
     end
 
     # Custom attribute writer method with validation

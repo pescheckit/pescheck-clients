@@ -86,10 +86,35 @@ final class CrudIntegrationTest extends TestCase
         }
     }
 
+    /**
+     * Staging intermittently returns HTTP 5xx on read/list calls. Retry the
+     * given call up to 3 times with a short sleep on a 5xx ApiException; never
+     * retry 4xx (those are surfaced immediately).
+     *
+     * @template T
+     * @param callable():T $fn
+     * @return T
+     */
+    private function retryOn5xx(callable $fn)
+    {
+        $attempts = 3;
+        for ($attempt = 1; ; $attempt++) {
+            try {
+                return $fn();
+            } catch (ApiException $e) {
+                if ($e->getCode() >= 500 && $attempt < $attempts) {
+                    usleep(500_000); // 0.5s before retrying
+                    continue;
+                }
+                throw $e;
+            }
+        }
+    }
+
     public function testFullCrudLifecycle(): void
     {
         // --- checks: list -> retrieve one ---
-        $checkList = $this->checks->v2ChecksList();
+        $checkList = $this->retryOn5xx(fn () => $this->checks->v2ChecksList());
         $this->assertNotEmpty($checkList, 'expected at least one check type');
         $checkType = $checkList[0]->getCheckType();
         $this->assertNotEmpty($checkType);
@@ -116,15 +141,27 @@ final class CrudIntegrationTest extends TestCase
 
         // PUT (full replacement) alongside the PATCH above: name + checks are
         // required by V2ProfileUpdate, so we resend them plus a new description.
+        // The profile already has its check(s), so each existing check must be
+        // re-sent with its profile_check_id — otherwise the API 400s with
+        // "Profile already has ProfileCheck(s) of type '...'. Include their
+        // profile_check_id to update them." Carry the ids over from the current
+        // profile's checks (V2ProfileCheckEntry::getId()).
+        $updateChecks = array_map(
+            static fn ($c) => new V2ProfileUpdateCheck([
+                'check_type' => $c->getCheckType(),
+                'profile_check_id' => $c->getId(),
+            ]),
+            $patched->getChecks()
+        );
         $putProfile = $this->profiles->v2ProfilesUpdate($this->profileId, new V2ProfileUpdate([
             'name' => "E2E test profile {$this->suffix}",
             'description' => 'replaced by e2e (PUT)',
-            'checks' => [new V2ProfileUpdateCheck(['check_type' => $checkType])],
+            'checks' => $updateChecks,
         ]));
         $this->assertSame('replaced by e2e (PUT)', $putProfile->getDescription());
         $this->assertSame("E2E test profile {$this->suffix}", $putProfile->getName());
 
-        $profileList = $this->profiles->v2ProfilesList()->getResults();
+        $profileList = $this->retryOn5xx(fn () => $this->profiles->v2ProfilesList()->getResults());
         $ids = array_map(static fn ($p) => $p->getId(), $profileList);
         $this->assertContains($this->profileId, $ids, 'created profile should appear in the profile list');
 
@@ -146,7 +183,7 @@ final class CrudIntegrationTest extends TestCase
         $this->assertSame($this->email, $retrievedScreening->getCandidate()->getEmail());
 
         // screening should appear in the list
-        $screeningList = $this->screenings->v2ScreeningsList()->getResults();
+        $screeningList = $this->retryOn5xx(fn () => $this->screenings->v2ScreeningsList()->getResults());
         $this->assertNotEmpty($screeningList, 'expected at least the screening we just created');
         $screeningIds = array_map(static fn ($s) => $s->getId(), $screeningList);
         $this->assertContains($screeningId, $screeningIds, 'created screening should appear in the screening list');
@@ -172,7 +209,7 @@ final class CrudIntegrationTest extends TestCase
         $this->webhooks->deleteWebhook2($hookId);
 
         // --- division: list -> reuse-or-create by name -> patch ---
-        $existing = $this->divisions->v2OrganisationsDivisionsList()->getResults();
+        $existing = $this->retryOn5xx(fn () => $this->divisions->v2OrganisationsDivisionsList()->getResults());
         $div = null;
         foreach ($existing as $d) {
             if ($d->getName() === self::DIVISION_NAME) {
@@ -196,7 +233,7 @@ final class CrudIntegrationTest extends TestCase
         $divisionId = $div->getId();
 
         // retrieve the division by id and assert identity + a couple of fields
-        $retrievedDiv = $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId);
+        $retrievedDiv = $this->retryOn5xx(fn () => $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId));
         $this->assertSame($divisionId, $retrievedDiv->getId());
         $this->assertSame(self::DIVISION_NAME, $retrievedDiv->getName());
 
@@ -220,7 +257,7 @@ final class CrudIntegrationTest extends TestCase
         $this->assertSame('Utrecht', $putDiv->getCity());
 
         // confirm the PUT stuck on a fresh retrieve
-        $reRetrievedDiv = $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId);
+        $reRetrievedDiv = $this->retryOn5xx(fn () => $this->divisions->v2OrganisationsDivisionsRetrieve($divisionId));
         $this->assertSame('Utrecht', $reRetrievedDiv->getCity());
         $this->assertSame('Teststraat 2', $reRetrievedDiv->getAddress());
         $this->assertSame('3500AA', $reRetrievedDiv->getPostal());

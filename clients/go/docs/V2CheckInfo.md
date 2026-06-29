@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CheckType** | **string** |  | [readonly] 
-**DisplayName** | **string** |  | [readonly] 
-**Description** | **NullableString** |  | [readonly] 
-**HasConfig** | **bool** |  | [readonly] 
-**IsSystemManaged** | **bool** | True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these. | [readonly] 
-**RequiresChecks** | **[]string** | Other check types this check pulls in automatically when added. | [readonly] 
-**SupportedCountriesOfWork** | **[]string** |  | [readonly] 
-**SupportedCountriesOfResidence** | **[]string** |  | [readonly] 
-**DefaultPrice** | [**NullableV2Money**](V2Money.md) |  | [readonly] 
-**ConfigFields** | [**[]V2CheckField**](V2CheckField.md) |  | [readonly] 
-**InputFields** | [**[]V2CheckField**](V2CheckField.md) |  | [readonly] 
-**CandidateFields** | [**[]V2CheckField**](V2CheckField.md) | Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.). | [readonly] 
+**CheckType** | Pointer to **string** |  | [optional] [readonly] 
+**DisplayName** | Pointer to **string** |  | [optional] [readonly] 
+**Description** | Pointer to **NullableString** |  | [optional] [readonly] 
+**HasConfig** | Pointer to **bool** |  | [optional] [readonly] 
+**IsSystemManaged** | Pointer to **bool** | True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these. | [optional] [readonly] 
+**RequiresChecks** | Pointer to **[]string** | Other check types this check pulls in automatically when added. | [optional] [readonly] 
+**SupportedCountriesOfWork** | Pointer to **[]string** |  | [optional] [readonly] 
+**SupportedCountriesOfResidence** | Pointer to **[]string** |  | [optional] [readonly] 
+**DefaultPrice** | Pointer to [**NullableV2Money**](V2Money.md) |  | [optional] [readonly] 
+**ConfigFields** | Pointer to [**[]V2CheckField**](V2CheckField.md) |  | [optional] [readonly] 
+**InputFields** | Pointer to [**[]V2CheckField**](V2CheckField.md) |  | [optional] [readonly] 
+**CandidateFields** | Pointer to [**[]V2CheckField**](V2CheckField.md) | Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.). | [optional] [readonly] 
 
 ## Methods
 
 ### NewV2CheckInfo
 
-`func NewV2CheckInfo(checkType string, displayName string, description NullableString, hasConfig bool, isSystemManaged bool, requiresChecks []string, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, defaultPrice NullableV2Money, configFields []V2CheckField, inputFields []V2CheckField, candidateFields []V2CheckField, ) *V2CheckInfo`
+`func NewV2CheckInfo() *V2CheckInfo`
 
 NewV2CheckInfo instantiates a new V2CheckInfo object
 This constructor will assign default values to properties that have it defined,
@@ -55,6 +55,11 @@ and a boolean to check if the value has been set.
 
 SetCheckType sets CheckType field to given value.
 
+### HasCheckType
+
+`func (o *V2CheckInfo) HasCheckType() bool`
+
+HasCheckType returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -75,6 +80,11 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
+### HasDisplayName
+
+`func (o *V2CheckInfo) HasDisplayName() bool`
+
+HasDisplayName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -95,6 +105,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *V2CheckInfo) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### SetDescriptionNil
 
@@ -125,6 +140,11 @@ and a boolean to check if the value has been set.
 
 SetHasConfig sets HasConfig field to given value.
 
+### HasHasConfig
+
+`func (o *V2CheckInfo) HasHasConfig() bool`
+
+HasHasConfig returns a boolean if a field has been set.
 
 ### GetIsSystemManaged
 
@@ -145,6 +165,11 @@ and a boolean to check if the value has been set.
 
 SetIsSystemManaged sets IsSystemManaged field to given value.
 
+### HasIsSystemManaged
+
+`func (o *V2CheckInfo) HasIsSystemManaged() bool`
+
+HasIsSystemManaged returns a boolean if a field has been set.
 
 ### GetRequiresChecks
 
@@ -165,6 +190,11 @@ and a boolean to check if the value has been set.
 
 SetRequiresChecks sets RequiresChecks field to given value.
 
+### HasRequiresChecks
+
+`func (o *V2CheckInfo) HasRequiresChecks() bool`
+
+HasRequiresChecks returns a boolean if a field has been set.
 
 ### GetSupportedCountriesOfWork
 
@@ -185,6 +215,11 @@ and a boolean to check if the value has been set.
 
 SetSupportedCountriesOfWork sets SupportedCountriesOfWork field to given value.
 
+### HasSupportedCountriesOfWork
+
+`func (o *V2CheckInfo) HasSupportedCountriesOfWork() bool`
+
+HasSupportedCountriesOfWork returns a boolean if a field has been set.
 
 ### GetSupportedCountriesOfResidence
 
@@ -205,6 +240,11 @@ and a boolean to check if the value has been set.
 
 SetSupportedCountriesOfResidence sets SupportedCountriesOfResidence field to given value.
 
+### HasSupportedCountriesOfResidence
+
+`func (o *V2CheckInfo) HasSupportedCountriesOfResidence() bool`
+
+HasSupportedCountriesOfResidence returns a boolean if a field has been set.
 
 ### GetDefaultPrice
 
@@ -225,6 +265,11 @@ and a boolean to check if the value has been set.
 
 SetDefaultPrice sets DefaultPrice field to given value.
 
+### HasDefaultPrice
+
+`func (o *V2CheckInfo) HasDefaultPrice() bool`
+
+HasDefaultPrice returns a boolean if a field has been set.
 
 ### SetDefaultPriceNil
 
@@ -255,6 +300,11 @@ and a boolean to check if the value has been set.
 
 SetConfigFields sets ConfigFields field to given value.
 
+### HasConfigFields
+
+`func (o *V2CheckInfo) HasConfigFields() bool`
+
+HasConfigFields returns a boolean if a field has been set.
 
 ### GetInputFields
 
@@ -275,6 +325,11 @@ and a boolean to check if the value has been set.
 
 SetInputFields sets InputFields field to given value.
 
+### HasInputFields
+
+`func (o *V2CheckInfo) HasInputFields() bool`
+
+HasInputFields returns a boolean if a field has been set.
 
 ### GetCandidateFields
 
@@ -295,6 +350,11 @@ and a boolean to check if the value has been set.
 
 SetCandidateFields sets CandidateFields field to given value.
 
+### HasCandidateFields
+
+`func (o *V2CheckInfo) HasCandidateFields() bool`
+
+HasCandidateFields returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

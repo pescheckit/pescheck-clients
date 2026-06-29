@@ -56,7 +56,7 @@ import io.pescheck.client.JSON;
 public class V2ProfileListItem {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -76,17 +76,17 @@ public class V2ProfileListItem {
 
   public static final String SERIALIZED_NAME_CHECK_TYPES = "check_types";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPES)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> checkTypes = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public V2ProfileListItem() {
@@ -109,7 +109,7 @@ public class V2ProfileListItem {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -177,7 +177,7 @@ public class V2ProfileListItem {
    * Get checkTypes
    * @return checkTypes
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getCheckTypes() {
     return checkTypes;
   }
@@ -188,7 +188,7 @@ public class V2ProfileListItem {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -199,7 +199,7 @@ public class V2ProfileListItem {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -262,7 +262,7 @@ public class V2ProfileListItem {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "description", "is_custom", "check_types", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "description", "check_types", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("name", "description"));
   }
 
   /**
@@ -293,7 +293,7 @@ public class V2ProfileListItem {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {
@@ -302,10 +302,8 @@ public class V2ProfileListItem {
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      // ensure the required json array is present
-      if (jsonObj.get("check_types") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("check_types").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("check_types") != null && !jsonObj.get("check_types").isJsonNull() && !jsonObj.get("check_types").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_types` to be an array in the JSON string but got `%s`", jsonObj.get("check_types").toString()));
       }
   }

@@ -14,22 +14,22 @@ use serde::{Deserialize, Serialize};
 /// V2ScreeningCheckListItem : Minimal check entry shape for screening list items. No config/input/etc.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ScreeningCheckListItem {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
     /// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-    #[serde(rename = "check_type")]
-    pub check_type: CheckType,
-    #[serde(rename = "status")]
-    pub status: String,
+    #[serde(rename = "check_type", skip_serializing_if = "Option::is_none")]
+    pub check_type: Option<CheckType>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
 }
 
 impl V2ScreeningCheckListItem {
     /// Minimal check entry shape for screening list items. No config/input/etc.
-    pub fn new(id: uuid::Uuid, check_type: CheckType, status: String) -> V2ScreeningCheckListItem {
+    pub fn new() -> V2ScreeningCheckListItem {
         V2ScreeningCheckListItem {
-            id,
-            check_type,
-            status,
+            id: None,
+            check_type: None,
+            status: None,
         }
     }
 }

@@ -113,11 +113,43 @@ class CrudLifecycleIT {
     }
   }
 
+  /** A client call that may throw {@link ApiException}. */
+  @FunctionalInterface
+  private interface ApiCall<T> {
+    T call() throws ApiException;
+  }
+
+  /**
+   * Run a read/list call, retrying up to 3 times (with a 1s pause) when the API
+   * returns a 5xx — staging intermittently 500s on reads. 4xx responses are not
+   * retried; they are surfaced immediately.
+   */
+  private static <T> T withRetry(ApiCall<T> call) throws ApiException {
+    ApiException last = null;
+    for (int attempt = 0; attempt < 3; attempt++) {
+      try {
+        return call.call();
+      } catch (ApiException e) {
+        if (e.getCode() < 500) {
+          throw e;
+        }
+        last = e;
+        try {
+          Thread.sleep(1000);
+        } catch (InterruptedException ie) {
+          Thread.currentThread().interrupt();
+          throw e;
+        }
+      }
+    }
+    throw last;
+  }
+
   @Test
   @DisplayName("full v2 CRUD lifecycle against the live API")
   void crudLifecycle() throws Exception {
     // --- checks: list -> retrieve one ---
-    List<V2CheckInfo> checkList = checks.v2ChecksList(null);
+    List<V2CheckInfo> checkList = withRetry(() -> checks.v2ChecksList(null));
     assertFalse(checkList.isEmpty(), "expected at least one check type");
     String checkType = checkList.get(0).getCheckType();
     V2CheckInfo retrievedCheck = checks.v2ChecksRetrieve(checkType);
@@ -145,20 +177,26 @@ class CrudLifecycleIT {
     assertEquals("updated by e2e", patched.getDescription(),
         "patched profile description should be updated");
 
-    // PUT (full replace) — V2ProfileUpdate requires name + checks.
+    // PUT (full replace) — V2ProfileUpdate requires name + checks. The API rejects
+    // a PUT that re-adds a check_type the profile already has unless we identify the
+    // existing check by its profile_check_id, so carry it over from the profile's
+    // current checks (see V2ProfileCheckEntry.getId()).
+    UUID existingCheckId = patched.getChecks().get(0).getId();
     V2ProfileDetail putUpdated = profiles.v2ProfilesUpdate(
         profileId,
         new V2ProfileUpdate()
             .name("E2E test profile renamed " + SUFFIX)
             .description("put updated by e2e")
             .checks(List.of(new V2ProfileUpdateCheck()
-                .checkType(V2ProfileUpdateCheck.CheckTypeEnum.fromValue(checkType)))));
+                .checkType(V2ProfileUpdateCheck.CheckTypeEnum.fromValue(checkType))
+                .profileCheckId(existingCheckId))));
     assertEquals("E2E test profile renamed " + SUFFIX, putUpdated.getName(),
         "PUT-updated profile name should be replaced");
     assertEquals("put updated by e2e", putUpdated.getDescription(),
         "PUT-updated profile description should be replaced");
 
-    boolean inList = profiles.v2ProfilesList(null, null, null, null, null, null, null)
+    boolean inList = withRetry(() ->
+            profiles.v2ProfilesList(null, null, null, null, null, null, null))
         .getResults().stream()
         .anyMatch(p -> profileId.equals(p.getId()));
     assertTrue(inList, "created profile should appear in the list");
@@ -182,7 +220,7 @@ class CrudLifecycleIT {
 
     // screenings: list (page, pageSize, paginate) -> created screening should be present
     List<V2ScreeningListItem> screeningResults =
-        screenings.v2ScreeningsList(null, null, null).getResults();
+        withRetry(() -> screenings.v2ScreeningsList(null, null, null)).getResults();
     assertFalse(screeningResults.isEmpty(), "screening list should not be empty");
     boolean screeningListed = screeningResults.stream()
         .anyMatch(s -> screening.getId().equals(s.getId()));
@@ -208,7 +246,7 @@ class CrudLifecycleIT {
 
     // --- division: list -> reuse-or-create by name -> patch ---
     List<DivisionReadOnly> existing =
-        divisions.v2OrganisationsDivisionsList(null, null, null).getResults();
+        withRetry(() -> divisions.v2OrganisationsDivisionsList(null, null, null)).getResults();
     UUID divisionId = null;
     for (DivisionReadOnly d : existing) {
       if (DIVISION_NAME.equals(d.getName())) {
@@ -227,7 +265,9 @@ class CrudLifecycleIT {
     assertNotNull(divisionId, "division id should be resolved");
 
     // division: retrieve by id
-    DivisionReadOnly fetchedDivision = divisions.v2OrganisationsDivisionsRetrieve(divisionId);
+    final UUID divisionIdFinal = divisionId;
+    DivisionReadOnly fetchedDivision =
+        withRetry(() -> divisions.v2OrganisationsDivisionsRetrieve(divisionIdFinal));
     assertEquals(divisionId, fetchedDivision.getId(), "retrieved division id should match");
     assertEquals(DIVISION_NAME, fetchedDivision.getName(), "retrieved division name should match");
 

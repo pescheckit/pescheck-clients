@@ -29,17 +29,20 @@ class V2Document(BaseModel):
     """
     One document attached to a screening's check. `metadata` carries check-specific extras and may be empty.
     """ # noqa: E501
-    check_id: Optional[UUID]
-    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
-    filename: StrictStr
-    extension: StrictStr
-    content: V2DocumentContent
-    metadata: Dict[str, Any]
+    check_id: Optional[UUID] = None
+    check_type: Optional[StrictStr] = Field(default=None, description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
+    filename: Optional[StrictStr] = None
+    extension: Optional[StrictStr] = None
+    content: Optional[V2DocumentContent] = None
+    metadata: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["check_id", "check_type", "filename", "extension", "content", "metadata"]
 
     @field_validator('check_type')
     def check_type_validate_enum(cls, value):
         """Validates the enum"""
+        if value is None:
+            return value
+
         if value not in set(['addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'focumcheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
             raise ValueError("must be one of enum values ('addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'focumcheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
         return value

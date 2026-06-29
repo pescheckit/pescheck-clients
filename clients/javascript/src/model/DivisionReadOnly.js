@@ -22,14 +22,10 @@ class DivisionReadOnly {
     /**
      * Constructs a new <code>DivisionReadOnly</code>.
      * @alias module:model/DivisionReadOnly
-     * @param id {String} 
-     * @param parent {String} 
-     * @param createdAt {Date} 
-     * @param updatedAt {Date} 
      */
-    constructor(id, parent, createdAt, updatedAt) { 
+    constructor() { 
         
-        DivisionReadOnly.initialize(this, id, parent, createdAt, updatedAt);
+        DivisionReadOnly.initialize(this);
     }
 
     /**
@@ -37,11 +33,7 @@ class DivisionReadOnly {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, parent, createdAt, updatedAt) { 
-        obj['id'] = id;
-        obj['parent'] = parent;
-        obj['created_at'] = createdAt;
-        obj['updated_at'] = updatedAt;
+    static initialize(obj) { 
     }
 
     /**
@@ -110,12 +102,6 @@ class DivisionReadOnly {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>DivisionReadOnly</code>.
      */
     static validateJSON(data) {
-        // check to make sure all required properties are present in the JSON string
-        for (const property of DivisionReadOnly.RequiredProperties) {
-            if (!data.hasOwnProperty(property)) {
-                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
-            }
-        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -163,7 +149,7 @@ class DivisionReadOnly {
 
 }
 
-DivisionReadOnly.RequiredProperties = ["id", "parent", "created_at", "updated_at"];
+
 
 /**
  * @member {String} id

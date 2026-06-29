@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
-**ProfileCheckId** | **NullableString** |  | [readonly] 
-**CheckType** | **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [readonly] 
-**DisplayName** | **string** |  | [readonly] 
-**Status** | **string** |  | [readonly] 
-**Config** | **map[string]interface{}** |  | [readonly] 
-**Input** | **map[string]interface{}** |  | [readonly] 
-**Output** | **map[string]interface{}** |  | [readonly] 
-**CandidateWizardUrl** | **NullableString** | Deep link to this check&#39;s candidate wizard step. Null when the check has no dedicated candidate step. | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
+**ProfileCheckId** | Pointer to **NullableString** |  | [optional] [readonly] 
+**CheckType** | Pointer to **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [optional] [readonly] 
+**DisplayName** | Pointer to **string** |  | [optional] [readonly] 
+**Status** | Pointer to **string** |  | [optional] [readonly] 
+**Config** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**Input** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**Output** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**CandidateWizardUrl** | Pointer to **NullableString** | Deep link to this check&#39;s candidate wizard step. Null when the check has no dedicated candidate step. | [optional] [readonly] 
 
 ## Methods
 
 ### NewV2ScreeningCheckEntry
 
-`func NewV2ScreeningCheckEntry(id string, profileCheckId NullableString, checkType string, displayName string, status string, config map[string]interface{}, input map[string]interface{}, output map[string]interface{}, candidateWizardUrl NullableString, ) *V2ScreeningCheckEntry`
+`func NewV2ScreeningCheckEntry() *V2ScreeningCheckEntry`
 
 NewV2ScreeningCheckEntry instantiates a new V2ScreeningCheckEntry object
 This constructor will assign default values to properties that have it defined,
@@ -52,6 +52,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *V2ScreeningCheckEntry) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetProfileCheckId
 
@@ -72,6 +77,11 @@ and a boolean to check if the value has been set.
 
 SetProfileCheckId sets ProfileCheckId field to given value.
 
+### HasProfileCheckId
+
+`func (o *V2ScreeningCheckEntry) HasProfileCheckId() bool`
+
+HasProfileCheckId returns a boolean if a field has been set.
 
 ### SetProfileCheckIdNil
 
@@ -102,6 +112,11 @@ and a boolean to check if the value has been set.
 
 SetCheckType sets CheckType field to given value.
 
+### HasCheckType
+
+`func (o *V2ScreeningCheckEntry) HasCheckType() bool`
+
+HasCheckType returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -122,6 +137,11 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
+### HasDisplayName
+
+`func (o *V2ScreeningCheckEntry) HasDisplayName() bool`
+
+HasDisplayName returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -142,6 +162,11 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
+### HasStatus
+
+`func (o *V2ScreeningCheckEntry) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
 
 ### GetConfig
 
@@ -162,6 +187,11 @@ and a boolean to check if the value has been set.
 
 SetConfig sets Config field to given value.
 
+### HasConfig
+
+`func (o *V2ScreeningCheckEntry) HasConfig() bool`
+
+HasConfig returns a boolean if a field has been set.
 
 ### GetInput
 
@@ -182,6 +212,11 @@ and a boolean to check if the value has been set.
 
 SetInput sets Input field to given value.
 
+### HasInput
+
+`func (o *V2ScreeningCheckEntry) HasInput() bool`
+
+HasInput returns a boolean if a field has been set.
 
 ### GetOutput
 
@@ -202,6 +237,11 @@ and a boolean to check if the value has been set.
 
 SetOutput sets Output field to given value.
 
+### HasOutput
+
+`func (o *V2ScreeningCheckEntry) HasOutput() bool`
+
+HasOutput returns a boolean if a field has been set.
 
 ### GetCandidateWizardUrl
 
@@ -222,6 +262,11 @@ and a boolean to check if the value has been set.
 
 SetCandidateWizardUrl sets CandidateWizardUrl field to given value.
 
+### HasCandidateWizardUrl
+
+`func (o *V2ScreeningCheckEntry) HasCandidateWizardUrl() bool`
+
+HasCandidateWizardUrl returns a boolean if a field has been set.
 
 ### SetCandidateWizardUrlNil
 

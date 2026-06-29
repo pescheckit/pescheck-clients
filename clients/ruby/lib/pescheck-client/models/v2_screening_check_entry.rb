@@ -123,62 +123,44 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'profile_check_id')
         self.profile_check_id = attributes[:'profile_check_id']
-      else
-        self.profile_check_id = nil
       end
 
       if attributes.key?(:'check_type')
         self.check_type = attributes[:'check_type']
-      else
-        self.check_type = nil
       end
 
       if attributes.key?(:'display_name')
         self.display_name = attributes[:'display_name']
-      else
-        self.display_name = nil
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
-      else
-        self.status = nil
       end
 
       if attributes.key?(:'config')
         if (value = attributes[:'config']).is_a?(Hash)
           self.config = value
         end
-      else
-        self.config = nil
       end
 
       if attributes.key?(:'input')
         if (value = attributes[:'input']).is_a?(Hash)
           self.input = value
         end
-      else
-        self.input = nil
       end
 
       if attributes.key?(:'output')
         if (value = attributes[:'output']).is_a?(Hash)
           self.output = value
         end
-      else
-        self.output = nil
       end
 
       if attributes.key?(:'candidate_wizard_url')
         self.candidate_wizard_url = attributes[:'candidate_wizard_url']
-      else
-        self.candidate_wizard_url = nil
       end
     end
 
@@ -187,34 +169,6 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @check_type.nil?
-        invalid_properties.push('invalid value for "check_type", check_type cannot be nil.')
-      end
-
-      if @display_name.nil?
-        invalid_properties.push('invalid value for "display_name", display_name cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
-      if @config.nil?
-        invalid_properties.push('invalid value for "config", config cannot be nil.')
-      end
-
-      if @input.nil?
-        invalid_properties.push('invalid value for "input", input cannot be nil.')
-      end
-
-      if @output.nil?
-        invalid_properties.push('invalid value for "output", output cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -222,26 +176,9 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @id.nil?
-      return false if @check_type.nil?
       check_type_validator = EnumAttributeValidator.new('String', ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "focumcheck", "id2check", "idcheck", "integritycheck", "openhealthcarecheck", "permissioncheck", "pescheckadversemediacheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
       return false unless check_type_validator.valid?(@check_type)
-      return false if @display_name.nil?
-      return false if @status.nil?
-      return false if @config.nil?
-      return false if @input.nil?
-      return false if @output.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] id Value to be assigned
-    def id=(id)
-      if id.nil?
-        fail ArgumentError, 'id cannot be nil'
-      end
-
-      @id = id
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -252,56 +189,6 @@ module Pescheck
         fail ArgumentError, "invalid value for \"check_type\", must be one of #{validator.allowable_values}."
       end
       @check_type = check_type
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] display_name Value to be assigned
-    def display_name=(display_name)
-      if display_name.nil?
-        fail ArgumentError, 'display_name cannot be nil'
-      end
-
-      @display_name = display_name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] status Value to be assigned
-    def status=(status)
-      if status.nil?
-        fail ArgumentError, 'status cannot be nil'
-      end
-
-      @status = status
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] config Value to be assigned
-    def config=(config)
-      if config.nil?
-        fail ArgumentError, 'config cannot be nil'
-      end
-
-      @config = config
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] input Value to be assigned
-    def input=(input)
-      if input.nil?
-        fail ArgumentError, 'input cannot be nil'
-      end
-
-      @input = input
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] output Value to be assigned
-    def output=(output)
-      if output.nil?
-        fail ArgumentError, 'output cannot be nil'
-      end
-
-      @output = output
     end
 
     # Checks equality by comparing each attribute.

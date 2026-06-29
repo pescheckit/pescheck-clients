@@ -338,9 +338,6 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
@@ -355,18 +352,6 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 200.";
         }
 
-        if ($this->container['events'] === null && !$this->isNullableSetToNull('events')) {
-            $invalidProperties[] = "'events' is required";
-        }
-        if ($this->container['verified'] === null) {
-            $invalidProperties[] = "'verified' can't be null";
-        }
-        if ($this->container['created_at'] === null) {
-            $invalidProperties[] = "'created_at' can't be null";
-        }
-        if ($this->container['updated_at'] === null) {
-            $invalidProperties[] = "'updated_at' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -385,7 +370,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -395,7 +380,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -535,7 +520,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets verified
      *
-     * @return bool
+     * @return bool|null
      */
     public function getVerified()
     {
@@ -545,7 +530,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets verified
      *
-     * @param bool $verified verified
+     * @param bool|null $verified verified
      *
      * @return self
      */
@@ -623,7 +608,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
@@ -633,7 +618,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime $created_at created_at
+     * @param \DateTime|null $created_at created_at
      *
      * @return self
      */
@@ -650,7 +635,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets updated_at
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getUpdatedAt()
     {
@@ -660,7 +645,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets updated_at
      *
-     * @param \DateTime $updated_at updated_at
+     * @param \DateTime|null $updated_at updated_at
      *
      * @return self
      */

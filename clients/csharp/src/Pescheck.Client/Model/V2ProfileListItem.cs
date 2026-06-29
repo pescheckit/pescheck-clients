@@ -63,7 +63,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "id", EmitDefaultValue = false)]
         public Guid Id { get; private set; }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CheckTypes
         /// </summary>
-        [DataMember(Name = "check_types", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "check_types", EmitDefaultValue = false)]
         public List<string> CheckTypes { get; private set; }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "created_at", EmitDefaultValue = false)]
         public DateTime CreatedAt { get; private set; }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
-        [DataMember(Name = "updated_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "updated_at", EmitDefaultValue = false)]
         public DateTime UpdatedAt { get; private set; }
 
         /// <summary>

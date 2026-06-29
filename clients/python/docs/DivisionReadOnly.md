@@ -5,11 +5,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [readonly] 
+**id** | **UUID** |  | [optional] [readonly] 
 **name** | **str** |  | [optional] 
-**parent** | **str** |  | [readonly] 
-**created_at** | **datetime** |  | [readonly] 
-**updated_at** | **datetime** |  | [readonly] 
+**parent** | **str** |  | [optional] [readonly] 
+**created_at** | **datetime** |  | [optional] [readonly] 
+**updated_at** | **datetime** |  | [optional] [readonly] 
 **city** | **str** |  | [optional] 
 **address** | **str** |  | [optional] 
 **postal** | **str** |  | [optional] 

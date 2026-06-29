@@ -365,12 +365,6 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['check_id'] === null && !$this->isNullableSetToNull('check_id')) {
-            $invalidProperties[] = "'check_id' is required";
-        }
-        if ($this->container['check_type'] === null) {
-            $invalidProperties[] = "'check_type' can't be null";
-        }
         $allowedValues = $this->getCheckTypeAllowableValues();
         if (!is_null($this->container['check_type']) && !in_array($this->container['check_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -380,18 +374,6 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if ($this->container['filename'] === null) {
-            $invalidProperties[] = "'filename' can't be null";
-        }
-        if ($this->container['extension'] === null) {
-            $invalidProperties[] = "'extension' can't be null";
-        }
-        if ($this->container['content'] === null) {
-            $invalidProperties[] = "'content' can't be null";
-        }
-        if ($this->container['metadata'] === null) {
-            $invalidProperties[] = "'metadata' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -444,7 +426,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets check_type
      *
-     * @return string
+     * @return string|null
      */
     public function getCheckType()
     {
@@ -454,7 +436,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string|null $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */
@@ -481,7 +463,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets filename
      *
-     * @return string
+     * @return string|null
      */
     public function getFilename()
     {
@@ -491,7 +473,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets filename
      *
-     * @param string $filename filename
+     * @param string|null $filename filename
      *
      * @return self
      */
@@ -508,7 +490,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets extension
      *
-     * @return string
+     * @return string|null
      */
     public function getExtension()
     {
@@ -518,7 +500,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets extension
      *
-     * @param string $extension extension
+     * @param string|null $extension extension
      *
      * @return self
      */
@@ -535,7 +517,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets content
      *
-     * @return \Pescheck\Client\Model\V2DocumentContent
+     * @return \Pescheck\Client\Model\V2DocumentContent|null
      */
     public function getContent()
     {
@@ -545,7 +527,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets content
      *
-     * @param \Pescheck\Client\Model\V2DocumentContent $content content
+     * @param \Pescheck\Client\Model\V2DocumentContent|null $content content
      *
      * @return self
      */
@@ -562,7 +544,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets metadata
      *
-     * @return array<string,mixed>
+     * @return array<string,mixed>|null
      */
     public function getMetadata()
     {
@@ -572,7 +554,7 @@ class V2Document implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets metadata
      *
-     * @param array<string,mixed> $metadata metadata
+     * @param array<string,mixed>|null $metadata metadata
      *
      * @return self
      */

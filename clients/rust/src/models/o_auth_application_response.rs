@@ -14,38 +14,38 @@ use serde::{Deserialize, Serialize};
 /// OAuthApplicationResponse : Serializer for OAuth application responses
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OAuthApplicationResponse {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "client_id", skip_serializing_if = "Option::is_none")]
     pub client_id: Option<String>,
-    #[serde(rename = "client_secret")]
-    pub client_secret: String,
+    #[serde(rename = "client_secret", skip_serializing_if = "Option::is_none")]
+    pub client_secret: Option<String>,
     /// * `confidential` - Confidential * `public` - Public
     #[serde(rename = "client_type")]
     pub client_type: ClientType,
     /// * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
     #[serde(rename = "authorization_grant_type")]
     pub authorization_grant_type: AuthorizationGrantType,
-    #[serde(rename = "created")]
-    pub created: chrono::DateTime<chrono::FixedOffset>,
-    #[serde(rename = "updated")]
-    pub updated: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "updated", skip_serializing_if = "Option::is_none")]
+    pub updated: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl OAuthApplicationResponse {
     /// Serializer for OAuth application responses
-    pub fn new(id: uuid::Uuid, client_secret: String, client_type: ClientType, authorization_grant_type: AuthorizationGrantType, created: chrono::DateTime<chrono::FixedOffset>, updated: chrono::DateTime<chrono::FixedOffset>) -> OAuthApplicationResponse {
+    pub fn new(client_type: ClientType, authorization_grant_type: AuthorizationGrantType) -> OAuthApplicationResponse {
         OAuthApplicationResponse {
-            id,
+            id: None,
             name: None,
             client_id: None,
-            client_secret,
+            client_secret: None,
             client_type,
             authorization_grant_type,
-            created,
-            updated,
+            created: None,
+            updated: None,
         }
     }
 }

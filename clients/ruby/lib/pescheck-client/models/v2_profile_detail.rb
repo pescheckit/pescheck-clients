@@ -106,8 +106,6 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'name')
@@ -130,50 +128,36 @@ module Pescheck
         if (value = attributes[:'checks']).is_a?(Array)
           self.checks = value
         end
-      else
-        self.checks = nil
       end
 
       if attributes.key?(:'total_price')
         self.total_price = attributes[:'total_price']
-      else
-        self.total_price = nil
       end
 
       if attributes.key?(:'supported_countries_of_work')
         if (value = attributes[:'supported_countries_of_work']).is_a?(Array)
           self.supported_countries_of_work = value
         end
-      else
-        self.supported_countries_of_work = nil
       end
 
       if attributes.key?(:'supported_countries_of_residence')
         if (value = attributes[:'supported_countries_of_residence']).is_a?(Array)
           self.supported_countries_of_residence = value
         end
-      else
-        self.supported_countries_of_residence = nil
       end
 
       if attributes.key?(:'candidate_fields')
         if (value = attributes[:'candidate_fields']).is_a?(Array)
           self.candidate_fields = value
         end
-      else
-        self.candidate_fields = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
-      else
-        self.created_at = nil
       end
 
       if attributes.key?(:'updated_at')
         self.updated_at = attributes[:'updated_at']
-      else
-        self.updated_at = nil
       end
     end
 
@@ -182,40 +166,8 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
       if @name.nil?
         invalid_properties.push('invalid value for "name", name cannot be nil.')
-      end
-
-      if @checks.nil?
-        invalid_properties.push('invalid value for "checks", checks cannot be nil.')
-      end
-
-      if @total_price.nil?
-        invalid_properties.push('invalid value for "total_price", total_price cannot be nil.')
-      end
-
-      if @supported_countries_of_work.nil?
-        invalid_properties.push('invalid value for "supported_countries_of_work", supported_countries_of_work cannot be nil.')
-      end
-
-      if @supported_countries_of_residence.nil?
-        invalid_properties.push('invalid value for "supported_countries_of_residence", supported_countries_of_residence cannot be nil.')
-      end
-
-      if @candidate_fields.nil?
-        invalid_properties.push('invalid value for "candidate_fields", candidate_fields cannot be nil.')
-      end
-
-      if @created_at.nil?
-        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
-      end
-
-      if @updated_at.nil?
-        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
       end
 
       invalid_properties
@@ -225,26 +177,8 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @id.nil?
       return false if @name.nil?
-      return false if @checks.nil?
-      return false if @total_price.nil?
-      return false if @supported_countries_of_work.nil?
-      return false if @supported_countries_of_residence.nil?
-      return false if @candidate_fields.nil?
-      return false if @created_at.nil?
-      return false if @updated_at.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] id Value to be assigned
-    def id=(id)
-      if id.nil?
-        fail ArgumentError, 'id cannot be nil'
-      end
-
-      @id = id
     end
 
     # Custom attribute writer method with validation
@@ -255,76 +189,6 @@ module Pescheck
       end
 
       @name = name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] checks Value to be assigned
-    def checks=(checks)
-      if checks.nil?
-        fail ArgumentError, 'checks cannot be nil'
-      end
-
-      @checks = checks
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] total_price Value to be assigned
-    def total_price=(total_price)
-      if total_price.nil?
-        fail ArgumentError, 'total_price cannot be nil'
-      end
-
-      @total_price = total_price
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] supported_countries_of_work Value to be assigned
-    def supported_countries_of_work=(supported_countries_of_work)
-      if supported_countries_of_work.nil?
-        fail ArgumentError, 'supported_countries_of_work cannot be nil'
-      end
-
-      @supported_countries_of_work = supported_countries_of_work
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] supported_countries_of_residence Value to be assigned
-    def supported_countries_of_residence=(supported_countries_of_residence)
-      if supported_countries_of_residence.nil?
-        fail ArgumentError, 'supported_countries_of_residence cannot be nil'
-      end
-
-      @supported_countries_of_residence = supported_countries_of_residence
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] candidate_fields Value to be assigned
-    def candidate_fields=(candidate_fields)
-      if candidate_fields.nil?
-        fail ArgumentError, 'candidate_fields cannot be nil'
-      end
-
-      @candidate_fields = candidate_fields
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] created_at Value to be assigned
-    def created_at=(created_at)
-      if created_at.nil?
-        fail ArgumentError, 'created_at cannot be nil'
-      end
-
-      @created_at = created_at
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] updated_at Value to be assigned
-    def updated_at=(updated_at)
-      if updated_at.nil?
-        fail ArgumentError, 'updated_at cannot be nil'
-      end
-
-      @updated_at = updated_at
     end
 
     # Checks equality by comparing each attribute.

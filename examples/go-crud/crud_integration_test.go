@@ -23,13 +23,39 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"fmt"
+	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	pescheck "github.com/pescheckit/pescheck-clients/clients/go"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
+
+// retryRead retries a read/list call up to 3 times when the API returns a
+// transient 5xx, sleeping briefly between attempts. Staging intermittently
+// 500s on GETs (seen on screenings/profiles list). It never retries 4xx, so
+// auth/not-found failures still surface immediately.
+func retryRead[T any](t *testing.T, name string, call func() (T, *http.Response, error)) (T, *http.Response, error) {
+	t.Helper()
+	var (
+		val T
+		res *http.Response
+		err error
+	)
+	for attempt := 1; attempt <= 3; attempt++ {
+		val, res, err = call()
+		if res == nil || res.StatusCode < 500 {
+			return val, res, err
+		}
+		if attempt < 3 {
+			t.Logf("%s: HTTP %d, retrying (attempt %d/3)", name, res.StatusCode, attempt)
+			time.Sleep(500 * time.Millisecond)
+		}
+	}
+	return val, res, err
+}
 
 // ciDivisionName is fixed: the division endpoint has no delete, so we reuse a
 // single named division across runs instead of creating one each time.
@@ -76,11 +102,15 @@ func TestCRUDLifecycle(t *testing.T) {
 	})
 
 	// --- checks: list -> retrieve one ---
-	checkList, _, err := client.ChecksAPI.V2ChecksList(ctx).Execute()
+	checkList, _, err := retryRead(t, "checks list", func() ([]pescheck.V2CheckInfo, *http.Response, error) {
+		return client.ChecksAPI.V2ChecksList(ctx).Execute()
+	})
 	require.NoError(t, err, "checks list")
 	require.NotEmpty(t, checkList, "checks list should be non-empty")
 	checkType := checkList[0].GetCheckType()
-	_, _, err = client.ChecksAPI.V2ChecksRetrieve(ctx, checkType).Execute()
+	_, _, err = retryRead(t, "checks retrieve", func() (*pescheck.V2CheckInfo, *http.Response, error) {
+		return client.ChecksAPI.V2ChecksRetrieve(ctx, checkType).Execute()
+	})
 	require.NoError(t, err, "checks retrieve")
 
 	// --- profile: create -> retrieve -> patch -> put -> appears in list ---
@@ -96,7 +126,9 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NotEmpty(t, profileID, "created profile id")
 	assert.Equal(t, profileName, created.GetName(), "created profile name")
 
-	retrieved, _, err := client.ProfilesAPI.V2ProfilesRetrieve(ctx, profileID).Execute()
+	retrieved, _, err := retryRead(t, "profile retrieve", func() (*pescheck.V2ProfileDetail, *http.Response, error) {
+		return client.ProfilesAPI.V2ProfilesRetrieve(ctx, profileID).Execute()
+	})
 	require.NoError(t, err, "profile retrieve")
 	assert.Equal(t, profileName, retrieved.GetName(), "retrieved profile name")
 
@@ -106,19 +138,29 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NoError(t, err, "profile patch")
 	assert.Equal(t, "updated by e2e", patched.GetDescription(), "patched description")
 
-	// Full replace (PUT). Name and checks are required on V2ProfileUpdate.
+	// Full replace (PUT). Name and checks are required on V2ProfileUpdate. The
+	// API rejects a PUT that re-sends an existing check_type without its
+	// profile_check_id (it 400s as a duplicate), so carry over the
+	// profile_check_id of each existing check from the retrieved profile.
 	putName := fmt.Sprintf("E2E test profile %s put", suffix)
-	profilePut := pescheck.NewV2ProfileUpdate(
-		putName,
-		[]pescheck.V2ProfileUpdateCheck{*pescheck.NewV2ProfileUpdateCheck(checkType)},
-	)
+	existingChecks := retrieved.GetChecks()
+	require.NotEmpty(t, existingChecks, "retrieved profile should have checks")
+	putChecks := make([]pescheck.V2ProfileUpdateCheck, 0, len(existingChecks))
+	for _, c := range existingChecks {
+		uc := pescheck.NewV2ProfileUpdateCheck(c.GetCheckType())
+		uc.SetProfileCheckId(c.GetId())
+		putChecks = append(putChecks, *uc)
+	}
+	profilePut := pescheck.NewV2ProfileUpdate(putName, putChecks)
 	profilePut.SetDescription("replaced by e2e")
 	put, _, err := client.ProfilesAPI.V2ProfilesUpdate(ctx, profileID).V2ProfileUpdate(*profilePut).Execute()
 	require.NoError(t, err, "profile put")
 	assert.Equal(t, putName, put.GetName(), "put profile name")
 	assert.Equal(t, "replaced by e2e", put.GetDescription(), "put profile description")
 
-	profiles, _, err := client.ProfilesAPI.V2ProfilesList(ctx).Execute()
+	profiles, _, err := retryRead(t, "profile list", func() (*pescheck.PaginatedV2ProfileListItemList, *http.Response, error) {
+		return client.ProfilesAPI.V2ProfilesList(ctx).Execute()
+	})
 	require.NoError(t, err, "profile list")
 	found := false
 	for _, p := range profiles.GetResults() {
@@ -138,19 +180,25 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NotEmpty(t, screeningID, "created screening id")
 	assert.NotEmpty(t, screening.GetStatus(), "screening status")
 
-	retrievedScreening, _, err := client.ScreeningsAPI.V2ScreeningsRetrieve(ctx, screeningID).Execute()
+	retrievedScreening, _, err := retryRead(t, "screening retrieve", func() (*pescheck.V2ScreeningDetail, *http.Response, error) {
+		return client.ScreeningsAPI.V2ScreeningsRetrieve(ctx, screeningID).Execute()
+	})
 	require.NoError(t, err, "screening retrieve")
 	gotCandidate := retrievedScreening.GetCandidate()
 	assert.Equal(t, testEmail, gotCandidate.GetEmail(), "screening candidate email")
 	assert.Equal(t, "E2E", gotCandidate.GetFirstName(), "screening candidate first name")
 	assert.Equal(t, "Tester", gotCandidate.GetLastName(), "screening candidate last name")
 
-	_, _, err = client.ScreeningsAPI.V2ScreeningsDocumentsList(ctx, screeningID).Execute()
+	_, _, err = retryRead(t, "screening documents", func() ([]pescheck.V2Document, *http.Response, error) {
+		return client.ScreeningsAPI.V2ScreeningsDocumentsList(ctx, screeningID).Execute()
+	})
 	require.NoError(t, err, "screening documents")
 
 	// list screenings: the one we created must be present (disable pagination
 	// so a fresh screening isn't hidden on a later page).
-	screenings, _, err := client.ScreeningsAPI.V2ScreeningsList(ctx).Paginate(false).Execute()
+	screenings, _, err := retryRead(t, "screening list", func() (*pescheck.PaginatedV2ScreeningListItemList, *http.Response, error) {
+		return client.ScreeningsAPI.V2ScreeningsList(ctx).Paginate(false).Execute()
+	})
 	require.NoError(t, err, "screening list")
 	screeningResults := screenings.GetResults()
 	require.NotEmpty(t, screeningResults, "screening list results")
@@ -180,14 +228,18 @@ func TestCRUDLifecycle(t *testing.T) {
 	// WebhookResponse.GetEvents() is typed interface{}; assert via string form.
 	assert.Contains(t, fmt.Sprint(hook.GetEvents()), "screening.status_changed", "webhook events")
 
-	_, _, err = client.WebhooksAPI.ListWebhooks2(ctx).Execute()
+	_, _, err = retryRead(t, "webhook list", func() ([]pescheck.WebhookResponse, *http.Response, error) {
+		return client.WebhooksAPI.ListWebhooks2(ctx).Execute()
+	})
 	require.NoError(t, err, "webhook list")
 
 	_, err = client.WebhooksAPI.DeleteWebhook2(ctx, hookID).Execute()
 	require.NoError(t, err, "webhook delete")
 
 	// --- division: list -> reuse-or-create -> patch ---
-	divList, _, err := client.DivisionsAPI.V2OrganisationsDivisionsList(ctx).Execute()
+	divList, _, err := retryRead(t, "division list", func() (*pescheck.PaginatedDivisionReadOnlyList, *http.Response, error) {
+		return client.DivisionsAPI.V2OrganisationsDivisionsList(ctx).Execute()
+	})
 	require.NoError(t, err, "division list")
 	var divID string
 	for _, d := range divList.GetResults() {
@@ -208,7 +260,9 @@ func TestCRUDLifecycle(t *testing.T) {
 	require.NotEmpty(t, divID, "division id")
 
 	// retrieve: returns DivisionReadOnly; name must match.
-	divRead, _, err := client.DivisionsAPI.V2OrganisationsDivisionsRetrieve(ctx, divID).Execute()
+	divRead, _, err := retryRead(t, "division retrieve", func() (*pescheck.DivisionReadOnly, *http.Response, error) {
+		return client.DivisionsAPI.V2OrganisationsDivisionsRetrieve(ctx, divID).Execute()
+	})
 	require.NoError(t, err, "division retrieve")
 	assert.Equal(t, ciDivisionName, divRead.GetName(), "division name")
 	assert.Equal(t, divID, divRead.GetId(), "division id round-trip")

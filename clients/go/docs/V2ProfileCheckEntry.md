@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
-**CheckType** | **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [readonly] 
-**DisplayName** | **string** |  | [readonly] 
-**ConfiguredPrice** | [**V2Money**](V2Money.md) |  | [readonly] 
-**Config** | **map[string]interface{}** |  | [readonly] 
-**InputFields** | **[]map[string]interface{}** |  | [readonly] 
-**IsSystemManaged** | **bool** |  | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
+**CheckType** | Pointer to **string** | * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck | [optional] [readonly] 
+**DisplayName** | Pointer to **string** |  | [optional] [readonly] 
+**ConfiguredPrice** | Pointer to [**V2Money**](V2Money.md) |  | [optional] [readonly] 
+**Config** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**InputFields** | Pointer to **[]map[string]interface{}** |  | [optional] [readonly] 
+**IsSystemManaged** | Pointer to **bool** |  | [optional] [readonly] 
 
 ## Methods
 
 ### NewV2ProfileCheckEntry
 
-`func NewV2ProfileCheckEntry(id string, checkType string, displayName string, configuredPrice V2Money, config map[string]interface{}, inputFields []map[string]interface{}, isSystemManaged bool, ) *V2ProfileCheckEntry`
+`func NewV2ProfileCheckEntry() *V2ProfileCheckEntry`
 
 NewV2ProfileCheckEntry instantiates a new V2ProfileCheckEntry object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *V2ProfileCheckEntry) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetCheckType
 
@@ -70,6 +75,11 @@ and a boolean to check if the value has been set.
 
 SetCheckType sets CheckType field to given value.
 
+### HasCheckType
+
+`func (o *V2ProfileCheckEntry) HasCheckType() bool`
+
+HasCheckType returns a boolean if a field has been set.
 
 ### GetDisplayName
 
@@ -90,6 +100,11 @@ and a boolean to check if the value has been set.
 
 SetDisplayName sets DisplayName field to given value.
 
+### HasDisplayName
+
+`func (o *V2ProfileCheckEntry) HasDisplayName() bool`
+
+HasDisplayName returns a boolean if a field has been set.
 
 ### GetConfiguredPrice
 
@@ -110,6 +125,11 @@ and a boolean to check if the value has been set.
 
 SetConfiguredPrice sets ConfiguredPrice field to given value.
 
+### HasConfiguredPrice
+
+`func (o *V2ProfileCheckEntry) HasConfiguredPrice() bool`
+
+HasConfiguredPrice returns a boolean if a field has been set.
 
 ### GetConfig
 
@@ -130,6 +150,11 @@ and a boolean to check if the value has been set.
 
 SetConfig sets Config field to given value.
 
+### HasConfig
+
+`func (o *V2ProfileCheckEntry) HasConfig() bool`
+
+HasConfig returns a boolean if a field has been set.
 
 ### GetInputFields
 
@@ -150,6 +175,11 @@ and a boolean to check if the value has been set.
 
 SetInputFields sets InputFields field to given value.
 
+### HasInputFields
+
+`func (o *V2ProfileCheckEntry) HasInputFields() bool`
+
+HasInputFields returns a boolean if a field has been set.
 
 ### GetIsSystemManaged
 
@@ -170,6 +200,11 @@ and a boolean to check if the value has been set.
 
 SetIsSystemManaged sets IsSystemManaged field to given value.
 
+### HasIsSystemManaged
+
+`func (o *V2ProfileCheckEntry) HasIsSystemManaged() bool`
+
+HasIsSystemManaged returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

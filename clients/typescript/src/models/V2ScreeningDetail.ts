@@ -46,70 +46,61 @@ export interface V2ScreeningDetail {
      * @type {string}
      * @memberof V2ScreeningDetail
      */
-    readonly id: string;
+    readonly id?: string;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningDetail
      */
-    readonly status: string;
+    readonly status?: string;
     /**
      * 
      * @type {V2ScreeningDetailProfile}
      * @memberof V2ScreeningDetail
      */
-    profile: V2ScreeningDetailProfile | null;
+    profile?: V2ScreeningDetailProfile | null;
     /**
      * 
      * @type {V2Candidate}
      * @memberof V2ScreeningDetail
      */
-    readonly candidate: V2Candidate;
+    readonly candidate?: V2Candidate;
     /**
      * 
      * @type {Array<V2ScreeningCheckEntry>}
      * @memberof V2ScreeningDetail
      */
-    readonly checks: Array<V2ScreeningCheckEntry>;
+    readonly checks?: Array<V2ScreeningCheckEntry>;
     /**
      * Public wizard URL for the candidate. Null when no check needs candidate input.
      * @type {string}
      * @memberof V2ScreeningDetail
      */
-    readonly candidateWizardUrl: string | null;
+    readonly candidateWizardUrl?: string | null;
     /**
      * Dashboard URL for this screening.
      * @type {string}
      * @memberof V2ScreeningDetail
      */
-    readonly dashboardUrl: string;
+    readonly dashboardUrl?: string;
     /**
      * 
      * @type {Date}
      * @memberof V2ScreeningDetail
      */
-    readonly createdAt: Date;
+    readonly createdAt?: Date;
     /**
      * 
      * @type {Date}
      * @memberof V2ScreeningDetail
      */
-    readonly updatedAt: Date;
+    readonly updatedAt?: Date;
 }
 
 /**
  * Check if a given object implements the V2ScreeningDetail interface.
  */
 export function instanceOfV2ScreeningDetail(value: any): value is V2ScreeningDetail {
-    if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('status' in value) || value['status'] === undefined) return false;
-    if (!('profile' in value) || value['profile'] === undefined) return false;
-    if (!('candidate' in value) || value['candidate'] === undefined) return false;
-    if (!('checks' in value) || value['checks'] === undefined) return false;
-    if ((!('candidateWizardUrl' in value) && !('candidate_wizard_url' in value)) || (value['candidateWizardUrl'] === undefined && value['candidate_wizard_url'] === undefined)) return false;
-    if ((!('dashboardUrl' in value) && !('dashboard_url' in value)) || (value['dashboardUrl'] === undefined && value['dashboard_url'] === undefined)) return false;
-    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
-    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -123,15 +114,15 @@ export function V2ScreeningDetailFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'id': json['id'],
-        'status': json['status'],
-        'profile': V2ScreeningDetailProfileFromJSON(json['profile']),
-        'candidate': V2CandidateFromJSON(json['candidate']),
-        'checks': ((json['checks'] as Array<any>).map(V2ScreeningCheckEntryFromJSON)),
-        'candidateWizardUrl': json['candidate_wizard_url'],
-        'dashboardUrl': json['dashboard_url'],
-        'createdAt': (new Date(json['created_at'])),
-        'updatedAt': (new Date(json['updated_at'])),
+        'id': json['id'] == null ? undefined : json['id'],
+        'status': json['status'] == null ? undefined : json['status'],
+        'profile': json['profile'] == null ? undefined : V2ScreeningDetailProfileFromJSON(json['profile']),
+        'candidate': json['candidate'] == null ? undefined : V2CandidateFromJSON(json['candidate']),
+        'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(V2ScreeningCheckEntryFromJSON)),
+        'candidateWizardUrl': json['candidate_wizard_url'] == null ? undefined : json['candidate_wizard_url'],
+        'dashboardUrl': json['dashboard_url'] == null ? undefined : json['dashboard_url'],
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
     };
 }
 

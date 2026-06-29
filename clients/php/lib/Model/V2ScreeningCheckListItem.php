@@ -344,12 +344,6 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['check_type'] === null) {
-            $invalidProperties[] = "'check_type' can't be null";
-        }
         $allowedValues = $this->getCheckTypeAllowableValues();
         if (!is_null($this->container['check_type']) && !in_array($this->container['check_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -359,9 +353,6 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
 
-        if ($this->container['status'] === null) {
-            $invalidProperties[] = "'status' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -380,7 +371,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -390,7 +381,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -407,7 +398,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets check_type
      *
-     * @return string
+     * @return string|null
      */
     public function getCheckType()
     {
@@ -417,7 +408,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string|null $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */
@@ -444,7 +435,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets status
      *
-     * @return string
+     * @return string|null
      */
     public function getStatus()
     {
@@ -454,7 +445,7 @@ class V2ScreeningCheckListItem implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets status
      *
-     * @param string $status status
+     * @param string|null $status status
      *
      * @return self
      */

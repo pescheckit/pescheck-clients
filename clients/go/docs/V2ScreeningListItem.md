@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
 **Status** | Pointer to **string** |  | [optional] 
-**Profile** | [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
-**Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
-**Checks** | [**[]V2ScreeningCheckListItem**](V2ScreeningCheckListItem.md) |  | [readonly] 
-**CandidateWizardUrl** | **NullableString** |  | [readonly] 
-**DashboardUrl** | **string** |  | [readonly] 
-**CreatedAt** | **time.Time** |  | [readonly] 
-**UpdatedAt** | **time.Time** |  | [readonly] 
+**Profile** | Pointer to [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] 
+**Candidate** | Pointer to [**V2Candidate**](V2Candidate.md) |  | [optional] [readonly] 
+**Checks** | Pointer to [**[]V2ScreeningCheckListItem**](V2ScreeningCheckListItem.md) |  | [optional] [readonly] 
+**CandidateWizardUrl** | Pointer to **NullableString** |  | [optional] [readonly] 
+**DashboardUrl** | Pointer to **string** |  | [optional] [readonly] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 
 ## Methods
 
 ### NewV2ScreeningListItem
 
-`func NewV2ScreeningListItem(id string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningListItem`
+`func NewV2ScreeningListItem() *V2ScreeningListItem`
 
 NewV2ScreeningListItem instantiates a new V2ScreeningListItem object
 This constructor will assign default values to properties that have it defined,
@@ -52,6 +52,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *V2ScreeningListItem) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -97,6 +102,11 @@ and a boolean to check if the value has been set.
 
 SetProfile sets Profile field to given value.
 
+### HasProfile
+
+`func (o *V2ScreeningListItem) HasProfile() bool`
+
+HasProfile returns a boolean if a field has been set.
 
 ### SetProfileNil
 
@@ -127,6 +137,11 @@ and a boolean to check if the value has been set.
 
 SetCandidate sets Candidate field to given value.
 
+### HasCandidate
+
+`func (o *V2ScreeningListItem) HasCandidate() bool`
+
+HasCandidate returns a boolean if a field has been set.
 
 ### GetChecks
 
@@ -147,6 +162,11 @@ and a boolean to check if the value has been set.
 
 SetChecks sets Checks field to given value.
 
+### HasChecks
+
+`func (o *V2ScreeningListItem) HasChecks() bool`
+
+HasChecks returns a boolean if a field has been set.
 
 ### GetCandidateWizardUrl
 
@@ -167,6 +187,11 @@ and a boolean to check if the value has been set.
 
 SetCandidateWizardUrl sets CandidateWizardUrl field to given value.
 
+### HasCandidateWizardUrl
+
+`func (o *V2ScreeningListItem) HasCandidateWizardUrl() bool`
+
+HasCandidateWizardUrl returns a boolean if a field has been set.
 
 ### SetCandidateWizardUrlNil
 
@@ -197,6 +222,11 @@ and a boolean to check if the value has been set.
 
 SetDashboardUrl sets DashboardUrl field to given value.
 
+### HasDashboardUrl
+
+`func (o *V2ScreeningListItem) HasDashboardUrl() bool`
+
+HasDashboardUrl returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -217,6 +247,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *V2ScreeningListItem) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -237,6 +272,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *V2ScreeningListItem) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -32,15 +32,15 @@ class V2ScreeningListItem(BaseModel):
     """
     List shape for GET /screenings/. Same candidate as detail; the only thing we slim here is per-check info (status only), since config/input/output are heavy and rarely needed at list time.
     """ # noqa: E501
-    id: UUID
+    id: Optional[UUID] = None
     status: Optional[StrictStr] = None
-    profile: Optional[V2ScreeningDetailProfile]
-    candidate: V2Candidate
-    checks: List[V2ScreeningCheckListItem]
-    candidate_wizard_url: Optional[StrictStr]
-    dashboard_url: StrictStr
-    created_at: datetime
-    updated_at: datetime
+    profile: Optional[V2ScreeningDetailProfile] = None
+    candidate: Optional[V2Candidate] = None
+    checks: Optional[List[V2ScreeningCheckListItem]] = None
+    candidate_wizard_url: Optional[StrictStr] = None
+    dashboard_url: Optional[StrictStr] = None
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     __properties: ClassVar[List[str]] = ["id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
 
     model_config = ConfigDict(

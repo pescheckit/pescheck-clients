@@ -13,32 +13,32 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ProfileListItem {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     #[serde(rename = "is_custom", skip_serializing_if = "Option::is_none")]
     pub is_custom: Option<bool>,
-    #[serde(rename = "check_types")]
-    pub check_types: Vec<String>,
-    #[serde(rename = "created_at")]
-    pub created_at: chrono::DateTime<chrono::FixedOffset>,
-    #[serde(rename = "updated_at")]
-    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "check_types", skip_serializing_if = "Option::is_none")]
+    pub check_types: Option<Vec<String>>,
+    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
 }
 
 impl V2ProfileListItem {
-    pub fn new(id: uuid::Uuid, name: String, description: Option<String>, check_types: Vec<String>, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ProfileListItem {
+    pub fn new(name: String, description: Option<String>) -> V2ProfileListItem {
         V2ProfileListItem {
-            id,
+            id: None,
             name,
             description,
             is_custom: None,
-            check_types,
-            created_at,
-            updated_at,
+            check_types: None,
+            created_at: None,
+            updated_at: None,
         }
     }
 }

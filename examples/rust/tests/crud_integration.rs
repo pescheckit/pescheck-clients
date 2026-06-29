@@ -33,6 +33,33 @@ use uuid::Uuid;
 // creating a new one each run.
 const DIVISION_NAME: &str = "E2E CI division";
 
+/// Retry an async API call up to 3 times with a 1s backoff when staging returns
+/// an intermittent HTTP 5xx. Only server errors (status >= 500) are retried; 4xx
+/// and every other error propagate immediately so the negative 401/404 tests
+/// stay meaningful. The call expression is re-evaluated each attempt so a fresh
+/// request future is built.
+macro_rules! retry_5xx {
+    ($call:expr) => {{
+        let mut attempt = 0;
+        loop {
+            attempt += 1;
+            match $call.await {
+                Ok(value) => break Ok(value),
+                Err(err) => {
+                    let is_server_error = matches!(
+                        &err,
+                        apis::Error::ResponseError(content) if content.status.as_u16() >= 500
+                    );
+                    if attempt >= 3 || !is_server_error {
+                        break Err(err);
+                    }
+                    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+                }
+            }
+        }
+    }};
+}
+
 #[tokio::test]
 async fn crud_lifecycle() {
     let base_url = std::env::var("PESCHECK_BASE_URL")
@@ -74,10 +101,10 @@ async fn run_lifecycle(
     let suffix = Uuid::new_v4().simple().to_string()[..8].to_string();
 
     // --- checks: list (non-empty) -> retrieve one ---
-    let check_list = checks_api::v2_checks_list(cfg, None).await?;
+    let check_list = retry_5xx!(checks_api::v2_checks_list(cfg, None))?;
     assert!(!check_list.is_empty(), "checks list should be non-empty");
     let check_type = check_list[0].check_type.clone();
-    checks_api::v2_checks_retrieve(cfg, &check_type).await?;
+    retry_5xx!(checks_api::v2_checks_retrieve(cfg, &check_type))?;
     // V2ProfileCheck wants the CheckType enum; the list gives the wire string.
     let check_type_enum: CheckType =
         serde_json::from_value(serde_json::Value::String(check_type.clone()))?;
@@ -100,7 +127,7 @@ async fn run_lifecycle(
     let profile_id = profile_uuid.to_string();
     *profile_id_out = Some(profile_id.clone());
 
-    let retrieved = profiles_api::v2_profiles_retrieve(cfg, &profile_id).await?;
+    let retrieved = retry_5xx!(profiles_api::v2_profiles_retrieve(cfg, &profile_id))?;
     assert_eq!(retrieved.id, profile_uuid, "retrieved profile id mismatch");
     assert_eq!(retrieved.name, profile_name, "retrieved profile name mismatch");
 
@@ -149,9 +176,10 @@ async fn run_lifecycle(
         "PUT profile description not applied"
     );
 
-    let profiles = profiles_api::v2_profiles_list(cfg, None, None, None, None, None, None, None)
-        .await?
-        .results;
+    let profiles = retry_5xx!(profiles_api::v2_profiles_list(
+        cfg, None, None, None, None, None, None, None
+    ))?
+    .results;
     assert!(
         profiles.iter().any(|p| p.id == profile_uuid),
         "created profile should appear in list"
@@ -178,7 +206,7 @@ async fn run_lifecycle(
         "screening should have a status"
     );
 
-    let retrieved_screening = screenings_api::v2_screenings_retrieve(cfg, &screening_id).await?;
+    let retrieved_screening = retry_5xx!(screenings_api::v2_screenings_retrieve(cfg, &screening_id))?;
     assert_eq!(
         retrieved_screening.id, screening.id,
         "retrieved screening id mismatch"
@@ -187,12 +215,11 @@ async fn run_lifecycle(
         retrieved_screening.candidate.email, test_email,
         "retrieved screening candidate email mismatch"
     );
-    screenings_api::v2_screenings_documents_list(cfg, &screening_id, None, None).await?;
+    retry_5xx!(screenings_api::v2_screenings_documents_list(cfg, &screening_id, None, None))?;
 
     // List screenings (trailing args are page/page_size/paginate) and confirm
     // the one we just created shows up.
-    let screening_list = screenings_api::v2_screenings_list(cfg, None, None, None)
-        .await?
+    let screening_list = retry_5xx!(screenings_api::v2_screenings_list(cfg, None, None, None))?
         .results;
     assert!(
         !screening_list.is_empty(),
@@ -236,8 +263,7 @@ async fn run_lifecycle(
     webhooks_api::delete_webhook2(cfg, &hook.id.to_string()).await?;
 
     // --- division: list -> reuse-or-create -> patch ---
-    let existing = divisions_api::v2_organisations_divisions_list(cfg, None, None, None)
-        .await?
+    let existing = retry_5xx!(divisions_api::v2_organisations_divisions_list(cfg, None, None, None))?
         .results;
     let found = existing.iter().find(|d| {
         d.name
@@ -305,7 +331,7 @@ async fn run_lifecycle(
     )
     .await?;
 
-    let div = divisions_api::v2_organisations_divisions_retrieve(cfg, &div_id).await?;
+    let div = retry_5xx!(divisions_api::v2_organisations_divisions_retrieve(cfg, &div_id))?;
     assert_eq!(div.id.to_string(), div_id, "retrieved division id mismatch");
     assert_eq!(
         div.name.flatten(),

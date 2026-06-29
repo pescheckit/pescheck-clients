@@ -27,11 +27,11 @@ class V2CheckField(BaseModel):
     """
     One config or input field a check accepts via the API.
     """ # noqa: E501
-    name: StrictStr
-    type: StrictStr = Field(description="\"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"")
-    required: StrictBool = Field(description="Whether the request body must include this field.")
-    choices: Optional[List[StrictStr]] = Field(description="Allowed values, or null if the field isn't constrained to a set.")
-    help_text: Optional[StrictStr]
+    name: Optional[StrictStr] = None
+    type: Optional[StrictStr] = Field(default=None, description="\"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"")
+    required: Optional[StrictBool] = Field(default=None, description="Whether the request body must include this field.")
+    choices: Optional[List[StrictStr]] = Field(default=None, description="Allowed values, or null if the field isn't constrained to a set.")
+    help_text: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["name", "type", "required", "choices", "help_text"]
 
     model_config = ConfigDict(

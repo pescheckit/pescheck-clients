@@ -12,8 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the V2CheckInfo type satisfies the MappedNullable interface at compile time
@@ -21,43 +19,29 @@ var _ MappedNullable = &V2CheckInfo{}
 
 // V2CheckInfo Everything a client needs to know to use a check type via the API.
 type V2CheckInfo struct {
-	CheckType string `json:"check_type"`
-	DisplayName string `json:"display_name"`
-	Description NullableString `json:"description"`
-	HasConfig bool `json:"has_config"`
+	CheckType *string `json:"check_type,omitempty"`
+	DisplayName *string `json:"display_name,omitempty"`
+	Description NullableString `json:"description,omitempty"`
+	HasConfig *bool `json:"has_config,omitempty"`
 	// True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
-	IsSystemManaged bool `json:"is_system_managed"`
+	IsSystemManaged *bool `json:"is_system_managed,omitempty"`
 	// Other check types this check pulls in automatically when added.
-	RequiresChecks []string `json:"requires_checks"`
-	SupportedCountriesOfWork []string `json:"supported_countries_of_work"`
-	SupportedCountriesOfResidence []string `json:"supported_countries_of_residence"`
-	DefaultPrice NullableV2Money `json:"default_price"`
-	ConfigFields []V2CheckField `json:"config_fields"`
-	InputFields []V2CheckField `json:"input_fields"`
+	RequiresChecks []string `json:"requires_checks,omitempty"`
+	SupportedCountriesOfWork []string `json:"supported_countries_of_work,omitempty"`
+	SupportedCountriesOfResidence []string `json:"supported_countries_of_residence,omitempty"`
+	DefaultPrice NullableV2Money `json:"default_price,omitempty"`
+	ConfigFields []V2CheckField `json:"config_fields,omitempty"`
+	InputFields []V2CheckField `json:"input_fields,omitempty"`
 	// Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
-	CandidateFields []V2CheckField `json:"candidate_fields"`
+	CandidateFields []V2CheckField `json:"candidate_fields,omitempty"`
 }
-
-type _V2CheckInfo V2CheckInfo
 
 // NewV2CheckInfo instantiates a new V2CheckInfo object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2CheckInfo(checkType string, displayName string, description NullableString, hasConfig bool, isSystemManaged bool, requiresChecks []string, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, defaultPrice NullableV2Money, configFields []V2CheckField, inputFields []V2CheckField, candidateFields []V2CheckField) *V2CheckInfo {
+func NewV2CheckInfo() *V2CheckInfo {
 	this := V2CheckInfo{}
-	this.CheckType = checkType
-	this.DisplayName = displayName
-	this.Description = description
-	this.HasConfig = hasConfig
-	this.IsSystemManaged = isSystemManaged
-	this.RequiresChecks = requiresChecks
-	this.SupportedCountriesOfWork = supportedCountriesOfWork
-	this.SupportedCountriesOfResidence = supportedCountriesOfResidence
-	this.DefaultPrice = defaultPrice
-	this.ConfigFields = configFields
-	this.InputFields = inputFields
-	this.CandidateFields = candidateFields
 	return &this
 }
 
@@ -69,66 +53,80 @@ func NewV2CheckInfoWithDefaults() *V2CheckInfo {
 	return &this
 }
 
-// GetCheckType returns the CheckType field value
+// GetCheckType returns the CheckType field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetCheckType() string {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		var ret string
 		return ret
 	}
-
-	return o.CheckType
+	return *o.CheckType
 }
 
-// GetCheckTypeOk returns a tuple with the CheckType field value
+// GetCheckTypeOk returns a tuple with the CheckType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetCheckTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		return nil, false
 	}
-	return &o.CheckType, true
+	return o.CheckType, true
 }
 
-// SetCheckType sets field value
+// HasCheckType returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasCheckType() bool {
+	if o != nil && !IsNil(o.CheckType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckType gets a reference to the given string and assigns it to the CheckType field.
 func (o *V2CheckInfo) SetCheckType(v string) {
-	o.CheckType = v
+	o.CheckType = &v
 }
 
-// GetDisplayName returns the DisplayName field value
+// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetDisplayName() string {
-	if o == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
-
-	return o.DisplayName
+	return *o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value
+// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetDisplayNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
-	return &o.DisplayName, true
+	return o.DisplayName, true
 }
 
-// SetDisplayName sets field value
+// HasDisplayName returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasDisplayName() bool {
+	if o != nil && !IsNil(o.DisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
 func (o *V2CheckInfo) SetDisplayName(v string) {
-	o.DisplayName = v
+	o.DisplayName = &v
 }
 
-// GetDescription returns the Description field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetDescription returns the Description field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *V2CheckInfo) GetDescription() string {
-	if o == nil || o.Description.Get() == nil {
+	if o == nil || IsNil(o.Description.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.Description.Get()
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2CheckInfo) GetDescriptionOk() (*string, bool) {
@@ -138,143 +136,199 @@ func (o *V2CheckInfo) GetDescriptionOk() (*string, bool) {
 	return o.Description.Get(), o.Description.IsSet()
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasDescription() bool {
+	if o != nil && o.Description.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given NullableString and assigns it to the Description field.
 func (o *V2CheckInfo) SetDescription(v string) {
 	o.Description.Set(&v)
 }
+// SetDescriptionNil sets the value for Description to be an explicit nil
+func (o *V2CheckInfo) SetDescriptionNil() {
+	o.Description.Set(nil)
+}
 
-// GetHasConfig returns the HasConfig field value
+// UnsetDescription ensures that no value is present for Description, not even an explicit nil
+func (o *V2CheckInfo) UnsetDescription() {
+	o.Description.Unset()
+}
+
+// GetHasConfig returns the HasConfig field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetHasConfig() bool {
-	if o == nil {
+	if o == nil || IsNil(o.HasConfig) {
 		var ret bool
 		return ret
 	}
-
-	return o.HasConfig
+	return *o.HasConfig
 }
 
-// GetHasConfigOk returns a tuple with the HasConfig field value
+// GetHasConfigOk returns a tuple with the HasConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetHasConfigOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.HasConfig) {
 		return nil, false
 	}
-	return &o.HasConfig, true
+	return o.HasConfig, true
 }
 
-// SetHasConfig sets field value
+// HasHasConfig returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasHasConfig() bool {
+	if o != nil && !IsNil(o.HasConfig) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasConfig gets a reference to the given bool and assigns it to the HasConfig field.
 func (o *V2CheckInfo) SetHasConfig(v bool) {
-	o.HasConfig = v
+	o.HasConfig = &v
 }
 
-// GetIsSystemManaged returns the IsSystemManaged field value
+// GetIsSystemManaged returns the IsSystemManaged field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetIsSystemManaged() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsSystemManaged) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsSystemManaged
+	return *o.IsSystemManaged
 }
 
-// GetIsSystemManagedOk returns a tuple with the IsSystemManaged field value
+// GetIsSystemManagedOk returns a tuple with the IsSystemManaged field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetIsSystemManagedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IsSystemManaged) {
 		return nil, false
 	}
-	return &o.IsSystemManaged, true
+	return o.IsSystemManaged, true
 }
 
-// SetIsSystemManaged sets field value
+// HasIsSystemManaged returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasIsSystemManaged() bool {
+	if o != nil && !IsNil(o.IsSystemManaged) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSystemManaged gets a reference to the given bool and assigns it to the IsSystemManaged field.
 func (o *V2CheckInfo) SetIsSystemManaged(v bool) {
-	o.IsSystemManaged = v
+	o.IsSystemManaged = &v
 }
 
-// GetRequiresChecks returns the RequiresChecks field value
+// GetRequiresChecks returns the RequiresChecks field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetRequiresChecks() []string {
-	if o == nil {
+	if o == nil || IsNil(o.RequiresChecks) {
 		var ret []string
 		return ret
 	}
-
 	return o.RequiresChecks
 }
 
-// GetRequiresChecksOk returns a tuple with the RequiresChecks field value
+// GetRequiresChecksOk returns a tuple with the RequiresChecks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetRequiresChecksOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RequiresChecks) {
 		return nil, false
 	}
 	return o.RequiresChecks, true
 }
 
-// SetRequiresChecks sets field value
+// HasRequiresChecks returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasRequiresChecks() bool {
+	if o != nil && !IsNil(o.RequiresChecks) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequiresChecks gets a reference to the given []string and assigns it to the RequiresChecks field.
 func (o *V2CheckInfo) SetRequiresChecks(v []string) {
 	o.RequiresChecks = v
 }
 
-// GetSupportedCountriesOfWork returns the SupportedCountriesOfWork field value
+// GetSupportedCountriesOfWork returns the SupportedCountriesOfWork field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetSupportedCountriesOfWork() []string {
-	if o == nil {
+	if o == nil || IsNil(o.SupportedCountriesOfWork) {
 		var ret []string
 		return ret
 	}
-
 	return o.SupportedCountriesOfWork
 }
 
-// GetSupportedCountriesOfWorkOk returns a tuple with the SupportedCountriesOfWork field value
+// GetSupportedCountriesOfWorkOk returns a tuple with the SupportedCountriesOfWork field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetSupportedCountriesOfWorkOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SupportedCountriesOfWork) {
 		return nil, false
 	}
 	return o.SupportedCountriesOfWork, true
 }
 
-// SetSupportedCountriesOfWork sets field value
+// HasSupportedCountriesOfWork returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasSupportedCountriesOfWork() bool {
+	if o != nil && !IsNil(o.SupportedCountriesOfWork) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedCountriesOfWork gets a reference to the given []string and assigns it to the SupportedCountriesOfWork field.
 func (o *V2CheckInfo) SetSupportedCountriesOfWork(v []string) {
 	o.SupportedCountriesOfWork = v
 }
 
-// GetSupportedCountriesOfResidence returns the SupportedCountriesOfResidence field value
+// GetSupportedCountriesOfResidence returns the SupportedCountriesOfResidence field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetSupportedCountriesOfResidence() []string {
-	if o == nil {
+	if o == nil || IsNil(o.SupportedCountriesOfResidence) {
 		var ret []string
 		return ret
 	}
-
 	return o.SupportedCountriesOfResidence
 }
 
-// GetSupportedCountriesOfResidenceOk returns a tuple with the SupportedCountriesOfResidence field value
+// GetSupportedCountriesOfResidenceOk returns a tuple with the SupportedCountriesOfResidence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetSupportedCountriesOfResidenceOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SupportedCountriesOfResidence) {
 		return nil, false
 	}
 	return o.SupportedCountriesOfResidence, true
 }
 
-// SetSupportedCountriesOfResidence sets field value
+// HasSupportedCountriesOfResidence returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasSupportedCountriesOfResidence() bool {
+	if o != nil && !IsNil(o.SupportedCountriesOfResidence) {
+		return true
+	}
+
+	return false
+}
+
+// SetSupportedCountriesOfResidence gets a reference to the given []string and assigns it to the SupportedCountriesOfResidence field.
 func (o *V2CheckInfo) SetSupportedCountriesOfResidence(v []string) {
 	o.SupportedCountriesOfResidence = v
 }
 
-// GetDefaultPrice returns the DefaultPrice field value
-// If the value is explicit nil, the zero value for V2Money will be returned
+// GetDefaultPrice returns the DefaultPrice field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *V2CheckInfo) GetDefaultPrice() V2Money {
-	if o == nil || o.DefaultPrice.Get() == nil {
+	if o == nil || IsNil(o.DefaultPrice.Get()) {
 		var ret V2Money
 		return ret
 	}
-
 	return *o.DefaultPrice.Get()
 }
 
-// GetDefaultPriceOk returns a tuple with the DefaultPrice field value
+// GetDefaultPriceOk returns a tuple with the DefaultPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2CheckInfo) GetDefaultPriceOk() (*V2Money, bool) {
@@ -284,79 +338,121 @@ func (o *V2CheckInfo) GetDefaultPriceOk() (*V2Money, bool) {
 	return o.DefaultPrice.Get(), o.DefaultPrice.IsSet()
 }
 
-// SetDefaultPrice sets field value
+// HasDefaultPrice returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasDefaultPrice() bool {
+	if o != nil && o.DefaultPrice.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultPrice gets a reference to the given NullableV2Money and assigns it to the DefaultPrice field.
 func (o *V2CheckInfo) SetDefaultPrice(v V2Money) {
 	o.DefaultPrice.Set(&v)
 }
+// SetDefaultPriceNil sets the value for DefaultPrice to be an explicit nil
+func (o *V2CheckInfo) SetDefaultPriceNil() {
+	o.DefaultPrice.Set(nil)
+}
 
-// GetConfigFields returns the ConfigFields field value
+// UnsetDefaultPrice ensures that no value is present for DefaultPrice, not even an explicit nil
+func (o *V2CheckInfo) UnsetDefaultPrice() {
+	o.DefaultPrice.Unset()
+}
+
+// GetConfigFields returns the ConfigFields field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetConfigFields() []V2CheckField {
-	if o == nil {
+	if o == nil || IsNil(o.ConfigFields) {
 		var ret []V2CheckField
 		return ret
 	}
-
 	return o.ConfigFields
 }
 
-// GetConfigFieldsOk returns a tuple with the ConfigFields field value
+// GetConfigFieldsOk returns a tuple with the ConfigFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetConfigFieldsOk() ([]V2CheckField, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ConfigFields) {
 		return nil, false
 	}
 	return o.ConfigFields, true
 }
 
-// SetConfigFields sets field value
+// HasConfigFields returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasConfigFields() bool {
+	if o != nil && !IsNil(o.ConfigFields) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigFields gets a reference to the given []V2CheckField and assigns it to the ConfigFields field.
 func (o *V2CheckInfo) SetConfigFields(v []V2CheckField) {
 	o.ConfigFields = v
 }
 
-// GetInputFields returns the InputFields field value
+// GetInputFields returns the InputFields field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetInputFields() []V2CheckField {
-	if o == nil {
+	if o == nil || IsNil(o.InputFields) {
 		var ret []V2CheckField
 		return ret
 	}
-
 	return o.InputFields
 }
 
-// GetInputFieldsOk returns a tuple with the InputFields field value
+// GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetInputFieldsOk() ([]V2CheckField, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.InputFields) {
 		return nil, false
 	}
 	return o.InputFields, true
 }
 
-// SetInputFields sets field value
+// HasInputFields returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasInputFields() bool {
+	if o != nil && !IsNil(o.InputFields) {
+		return true
+	}
+
+	return false
+}
+
+// SetInputFields gets a reference to the given []V2CheckField and assigns it to the InputFields field.
 func (o *V2CheckInfo) SetInputFields(v []V2CheckField) {
 	o.InputFields = v
 }
 
-// GetCandidateFields returns the CandidateFields field value
+// GetCandidateFields returns the CandidateFields field value if set, zero value otherwise.
 func (o *V2CheckInfo) GetCandidateFields() []V2CheckField {
-	if o == nil {
+	if o == nil || IsNil(o.CandidateFields) {
 		var ret []V2CheckField
 		return ret
 	}
-
 	return o.CandidateFields
 }
 
-// GetCandidateFieldsOk returns a tuple with the CandidateFields field value
+// GetCandidateFieldsOk returns a tuple with the CandidateFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2CheckInfo) GetCandidateFieldsOk() ([]V2CheckField, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CandidateFields) {
 		return nil, false
 	}
 	return o.CandidateFields, true
 }
 
-// SetCandidateFields sets field value
+// HasCandidateFields returns a boolean if a field has been set.
+func (o *V2CheckInfo) HasCandidateFields() bool {
+	if o != nil && !IsNil(o.CandidateFields) {
+		return true
+	}
+
+	return false
+}
+
+// SetCandidateFields gets a reference to the given []V2CheckField and assigns it to the CandidateFields field.
 func (o *V2CheckInfo) SetCandidateFields(v []V2CheckField) {
 	o.CandidateFields = v
 }
@@ -371,67 +467,43 @@ func (o V2CheckInfo) MarshalJSON() ([]byte, error) {
 
 func (o V2CheckInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["check_type"] = o.CheckType
-	toSerialize["display_name"] = o.DisplayName
-	toSerialize["description"] = o.Description.Get()
-	toSerialize["has_config"] = o.HasConfig
-	toSerialize["is_system_managed"] = o.IsSystemManaged
-	toSerialize["requires_checks"] = o.RequiresChecks
-	toSerialize["supported_countries_of_work"] = o.SupportedCountriesOfWork
-	toSerialize["supported_countries_of_residence"] = o.SupportedCountriesOfResidence
-	toSerialize["default_price"] = o.DefaultPrice.Get()
-	toSerialize["config_fields"] = o.ConfigFields
-	toSerialize["input_fields"] = o.InputFields
-	toSerialize["candidate_fields"] = o.CandidateFields
+	if !IsNil(o.CheckType) {
+		toSerialize["check_type"] = o.CheckType
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if o.Description.IsSet() {
+		toSerialize["description"] = o.Description.Get()
+	}
+	if !IsNil(o.HasConfig) {
+		toSerialize["has_config"] = o.HasConfig
+	}
+	if !IsNil(o.IsSystemManaged) {
+		toSerialize["is_system_managed"] = o.IsSystemManaged
+	}
+	if !IsNil(o.RequiresChecks) {
+		toSerialize["requires_checks"] = o.RequiresChecks
+	}
+	if !IsNil(o.SupportedCountriesOfWork) {
+		toSerialize["supported_countries_of_work"] = o.SupportedCountriesOfWork
+	}
+	if !IsNil(o.SupportedCountriesOfResidence) {
+		toSerialize["supported_countries_of_residence"] = o.SupportedCountriesOfResidence
+	}
+	if o.DefaultPrice.IsSet() {
+		toSerialize["default_price"] = o.DefaultPrice.Get()
+	}
+	if !IsNil(o.ConfigFields) {
+		toSerialize["config_fields"] = o.ConfigFields
+	}
+	if !IsNil(o.InputFields) {
+		toSerialize["input_fields"] = o.InputFields
+	}
+	if !IsNil(o.CandidateFields) {
+		toSerialize["candidate_fields"] = o.CandidateFields
+	}
 	return toSerialize, nil
-}
-
-func (o *V2CheckInfo) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"check_type",
-		"display_name",
-		"description",
-		"has_config",
-		"is_system_managed",
-		"requires_checks",
-		"supported_countries_of_work",
-		"supported_countries_of_residence",
-		"default_price",
-		"config_fields",
-		"input_fields",
-		"candidate_fields",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varV2CheckInfo := _V2CheckInfo{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2CheckInfo)
-
-	if err != nil {
-		return err
-	}
-
-	*o = V2CheckInfo(varV2CheckInfo)
-
-	return err
 }
 
 type NullableV2CheckInfo struct {

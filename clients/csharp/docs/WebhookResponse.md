@@ -5,16 +5,16 @@ Serializer for webhook responses
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **Guid** |  | [readonly] 
+**Id** | **Guid** |  | [optional] [readonly] 
 **Name** | **string** |  | 
 **Url** | **string** |  | 
-**Events** | **Object** |  | [readonly] 
+**Events** | **Object** |  | [optional] [readonly] 
 **Active** | **bool** |  | [optional] 
-**Verified** | **bool** |  | [readonly] 
+**Verified** | **bool** |  | [optional] [readonly] 
 **Token** | **string** |  | [optional] [readonly] 
 **OrganisationName** | **string** |  | [optional] [readonly] 
-**CreatedAt** | **DateTime** |  | [readonly] 
-**UpdatedAt** | **DateTime** |  | [readonly] 
+**CreatedAt** | **DateTime** |  | [optional] [readonly] 
+**UpdatedAt** | **DateTime** |  | [optional] [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

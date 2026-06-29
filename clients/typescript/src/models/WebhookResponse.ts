@@ -25,7 +25,7 @@ export interface WebhookResponse {
      * @type {string}
      * @memberof WebhookResponse
      */
-    readonly id: string;
+    readonly id?: string;
     /**
      * 
      * @type {string}
@@ -43,7 +43,7 @@ export interface WebhookResponse {
      * @type {any}
      * @memberof WebhookResponse
      */
-    readonly events: any | null;
+    readonly events?: any | null;
     /**
      * 
      * @type {boolean}
@@ -55,7 +55,7 @@ export interface WebhookResponse {
      * @type {boolean}
      * @memberof WebhookResponse
      */
-    readonly verified: boolean;
+    readonly verified?: boolean;
     /**
      * 
      * @type {string}
@@ -73,26 +73,21 @@ export interface WebhookResponse {
      * @type {Date}
      * @memberof WebhookResponse
      */
-    readonly createdAt: Date;
+    readonly createdAt?: Date;
     /**
      * 
      * @type {Date}
      * @memberof WebhookResponse
      */
-    readonly updatedAt: Date;
+    readonly updatedAt?: Date;
 }
 
 /**
  * Check if a given object implements the WebhookResponse interface.
  */
 export function instanceOfWebhookResponse(value: any): value is WebhookResponse {
-    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('url' in value) || value['url'] === undefined) return false;
-    if (!('events' in value) || value['events'] === undefined) return false;
-    if (!('verified' in value) || value['verified'] === undefined) return false;
-    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
-    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -107,16 +102,16 @@ export function WebhookResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
             ...json,
-        'id': json['id'],
+        'id': json['id'] == null ? undefined : json['id'],
         'name': json['name'],
         'url': json['url'],
-        'events': json['events'],
+        'events': json['events'] == null ? undefined : json['events'],
         'active': json['active'] == null ? undefined : json['active'],
-        'verified': json['verified'],
+        'verified': json['verified'] == null ? undefined : json['verified'],
         'token': json['token'] == null ? undefined : json['token'],
         'organisationName': json['organisation_name'] == null ? undefined : json['organisation_name'],
-        'createdAt': (new Date(json['created_at'])),
-        'updatedAt': (new Date(json['updated_at'])),
+        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
+        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
     };
 }
 

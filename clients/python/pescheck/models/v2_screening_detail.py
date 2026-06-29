@@ -32,15 +32,15 @@ class V2ScreeningDetail(BaseModel):
     """
     V2ScreeningDetail
     """ # noqa: E501
-    id: UUID
-    status: StrictStr
-    profile: Optional[V2ScreeningDetailProfile]
-    candidate: V2Candidate
-    checks: List[V2ScreeningCheckEntry]
-    candidate_wizard_url: Optional[StrictStr] = Field(description="Public wizard URL for the candidate. Null when no check needs candidate input.")
-    dashboard_url: StrictStr = Field(description="Dashboard URL for this screening.")
-    created_at: datetime
-    updated_at: datetime
+    id: Optional[UUID] = None
+    status: Optional[StrictStr] = None
+    profile: Optional[V2ScreeningDetailProfile] = None
+    candidate: Optional[V2Candidate] = None
+    checks: Optional[List[V2ScreeningCheckEntry]] = None
+    candidate_wizard_url: Optional[StrictStr] = Field(default=None, description="Public wizard URL for the candidate. Null when no check needs candidate input.")
+    dashboard_url: Optional[StrictStr] = Field(default=None, description="Dashboard URL for this screening.")
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     __properties: ClassVar[List[str]] = ["id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
 
     model_config = ConfigDict(

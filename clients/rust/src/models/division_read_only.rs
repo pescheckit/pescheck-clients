@@ -13,16 +13,16 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DivisionReadOnly {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
     #[serde(rename = "name", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub name: Option<Option<String>>,
-    #[serde(rename = "parent")]
-    pub parent: String,
-    #[serde(rename = "created_at")]
-    pub created_at: chrono::DateTime<chrono::FixedOffset>,
-    #[serde(rename = "updated_at")]
-    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "parent", skip_serializing_if = "Option::is_none")]
+    pub parent: Option<String>,
+    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
+    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
+    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(rename = "city", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub city: Option<Option<String>>,
     #[serde(rename = "address", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
@@ -46,13 +46,13 @@ pub struct DivisionReadOnly {
 }
 
 impl DivisionReadOnly {
-    pub fn new(id: uuid::Uuid, parent: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> DivisionReadOnly {
+    pub fn new() -> DivisionReadOnly {
         DivisionReadOnly {
-            id,
+            id: None,
             name: None,
-            parent,
-            created_at,
-            updated_at,
+            parent: None,
+            created_at: None,
+            updated_at: None,
             city: None,
             address: None,
             postal: None,

@@ -6,16 +6,16 @@ Serializer for webhook responses
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [readonly] 
+**id** | **UUID** |  | [optional] [readonly] 
 **name** | **str** |  | 
 **url** | **str** |  | 
-**events** | **object** |  | [readonly] 
+**events** | **object** |  | [optional] [readonly] 
 **active** | **bool** |  | [optional] 
-**verified** | **bool** |  | [readonly] 
+**verified** | **bool** |  | [optional] [readonly] 
 **token** | **str** |  | [optional] [readonly] 
 **organisation_name** | **str** |  | [optional] [readonly] 
-**created_at** | **datetime** |  | [readonly] 
-**updated_at** | **datetime** |  | [readonly] 
+**created_at** | **datetime** |  | [optional] [readonly] 
+**updated_at** | **datetime** |  | [optional] [readonly] 
 
 ## Example
 

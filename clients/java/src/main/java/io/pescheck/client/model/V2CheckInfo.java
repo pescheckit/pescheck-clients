@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,12 +57,12 @@ import io.pescheck.client.JSON;
 public class V2CheckInfo {
   public static final String SERIALIZED_NAME_CHECK_TYPE = "check_type";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String checkType;
 
   public static final String SERIALIZED_NAME_DISPLAY_NAME = "display_name";
   @SerializedName(SERIALIZED_NAME_DISPLAY_NAME)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String displayName;
 
   public static final String SERIALIZED_NAME_DESCRIPTION = "description";
@@ -71,27 +72,27 @@ public class V2CheckInfo {
 
   public static final String SERIALIZED_NAME_HAS_CONFIG = "has_config";
   @SerializedName(SERIALIZED_NAME_HAS_CONFIG)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean hasConfig;
 
   public static final String SERIALIZED_NAME_IS_SYSTEM_MANAGED = "is_system_managed";
   @SerializedName(SERIALIZED_NAME_IS_SYSTEM_MANAGED)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean isSystemManaged;
 
   public static final String SERIALIZED_NAME_REQUIRES_CHECKS = "requires_checks";
   @SerializedName(SERIALIZED_NAME_REQUIRES_CHECKS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> requiresChecks = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_WORK = "supported_countries_of_work";
   @SerializedName(SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_WORK)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> supportedCountriesOfWork = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_RESIDENCE = "supported_countries_of_residence";
   @SerializedName(SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_RESIDENCE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<String> supportedCountriesOfResidence = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_DEFAULT_PRICE = "default_price";
@@ -101,17 +102,17 @@ public class V2CheckInfo {
 
   public static final String SERIALIZED_NAME_CONFIG_FIELDS = "config_fields";
   @SerializedName(SERIALIZED_NAME_CONFIG_FIELDS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<V2CheckField> configFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_INPUT_FIELDS = "input_fields";
   @SerializedName(SERIALIZED_NAME_INPUT_FIELDS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<V2CheckField> inputFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CANDIDATE_FIELDS = "candidate_fields";
   @SerializedName(SERIALIZED_NAME_CANDIDATE_FIELDS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<V2CheckField> candidateFields = new ArrayList<>();
 
   public V2CheckInfo() {
@@ -150,7 +151,7 @@ public class V2CheckInfo {
    * Get checkType
    * @return checkType
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getCheckType() {
     return checkType;
   }
@@ -161,7 +162,7 @@ public class V2CheckInfo {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getDisplayName() {
     return displayName;
   }
@@ -183,7 +184,7 @@ public class V2CheckInfo {
    * Get hasConfig
    * @return hasConfig
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Boolean getHasConfig() {
     return hasConfig;
   }
@@ -194,7 +195,7 @@ public class V2CheckInfo {
    * True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
    * @return isSystemManaged
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Boolean getIsSystemManaged() {
     return isSystemManaged;
   }
@@ -205,7 +206,7 @@ public class V2CheckInfo {
    * Other check types this check pulls in automatically when added.
    * @return requiresChecks
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getRequiresChecks() {
     return requiresChecks;
   }
@@ -216,7 +217,7 @@ public class V2CheckInfo {
    * Get supportedCountriesOfWork
    * @return supportedCountriesOfWork
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getSupportedCountriesOfWork() {
     return supportedCountriesOfWork;
   }
@@ -227,7 +228,7 @@ public class V2CheckInfo {
    * Get supportedCountriesOfResidence
    * @return supportedCountriesOfResidence
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<String> getSupportedCountriesOfResidence() {
     return supportedCountriesOfResidence;
   }
@@ -249,7 +250,7 @@ public class V2CheckInfo {
    * Get configFields
    * @return configFields
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<V2CheckField> getConfigFields() {
     return configFields;
   }
@@ -260,7 +261,7 @@ public class V2CheckInfo {
    * Get inputFields
    * @return inputFields
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<V2CheckField> getInputFields() {
     return inputFields;
   }
@@ -271,7 +272,7 @@ public class V2CheckInfo {
    * Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
    * @return candidateFields
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<V2CheckField> getCandidateFields() {
     return candidateFields;
   }
@@ -302,9 +303,20 @@ public class V2CheckInfo {
         Objects.equals(this.candidateFields, v2CheckInfo.candidateFields);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(checkType, displayName, description, hasConfig, isSystemManaged, requiresChecks, supportedCountriesOfWork, supportedCountriesOfResidence, defaultPrice, configFields, inputFields, candidateFields);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -344,7 +356,7 @@ public class V2CheckInfo {
     openapiFields = new HashSet<String>(Arrays.asList("check_type", "display_name", "description", "has_config", "is_system_managed", "requires_checks", "supported_countries_of_work", "supported_countries_of_residence", "default_price", "config_fields", "input_fields", "candidate_fields"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("check_type", "display_name", "description", "has_config", "is_system_managed", "requires_checks", "supported_countries_of_work", "supported_countries_of_residence", "default_price", "config_fields", "input_fields", "candidate_fields"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -367,73 +379,72 @@ public class V2CheckInfo {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2CheckInfo` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V2CheckInfo.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("check_type").isJsonPrimitive()) {
+      if ((jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) && !jsonObj.get("check_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_type").toString()));
       }
-      if (!jsonObj.get("display_name").isJsonPrimitive()) {
+      if ((jsonObj.get("display_name") != null && !jsonObj.get("display_name").isJsonNull()) && !jsonObj.get("display_name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `display_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("display_name").toString()));
       }
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      // ensure the required json array is present
-      if (jsonObj.get("requires_checks") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("requires_checks").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("requires_checks") != null && !jsonObj.get("requires_checks").isJsonNull() && !jsonObj.get("requires_checks").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `requires_checks` to be an array in the JSON string but got `%s`", jsonObj.get("requires_checks").toString()));
       }
-      // ensure the required json array is present
-      if (jsonObj.get("supported_countries_of_work") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("supported_countries_of_work").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("supported_countries_of_work") != null && !jsonObj.get("supported_countries_of_work").isJsonNull() && !jsonObj.get("supported_countries_of_work").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `supported_countries_of_work` to be an array in the JSON string but got `%s`", jsonObj.get("supported_countries_of_work").toString()));
       }
-      // ensure the required json array is present
-      if (jsonObj.get("supported_countries_of_residence") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("supported_countries_of_residence").isJsonArray()) {
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("supported_countries_of_residence") != null && !jsonObj.get("supported_countries_of_residence").isJsonNull() && !jsonObj.get("supported_countries_of_residence").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `supported_countries_of_residence` to be an array in the JSON string but got `%s`", jsonObj.get("supported_countries_of_residence").toString()));
       }
+      // validate the optional field `default_price`
       if (jsonObj.get("default_price") != null && !jsonObj.get("default_price").isJsonNull()) {
-      // validate the required field `default_price`
-      V2Money.validateJsonElement(jsonObj.get("default_price"));
+        V2Money.validateJsonElement(jsonObj.get("default_price"));
       }
-      if (jsonObj.get("config_fields") != null) {
-        if (!jsonObj.get("config_fields").isJsonArray()) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `config_fields` to be an array in the JSON string but got `%s`", jsonObj.get("config_fields").toString()));
-        }
+      if (jsonObj.get("config_fields") != null && !jsonObj.get("config_fields").isJsonNull()) {
         JsonArray jsonArrayconfigFields = jsonObj.getAsJsonArray("config_fields");
-        // validate the required field `config_fields` (array)
-        for (int i = 0; i < jsonArrayconfigFields.size(); i++) {
-          V2CheckField.validateJsonElement(jsonArrayconfigFields.get(i));
+        if (jsonArrayconfigFields != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("config_fields").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `config_fields` to be an array in the JSON string but got `%s`", jsonObj.get("config_fields").toString()));
+          }
+
+          // validate the optional field `config_fields` (array)
+          for (int i = 0; i < jsonArrayconfigFields.size(); i++) {
+            V2CheckField.validateJsonElement(jsonArrayconfigFields.get(i));
+          };
         }
       }
-      if (jsonObj.get("input_fields") != null) {
-        if (!jsonObj.get("input_fields").isJsonArray()) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `input_fields` to be an array in the JSON string but got `%s`", jsonObj.get("input_fields").toString()));
-        }
+      if (jsonObj.get("input_fields") != null && !jsonObj.get("input_fields").isJsonNull()) {
         JsonArray jsonArrayinputFields = jsonObj.getAsJsonArray("input_fields");
-        // validate the required field `input_fields` (array)
-        for (int i = 0; i < jsonArrayinputFields.size(); i++) {
-          V2CheckField.validateJsonElement(jsonArrayinputFields.get(i));
+        if (jsonArrayinputFields != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("input_fields").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `input_fields` to be an array in the JSON string but got `%s`", jsonObj.get("input_fields").toString()));
+          }
+
+          // validate the optional field `input_fields` (array)
+          for (int i = 0; i < jsonArrayinputFields.size(); i++) {
+            V2CheckField.validateJsonElement(jsonArrayinputFields.get(i));
+          };
         }
       }
-      if (jsonObj.get("candidate_fields") != null) {
-        if (!jsonObj.get("candidate_fields").isJsonArray()) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_fields` to be an array in the JSON string but got `%s`", jsonObj.get("candidate_fields").toString()));
-        }
+      if (jsonObj.get("candidate_fields") != null && !jsonObj.get("candidate_fields").isJsonNull()) {
         JsonArray jsonArraycandidateFields = jsonObj.getAsJsonArray("candidate_fields");
-        // validate the required field `candidate_fields` (array)
-        for (int i = 0; i < jsonArraycandidateFields.size(); i++) {
-          V2CheckField.validateJsonElement(jsonArraycandidateFields.get(i));
+        if (jsonArraycandidateFields != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("candidate_fields").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_fields` to be an array in the JSON string but got `%s`", jsonObj.get("candidate_fields").toString()));
+          }
+
+          // validate the optional field `candidate_fields` (array)
+          for (int i = 0; i < jsonArraycandidateFields.size(); i++) {
+            V2CheckField.validateJsonElement(jsonArraycandidateFields.get(i));
+          };
         }
       }
   }

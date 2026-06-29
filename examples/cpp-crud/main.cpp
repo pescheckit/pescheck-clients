@@ -20,6 +20,7 @@
 //                          test prints "SKIP: no token" and passes (return 0)
 //   PESCHECK_TEST_EMAIL    candidate email (default "noreply@pescheck.nl")
 
+#include <chrono>
 #include <cstdlib>
 #include <iostream>
 #include <memory>
@@ -27,6 +28,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+#include <thread>
 #include <vector>
 
 #include <PescheckApi/ApiClient.h>
@@ -113,6 +115,26 @@ void check(bool condition, const std::string& what) {
     std::cout << "  - OK: " << what << std::endl;
 }
 
+// Staging intermittently returns HTTP 5xx on read/list calls. Retry a call a few
+// times with a short backoff; cpp-restsdk surfaces the status via
+// ApiException::error_code().value(). Only server errors (>= 500) are retried —
+// 4xx (and any other exception) propagate so the negative 401/404 checks stay
+// meaningful. The callable must perform the .get() so the request resolves (and
+// any ApiException is thrown) inside the retry loop.
+template <typename Fn>
+auto withRetry(Fn&& fn, int attempts = 3) -> decltype(fn()) {
+    for (int attempt = 1; ; ++attempt) {
+        try {
+            return fn();
+        } catch (const ApiException& e) {
+            if (attempt >= attempts || e.error_code().value() < 500) {
+                throw;
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+}
+
 }  // namespace
 
 int main() {
@@ -146,11 +168,13 @@ int main() {
 
     try {
         // --- checks: list -> retrieve one ---
-        auto checkList = checksApi.v2ChecksList(boost::optional<utility::string_t>()).get();
+        auto checkList = withRetry([&] {
+            return checksApi.v2ChecksList(boost::optional<utility::string_t>()).get();
+        });
         check(!checkList.empty(), "checks list is non-empty");
         utility::string_t checkType = checkList.at(0)->getCheckType();
         check(!checkType.empty(), "first check has a non-empty check_type");
-        auto retrievedCheck = checksApi.v2ChecksRetrieve(checkType).get();
+        auto retrievedCheck = withRetry([&] { return checksApi.v2ChecksRetrieve(checkType).get(); });
         check(retrievedCheck->getCheckType() == checkType,
               "retrieved check matches requested check_type");
 
@@ -170,7 +194,7 @@ int main() {
         profileCreated = true;
         check(!profileId.empty(), "created profile has a non-empty id");
 
-        auto retrievedProfile = profilesApi.v2ProfilesRetrieve(profileId).get();
+        auto retrievedProfile = withRetry([&] { return profilesApi.v2ProfilesRetrieve(profileId).get(); });
         check(retrievedProfile->getId() == profileId,
               "retrieved profile id matches created id");
         check(retrievedProfile->getName() == s("E2E test profile " + suffix),
@@ -208,20 +232,22 @@ int main() {
               "PUT profile description was replaced");
 
         // Re-fetch to confirm the PUT was persisted, not just echoed.
-        auto refetchedProfile = profilesApi.v2ProfilesRetrieve(profileId).get();
+        auto refetchedProfile = withRetry([&] { return profilesApi.v2ProfilesRetrieve(profileId).get(); });
         check(refetchedProfile->getName() == s(putName),
               "re-fetched profile reflects the PUT rename");
 
         // The created profile must appear in the profiles list (disable
         // pagination so a fresh profile isn't hidden on a later page).
-        auto profileList = profilesApi.v2ProfilesList(
-            boost::optional<utility::string_t>(),
-            boost::optional<bool>(),
-            boost::optional<utility::string_t>(),
-            boost::optional<int32_t>(),
-            boost::optional<int32_t>(),
-            boost::optional<bool>(false),
-            boost::optional<utility::string_t>()).get();
+        auto profileList = withRetry([&] {
+            return profilesApi.v2ProfilesList(
+                boost::optional<utility::string_t>(),
+                boost::optional<bool>(),
+                boost::optional<utility::string_t>(),
+                boost::optional<int32_t>(),
+                boost::optional<int32_t>(),
+                boost::optional<bool>(false),
+                boost::optional<utility::string_t>()).get();
+        });
         bool profileFound = false;
         for (const auto& p : profileList->getResults()) {
             if (p->getId() == profileId) { profileFound = true; break; }
@@ -246,7 +272,7 @@ int main() {
         check(screening->getCandidate()->getEmail() == s(testEmail),
               "created screening candidate email matches submitted email");
 
-        auto retrievedScreening = screeningsApi.v2ScreeningsRetrieve(screeningId).get();
+        auto retrievedScreening = withRetry([&] { return screeningsApi.v2ScreeningsRetrieve(screeningId).get(); });
         check(retrievedScreening->getId() == screeningId,
               "retrieved screening id matches created id");
         check(retrievedScreening->getCandidate()->getEmail() == s(testEmail),
@@ -254,10 +280,12 @@ int main() {
 
         // The created screening must appear in the screenings list (disable
         // pagination so a fresh screening isn't hidden on a later page).
-        auto screeningList = screeningsApi.v2ScreeningsList(
-            boost::optional<int32_t>(),
-            boost::optional<int32_t>(),
-            boost::optional<bool>(false)).get();
+        auto screeningList = withRetry([&] {
+            return screeningsApi.v2ScreeningsList(
+                boost::optional<int32_t>(),
+                boost::optional<int32_t>(),
+                boost::optional<bool>(false)).get();
+        });
         check(!screeningList->getResults().empty(),
               "screening list is non-empty");
         bool screeningFound = false;
@@ -267,10 +295,12 @@ int main() {
         check(screeningFound, "created screening appears in the screening list");
 
         // Documents list should return without error (may legitimately be empty).
-        screeningsApi.v2ScreeningsDocumentsList(
-            screeningId,
-            boost::optional<utility::string_t>(),
-            boost::optional<utility::string_t>()).get();
+        withRetry([&] {
+            return screeningsApi.v2ScreeningsDocumentsList(
+                screeningId,
+                boost::optional<utility::string_t>(),
+                boost::optional<utility::string_t>()).get();
+        });
         check(true, "screening documents listed");
 
         // --- webhook: create -> list -> delete ---
@@ -308,10 +338,12 @@ int main() {
         check(true, "webhook deleted");
 
         // --- division: list -> reuse-or-create -> patch ---
-        auto listed = divisionsApi.v2OrganisationsDivisionsList(
-            boost::optional<int32_t>(),
-            boost::optional<int32_t>(),
-            boost::optional<bool>()).get();
+        auto listed = withRetry([&] {
+            return divisionsApi.v2OrganisationsDivisionsList(
+                boost::optional<int32_t>(),
+                boost::optional<int32_t>(),
+                boost::optional<bool>()).get();
+        });
 
         utility::string_t divisionId;
         std::string action;
@@ -340,7 +372,7 @@ int main() {
         check(!divisionId.empty(), "division id is non-empty (" + action + ")");
 
         // GET a single division by id and confirm identity.
-        auto retrievedDiv = divisionsApi.v2OrganisationsDivisionsRetrieve(divisionId).get();
+        auto retrievedDiv = withRetry([&] { return divisionsApi.v2OrganisationsDivisionsRetrieve(divisionId).get(); });
         check(retrievedDiv->getId() == divisionId,
               "retrieved division id matches");
         check(retrievedDiv->getName() == s(divisionName),

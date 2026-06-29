@@ -13,8 +13,6 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
-	"bytes"
-	"fmt"
 )
 
 // checks if the V2ScreeningListItem type satisfies the MappedNullable interface at compile time
@@ -22,33 +20,23 @@ var _ MappedNullable = &V2ScreeningListItem{}
 
 // V2ScreeningListItem List shape for GET /screenings/. Same candidate as detail; the only thing we slim here is per-check info (status only), since config/input/output are heavy and rarely needed at list time.
 type V2ScreeningListItem struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	Status *string `json:"status,omitempty"`
-	Profile NullableV2ScreeningDetailProfile `json:"profile"`
-	Candidate V2Candidate `json:"candidate"`
-	Checks []V2ScreeningCheckListItem `json:"checks"`
-	CandidateWizardUrl NullableString `json:"candidate_wizard_url"`
-	DashboardUrl string `json:"dashboard_url"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	Profile NullableV2ScreeningDetailProfile `json:"profile,omitempty"`
+	Candidate *V2Candidate `json:"candidate,omitempty"`
+	Checks []V2ScreeningCheckListItem `json:"checks,omitempty"`
+	CandidateWizardUrl NullableString `json:"candidate_wizard_url,omitempty"`
+	DashboardUrl *string `json:"dashboard_url,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
-
-type _V2ScreeningListItem V2ScreeningListItem
 
 // NewV2ScreeningListItem instantiates a new V2ScreeningListItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ScreeningListItem(id string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time) *V2ScreeningListItem {
+func NewV2ScreeningListItem() *V2ScreeningListItem {
 	this := V2ScreeningListItem{}
-	this.Id = id
-	this.Profile = profile
-	this.Candidate = candidate
-	this.Checks = checks
-	this.CandidateWizardUrl = candidateWizardUrl
-	this.DashboardUrl = dashboardUrl
-	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -60,28 +48,36 @@ func NewV2ScreeningListItemWithDefaults() *V2ScreeningListItem {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *V2ScreeningListItem) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -116,18 +112,16 @@ func (o *V2ScreeningListItem) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetProfile returns the Profile field value
-// If the value is explicit nil, the zero value for V2ScreeningDetailProfile will be returned
+// GetProfile returns the Profile field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailProfile {
-	if o == nil || o.Profile.Get() == nil {
+	if o == nil || IsNil(o.Profile.Get()) {
 		var ret V2ScreeningDetailProfile
 		return ret
 	}
-
 	return *o.Profile.Get()
 }
 
-// GetProfileOk returns a tuple with the Profile field value
+// GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailProfile, bool) {
@@ -137,71 +131,103 @@ func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailProfile, bool) {
 	return o.Profile.Get(), o.Profile.IsSet()
 }
 
-// SetProfile sets field value
+// HasProfile returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasProfile() bool {
+	if o != nil && o.Profile.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetProfile gets a reference to the given NullableV2ScreeningDetailProfile and assigns it to the Profile field.
 func (o *V2ScreeningListItem) SetProfile(v V2ScreeningDetailProfile) {
 	o.Profile.Set(&v)
 }
+// SetProfileNil sets the value for Profile to be an explicit nil
+func (o *V2ScreeningListItem) SetProfileNil() {
+	o.Profile.Set(nil)
+}
 
-// GetCandidate returns the Candidate field value
+// UnsetProfile ensures that no value is present for Profile, not even an explicit nil
+func (o *V2ScreeningListItem) UnsetProfile() {
+	o.Profile.Unset()
+}
+
+// GetCandidate returns the Candidate field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetCandidate() V2Candidate {
-	if o == nil {
+	if o == nil || IsNil(o.Candidate) {
 		var ret V2Candidate
 		return ret
 	}
-
-	return o.Candidate
+	return *o.Candidate
 }
 
-// GetCandidateOk returns a tuple with the Candidate field value
+// GetCandidateOk returns a tuple with the Candidate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetCandidateOk() (*V2Candidate, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Candidate) {
 		return nil, false
 	}
-	return &o.Candidate, true
+	return o.Candidate, true
 }
 
-// SetCandidate sets field value
+// HasCandidate returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasCandidate() bool {
+	if o != nil && !IsNil(o.Candidate) {
+		return true
+	}
+
+	return false
+}
+
+// SetCandidate gets a reference to the given V2Candidate and assigns it to the Candidate field.
 func (o *V2ScreeningListItem) SetCandidate(v V2Candidate) {
-	o.Candidate = v
+	o.Candidate = &v
 }
 
-// GetChecks returns the Checks field value
+// GetChecks returns the Checks field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetChecks() []V2ScreeningCheckListItem {
-	if o == nil {
+	if o == nil || IsNil(o.Checks) {
 		var ret []V2ScreeningCheckListItem
 		return ret
 	}
-
 	return o.Checks
 }
 
-// GetChecksOk returns a tuple with the Checks field value
+// GetChecksOk returns a tuple with the Checks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetChecksOk() ([]V2ScreeningCheckListItem, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Checks) {
 		return nil, false
 	}
 	return o.Checks, true
 }
 
-// SetChecks sets field value
+// HasChecks returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasChecks() bool {
+	if o != nil && !IsNil(o.Checks) {
+		return true
+	}
+
+	return false
+}
+
+// SetChecks gets a reference to the given []V2ScreeningCheckListItem and assigns it to the Checks field.
 func (o *V2ScreeningListItem) SetChecks(v []V2ScreeningCheckListItem) {
 	o.Checks = v
 }
 
-// GetCandidateWizardUrl returns the CandidateWizardUrl field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetCandidateWizardUrl returns the CandidateWizardUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *V2ScreeningListItem) GetCandidateWizardUrl() string {
-	if o == nil || o.CandidateWizardUrl.Get() == nil {
+	if o == nil || IsNil(o.CandidateWizardUrl.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.CandidateWizardUrl.Get()
 }
 
-// GetCandidateWizardUrlOk returns a tuple with the CandidateWizardUrl field value
+// GetCandidateWizardUrlOk returns a tuple with the CandidateWizardUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2ScreeningListItem) GetCandidateWizardUrlOk() (*string, bool) {
@@ -211,81 +237,123 @@ func (o *V2ScreeningListItem) GetCandidateWizardUrlOk() (*string, bool) {
 	return o.CandidateWizardUrl.Get(), o.CandidateWizardUrl.IsSet()
 }
 
-// SetCandidateWizardUrl sets field value
+// HasCandidateWizardUrl returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasCandidateWizardUrl() bool {
+	if o != nil && o.CandidateWizardUrl.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCandidateWizardUrl gets a reference to the given NullableString and assigns it to the CandidateWizardUrl field.
 func (o *V2ScreeningListItem) SetCandidateWizardUrl(v string) {
 	o.CandidateWizardUrl.Set(&v)
 }
+// SetCandidateWizardUrlNil sets the value for CandidateWizardUrl to be an explicit nil
+func (o *V2ScreeningListItem) SetCandidateWizardUrlNil() {
+	o.CandidateWizardUrl.Set(nil)
+}
 
-// GetDashboardUrl returns the DashboardUrl field value
+// UnsetCandidateWizardUrl ensures that no value is present for CandidateWizardUrl, not even an explicit nil
+func (o *V2ScreeningListItem) UnsetCandidateWizardUrl() {
+	o.CandidateWizardUrl.Unset()
+}
+
+// GetDashboardUrl returns the DashboardUrl field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetDashboardUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.DashboardUrl) {
 		var ret string
 		return ret
 	}
-
-	return o.DashboardUrl
+	return *o.DashboardUrl
 }
 
-// GetDashboardUrlOk returns a tuple with the DashboardUrl field value
+// GetDashboardUrlOk returns a tuple with the DashboardUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetDashboardUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DashboardUrl) {
 		return nil, false
 	}
-	return &o.DashboardUrl, true
+	return o.DashboardUrl, true
 }
 
-// SetDashboardUrl sets field value
+// HasDashboardUrl returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasDashboardUrl() bool {
+	if o != nil && !IsNil(o.DashboardUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetDashboardUrl gets a reference to the given string and assigns it to the DashboardUrl field.
 func (o *V2ScreeningListItem) SetDashboardUrl(v string) {
-	o.DashboardUrl = v
+	o.DashboardUrl = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetCreatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.CreatedAt
+	return *o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
-	return &o.CreatedAt, true
+	return o.CreatedAt, true
 }
 
-// SetCreatedAt sets field value
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
 func (o *V2ScreeningListItem) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
+	o.CreatedAt = &v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *V2ScreeningListItem) GetUpdatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.UpdatedAt
+	return *o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningListItem) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.UpdatedAt, true
 }
 
-// SetUpdatedAt sets field value
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *V2ScreeningListItem) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
 func (o *V2ScreeningListItem) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+	o.UpdatedAt = &v
 }
 
 func (o V2ScreeningListItem) MarshalJSON() ([]byte, error) {
@@ -298,62 +366,34 @@ func (o V2ScreeningListItem) MarshalJSON() ([]byte, error) {
 
 func (o V2ScreeningListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	toSerialize["profile"] = o.Profile.Get()
-	toSerialize["candidate"] = o.Candidate
-	toSerialize["checks"] = o.Checks
-	toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
-	toSerialize["dashboard_url"] = o.DashboardUrl
-	toSerialize["created_at"] = o.CreatedAt
-	toSerialize["updated_at"] = o.UpdatedAt
+	if o.Profile.IsSet() {
+		toSerialize["profile"] = o.Profile.Get()
+	}
+	if !IsNil(o.Candidate) {
+		toSerialize["candidate"] = o.Candidate
+	}
+	if !IsNil(o.Checks) {
+		toSerialize["checks"] = o.Checks
+	}
+	if o.CandidateWizardUrl.IsSet() {
+		toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
+	}
+	if !IsNil(o.DashboardUrl) {
+		toSerialize["dashboard_url"] = o.DashboardUrl
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
 	return toSerialize, nil
-}
-
-func (o *V2ScreeningListItem) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"profile",
-		"candidate",
-		"checks",
-		"candidate_wizard_url",
-		"dashboard_url",
-		"created_at",
-		"updated_at",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varV2ScreeningListItem := _V2ScreeningListItem{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningListItem)
-
-	if err != nil {
-		return err
-	}
-
-	*o = V2ScreeningListItem(varV2ScreeningListItem)
-
-	return err
 }
 
 type NullableV2ScreeningListItem struct {

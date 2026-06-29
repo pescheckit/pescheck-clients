@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,7 +61,7 @@ import io.pescheck.client.JSON;
 public class V2ScreeningListItem {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
@@ -75,12 +76,12 @@ public class V2ScreeningListItem {
 
   public static final String SERIALIZED_NAME_CANDIDATE = "candidate";
   @SerializedName(SERIALIZED_NAME_CANDIDATE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private V2Candidate candidate;
 
   public static final String SERIALIZED_NAME_CHECKS = "checks";
   @SerializedName(SERIALIZED_NAME_CHECKS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<V2ScreeningCheckListItem> checks = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CANDIDATE_WIZARD_URL = "candidate_wizard_url";
@@ -90,17 +91,17 @@ public class V2ScreeningListItem {
 
   public static final String SERIALIZED_NAME_DASHBOARD_URL = "dashboard_url";
   @SerializedName(SERIALIZED_NAME_DASHBOARD_URL)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private URI dashboardUrl;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private OffsetDateTime updatedAt;
 
   public V2ScreeningListItem() {
@@ -129,7 +130,7 @@ public class V2ScreeningListItem {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -178,7 +179,7 @@ public class V2ScreeningListItem {
    * Get candidate
    * @return candidate
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public V2Candidate getCandidate() {
     return candidate;
   }
@@ -189,7 +190,7 @@ public class V2ScreeningListItem {
    * Get checks
    * @return checks
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<V2ScreeningCheckListItem> getChecks() {
     return checks;
   }
@@ -211,7 +212,7 @@ public class V2ScreeningListItem {
    * Get dashboardUrl
    * @return dashboardUrl
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public URI getDashboardUrl() {
     return dashboardUrl;
   }
@@ -222,7 +223,7 @@ public class V2ScreeningListItem {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -233,7 +234,7 @@ public class V2ScreeningListItem {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -261,9 +262,20 @@ public class V2ScreeningListItem {
         Objects.equals(this.updatedAt, v2ScreeningListItem.updatedAt);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -300,7 +312,7 @@ public class V2ScreeningListItem {
     openapiFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -323,40 +335,39 @@ public class V2ScreeningListItem {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2ScreeningListItem` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V2ScreeningListItem.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }
+      // validate the optional field `profile`
       if (jsonObj.get("profile") != null && !jsonObj.get("profile").isJsonNull()) {
-      // validate the required field `profile`
-      V2ScreeningDetailProfile.validateJsonElement(jsonObj.get("profile"));
+        V2ScreeningDetailProfile.validateJsonElement(jsonObj.get("profile"));
       }
-      // validate the required field `candidate`
-      V2Candidate.validateJsonElement(jsonObj.get("candidate"));
-      if (jsonObj.get("checks") != null) {
-        if (!jsonObj.get("checks").isJsonArray()) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
-        }
+      // validate the optional field `candidate`
+      if (jsonObj.get("candidate") != null && !jsonObj.get("candidate").isJsonNull()) {
+        V2Candidate.validateJsonElement(jsonObj.get("candidate"));
+      }
+      if (jsonObj.get("checks") != null && !jsonObj.get("checks").isJsonNull()) {
         JsonArray jsonArraychecks = jsonObj.getAsJsonArray("checks");
-        // validate the required field `checks` (array)
-        for (int i = 0; i < jsonArraychecks.size(); i++) {
-          V2ScreeningCheckListItem.validateJsonElement(jsonArraychecks.get(i));
+        if (jsonArraychecks != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("checks").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
+          }
+
+          // validate the optional field `checks` (array)
+          for (int i = 0; i < jsonArraychecks.size(); i++) {
+            V2ScreeningCheckListItem.validateJsonElement(jsonArraychecks.get(i));
+          };
         }
       }
       if ((jsonObj.get("candidate_wizard_url") != null && !jsonObj.get("candidate_wizard_url").isJsonNull()) && !jsonObj.get("candidate_wizard_url").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_wizard_url` to be a primitive type in the JSON string but got `%s`", jsonObj.get("candidate_wizard_url").toString()));
       }
-      if (!jsonObj.get("dashboard_url").isJsonPrimitive()) {
+      if ((jsonObj.get("dashboard_url") != null && !jsonObj.get("dashboard_url").isJsonNull()) && !jsonObj.get("dashboard_url").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `dashboard_url` to be a primitive type in the JSON string but got `%s`", jsonObj.get("dashboard_url").toString()));
       }
   }

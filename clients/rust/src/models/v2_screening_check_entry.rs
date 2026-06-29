@@ -13,40 +13,40 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ScreeningCheckEntry {
-    #[serde(rename = "id")]
-    pub id: uuid::Uuid,
-    #[serde(rename = "profile_check_id", deserialize_with = "Option::deserialize")]
-    pub profile_check_id: Option<uuid::Uuid>,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<uuid::Uuid>,
+    #[serde(rename = "profile_check_id", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub profile_check_id: Option<Option<uuid::Uuid>>,
     /// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-    #[serde(rename = "check_type")]
-    pub check_type: CheckType,
-    #[serde(rename = "display_name")]
-    pub display_name: String,
-    #[serde(rename = "status")]
-    pub status: String,
-    #[serde(rename = "config")]
-    pub config: std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "input")]
-    pub input: std::collections::HashMap<String, serde_json::Value>,
-    #[serde(rename = "output")]
-    pub output: std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "check_type", skip_serializing_if = "Option::is_none")]
+    pub check_type: Option<CheckType>,
+    #[serde(rename = "display_name", skip_serializing_if = "Option::is_none")]
+    pub display_name: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
+    #[serde(rename = "config", skip_serializing_if = "Option::is_none")]
+    pub config: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "input", skip_serializing_if = "Option::is_none")]
+    pub input: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "output", skip_serializing_if = "Option::is_none")]
+    pub output: Option<std::collections::HashMap<String, serde_json::Value>>,
     /// Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
-    #[serde(rename = "candidate_wizard_url", deserialize_with = "Option::deserialize")]
-    pub candidate_wizard_url: Option<String>,
+    #[serde(rename = "candidate_wizard_url", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub candidate_wizard_url: Option<Option<String>>,
 }
 
 impl V2ScreeningCheckEntry {
-    pub fn new(id: uuid::Uuid, profile_check_id: Option<uuid::Uuid>, check_type: CheckType, display_name: String, status: String, config: std::collections::HashMap<String, serde_json::Value>, input: std::collections::HashMap<String, serde_json::Value>, output: std::collections::HashMap<String, serde_json::Value>, candidate_wizard_url: Option<String>) -> V2ScreeningCheckEntry {
+    pub fn new() -> V2ScreeningCheckEntry {
         V2ScreeningCheckEntry {
-            id,
-            profile_check_id,
-            check_type,
-            display_name,
-            status,
-            config,
-            input,
-            output,
-            candidate_wizard_url,
+            id: None,
+            profile_check_id: None,
+            check_type: None,
+            display_name: None,
+            status: None,
+            config: None,
+            input: None,
+            output: None,
+            candidate_wizard_url: None,
         }
     }
 }

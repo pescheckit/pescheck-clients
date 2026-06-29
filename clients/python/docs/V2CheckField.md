@@ -6,11 +6,11 @@ One config or input field a check accepts via the API.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** |  | [readonly] 
-**type** | **str** | \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot; | [readonly] 
-**required** | **bool** | Whether the request body must include this field. | [readonly] 
-**choices** | **List[str]** | Allowed values, or null if the field isn&#39;t constrained to a set. | [readonly] 
-**help_text** | **str** |  | [readonly] 
+**name** | **str** |  | [optional] [readonly] 
+**type** | **str** | \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot; | [optional] [readonly] 
+**required** | **bool** | Whether the request body must include this field. | [optional] [readonly] 
+**choices** | **List[str]** | Allowed values, or null if the field isn&#39;t constrained to a set. | [optional] [readonly] 
+**help_text** | **str** |  | [optional] [readonly] 
 
 ## Example
 

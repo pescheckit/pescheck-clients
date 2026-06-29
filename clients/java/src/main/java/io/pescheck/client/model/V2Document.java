@@ -25,6 +25,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -153,27 +154,27 @@ public class V2Document {
 
   public static final String SERIALIZED_NAME_CHECK_TYPE = "check_type";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private CheckTypeEnum checkType;
 
   public static final String SERIALIZED_NAME_FILENAME = "filename";
   @SerializedName(SERIALIZED_NAME_FILENAME)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String filename;
 
   public static final String SERIALIZED_NAME_EXTENSION = "extension";
   @SerializedName(SERIALIZED_NAME_EXTENSION)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String extension;
 
   public static final String SERIALIZED_NAME_CONTENT = "content";
   @SerializedName(SERIALIZED_NAME_CONTENT)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private V2DocumentContent content;
 
   public static final String SERIALIZED_NAME_METADATA = "metadata";
   @SerializedName(SERIALIZED_NAME_METADATA)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> metadata = new HashMap<>();
 
   public V2Document() {
@@ -211,7 +212,7 @@ public class V2Document {
    * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
    * @return checkType
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public CheckTypeEnum getCheckType() {
     return checkType;
   }
@@ -222,7 +223,7 @@ public class V2Document {
    * Get filename
    * @return filename
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getFilename() {
     return filename;
   }
@@ -233,7 +234,7 @@ public class V2Document {
    * Get extension
    * @return extension
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getExtension() {
     return extension;
   }
@@ -244,7 +245,7 @@ public class V2Document {
    * Get content
    * @return content
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public V2DocumentContent getContent() {
     return content;
   }
@@ -255,7 +256,7 @@ public class V2Document {
    * Get metadata
    * @return metadata
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Map<String, Object> getMetadata() {
     return metadata;
   }
@@ -280,9 +281,20 @@ public class V2Document {
         Objects.equals(this.metadata, v2Document.metadata);
   }
 
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
   @Override
   public int hashCode() {
     return Objects.hash(checkId, checkType, filename, extension, content, metadata);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -316,7 +328,7 @@ public class V2Document {
     openapiFields = new HashSet<String>(Arrays.asList("check_id", "check_type", "filename", "extension", "content", "metadata"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("check_id", "check_type", "filename", "extension", "content", "metadata"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -339,30 +351,27 @@ public class V2Document {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2Document` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V2Document.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
       if ((jsonObj.get("check_id") != null && !jsonObj.get("check_id").isJsonNull()) && !jsonObj.get("check_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_id").toString()));
       }
-      if (!jsonObj.get("check_type").isJsonPrimitive()) {
+      if ((jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) && !jsonObj.get("check_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_type").toString()));
       }
-      // validate the required field `check_type`
-      CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
-      if (!jsonObj.get("filename").isJsonPrimitive()) {
+      // validate the optional field `check_type`
+      if (jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) {
+        CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
+      }
+      if ((jsonObj.get("filename") != null && !jsonObj.get("filename").isJsonNull()) && !jsonObj.get("filename").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `filename` to be a primitive type in the JSON string but got `%s`", jsonObj.get("filename").toString()));
       }
-      if (!jsonObj.get("extension").isJsonPrimitive()) {
+      if ((jsonObj.get("extension") != null && !jsonObj.get("extension").isJsonNull()) && !jsonObj.get("extension").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `extension` to be a primitive type in the JSON string but got `%s`", jsonObj.get("extension").toString()));
       }
-      // validate the required field `content`
-      V2DocumentContent.validateJsonElement(jsonObj.get("content"));
+      // validate the optional field `content`
+      if (jsonObj.get("content") != null && !jsonObj.get("content").isJsonNull()) {
+        V2DocumentContent.validateJsonElement(jsonObj.get("content"));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

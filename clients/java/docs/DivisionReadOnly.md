@@ -7,11 +7,11 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **UUID** |  |  [readonly] |
+|**id** | **UUID** |  |  [optional] [readonly] |
 |**name** | **String** |  |  [optional] |
-|**parent** | **String** |  |  [readonly] |
-|**createdAt** | **OffsetDateTime** |  |  [readonly] |
-|**updatedAt** | **OffsetDateTime** |  |  [readonly] |
+|**parent** | **String** |  |  [optional] [readonly] |
+|**createdAt** | **OffsetDateTime** |  |  [optional] [readonly] |
+|**updatedAt** | **OffsetDateTime** |  |  [optional] [readonly] |
 |**city** | **String** |  |  [optional] |
 |**address** | **String** |  |  [optional] |
 |**postal** | **String** |  |  [optional] |

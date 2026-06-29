@@ -12,8 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the V2Document type satisfies the MappedNullable interface at compile time
@@ -21,29 +19,21 @@ var _ MappedNullable = &V2Document{}
 
 // V2Document One document attached to a screening's check. `metadata` carries check-specific extras and may be empty.
 type V2Document struct {
-	CheckId NullableString `json:"check_id"`
+	CheckId NullableString `json:"check_id,omitempty"`
 	// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-	CheckType string `json:"check_type"`
-	Filename string `json:"filename"`
-	Extension string `json:"extension"`
-	Content V2DocumentContent `json:"content"`
-	Metadata map[string]interface{} `json:"metadata"`
+	CheckType *string `json:"check_type,omitempty"`
+	Filename *string `json:"filename,omitempty"`
+	Extension *string `json:"extension,omitempty"`
+	Content *V2DocumentContent `json:"content,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 }
-
-type _V2Document V2Document
 
 // NewV2Document instantiates a new V2Document object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2Document(checkId NullableString, checkType string, filename string, extension string, content V2DocumentContent, metadata map[string]interface{}) *V2Document {
+func NewV2Document() *V2Document {
 	this := V2Document{}
-	this.CheckId = checkId
-	this.CheckType = checkType
-	this.Filename = filename
-	this.Extension = extension
-	this.Content = content
-	this.Metadata = metadata
 	return &this
 }
 
@@ -55,18 +45,16 @@ func NewV2DocumentWithDefaults() *V2Document {
 	return &this
 }
 
-// GetCheckId returns the CheckId field value
-// If the value is explicit nil, the zero value for string will be returned
+// GetCheckId returns the CheckId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *V2Document) GetCheckId() string {
-	if o == nil || o.CheckId.Get() == nil {
+	if o == nil || IsNil(o.CheckId.Get()) {
 		var ret string
 		return ret
 	}
-
 	return *o.CheckId.Get()
 }
 
-// GetCheckIdOk returns a tuple with the CheckId field value
+// GetCheckIdOk returns a tuple with the CheckId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2Document) GetCheckIdOk() (*string, bool) {
@@ -76,127 +64,185 @@ func (o *V2Document) GetCheckIdOk() (*string, bool) {
 	return o.CheckId.Get(), o.CheckId.IsSet()
 }
 
-// SetCheckId sets field value
+// HasCheckId returns a boolean if a field has been set.
+func (o *V2Document) HasCheckId() bool {
+	if o != nil && o.CheckId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckId gets a reference to the given NullableString and assigns it to the CheckId field.
 func (o *V2Document) SetCheckId(v string) {
 	o.CheckId.Set(&v)
 }
+// SetCheckIdNil sets the value for CheckId to be an explicit nil
+func (o *V2Document) SetCheckIdNil() {
+	o.CheckId.Set(nil)
+}
 
-// GetCheckType returns the CheckType field value
+// UnsetCheckId ensures that no value is present for CheckId, not even an explicit nil
+func (o *V2Document) UnsetCheckId() {
+	o.CheckId.Unset()
+}
+
+// GetCheckType returns the CheckType field value if set, zero value otherwise.
 func (o *V2Document) GetCheckType() string {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		var ret string
 		return ret
 	}
-
-	return o.CheckType
+	return *o.CheckType
 }
 
-// GetCheckTypeOk returns a tuple with the CheckType field value
+// GetCheckTypeOk returns a tuple with the CheckType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2Document) GetCheckTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		return nil, false
 	}
-	return &o.CheckType, true
+	return o.CheckType, true
 }
 
-// SetCheckType sets field value
+// HasCheckType returns a boolean if a field has been set.
+func (o *V2Document) HasCheckType() bool {
+	if o != nil && !IsNil(o.CheckType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckType gets a reference to the given string and assigns it to the CheckType field.
 func (o *V2Document) SetCheckType(v string) {
-	o.CheckType = v
+	o.CheckType = &v
 }
 
-// GetFilename returns the Filename field value
+// GetFilename returns the Filename field value if set, zero value otherwise.
 func (o *V2Document) GetFilename() string {
-	if o == nil {
+	if o == nil || IsNil(o.Filename) {
 		var ret string
 		return ret
 	}
-
-	return o.Filename
+	return *o.Filename
 }
 
-// GetFilenameOk returns a tuple with the Filename field value
+// GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2Document) GetFilenameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Filename) {
 		return nil, false
 	}
-	return &o.Filename, true
+	return o.Filename, true
 }
 
-// SetFilename sets field value
+// HasFilename returns a boolean if a field has been set.
+func (o *V2Document) HasFilename() bool {
+	if o != nil && !IsNil(o.Filename) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilename gets a reference to the given string and assigns it to the Filename field.
 func (o *V2Document) SetFilename(v string) {
-	o.Filename = v
+	o.Filename = &v
 }
 
-// GetExtension returns the Extension field value
+// GetExtension returns the Extension field value if set, zero value otherwise.
 func (o *V2Document) GetExtension() string {
-	if o == nil {
+	if o == nil || IsNil(o.Extension) {
 		var ret string
 		return ret
 	}
-
-	return o.Extension
+	return *o.Extension
 }
 
-// GetExtensionOk returns a tuple with the Extension field value
+// GetExtensionOk returns a tuple with the Extension field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2Document) GetExtensionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Extension) {
 		return nil, false
 	}
-	return &o.Extension, true
+	return o.Extension, true
 }
 
-// SetExtension sets field value
+// HasExtension returns a boolean if a field has been set.
+func (o *V2Document) HasExtension() bool {
+	if o != nil && !IsNil(o.Extension) {
+		return true
+	}
+
+	return false
+}
+
+// SetExtension gets a reference to the given string and assigns it to the Extension field.
 func (o *V2Document) SetExtension(v string) {
-	o.Extension = v
+	o.Extension = &v
 }
 
-// GetContent returns the Content field value
+// GetContent returns the Content field value if set, zero value otherwise.
 func (o *V2Document) GetContent() V2DocumentContent {
-	if o == nil {
+	if o == nil || IsNil(o.Content) {
 		var ret V2DocumentContent
 		return ret
 	}
-
-	return o.Content
+	return *o.Content
 }
 
-// GetContentOk returns a tuple with the Content field value
+// GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2Document) GetContentOk() (*V2DocumentContent, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
-	return &o.Content, true
+	return o.Content, true
 }
 
-// SetContent sets field value
+// HasContent returns a boolean if a field has been set.
+func (o *V2Document) HasContent() bool {
+	if o != nil && !IsNil(o.Content) {
+		return true
+	}
+
+	return false
+}
+
+// SetContent gets a reference to the given V2DocumentContent and assigns it to the Content field.
 func (o *V2Document) SetContent(v V2DocumentContent) {
-	o.Content = v
+	o.Content = &v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *V2Document) GetMetadata() map[string]interface{} {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
 	}
-
 	return o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2Document) GetMetadataOk() (map[string]interface{}, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return map[string]interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *V2Document) HasMetadata() bool {
+	if o != nil && !IsNil(o.Metadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *V2Document) SetMetadata(v map[string]interface{}) {
 	o.Metadata = v
 }
@@ -211,55 +257,25 @@ func (o V2Document) MarshalJSON() ([]byte, error) {
 
 func (o V2Document) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["check_id"] = o.CheckId.Get()
-	toSerialize["check_type"] = o.CheckType
-	toSerialize["filename"] = o.Filename
-	toSerialize["extension"] = o.Extension
-	toSerialize["content"] = o.Content
-	toSerialize["metadata"] = o.Metadata
+	if o.CheckId.IsSet() {
+		toSerialize["check_id"] = o.CheckId.Get()
+	}
+	if !IsNil(o.CheckType) {
+		toSerialize["check_type"] = o.CheckType
+	}
+	if !IsNil(o.Filename) {
+		toSerialize["filename"] = o.Filename
+	}
+	if !IsNil(o.Extension) {
+		toSerialize["extension"] = o.Extension
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
 	return toSerialize, nil
-}
-
-func (o *V2Document) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"check_id",
-		"check_type",
-		"filename",
-		"extension",
-		"content",
-		"metadata",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varV2Document := _V2Document{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2Document)
-
-	if err != nil {
-		return err
-	}
-
-	*o = V2Document(varV2Document)
-
-	return err
 }
 
 type NullableV2Document struct {

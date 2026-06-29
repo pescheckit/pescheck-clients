@@ -45,6 +45,22 @@ const DIVISION_NAME = 'E2E CI division';
 // 60s timeout per test — these are real network round-trips.
 const TIMEOUT = 60_000;
 
+// Staging intermittently returns HTTP 5xx on read/list calls. Retry those a few
+// times with a short backoff; the client surfaces the status as a ResponseError
+// with err.response.status. Only server errors (>= 500) are retried — 4xx
+// surface immediately so the negative 401/404 tests stay meaningful.
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+  for (let attempt = 1; ; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      const isServerError = err instanceof ResponseError && err.response.status >= 500;
+      if (attempt >= attempts || !isServerError) throw err;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+  }
+}
+
 // The accessToken config sets the OAuth2 / JWT bearer Authorization header.
 const config = new Configuration({ basePath, accessToken });
 const checks = new ChecksApi(config);
@@ -74,10 +90,10 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
   it(
     'checks: lists types and retrieves one',
     async () => {
-      const checkList = await checks.v2ChecksList();
+      const checkList = await withRetry(() => checks.v2ChecksList());
       expect(checkList.length).toBeGreaterThan(0);
       checkType = checkList[0].checkType;
-      const retrieved = await checks.v2ChecksRetrieve({ checkType });
+      const retrieved = await withRetry(() => checks.v2ChecksRetrieve({ checkType }));
       expect(retrieved.checkType).toBe(checkType);
     },
     TIMEOUT,
@@ -97,7 +113,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
       expect(created.name).toBe(`E2E test profile ${SUFFIX}`);
       profileId = created.id;
 
-      const retrieved = await profiles.v2ProfilesRetrieve({ id: profileId });
+      const retrieved = await withRetry(() => profiles.v2ProfilesRetrieve({ id: profileId! }));
       expect(retrieved.id).toBe(profileId);
       expect(retrieved.name).toBe(`E2E test profile ${SUFFIX}`);
       expect(retrieved.checks.length).toBeGreaterThan(0);
@@ -108,7 +124,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
       });
       expect(patched.description).toBe('updated by e2e');
 
-      const list = await profiles.v2ProfilesList();
+      const list = await withRetry(() => profiles.v2ProfilesList());
       const ids = list.results.map((p) => p.id);
       expect(ids).toContain(profileId);
     },
@@ -161,7 +177,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
       expect(screening.status).toBeTruthy();
       screeningId = screening.id;
 
-      const retrieved = await screenings.v2ScreeningsRetrieve({ id: screening.id });
+      const retrieved = await withRetry(() => screenings.v2ScreeningsRetrieve({ id: screening.id }));
       expect(retrieved.id).toBe(screening.id);
       expect(retrieved.candidate.email).toBe(testEmail);
       expect(retrieved.candidate.firstName).toBe('E2E');
@@ -169,7 +185,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
 
       // documents list should resolve (may be empty for a fresh screening)
       await expect(
-        screenings.v2ScreeningsDocumentsList({ id: screening.id }),
+        withRetry(() => screenings.v2ScreeningsDocumentsList({ id: screening.id })),
       ).resolves.toBeDefined();
     },
     TIMEOUT,
@@ -179,7 +195,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
     'screenings: list contains the created screening',
     async () => {
       expect(screeningId).toBeTruthy();
-      const list = await screenings.v2ScreeningsList();
+      const list = await withRetry(() => screenings.v2ScreeningsList());
       expect(list.results.length).toBeGreaterThan(0);
       const found = list.results.find((s) => s.id === screeningId);
       expect(found).toBeDefined();
@@ -218,7 +234,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
   it(
     'divisions: list -> reuse-or-create -> patch',
     async () => {
-      const existing = (await divisions.v2OrganisationsDivisionsList()).results;
+      const existing = (await withRetry(() => divisions.v2OrganisationsDivisionsList())).results;
       let div = existing.find((d) => d.name === DIVISION_NAME);
       if (!div) {
         const writtenDiv = await divisions.v2OrganisationsDivisionsCreate({
@@ -253,7 +269,7 @@ describe.skipIf(!accessToken)('Pescheck TypeScript client CRUD lifecycle', () =>
     'divisions: retrieve returns the persisted fields',
     async () => {
       expect(divisionId).toBeTruthy();
-      const div = await divisions.v2OrganisationsDivisionsRetrieve({ id: divisionId! });
+      const div = await withRetry(() => divisions.v2OrganisationsDivisionsRetrieve({ id: divisionId! }));
       expect(div.id).toBe(divisionId);
       expect(div.name).toBe(DIVISION_NAME);
       // reflects the PATCH from the previous step

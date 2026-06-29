@@ -21,16 +21,16 @@ var _ MappedNullable = &WebhookResponse{}
 
 // WebhookResponse Serializer for webhook responses
 type WebhookResponse struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	Name string `json:"name"`
 	Url string `json:"url"`
-	Events interface{} `json:"events"`
+	Events interface{} `json:"events,omitempty"`
 	Active *bool `json:"active,omitempty"`
-	Verified bool `json:"verified"`
+	Verified *bool `json:"verified,omitempty"`
 	Token NullableString `json:"token,omitempty"`
 	OrganisationName *string `json:"organisation_name,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -40,15 +40,10 @@ type _WebhookResponse WebhookResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWebhookResponse(id string, name string, url string, events interface{}, verified bool, createdAt time.Time, updatedAt time.Time) *WebhookResponse {
+func NewWebhookResponse(name string, url string) *WebhookResponse {
 	this := WebhookResponse{}
-	this.Id = id
 	this.Name = name
 	this.Url = url
-	this.Events = events
-	this.Verified = verified
-	this.CreatedAt = createdAt
-	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -60,28 +55,36 @@ func NewWebhookResponseWithDefaults() *WebhookResponse {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *WebhookResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebhookResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *WebhookResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *WebhookResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value
@@ -132,18 +135,16 @@ func (o *WebhookResponse) SetUrl(v string) {
 	o.Url = v
 }
 
-// GetEvents returns the Events field value
-// If the value is explicit nil, the zero value for interface{} will be returned
+// GetEvents returns the Events field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *WebhookResponse) GetEvents() interface{} {
 	if o == nil {
 		var ret interface{}
 		return ret
 	}
-
 	return o.Events
 }
 
-// GetEventsOk returns a tuple with the Events field value
+// GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *WebhookResponse) GetEventsOk() (*interface{}, bool) {
@@ -153,7 +154,16 @@ func (o *WebhookResponse) GetEventsOk() (*interface{}, bool) {
 	return &o.Events, true
 }
 
-// SetEvents sets field value
+// HasEvents returns a boolean if a field has been set.
+func (o *WebhookResponse) HasEvents() bool {
+	if o != nil && !IsNil(o.Events) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvents gets a reference to the given interface{} and assigns it to the Events field.
 func (o *WebhookResponse) SetEvents(v interface{}) {
 	o.Events = v
 }
@@ -190,28 +200,36 @@ func (o *WebhookResponse) SetActive(v bool) {
 	o.Active = &v
 }
 
-// GetVerified returns the Verified field value
+// GetVerified returns the Verified field value if set, zero value otherwise.
 func (o *WebhookResponse) GetVerified() bool {
-	if o == nil {
+	if o == nil || IsNil(o.Verified) {
 		var ret bool
 		return ret
 	}
-
-	return o.Verified
+	return *o.Verified
 }
 
-// GetVerifiedOk returns a tuple with the Verified field value
+// GetVerifiedOk returns a tuple with the Verified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebhookResponse) GetVerifiedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Verified) {
 		return nil, false
 	}
-	return &o.Verified, true
+	return o.Verified, true
 }
 
-// SetVerified sets field value
+// HasVerified returns a boolean if a field has been set.
+func (o *WebhookResponse) HasVerified() bool {
+	if o != nil && !IsNil(o.Verified) {
+		return true
+	}
+
+	return false
+}
+
+// SetVerified gets a reference to the given bool and assigns it to the Verified field.
 func (o *WebhookResponse) SetVerified(v bool) {
-	o.Verified = v
+	o.Verified = &v
 }
 
 // GetToken returns the Token field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -288,52 +306,68 @@ func (o *WebhookResponse) SetOrganisationName(v string) {
 	o.OrganisationName = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *WebhookResponse) GetCreatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.CreatedAt
+	return *o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebhookResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
-	return &o.CreatedAt, true
+	return o.CreatedAt, true
 }
 
-// SetCreatedAt sets field value
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *WebhookResponse) HasCreatedAt() bool {
+	if o != nil && !IsNil(o.CreatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
 func (o *WebhookResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = v
+	o.CreatedAt = &v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *WebhookResponse) GetUpdatedAt() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.UpdatedAt
+	return *o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *WebhookResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
-	return &o.UpdatedAt, true
+	return o.UpdatedAt, true
 }
 
-// SetUpdatedAt sets field value
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *WebhookResponse) HasUpdatedAt() bool {
+	if o != nil && !IsNil(o.UpdatedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
 func (o *WebhookResponse) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = v
+	o.UpdatedAt = &v
 }
 
 func (o WebhookResponse) MarshalJSON() ([]byte, error) {
@@ -346,7 +380,9 @@ func (o WebhookResponse) MarshalJSON() ([]byte, error) {
 
 func (o WebhookResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	toSerialize["name"] = o.Name
 	toSerialize["url"] = o.Url
 	if o.Events != nil {
@@ -355,15 +391,21 @@ func (o WebhookResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	toSerialize["verified"] = o.Verified
+	if !IsNil(o.Verified) {
+		toSerialize["verified"] = o.Verified
+	}
 	if o.Token.IsSet() {
 		toSerialize["token"] = o.Token.Get()
 	}
 	if !IsNil(o.OrganisationName) {
 		toSerialize["organisation_name"] = o.OrganisationName
 	}
-	toSerialize["created_at"] = o.CreatedAt
-	toSerialize["updated_at"] = o.UpdatedAt
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -377,13 +419,8 @@ func (o *WebhookResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
 		"name",
 		"url",
-		"events",
-		"verified",
-		"created_at",
-		"updated_at",
 	}
 
 	allProperties := make(map[string]interface{})

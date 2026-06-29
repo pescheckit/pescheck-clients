@@ -128,6 +128,36 @@ try {
   /* not generated */
 }
 
+// C#: NuGet shows "missing README" unless the package embeds one. The generator
+// never sets PackageReadmeFile, so add it + pack the generated client README,
+// and brand the generic description. README is at clients/csharp/README.md
+// (../../ relative to the csproj).
+try {
+  const p = resolve(root, "clients/csharp/src/Pescheck.Client/Pescheck.Client.csproj");
+  let c = readFileSync(p, "utf8");
+  const orig = c;
+  if (!c.includes("<PackageReadmeFile>")) {
+    c = c.replace(
+      /(\n(\s*)<PackageReleaseNotes>)/,
+      `\n$2<PackageProjectUrl>${REPO_URL}</PackageProjectUrl>\n$2<PackageReadmeFile>README.md</PackageReadmeFile>$1`
+    );
+    c = c.replace(
+      /(\n\s*<\/PropertyGroup>)/,
+      `$1\n\n  <ItemGroup>\n    <None Include="../../README.md" Pack="true" PackagePath="\\" />\n  </ItemGroup>`
+    );
+  }
+  c = c.replace(
+    "<Description>A library generated from a OpenAPI doc</Description>",
+    "<Description>Official Pescheck API client for .NET, generated from the OpenAPI specification.</Description>"
+  );
+  if (c !== orig) {
+    writeFileSync(p, c);
+    manifests++;
+  }
+} catch {
+  /* not generated */
+}
+
 // Python: the generator sets pyproject.toml [project].name from packageName
 // (pescheck) but setup.py NAME from projectName (pescheck-client). PEP 621 builds
 // use pyproject, so force the distribution name there too. Import stays `pescheck`.

@@ -53,7 +53,7 @@ import io.pescheck.client.JSON;
 public class V2ScreeningCheckListItem {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   /**
@@ -150,12 +150,12 @@ public class V2ScreeningCheckListItem {
 
   public static final String SERIALIZED_NAME_CHECK_TYPE = "check_type";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private CheckTypeEnum checkType;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String status;
 
   public V2ScreeningCheckListItem() {
@@ -176,7 +176,7 @@ public class V2ScreeningCheckListItem {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -187,7 +187,7 @@ public class V2ScreeningCheckListItem {
    * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
    * @return checkType
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public CheckTypeEnum getCheckType() {
     return checkType;
   }
@@ -198,7 +198,7 @@ public class V2ScreeningCheckListItem {
    * Get status
    * @return status
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getStatus() {
     return status;
   }
@@ -253,7 +253,7 @@ public class V2ScreeningCheckListItem {
     openapiFields = new HashSet<String>(Arrays.asList("id", "check_type", "status"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "check_type", "status"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -276,23 +276,18 @@ public class V2ScreeningCheckListItem {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2ScreeningCheckListItem` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V2ScreeningCheckListItem.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if (!jsonObj.get("check_type").isJsonPrimitive()) {
+      if ((jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) && !jsonObj.get("check_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_type").toString()));
       }
-      // validate the required field `check_type`
-      CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
-      if (!jsonObj.get("status").isJsonPrimitive()) {
+      // validate the optional field `check_type`
+      if (jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) {
+        CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
+      }
+      if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }
   }

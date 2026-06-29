@@ -12,8 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the V2ScreeningCheckListItem type satisfies the MappedNullable interface at compile time
@@ -21,23 +19,18 @@ var _ MappedNullable = &V2ScreeningCheckListItem{}
 
 // V2ScreeningCheckListItem Minimal check entry shape for screening list items. No config/input/etc.
 type V2ScreeningCheckListItem struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-	CheckType string `json:"check_type"`
-	Status string `json:"status"`
+	CheckType *string `json:"check_type,omitempty"`
+	Status *string `json:"status,omitempty"`
 }
-
-type _V2ScreeningCheckListItem V2ScreeningCheckListItem
 
 // NewV2ScreeningCheckListItem instantiates a new V2ScreeningCheckListItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ScreeningCheckListItem(id string, checkType string, status string) *V2ScreeningCheckListItem {
+func NewV2ScreeningCheckListItem() *V2ScreeningCheckListItem {
 	this := V2ScreeningCheckListItem{}
-	this.Id = id
-	this.CheckType = checkType
-	this.Status = status
 	return &this
 }
 
@@ -49,76 +42,100 @@ func NewV2ScreeningCheckListItemWithDefaults() *V2ScreeningCheckListItem {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *V2ScreeningCheckListItem) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckListItem) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *V2ScreeningCheckListItem) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *V2ScreeningCheckListItem) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
-// GetCheckType returns the CheckType field value
+// GetCheckType returns the CheckType field value if set, zero value otherwise.
 func (o *V2ScreeningCheckListItem) GetCheckType() string {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		var ret string
 		return ret
 	}
-
-	return o.CheckType
+	return *o.CheckType
 }
 
-// GetCheckTypeOk returns a tuple with the CheckType field value
+// GetCheckTypeOk returns a tuple with the CheckType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckListItem) GetCheckTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CheckType) {
 		return nil, false
 	}
-	return &o.CheckType, true
+	return o.CheckType, true
 }
 
-// SetCheckType sets field value
+// HasCheckType returns a boolean if a field has been set.
+func (o *V2ScreeningCheckListItem) HasCheckType() bool {
+	if o != nil && !IsNil(o.CheckType) {
+		return true
+	}
+
+	return false
+}
+
+// SetCheckType gets a reference to the given string and assigns it to the CheckType field.
 func (o *V2ScreeningCheckListItem) SetCheckType(v string) {
-	o.CheckType = v
+	o.CheckType = &v
 }
 
-// GetStatus returns the Status field value
+// GetStatus returns the Status field value if set, zero value otherwise.
 func (o *V2ScreeningCheckListItem) GetStatus() string {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
-
-	return o.Status
+	return *o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckListItem) GetStatusOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
-	return &o.Status, true
+	return o.Status, true
 }
 
-// SetStatus sets field value
+// HasStatus returns a boolean if a field has been set.
+func (o *V2ScreeningCheckListItem) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
 func (o *V2ScreeningCheckListItem) SetStatus(v string) {
-	o.Status = v
+	o.Status = &v
 }
 
 func (o V2ScreeningCheckListItem) MarshalJSON() ([]byte, error) {
@@ -131,49 +148,16 @@ func (o V2ScreeningCheckListItem) MarshalJSON() ([]byte, error) {
 
 func (o V2ScreeningCheckListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["check_type"] = o.CheckType
-	toSerialize["status"] = o.Status
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.CheckType) {
+		toSerialize["check_type"] = o.CheckType
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
 	return toSerialize, nil
-}
-
-func (o *V2ScreeningCheckListItem) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"check_type",
-		"status",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varV2ScreeningCheckListItem := _V2ScreeningCheckListItem{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningCheckListItem)
-
-	if err != nil {
-		return err
-	}
-
-	*o = V2ScreeningCheckListItem(varV2ScreeningCheckListItem)
-
-	return err
 }
 
 type NullableV2ScreeningCheckListItem struct {

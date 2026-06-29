@@ -35,28 +35,18 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="V2ScreeningListItem" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected V2ScreeningListItem() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="V2ScreeningListItem" /> class.
-        /// </summary>
         /// <param name="status">status.</param>
-        /// <param name="profile">profile (required).</param>
+        /// <param name="profile">profile.</param>
         public V2ScreeningListItem(string status = default, V2ScreeningDetailProfile profile = default)
         {
-            // to ensure "profile" is required (not null)
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile is a required property for V2ScreeningListItem and cannot be null");
-            }
-            this.Profile = profile;
             this.Status = status;
+            this.Profile = profile;
         }
 
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "id", EmitDefaultValue = false)]
         public Guid Id { get; private set; }
 
         /// <summary>
@@ -76,13 +66,13 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Profile
         /// </summary>
-        [DataMember(Name = "profile", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "profile", EmitDefaultValue = true)]
         public V2ScreeningDetailProfile Profile { get; set; }
 
         /// <summary>
         /// Gets or Sets Candidate
         /// </summary>
-        [DataMember(Name = "candidate", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "candidate", EmitDefaultValue = false)]
         public V2Candidate Candidate { get; private set; }
 
         /// <summary>
@@ -96,7 +86,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Checks
         /// </summary>
-        [DataMember(Name = "checks", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "checks", EmitDefaultValue = false)]
         public List<V2ScreeningCheckListItem> Checks { get; private set; }
 
         /// <summary>
@@ -110,7 +100,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CandidateWizardUrl
         /// </summary>
-        [DataMember(Name = "candidate_wizard_url", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "candidate_wizard_url", EmitDefaultValue = true)]
         public string CandidateWizardUrl { get; private set; }
 
         /// <summary>
@@ -124,7 +114,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets DashboardUrl
         /// </summary>
-        [DataMember(Name = "dashboard_url", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "dashboard_url", EmitDefaultValue = false)]
         public string DashboardUrl { get; private set; }
 
         /// <summary>
@@ -138,7 +128,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "created_at", EmitDefaultValue = false)]
         public DateTime CreatedAt { get; private set; }
 
         /// <summary>
@@ -152,7 +142,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
-        [DataMember(Name = "updated_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "updated_at", EmitDefaultValue = false)]
         public DateTime UpdatedAt { get; private set; }
 
         /// <summary>

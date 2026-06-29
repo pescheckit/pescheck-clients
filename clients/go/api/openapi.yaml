@@ -1696,11 +1696,6 @@ components:
           type: boolean
         use_parent_on_report:
           type: boolean
-      required:
-      - created_at
-      - id
-      - parent
-      - updated_at
       type: object
     DivisionWrite:
       example:
@@ -1937,11 +1932,7 @@ components:
           type: string
       required:
       - authorization_grant_type
-      - client_secret
       - client_type
-      - created
-      - id
-      - updated
       type: object
     PaginatedDivisionReadOnlyList:
       example:
@@ -2777,12 +2768,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-      required:
-      - choices
-      - help_text
-      - name
-      - required
-      - type
       type: object
     V2CheckInfo:
       description: Everything a client needs to know to use a check type via the API.
@@ -2904,19 +2889,6 @@ components:
             $ref: "#/components/schemas/V2CheckField"
           readOnly: true
           type: array
-      required:
-      - candidate_fields
-      - check_type
-      - config_fields
-      - default_price
-      - description
-      - display_name
-      - has_config
-      - input_fields
-      - is_system_managed
-      - requires_checks
-      - supported_countries_of_residence
-      - supported_countries_of_work
       type: object
     V2Document:
       description: |-
@@ -3000,13 +2972,6 @@ components:
           additionalProperties: {}
           readOnly: true
           type: object
-      required:
-      - check_id
-      - check_type
-      - content
-      - extension
-      - filename
-      - metadata
       type: object
     V2DocumentContent:
       description: |-
@@ -3179,14 +3144,6 @@ components:
         is_system_managed:
           readOnly: true
           type: boolean
-      required:
-      - check_type
-      - config
-      - configured_price
-      - display_name
-      - id
-      - input_fields
-      - is_system_managed
       type: object
     V2ProfileCreate:
       example:
@@ -3298,16 +3255,8 @@ components:
           readOnly: true
           type: string
       required:
-      - candidate_fields
-      - checks
-      - created_at
       - description
-      - id
       - name
-      - supported_countries_of_residence
-      - supported_countries_of_work
-      - total_price
-      - updated_at
       type: object
     V2ProfileListItem:
       example:
@@ -3346,12 +3295,8 @@ components:
           readOnly: true
           type: string
       required:
-      - check_types
-      - created_at
       - description
-      - id
       - name
-      - updated_at
       type: object
     V2ProfileUpdate:
       description: |-
@@ -3617,16 +3562,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-      required:
-      - candidate_wizard_url
-      - check_type
-      - config
-      - display_name
-      - id
-      - input
-      - output
-      - profile_check_id
-      - status
       type: object
     V2ScreeningCheckListItem:
       description: Minimal check entry shape for screening list items. No config/input/etc.
@@ -3692,10 +3627,6 @@ components:
         status:
           readOnly: true
           type: string
-      required:
-      - check_type
-      - id
-      - status
       type: object
     V2ScreeningCreate:
       example:
@@ -3812,16 +3743,6 @@ components:
           format: date-time
           readOnly: true
           type: string
-      required:
-      - candidate
-      - candidate_wizard_url
-      - checks
-      - created_at
-      - dashboard_url
-      - id
-      - profile
-      - status
-      - updated_at
       type: object
     V2ScreeningListItem:
       description: |-
@@ -3881,15 +3802,6 @@ components:
           format: date-time
           readOnly: true
           type: string
-      required:
-      - candidate
-      - candidate_wizard_url
-      - checks
-      - created_at
-      - dashboard_url
-      - id
-      - profile
-      - updated_at
       type: object
     VerifyWebhook:
       description: |-
@@ -4014,13 +3926,8 @@ components:
           readOnly: true
           type: string
       required:
-      - created_at
-      - events
-      - id
       - name
-      - updated_at
       - url
-      - verified
       type: object
     V2ScreeningDetail_profile:
       example:

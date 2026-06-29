@@ -1579,11 +1579,7 @@ components:
           type: boolean
         use_parent_on_report:
           type: boolean
-      required:
-        - created_at
-        - id
-        - parent
-        - updated_at
+      required: []
     DivisionWrite:
       type: object
       properties:
@@ -1780,11 +1776,7 @@ components:
           readOnly: true
       required:
         - authorization_grant_type
-        - client_secret
         - client_type
-        - created
-        - id
-        - updated
     PaginatedDivisionReadOnlyList:
       type: object
       required:
@@ -2484,12 +2476,7 @@ components:
           type: string
           readOnly: true
           nullable: true
-      required:
-        - choices
-        - help_text
-        - name
-        - required
-        - type
+      required: []
     V2CheckInfo:
       type: object
       description: Everything a client needs to know to use a check type via the API.
@@ -2548,19 +2535,7 @@ components:
             $ref: '#/components/schemas/V2CheckField'
           readOnly: true
           description: Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
-      required:
-        - candidate_fields
-        - check_type
-        - config_fields
-        - default_price
-        - description
-        - display_name
-        - has_config
-        - input_fields
-        - is_system_managed
-        - requires_checks
-        - supported_countries_of_residence
-        - supported_countries_of_work
+      required: []
     V2Document:
       type: object
       description: |-
@@ -2636,13 +2611,7 @@ components:
           type: object
           additionalProperties: {}
           readOnly: true
-      required:
-        - check_id
-        - check_type
-        - content
-        - extension
-        - filename
-        - metadata
+      required: []
     V2DocumentContent:
       type: object
       description: |-
@@ -2800,14 +2769,7 @@ components:
         is_system_managed:
           type: boolean
           readOnly: true
-      required:
-        - check_type
-        - config
-        - configured_price
-        - display_name
-        - id
-        - input_fields
-        - is_system_managed
+      required: []
     V2ProfileCreate:
       type: object
       properties:
@@ -2871,16 +2833,8 @@ components:
           format: date-time
           readOnly: true
       required:
-        - candidate_fields
-        - checks
-        - created_at
         - description
-        - id
         - name
-        - supported_countries_of_residence
-        - supported_countries_of_work
-        - total_price
-        - updated_at
     V2ProfileListItem:
       type: object
       properties:
@@ -2909,12 +2863,8 @@ components:
           format: date-time
           readOnly: true
       required:
-        - check_types
-        - created_at
         - description
-        - id
         - name
-        - updated_at
     V2ProfileUpdate:
       type: object
       description: |-
@@ -3142,16 +3092,7 @@ components:
           nullable: true
           description: Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
           readOnly: true
-      required:
-        - candidate_wizard_url
-        - check_type
-        - config
-        - display_name
-        - id
-        - input
-        - output
-        - profile_check_id
-        - status
+      required: []
     V2ScreeningCheckListItem:
       type: object
       description: Minimal check entry shape for screening list items. No config/input/etc.
@@ -3213,10 +3154,7 @@ components:
         status:
           type: string
           readOnly: true
-      required:
-        - check_type
-        - id
-        - status
+      required: []
     V2ScreeningCreate:
       type: object
       properties:
@@ -3280,16 +3218,7 @@ components:
           type: string
           format: date-time
           readOnly: true
-      required:
-        - candidate
-        - candidate_wizard_url
-        - checks
-        - created_at
-        - dashboard_url
-        - id
-        - profile
-        - status
-        - updated_at
+      required: []
     V2ScreeningListItem:
       type: object
       description: |-
@@ -3339,15 +3268,7 @@ components:
           type: string
           format: date-time
           readOnly: true
-      required:
-        - candidate
-        - candidate_wizard_url
-        - checks
-        - created_at
-        - dashboard_url
-        - id
-        - profile
-        - updated_at
+      required: []
     VerifyWebhook:
       type: object
       description: |-
@@ -3448,13 +3369,8 @@ components:
           format: date-time
           readOnly: true
       required:
-        - created_at
-        - events
-        - id
         - name
-        - updated_at
         - url
-        - verified
       additionalProperties: true
   securitySchemes:
     cookieAuth:

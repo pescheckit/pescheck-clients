@@ -23,16 +23,12 @@ class OAuthApplicationResponse {
      * Constructs a new <code>OAuthApplicationResponse</code>.
      * Serializer for OAuth application responses
      * @alias module:model/OAuthApplicationResponse
-     * @param id {String} 
-     * @param clientSecret {String} 
      * @param clientType {module:model/OAuthApplicationResponse.ClientTypeEnum} * `confidential` - Confidential * `public` - Public
      * @param authorizationGrantType {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
-     * @param created {Date} 
-     * @param updated {Date} 
      */
-    constructor(id, clientSecret, clientType, authorizationGrantType, created, updated) { 
+    constructor(clientType, authorizationGrantType) { 
         
-        OAuthApplicationResponse.initialize(this, id, clientSecret, clientType, authorizationGrantType, created, updated);
+        OAuthApplicationResponse.initialize(this, clientType, authorizationGrantType);
     }
 
     /**
@@ -40,13 +36,9 @@ class OAuthApplicationResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, clientSecret, clientType, authorizationGrantType, created, updated) { 
-        obj['id'] = id;
-        obj['client_secret'] = clientSecret;
+    static initialize(obj, clientType, authorizationGrantType) { 
         obj['client_type'] = clientType;
         obj['authorization_grant_type'] = authorizationGrantType;
-        obj['created'] = created;
-        obj['updated'] = updated;
     }
 
     /**
@@ -131,7 +123,7 @@ class OAuthApplicationResponse {
 
 }
 
-OAuthApplicationResponse.RequiredProperties = ["id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"];
+OAuthApplicationResponse.RequiredProperties = ["client_type", "authorization_grant_type"];
 
 /**
  * @member {String} id

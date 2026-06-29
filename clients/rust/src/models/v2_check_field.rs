@@ -14,30 +14,30 @@ use serde::{Deserialize, Serialize};
 /// V2CheckField : One config or input field a check accepts via the API.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2CheckField {
-    #[serde(rename = "name")]
-    pub name: String,
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
     /// \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
-    #[serde(rename = "type")]
-    pub r#type: String,
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<String>,
     /// Whether the request body must include this field.
-    #[serde(rename = "required")]
-    pub required: bool,
+    #[serde(rename = "required", skip_serializing_if = "Option::is_none")]
+    pub required: Option<bool>,
     /// Allowed values, or null if the field isn't constrained to a set.
-    #[serde(rename = "choices", deserialize_with = "Option::deserialize")]
-    pub choices: Option<Vec<String>>,
-    #[serde(rename = "help_text", deserialize_with = "Option::deserialize")]
-    pub help_text: Option<String>,
+    #[serde(rename = "choices", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub choices: Option<Option<Vec<String>>>,
+    #[serde(rename = "help_text", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
+    pub help_text: Option<Option<String>>,
 }
 
 impl V2CheckField {
     /// One config or input field a check accepts via the API.
-    pub fn new(name: String, r#type: String, required: bool, choices: Option<Vec<String>>, help_text: Option<String>) -> V2CheckField {
+    pub fn new() -> V2CheckField {
         V2CheckField {
-            name,
-            r#type,
-            required,
-            choices,
-            help_text,
+            name: None,
+            r#type: None,
+            required: None,
+            choices: None,
+            help_text: None,
         }
     }
 }

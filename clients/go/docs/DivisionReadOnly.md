@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
 **Name** | Pointer to **NullableString** |  | [optional] 
-**Parent** | **string** |  | [readonly] 
-**CreatedAt** | **time.Time** |  | [readonly] 
-**UpdatedAt** | **time.Time** |  | [readonly] 
+**Parent** | Pointer to **string** |  | [optional] [readonly] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **City** | Pointer to **NullableString** |  | [optional] 
 **Address** | Pointer to **NullableString** |  | [optional] 
 **Postal** | Pointer to **NullableString** |  | [optional] 
@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 
 ### NewDivisionReadOnly
 
-`func NewDivisionReadOnly(id string, parent string, createdAt time.Time, updatedAt time.Time, ) *DivisionReadOnly`
+`func NewDivisionReadOnly() *DivisionReadOnly`
 
 NewDivisionReadOnly instantiates a new DivisionReadOnly object
 This constructor will assign default values to properties that have it defined,
@@ -58,6 +58,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *DivisionReadOnly) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -113,6 +118,11 @@ and a boolean to check if the value has been set.
 
 SetParent sets Parent field to given value.
 
+### HasParent
+
+`func (o *DivisionReadOnly) HasParent() bool`
+
+HasParent returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -133,6 +143,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *DivisionReadOnly) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -153,6 +168,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *DivisionReadOnly) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetCity
 

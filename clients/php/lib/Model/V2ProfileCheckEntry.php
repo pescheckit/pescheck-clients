@@ -371,12 +371,6 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
-        if ($this->container['check_type'] === null) {
-            $invalidProperties[] = "'check_type' can't be null";
-        }
         $allowedValues = $this->getCheckTypeAllowableValues();
         if (!is_null($this->container['check_type']) && !in_array($this->container['check_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -386,21 +380,6 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
             );
         }
 
-        if ($this->container['display_name'] === null) {
-            $invalidProperties[] = "'display_name' can't be null";
-        }
-        if ($this->container['configured_price'] === null) {
-            $invalidProperties[] = "'configured_price' can't be null";
-        }
-        if ($this->container['config'] === null) {
-            $invalidProperties[] = "'config' can't be null";
-        }
-        if ($this->container['input_fields'] === null) {
-            $invalidProperties[] = "'input_fields' can't be null";
-        }
-        if ($this->container['is_system_managed'] === null) {
-            $invalidProperties[] = "'is_system_managed' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -419,7 +398,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -429,7 +408,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -446,7 +425,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets check_type
      *
-     * @return string
+     * @return string|null
      */
     public function getCheckType()
     {
@@ -456,7 +435,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string|null $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */
@@ -483,7 +462,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets display_name
      *
-     * @return string
+     * @return string|null
      */
     public function getDisplayName()
     {
@@ -493,7 +472,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets display_name
      *
-     * @param string $display_name display_name
+     * @param string|null $display_name display_name
      *
      * @return self
      */
@@ -510,7 +489,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets configured_price
      *
-     * @return \Pescheck\Client\Model\V2Money
+     * @return \Pescheck\Client\Model\V2Money|null
      */
     public function getConfiguredPrice()
     {
@@ -520,7 +499,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets configured_price
      *
-     * @param \Pescheck\Client\Model\V2Money $configured_price configured_price
+     * @param \Pescheck\Client\Model\V2Money|null $configured_price configured_price
      *
      * @return self
      */
@@ -537,7 +516,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets config
      *
-     * @return array<string,mixed>
+     * @return array<string,mixed>|null
      */
     public function getConfig()
     {
@@ -547,7 +526,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets config
      *
-     * @param array<string,mixed> $config config
+     * @param array<string,mixed>|null $config config
      *
      * @return self
      */
@@ -564,7 +543,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets input_fields
      *
-     * @return object[]
+     * @return object[]|null
      */
     public function getInputFields()
     {
@@ -574,7 +553,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets input_fields
      *
-     * @param object[] $input_fields input_fields
+     * @param object[]|null $input_fields input_fields
      *
      * @return self
      */
@@ -591,7 +570,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets is_system_managed
      *
-     * @return bool
+     * @return bool|null
      */
     public function getIsSystemManaged()
     {
@@ -601,7 +580,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets is_system_managed
      *
-     * @param bool $is_system_managed is_system_managed
+     * @param bool|null $is_system_managed is_system_managed
      *
      * @return self
      */

@@ -30,16 +30,16 @@ class WebhookResponse(BaseModel):
     """
     Serializer for webhook responses
     """ # noqa: E501
-    id: UUID
+    id: Optional[UUID] = None
     name: Annotated[str, Field(strict=True, max_length=255)]
     url: Annotated[str, Field(strict=True, max_length=200)]
-    events: Optional[Any]
+    events: Optional[Any] = None
     active: Optional[StrictBool] = None
-    verified: StrictBool
+    verified: Optional[StrictBool] = None
     token: Optional[StrictStr] = None
     organisation_name: Optional[StrictStr] = None
-    created_at: datetime
-    updated_at: datetime
+    created_at: Optional[datetime] = None
+    updated_at: Optional[datetime] = None
     additional_properties: Dict[str, Any] = {}
     __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"]
 

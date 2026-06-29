@@ -360,9 +360,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     {
         $invalidProperties = [];
 
-        if ($this->container['id'] === null) {
-            $invalidProperties[] = "'id' can't be null";
-        }
         if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 255)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
         }
@@ -371,9 +368,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
             $invalidProperties[] = "invalid value for 'client_id', the character length must be smaller than or equal to 100.";
         }
 
-        if ($this->container['client_secret'] === null) {
-            $invalidProperties[] = "'client_secret' can't be null";
-        }
         if ($this->container['client_type'] === null) {
             $invalidProperties[] = "'client_type' can't be null";
         }
@@ -398,12 +392,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
 
-        if ($this->container['created'] === null) {
-            $invalidProperties[] = "'created' can't be null";
-        }
-        if ($this->container['updated'] === null) {
-            $invalidProperties[] = "'updated' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -422,7 +410,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets id
      *
-     * @return string
+     * @return string|null
      */
     public function getId()
     {
@@ -432,7 +420,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets id
      *
-     * @param string $id id
+     * @param string|null $id id
      *
      * @return self
      */
@@ -511,7 +499,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets client_secret
      *
-     * @return string
+     * @return string|null
      */
     public function getClientSecret()
     {
@@ -521,7 +509,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets client_secret
      *
-     * @param string $client_secret client_secret
+     * @param string|null $client_secret client_secret
      *
      * @return self
      */
@@ -612,7 +600,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets created
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreated()
     {
@@ -622,7 +610,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets created
      *
-     * @param \DateTime $created created
+     * @param \DateTime|null $created created
      *
      * @return self
      */
@@ -639,7 +627,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Gets updated
      *
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getUpdated()
     {
@@ -649,7 +637,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets updated
      *
-     * @param \DateTime $updated updated
+     * @param \DateTime|null $updated updated
      *
      * @return self
      */

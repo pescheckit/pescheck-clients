@@ -126,31 +126,17 @@ for (const [name, fields] of Object.entries(RELAX_REQUIRED)) {
   }
 }
 
-// 5d. Strip readOnly properties from `required` on request-body schemas. e.g.
-// DivisionWrite marks `id` both readOnly and required, so generated clients
-// demand an id when *creating* a division — impossible to satisfy. Collect the
-// schemas used as request bodies (transitively) and drop readOnly-required.
-const reqBodyNames = new Set();
-const reqQueue = [];
-for (const item of Object.values(doc.paths)) {
-  for (const m of ["post", "put", "patch"]) {
-    const content = item[m]?.requestBody?.content;
-    if (!content) continue;
-    for (const media of Object.values(content)) {
-      for (const ref of collectRefs(media.schema ?? {}, new Set())) reqQueue.push(ref);
-    }
-  }
-}
-while (reqQueue.length) {
-  const parsed = refKey(reqQueue.pop());
-  if (!parsed || parsed.bucket !== "schemas" || reqBodyNames.has(parsed.name)) continue;
-  reqBodyNames.add(parsed.name);
-  const target = doc.components?.schemas?.[parsed.name];
-  if (target) for (const r of collectRefs(target, new Set())) reqQueue.push(r);
-}
+// 5d. Strip readOnly properties from `required` on ALL schemas. Two reasons:
+//   - request bodies: DivisionWrite marks `id` both readOnly and required, so
+//     generated clients would demand an id when *creating* a division.
+//   - responses: the server may legitimately return a readOnly field as null
+//     (e.g. V2ProfileCheckEntry.id on some profile responses). A strict client
+//     (pydantic) then crashes *deserializing* the response.
+// Making readOnly fields non-required => clients neither require them on input
+// nor crash on a null on output. readOnly is server-assigned, never client-set,
+// so it should never be in `required` for a generated client either way.
 let readOnlyRequiredStripped = 0;
-for (const name of reqBodyNames) {
-  const schema = doc.components?.schemas?.[name];
+for (const schema of Object.values(doc.components?.schemas ?? {})) {
   if (!schema?.required || !schema.properties) continue;
   const before = schema.required.length;
   schema.required = schema.required.filter((f) => !schema.properties[f]?.readOnly);

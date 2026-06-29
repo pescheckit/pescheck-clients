@@ -4,16 +4,16 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [readonly] |
+| **id** | **String** |  | [optional][readonly] |
 | **name** | **String** |  |  |
 | **url** | **String** |  |  |
-| **events** | **Object** |  | [readonly] |
+| **events** | **Object** |  | [optional][readonly] |
 | **active** | **Boolean** |  | [optional] |
-| **verified** | **Boolean** |  | [readonly] |
+| **verified** | **Boolean** |  | [optional][readonly] |
 | **token** | **String** |  | [optional][readonly] |
 | **organisation_name** | **String** |  | [optional][readonly] |
-| **created_at** | **Time** |  | [readonly] |
-| **updated_at** | **Time** |  | [readonly] |
+| **created_at** | **Time** |  | [optional][readonly] |
+| **updated_at** | **Time** |  | [optional][readonly] |
 
 ## Example
 

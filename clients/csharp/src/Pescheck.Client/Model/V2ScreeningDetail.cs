@@ -35,26 +35,16 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="V2ScreeningDetail" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected V2ScreeningDetail() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="V2ScreeningDetail" /> class.
-        /// </summary>
-        /// <param name="profile">profile (required).</param>
+        /// <param name="profile">profile.</param>
         public V2ScreeningDetail(V2ScreeningDetailProfile profile = default)
         {
-            // to ensure "profile" is required (not null)
-            if (profile == null)
-            {
-                throw new ArgumentNullException("profile is a required property for V2ScreeningDetail and cannot be null");
-            }
             this.Profile = profile;
         }
 
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "id", EmitDefaultValue = false)]
         public Guid Id { get; private set; }
 
         /// <summary>
@@ -68,7 +58,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Status
         /// </summary>
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "status", EmitDefaultValue = false)]
         public string Status { get; private set; }
 
         /// <summary>
@@ -82,13 +72,13 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Profile
         /// </summary>
-        [DataMember(Name = "profile", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "profile", EmitDefaultValue = true)]
         public V2ScreeningDetailProfile Profile { get; set; }
 
         /// <summary>
         /// Gets or Sets Candidate
         /// </summary>
-        [DataMember(Name = "candidate", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "candidate", EmitDefaultValue = false)]
         public V2Candidate Candidate { get; private set; }
 
         /// <summary>
@@ -102,7 +92,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Checks
         /// </summary>
-        [DataMember(Name = "checks", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "checks", EmitDefaultValue = false)]
         public List<V2ScreeningCheckEntry> Checks { get; private set; }
 
         /// <summary>
@@ -117,7 +107,7 @@ namespace Pescheck.Client.Model
         /// Public wizard URL for the candidate. Null when no check needs candidate input.
         /// </summary>
         /// <value>Public wizard URL for the candidate. Null when no check needs candidate input.</value>
-        [DataMember(Name = "candidate_wizard_url", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "candidate_wizard_url", EmitDefaultValue = true)]
         public string CandidateWizardUrl { get; private set; }
 
         /// <summary>
@@ -132,7 +122,7 @@ namespace Pescheck.Client.Model
         /// Dashboard URL for this screening.
         /// </summary>
         /// <value>Dashboard URL for this screening.</value>
-        [DataMember(Name = "dashboard_url", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "dashboard_url", EmitDefaultValue = false)]
         public string DashboardUrl { get; private set; }
 
         /// <summary>
@@ -146,7 +136,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
-        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "created_at", EmitDefaultValue = false)]
         public DateTime CreatedAt { get; private set; }
 
         /// <summary>
@@ -160,7 +150,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
-        [DataMember(Name = "updated_at", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "updated_at", EmitDefaultValue = false)]
         public DateTime UpdatedAt { get; private set; }
 
         /// <summary>

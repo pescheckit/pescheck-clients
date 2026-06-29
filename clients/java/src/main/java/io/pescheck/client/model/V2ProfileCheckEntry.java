@@ -58,7 +58,7 @@ import io.pescheck.client.JSON;
 public class V2ProfileCheckEntry {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private UUID id;
 
   /**
@@ -155,32 +155,32 @@ public class V2ProfileCheckEntry {
 
   public static final String SERIALIZED_NAME_CHECK_TYPE = "check_type";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private CheckTypeEnum checkType;
 
   public static final String SERIALIZED_NAME_DISPLAY_NAME = "display_name";
   @SerializedName(SERIALIZED_NAME_DISPLAY_NAME)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private String displayName;
 
   public static final String SERIALIZED_NAME_CONFIGURED_PRICE = "configured_price";
   @SerializedName(SERIALIZED_NAME_CONFIGURED_PRICE)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private V2Money configuredPrice;
 
   public static final String SERIALIZED_NAME_CONFIG = "config";
   @SerializedName(SERIALIZED_NAME_CONFIG)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Map<String, Object> config = new HashMap<>();
 
   public static final String SERIALIZED_NAME_INPUT_FIELDS = "input_fields";
   @SerializedName(SERIALIZED_NAME_INPUT_FIELDS)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private List<Object> inputFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_IS_SYSTEM_MANAGED = "is_system_managed";
   @SerializedName(SERIALIZED_NAME_IS_SYSTEM_MANAGED)
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   private Boolean isSystemManaged;
 
   public V2ProfileCheckEntry() {
@@ -209,7 +209,7 @@ public class V2ProfileCheckEntry {
    * Get id
    * @return id
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public UUID getId() {
     return id;
   }
@@ -220,7 +220,7 @@ public class V2ProfileCheckEntry {
    * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
    * @return checkType
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public CheckTypeEnum getCheckType() {
     return checkType;
   }
@@ -231,7 +231,7 @@ public class V2ProfileCheckEntry {
    * Get displayName
    * @return displayName
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public String getDisplayName() {
     return displayName;
   }
@@ -242,7 +242,7 @@ public class V2ProfileCheckEntry {
    * Get configuredPrice
    * @return configuredPrice
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public V2Money getConfiguredPrice() {
     return configuredPrice;
   }
@@ -253,7 +253,7 @@ public class V2ProfileCheckEntry {
    * Get config
    * @return config
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Map<String, Object> getConfig() {
     return config;
   }
@@ -264,7 +264,7 @@ public class V2ProfileCheckEntry {
    * Get inputFields
    * @return inputFields
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public List<Object> getInputFields() {
     return inputFields;
   }
@@ -275,7 +275,7 @@ public class V2ProfileCheckEntry {
    * Get isSystemManaged
    * @return isSystemManaged
    */
-  @javax.annotation.Nonnull
+  @javax.annotation.Nullable
   public Boolean getIsSystemManaged() {
     return isSystemManaged;
   }
@@ -338,7 +338,7 @@ public class V2ProfileCheckEntry {
     openapiFields = new HashSet<String>(Arrays.asList("id", "check_type", "display_name", "configured_price", "config", "input_fields", "is_system_managed"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "check_type", "display_name", "configured_price", "config", "input_fields", "is_system_managed"));
+    openapiRequiredFields = new HashSet<String>(0);
   }
 
   /**
@@ -361,31 +361,26 @@ public class V2ProfileCheckEntry {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2ProfileCheckEntry` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
-
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : V2ProfileCheckEntry.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("id").isJsonPrimitive()) {
+      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if (!jsonObj.get("check_type").isJsonPrimitive()) {
+      if ((jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) && !jsonObj.get("check_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_type").toString()));
       }
-      // validate the required field `check_type`
-      CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
-      if (!jsonObj.get("display_name").isJsonPrimitive()) {
+      // validate the optional field `check_type`
+      if (jsonObj.get("check_type") != null && !jsonObj.get("check_type").isJsonNull()) {
+        CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
+      }
+      if ((jsonObj.get("display_name") != null && !jsonObj.get("display_name").isJsonNull()) && !jsonObj.get("display_name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `display_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("display_name").toString()));
       }
-      // validate the required field `configured_price`
-      V2Money.validateJsonElement(jsonObj.get("configured_price"));
-      // ensure the required json array is present
-      if (jsonObj.get("input_fields") == null) {
-        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-      } else if (!jsonObj.get("input_fields").isJsonArray()) {
+      // validate the optional field `configured_price`
+      if (jsonObj.get("configured_price") != null && !jsonObj.get("configured_price").isJsonNull()) {
+        V2Money.validateJsonElement(jsonObj.get("configured_price"));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("input_fields") != null && !jsonObj.get("input_fields").isJsonNull() && !jsonObj.get("input_fields").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `input_fields` to be an array in the JSON string but got `%s`", jsonObj.get("input_fields").toString()));
       }
   }

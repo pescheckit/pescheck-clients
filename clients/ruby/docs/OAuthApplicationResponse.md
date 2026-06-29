@@ -4,14 +4,14 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [readonly] |
+| **id** | **String** |  | [optional][readonly] |
 | **name** | **String** |  | [optional] |
 | **client_id** | **String** |  | [optional] |
-| **client_secret** | **String** |  | [readonly] |
+| **client_secret** | **String** |  | [optional][readonly] |
 | **client_type** | **String** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public |  |
 | **authorization_grant_type** | **String** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid |  |
-| **created** | **Time** |  | [readonly] |
-| **updated** | **Time** |  | [readonly] |
+| **created** | **Time** |  | [optional][readonly] |
+| **updated** | **Time** |  | [optional][readonly] |
 
 ## Example
 

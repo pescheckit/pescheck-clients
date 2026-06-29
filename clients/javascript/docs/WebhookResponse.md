@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [readonly] 
+**id** | **String** |  | [optional] [readonly] 
 **name** | **String** |  | 
 **url** | **String** |  | 
-**events** | **Object** |  | [readonly] 
+**events** | **Object** |  | [optional] [readonly] 
 **active** | **Boolean** |  | [optional] 
-**verified** | **Boolean** |  | [readonly] 
+**verified** | **Boolean** |  | [optional] [readonly] 
 **token** | **String** |  | [optional] [readonly] 
 **organisationName** | **String** |  | [optional] [readonly] 
-**createdAt** | **Date** |  | [readonly] 
-**updatedAt** | **Date** |  | [readonly] 
+**createdAt** | **Date** |  | [optional] [readonly] 
+**updatedAt** | **Date** |  | [optional] [readonly] 
 
 

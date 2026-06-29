@@ -24,42 +24,37 @@ export interface V2CheckField {
      * @type {string}
      * @memberof V2CheckField
      */
-    readonly name: string;
+    readonly name?: string;
     /**
      * "string" | "integer" | "number" | "boolean" | "array" | "object"
      * @type {string}
      * @memberof V2CheckField
      */
-    readonly type: string;
+    readonly type?: string;
     /**
      * Whether the request body must include this field.
      * @type {boolean}
      * @memberof V2CheckField
      */
-    readonly required: boolean;
+    readonly required?: boolean;
     /**
      * Allowed values, or null if the field isn't constrained to a set.
      * @type {Array<string>}
      * @memberof V2CheckField
      */
-    readonly choices: Array<string> | null;
+    readonly choices?: Array<string> | null;
     /**
      * 
      * @type {string}
      * @memberof V2CheckField
      */
-    readonly helpText: string | null;
+    readonly helpText?: string | null;
 }
 
 /**
  * Check if a given object implements the V2CheckField interface.
  */
 export function instanceOfV2CheckField(value: any): value is V2CheckField {
-    if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('required' in value) || value['required'] === undefined) return false;
-    if (!('choices' in value) || value['choices'] === undefined) return false;
-    if ((!('helpText' in value) && !('help_text' in value)) || (value['helpText'] === undefined && value['help_text'] === undefined)) return false;
     return true;
 }
 
@@ -73,11 +68,11 @@ export function V2CheckFieldFromJSONTyped(json: any, ignoreDiscriminator: boolea
     }
     return {
         
-        'name': json['name'],
-        'type': json['type'],
-        'required': json['required'],
-        'choices': json['choices'] == null ? null : json['choices'],
-        'helpText': json['help_text'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'type': json['type'] == null ? undefined : json['type'],
+        'required': json['required'] == null ? undefined : json['required'],
+        'choices': json['choices'] == null ? undefined : json['choices'],
+        'helpText': json['help_text'] == null ? undefined : json['help_text'],
     };
 }
 

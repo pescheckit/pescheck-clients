@@ -97,20 +97,14 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
-      else
-        self.id = nil
       end
 
       if attributes.key?(:'check_type')
         self.check_type = attributes[:'check_type']
-      else
-        self.check_type = nil
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
-      else
-        self.status = nil
       end
     end
 
@@ -119,18 +113,6 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @check_type.nil?
-        invalid_properties.push('invalid value for "check_type", check_type cannot be nil.')
-      end
-
-      if @status.nil?
-        invalid_properties.push('invalid value for "status", status cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -138,22 +120,9 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @id.nil?
-      return false if @check_type.nil?
       check_type_validator = EnumAttributeValidator.new('String', ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "focumcheck", "id2check", "idcheck", "integritycheck", "openhealthcarecheck", "permissioncheck", "pescheckadversemediacheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
       return false unless check_type_validator.valid?(@check_type)
-      return false if @status.nil?
       true
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] id Value to be assigned
-    def id=(id)
-      if id.nil?
-        fail ArgumentError, 'id cannot be nil'
-      end
-
-      @id = id
     end
 
     # Custom attribute writer method checking allowed values (enum).
@@ -164,16 +133,6 @@ module Pescheck
         fail ArgumentError, "invalid value for \"check_type\", must be one of #{validator.allowable_values}."
       end
       @check_type = check_type
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] status Value to be assigned
-    def status=(status)
-      if status.nil?
-        fail ArgumentError, 'status cannot be nil'
-      end
-
-      @status = status
     end
 
     # Checks equality by comparing each attribute.

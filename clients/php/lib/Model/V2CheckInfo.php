@@ -352,42 +352,6 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['check_type'] === null) {
-            $invalidProperties[] = "'check_type' can't be null";
-        }
-        if ($this->container['display_name'] === null) {
-            $invalidProperties[] = "'display_name' can't be null";
-        }
-        if ($this->container['description'] === null && !$this->isNullableSetToNull('description')) {
-            $invalidProperties[] = "'description' is required";
-        }
-        if ($this->container['has_config'] === null) {
-            $invalidProperties[] = "'has_config' can't be null";
-        }
-        if ($this->container['is_system_managed'] === null) {
-            $invalidProperties[] = "'is_system_managed' can't be null";
-        }
-        if ($this->container['requires_checks'] === null) {
-            $invalidProperties[] = "'requires_checks' can't be null";
-        }
-        if ($this->container['supported_countries_of_work'] === null) {
-            $invalidProperties[] = "'supported_countries_of_work' can't be null";
-        }
-        if ($this->container['supported_countries_of_residence'] === null) {
-            $invalidProperties[] = "'supported_countries_of_residence' can't be null";
-        }
-        if ($this->container['default_price'] === null && !$this->isNullableSetToNull('default_price')) {
-            $invalidProperties[] = "'default_price' is required";
-        }
-        if ($this->container['config_fields'] === null) {
-            $invalidProperties[] = "'config_fields' can't be null";
-        }
-        if ($this->container['input_fields'] === null) {
-            $invalidProperties[] = "'input_fields' can't be null";
-        }
-        if ($this->container['candidate_fields'] === null) {
-            $invalidProperties[] = "'candidate_fields' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -406,7 +370,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets check_type
      *
-     * @return string
+     * @return string|null
      */
     public function getCheckType()
     {
@@ -416,7 +380,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets check_type
      *
-     * @param string $check_type check_type
+     * @param string|null $check_type check_type
      *
      * @return self
      */
@@ -433,7 +397,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets display_name
      *
-     * @return string
+     * @return string|null
      */
     public function getDisplayName()
     {
@@ -443,7 +407,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets display_name
      *
-     * @param string $display_name display_name
+     * @param string|null $display_name display_name
      *
      * @return self
      */
@@ -494,7 +458,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets has_config
      *
-     * @return bool
+     * @return bool|null
      */
     public function getHasConfig()
     {
@@ -504,7 +468,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets has_config
      *
-     * @param bool $has_config has_config
+     * @param bool|null $has_config has_config
      *
      * @return self
      */
@@ -521,7 +485,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets is_system_managed
      *
-     * @return bool
+     * @return bool|null
      */
     public function getIsSystemManaged()
     {
@@ -531,7 +495,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets is_system_managed
      *
-     * @param bool $is_system_managed True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
+     * @param bool|null $is_system_managed True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
      *
      * @return self
      */
@@ -548,7 +512,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets requires_checks
      *
-     * @return string[]
+     * @return string[]|null
      */
     public function getRequiresChecks()
     {
@@ -558,7 +522,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets requires_checks
      *
-     * @param string[] $requires_checks Other check types this check pulls in automatically when added.
+     * @param string[]|null $requires_checks Other check types this check pulls in automatically when added.
      *
      * @return self
      */
@@ -575,7 +539,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets supported_countries_of_work
      *
-     * @return string[]
+     * @return string[]|null
      */
     public function getSupportedCountriesOfWork()
     {
@@ -585,7 +549,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets supported_countries_of_work
      *
-     * @param string[] $supported_countries_of_work supported_countries_of_work
+     * @param string[]|null $supported_countries_of_work supported_countries_of_work
      *
      * @return self
      */
@@ -602,7 +566,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets supported_countries_of_residence
      *
-     * @return string[]
+     * @return string[]|null
      */
     public function getSupportedCountriesOfResidence()
     {
@@ -612,7 +576,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets supported_countries_of_residence
      *
-     * @param string[] $supported_countries_of_residence supported_countries_of_residence
+     * @param string[]|null $supported_countries_of_residence supported_countries_of_residence
      *
      * @return self
      */
@@ -663,7 +627,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets config_fields
      *
-     * @return \Pescheck\Client\Model\V2CheckField[]
+     * @return \Pescheck\Client\Model\V2CheckField[]|null
      */
     public function getConfigFields()
     {
@@ -673,7 +637,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets config_fields
      *
-     * @param \Pescheck\Client\Model\V2CheckField[] $config_fields config_fields
+     * @param \Pescheck\Client\Model\V2CheckField[]|null $config_fields config_fields
      *
      * @return self
      */
@@ -690,7 +654,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets input_fields
      *
-     * @return \Pescheck\Client\Model\V2CheckField[]
+     * @return \Pescheck\Client\Model\V2CheckField[]|null
      */
     public function getInputFields()
     {
@@ -700,7 +664,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets input_fields
      *
-     * @param \Pescheck\Client\Model\V2CheckField[] $input_fields input_fields
+     * @param \Pescheck\Client\Model\V2CheckField[]|null $input_fields input_fields
      *
      * @return self
      */
@@ -717,7 +681,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets candidate_fields
      *
-     * @return \Pescheck\Client\Model\V2CheckField[]
+     * @return \Pescheck\Client\Model\V2CheckField[]|null
      */
     public function getCandidateFields()
     {
@@ -727,7 +691,7 @@ class V2CheckInfo implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets candidate_fields
      *
-     * @param \Pescheck\Client\Model\V2CheckField[] $candidate_fields Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
+     * @param \Pescheck\Client\Model\V2CheckField[]|null $candidate_fields Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
      *
      * @return self
      */

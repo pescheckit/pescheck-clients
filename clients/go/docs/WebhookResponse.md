@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | [readonly] 
+**Id** | Pointer to **string** |  | [optional] [readonly] 
 **Name** | **string** |  | 
 **Url** | **string** |  | 
-**Events** | **interface{}** |  | [readonly] 
+**Events** | Pointer to **interface{}** |  | [optional] [readonly] 
 **Active** | Pointer to **bool** |  | [optional] 
-**Verified** | **bool** |  | [readonly] 
+**Verified** | Pointer to **bool** |  | [optional] [readonly] 
 **Token** | Pointer to **NullableString** |  | [optional] [readonly] 
 **OrganisationName** | Pointer to **string** |  | [optional] [readonly] 
-**CreatedAt** | **time.Time** |  | [readonly] 
-**UpdatedAt** | **time.Time** |  | [readonly] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 
 ## Methods
 
 ### NewWebhookResponse
 
-`func NewWebhookResponse(id string, name string, url string, events interface{}, verified bool, createdAt time.Time, updatedAt time.Time, ) *WebhookResponse`
+`func NewWebhookResponse(name string, url string, ) *WebhookResponse`
 
 NewWebhookResponse instantiates a new WebhookResponse object
 This constructor will assign default values to properties that have it defined,
@@ -53,6 +53,11 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+### HasId
+
+`func (o *WebhookResponse) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -113,6 +118,11 @@ and a boolean to check if the value has been set.
 
 SetEvents sets Events field to given value.
 
+### HasEvents
+
+`func (o *WebhookResponse) HasEvents() bool`
+
+HasEvents returns a boolean if a field has been set.
 
 ### SetEventsNil
 
@@ -168,6 +178,11 @@ and a boolean to check if the value has been set.
 
 SetVerified sets Verified field to given value.
 
+### HasVerified
+
+`func (o *WebhookResponse) HasVerified() bool`
+
+HasVerified returns a boolean if a field has been set.
 
 ### GetToken
 
@@ -248,6 +263,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *WebhookResponse) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -268,6 +288,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *WebhookResponse) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

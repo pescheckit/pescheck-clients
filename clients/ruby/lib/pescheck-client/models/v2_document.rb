@@ -110,40 +110,28 @@ module Pescheck
 
       if attributes.key?(:'check_id')
         self.check_id = attributes[:'check_id']
-      else
-        self.check_id = nil
       end
 
       if attributes.key?(:'check_type')
         self.check_type = attributes[:'check_type']
-      else
-        self.check_type = nil
       end
 
       if attributes.key?(:'filename')
         self.filename = attributes[:'filename']
-      else
-        self.filename = nil
       end
 
       if attributes.key?(:'extension')
         self.extension = attributes[:'extension']
-      else
-        self.extension = nil
       end
 
       if attributes.key?(:'content')
         self.content = attributes[:'content']
-      else
-        self.content = nil
       end
 
       if attributes.key?(:'metadata')
         if (value = attributes[:'metadata']).is_a?(Hash)
           self.metadata = value
         end
-      else
-        self.metadata = nil
       end
     end
 
@@ -152,26 +140,6 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
-      if @check_type.nil?
-        invalid_properties.push('invalid value for "check_type", check_type cannot be nil.')
-      end
-
-      if @filename.nil?
-        invalid_properties.push('invalid value for "filename", filename cannot be nil.')
-      end
-
-      if @extension.nil?
-        invalid_properties.push('invalid value for "extension", extension cannot be nil.')
-      end
-
-      if @content.nil?
-        invalid_properties.push('invalid value for "content", content cannot be nil.')
-      end
-
-      if @metadata.nil?
-        invalid_properties.push('invalid value for "metadata", metadata cannot be nil.')
-      end
-
       invalid_properties
     end
 
@@ -179,13 +147,8 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
-      return false if @check_type.nil?
       check_type_validator = EnumAttributeValidator.new('String', ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "focumcheck", "id2check", "idcheck", "integritycheck", "openhealthcarecheck", "permissioncheck", "pescheckadversemediacheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
       return false unless check_type_validator.valid?(@check_type)
-      return false if @filename.nil?
-      return false if @extension.nil?
-      return false if @content.nil?
-      return false if @metadata.nil?
       true
     end
 
@@ -197,46 +160,6 @@ module Pescheck
         fail ArgumentError, "invalid value for \"check_type\", must be one of #{validator.allowable_values}."
       end
       @check_type = check_type
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] filename Value to be assigned
-    def filename=(filename)
-      if filename.nil?
-        fail ArgumentError, 'filename cannot be nil'
-      end
-
-      @filename = filename
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] extension Value to be assigned
-    def extension=(extension)
-      if extension.nil?
-        fail ArgumentError, 'extension cannot be nil'
-      end
-
-      @extension = extension
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] content Value to be assigned
-    def content=(content)
-      if content.nil?
-        fail ArgumentError, 'content cannot be nil'
-      end
-
-      @content = content
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] metadata Value to be assigned
-    def metadata=(metadata)
-      if metadata.nil?
-        fail ArgumentError, 'metadata cannot be nil'
-      end
-
-      @metadata = metadata
     end
 
     # Checks equality by comparing each attribute.

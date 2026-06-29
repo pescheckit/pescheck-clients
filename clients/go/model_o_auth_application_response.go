@@ -22,16 +22,16 @@ var _ MappedNullable = &OAuthApplicationResponse{}
 
 // OAuthApplicationResponse Serializer for OAuth application responses
 type OAuthApplicationResponse struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	ClientId *string `json:"client_id,omitempty"`
-	ClientSecret string `json:"client_secret"`
+	ClientSecret *string `json:"client_secret,omitempty"`
 	// * `confidential` - Confidential * `public` - Public
 	ClientType string `json:"client_type"`
 	// * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
 	AuthorizationGrantType string `json:"authorization_grant_type"`
-	Created time.Time `json:"created"`
-	Updated time.Time `json:"updated"`
+	Created *time.Time `json:"created,omitempty"`
+	Updated *time.Time `json:"updated,omitempty"`
 }
 
 type _OAuthApplicationResponse OAuthApplicationResponse
@@ -40,14 +40,10 @@ type _OAuthApplicationResponse OAuthApplicationResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, created time.Time, updated time.Time) *OAuthApplicationResponse {
+func NewOAuthApplicationResponse(clientType string, authorizationGrantType string) *OAuthApplicationResponse {
 	this := OAuthApplicationResponse{}
-	this.Id = id
-	this.ClientSecret = clientSecret
 	this.ClientType = clientType
 	this.AuthorizationGrantType = authorizationGrantType
-	this.Created = created
-	this.Updated = updated
 	return &this
 }
 
@@ -59,28 +55,36 @@ func NewOAuthApplicationResponseWithDefaults() *OAuthApplicationResponse {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *OAuthApplicationResponse) GetId() string {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthApplicationResponse) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *OAuthApplicationResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *OAuthApplicationResponse) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -147,28 +151,36 @@ func (o *OAuthApplicationResponse) SetClientId(v string) {
 	o.ClientId = &v
 }
 
-// GetClientSecret returns the ClientSecret field value
+// GetClientSecret returns the ClientSecret field value if set, zero value otherwise.
 func (o *OAuthApplicationResponse) GetClientSecret() string {
-	if o == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		var ret string
 		return ret
 	}
-
-	return o.ClientSecret
+	return *o.ClientSecret
 }
 
-// GetClientSecretOk returns a tuple with the ClientSecret field value
+// GetClientSecretOk returns a tuple with the ClientSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthApplicationResponse) GetClientSecretOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ClientSecret) {
 		return nil, false
 	}
-	return &o.ClientSecret, true
+	return o.ClientSecret, true
 }
 
-// SetClientSecret sets field value
+// HasClientSecret returns a boolean if a field has been set.
+func (o *OAuthApplicationResponse) HasClientSecret() bool {
+	if o != nil && !IsNil(o.ClientSecret) {
+		return true
+	}
+
+	return false
+}
+
+// SetClientSecret gets a reference to the given string and assigns it to the ClientSecret field.
 func (o *OAuthApplicationResponse) SetClientSecret(v string) {
-	o.ClientSecret = v
+	o.ClientSecret = &v
 }
 
 // GetClientType returns the ClientType field value
@@ -219,52 +231,68 @@ func (o *OAuthApplicationResponse) SetAuthorizationGrantType(v string) {
 	o.AuthorizationGrantType = v
 }
 
-// GetCreated returns the Created field value
+// GetCreated returns the Created field value if set, zero value otherwise.
 func (o *OAuthApplicationResponse) GetCreated() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.Created) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.Created
+	return *o.Created
 }
 
-// GetCreatedOk returns a tuple with the Created field value
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthApplicationResponse) GetCreatedOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Created) {
 		return nil, false
 	}
-	return &o.Created, true
+	return o.Created, true
 }
 
-// SetCreated sets field value
+// HasCreated returns a boolean if a field has been set.
+func (o *OAuthApplicationResponse) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given time.Time and assigns it to the Created field.
 func (o *OAuthApplicationResponse) SetCreated(v time.Time) {
-	o.Created = v
+	o.Created = &v
 }
 
-// GetUpdated returns the Updated field value
+// GetUpdated returns the Updated field value if set, zero value otherwise.
 func (o *OAuthApplicationResponse) GetUpdated() time.Time {
-	if o == nil {
+	if o == nil || IsNil(o.Updated) {
 		var ret time.Time
 		return ret
 	}
-
-	return o.Updated
+	return *o.Updated
 }
 
-// GetUpdatedOk returns a tuple with the Updated field value
+// GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OAuthApplicationResponse) GetUpdatedOk() (*time.Time, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
-	return &o.Updated, true
+	return o.Updated, true
 }
 
-// SetUpdated sets field value
+// HasUpdated returns a boolean if a field has been set.
+func (o *OAuthApplicationResponse) HasUpdated() bool {
+	if o != nil && !IsNil(o.Updated) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdated gets a reference to the given time.Time and assigns it to the Updated field.
 func (o *OAuthApplicationResponse) SetUpdated(v time.Time) {
-	o.Updated = v
+	o.Updated = &v
 }
 
 func (o OAuthApplicationResponse) MarshalJSON() ([]byte, error) {
@@ -277,18 +305,26 @@ func (o OAuthApplicationResponse) MarshalJSON() ([]byte, error) {
 
 func (o OAuthApplicationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 	if !IsNil(o.ClientId) {
 		toSerialize["client_id"] = o.ClientId
 	}
-	toSerialize["client_secret"] = o.ClientSecret
+	if !IsNil(o.ClientSecret) {
+		toSerialize["client_secret"] = o.ClientSecret
+	}
 	toSerialize["client_type"] = o.ClientType
 	toSerialize["authorization_grant_type"] = o.AuthorizationGrantType
-	toSerialize["created"] = o.Created
-	toSerialize["updated"] = o.Updated
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
 	return toSerialize, nil
 }
 
@@ -297,12 +333,8 @@ func (o *OAuthApplicationResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"id",
-		"client_secret",
 		"client_type",
 		"authorization_grant_type",
-		"created",
-		"updated",
 	}
 
 	allProperties := make(map[string]interface{})

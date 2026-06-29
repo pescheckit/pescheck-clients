@@ -4,11 +4,11 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [readonly] |
+| **id** | **String** |  | [optional][readonly] |
 | **name** | **String** |  | [optional] |
-| **parent** | **String** |  | [readonly] |
-| **created_at** | **Time** |  | [readonly] |
-| **updated_at** | **Time** |  | [readonly] |
+| **parent** | **String** |  | [optional][readonly] |
+| **created_at** | **Time** |  | [optional][readonly] |
+| **updated_at** | **Time** |  | [optional][readonly] |
 | **city** | **String** |  | [optional] |
 | **address** | **String** |  | [optional] |
 | **postal** | **String** |  | [optional] |
