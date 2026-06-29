@@ -166,8 +166,8 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # PyPI trusted publishing (OIDC)
+    env:
+      PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v6
@@ -179,12 +179,14 @@ jobs:
           python -m pip install --upgrade build
           python -m build
       - name: Publish
-        if: vars.PUBLISH_PYPI == 'true'
+        if: env.PYPI_API_TOKEN != ''
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: clients/python/dist
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          skip-existing: true
       - name: Test from registry
-        if: vars.PUBLISH_PYPI == 'true'
+        if: env.PYPI_API_TOKEN != ''
         run: |
           for i in $(seq 1 10); do pip install pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
           python -c "import pescheck; print('OK: imported pescheck from PyPI')"
