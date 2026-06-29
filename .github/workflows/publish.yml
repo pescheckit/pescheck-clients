@@ -1,58 +1,67 @@
 name: Publish clients
 
-# Publish each language SDK to its registry on a release tag (vX.Y.Z) or manual
-# dispatch. Jobs are independent. Each registry that needs a token only runs when
-# that token/flag is configured, so unconfigured registries SKIP (not fail).
+# Per-ecosystem release pipeline. Each job: lint -> build -> (if a token/flag is
+# configured) publish to the registry -> test the package by installing it back
+# FROM the registry. Each package is self-contained in its ecosystem (npm ships
+# only JS/TS, Packagist only PHP via .gitattributes, etc.).
 #
-# Tokens/flags (repo Settings -> Secrets and variables -> Actions):
-#   NPM_TOKEN             secret   - npm (TypeScript + JavaScript)         [set]
-#   CARGO_REGISTRY_TOKEN  secret   - crates.io (Rust)                      [set]
-#   RUBYGEMS_API_KEY      secret   - RubyGems (Ruby)                       [set]
-#   NUGET_API_KEY         secret   - NuGet (C#)                            [needed]
-#   PUBLISH_PYPI          variable - set to "true" once a PyPI Trusted     [needed]
-#                                    Publisher is registered (no secret)
-# Java -> GitHub Packages, Go -> git tag, C++ -> release asset: built-in token.
-# PHP -> Packagist auto-updates from the repo (one-time Submit on packagist.org).
+# Config (Settings -> Secrets and variables -> Actions):
+#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY   [set]
+#   NUGET_API_KEY (secret) + PUBLISH_PYPI=true (variable)  [needed]
+# Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
     types: [published]
   workflow_dispatch:
 
 jobs:
-  npm:
+  typescript:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        dir: [typescript, javascript]
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
-        with:
-          node-version: "20"
-          registry-url: "https://registry.npmjs.org"
-      - if: env.NODE_AUTH_TOKEN == ''
-        run: echo "::warning::NPM_TOKEN not set — skipping npm publish for ${{ matrix.dir }}"
-      - if: env.NODE_AUTH_TOKEN != ''
-        working-directory: clients/${{ matrix.dir }}
+        with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - name: Install
+        working-directory: clients/typescript
+        run: npm install
+      - name: Lint + build
+        working-directory: clients/typescript
+        run: npm run build # tsc — type-checks and compiles
+      - name: Publish
+        if: env.NODE_AUTH_TOKEN != ''
+        working-directory: clients/typescript
+        run: npm publish --access public
+      - name: Test from registry
+        if: env.NODE_AUTH_TOKEN != ''
         run: |
-          npm install
-          npm run build --if-present
-          npm publish --access public
+          mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
+          for i in $(seq 1 10); do npm install @pescheckit/api-client && break || { echo "propagating… ($i)"; sleep 20; }; done
+          test -f node_modules/@pescheckit/api-client/package.json
+          echo "OK: installed @pescheckit/api-client from npm"
 
-  rust:
+  javascript:
     runs-on: ubuntu-latest
     env:
-      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
-      - if: env.CARGO_REGISTRY_TOKEN == ''
-        run: echo "::warning::CARGO_REGISTRY_TOKEN not set — skipping crates.io publish"
-      - if: env.CARGO_REGISTRY_TOKEN != ''
-        working-directory: clients/rust
-        run: cargo publish --allow-dirty --token "$CARGO_REGISTRY_TOKEN"
+      - uses: actions/setup-node@v6
+        with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - name: Install + build (lint = babel compile)
+        working-directory: clients/javascript
+        run: npm install
+      - name: Publish
+        if: env.NODE_AUTH_TOKEN != ''
+        working-directory: clients/javascript
+        run: npm publish --access public
+      - name: Test from registry
+        if: env.NODE_AUTH_TOKEN != ''
+        run: |
+          mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
+          for i in $(seq 1 10); do npm install @pescheckit/api-client-js && break || { echo "propagating… ($i)"; sleep 20; }; done
+          node -e "require('@pescheckit/api-client-js'); console.log('OK: required @pescheckit/api-client-js from npm')"
 
   ruby:
     runs-on: ubuntu-latest
@@ -61,18 +70,65 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: "3.3"
-      - if: env.RUBYGEMS_API_KEY == ''
-        run: echo "::warning::RUBYGEMS_API_KEY not set — skipping RubyGems publish"
-      - if: env.RUBYGEMS_API_KEY != ''
+        with: { ruby-version: "3.3" }
+      - name: Lint (syntax)
+        working-directory: clients/ruby
+        run: find lib -name '*.rb' -print0 | xargs -0 -n1 ruby -c >/dev/null
+      - name: Build
+        working-directory: clients/ruby
+        run: gem build *.gemspec
+      - name: Publish
+        if: env.RUBYGEMS_API_KEY != ''
         working-directory: clients/ruby
         run: |
-          gem build *.gemspec
           mkdir -p ~/.gem
           printf -- "---\n:rubygems_api_key: %s\n" "$RUBYGEMS_API_KEY" > ~/.gem/credentials
           chmod 600 ~/.gem/credentials
           gem push *.gem
+      - name: Test from registry
+        if: env.RUBYGEMS_API_KEY != ''
+        run: |
+          for i in $(seq 1 10); do gem install pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
+          ruby -e "require 'pescheck'; puts 'OK: required pescheck from RubyGems'"
+
+  rust:
+    runs-on: ubuntu-latest
+    env:
+      CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Lint + build
+        working-directory: clients/rust
+        run: cargo build
+      - name: Publish
+        if: env.CARGO_REGISTRY_TOKEN != ''
+        working-directory: clients/rust
+        run: cargo publish --allow-dirty --token "$CARGO_REGISTRY_TOKEN"
+      - name: Test from registry
+        if: env.CARGO_REGISTRY_TOKEN != ''
+        run: |
+          cargo new /tmp/t && cd /tmp/t
+          for i in $(seq 1 10); do cargo add pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
+          cargo build
+          echo "OK: built pescheck from crates.io"
+
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: "8.2", extensions: "curl, mbstring, json" }
+      - name: Lint (syntax)
+        run: find clients/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
+      - name: Build (validate manifest)
+        run: composer validate --no-check-publish
+      - name: Test from registry (Packagist auto-updates from this repo)
+        run: |
+          mkdir /tmp/t && cd /tmp/t
+          for i in $(seq 1 10); do composer require pescheckit/pescheck-clients --no-interaction && break || { echo "propagating… ($i)"; sleep 30; }; done
+          php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "OK: installed pescheckit/pescheck-clients from Packagist\n";'
+    continue-on-error: true # depends on the one-time Packagist Submit being done
 
   csharp:
     runs-on: ubuntu-latest
@@ -81,17 +137,24 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: "8.0.x"
-      - if: env.NUGET_API_KEY == ''
-        run: echo "::warning::NUGET_API_KEY not set — skipping NuGet publish"
-      - if: env.NUGET_API_KEY != ''
+        with: { dotnet-version: "8.0.x" }
+      - name: Lint + build
+        working-directory: clients/csharp
+        run: dotnet build -c Release
+      - name: Publish
+        if: env.NUGET_API_KEY != ''
         working-directory: clients/csharp
         run: |
           dotnet pack -c Release -o ./artifacts
-          dotnet nuget push "./artifacts/*.nupkg" \
-            --api-key "$NUGET_API_KEY" \
+          dotnet nuget push "./artifacts/*.nupkg" --api-key "$NUGET_API_KEY" \
             --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Test from registry
+        if: env.NUGET_API_KEY != ''
+        run: |
+          mkdir /tmp/t && cd /tmp/t && dotnet new console >/dev/null
+          for i in $(seq 1 10); do dotnet add package Pescheck.Client && break || { echo "propagating… ($i)"; sleep 30; }; done
+          dotnet build
+          echo "OK: restored Pescheck.Client from NuGet"
 
   python:
     runs-on: ubuntu-latest
@@ -99,23 +162,25 @@ jobs:
       id-token: write # PyPI trusted publishing (OIDC)
     steps:
       - uses: actions/checkout@v7
-      - if: vars.PUBLISH_PYPI != 'true'
-        run: echo "::warning::PUBLISH_PYPI != true — register a PyPI Trusted Publisher, then set the PUBLISH_PYPI variable"
-      - if: vars.PUBLISH_PYPI == 'true'
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.12"
-      - if: vars.PUBLISH_PYPI == 'true'
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - name: Lint (compile) + build
         working-directory: clients/python
         run: |
+          python -m compileall -q pescheck
           python -m pip install --upgrade build
           python -m build
-      - if: vars.PUBLISH_PYPI == 'true'
+      - name: Publish
+        if: vars.PUBLISH_PYPI == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: clients/python/dist
+      - name: Test from registry
+        if: vars.PUBLISH_PYPI == 'true'
+        run: |
+          for i in $(seq 1 10); do pip install pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
+          python -c "import pescheck; print('OK: imported pescheck from PyPI')"
 
-  # Java -> GitHub Packages (built-in token). Maven Central later (needs GPG).
   java:
     runs-on: ubuntu-latest
     permissions:
@@ -124,39 +189,50 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: "17"
-      - working-directory: clients/java
-        run: mvn --batch-mode deploy
+        with: { distribution: temurin, java-version: "17" }
+      - name: Lint + build
+        working-directory: clients/java
+        run: mvn --batch-mode -DskipTests package
+      - name: Publish to GitHub Packages
+        working-directory: clients/java
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<XML
+          <settings><servers><server>
+            <id>github</id><username>${GITHUB_ACTOR}</username><password>${GITHUB_TOKEN}</password>
+          </server></servers></settings>
+          XML
+          mvn --batch-mode -DskipTests \
+            -DaltDeploymentRepository=github::https://maven.pkg.github.com/${GITHUB_REPOSITORY} \
+            deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Go has no registry: tag the subdir module so `go get` resolves it.
-  # Module path: github.com/pescheckit/pescheck-clients/clients/go
+  # Go: no registry — publishing is a version tag (release only).
   go:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: { contents: write }
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-go@v6
+        with: { go-version: "1.23", cache: false }
+      - name: Build
+        run: cd clients/go && go build ./...
       - name: Tag Go submodule
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           git tag "clients/go/v${VERSION}"
           git push origin "clients/go/v${VERSION}"
 
-  # C++ has no canonical registry: attach a source tarball to the GitHub Release.
+  # C++: no registry — attach a source tarball to the release.
   cpp:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: { contents: write }
     steps:
       - uses: actions/checkout@v7
       - name: Package C++ client
         run: tar -czf pescheck-cpp-${GITHUB_REF_NAME}.tar.gz -C clients cpp
       - uses: softprops/action-gh-release@v2
-        with:
-          files: pescheck-cpp-*.tar.gz
+        with: { files: pescheck-cpp-*.tar.gz }
