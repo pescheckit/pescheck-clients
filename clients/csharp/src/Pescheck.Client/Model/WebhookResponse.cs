@@ -36,16 +36,17 @@ namespace Pescheck.Client.Model
         /// Initializes a new instance of the <see cref="WebhookResponse" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected WebhookResponse() { }
+        protected WebhookResponse()
+        {
+            this.AdditionalProperties = new Dictionary<string, object>();
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="WebhookResponse" /> class.
         /// </summary>
         /// <param name="name">name (required).</param>
         /// <param name="url">url (required).</param>
         /// <param name="active">active.</param>
-        /// <param name="verificationSent">verificationSent.</param>
-        /// <param name="warning">warning.</param>
-        public WebhookResponse(string name = default, string url = default, bool active = default, bool verificationSent = default, string warning = default)
+        public WebhookResponse(string name = default, string url = default, bool active = default)
         {
             // to ensure "name" is required (not null)
             if (name == null)
@@ -60,8 +61,7 @@ namespace Pescheck.Client.Model
             }
             this.Url = url;
             this.Active = active;
-            this.VerificationSent = verificationSent;
-            this.Warning = warning;
+            this.AdditionalProperties = new Dictionary<string, object>();
         }
 
         /// <summary>
@@ -181,16 +181,10 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
-        /// Gets or Sets VerificationSent
+        /// Gets or Sets additional properties
         /// </summary>
-        [DataMember(Name = "verification_sent", EmitDefaultValue = true)]
-        public bool VerificationSent { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Warning
-        /// </summary>
-        [DataMember(Name = "warning", EmitDefaultValue = false)]
-        public string Warning { get; set; }
+        [JsonExtensionData]
+        public IDictionary<string, object> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -210,8 +204,7 @@ namespace Pescheck.Client.Model
             sb.Append("  OrganisationName: ").Append(OrganisationName).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
-            sb.Append("  VerificationSent: ").Append(VerificationSent).Append("\n");
-            sb.Append("  Warning: ").Append(Warning).Append("\n");
+            sb.Append("  AdditionalProperties: ").Append(AdditionalProperties).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

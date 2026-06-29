@@ -3459,10 +3459,6 @@ components:
           type: string
           format: date-time
           readOnly: true
-        verification_sent:
-          type: boolean
-        warning:
-          type: string
       required:
         - created_at
         - events
@@ -3471,6 +3467,7 @@ components:
         - updated_at
         - url
         - verified
+      additionalProperties: true
   securitySchemes:
     cookieAuth:
       type: apiKey

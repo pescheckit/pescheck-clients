@@ -88,7 +88,7 @@ try
     WebhookResponse hook = webhooks.CreateWebhook2(
         new Webhook(
             name: $"E2E webhook {suffix}",
-            url: "https://example.com/e2e-hook",
+            url: $"https://example.com/e2e-hook-{suffix}",
             events: new List<Webhook.EventsEnum> { Webhook.EventsEnum.ScreeningStatusChanged }));
     webhooks.ListWebhooks2();
     // The webhook id is a Guid; the delete path param wants a string.

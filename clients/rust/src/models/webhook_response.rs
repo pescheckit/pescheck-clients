@@ -34,10 +34,6 @@ pub struct WebhookResponse {
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "updated_at")]
     pub updated_at: chrono::DateTime<chrono::FixedOffset>,
-    #[serde(rename = "verification_sent", skip_serializing_if = "Option::is_none")]
-    pub verification_sent: Option<bool>,
-    #[serde(rename = "warning", skip_serializing_if = "Option::is_none")]
-    pub warning: Option<String>,
 }
 
 impl WebhookResponse {
@@ -54,8 +50,6 @@ impl WebhookResponse {
             organisation_name: None,
             created_at,
             updated_at,
-            verification_sent: None,
-            warning: None,
         }
     }
 }

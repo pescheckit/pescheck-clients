@@ -119,7 +119,7 @@ async fn run(
         cfg,
         Webhook {
             name: format!("E2E webhook {suffix}"),
-            url: "https://example.com/e2e-hook".to_string(),
+            url: format!("https://example.com/e2e-hook-{}", suffix),
             events: vec![Events::ScreeningStatusChanged],
             active: None,
             division_id: None,

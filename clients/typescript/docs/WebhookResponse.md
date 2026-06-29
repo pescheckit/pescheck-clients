@@ -17,8 +17,6 @@ Name | Type
 `organisationName` | string
 `createdAt` | Date
 `updatedAt` | Date
-`verificationSent` | boolean
-`warning` | string
 
 ## Example
 
@@ -37,8 +35,6 @@ const example = {
   "organisationName": null,
   "createdAt": null,
   "updatedAt": null,
-  "verificationSent": null,
-  "warning": null,
 } satisfies WebhookResponse
 
 console.log(example)

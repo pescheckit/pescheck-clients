@@ -168,22 +168,4 @@ class WebhookResponseTest extends TestCase
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
-
-    /**
-     * Test attribute "verification_sent"
-     */
-    public function testPropertyVerificationSent()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
-     * Test attribute "warning"
-     */
-    public function testPropertyWarning()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
 }

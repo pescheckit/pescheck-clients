@@ -114,18 +114,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property verificationSent (base name: "verification_sent")', function() {
-      // uncomment below and update the code to test the property verificationSent
-      //var instance = new PescheckApi.WebhookResponse();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property warning (base name: "warning")', function() {
-      // uncomment below and update the code to test the property warning
-      //var instance = new PescheckApi.WebhookResponse();
-      //expect(instance).to.be();
-    });
-
   });
 
 }));

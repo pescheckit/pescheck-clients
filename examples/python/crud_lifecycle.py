@@ -103,7 +103,7 @@ def main():
         hook = webhooks.create_webhook2(
             Webhook(
                 name=f"E2E webhook {SUFFIX}",
-                url="https://example.com/e2e-hook",
+                url=f"https://example.com/e2e-hook-{SUFFIX}",
                 events=["screening.status_changed"],
             )
         )

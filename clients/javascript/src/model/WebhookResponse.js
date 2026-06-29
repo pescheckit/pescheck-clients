@@ -23,6 +23,7 @@ class WebhookResponse {
      * Constructs a new <code>WebhookResponse</code>.
      * Serializer for webhook responses
      * @alias module:model/WebhookResponse
+     * @extends Object
      * @param id {String} 
      * @param name {String} 
      * @param url {String} 
@@ -62,6 +63,9 @@ class WebhookResponse {
         if (data) {
             obj = obj || new WebhookResponse();
 
+            ApiClient.constructFromObject(data, obj, 'Object');
+            
+
             if (data.hasOwnProperty('id')) {
                 obj['id'] = ApiClient.convertToType(data['id'], 'String');
             }
@@ -91,12 +95,6 @@ class WebhookResponse {
             }
             if (data.hasOwnProperty('updated_at')) {
                 obj['updated_at'] = ApiClient.convertToType(data['updated_at'], 'Date');
-            }
-            if (data.hasOwnProperty('verification_sent')) {
-                obj['verification_sent'] = ApiClient.convertToType(data['verification_sent'], 'Boolean');
-            }
-            if (data.hasOwnProperty('warning')) {
-                obj['warning'] = ApiClient.convertToType(data['warning'], 'String');
             }
         }
         return obj;
@@ -133,10 +131,6 @@ class WebhookResponse {
         // ensure the json data is a string
         if (data['organisation_name'] && !(typeof data['organisation_name'] === 'string' || data['organisation_name'] instanceof String)) {
             throw new Error("Expected the field `organisation_name` to be a primitive type in the JSON string but got " + data['organisation_name']);
-        }
-        // ensure the json data is a string
-        if (data['warning'] && !(typeof data['warning'] === 'string' || data['warning'] instanceof String)) {
-            throw new Error("Expected the field `warning` to be a primitive type in the JSON string but got " + data['warning']);
         }
 
         return true;
@@ -196,16 +190,6 @@ WebhookResponse.prototype['created_at'] = undefined;
  * @member {Date} updated_at
  */
 WebhookResponse.prototype['updated_at'] = undefined;
-
-/**
- * @member {Boolean} verification_sent
- */
-WebhookResponse.prototype['verification_sent'] = undefined;
-
-/**
- * @member {String} warning
- */
-WebhookResponse.prototype['warning'] = undefined;
 
 
 

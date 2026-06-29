@@ -3985,6 +3985,7 @@ components:
       - url
       type: object
     WebhookResponse:
+      additionalProperties: true
       description: Serializer for webhook responses
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3997,8 +3998,6 @@ components:
         organisation_name: organisation_name
         created_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
-        verification_sent: true
-        warning: warning
       properties:
         id:
           format: uuid
@@ -4032,10 +4031,6 @@ components:
         updated_at:
           format: date-time
           readOnly: true
-          type: string
-        verification_sent:
-          type: boolean
-        warning:
           type: string
       required:
       - created_at

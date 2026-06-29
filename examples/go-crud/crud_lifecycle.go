@@ -135,7 +135,7 @@ func run() (err error) {
 	// --- webhook: create -> list -> delete ---
 	webhookBody := pescheck.NewWebhook(
 		fmt.Sprintf("E2E webhook %s", suffix),
-		"https://example.com/e2e-hook",
+		fmt.Sprintf("https://example.com/e2e-hook-%s", suffix),
 		[]string{"screening.status_changed"},
 	)
 	hook, _, err := client.WebhooksAPI.CreateWebhook2(ctx).Webhook(*webhookBody).Execute()

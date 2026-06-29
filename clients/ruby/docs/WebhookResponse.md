@@ -14,8 +14,6 @@
 | **organisation_name** | **String** |  | [optional][readonly] |
 | **created_at** | **Time** |  | [readonly] |
 | **updated_at** | **Time** |  | [readonly] |
-| **verification_sent** | **Boolean** |  | [optional] |
-| **warning** | **String** |  | [optional] |
 
 ## Example
 
@@ -32,9 +30,7 @@ instance = Pescheck::WebhookResponse.new(
   token: null,
   organisation_name: null,
   created_at: null,
-  updated_at: null,
-  verification_sent: null,
-  warning: null
+  updated_at: null
 )
 ```
 

@@ -24,6 +24,8 @@
 
 #include "PescheckApi/AnyType.h"
 #include <cpprest/details/basic_types.h>
+#include <map>
+#include <cpprest/json.h>
 
 namespace org {
 namespace openapitools {
@@ -108,16 +110,21 @@ public:
     void unsetUpdated_at();
     void setUpdatedAt(const utility::datetime& value);
 
-    bool isVerificationSent() const;
-    bool verificationSentIsSet() const;
-    void unsetVerification_sent();
-    void setVerificationSent(bool value);
 
-    utility::string_t getWarning() const;
-    bool warningIsSet() const;
-    void unsetWarning();
-    void setWarning(const utility::string_t& value);
-
+    /// <summary>
+    /// Get additional properties (properties not defined in the schema)
+    /// </summary>
+    std::map<utility::string_t, web::json::value> getAdditionalProperties() const;
+    bool additionalPropertiesIsSet() const;
+    void unsetAdditionalProperties();
+    /// <summary>
+    /// Set additional properties
+    /// </summary>
+    void setAdditionalProperties(const std::map<utility::string_t, web::json::value>& value);
+    /// <summary>
+    /// Add a single additional property
+    /// </summary>
+    void addAdditionalProperty(const utility::string_t& key, const web::json::value& value);
 
 protected:
     utility::string_t m_Id;
@@ -148,12 +155,8 @@ protected:
     utility::datetime m_Updated_at;
     bool m_Updated_atIsSet;
 
-    bool m_Verification_sent;
-    bool m_Verification_sentIsSet;
-
-    utility::string_t m_Warning;
-    bool m_WarningIsSet;
-
+    std::map<utility::string_t, web::json::value> m_AdditionalProperties;
+    bool m_AdditionalPropertiesIsSet;
 };
 
 

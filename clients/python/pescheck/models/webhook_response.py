@@ -40,9 +40,8 @@ class WebhookResponse(BaseModel):
     organisation_name: Optional[StrictStr] = None
     created_at: datetime
     updated_at: datetime
-    verification_sent: Optional[StrictBool] = None
-    warning: Optional[StrictStr] = None
-    __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at", "verification_sent", "warning"]
+    additional_properties: Dict[str, Any] = {}
+    __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,6 +80,7 @@ class WebhookResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * Fields in `self.additional_properties` are added to the output dict.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -90,6 +90,7 @@ class WebhookResponse(BaseModel):
             "organisation_name",
             "created_at",
             "updated_at",
+            "additional_properties",
         ])
 
         _dict = self.model_dump(
@@ -97,6 +98,11 @@ class WebhookResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # puts key-value pairs in additional_properties in the top level
+        if self.additional_properties is not None:
+            for _key, _value in self.additional_properties.items():
+                _dict[_key] = _value
+
         # set to None if events (nullable) is None
         # and model_fields_set contains the field
         if self.events is None and "events" in self.model_fields_set:
@@ -128,10 +134,13 @@ class WebhookResponse(BaseModel):
             "token": obj.get("token"),
             "organisation_name": obj.get("organisation_name"),
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at"),
-            "verification_sent": obj.get("verification_sent"),
-            "warning": obj.get("warning")
+            "updated_at": obj.get("updated_at")
         })
+        # store additional fields in additional_properties
+        for _key in obj.keys():
+            if _key not in cls.__properties:
+                _obj.additional_properties[_key] = obj.get(_key)
+
         return _obj
 
 

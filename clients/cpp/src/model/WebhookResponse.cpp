@@ -36,10 +36,7 @@ WebhookResponse::WebhookResponse()
     m_Created_atIsSet = false;
     m_Updated_at = utility::datetime();
     m_Updated_atIsSet = false;
-    m_Verification_sent = false;
-    m_Verification_sentIsSet = false;
-    m_Warning = utility::conversions::to_string_t("");
-    m_WarningIsSet = false;
+    m_AdditionalPropertiesIsSet = false;
 }
 
 WebhookResponse::~WebhookResponse()
@@ -104,15 +101,13 @@ web::json::value WebhookResponse::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("updated_at"))] = ModelBase::toJson(m_Updated_at);
     }
-    if(m_Verification_sentIsSet)
+    // Serialize additional properties
+    if(m_AdditionalPropertiesIsSet)
     {
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("verification_sent"))] = ModelBase::toJson(m_Verification_sent);
-    }
-    if(m_WarningIsSet)
-    {
-        
-        val[utility::conversions::to_string_t(_XPLATSTR("warning"))] = ModelBase::toJson(m_Warning);
+        for(const auto& item : m_AdditionalProperties)
+        {
+            val[item.first] = item.second;
+        }
     }
 
     return val;
@@ -231,26 +226,25 @@ bool WebhookResponse::fromJson(const web::json::value& val)
             
         }
     }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))))
+    // Capture additional properties (keys not defined in the schema)
+    if(val.is_object())
     {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("verification_sent")));
-        if(!fieldValue.is_null())
+        for(const auto& item : val.as_object())
         {
-            bool refVal_setVerificationSent;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setVerificationSent);
-            setVerificationSent(refVal_setVerificationSent);
-            
-        }
-    }
-    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("warning"))))
-    {
-        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("warning")));
-        if(!fieldValue.is_null())
-        {
-            utility::string_t refVal_setWarning;
-            ok &= ModelBase::fromJson(fieldValue, refVal_setWarning);
-            setWarning(refVal_setWarning);
-            
+            // Skip known properties
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("id"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("name"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("url"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("events"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("active"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("verified"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("token"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("organisation_name"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("created_at"))) continue;
+            if(item.first == utility::conversions::to_string_t(_XPLATSTR("updated_at"))) continue;
+            // This is an additional property
+            m_AdditionalProperties[item.first] = item.second;
+            m_AdditionalPropertiesIsSet = true;
         }
     }
     return ok;
@@ -302,14 +296,6 @@ void WebhookResponse::toMultipart(std::shared_ptr<MultipartFormData> multipart, 
     if(m_Updated_atIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("updated_at")), m_Updated_at));
-    }
-    if(m_Verification_sentIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("verification_sent")), m_Verification_sent));
-    }
-    if(m_WarningIsSet)
-    {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("warning")), m_Warning));
     }
 }
 
@@ -381,18 +367,6 @@ bool WebhookResponse::fromMultiPart(std::shared_ptr<MultipartFormData> multipart
         utility::datetime refVal_setUpdatedAt;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("updated_at"))), refVal_setUpdatedAt );
         setUpdatedAt(refVal_setUpdatedAt);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))))
-    {
-        bool refVal_setVerificationSent;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))), refVal_setVerificationSent );
-        setVerificationSent(refVal_setVerificationSent);
-    }
-    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("warning"))))
-    {
-        utility::string_t refVal_setWarning;
-        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("warning"))), refVal_setWarning );
-        setWarning(refVal_setWarning);
     }
     return ok;
 }
@@ -604,48 +578,35 @@ void WebhookResponse::unsetUpdated_at()
 {
     m_Updated_atIsSet = false;
 }
-bool WebhookResponse::isVerificationSent() const
-{
-    return m_Verification_sent;
-}
-
-void WebhookResponse::setVerificationSent(bool value)
-{
-    m_Verification_sent = value;
-    m_Verification_sentIsSet = true;
-}
-
-bool WebhookResponse::verificationSentIsSet() const
-{
-    return m_Verification_sentIsSet;
-}
-
-void WebhookResponse::unsetVerification_sent()
-{
-    m_Verification_sentIsSet = false;
-}
-utility::string_t WebhookResponse::getWarning() const
-{
-    return m_Warning;
-}
 
 
-void WebhookResponse::setWarning(const utility::string_t& value)
+std::map<utility::string_t, web::json::value> WebhookResponse::getAdditionalProperties() const
 {
-    m_Warning = value;
-    m_WarningIsSet = true;
+    return m_AdditionalProperties;
 }
 
-bool WebhookResponse::warningIsSet() const
+void WebhookResponse::setAdditionalProperties(const std::map<utility::string_t, web::json::value>& value)
 {
-    return m_WarningIsSet;
+    m_AdditionalProperties = value;
+    m_AdditionalPropertiesIsSet = true;
 }
 
-void WebhookResponse::unsetWarning()
+void WebhookResponse::addAdditionalProperty(const utility::string_t& key, const web::json::value& value)
 {
-    m_WarningIsSet = false;
+    m_AdditionalProperties[key] = value;
+    m_AdditionalPropertiesIsSet = true;
 }
 
+bool WebhookResponse::additionalPropertiesIsSet() const
+{
+    return m_AdditionalPropertiesIsSet;
+}
+
+void WebhookResponse::unsetAdditionalProperties()
+{
+    m_AdditionalProperties.clear();
+    m_AdditionalPropertiesIsSet = false;
+}
 }
 }
 }

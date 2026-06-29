@@ -115,7 +115,7 @@ public class CrudLifecycle {
       WebhookResponse hook = webhooks.createWebhook2(
           new Webhook()
               .name("E2E webhook " + SUFFIX)
-              .url(URI.create("https://example.com/e2e-hook"))
+              .url(URI.create("https://example.com/e2e-hook-" + SUFFIX))
               .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))),
           null, null);
       webhooks.listWebhooks2();

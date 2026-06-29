@@ -121,20 +121,4 @@ public class WebhookResponseTest {
         // TODO: test updatedAt
     }
 
-    /**
-     * Test the property 'verificationSent'
-     */
-    @Test
-    public void verificationSentTest() {
-        // TODO: test verificationSent
-    }
-
-    /**
-     * Test the property 'warning'
-     */
-    @Test
-    public void warningTest() {
-        // TODO: test warning
-    }
-
 }

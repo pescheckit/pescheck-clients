@@ -143,23 +143,5 @@ namespace Pescheck.Client.Test.Model
         {
             // TODO unit test for the property 'UpdatedAt'
         }
-
-        /// <summary>
-        /// Test the property 'VerificationSent'
-        /// </summary>
-        [Fact]
-        public void VerificationSentTest()
-        {
-            // TODO unit test for the property 'VerificationSent'
-        }
-
-        /// <summary>
-        /// Test the property 'Warning'
-        /// </summary>
-        [Fact]
-        public void WarningTest()
-        {
-            // TODO unit test for the property 'Warning'
-        }
     }
 }

@@ -14,7 +14,5 @@ Name | Type | Description | Notes
 **organisation_name** | **string** |  | [optional] [readonly]
 **created_at** | **\DateTime** |  | [readonly]
 **updated_at** | **\DateTime** |  | [readonly]
-**verification_sent** | **bool** |  | [optional]
-**warning** | **string** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

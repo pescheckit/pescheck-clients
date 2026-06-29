@@ -81,7 +81,7 @@ async function main() {
     // --- webhook: create -> list -> delete ---
     const hook = await webhooks.createWebhook2({
       name: `E2E webhook ${SUFFIX}`,
-      url: 'https://example.com/e2e-hook',
+      url: `https://example.com/e2e-hook-${SUFFIX}`,
       events: ['screening.status_changed'],
     });
     await webhooks.listWebhooks2();

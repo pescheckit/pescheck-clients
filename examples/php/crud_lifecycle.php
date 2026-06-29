@@ -98,7 +98,7 @@ try {
     // --- webhook: create -> list -> delete ---
     $hook = $webhooks->createWebhook2(new Webhook([
         'name' => "E2E webhook {$suffix}",
-        'url' => 'https://example.com/e2e-hook',
+        'url' => "https://example.com/e2e-hook-{$suffix}",
         'events' => ['screening.status_changed'],
     ]));
     $webhooks->listWebhooks2();

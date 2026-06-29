@@ -14,8 +14,6 @@ Name | Type | Description | Notes
 **organisation_name** | Option<**String**> |  | [optional][readonly]
 **created_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 **updated_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
-**verification_sent** | Option<**bool**> |  | [optional]
-**warning** | Option<**String**> |  | [optional]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

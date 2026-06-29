@@ -157,24 +157,19 @@ for (const name of reqBodyNames) {
   readOnlyRequiredStripped += before - schema.required.length;
 }
 
-// 5e. Add response fields the API actually returns but the spec omits. Strict
-// clients (Go, Java) reject unknown JSON fields, so an undocumented field breaks
-// deserialization. The webhook create/retrieve response includes these.
-const ADD_PROPERTIES = {
-  WebhookResponse: {
-    verification_sent: { type: "boolean" },
-    warning: { type: "string" },
-  },
-};
-let addedProps = 0;
-for (const [name, props] of Object.entries(ADD_PROPERTIES)) {
+// 5e. Allow extra properties on response schemas that the API returns with
+// fields the spec doesn't document. The webhook endpoints are inconsistent —
+// create returns token/organisation_name/verification_sent/warning, while list
+// returns organisation/organisation_id/last_triggered. Strict clients (Go, Java)
+// reject unknown fields, so enumerating them is whack-a-mole; instead mark these
+// schemas additionalProperties:true so undocumented fields are tolerated.
+const TOLERANT_SCHEMAS = ["WebhookResponse"];
+let tolerated = 0;
+for (const name of TOLERANT_SCHEMAS) {
   const schema = doc.components?.schemas?.[name];
-  if (!schema?.properties) continue;
-  for (const [k, v] of Object.entries(props)) {
-    if (!schema.properties[k]) {
-      schema.properties[k] = v;
-      addedProps++;
-    }
+  if (schema && schema.additionalProperties === undefined) {
+    schema.additionalProperties = true;
+    tolerated++;
   }
 }
 
@@ -199,4 +194,4 @@ console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length
 console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);
 console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);
 console.log(`  relaxed required: ${relaxedRequired} field(s); readOnly-required stripped: ${readOnlyRequiredStripped}`);
-console.log(`  added response props: ${addedProps}`);
+console.log(`  tolerant (additionalProperties) schemas: ${tolerated}`);
