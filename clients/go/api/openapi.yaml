@@ -10,20 +10,10 @@ externalDocs:
   description: Find out more about Pescheck
   url: https://pescheck.io
 servers:
-- description: Current environment
-  url: "{baseUrl}"
-  variables:
-    baseUrl:
-      default: https://api.pescheck.io
-      description: API base URL
-- description: Test server
-  url: https://dash-test-api.pescheck.me
-- description: Production server
+- description: Production
   url: https://api.pescheck.io
-- description: Staging server
-  url: https://staging-api.pescheck.io
-- description: Local development server
-  url: http://localhost
+- description: Staging
+  url: https://api-staging.pescheck.io
 security:
 - oauth2:
   - read:api

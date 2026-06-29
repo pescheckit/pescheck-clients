@@ -3476,20 +3476,10 @@ components:
             create:api: create groups
             update:api: update groups
 servers:
-  - url: '{baseUrl}'
-    description: Current environment
-    variables:
-      baseUrl:
-        default: https://api.pescheck.io
-        description: API base URL
-  - url: https://dash-test-api.pescheck.me
-    description: Test server
   - url: https://api.pescheck.io
-    description: Production server
-  - url: https://staging-api.pescheck.io
-    description: Staging server
-  - url: http://localhost
-    description: Local development server
+    description: Production
+  - url: https://api-staging.pescheck.io
+    description: Staging
 externalDocs:
   description: Find out more about Pescheck
   url: https://pescheck.io

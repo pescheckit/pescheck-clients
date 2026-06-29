@@ -277,30 +277,12 @@ module Pescheck
     def server_settings
       [
         {
-          url: "{baseUrl}",
-          description: "Current environment",
-          variables: {
-            baseUrl: {
-                description: "API base URL",
-                default_value: "https://api.pescheck.io",
-              }
-            }
-        },
-        {
-          url: "https://dash-test-api.pescheck.me",
-          description: "Test server",
-        },
-        {
           url: "https://api.pescheck.io",
-          description: "Production server",
+          description: "Production",
         },
         {
-          url: "https://staging-api.pescheck.io",
-          description: "Staging server",
-        },
-        {
-          url: "http://localhost",
-          description: "Local development server",
+          url: "https://api-staging.pescheck.io",
+          description: "Staging",
         }
       ]
     end

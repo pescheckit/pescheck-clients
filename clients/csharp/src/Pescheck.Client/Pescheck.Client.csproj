@@ -12,7 +12,7 @@
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>Pescheck.Client</RootNamespace>
-    <Version>0.0.5</Version>
+    <Version>0.0.6</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Pescheck.Client.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/pescheckit/pescheck-clients.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

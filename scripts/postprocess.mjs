@@ -143,6 +143,35 @@ try {
   /* not generated */
 }
 
+// Strip em dashes from all Markdown docs (per request — no "—" in docs). Replace
+// with a plain hyphen. Sweeps generated client docs, examples, and root *.md.
+let mdFixed = 0;
+function stripEmDashes(dir, recurse) {
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return;
+  }
+  for (const e of entries) {
+    if (e.name === "node_modules" || e.name === ".git" || e.name === "vendor") continue;
+    const full = join(dir, e.name);
+    if (e.isDirectory()) {
+      if (recurse) stripEmDashes(full, true);
+    } else if (e.name.endsWith(".md")) {
+      const before = readFileSync(full, "utf8");
+      const after = before.replace(/—/g, "-");
+      if (after !== before) {
+        writeFileSync(full, after);
+        mdFixed++;
+      }
+    }
+  }
+}
+stripEmDashes(resolve(root, "clients"), true);
+stripEmDashes(resolve(root, "examples"), true);
+stripEmDashes(root, false); // root-level *.md (README, etc.)
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
     `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +

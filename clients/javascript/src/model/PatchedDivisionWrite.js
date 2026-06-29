@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The PatchedDivisionWrite model module.
  * @module model/PatchedDivisionWrite
- * @version 0.0.5
+ * @version 0.0.6
  */
 class PatchedDivisionWrite {
     /**

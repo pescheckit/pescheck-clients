@@ -8,5 +8,5 @@ gitUserId: pescheckit
 gitRepoId: pescheck-clients/clients/go
 additionalProperties:
   packageName: pescheck
-  packageVersion: 0.0.5
+  packageVersion: 0.0.6
   withGoMod: "true"

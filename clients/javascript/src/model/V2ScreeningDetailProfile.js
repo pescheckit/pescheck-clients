@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2ScreeningDetailProfile model module.
  * @module model/V2ScreeningDetailProfile
- * @version 0.0.5
+ * @version 0.0.6
  */
 class V2ScreeningDetailProfile {
     /**

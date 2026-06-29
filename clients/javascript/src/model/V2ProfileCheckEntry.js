@@ -17,7 +17,7 @@ import V2Money from './V2Money';
 /**
  * The V2ProfileCheckEntry model module.
  * @module model/V2ProfileCheckEntry
- * @version 0.0.5
+ * @version 0.0.6
  */
 class V2ProfileCheckEntry {
     /**

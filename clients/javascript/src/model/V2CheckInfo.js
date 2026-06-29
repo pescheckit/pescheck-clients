@@ -18,7 +18,7 @@ import V2Money from './V2Money';
 /**
  * The V2CheckInfo model module.
  * @module model/V2CheckInfo
- * @version 0.0.5
+ * @version 0.0.6
  */
 class V2CheckInfo {
     /**

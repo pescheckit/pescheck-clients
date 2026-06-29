@@ -21,7 +21,7 @@ import TokenRefresh from '../model/TokenRefresh';
 /**
 * Authentication service.
 * @module api/AuthenticationApi
-* @version 0.0.5
+* @version 0.0.6
 */
 export default class AuthenticationApi {
 

@@ -95,34 +95,16 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/0.0.5/go",
+		UserAgent:        "OpenAPI-Generator/0.0.6/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "{baseUrl}",
-				Description: "Current environment",
-				Variables: map[string]ServerVariable{
-					"baseUrl": ServerVariable{
-						Description: "API base URL",
-						DefaultValue: "https://api.pescheck.io",
-					},
-				},
-			},
-			{
-				URL: "https://dash-test-api.pescheck.me",
-				Description: "Test server",
-			},
-			{
 				URL: "https://api.pescheck.io",
-				Description: "Production server",
+				Description: "Production",
 			},
 			{
-				URL: "https://staging-api.pescheck.io",
-				Description: "Staging server",
-			},
-			{
-				URL: "http://localhost",
-				Description: "Local development server",
+				URL: "https://api-staging.pescheck.io",
+				Description: "Staging",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{

@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The V2CheckField model module.
  * @module model/V2CheckField
- * @version 0.0.5
+ * @version 0.0.6
  */
 class V2CheckField {
     /**

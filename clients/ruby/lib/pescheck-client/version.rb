@@ -11,5 +11,5 @@ Generator version: 7.23.0
 =end
 
 module Pescheck
-  VERSION = '0.0.5'
+  VERSION = '0.0.6'
 end

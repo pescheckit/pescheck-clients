@@ -33,7 +33,7 @@ namespace Pescheck.Client.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "0.0.5";
+        public const string Version = "0.0.6";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -117,7 +117,7 @@ namespace Pescheck.Client.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/0.0.5/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/0.0.6/csharp");
             BasePath = "https://api.pescheck.io";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -126,42 +126,14 @@ namespace Pescheck.Client.Client
             {
                 {
                     new Dictionary<string, object> {
-                        {"url", "{baseUrl}"},
-                        {"description", "Current environment"},
-                        {
-                            "variables", new Dictionary<string, object> {
-                                {
-                                    "baseUrl", new Dictionary<string, object> {
-                                        {"description", "API base URL"},
-                                        {"default_value", "https://api.pescheck.io"},
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    new Dictionary<string, object> {
-                        {"url", "https://dash-test-api.pescheck.me"},
-                        {"description", "Test server"},
-                    }
-                },
-                {
-                    new Dictionary<string, object> {
                         {"url", "https://api.pescheck.io"},
-                        {"description", "Production server"},
+                        {"description", "Production"},
                     }
                 },
                 {
                     new Dictionary<string, object> {
-                        {"url", "https://staging-api.pescheck.io"},
-                        {"description", "Staging server"},
-                    }
-                },
-                {
-                    new Dictionary<string, object> {
-                        {"url", "http://localhost"},
-                        {"description", "Local development server"},
+                        {"url", "https://api-staging.pescheck.io"},
+                        {"description", "Staging"},
                     }
                 }
             };
@@ -574,7 +546,7 @@ namespace Pescheck.Client.Client
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
             report += "    Version of the API: 2.0.0\n";
-            report += "    SDK Package Version: 0.0.5\n";
+            report += "    SDK Package Version: 0.0.6\n";
 
             return report;
         }

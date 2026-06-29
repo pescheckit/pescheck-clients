@@ -69,35 +69,13 @@ public class ApiClient {
     protected String basePath = "https://api.pescheck.io";
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
-      "{baseUrl}",
-      "Current environment",
-      new HashMap<String, ServerVariable>() {{
-        put("baseUrl", new ServerVariable(
-          "API base URL",
-          "https://api.pescheck.io",
-          new HashSet<String>(
-          )
-        ));
-      }}
-    ),
-    new ServerConfiguration(
-      "https://dash-test-api.pescheck.me",
-      "Test server",
-      new HashMap<String, ServerVariable>()
-    ),
-    new ServerConfiguration(
       "https://api.pescheck.io",
-      "Production server",
+      "Production",
       new HashMap<String, ServerVariable>()
     ),
     new ServerConfiguration(
-      "https://staging-api.pescheck.io",
-      "Staging server",
-      new HashMap<String, ServerVariable>()
-    ),
-    new ServerConfiguration(
-      "http://localhost",
-      "Local development server",
+      "https://api-staging.pescheck.io",
+      "Staging",
       new HashMap<String, ServerVariable>()
     )
   ));
@@ -246,7 +224,7 @@ public class ApiClient {
         json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("OpenAPI-Generator/0.0.5/java");
+        setUserAgent("OpenAPI-Generator/0.0.6/java");
 
         authentications = new HashMap<String, Authentication>();
     }

@@ -11,16 +11,16 @@ command whenever the API changes.
 
 | Language   | Path                  | Generator         | Package                          | Registry        |
 |------------|-----------------------|-------------------|----------------------------------|-----------------|
-| Python     | `clients/python`      | `python`          | `pescheck`                       | PyPI            |
-| JavaScript | `clients/javascript`  | `javascript`      | `@pescheckit/api-client-js`            | npm             |
-| TypeScript | `clients/typescript`  | `typescript-fetch`| `@pescheckit/api-client`           | npm             |
-| Java       | `clients/java`        | `java`            | `io.pescheck:pescheck-api-client`| Maven / GH Pkgs |
+| Python     | `clients/python`      | `python`          | `pescheck-client`                | PyPI            |
+| JavaScript | `clients/javascript`  | `javascript`      | `@pescheckit/pescheck-client-js`            | npm             |
+| TypeScript | `clients/typescript`  | `typescript-fetch`| `@pescheckit/pescheck-client`           | npm             |
+| Java       | `clients/java`        | `java`            | `io.pescheck:pescheck-client`| Maven / GH Pkgs |
 | C#         | `clients/csharp`      | `csharp`          | `Pescheck.Client`                | NuGet           |
 | C++        | `clients/cpp`         | `cpp-restsdk`     | `PescheckApi`                    | GitHub Release  |
 | Go         | `clients/go`          | `go`              | `github.com/pescheckit/pescheck-clients/clients/go` | Go modules (git tag) |
-| PHP        | `clients/php`         | `php`             | `pescheckit/pescheck-clients`    | Packagist       |
-| Rust       | `clients/rust`        | `rust`            | `pescheck`                       | crates.io       |
-| Ruby       | `clients/ruby`        | `ruby`            | `pescheck`                       | RubyGems        |
+| PHP        | `clients/php`         | `php`             | `pescheckit/pescheck-client`     | Packagist       |
+| Rust       | `clients/rust`        | `rust`            | `pescheck-client`                | crates.io       |
+| Ruby       | `clients/ruby`        | `ruby`            | `pescheck-client`                | RubyGems        |
 
 Each client directory has its own generated `README.md` with full install and per-endpoint usage.
 
@@ -42,7 +42,7 @@ or staging instance). Per-language settings live in `config/<lang>.yaml`.
 
 The API supports **OAuth2 client-credentials** (recommended for service clients) and
 **JWT bearer** (for user-scoped access). Generated clients accept a bearer token but do not run
-the OAuth2 token exchange themselves — obtain a token first, then set it on the client.
+the OAuth2 token exchange themselves - obtain a token first, then set it on the client.
 
 ### OAuth2 client credentials
 
@@ -63,7 +63,7 @@ from pescheck.api.checks_api import ChecksApi
 cfg = pescheck.Configuration(host="https://api.pescheck.io")
 cfg.access_token = "YOUR_ACCESS_TOKEN"   # from the token endpoint above
 with pescheck.ApiClient(cfg) as client:
-    print(ChecksApi(client).checks_list())
+    print(ChecksApi(client).v2_checks_list())
 ```
 
 ### JWT bearer (user-scoped)
@@ -79,13 +79,11 @@ Set the `access` JWT as the client's bearer token the same way.
 
 ## Servers
 
-`https://api.pescheck.io` (production), `https://staging-api.pescheck.io` (staging),
-`https://dash-test-api.pescheck.me` (test). Point a client at a non-production server by setting
-its base URL / host in the client configuration.
+`https://api.pescheck.io` (production) and `https://api-staging.pescheck.io` (staging).
+Point a client at staging by setting its base URL / host in the client configuration.
 
 ## CI
 
-- `.github/workflows/generate.yml` — scheduled + manual regeneration; opens a PR on changes.
-- `.github/workflows/publish.yml` — on a release tag (`vX.Y.Z`), publishes each client to its
-  registry. See the workflow header for the required secrets and per-language notes (Maven Central
-  signing, Go tag, PHP/Packagist mirror).
+- `.github/workflows/generate.yml` - scheduled + manual regeneration; opens a PR on changes.
+- `.github/workflows/publish.yml` - on a release tag (`vX.Y.Z`), publishes each client to its
+  registry. See the workflow header for the required secrets and per-language notes (Maven Central signing, Go tag).

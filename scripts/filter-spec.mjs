@@ -177,6 +177,14 @@ for (const name of TOLERANT_SCHEMAS) {
 // clean one-paragraph summary. Generators bake info.description into each
 // package's description/summary (e.g. it's what RubyGems shows), so the raw blurb
 // renders badly. Keep it concise plain text that reads well on every registry.
+// 5g. Public servers only: Production + Staging. The upstream spec also lists a
+// {baseUrl} template and an internal test server (dash-test-api) — not for public
+// SDK docs. Use the real, resolvable staging host.
+doc.servers = [
+  { url: "https://api.pescheck.io", description: "Production" },
+  { url: "https://api-staging.pescheck.io", description: "Staging" },
+];
+
 if (doc.info) {
   doc.info.description =
     "Official client library for the Pescheck API (v2), generated from the " +

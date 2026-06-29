@@ -571,7 +571,7 @@ conf = pescheck.Configuration(
                "OS: {env}\n"\
                "Python Version: {pyversion}\n"\
                "Version of the API: 2.0.0\n"\
-               "SDK Package Version: 0.0.5".\
+               "SDK Package Version: 0.0.6".\
                format(env=sys.platform, pyversion=sys.version)
 
     def get_host_settings(self) -> List[HostSetting]:
@@ -581,30 +581,12 @@ conf = pescheck.Configuration(
         """
         return [
             {
-                'url': "{baseUrl}",
-                'description': "Current environment",
-                'variables': {
-                    'baseUrl': {
-                        'description': "API base URL",
-                        'default_value': "https://api.pescheck.io",
-                        }
-                    }
-            },
-            {
-                'url': "https://dash-test-api.pescheck.me",
-                'description': "Test server",
-            },
-            {
                 'url': "https://api.pescheck.io",
-                'description': "Production server",
+                'description': "Production",
             },
             {
-                'url': "https://staging-api.pescheck.io",
-                'description': "Staging server",
-            },
-            {
-                'url': "http://localhost",
-                'description': "Local development server",
+                'url': "https://api-staging.pescheck.io",
+                'description': "Staging",
             }
         ]
 

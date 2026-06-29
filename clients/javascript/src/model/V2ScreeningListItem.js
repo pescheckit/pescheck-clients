@@ -19,7 +19,7 @@ import V2ScreeningDetailProfile from './V2ScreeningDetailProfile';
 /**
  * The V2ScreeningListItem model module.
  * @module model/V2ScreeningListItem
- * @version 0.0.5
+ * @version 0.0.6
  */
 class V2ScreeningListItem {
     /**
