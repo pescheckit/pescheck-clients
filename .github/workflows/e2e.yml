@@ -11,7 +11,12 @@ on:
   workflow_call: # lets publish.yml run this as a gate before publishing
   push:
     branches: [main]
-    paths: ["clients/**", "examples/**", "scripts/**", ".github/workflows/e2e.yml"]
+    paths:
+      - "clients/**"
+      - "examples/**"
+      - "scripts/**"
+      - ".github/workflows/e2e.yml"
+      - ".github/actions/**"
   schedule:
     - cron: "0 5 * * *"
 
