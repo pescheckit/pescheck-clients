@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -95,11 +94,4 @@ model_verify_webhook.go
 model_webhook.go
 model_webhook_response.go
 response.go
-test/api_authentication_test.go
-test/api_checks_test.go
-test/api_divisions_test.go
-test/api_o_auth_test.go
-test/api_profiles_test.go
-test/api_screenings_test.go
-test/api_webhooks_test.go
 utils.go
