@@ -59,7 +59,7 @@ func retryRead[T any](t *testing.T, name string, call func() (T, *http.Response,
 
 // ciDivisionName is fixed: the division endpoint has no delete, so we reuse a
 // single named division across runs instead of creating one each time.
-const ciDivisionName = "E2E CI division"
+const ciDivisionName = "E2E CI division go"
 
 // uniqueSuffix returns 8 hex chars. Profile and webhook names (and the webhook
 // URL) must be unique per run: the API soft-deletes and returns a 500 on a
@@ -197,7 +197,7 @@ func TestCRUDLifecycle(t *testing.T) {
 	// list screenings: the one we created must be present (disable pagination
 	// so a fresh screening isn't hidden on a later page).
 	screenings, _, err := retryRead(t, "screening list", func() (*pescheck.PaginatedV2ScreeningListItemList, *http.Response, error) {
-		return client.ScreeningsAPI.V2ScreeningsList(ctx).Paginate(false).Execute()
+		return client.ScreeningsAPI.V2ScreeningsList(ctx).Execute()
 	})
 	require.NoError(t, err, "screening list")
 	screeningResults := screenings.GetResults()

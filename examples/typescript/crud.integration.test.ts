@@ -40,7 +40,7 @@ const testEmail = process.env.PESCHECK_TEST_EMAIL || 'noreply@pescheck.nl';
 // a 500 on a duplicate name, so we suffix the names (and the webhook URL). The
 // division has no delete endpoint, so we reuse a fixed-named one instead.
 const SUFFIX = randomBytes(4).toString('hex');
-const DIVISION_NAME = 'E2E CI division';
+const DIVISION_NAME = 'E2E CI division ts';
 
 // 60s timeout per test — these are real network round-trips.
 const TIMEOUT = 60_000;

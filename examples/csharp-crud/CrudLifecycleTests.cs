@@ -25,7 +25,7 @@ namespace Pescheck.Client.IntegrationTests;
 // e2e workflow where the token is injected.
 public class CrudLifecycleTests
 {
-    private const string DivisionName = "E2E CI division";
+    private const string DivisionName = "E2E CI division cs";
 
     // Staging intermittently returns a 5xx on otherwise-valid read/list calls.
     // Retry such a call a few times with a short backoff, but only on >= 500 so

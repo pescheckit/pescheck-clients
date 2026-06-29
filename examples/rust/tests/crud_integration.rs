@@ -31,7 +31,7 @@ use uuid::Uuid;
 
 // The division has no delete endpoint, so we reuse a fixed-named one instead of
 // creating a new one each run.
-const DIVISION_NAME: &str = "E2E CI division";
+const DIVISION_NAME: &str = "E2E CI division rs";
 
 /// Retry an async API call up to 3 times with a 1s backoff when staging returns
 /// an intermittent HTTP 5xx. Only server errors (status >= 500) are retried; 4xx

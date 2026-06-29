@@ -37,7 +37,7 @@ use Pescheck\Client\Model\PatchedDivisionWrite;
  */
 final class CrudIntegrationTest extends TestCase
 {
-    private const DIVISION_NAME = 'E2E CI division';
+    private const DIVISION_NAME = 'E2E CI division php';
 
     private ChecksApi $checks;
     private ProfilesApi $profiles;

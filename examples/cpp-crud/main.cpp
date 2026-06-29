@@ -149,7 +149,7 @@ int main() {
     }
 
     const std::string suffix = randomSuffix();
-    const std::string divisionName = "E2E CI division";
+    const std::string divisionName = "E2E CI division cpp";
 
     auto apiConfiguration = std::make_shared<ApiConfiguration>();
     apiConfiguration->setBaseUrl(s(baseUrl));
@@ -245,7 +245,7 @@ int main() {
                 boost::optional<utility::string_t>(),
                 boost::optional<int32_t>(),
                 boost::optional<int32_t>(),
-                boost::optional<bool>(false),
+                boost::optional<bool>(),
                 boost::optional<utility::string_t>()).get();
         });
         bool profileFound = false;
@@ -284,7 +284,7 @@ int main() {
             return screeningsApi.v2ScreeningsList(
                 boost::optional<int32_t>(),
                 boost::optional<int32_t>(),
-                boost::optional<bool>(false)).get();
+                boost::optional<bool>()).get();
         });
         check(!screeningList->getResults().empty(),
               "screening list is non-empty");

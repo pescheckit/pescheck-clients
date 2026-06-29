@@ -19,7 +19,7 @@ const PescheckApi = require('@pescheckit/pescheck-client-js');
 // a 500 on a duplicate name, so we suffix them (and the webhook URL). The division
 // has no delete endpoint, so we reuse a fixed-named one instead.
 const SUFFIX = crypto.randomBytes(4).toString('hex');
-const DIVISION_NAME = 'E2E CI division';
+const DIVISION_NAME = 'E2E CI division js';
 
 // Staging intermittently returns HTTP 5xx on read/list calls. Retry those a few
 // times with a short backoff; superagent surfaces the status as err.status. Only

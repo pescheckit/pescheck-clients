@@ -46,7 +46,7 @@ RSpec.describe 'Pescheck client CRUD lifecycle (live API)', order: :defined do
   # returns a 500 on a duplicate name, so we suffix names and the webhook URL.
   # The division has no delete endpoint, so we reuse a fixed-named one.
   SUFFIX = SecureRandom.hex(4)
-  DIVISION_NAME = 'E2E CI division'
+  DIVISION_NAME = 'E2E CI division rb'
 
   before(:all) do
     skip 'PESCHECK_ACCESS_TOKEN not set' if ENV['PESCHECK_ACCESS_TOKEN'].to_s.empty?

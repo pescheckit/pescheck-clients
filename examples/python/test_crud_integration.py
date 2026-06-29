@@ -37,7 +37,7 @@ from pescheck.models.patched_division_write import PatchedDivisionWrite
 
 # The division API has no delete endpoint, so we reuse a fixed-named division
 # instead of creating a fresh one on every run.
-DIVISION_NAME = "E2E CI division"
+DIVISION_NAME = "E2E CI division py"
 
 
 @unittest.skipUnless(

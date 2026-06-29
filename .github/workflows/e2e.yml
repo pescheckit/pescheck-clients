@@ -23,6 +23,12 @@ on:
   schedule:
     - cron: "0 5 * * *"
 
+# Serialize e2e runs (and the publish gate) so two runs don't mutate the same
+# shared staging resources (e.g. the per-language CI divisions) concurrently.
+concurrency:
+  group: e2e-staging
+  cancel-in-progress: false
+
 defaults:
   run:
     shell: bash

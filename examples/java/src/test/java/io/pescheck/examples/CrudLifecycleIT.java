@@ -62,7 +62,7 @@ class CrudLifecycleIT {
   // a 500 on a duplicate name. The division has no delete endpoint, so we reuse a
   // fixed-named one instead of creating a new one each run.
   private static final String SUFFIX = UUID.randomUUID().toString().substring(0, 8);
-  private static final String DIVISION_NAME = "E2E CI division";
+  private static final String DIVISION_NAME = "E2E CI division java";
 
   private String baseUrl;
   private String testEmail;
