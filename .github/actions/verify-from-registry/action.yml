@@ -69,20 +69,32 @@ runs:
           esac
         }
 
+        # Other registries publish synchronously, so the version exists the moment
+        # we push -> poll a while and HARD FAIL if missing. Packagist is different:
+        # it CRAWLS the git tag asynchronously and is rate-limited by GitHub, so a
+        # new version can lag well beyond any reasonable CI wait. The tag is the
+        # source of truth, so for packagist we do a short check and treat a
+        # not-yet-crawled version as a WARNING, not a failure.
+        if [ "$ECO" = "packagist" ]; then ATTEMPTS=2; SLEEP=15; else ATTEMPTS=6; SLEEP=60; fi
+
         # Retry BOTH the exact-version install and the registry version-list check
         # (each absorbs propagation lag independently).
         ok=""; listed=""
-        for i in 1 2 3 4 5 6; do
+        for i in $(seq 1 "$ATTEMPTS"); do
           if install_exact; then ok=1; break; fi
           if version_listed; then listed=1; fi
-          echo "attempt $i/6: $PKG@$VER not installable yet (registry-listed=${listed:-no}), waiting 60s"
-          sleep 60
+          if [ "$i" -lt "$ATTEMPTS" ]; then
+            echo "attempt $i/$ATTEMPTS: $PKG@$VER not installable yet (registry-listed=${listed:-no}), waiting ${SLEEP}s"
+            sleep "$SLEEP"
+          fi
         done
 
         if [ -n "$ok" ]; then
           echo "OK: installed + used $PKG@$VER from $ECO"
         elif [ -n "$listed" ] || version_listed; then
           echo "::warning::$PKG@$VER IS published on $ECO but install mirrors are still propagating"
+        elif [ "$ECO" = "packagist" ]; then
+          echo "::warning::$PKG@$VER not crawled by Packagist yet (async crawl + GitHub rate-limit). The git tag is published; Packagist picks it up on its next successful crawl - not a release failure."
         else
           echo "::error::$PKG@$VER was NOT found on $ECO - the publish for this release did not land"
           exit 1
