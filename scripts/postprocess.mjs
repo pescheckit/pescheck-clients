@@ -143,10 +143,12 @@ try {
   /* not generated */
 }
 
-// Strip em dashes from all Markdown docs (per request — no "—" in docs). Replace
-// with a plain hyphen. Sweeps generated client docs, examples, and root *.md.
+// Strip em dashes from the GENERATED client docs only (clients/). Those are
+// regenerated every run, so enforcing a no-em-dash rule belongs here. Hand-written
+// docs (root README, examples/) are intentionally NOT touched - keep them clean
+// by hand rather than have the generator silently rewrite them.
 let mdFixed = 0;
-function stripEmDashes(dir, recurse) {
+function stripEmDashesInGeneratedDocs(dir) {
   let entries;
   try {
     entries = readdirSync(dir, { withFileTypes: true });
@@ -156,9 +158,8 @@ function stripEmDashes(dir, recurse) {
   for (const e of entries) {
     if (e.name === "node_modules" || e.name === ".git" || e.name === "vendor") continue;
     const full = join(dir, e.name);
-    if (e.isDirectory()) {
-      if (recurse) stripEmDashes(full, true);
-    } else if (e.name.endsWith(".md")) {
+    if (e.isDirectory()) stripEmDashesInGeneratedDocs(full);
+    else if (e.name.endsWith(".md")) {
       const before = readFileSync(full, "utf8");
       const after = before.replace(/—/g, "-");
       if (after !== before) {
@@ -168,9 +169,7 @@ function stripEmDashes(dir, recurse) {
     }
   }
 }
-stripEmDashes(resolve(root, "clients"), true);
-stripEmDashes(resolve(root, "examples"), true);
-stripEmDashes(root, false); // root-level *.md (README, etc.)
+stripEmDashesInGeneratedDocs(resolve(root, "clients"));
 
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
