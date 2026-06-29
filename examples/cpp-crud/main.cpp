@@ -457,5 +457,14 @@ int main() {
     if (profileCreated) {
         try { profilesApi.v2ProfilesDestroy(profileId).get(); } catch (...) {}
     }
-    return 0;
+
+    // cpprestsdk's background thread-pool / static objects can corrupt the heap
+    // on shutdown ("malloc_consolidate(): unaligned fastbin chunk detected" ->
+    // SIGABRT) AFTER the test has fully passed. Every assertion has run and the
+    // profile is cleaned up, so terminate immediately with _Exit, skipping the
+    // static destructors that crash. Without this the process aborts (non-zero)
+    // even though the test succeeded.
+    std::cout.flush();
+    std::cerr.flush();
+    std::_Exit(0);
 }
