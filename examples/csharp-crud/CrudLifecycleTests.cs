@@ -131,7 +131,7 @@ public class CrudLifecycleTests
                     checks: new List<V2ProfileUpdateCheck>
                     {
                         new V2ProfileUpdateCheck(
-                            checkType: putCheckTypeEnum, profileCheckId: existingCheck.Id),
+                            checkType: putCheckTypeEnum, profileCheckId: existingCheck.Id!.Value),
                     }));
             Assert.Equal($"E2E test profile {suffix} (PUT)", putProfile.Name);
             Assert.Equal("replaced by e2e", putProfile.Description);

@@ -3247,6 +3247,14 @@ components:
         is_system_managed:
           readOnly: true
           type: boolean
+      required:
+      - check_type
+      - config
+      - configured_price
+      - display_name
+      - id
+      - input_fields
+      - is_system_managed
       type: object
     V2ProfileCreate:
       example:

@@ -177,8 +177,8 @@ namespace Pescheck.Client.Model
         /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
         /// </summary>
         /// <value>* &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck</value>
-        [DataMember(Name = "check_type", EmitDefaultValue = false)]
-        public CheckTypeEnum? CheckType { get; set; }
+        [DataMember(Name = "check_type", IsRequired = true, EmitDefaultValue = true)]
+        public CheckTypeEnum CheckType { get; set; }
 
         /// <summary>
         /// Returns false as CheckType should not be serialized given that it's read-only.
@@ -199,7 +199,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = true)]
+        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
         public Guid? Id { get; private set; }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets DisplayName
         /// </summary>
-        [DataMember(Name = "display_name", EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = true)]
         public string DisplayName { get; private set; }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets ConfiguredPrice
         /// </summary>
-        [DataMember(Name = "configured_price", EmitDefaultValue = false)]
+        [DataMember(Name = "configured_price", IsRequired = true, EmitDefaultValue = true)]
         public V2Money ConfiguredPrice { get; private set; }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Config
         /// </summary>
-        [DataMember(Name = "config", EmitDefaultValue = false)]
+        [DataMember(Name = "config", IsRequired = true, EmitDefaultValue = true)]
         public Dictionary<string, Object> Config { get; private set; }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets InputFields
         /// </summary>
-        [DataMember(Name = "input_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "input_fields", IsRequired = true, EmitDefaultValue = true)]
         public List<Object> InputFields { get; private set; }
 
         /// <summary>
@@ -269,7 +269,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets IsSystemManaged
         /// </summary>
-        [DataMember(Name = "is_system_managed", EmitDefaultValue = true)]
+        [DataMember(Name = "is_system_managed", IsRequired = true, EmitDefaultValue = true)]
         public bool IsSystemManaged { get; private set; }
 
         /// <summary>

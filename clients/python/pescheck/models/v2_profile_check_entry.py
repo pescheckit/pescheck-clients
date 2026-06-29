@@ -29,21 +29,18 @@ class V2ProfileCheckEntry(BaseModel):
     """
     V2ProfileCheckEntry
     """ # noqa: E501
-    id: Optional[UUID] = None
-    check_type: Optional[StrictStr] = Field(default=None, description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
-    display_name: Optional[StrictStr] = None
-    configured_price: Optional[V2Money] = None
-    config: Optional[Dict[str, Any]] = None
-    input_fields: Optional[List[Dict[str, Any]]] = None
-    is_system_managed: Optional[StrictBool] = None
+    id: Optional[UUID]
+    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
+    display_name: StrictStr
+    configured_price: V2Money
+    config: Dict[str, Any]
+    input_fields: List[Dict[str, Any]]
+    is_system_managed: StrictBool
     __properties: ClassVar[List[str]] = ["id", "check_type", "display_name", "configured_price", "config", "input_fields", "is_system_managed"]
 
     @field_validator('check_type')
     def check_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value is None:
-            return value
-
         if value not in set(['addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'focumcheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
             raise ValueError("must be one of enum values ('addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'focumcheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
         return value

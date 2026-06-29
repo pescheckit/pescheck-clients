@@ -2801,7 +2801,14 @@ components:
         is_system_managed:
           type: boolean
           readOnly: true
-      required: []
+      required:
+        - check_type
+        - config
+        - configured_price
+        - display_name
+        - id
+        - input_fields
+        - is_system_managed
     V2ProfileCreate:
       type: object
       properties:

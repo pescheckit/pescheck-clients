@@ -13,33 +13,33 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ProfileCheckEntry {
-    #[serde(rename = "id", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub id: Option<Option<uuid::Uuid>>,
+    #[serde(rename = "id", deserialize_with = "Option::deserialize")]
+    pub id: Option<uuid::Uuid>,
     /// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-    #[serde(rename = "check_type", skip_serializing_if = "Option::is_none")]
-    pub check_type: Option<CheckType>,
-    #[serde(rename = "display_name", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
-    #[serde(rename = "configured_price", skip_serializing_if = "Option::is_none")]
-    pub configured_price: Option<Box<models::V2Money>>,
-    #[serde(rename = "config", skip_serializing_if = "Option::is_none")]
-    pub config: Option<std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "input_fields", skip_serializing_if = "Option::is_none")]
-    pub input_fields: Option<Vec<serde_json::Value>>,
-    #[serde(rename = "is_system_managed", skip_serializing_if = "Option::is_none")]
-    pub is_system_managed: Option<bool>,
+    #[serde(rename = "check_type")]
+    pub check_type: CheckType,
+    #[serde(rename = "display_name")]
+    pub display_name: String,
+    #[serde(rename = "configured_price")]
+    pub configured_price: Box<models::V2Money>,
+    #[serde(rename = "config")]
+    pub config: std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "input_fields")]
+    pub input_fields: Vec<serde_json::Value>,
+    #[serde(rename = "is_system_managed")]
+    pub is_system_managed: bool,
 }
 
 impl V2ProfileCheckEntry {
-    pub fn new() -> V2ProfileCheckEntry {
+    pub fn new(id: Option<uuid::Uuid>, check_type: CheckType, display_name: String, configured_price: models::V2Money, config: std::collections::HashMap<String, serde_json::Value>, input_fields: Vec<serde_json::Value>, is_system_managed: bool) -> V2ProfileCheckEntry {
         V2ProfileCheckEntry {
-            id: None,
-            check_type: None,
-            display_name: None,
-            configured_price: None,
-            config: None,
-            input_fields: None,
-            is_system_managed: None,
+            id,
+            check_type,
+            display_name,
+            configured_price: Box::new(configured_price),
+            config,
+            input_fields,
+            is_system_managed,
         }
     }
 }

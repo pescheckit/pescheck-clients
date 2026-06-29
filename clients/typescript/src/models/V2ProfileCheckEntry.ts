@@ -32,7 +32,7 @@ export interface V2ProfileCheckEntry {
      * @type {string}
      * @memberof V2ProfileCheckEntry
      */
-    readonly id?: string | null;
+    readonly id: string | null;
     /**
      * * `addresscheck` - addresscheck
      * * `adversemediacheck` - adversemediacheck
@@ -59,37 +59,37 @@ export interface V2ProfileCheckEntry {
      * @type {V2ProfileCheckEntryCheckTypeEnum}
      * @memberof V2ProfileCheckEntry
      */
-    readonly checkType?: V2ProfileCheckEntryCheckTypeEnum;
+    readonly checkType: V2ProfileCheckEntryCheckTypeEnum;
     /**
      * 
      * @type {string}
      * @memberof V2ProfileCheckEntry
      */
-    readonly displayName?: string;
+    readonly displayName: string;
     /**
      * 
      * @type {V2Money}
      * @memberof V2ProfileCheckEntry
      */
-    readonly configuredPrice?: V2Money;
+    readonly configuredPrice: V2Money;
     /**
      * 
      * @type {{ [key: string]: any; }}
      * @memberof V2ProfileCheckEntry
      */
-    readonly config?: { [key: string]: any; };
+    readonly config: { [key: string]: any; };
     /**
      * 
      * @type {Array<object>}
      * @memberof V2ProfileCheckEntry
      */
-    readonly inputFields?: Array<object>;
+    readonly inputFields: Array<object>;
     /**
      * 
      * @type {boolean}
      * @memberof V2ProfileCheckEntry
      */
-    readonly isSystemManaged?: boolean;
+    readonly isSystemManaged: boolean;
 }
 
 
@@ -127,6 +127,13 @@ export type V2ProfileCheckEntryCheckTypeEnum = typeof V2ProfileCheckEntryCheckTy
  * Check if a given object implements the V2ProfileCheckEntry interface.
  */
 export function instanceOfV2ProfileCheckEntry(value: any): value is V2ProfileCheckEntry {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if ((!('checkType' in value) && !('check_type' in value)) || (value['checkType'] === undefined && value['check_type'] === undefined)) return false;
+    if ((!('displayName' in value) && !('display_name' in value)) || (value['displayName'] === undefined && value['display_name'] === undefined)) return false;
+    if ((!('configuredPrice' in value) && !('configured_price' in value)) || (value['configuredPrice'] === undefined && value['configured_price'] === undefined)) return false;
+    if (!('config' in value) || value['config'] === undefined) return false;
+    if ((!('inputFields' in value) && !('input_fields' in value)) || (value['inputFields'] === undefined && value['input_fields'] === undefined)) return false;
+    if ((!('isSystemManaged' in value) && !('is_system_managed' in value)) || (value['isSystemManaged'] === undefined && value['is_system_managed'] === undefined)) return false;
     return true;
 }
 
@@ -140,13 +147,13 @@ export function V2ProfileCheckEntryFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'checkType': json['check_type'] == null ? undefined : json['check_type'],
-        'displayName': json['display_name'] == null ? undefined : json['display_name'],
-        'configuredPrice': json['configured_price'] == null ? undefined : V2MoneyFromJSON(json['configured_price']),
-        'config': json['config'] == null ? undefined : json['config'],
-        'inputFields': json['input_fields'] == null ? undefined : json['input_fields'],
-        'isSystemManaged': json['is_system_managed'] == null ? undefined : json['is_system_managed'],
+        'id': json['id'],
+        'checkType': json['check_type'],
+        'displayName': json['display_name'],
+        'configuredPrice': V2MoneyFromJSON(json['configured_price']),
+        'config': json['config'],
+        'inputFields': json['input_fields'],
+        'isSystemManaged': json['is_system_managed'],
     };
 }
 

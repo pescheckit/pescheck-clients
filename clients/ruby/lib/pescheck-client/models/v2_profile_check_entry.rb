@@ -113,34 +113,48 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'check_type')
         self.check_type = attributes[:'check_type']
+      else
+        self.check_type = nil
       end
 
       if attributes.key?(:'display_name')
         self.display_name = attributes[:'display_name']
+      else
+        self.display_name = nil
       end
 
       if attributes.key?(:'configured_price')
         self.configured_price = attributes[:'configured_price']
+      else
+        self.configured_price = nil
       end
 
       if attributes.key?(:'config')
         if (value = attributes[:'config']).is_a?(Hash)
           self.config = value
         end
+      else
+        self.config = nil
       end
 
       if attributes.key?(:'input_fields')
         if (value = attributes[:'input_fields']).is_a?(Array)
           self.input_fields = value
         end
+      else
+        self.input_fields = nil
       end
 
       if attributes.key?(:'is_system_managed')
         self.is_system_managed = attributes[:'is_system_managed']
+      else
+        self.is_system_managed = nil
       end
     end
 
@@ -149,6 +163,30 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @check_type.nil?
+        invalid_properties.push('invalid value for "check_type", check_type cannot be nil.')
+      end
+
+      if @display_name.nil?
+        invalid_properties.push('invalid value for "display_name", display_name cannot be nil.')
+      end
+
+      if @configured_price.nil?
+        invalid_properties.push('invalid value for "configured_price", configured_price cannot be nil.')
+      end
+
+      if @config.nil?
+        invalid_properties.push('invalid value for "config", config cannot be nil.')
+      end
+
+      if @input_fields.nil?
+        invalid_properties.push('invalid value for "input_fields", input_fields cannot be nil.')
+      end
+
+      if @is_system_managed.nil?
+        invalid_properties.push('invalid value for "is_system_managed", is_system_managed cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -156,8 +194,14 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @check_type.nil?
       check_type_validator = EnumAttributeValidator.new('String', ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "focumcheck", "id2check", "idcheck", "integritycheck", "openhealthcarecheck", "permissioncheck", "pescheckadversemediacheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
       return false unless check_type_validator.valid?(@check_type)
+      return false if @display_name.nil?
+      return false if @configured_price.nil?
+      return false if @config.nil?
+      return false if @input_fields.nil?
+      return false if @is_system_managed.nil?
       true
     end
 
@@ -169,6 +213,56 @@ module Pescheck
         fail ArgumentError, "invalid value for \"check_type\", must be one of #{validator.allowable_values}."
       end
       @check_type = check_type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] display_name Value to be assigned
+    def display_name=(display_name)
+      if display_name.nil?
+        fail ArgumentError, 'display_name cannot be nil'
+      end
+
+      @display_name = display_name
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] configured_price Value to be assigned
+    def configured_price=(configured_price)
+      if configured_price.nil?
+        fail ArgumentError, 'configured_price cannot be nil'
+      end
+
+      @configured_price = configured_price
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] config Value to be assigned
+    def config=(config)
+      if config.nil?
+        fail ArgumentError, 'config cannot be nil'
+      end
+
+      @config = config
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] input_fields Value to be assigned
+    def input_fields=(input_fields)
+      if input_fields.nil?
+        fail ArgumentError, 'input_fields cannot be nil'
+      end
+
+      @input_fields = input_fields
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] is_system_managed Value to be assigned
+    def is_system_managed=(is_system_managed)
+      if is_system_managed.nil?
+        fail ArgumentError, 'is_system_managed cannot be nil'
+      end
+
+      @is_system_managed = is_system_managed
     end
 
     # Checks equality by comparing each attribute.
