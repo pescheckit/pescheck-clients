@@ -1,14 +1,13 @@
 name: Publish clients
 
-# Per-ecosystem release pipeline. Each job: lint -> build -> (if a token/flag is
-# configured) publish to the registry -> test the package by installing it back
-# FROM the registry. Each package is self-contained in its ecosystem (npm ships
-# only JS/TS, Packagist only PHP via .gitattributes, etc.).
+# Per-ecosystem release pipeline. Build + test EVERYTHING first (the e2e suite as
+# a gate); if it fails, nothing publishes. Each registry job then: lint -> build ->
+# (if its token/flag is set) publish -> verify the EXACT released version installs
+# back FROM the registry (retries for propagation, clear error if truly missing).
 #
-# Config (Settings -> Secrets and variables -> Actions):
-#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY   (secrets) [set]
-#   PUBLISH_NUGET=true / PUBLISH_PYPI=true (variables)   — enable once the NuGet /
-#   PyPI Trusted Publisher (OIDC) policies are registered (no secret stored).
+# Tokens/flags (Settings -> Secrets and variables -> Actions):
+#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PYPI_API_TOKEN  (secrets)
+#   PUBLISH_NUGET=true (variable, NuGet OIDC trusted publishing)
 # Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
@@ -35,21 +34,18 @@ jobs:
         run: npm install
       - name: Lint + build
         working-directory: clients/typescript
-        run: npm run build # tsc — type-checks and compiles
+        run: npm run build
       - name: Publish
         if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/typescript
         run: npm publish --access public
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: env.NODE_AUTH_TOKEN != ''
-        run: |
-          PKG=@pescheckit/pescheck-client
-          mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          ok=""
-          for i in 1 2 3 4 5; do npm install "$PKG" && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then test -f "node_modules/$PKG/package.json" && echo "OK: installed $PKG from npm"
-          elif npm view "$PKG" version >/dev/null 2>&1; then echo "::warning::$PKG is published ($(npm view "$PKG" version)) but still propagating"
-          else echo "::error::$PKG was NOT found on npm - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: npm
+          package: "@pescheckit/pescheck-client"
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   javascript:
     runs-on: ubuntu-latest
@@ -60,23 +56,20 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
         with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
-      - name: Install + build (lint = babel compile)
+      - name: Install + build (babel)
         working-directory: clients/javascript
         run: npm install
       - name: Publish
         if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/javascript
         run: npm publish --access public
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: env.NODE_AUTH_TOKEN != ''
-        run: |
-          PKG=@pescheckit/pescheck-client-js
-          mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          ok=""
-          for i in 1 2 3 4 5; do npm install "$PKG" && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then node -e "require('@pescheckit/pescheck-client-js'); console.log('OK: required $PKG from npm')"
-          elif npm view "$PKG" version >/dev/null 2>&1; then echo "::warning::$PKG is published ($(npm view "$PKG" version)) but still propagating"
-          else echo "::error::$PKG was NOT found on npm - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: npm
+          package: "@pescheckit/pescheck-client-js"
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   ruby:
     runs-on: ubuntu-latest
@@ -101,14 +94,13 @@ jobs:
           printf -- "---\n:rubygems_api_key: %s\n" "$RUBYGEMS_API_KEY" > ~/.gem/credentials
           chmod 600 ~/.gem/credentials
           gem push *.gem
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: env.RUBYGEMS_API_KEY != ''
-        run: |
-          ok=""
-          for i in 1 2 3 4 5; do gem install pescheck-client && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then ruby -e "require 'pescheck-client'; puts 'OK: required pescheck-client from RubyGems'"
-          elif curl -fsS "https://rubygems.org/api/v1/versions/pescheck-client.json" | grep -q '"number"'; then echo "::warning::pescheck-client is published on RubyGems but still propagating"
-          else echo "::error::pescheck-client was NOT found on RubyGems - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: rubygems
+          package: pescheck-client
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   rust:
     runs-on: ubuntu-latest
@@ -125,15 +117,13 @@ jobs:
         if: env.CARGO_REGISTRY_TOKEN != ''
         working-directory: clients/rust
         run: cargo publish --allow-dirty --token "$CARGO_REGISTRY_TOKEN"
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: env.CARGO_REGISTRY_TOKEN != ''
-        run: |
-          cargo new /tmp/t >/dev/null 2>&1 && cd /tmp/t
-          ok=""
-          for i in 1 2 3 4 5; do cargo add pescheck-client && ok=1 && break || { echo "attempt $i: not in index yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then cargo build && echo "OK: built pescheck-client from crates.io"
-          elif curl -fsS -A "pescheck-ci (brampescheck@gmail.com)" "https://crates.io/api/v1/crates/pescheck-client" | grep -q '"newest_version"'; then echo "::warning::pescheck-client is published on crates.io but index still propagating"
-          else echo "::error::pescheck-client was NOT found on crates.io - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: cargo
+          package: pescheck-client
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   php:
     runs-on: ubuntu-latest
@@ -146,15 +136,12 @@ jobs:
         run: find clients/php/lib -name '*.php' -print0 | xargs -0 -n1 php -l >/dev/null
       - name: Build (validate manifest)
         run: composer validate --no-check-publish
-      - name: Test from registry (Packagist)
-        run: |
-          PKG=pescheckit/pescheck-client
-          mkdir /tmp/t && cd /tmp/t && echo '{}' > composer.json
-          ok=""
-          for i in 1 2 3 4 5; do composer require "$PKG" --no-interaction --no-progress && ok=1 && break || { echo "attempt $i: not indexed yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "OK: installed pescheckit/pescheck-client from Packagist\n";'
-          elif curl -fsS "https://repo.packagist.org/p2/$PKG.json" | grep -q '"version"'; then echo "::warning::$PKG is on Packagist but Composer mirrors are still propagating"
-          else echo "::error::$PKG was NOT found on Packagist - not indexed"; exit 1; fi
+      - name: Verify from registry (exact version)
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: packagist
+          package: pescheckit/pescheck-client
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   csharp:
     runs-on: ubuntu-latest
@@ -182,15 +169,13 @@ jobs:
           dotnet nuget push "./artifacts/*.nupkg" \
             --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json --skip-duplicate
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: vars.PUBLISH_NUGET == 'true'
-        run: |
-          mkdir /tmp/t && cd /tmp/t && dotnet new console >/dev/null
-          ok=""
-          for i in 1 2 3 4 5; do dotnet add package Pescheck.Client && ok=1 && break || { echo "attempt $i: not on feed yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then dotnet build && echo "OK: restored Pescheck.Client from NuGet"
-          elif curl -fsS "https://api.nuget.org/v3-flatcontainer/pescheck.client/index.json" | grep -q '"versions"'; then echo "::warning::Pescheck.Client is on NuGet but the feed is still propagating"
-          else echo "::error::Pescheck.Client was NOT found on NuGet - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: nuget
+          package: Pescheck.Client
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
   python:
     runs-on: ubuntu-latest
@@ -214,15 +199,15 @@ jobs:
           packages-dir: clients/python/dist
           password: ${{ secrets.PYPI_API_TOKEN }}
           skip-existing: true
-      - name: Test from registry
+      - name: Verify from registry (exact version)
         if: env.PYPI_API_TOKEN != ''
-        run: |
-          ok=""
-          for i in 1 2 3 4 5; do pip install pescheck-client && ok=1 && break || { echo "attempt $i: not installable yet, waiting 60s"; sleep 60; }; done
-          if [ -n "$ok" ]; then python -c "import pescheck; print('OK: imported pescheck from PyPI (pescheck-client)')"
-          elif curl -fsS "https://pypi.org/pypi/pescheck-client/json" | grep -q '"version"'; then echo "::warning::pescheck-client is on PyPI but install mirrors still propagating"
-          else echo "::error::pescheck-client was NOT found on PyPI - publish did not land"; exit 1; fi
+        uses: ./.github/actions/verify-from-registry
+        with:
+          ecosystem: pypi
+          package: pescheck-client
+          version: ${{ github.event.release.tag_name || github.ref_name }}
 
+  # Java -> GitHub Packages (built-in token). Maven Central later (needs GPG).
   java:
     runs-on: ubuntu-latest
     needs: test
@@ -251,7 +236,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  # Go: no registry — publishing is a version tag (release only).
+  # Go: no registry - publishing is a version tag (release only).
   go:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
@@ -269,7 +254,7 @@ jobs:
           git tag "clients/go/v${VERSION}"
           git push origin "clients/go/v${VERSION}"
 
-  # C++: no registry — attach a source tarball to the release.
+  # C++: no registry - attach a source tarball to the release.
   cpp:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
@@ -282,14 +267,12 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with: { files: pescheck-cpp-*.tar.gz }
 
-  # Downloadable per-language zips on the GitHub Release, for users who don't use
-  # a package manager.
+  # Downloadable per-language zips on the Release, for non-package-manager users.
   archives:
     if: github.event_name == 'release'
     needs: test
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    permissions: { contents: write }
     steps:
       - uses: actions/checkout@v7
       - name: Zip each client (versioned)

@@ -1,0 +1,85 @@
+name: Verify package from registry
+description: >
+  Install a published package from its public registry at an EXACT version,
+  actually use it, and fail with a clear error if that version is missing.
+  Retries to absorb propagation lag; if install still fails, checks the
+  registry's version list to distinguish "not published" from "still propagating".
+inputs:
+  ecosystem:
+    description: npm | pypi | cargo | rubygems | nuget | packagist
+    required: true
+  package:
+    description: Registry package name
+    required: true
+  version:
+    description: Exact version to verify (a leading "v" is stripped)
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        ECO: ${{ inputs.ecosystem }}
+        PKG: ${{ inputs.package }}
+        RAW_VER: ${{ inputs.version }}
+      run: |
+        set -uo pipefail
+        VER="${RAW_VER#v}"
+        if ! printf '%s' "$VER" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+'; then
+          echo "::error::verify-from-registry: '$RAW_VER' is not a release version (X.Y.Z). Run this on a release."
+          exit 1
+        fi
+        echo "Verifying $PKG @ EXACT $VER from $ECO"
+        work=$(mktemp -d)
+
+        install_exact() {
+          case "$ECO" in
+            npm)
+              ( cd "$work" && npm init -y >/dev/null && npm install "$PKG@$VER" \
+                && node -e "const p=require('$PKG/package.json'); if(p.version!=='$VER'){console.error('version mismatch: '+p.version);process.exit(1)}; require('$PKG'); console.log('used '+p.name+'@'+p.version)" ) ;;
+            pypi)
+              python -m pip install "$PKG==$VER" \
+                && python -c "import importlib.metadata as m; v=m.version('$PKG'); assert v=='$VER', 'version mismatch: '+v; import pescheck; print('imported pescheck from '+'$PKG'+'=='+v)" ;;
+            cargo)
+              ident=$(printf '%s' "$PKG" | tr '-' '_')
+              ( cd "$work" && cargo init -q . && cargo add "$PKG@=$VER" \
+                && printf 'use %s::apis::configuration::Configuration;\nfn main(){ let _=Configuration::new(); println!("used %s"); }\n' "$ident" "$PKG" > src/main.rs \
+                && cargo run --quiet ) ;;
+            rubygems)
+              gem install "$PKG" -v "$VER" \
+                && ruby -e "gem '$PKG','=$VER'; require 'pescheck-client'; puts 'required pescheck-client =$VER'" ;;
+            nuget)
+              ( cd "$work" && dotnet new console >/dev/null \
+                && dotnet add package "$PKG" -v "$VER" && dotnet build -c Release ) ;;
+            packagist)
+              ( cd "$work" && echo '{}' > composer.json \
+                && composer require "$PKG:$VER" --no-interaction --no-progress \
+                && php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "autoload ok\n";' ) ;;
+          esac
+        }
+
+        version_listed() {
+          case "$ECO" in
+            npm)       npm view "$PKG@$VER" version >/dev/null 2>&1 ;;
+            pypi)      curl -fsS "https://pypi.org/pypi/$PKG/$VER/json" >/dev/null 2>&1 ;;
+            cargo)     curl -fsS -A "pescheck-ci (brampescheck@gmail.com)" "https://crates.io/api/v1/crates/$PKG/$VER" | grep -q "\"num\":\"$VER\"" ;;
+            rubygems)  curl -fsS "https://rubygems.org/api/v1/versions/$PKG.json" | grep -q "\"number\":\"$VER\"" ;;
+            nuget)     low=$(printf '%s' "$PKG" | tr 'A-Z' 'a-z'); curl -fsS "https://api.nuget.org/v3-flatcontainer/$low/index.json" | grep -q "\"$VER\"" ;;
+            packagist) curl -fsS "https://repo.packagist.org/p2/$PKG.json" | grep -q "\"version\":\"$VER\"" ;;
+          esac
+        }
+
+        ok=""
+        for i in 1 2 3 4 5; do
+          if install_exact; then ok=1; break; fi
+          echo "attempt $i: $PKG@$VER not installable yet, waiting 60s"; sleep 60
+        done
+
+        if [ -n "$ok" ]; then
+          echo "OK: installed + used $PKG@$VER from $ECO"
+        elif version_listed; then
+          echo "::warning::$PKG@$VER IS published on $ECO but install mirrors are still propagating"
+        else
+          echo "::error::$PKG@$VER was NOT found on $ECO - the publish for this release did not land"
+          exit 1
+        fi
