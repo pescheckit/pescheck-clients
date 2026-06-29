@@ -6,8 +6,9 @@ name: Publish clients
 # only JS/TS, Packagist only PHP via .gitattributes, etc.).
 #
 # Config (Settings -> Secrets and variables -> Actions):
-#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY   [set]
-#   NUGET_API_KEY (secret) + PUBLISH_PYPI=true (variable)  [needed]
+#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY   (secrets) [set]
+#   PUBLISH_NUGET=true / PUBLISH_PYPI=true (variables)   — enable once the NuGet /
+#   PyPI Trusted Publisher (OIDC) policies are registered (no secret stored).
 # Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
@@ -132,8 +133,8 @@ jobs:
 
   csharp:
     runs-on: ubuntu-latest
-    env:
-      NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    permissions:
+      id-token: write # NuGet trusted publishing (OIDC)
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-dotnet@v5
@@ -141,15 +142,22 @@ jobs:
       - name: Lint + build
         working-directory: clients/csharp
         run: dotnet build -c Release
+      - name: NuGet login (OIDC trusted publishing)
+        id: nugetlogin
+        if: vars.PUBLISH_NUGET == 'true'
+        uses: NuGet/login@v1
+        with:
+          user: pescheck-bram
       - name: Publish
-        if: env.NUGET_API_KEY != ''
+        if: vars.PUBLISH_NUGET == 'true'
         working-directory: clients/csharp
         run: |
           dotnet pack -c Release -o ./artifacts
-          dotnet nuget push "./artifacts/*.nupkg" --api-key "$NUGET_API_KEY" \
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json --skip-duplicate
       - name: Test from registry
-        if: env.NUGET_API_KEY != ''
+        if: vars.PUBLISH_NUGET == 'true'
         run: |
           mkdir /tmp/t && cd /tmp/t && dotnet new console >/dev/null
           for i in $(seq 1 10); do dotnet add package Pescheck.Client && break || { echo "propagating… ($i)"; sleep 30; }; done
