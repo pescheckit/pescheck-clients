@@ -35,7 +35,7 @@ jobs:
           PESCHECK_SCHEMA_URL: https://api.pescheck.io/api/schema/
 
       - name: Open PR on changes
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: "chore: regenerate clients from latest OpenAPI schema"
           title: "Regenerate API clients"
