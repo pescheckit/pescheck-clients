@@ -5,17 +5,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [optional] [readonly] 
+**id** | **UUID** |  | [readonly] 
 **name** | **str** |  | 
 **description** | **str** |  | 
 **is_custom** | **bool** |  | [optional] 
-**checks** | [**List[V2ProfileCheckEntry]**](V2ProfileCheckEntry.md) |  | [optional] [readonly] 
-**total_price** | [**V2Money**](V2Money.md) |  | [optional] [readonly] 
-**supported_countries_of_work** | **List[str]** |  | [optional] [readonly] 
-**supported_countries_of_residence** | **List[str]** |  | [optional] [readonly] 
-**candidate_fields** | **List[object]** |  | [optional] [readonly] 
-**created_at** | **datetime** |  | [optional] [readonly] 
-**updated_at** | **datetime** |  | [optional] [readonly] 
+**checks** | [**List[V2ProfileCheckEntry]**](V2ProfileCheckEntry.md) |  | [readonly] 
+**total_price** | [**V2Money**](V2Money.md) |  | [readonly] 
+**supported_countries_of_work** | **List[str]** |  | [readonly] 
+**supported_countries_of_residence** | **List[str]** |  | [readonly] 
+**candidate_fields** | **List[object]** |  | [readonly] 
+**created_at** | **datetime** |  | [readonly] 
+**updated_at** | **datetime** |  | [readonly] 
 
 ## Example
 

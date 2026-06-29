@@ -14,51 +14,51 @@ use serde::{Deserialize, Serialize};
 /// V2CheckInfo : Everything a client needs to know to use a check type via the API.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2CheckInfo {
-    #[serde(rename = "check_type", skip_serializing_if = "Option::is_none")]
-    pub check_type: Option<String>,
-    #[serde(rename = "display_name", skip_serializing_if = "Option::is_none")]
-    pub display_name: Option<String>,
-    #[serde(rename = "description", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub description: Option<Option<String>>,
-    #[serde(rename = "has_config", skip_serializing_if = "Option::is_none")]
-    pub has_config: Option<bool>,
+    #[serde(rename = "check_type")]
+    pub check_type: String,
+    #[serde(rename = "display_name")]
+    pub display_name: String,
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description: Option<String>,
+    #[serde(rename = "has_config")]
+    pub has_config: bool,
     /// True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
-    #[serde(rename = "is_system_managed", skip_serializing_if = "Option::is_none")]
-    pub is_system_managed: Option<bool>,
+    #[serde(rename = "is_system_managed")]
+    pub is_system_managed: bool,
     /// Other check types this check pulls in automatically when added.
-    #[serde(rename = "requires_checks", skip_serializing_if = "Option::is_none")]
-    pub requires_checks: Option<Vec<String>>,
-    #[serde(rename = "supported_countries_of_work", skip_serializing_if = "Option::is_none")]
-    pub supported_countries_of_work: Option<Vec<String>>,
-    #[serde(rename = "supported_countries_of_residence", skip_serializing_if = "Option::is_none")]
-    pub supported_countries_of_residence: Option<Vec<String>>,
-    #[serde(rename = "default_price", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub default_price: Option<Option<Box<models::V2Money>>>,
-    #[serde(rename = "config_fields", skip_serializing_if = "Option::is_none")]
-    pub config_fields: Option<Vec<models::V2CheckField>>,
-    #[serde(rename = "input_fields", skip_serializing_if = "Option::is_none")]
-    pub input_fields: Option<Vec<models::V2CheckField>>,
+    #[serde(rename = "requires_checks")]
+    pub requires_checks: Vec<String>,
+    #[serde(rename = "supported_countries_of_work")]
+    pub supported_countries_of_work: Vec<String>,
+    #[serde(rename = "supported_countries_of_residence")]
+    pub supported_countries_of_residence: Vec<String>,
+    #[serde(rename = "default_price", deserialize_with = "Option::deserialize")]
+    pub default_price: Option<Box<models::V2Money>>,
+    #[serde(rename = "config_fields")]
+    pub config_fields: Vec<models::V2CheckField>,
+    #[serde(rename = "input_fields")]
+    pub input_fields: Vec<models::V2CheckField>,
     /// Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
-    #[serde(rename = "candidate_fields", skip_serializing_if = "Option::is_none")]
-    pub candidate_fields: Option<Vec<models::V2CheckField>>,
+    #[serde(rename = "candidate_fields")]
+    pub candidate_fields: Vec<models::V2CheckField>,
 }
 
 impl V2CheckInfo {
     /// Everything a client needs to know to use a check type via the API.
-    pub fn new() -> V2CheckInfo {
+    pub fn new(check_type: String, display_name: String, description: Option<String>, has_config: bool, is_system_managed: bool, requires_checks: Vec<String>, supported_countries_of_work: Vec<String>, supported_countries_of_residence: Vec<String>, default_price: Option<models::V2Money>, config_fields: Vec<models::V2CheckField>, input_fields: Vec<models::V2CheckField>, candidate_fields: Vec<models::V2CheckField>) -> V2CheckInfo {
         V2CheckInfo {
-            check_type: None,
-            display_name: None,
-            description: None,
-            has_config: None,
-            is_system_managed: None,
-            requires_checks: None,
-            supported_countries_of_work: None,
-            supported_countries_of_residence: None,
-            default_price: None,
-            config_fields: None,
-            input_fields: None,
-            candidate_fields: None,
+            check_type,
+            display_name,
+            description,
+            has_config,
+            is_system_managed,
+            requires_checks,
+            supported_countries_of_work,
+            supported_countries_of_residence,
+            default_price: if let Some(x) = default_price {Some(Box::new(x))} else {None},
+            config_fields,
+            input_fields,
+            candidate_fields,
         }
     }
 }

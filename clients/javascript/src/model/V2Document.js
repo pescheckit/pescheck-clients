@@ -24,10 +24,16 @@ class V2Document {
      * Constructs a new <code>V2Document</code>.
      * One document attached to a screening&#39;s check. &#x60;metadata&#x60; carries check-specific extras and may be empty.
      * @alias module:model/V2Document
+     * @param checkId {String} 
+     * @param checkType {module:model/V2Document.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param filename {String} 
+     * @param extension {String} 
+     * @param content {module:model/V2DocumentContent} 
+     * @param metadata {Object.<String, Object>} 
      */
-    constructor() { 
+    constructor(checkId, checkType, filename, extension, content, metadata) { 
         
-        V2Document.initialize(this);
+        V2Document.initialize(this, checkId, checkType, filename, extension, content, metadata);
     }
 
     /**
@@ -35,7 +41,13 @@ class V2Document {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, checkId, checkType, filename, extension, content, metadata) { 
+        obj['check_id'] = checkId;
+        obj['check_type'] = checkType;
+        obj['filename'] = filename;
+        obj['extension'] = extension;
+        obj['content'] = content;
+        obj['metadata'] = metadata;
     }
 
     /**
@@ -77,6 +89,12 @@ class V2Document {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2Document</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2Document.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['check_id'] && !(typeof data['check_id'] === 'string' || data['check_id'] instanceof String)) {
             throw new Error("Expected the field `check_id` to be a primitive type in the JSON string but got " + data['check_id']);
@@ -104,7 +122,7 @@ class V2Document {
 
 }
 
-
+V2Document.RequiredProperties = ["check_id", "check_type", "filename", "extension", "content", "metadata"];
 
 /**
  * @member {String} check_id

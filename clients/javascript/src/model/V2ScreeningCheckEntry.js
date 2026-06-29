@@ -22,10 +22,19 @@ class V2ScreeningCheckEntry {
     /**
      * Constructs a new <code>V2ScreeningCheckEntry</code>.
      * @alias module:model/V2ScreeningCheckEntry
+     * @param id {String} 
+     * @param profileCheckId {String} 
+     * @param checkType {module:model/V2ScreeningCheckEntry.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param displayName {String} 
+     * @param status {String} 
+     * @param config {Object.<String, Object>} 
+     * @param input {Object.<String, Object>} 
+     * @param output {Object.<String, Object>} 
+     * @param candidateWizardUrl {String} Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
      */
-    constructor() { 
+    constructor(id, profileCheckId, checkType, displayName, status, config, input, output, candidateWizardUrl) { 
         
-        V2ScreeningCheckEntry.initialize(this);
+        V2ScreeningCheckEntry.initialize(this, id, profileCheckId, checkType, displayName, status, config, input, output, candidateWizardUrl);
     }
 
     /**
@@ -33,7 +42,16 @@ class V2ScreeningCheckEntry {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, profileCheckId, checkType, displayName, status, config, input, output, candidateWizardUrl) { 
+        obj['id'] = id;
+        obj['profile_check_id'] = profileCheckId;
+        obj['check_type'] = checkType;
+        obj['display_name'] = displayName;
+        obj['status'] = status;
+        obj['config'] = config;
+        obj['input'] = input;
+        obj['output'] = output;
+        obj['candidate_wizard_url'] = candidateWizardUrl;
     }
 
     /**
@@ -84,6 +102,12 @@ class V2ScreeningCheckEntry {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2ScreeningCheckEntry</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2ScreeningCheckEntry.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -115,7 +139,7 @@ class V2ScreeningCheckEntry {
 
 }
 
-
+V2ScreeningCheckEntry.RequiredProperties = ["id", "profile_check_id", "check_type", "display_name", "status", "config", "input", "output", "candidate_wizard_url"];
 
 /**
  * @member {String} id

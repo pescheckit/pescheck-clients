@@ -22,12 +22,16 @@ class V2ProfileListItem {
     /**
      * Constructs a new <code>V2ProfileListItem</code>.
      * @alias module:model/V2ProfileListItem
+     * @param id {String} 
      * @param name {String} 
      * @param description {String} 
+     * @param checkTypes {Array.<String>} 
+     * @param createdAt {Date} 
+     * @param updatedAt {Date} 
      */
-    constructor(name, description) { 
+    constructor(id, name, description, checkTypes, createdAt, updatedAt) { 
         
-        V2ProfileListItem.initialize(this, name, description);
+        V2ProfileListItem.initialize(this, id, name, description, checkTypes, createdAt, updatedAt);
     }
 
     /**
@@ -35,9 +39,13 @@ class V2ProfileListItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description) { 
+    static initialize(obj, id, name, description, checkTypes, createdAt, updatedAt) { 
+        obj['id'] = id;
         obj['name'] = name;
         obj['description'] = description;
+        obj['check_types'] = checkTypes;
+        obj['created_at'] = createdAt;
+        obj['updated_at'] = updatedAt;
     }
 
     /**
@@ -111,7 +119,7 @@ class V2ProfileListItem {
 
 }
 
-V2ProfileListItem.RequiredProperties = ["name", "description"];
+V2ProfileListItem.RequiredProperties = ["id", "name", "description", "check_types", "created_at", "updated_at"];
 
 /**
  * @member {String} id

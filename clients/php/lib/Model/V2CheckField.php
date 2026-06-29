@@ -303,6 +303,21 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['type'] === null) {
+            $invalidProperties[] = "'type' can't be null";
+        }
+        if ($this->container['required'] === null) {
+            $invalidProperties[] = "'required' can't be null";
+        }
+        if ($this->container['choices'] === null && !$this->isNullableSetToNull('choices')) {
+            $invalidProperties[] = "'choices' is required";
+        }
+        if ($this->container['help_text'] === null && !$this->isNullableSetToNull('help_text')) {
+            $invalidProperties[] = "'help_text' is required";
+        }
         return $invalidProperties;
     }
 
@@ -321,7 +336,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets name
      *
-     * @return string|null
+     * @return string
      */
     public function getName()
     {
@@ -331,7 +346,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets name
      *
-     * @param string|null $name name
+     * @param string $name name
      *
      * @return self
      */
@@ -348,7 +363,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets type
      *
-     * @return string|null
+     * @return string
      */
     public function getType()
     {
@@ -358,7 +373,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets type
      *
-     * @param string|null $type \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
+     * @param string $type \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
      *
      * @return self
      */
@@ -375,7 +390,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets required
      *
-     * @return bool|null
+     * @return bool
      */
     public function getRequired()
     {
@@ -385,7 +400,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets required
      *
-     * @param bool|null $required Whether the request body must include this field.
+     * @param bool $required Whether the request body must include this field.
      *
      * @return self
      */

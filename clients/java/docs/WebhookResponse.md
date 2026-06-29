@@ -8,16 +8,16 @@ Serializer for webhook responses
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**id** | **UUID** |  |  [optional] [readonly] |
+|**id** | **UUID** |  |  [readonly] |
 |**name** | **String** |  |  |
 |**url** | **URI** |  |  |
-|**events** | **Object** |  |  [optional] [readonly] |
+|**events** | **Object** |  |  [readonly] |
 |**active** | **Boolean** |  |  [optional] |
-|**verified** | **Boolean** |  |  [optional] [readonly] |
+|**verified** | **Boolean** |  |  [readonly] |
 |**token** | **String** |  |  [optional] [readonly] |
 |**organisationName** | **String** |  |  [optional] [readonly] |
-|**createdAt** | **OffsetDateTime** |  |  [optional] [readonly] |
-|**updatedAt** | **OffsetDateTime** |  |  [optional] [readonly] |
+|**createdAt** | **OffsetDateTime** |  |  [readonly] |
+|**updatedAt** | **OffsetDateTime** |  |  [readonly] |
 
 
 

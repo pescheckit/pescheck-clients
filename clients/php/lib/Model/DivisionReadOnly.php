@@ -372,10 +372,22 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         if (!is_null($this->container['name']) && (mb_strlen($this->container['name']) > 255)) {
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
         }
 
+        if ($this->container['parent'] === null) {
+            $invalidProperties[] = "'parent' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
+        if ($this->container['updated_at'] === null) {
+            $invalidProperties[] = "'updated_at' can't be null";
+        }
         if (!is_null($this->container['city']) && (mb_strlen($this->container['city']) > 255)) {
             $invalidProperties[] = "invalid value for 'city', the character length must be smaller than or equal to 255.";
         }
@@ -422,7 +434,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -432,7 +444,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -487,7 +499,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets parent
      *
-     * @return string|null
+     * @return string
      */
     public function getParent()
     {
@@ -497,7 +509,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets parent
      *
-     * @param string|null $parent parent
+     * @param string $parent parent
      *
      * @return self
      */
@@ -514,7 +526,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -524,7 +536,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */
@@ -541,7 +553,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets updated_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -551,7 +563,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets updated_at
      *
-     * @param \DateTime|null $updated_at updated_at
+     * @param \DateTime $updated_at updated_at
      *
      * @return self
      */

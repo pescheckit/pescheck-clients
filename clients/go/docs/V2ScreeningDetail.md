@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
-**Status** | Pointer to **string** |  | [optional] [readonly] 
-**Profile** | Pointer to [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] 
-**Candidate** | Pointer to [**V2Candidate**](V2Candidate.md) |  | [optional] [readonly] 
-**Checks** | Pointer to [**[]V2ScreeningCheckEntry**](V2ScreeningCheckEntry.md) |  | [optional] [readonly] 
-**CandidateWizardUrl** | Pointer to **NullableString** | Public wizard URL for the candidate. Null when no check needs candidate input. | [optional] [readonly] 
-**DashboardUrl** | Pointer to **string** | Dashboard URL for this screening. | [optional] [readonly] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**Id** | **string** |  | [readonly] 
+**Status** | **string** |  | [readonly] 
+**Profile** | [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
+**Checks** | [**[]V2ScreeningCheckEntry**](V2ScreeningCheckEntry.md) |  | [readonly] 
+**CandidateWizardUrl** | **NullableString** | Public wizard URL for the candidate. Null when no check needs candidate input. | [readonly] 
+**DashboardUrl** | **string** | Dashboard URL for this screening. | [readonly] 
+**CreatedAt** | **time.Time** |  | [readonly] 
+**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewV2ScreeningDetail
 
-`func NewV2ScreeningDetail() *V2ScreeningDetail`
+`func NewV2ScreeningDetail(id string, status string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckEntry, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningDetail`
 
 NewV2ScreeningDetail instantiates a new V2ScreeningDetail object
 This constructor will assign default values to properties that have it defined,
@@ -52,11 +52,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *V2ScreeningDetail) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -77,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
-### HasStatus
-
-`func (o *V2ScreeningDetail) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 ### GetProfile
 
@@ -102,11 +92,6 @@ and a boolean to check if the value has been set.
 
 SetProfile sets Profile field to given value.
 
-### HasProfile
-
-`func (o *V2ScreeningDetail) HasProfile() bool`
-
-HasProfile returns a boolean if a field has been set.
 
 ### SetProfileNil
 
@@ -137,11 +122,6 @@ and a boolean to check if the value has been set.
 
 SetCandidate sets Candidate field to given value.
 
-### HasCandidate
-
-`func (o *V2ScreeningDetail) HasCandidate() bool`
-
-HasCandidate returns a boolean if a field has been set.
 
 ### GetChecks
 
@@ -162,11 +142,6 @@ and a boolean to check if the value has been set.
 
 SetChecks sets Checks field to given value.
 
-### HasChecks
-
-`func (o *V2ScreeningDetail) HasChecks() bool`
-
-HasChecks returns a boolean if a field has been set.
 
 ### GetCandidateWizardUrl
 
@@ -187,11 +162,6 @@ and a boolean to check if the value has been set.
 
 SetCandidateWizardUrl sets CandidateWizardUrl field to given value.
 
-### HasCandidateWizardUrl
-
-`func (o *V2ScreeningDetail) HasCandidateWizardUrl() bool`
-
-HasCandidateWizardUrl returns a boolean if a field has been set.
 
 ### SetCandidateWizardUrlNil
 
@@ -222,11 +192,6 @@ and a boolean to check if the value has been set.
 
 SetDashboardUrl sets DashboardUrl field to given value.
 
-### HasDashboardUrl
-
-`func (o *V2ScreeningDetail) HasDashboardUrl() bool`
-
-HasDashboardUrl returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -247,11 +212,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *V2ScreeningDetail) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -272,11 +232,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-### HasUpdatedAt
-
-`func (o *V2ScreeningDetail) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,15 +5,15 @@ List shape for GET /screenings/. Same candidate as detail; the only thing we sli
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **Guid** |  | [optional] [readonly] 
+**Id** | **Guid** |  | [readonly] 
 **Status** | **string** |  | [optional] 
-**Profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] 
-**Candidate** | [**V2Candidate**](V2Candidate.md) |  | [optional] [readonly] 
-**Checks** | [**List&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  | [optional] [readonly] 
-**CandidateWizardUrl** | **string** |  | [optional] [readonly] 
-**DashboardUrl** | **string** |  | [optional] [readonly] 
-**CreatedAt** | **DateTime** |  | [optional] [readonly] 
-**UpdatedAt** | **DateTime** |  | [optional] [readonly] 
+**Profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
+**Checks** | [**List&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  | [readonly] 
+**CandidateWizardUrl** | **string** |  | [readonly] 
+**DashboardUrl** | **string** |  | [readonly] 
+**CreatedAt** | **DateTime** |  | [readonly] 
+**UpdatedAt** | **DateTime** |  | [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

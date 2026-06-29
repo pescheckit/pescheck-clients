@@ -13,44 +13,44 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ProfileDetail {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<uuid::Uuid>,
+    #[serde(rename = "id")]
+    pub id: uuid::Uuid,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", deserialize_with = "Option::deserialize")]
     pub description: Option<String>,
     #[serde(rename = "is_custom", skip_serializing_if = "Option::is_none")]
     pub is_custom: Option<bool>,
-    #[serde(rename = "checks", skip_serializing_if = "Option::is_none")]
-    pub checks: Option<Vec<models::V2ProfileCheckEntry>>,
-    #[serde(rename = "total_price", skip_serializing_if = "Option::is_none")]
-    pub total_price: Option<Box<models::V2Money>>,
-    #[serde(rename = "supported_countries_of_work", skip_serializing_if = "Option::is_none")]
-    pub supported_countries_of_work: Option<Vec<String>>,
-    #[serde(rename = "supported_countries_of_residence", skip_serializing_if = "Option::is_none")]
-    pub supported_countries_of_residence: Option<Vec<String>>,
-    #[serde(rename = "candidate_fields", skip_serializing_if = "Option::is_none")]
-    pub candidate_fields: Option<Vec<serde_json::Value>>,
-    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
-    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "checks")]
+    pub checks: Vec<models::V2ProfileCheckEntry>,
+    #[serde(rename = "total_price")]
+    pub total_price: Box<models::V2Money>,
+    #[serde(rename = "supported_countries_of_work")]
+    pub supported_countries_of_work: Vec<String>,
+    #[serde(rename = "supported_countries_of_residence")]
+    pub supported_countries_of_residence: Vec<String>,
+    #[serde(rename = "candidate_fields")]
+    pub candidate_fields: Vec<serde_json::Value>,
+    #[serde(rename = "created_at")]
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "updated_at")]
+    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl V2ProfileDetail {
-    pub fn new(name: String, description: Option<String>) -> V2ProfileDetail {
+    pub fn new(id: uuid::Uuid, name: String, description: Option<String>, checks: Vec<models::V2ProfileCheckEntry>, total_price: models::V2Money, supported_countries_of_work: Vec<String>, supported_countries_of_residence: Vec<String>, candidate_fields: Vec<serde_json::Value>, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ProfileDetail {
         V2ProfileDetail {
-            id: None,
+            id,
             name,
             description,
             is_custom: None,
-            checks: None,
-            total_price: None,
-            supported_countries_of_work: None,
-            supported_countries_of_residence: None,
-            candidate_fields: None,
-            created_at: None,
-            updated_at: None,
+            checks,
+            total_price: Box::new(total_price),
+            supported_countries_of_work,
+            supported_countries_of_residence,
+            candidate_fields,
+            created_at,
+            updated_at,
         }
     }
 }

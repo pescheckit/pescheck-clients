@@ -39,79 +39,91 @@ export interface V2CheckInfo {
      * @type {string}
      * @memberof V2CheckInfo
      */
-    readonly checkType?: string;
+    readonly checkType: string;
     /**
      * 
      * @type {string}
      * @memberof V2CheckInfo
      */
-    readonly displayName?: string;
+    readonly displayName: string;
     /**
      * 
      * @type {string}
      * @memberof V2CheckInfo
      */
-    readonly description?: string | null;
+    readonly description: string | null;
     /**
      * 
      * @type {boolean}
      * @memberof V2CheckInfo
      */
-    readonly hasConfig?: boolean;
+    readonly hasConfig: boolean;
     /**
      * True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
      * @type {boolean}
      * @memberof V2CheckInfo
      */
-    readonly isSystemManaged?: boolean;
+    readonly isSystemManaged: boolean;
     /**
      * Other check types this check pulls in automatically when added.
      * @type {Array<string>}
      * @memberof V2CheckInfo
      */
-    readonly requiresChecks?: Array<string>;
+    readonly requiresChecks: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof V2CheckInfo
      */
-    readonly supportedCountriesOfWork?: Array<string>;
+    readonly supportedCountriesOfWork: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof V2CheckInfo
      */
-    readonly supportedCountriesOfResidence?: Array<string>;
+    readonly supportedCountriesOfResidence: Array<string>;
     /**
      * 
      * @type {V2Money}
      * @memberof V2CheckInfo
      */
-    readonly defaultPrice?: V2Money | null;
+    readonly defaultPrice: V2Money | null;
     /**
      * 
      * @type {Array<V2CheckField>}
      * @memberof V2CheckInfo
      */
-    readonly configFields?: Array<V2CheckField>;
+    readonly configFields: Array<V2CheckField>;
     /**
      * 
      * @type {Array<V2CheckField>}
      * @memberof V2CheckInfo
      */
-    readonly inputFields?: Array<V2CheckField>;
+    readonly inputFields: Array<V2CheckField>;
     /**
      * Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
      * @type {Array<V2CheckField>}
      * @memberof V2CheckInfo
      */
-    readonly candidateFields?: Array<V2CheckField>;
+    readonly candidateFields: Array<V2CheckField>;
 }
 
 /**
  * Check if a given object implements the V2CheckInfo interface.
  */
 export function instanceOfV2CheckInfo(value: any): value is V2CheckInfo {
+    if ((!('checkType' in value) && !('check_type' in value)) || (value['checkType'] === undefined && value['check_type'] === undefined)) return false;
+    if ((!('displayName' in value) && !('display_name' in value)) || (value['displayName'] === undefined && value['display_name'] === undefined)) return false;
+    if (!('description' in value) || value['description'] === undefined) return false;
+    if ((!('hasConfig' in value) && !('has_config' in value)) || (value['hasConfig'] === undefined && value['has_config'] === undefined)) return false;
+    if ((!('isSystemManaged' in value) && !('is_system_managed' in value)) || (value['isSystemManaged'] === undefined && value['is_system_managed'] === undefined)) return false;
+    if ((!('requiresChecks' in value) && !('requires_checks' in value)) || (value['requiresChecks'] === undefined && value['requires_checks'] === undefined)) return false;
+    if ((!('supportedCountriesOfWork' in value) && !('supported_countries_of_work' in value)) || (value['supportedCountriesOfWork'] === undefined && value['supported_countries_of_work'] === undefined)) return false;
+    if ((!('supportedCountriesOfResidence' in value) && !('supported_countries_of_residence' in value)) || (value['supportedCountriesOfResidence'] === undefined && value['supported_countries_of_residence'] === undefined)) return false;
+    if ((!('defaultPrice' in value) && !('default_price' in value)) || (value['defaultPrice'] === undefined && value['default_price'] === undefined)) return false;
+    if ((!('configFields' in value) && !('config_fields' in value)) || (value['configFields'] === undefined && value['config_fields'] === undefined)) return false;
+    if ((!('inputFields' in value) && !('input_fields' in value)) || (value['inputFields'] === undefined && value['input_fields'] === undefined)) return false;
+    if ((!('candidateFields' in value) && !('candidate_fields' in value)) || (value['candidateFields'] === undefined && value['candidate_fields'] === undefined)) return false;
     return true;
 }
 
@@ -125,18 +137,18 @@ export function V2CheckInfoFromJSONTyped(json: any, ignoreDiscriminator: boolean
     }
     return {
         
-        'checkType': json['check_type'] == null ? undefined : json['check_type'],
-        'displayName': json['display_name'] == null ? undefined : json['display_name'],
-        'description': json['description'] == null ? undefined : json['description'],
-        'hasConfig': json['has_config'] == null ? undefined : json['has_config'],
-        'isSystemManaged': json['is_system_managed'] == null ? undefined : json['is_system_managed'],
-        'requiresChecks': json['requires_checks'] == null ? undefined : json['requires_checks'],
-        'supportedCountriesOfWork': json['supported_countries_of_work'] == null ? undefined : json['supported_countries_of_work'],
-        'supportedCountriesOfResidence': json['supported_countries_of_residence'] == null ? undefined : json['supported_countries_of_residence'],
-        'defaultPrice': json['default_price'] == null ? undefined : V2MoneyFromJSON(json['default_price']),
-        'configFields': json['config_fields'] == null ? undefined : ((json['config_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
-        'inputFields': json['input_fields'] == null ? undefined : ((json['input_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
-        'candidateFields': json['candidate_fields'] == null ? undefined : ((json['candidate_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
+        'checkType': json['check_type'],
+        'displayName': json['display_name'],
+        'description': json['description'],
+        'hasConfig': json['has_config'],
+        'isSystemManaged': json['is_system_managed'],
+        'requiresChecks': json['requires_checks'],
+        'supportedCountriesOfWork': json['supported_countries_of_work'],
+        'supportedCountriesOfResidence': json['supported_countries_of_residence'],
+        'defaultPrice': V2MoneyFromJSON(json['default_price']),
+        'configFields': ((json['config_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
+        'inputFields': ((json['input_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
+        'candidateFields': ((json['candidate_fields'] as Array<any>).map(V2CheckFieldFromJSON)),
     };
 }
 

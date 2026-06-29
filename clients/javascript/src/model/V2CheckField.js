@@ -23,10 +23,15 @@ class V2CheckField {
      * Constructs a new <code>V2CheckField</code>.
      * One config or input field a check accepts via the API.
      * @alias module:model/V2CheckField
+     * @param name {String} 
+     * @param type {String} \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
+     * @param required {Boolean} Whether the request body must include this field.
+     * @param choices {Array.<String>} Allowed values, or null if the field isn't constrained to a set.
+     * @param helpText {String} 
      */
-    constructor() { 
+    constructor(name, type, required, choices, helpText) { 
         
-        V2CheckField.initialize(this);
+        V2CheckField.initialize(this, name, type, required, choices, helpText);
     }
 
     /**
@@ -34,7 +39,12 @@ class V2CheckField {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, name, type, required, choices, helpText) { 
+        obj['name'] = name;
+        obj['type'] = type;
+        obj['required'] = required;
+        obj['choices'] = choices;
+        obj['help_text'] = helpText;
     }
 
     /**
@@ -73,6 +83,12 @@ class V2CheckField {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2CheckField</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2CheckField.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['name'] && !(typeof data['name'] === 'string' || data['name'] instanceof String)) {
             throw new Error("Expected the field `name` to be a primitive type in the JSON string but got " + data['name']);
@@ -96,7 +112,7 @@ class V2CheckField {
 
 }
 
-
+V2CheckField.RequiredProperties = ["name", "type", "required", "choices", "help_text"];
 
 /**
  * @member {String} name

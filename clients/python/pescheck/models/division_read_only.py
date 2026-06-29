@@ -30,11 +30,11 @@ class DivisionReadOnly(BaseModel):
     """
     DivisionReadOnly
     """ # noqa: E501
-    id: Optional[UUID] = None
+    id: UUID
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
-    parent: Optional[StrictStr] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    parent: StrictStr
+    created_at: datetime
+    updated_at: datetime
     city: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     address: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     postal: Optional[Annotated[str, Field(strict=True, max_length=20)]] = None

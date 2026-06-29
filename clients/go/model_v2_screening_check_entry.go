@@ -12,6 +12,8 @@ package pescheck
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the V2ScreeningCheckEntry type satisfies the MappedNullable interface at compile time
@@ -19,25 +21,36 @@ var _ MappedNullable = &V2ScreeningCheckEntry{}
 
 // V2ScreeningCheckEntry struct for V2ScreeningCheckEntry
 type V2ScreeningCheckEntry struct {
-	Id *string `json:"id,omitempty"`
-	ProfileCheckId NullableString `json:"profile_check_id,omitempty"`
+	Id string `json:"id"`
+	ProfileCheckId NullableString `json:"profile_check_id"`
 	// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-	CheckType *string `json:"check_type,omitempty"`
-	DisplayName *string `json:"display_name,omitempty"`
-	Status *string `json:"status,omitempty"`
-	Config map[string]interface{} `json:"config,omitempty"`
-	Input map[string]interface{} `json:"input,omitempty"`
-	Output map[string]interface{} `json:"output,omitempty"`
+	CheckType string `json:"check_type"`
+	DisplayName string `json:"display_name"`
+	Status string `json:"status"`
+	Config map[string]interface{} `json:"config"`
+	Input map[string]interface{} `json:"input"`
+	Output map[string]interface{} `json:"output"`
 	// Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
-	CandidateWizardUrl NullableString `json:"candidate_wizard_url,omitempty"`
+	CandidateWizardUrl NullableString `json:"candidate_wizard_url"`
 }
+
+type _V2ScreeningCheckEntry V2ScreeningCheckEntry
 
 // NewV2ScreeningCheckEntry instantiates a new V2ScreeningCheckEntry object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ScreeningCheckEntry() *V2ScreeningCheckEntry {
+func NewV2ScreeningCheckEntry(id string, profileCheckId NullableString, checkType string, displayName string, status string, config map[string]interface{}, input map[string]interface{}, output map[string]interface{}, candidateWizardUrl NullableString) *V2ScreeningCheckEntry {
 	this := V2ScreeningCheckEntry{}
+	this.Id = id
+	this.ProfileCheckId = profileCheckId
+	this.CheckType = checkType
+	this.DisplayName = displayName
+	this.Status = status
+	this.Config = config
+	this.Input = input
+	this.Output = output
+	this.CandidateWizardUrl = candidateWizardUrl
 	return &this
 }
 
@@ -49,48 +62,42 @@ func NewV2ScreeningCheckEntryWithDefaults() *V2ScreeningCheckEntry {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *V2ScreeningCheckEntry) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *V2ScreeningCheckEntry) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetProfileCheckId returns the ProfileCheckId field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetProfileCheckId returns the ProfileCheckId field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *V2ScreeningCheckEntry) GetProfileCheckId() string {
-	if o == nil || IsNil(o.ProfileCheckId.Get()) {
+	if o == nil || o.ProfileCheckId.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.ProfileCheckId.Get()
 }
 
-// GetProfileCheckIdOk returns a tuple with the ProfileCheckId field value if set, nil otherwise
+// GetProfileCheckIdOk returns a tuple with the ProfileCheckId field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2ScreeningCheckEntry) GetProfileCheckIdOk() (*string, bool) {
@@ -100,231 +107,167 @@ func (o *V2ScreeningCheckEntry) GetProfileCheckIdOk() (*string, bool) {
 	return o.ProfileCheckId.Get(), o.ProfileCheckId.IsSet()
 }
 
-// HasProfileCheckId returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasProfileCheckId() bool {
-	if o != nil && o.ProfileCheckId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetProfileCheckId gets a reference to the given NullableString and assigns it to the ProfileCheckId field.
+// SetProfileCheckId sets field value
 func (o *V2ScreeningCheckEntry) SetProfileCheckId(v string) {
 	o.ProfileCheckId.Set(&v)
 }
-// SetProfileCheckIdNil sets the value for ProfileCheckId to be an explicit nil
-func (o *V2ScreeningCheckEntry) SetProfileCheckIdNil() {
-	o.ProfileCheckId.Set(nil)
-}
 
-// UnsetProfileCheckId ensures that no value is present for ProfileCheckId, not even an explicit nil
-func (o *V2ScreeningCheckEntry) UnsetProfileCheckId() {
-	o.ProfileCheckId.Unset()
-}
-
-// GetCheckType returns the CheckType field value if set, zero value otherwise.
+// GetCheckType returns the CheckType field value
 func (o *V2ScreeningCheckEntry) GetCheckType() string {
-	if o == nil || IsNil(o.CheckType) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CheckType
+
+	return o.CheckType
 }
 
-// GetCheckTypeOk returns a tuple with the CheckType field value if set, nil otherwise
+// GetCheckTypeOk returns a tuple with the CheckType field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetCheckTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.CheckType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CheckType, true
+	return &o.CheckType, true
 }
 
-// HasCheckType returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasCheckType() bool {
-	if o != nil && !IsNil(o.CheckType) {
-		return true
-	}
-
-	return false
-}
-
-// SetCheckType gets a reference to the given string and assigns it to the CheckType field.
+// SetCheckType sets field value
 func (o *V2ScreeningCheckEntry) SetCheckType(v string) {
-	o.CheckType = &v
+	o.CheckType = v
 }
 
-// GetDisplayName returns the DisplayName field value if set, zero value otherwise.
+// GetDisplayName returns the DisplayName field value
 func (o *V2ScreeningCheckEntry) GetDisplayName() string {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisplayName
+
+	return o.DisplayName
 }
 
-// GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
+// GetDisplayNameOk returns a tuple with the DisplayName field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetDisplayNameOk() (*string, bool) {
-	if o == nil || IsNil(o.DisplayName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisplayName, true
+	return &o.DisplayName, true
 }
 
-// HasDisplayName returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasDisplayName() bool {
-	if o != nil && !IsNil(o.DisplayName) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
+// SetDisplayName sets field value
 func (o *V2ScreeningCheckEntry) SetDisplayName(v string) {
-	o.DisplayName = &v
+	o.DisplayName = v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *V2ScreeningCheckEntry) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
+// SetStatus sets field value
 func (o *V2ScreeningCheckEntry) SetStatus(v string) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetConfig returns the Config field value if set, zero value otherwise.
+// GetConfig returns the Config field value
 func (o *V2ScreeningCheckEntry) GetConfig() map[string]interface{} {
-	if o == nil || IsNil(o.Config) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Config
 }
 
-// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
+// GetConfigOk returns a tuple with the Config field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetConfigOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Config) {
+	if o == nil {
 		return map[string]interface{}{}, false
 	}
 	return o.Config, true
 }
 
-// HasConfig returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasConfig() bool {
-	if o != nil && !IsNil(o.Config) {
-		return true
-	}
-
-	return false
-}
-
-// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
+// SetConfig sets field value
 func (o *V2ScreeningCheckEntry) SetConfig(v map[string]interface{}) {
 	o.Config = v
 }
 
-// GetInput returns the Input field value if set, zero value otherwise.
+// GetInput returns the Input field value
 func (o *V2ScreeningCheckEntry) GetInput() map[string]interface{} {
-	if o == nil || IsNil(o.Input) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Input
 }
 
-// GetInputOk returns a tuple with the Input field value if set, nil otherwise
+// GetInputOk returns a tuple with the Input field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetInputOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Input) {
+	if o == nil {
 		return map[string]interface{}{}, false
 	}
 	return o.Input, true
 }
 
-// HasInput returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasInput() bool {
-	if o != nil && !IsNil(o.Input) {
-		return true
-	}
-
-	return false
-}
-
-// SetInput gets a reference to the given map[string]interface{} and assigns it to the Input field.
+// SetInput sets field value
 func (o *V2ScreeningCheckEntry) SetInput(v map[string]interface{}) {
 	o.Input = v
 }
 
-// GetOutput returns the Output field value if set, zero value otherwise.
+// GetOutput returns the Output field value
 func (o *V2ScreeningCheckEntry) GetOutput() map[string]interface{} {
-	if o == nil || IsNil(o.Output) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
+
 	return o.Output
 }
 
-// GetOutputOk returns a tuple with the Output field value if set, nil otherwise
+// GetOutputOk returns a tuple with the Output field value
 // and a boolean to check if the value has been set.
 func (o *V2ScreeningCheckEntry) GetOutputOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Output) {
+	if o == nil {
 		return map[string]interface{}{}, false
 	}
 	return o.Output, true
 }
 
-// HasOutput returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasOutput() bool {
-	if o != nil && !IsNil(o.Output) {
-		return true
-	}
-
-	return false
-}
-
-// SetOutput gets a reference to the given map[string]interface{} and assigns it to the Output field.
+// SetOutput sets field value
 func (o *V2ScreeningCheckEntry) SetOutput(v map[string]interface{}) {
 	o.Output = v
 }
 
-// GetCandidateWizardUrl returns the CandidateWizardUrl field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCandidateWizardUrl returns the CandidateWizardUrl field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *V2ScreeningCheckEntry) GetCandidateWizardUrl() string {
-	if o == nil || IsNil(o.CandidateWizardUrl.Get()) {
+	if o == nil || o.CandidateWizardUrl.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.CandidateWizardUrl.Get()
 }
 
-// GetCandidateWizardUrlOk returns a tuple with the CandidateWizardUrl field value if set, nil otherwise
+// GetCandidateWizardUrlOk returns a tuple with the CandidateWizardUrl field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2ScreeningCheckEntry) GetCandidateWizardUrlOk() (*string, bool) {
@@ -334,27 +277,9 @@ func (o *V2ScreeningCheckEntry) GetCandidateWizardUrlOk() (*string, bool) {
 	return o.CandidateWizardUrl.Get(), o.CandidateWizardUrl.IsSet()
 }
 
-// HasCandidateWizardUrl returns a boolean if a field has been set.
-func (o *V2ScreeningCheckEntry) HasCandidateWizardUrl() bool {
-	if o != nil && o.CandidateWizardUrl.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCandidateWizardUrl gets a reference to the given NullableString and assigns it to the CandidateWizardUrl field.
+// SetCandidateWizardUrl sets field value
 func (o *V2ScreeningCheckEntry) SetCandidateWizardUrl(v string) {
 	o.CandidateWizardUrl.Set(&v)
-}
-// SetCandidateWizardUrlNil sets the value for CandidateWizardUrl to be an explicit nil
-func (o *V2ScreeningCheckEntry) SetCandidateWizardUrlNil() {
-	o.CandidateWizardUrl.Set(nil)
-}
-
-// UnsetCandidateWizardUrl ensures that no value is present for CandidateWizardUrl, not even an explicit nil
-func (o *V2ScreeningCheckEntry) UnsetCandidateWizardUrl() {
-	o.CandidateWizardUrl.Unset()
 }
 
 func (o V2ScreeningCheckEntry) MarshalJSON() ([]byte, error) {
@@ -367,34 +292,61 @@ func (o V2ScreeningCheckEntry) MarshalJSON() ([]byte, error) {
 
 func (o V2ScreeningCheckEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if o.ProfileCheckId.IsSet() {
-		toSerialize["profile_check_id"] = o.ProfileCheckId.Get()
-	}
-	if !IsNil(o.CheckType) {
-		toSerialize["check_type"] = o.CheckType
-	}
-	if !IsNil(o.DisplayName) {
-		toSerialize["display_name"] = o.DisplayName
-	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.Config) {
-		toSerialize["config"] = o.Config
-	}
-	if !IsNil(o.Input) {
-		toSerialize["input"] = o.Input
-	}
-	if !IsNil(o.Output) {
-		toSerialize["output"] = o.Output
-	}
-	if o.CandidateWizardUrl.IsSet() {
-		toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["profile_check_id"] = o.ProfileCheckId.Get()
+	toSerialize["check_type"] = o.CheckType
+	toSerialize["display_name"] = o.DisplayName
+	toSerialize["status"] = o.Status
+	toSerialize["config"] = o.Config
+	toSerialize["input"] = o.Input
+	toSerialize["output"] = o.Output
+	toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
 	return toSerialize, nil
+}
+
+func (o *V2ScreeningCheckEntry) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"profile_check_id",
+		"check_type",
+		"display_name",
+		"status",
+		"config",
+		"input",
+		"output",
+		"candidate_wizard_url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varV2ScreeningCheckEntry := _V2ScreeningCheckEntry{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varV2ScreeningCheckEntry)
+
+	if err != nil {
+		return err
+	}
+
+	*o = V2ScreeningCheckEntry(varV2ScreeningCheckEntry)
+
+	return err
 }
 
 type NullableV2ScreeningCheckEntry struct {

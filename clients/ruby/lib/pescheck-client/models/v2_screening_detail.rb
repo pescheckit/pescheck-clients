@@ -101,40 +101,58 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      else
+        self.status = nil
       end
 
       if attributes.key?(:'profile')
         self.profile = attributes[:'profile']
+      else
+        self.profile = nil
       end
 
       if attributes.key?(:'candidate')
         self.candidate = attributes[:'candidate']
+      else
+        self.candidate = nil
       end
 
       if attributes.key?(:'checks')
         if (value = attributes[:'checks']).is_a?(Array)
           self.checks = value
         end
+      else
+        self.checks = nil
       end
 
       if attributes.key?(:'candidate_wizard_url')
         self.candidate_wizard_url = attributes[:'candidate_wizard_url']
+      else
+        self.candidate_wizard_url = nil
       end
 
       if attributes.key?(:'dashboard_url')
         self.dashboard_url = attributes[:'dashboard_url']
+      else
+        self.dashboard_url = nil
       end
 
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
+      else
+        self.created_at = nil
       end
 
       if attributes.key?(:'updated_at')
         self.updated_at = attributes[:'updated_at']
+      else
+        self.updated_at = nil
       end
     end
 
@@ -143,6 +161,34 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
+      if @status.nil?
+        invalid_properties.push('invalid value for "status", status cannot be nil.')
+      end
+
+      if @candidate.nil?
+        invalid_properties.push('invalid value for "candidate", candidate cannot be nil.')
+      end
+
+      if @checks.nil?
+        invalid_properties.push('invalid value for "checks", checks cannot be nil.')
+      end
+
+      if @dashboard_url.nil?
+        invalid_properties.push('invalid value for "dashboard_url", dashboard_url cannot be nil.')
+      end
+
+      if @created_at.nil?
+        invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
+      end
+
+      if @updated_at.nil?
+        invalid_properties.push('invalid value for "updated_at", updated_at cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -150,7 +196,84 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
+      return false if @status.nil?
+      return false if @candidate.nil?
+      return false if @checks.nil?
+      return false if @dashboard_url.nil?
+      return false if @created_at.nil?
+      return false if @updated_at.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] id Value to be assigned
+    def id=(id)
+      if id.nil?
+        fail ArgumentError, 'id cannot be nil'
+      end
+
+      @id = id
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] status Value to be assigned
+    def status=(status)
+      if status.nil?
+        fail ArgumentError, 'status cannot be nil'
+      end
+
+      @status = status
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] candidate Value to be assigned
+    def candidate=(candidate)
+      if candidate.nil?
+        fail ArgumentError, 'candidate cannot be nil'
+      end
+
+      @candidate = candidate
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] checks Value to be assigned
+    def checks=(checks)
+      if checks.nil?
+        fail ArgumentError, 'checks cannot be nil'
+      end
+
+      @checks = checks
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] dashboard_url Value to be assigned
+    def dashboard_url=(dashboard_url)
+      if dashboard_url.nil?
+        fail ArgumentError, 'dashboard_url cannot be nil'
+      end
+
+      @dashboard_url = dashboard_url
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] created_at Value to be assigned
+    def created_at=(created_at)
+      if created_at.nil?
+        fail ArgumentError, 'created_at cannot be nil'
+      end
+
+      @created_at = created_at
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated_at Value to be assigned
+    def updated_at=(updated_at)
+      if updated_at.nil?
+        fail ArgumentError, 'updated_at cannot be nil'
+      end
+
+      @updated_at = updated_at
     end
 
     # Checks equality by comparing each attribute.

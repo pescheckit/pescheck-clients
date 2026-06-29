@@ -385,6 +385,15 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['profile_check_id'] === null && !$this->isNullableSetToNull('profile_check_id')) {
+            $invalidProperties[] = "'profile_check_id' is required";
+        }
+        if ($this->container['check_type'] === null) {
+            $invalidProperties[] = "'check_type' can't be null";
+        }
         $allowedValues = $this->getCheckTypeAllowableValues();
         if (!is_null($this->container['check_type']) && !in_array($this->container['check_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -394,6 +403,24 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
             );
         }
 
+        if ($this->container['display_name'] === null) {
+            $invalidProperties[] = "'display_name' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['config'] === null) {
+            $invalidProperties[] = "'config' can't be null";
+        }
+        if ($this->container['input'] === null) {
+            $invalidProperties[] = "'input' can't be null";
+        }
+        if ($this->container['output'] === null) {
+            $invalidProperties[] = "'output' can't be null";
+        }
+        if ($this->container['candidate_wizard_url'] === null && !$this->isNullableSetToNull('candidate_wizard_url')) {
+            $invalidProperties[] = "'candidate_wizard_url' is required";
+        }
         return $invalidProperties;
     }
 
@@ -412,7 +439,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -422,7 +449,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -473,7 +500,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets check_type
      *
-     * @return string|null
+     * @return string
      */
     public function getCheckType()
     {
@@ -483,7 +510,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets check_type
      *
-     * @param string|null $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string $check_type * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */
@@ -510,7 +537,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets display_name
      *
-     * @return string|null
+     * @return string
      */
     public function getDisplayName()
     {
@@ -520,7 +547,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets display_name
      *
-     * @param string|null $display_name display_name
+     * @param string $display_name display_name
      *
      * @return self
      */
@@ -537,7 +564,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -547,7 +574,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string $status status
      *
      * @return self
      */
@@ -564,7 +591,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets config
      *
-     * @return array<string,mixed>|null
+     * @return array<string,mixed>
      */
     public function getConfig()
     {
@@ -574,7 +601,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets config
      *
-     * @param array<string,mixed>|null $config config
+     * @param array<string,mixed> $config config
      *
      * @return self
      */
@@ -591,7 +618,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets input
      *
-     * @return array<string,mixed>|null
+     * @return array<string,mixed>
      */
     public function getInput()
     {
@@ -601,7 +628,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets input
      *
-     * @param array<string,mixed>|null $input input
+     * @param array<string,mixed> $input input
      *
      * @return self
      */
@@ -618,7 +645,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Gets output
      *
-     * @return array<string,mixed>|null
+     * @return array<string,mixed>
      */
     public function getOutput()
     {
@@ -628,7 +655,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets output
      *
-     * @param array<string,mixed>|null $output output
+     * @param array<string,mixed> $output output
      *
      * @return self
      */

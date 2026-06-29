@@ -24,7 +24,7 @@ export interface DivisionReadOnly {
      * @type {string}
      * @memberof DivisionReadOnly
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * 
      * @type {string}
@@ -36,19 +36,19 @@ export interface DivisionReadOnly {
      * @type {string}
      * @memberof DivisionReadOnly
      */
-    readonly parent?: string;
+    readonly parent: string;
     /**
      * 
      * @type {Date}
      * @memberof DivisionReadOnly
      */
-    readonly createdAt?: Date;
+    readonly createdAt: Date;
     /**
      * 
      * @type {Date}
      * @memberof DivisionReadOnly
      */
-    readonly updatedAt?: Date;
+    readonly updatedAt: Date;
     /**
      * 
      * @type {string}
@@ -115,6 +115,10 @@ export interface DivisionReadOnly {
  * Check if a given object implements the DivisionReadOnly interface.
  */
 export function instanceOfDivisionReadOnly(value: any): value is DivisionReadOnly {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('parent' in value) || value['parent'] === undefined) return false;
+    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
+    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -128,11 +132,11 @@ export function DivisionReadOnlyFromJSONTyped(json: any, ignoreDiscriminator: bo
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
         'name': json['name'] == null ? undefined : json['name'],
-        'parent': json['parent'] == null ? undefined : json['parent'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
+        'parent': json['parent'],
+        'createdAt': (new Date(json['created_at'])),
+        'updatedAt': (new Date(json['updated_at'])),
         'city': json['city'] == null ? undefined : json['city'],
         'address': json['address'] == null ? undefined : json['address'],
         'postal': json['postal'] == null ? undefined : json['postal'],

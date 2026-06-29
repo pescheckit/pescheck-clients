@@ -118,6 +118,8 @@ module Pescheck
 
       if attributes.key?(:'id')
         self.id = attributes[:'id']
+      else
+        self.id = nil
       end
 
       if attributes.key?(:'name')
@@ -130,6 +132,8 @@ module Pescheck
 
       if attributes.key?(:'client_secret')
         self.client_secret = attributes[:'client_secret']
+      else
+        self.client_secret = nil
       end
 
       if attributes.key?(:'client_type')
@@ -146,10 +150,14 @@ module Pescheck
 
       if attributes.key?(:'created')
         self.created = attributes[:'created']
+      else
+        self.created = nil
       end
 
       if attributes.key?(:'updated')
         self.updated = attributes[:'updated']
+      else
+        self.updated = nil
       end
     end
 
@@ -158,12 +166,20 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @id.nil?
+        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      end
+
       if !@name.nil? && @name.to_s.length > 255
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
       end
 
       if !@client_id.nil? && @client_id.to_s.length > 100
         invalid_properties.push('invalid value for "client_id", the character length must be smaller than or equal to 100.')
+      end
+
+      if @client_secret.nil?
+        invalid_properties.push('invalid value for "client_secret", client_secret cannot be nil.')
       end
 
       if @client_type.nil?
@@ -174,6 +190,14 @@ module Pescheck
         invalid_properties.push('invalid value for "authorization_grant_type", authorization_grant_type cannot be nil.')
       end
 
+      if @created.nil?
+        invalid_properties.push('invalid value for "created", created cannot be nil.')
+      end
+
+      if @updated.nil?
+        invalid_properties.push('invalid value for "updated", updated cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -181,15 +205,29 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @id.nil?
       return false if !@name.nil? && @name.to_s.length > 255
       return false if !@client_id.nil? && @client_id.to_s.length > 100
+      return false if @client_secret.nil?
       return false if @client_type.nil?
       client_type_validator = EnumAttributeValidator.new('String', ["confidential", "public"])
       return false unless client_type_validator.valid?(@client_type)
       return false if @authorization_grant_type.nil?
       authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
       return false unless authorization_grant_type_validator.valid?(@authorization_grant_type)
+      return false if @created.nil?
+      return false if @updated.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] id Value to be assigned
+    def id=(id)
+      if id.nil?
+        fail ArgumentError, 'id cannot be nil'
+      end
+
+      @id = id
     end
 
     # Custom attribute writer method with validation
@@ -220,6 +258,16 @@ module Pescheck
       @client_id = client_id
     end
 
+    # Custom attribute writer method with validation
+    # @param [Object] client_secret Value to be assigned
+    def client_secret=(client_secret)
+      if client_secret.nil?
+        fail ArgumentError, 'client_secret cannot be nil'
+      end
+
+      @client_secret = client_secret
+    end
+
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] client_type Object to be assigned
     def client_type=(client_type)
@@ -238,6 +286,26 @@ module Pescheck
         fail ArgumentError, "invalid value for \"authorization_grant_type\", must be one of #{validator.allowable_values}."
       end
       @authorization_grant_type = authorization_grant_type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] created Value to be assigned
+    def created=(created)
+      if created.nil?
+        fail ArgumentError, 'created cannot be nil'
+      end
+
+      @created = created
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] updated Value to be assigned
+    def updated=(updated)
+      if updated.nil?
+        fail ArgumentError, 'updated cannot be nil'
+      end
+
+      @updated = updated
     end
 
     # Checks equality by comparing each attribute.

@@ -58,7 +58,7 @@ import io.pescheck.client.JSON;
 public class V2ProfileDetail {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -78,37 +78,37 @@ public class V2ProfileDetail {
 
   public static final String SERIALIZED_NAME_CHECKS = "checks";
   @SerializedName(SERIALIZED_NAME_CHECKS)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<V2ProfileCheckEntry> checks = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_TOTAL_PRICE = "total_price";
   @SerializedName(SERIALIZED_NAME_TOTAL_PRICE)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private V2Money totalPrice;
 
   public static final String SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_WORK = "supported_countries_of_work";
   @SerializedName(SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_WORK)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> supportedCountriesOfWork = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_RESIDENCE = "supported_countries_of_residence";
   @SerializedName(SERIALIZED_NAME_SUPPORTED_COUNTRIES_OF_RESIDENCE)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<String> supportedCountriesOfResidence = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CANDIDATE_FIELDS = "candidate_fields";
   @SerializedName(SERIALIZED_NAME_CANDIDATE_FIELDS)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<Object> candidateFields = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime updatedAt;
 
   public V2ProfileDetail() {
@@ -139,7 +139,7 @@ public class V2ProfileDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public UUID getId() {
     return id;
   }
@@ -207,7 +207,7 @@ public class V2ProfileDetail {
    * Get checks
    * @return checks
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<V2ProfileCheckEntry> getChecks() {
     return checks;
   }
@@ -218,7 +218,7 @@ public class V2ProfileDetail {
    * Get totalPrice
    * @return totalPrice
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public V2Money getTotalPrice() {
     return totalPrice;
   }
@@ -229,7 +229,7 @@ public class V2ProfileDetail {
    * Get supportedCountriesOfWork
    * @return supportedCountriesOfWork
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getSupportedCountriesOfWork() {
     return supportedCountriesOfWork;
   }
@@ -240,7 +240,7 @@ public class V2ProfileDetail {
    * Get supportedCountriesOfResidence
    * @return supportedCountriesOfResidence
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<String> getSupportedCountriesOfResidence() {
     return supportedCountriesOfResidence;
   }
@@ -251,7 +251,7 @@ public class V2ProfileDetail {
    * Get candidateFields
    * @return candidateFields
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<Object> getCandidateFields() {
     return candidateFields;
   }
@@ -262,7 +262,7 @@ public class V2ProfileDetail {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -273,7 +273,7 @@ public class V2ProfileDetail {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -344,7 +344,7 @@ public class V2ProfileDetail {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("name", "description"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"));
   }
 
   /**
@@ -375,7 +375,7 @@ public class V2ProfileDetail {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
+      if (!jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {
@@ -384,34 +384,34 @@ public class V2ProfileDetail {
       if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
       }
-      if (jsonObj.get("checks") != null && !jsonObj.get("checks").isJsonNull()) {
+      if (jsonObj.get("checks") != null) {
+        if (!jsonObj.get("checks").isJsonArray()) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
+        }
         JsonArray jsonArraychecks = jsonObj.getAsJsonArray("checks");
-        if (jsonArraychecks != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("checks").isJsonArray()) {
-            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
-          }
-
-          // validate the optional field `checks` (array)
-          for (int i = 0; i < jsonArraychecks.size(); i++) {
-            V2ProfileCheckEntry.validateJsonElement(jsonArraychecks.get(i));
-          };
+        // validate the required field `checks` (array)
+        for (int i = 0; i < jsonArraychecks.size(); i++) {
+          V2ProfileCheckEntry.validateJsonElement(jsonArraychecks.get(i));
         }
       }
-      // validate the optional field `total_price`
-      if (jsonObj.get("total_price") != null && !jsonObj.get("total_price").isJsonNull()) {
-        V2Money.validateJsonElement(jsonObj.get("total_price"));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("supported_countries_of_work") != null && !jsonObj.get("supported_countries_of_work").isJsonNull() && !jsonObj.get("supported_countries_of_work").isJsonArray()) {
+      // validate the required field `total_price`
+      V2Money.validateJsonElement(jsonObj.get("total_price"));
+      // ensure the required json array is present
+      if (jsonObj.get("supported_countries_of_work") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("supported_countries_of_work").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `supported_countries_of_work` to be an array in the JSON string but got `%s`", jsonObj.get("supported_countries_of_work").toString()));
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("supported_countries_of_residence") != null && !jsonObj.get("supported_countries_of_residence").isJsonNull() && !jsonObj.get("supported_countries_of_residence").isJsonArray()) {
+      // ensure the required json array is present
+      if (jsonObj.get("supported_countries_of_residence") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("supported_countries_of_residence").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `supported_countries_of_residence` to be an array in the JSON string but got `%s`", jsonObj.get("supported_countries_of_residence").toString()));
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("candidate_fields") != null && !jsonObj.get("candidate_fields").isJsonNull() && !jsonObj.get("candidate_fields").isJsonArray()) {
+      // ensure the required json array is present
+      if (jsonObj.get("candidate_fields") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("candidate_fields").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_fields` to be an array in the JSON string but got `%s`", jsonObj.get("candidate_fields").toString()));
       }
   }

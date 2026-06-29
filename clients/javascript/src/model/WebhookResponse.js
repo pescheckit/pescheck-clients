@@ -24,12 +24,17 @@ class WebhookResponse {
      * Serializer for webhook responses
      * @alias module:model/WebhookResponse
      * @extends Object
+     * @param id {String} 
      * @param name {String} 
      * @param url {String} 
+     * @param events {Object} 
+     * @param verified {Boolean} 
+     * @param createdAt {Date} 
+     * @param updatedAt {Date} 
      */
-    constructor(name, url) { 
+    constructor(id, name, url, events, verified, createdAt, updatedAt) { 
         
-        WebhookResponse.initialize(this, name, url);
+        WebhookResponse.initialize(this, id, name, url, events, verified, createdAt, updatedAt);
     }
 
     /**
@@ -37,9 +42,14 @@ class WebhookResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, url) { 
+    static initialize(obj, id, name, url, events, verified, createdAt, updatedAt) { 
+        obj['id'] = id;
         obj['name'] = name;
         obj['url'] = url;
+        obj['events'] = events;
+        obj['verified'] = verified;
+        obj['created_at'] = createdAt;
+        obj['updated_at'] = updatedAt;
     }
 
     /**
@@ -129,7 +139,7 @@ class WebhookResponse {
 
 }
 
-WebhookResponse.RequiredProperties = ["name", "url"];
+WebhookResponse.RequiredProperties = ["id", "name", "url", "events", "verified", "created_at", "updated_at"];
 
 /**
  * @member {String} id

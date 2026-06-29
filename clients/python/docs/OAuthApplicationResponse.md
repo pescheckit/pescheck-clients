@@ -6,14 +6,14 @@ Serializer for OAuth application responses
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [optional] [readonly] 
+**id** | **UUID** |  | [readonly] 
 **name** | **str** |  | [optional] 
 **client_id** | **str** |  | [optional] 
-**client_secret** | **str** |  | [optional] [readonly] 
+**client_secret** | **str** |  | [readonly] 
 **client_type** | **str** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public | 
 **authorization_grant_type** | **str** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
-**created** | **datetime** |  | [optional] [readonly] 
-**updated** | **datetime** |  | [optional] [readonly] 
+**created** | **datetime** |  | [readonly] 
+**updated** | **datetime** |  | [readonly] 
 
 ## Example
 

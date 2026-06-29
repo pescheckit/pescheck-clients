@@ -87,24 +87,34 @@ module Pescheck
 
       if attributes.key?(:'name')
         self.name = attributes[:'name']
+      else
+        self.name = nil
       end
 
       if attributes.key?(:'type')
         self.type = attributes[:'type']
+      else
+        self.type = nil
       end
 
       if attributes.key?(:'required')
         self.required = attributes[:'required']
+      else
+        self.required = nil
       end
 
       if attributes.key?(:'choices')
         if (value = attributes[:'choices']).is_a?(Array)
           self.choices = value
         end
+      else
+        self.choices = nil
       end
 
       if attributes.key?(:'help_text')
         self.help_text = attributes[:'help_text']
+      else
+        self.help_text = nil
       end
     end
 
@@ -113,6 +123,18 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @name.nil?
+        invalid_properties.push('invalid value for "name", name cannot be nil.')
+      end
+
+      if @type.nil?
+        invalid_properties.push('invalid value for "type", type cannot be nil.')
+      end
+
+      if @required.nil?
+        invalid_properties.push('invalid value for "required", required cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -120,7 +142,40 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @name.nil?
+      return false if @type.nil?
+      return false if @required.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] name Value to be assigned
+    def name=(name)
+      if name.nil?
+        fail ArgumentError, 'name cannot be nil'
+      end
+
+      @name = name
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] type Value to be assigned
+    def type=(type)
+      if type.nil?
+        fail ArgumentError, 'type cannot be nil'
+      end
+
+      @type = type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] required Value to be assigned
+    def required=(required)
+      if required.nil?
+        fail ArgumentError, 'required cannot be nil'
+      end
+
+      @required = required
     end
 
     # Checks equality by comparing each attribute.

@@ -13,40 +13,40 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ScreeningDetail {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<uuid::Uuid>,
-    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
-    #[serde(rename = "profile", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub profile: Option<Option<Box<models::V2ScreeningDetailProfile>>>,
-    #[serde(rename = "candidate", skip_serializing_if = "Option::is_none")]
-    pub candidate: Option<Box<models::V2Candidate>>,
-    #[serde(rename = "checks", skip_serializing_if = "Option::is_none")]
-    pub checks: Option<Vec<models::V2ScreeningCheckEntry>>,
+    #[serde(rename = "id")]
+    pub id: uuid::Uuid,
+    #[serde(rename = "status")]
+    pub status: String,
+    #[serde(rename = "profile", deserialize_with = "Option::deserialize")]
+    pub profile: Option<Box<models::V2ScreeningDetailProfile>>,
+    #[serde(rename = "candidate")]
+    pub candidate: Box<models::V2Candidate>,
+    #[serde(rename = "checks")]
+    pub checks: Vec<models::V2ScreeningCheckEntry>,
     /// Public wizard URL for the candidate. Null when no check needs candidate input.
-    #[serde(rename = "candidate_wizard_url", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub candidate_wizard_url: Option<Option<String>>,
+    #[serde(rename = "candidate_wizard_url", deserialize_with = "Option::deserialize")]
+    pub candidate_wizard_url: Option<String>,
     /// Dashboard URL for this screening.
-    #[serde(rename = "dashboard_url", skip_serializing_if = "Option::is_none")]
-    pub dashboard_url: Option<String>,
-    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
-    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "dashboard_url")]
+    pub dashboard_url: String,
+    #[serde(rename = "created_at")]
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "updated_at")]
+    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl V2ScreeningDetail {
-    pub fn new() -> V2ScreeningDetail {
+    pub fn new(id: uuid::Uuid, status: String, profile: Option<models::V2ScreeningDetailProfile>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckEntry>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningDetail {
         V2ScreeningDetail {
-            id: None,
-            status: None,
-            profile: None,
-            candidate: None,
-            checks: None,
-            candidate_wizard_url: None,
-            dashboard_url: None,
-            created_at: None,
-            updated_at: None,
+            id,
+            status,
+            profile: if let Some(x) = profile {Some(Box::new(x))} else {None},
+            candidate: Box::new(candidate),
+            checks,
+            candidate_wizard_url,
+            dashboard_url,
+            created_at,
+            updated_at,
         }
     }
 }

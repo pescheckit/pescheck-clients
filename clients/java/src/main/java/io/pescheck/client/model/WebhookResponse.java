@@ -56,7 +56,7 @@ import io.pescheck.client.JSON;
 public class WebhookResponse {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -81,7 +81,7 @@ public class WebhookResponse {
 
   public static final String SERIALIZED_NAME_VERIFIED = "verified";
   @SerializedName(SERIALIZED_NAME_VERIFIED)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean verified;
 
   public static final String SERIALIZED_NAME_TOKEN = "token";
@@ -96,12 +96,12 @@ public class WebhookResponse {
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime updatedAt;
 
   public WebhookResponse() {
@@ -130,7 +130,7 @@ public class WebhookResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public UUID getId() {
     return id;
   }
@@ -209,7 +209,7 @@ public class WebhookResponse {
    * Get verified
    * @return verified
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Boolean getVerified() {
     return verified;
   }
@@ -242,7 +242,7 @@ public class WebhookResponse {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -253,7 +253,7 @@ public class WebhookResponse {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -379,7 +379,7 @@ public class WebhookResponse {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("name", "url"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "url", "events", "verified", "created_at", "updated_at"));
   }
 
   /**
@@ -402,7 +402,7 @@ public class WebhookResponse {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
+      if (!jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if (!jsonObj.get("name").isJsonPrimitive()) {

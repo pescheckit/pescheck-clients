@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] [readonly] 
+**id** | **String** |  | [readonly] 
 **name** | **String** |  | [optional] 
-**parent** | **String** |  | [optional] [readonly] 
-**createdAt** | **Date** |  | [optional] [readonly] 
-**updatedAt** | **Date** |  | [optional] [readonly] 
+**parent** | **String** |  | [readonly] 
+**createdAt** | **Date** |  | [readonly] 
+**updatedAt** | **Date** |  | [readonly] 
 **city** | **String** |  | [optional] 
 **address** | **String** |  | [optional] 
 **postal** | **String** |  | [optional] 

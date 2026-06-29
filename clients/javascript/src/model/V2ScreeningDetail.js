@@ -25,10 +25,19 @@ class V2ScreeningDetail {
     /**
      * Constructs a new <code>V2ScreeningDetail</code>.
      * @alias module:model/V2ScreeningDetail
+     * @param id {String} 
+     * @param status {String} 
+     * @param profile {module:model/V2ScreeningDetailProfile} 
+     * @param candidate {module:model/V2Candidate} 
+     * @param checks {Array.<module:model/V2ScreeningCheckEntry>} 
+     * @param candidateWizardUrl {String} Public wizard URL for the candidate. Null when no check needs candidate input.
+     * @param dashboardUrl {String} Dashboard URL for this screening.
+     * @param createdAt {Date} 
+     * @param updatedAt {Date} 
      */
-    constructor() { 
+    constructor(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         
-        V2ScreeningDetail.initialize(this);
+        V2ScreeningDetail.initialize(this, id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
     }
 
     /**
@@ -36,7 +45,16 @@ class V2ScreeningDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+        obj['id'] = id;
+        obj['status'] = status;
+        obj['profile'] = profile;
+        obj['candidate'] = candidate;
+        obj['checks'] = checks;
+        obj['candidate_wizard_url'] = candidateWizardUrl;
+        obj['dashboard_url'] = dashboardUrl;
+        obj['created_at'] = createdAt;
+        obj['updated_at'] = updatedAt;
     }
 
     /**
@@ -87,6 +105,12 @@ class V2ScreeningDetail {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2ScreeningDetail</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2ScreeningDetail.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -128,7 +152,7 @@ class V2ScreeningDetail {
 
 }
 
-
+V2ScreeningDetail.RequiredProperties = ["id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
 
 /**
  * @member {String} id

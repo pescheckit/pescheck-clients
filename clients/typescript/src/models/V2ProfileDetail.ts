@@ -39,7 +39,7 @@ export interface V2ProfileDetail {
      * @type {string}
      * @memberof V2ProfileDetail
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * 
      * @type {string}
@@ -63,51 +63,59 @@ export interface V2ProfileDetail {
      * @type {Array<V2ProfileCheckEntry>}
      * @memberof V2ProfileDetail
      */
-    readonly checks?: Array<V2ProfileCheckEntry>;
+    readonly checks: Array<V2ProfileCheckEntry>;
     /**
      * 
      * @type {V2Money}
      * @memberof V2ProfileDetail
      */
-    readonly totalPrice?: V2Money;
+    readonly totalPrice: V2Money;
     /**
      * 
      * @type {Array<string>}
      * @memberof V2ProfileDetail
      */
-    readonly supportedCountriesOfWork?: Array<string>;
+    readonly supportedCountriesOfWork: Array<string>;
     /**
      * 
      * @type {Array<string>}
      * @memberof V2ProfileDetail
      */
-    readonly supportedCountriesOfResidence?: Array<string>;
+    readonly supportedCountriesOfResidence: Array<string>;
     /**
      * 
      * @type {Array<object>}
      * @memberof V2ProfileDetail
      */
-    readonly candidateFields?: Array<object>;
+    readonly candidateFields: Array<object>;
     /**
      * 
      * @type {Date}
      * @memberof V2ProfileDetail
      */
-    readonly createdAt?: Date;
+    readonly createdAt: Date;
     /**
      * 
      * @type {Date}
      * @memberof V2ProfileDetail
      */
-    readonly updatedAt?: Date;
+    readonly updatedAt: Date;
 }
 
 /**
  * Check if a given object implements the V2ProfileDetail interface.
  */
 export function instanceOfV2ProfileDetail(value: any): value is V2ProfileDetail {
+    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
+    if (!('checks' in value) || value['checks'] === undefined) return false;
+    if ((!('totalPrice' in value) && !('total_price' in value)) || (value['totalPrice'] === undefined && value['total_price'] === undefined)) return false;
+    if ((!('supportedCountriesOfWork' in value) && !('supported_countries_of_work' in value)) || (value['supportedCountriesOfWork'] === undefined && value['supported_countries_of_work'] === undefined)) return false;
+    if ((!('supportedCountriesOfResidence' in value) && !('supported_countries_of_residence' in value)) || (value['supportedCountriesOfResidence'] === undefined && value['supported_countries_of_residence'] === undefined)) return false;
+    if ((!('candidateFields' in value) && !('candidate_fields' in value)) || (value['candidateFields'] === undefined && value['candidate_fields'] === undefined)) return false;
+    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
+    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -121,17 +129,17 @@ export function V2ProfileDetailFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
         'name': json['name'],
         'description': json['description'],
         'isCustom': json['is_custom'] == null ? undefined : json['is_custom'],
-        'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(V2ProfileCheckEntryFromJSON)),
-        'totalPrice': json['total_price'] == null ? undefined : V2MoneyFromJSON(json['total_price']),
-        'supportedCountriesOfWork': json['supported_countries_of_work'] == null ? undefined : json['supported_countries_of_work'],
-        'supportedCountriesOfResidence': json['supported_countries_of_residence'] == null ? undefined : json['supported_countries_of_residence'],
-        'candidateFields': json['candidate_fields'] == null ? undefined : json['candidate_fields'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
+        'checks': ((json['checks'] as Array<any>).map(V2ProfileCheckEntryFromJSON)),
+        'totalPrice': V2MoneyFromJSON(json['total_price']),
+        'supportedCountriesOfWork': json['supported_countries_of_work'],
+        'supportedCountriesOfResidence': json['supported_countries_of_residence'],
+        'candidateFields': json['candidate_fields'],
+        'createdAt': (new Date(json['created_at'])),
+        'updatedAt': (new Date(json['updated_at'])),
     };
 }
 

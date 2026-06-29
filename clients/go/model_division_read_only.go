@@ -13,6 +13,8 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the DivisionReadOnly type satisfies the MappedNullable interface at compile time
@@ -20,11 +22,11 @@ var _ MappedNullable = &DivisionReadOnly{}
 
 // DivisionReadOnly struct for DivisionReadOnly
 type DivisionReadOnly struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Name NullableString `json:"name,omitempty"`
-	Parent *string `json:"parent,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Parent string `json:"parent"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 	City NullableString `json:"city,omitempty"`
 	Address NullableString `json:"address,omitempty"`
 	Postal NullableString `json:"postal,omitempty"`
@@ -37,12 +39,18 @@ type DivisionReadOnly struct {
 	UseParentOnReport *bool `json:"use_parent_on_report,omitempty"`
 }
 
+type _DivisionReadOnly DivisionReadOnly
+
 // NewDivisionReadOnly instantiates a new DivisionReadOnly object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDivisionReadOnly() *DivisionReadOnly {
+func NewDivisionReadOnly(id string, parent string, createdAt time.Time, updatedAt time.Time) *DivisionReadOnly {
 	this := DivisionReadOnly{}
+	this.Id = id
+	this.Parent = parent
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -54,36 +62,28 @@ func NewDivisionReadOnlyWithDefaults() *DivisionReadOnly {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *DivisionReadOnly) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *DivisionReadOnly) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *DivisionReadOnly) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *DivisionReadOnly) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -128,100 +128,76 @@ func (o *DivisionReadOnly) UnsetName() {
 	o.Name.Unset()
 }
 
-// GetParent returns the Parent field value if set, zero value otherwise.
+// GetParent returns the Parent field value
 func (o *DivisionReadOnly) GetParent() string {
-	if o == nil || IsNil(o.Parent) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Parent
+
+	return o.Parent
 }
 
-// GetParentOk returns a tuple with the Parent field value if set, nil otherwise
+// GetParentOk returns a tuple with the Parent field value
 // and a boolean to check if the value has been set.
 func (o *DivisionReadOnly) GetParentOk() (*string, bool) {
-	if o == nil || IsNil(o.Parent) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Parent, true
+	return &o.Parent, true
 }
 
-// HasParent returns a boolean if a field has been set.
-func (o *DivisionReadOnly) HasParent() bool {
-	if o != nil && !IsNil(o.Parent) {
-		return true
-	}
-
-	return false
-}
-
-// SetParent gets a reference to the given string and assigns it to the Parent field.
+// SetParent sets field value
 func (o *DivisionReadOnly) SetParent(v string) {
-	o.Parent = &v
+	o.Parent = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *DivisionReadOnly) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *DivisionReadOnly) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *DivisionReadOnly) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *DivisionReadOnly) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value
 func (o *DivisionReadOnly) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *DivisionReadOnly) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *DivisionReadOnly) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *DivisionReadOnly) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 }
 
 // GetCity returns the City field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -624,21 +600,13 @@ func (o DivisionReadOnly) MarshalJSON() ([]byte, error) {
 
 func (o DivisionReadOnly) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
 	}
-	if !IsNil(o.Parent) {
-		toSerialize["parent"] = o.Parent
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
+	toSerialize["parent"] = o.Parent
+	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["updated_at"] = o.UpdatedAt
 	if o.City.IsSet() {
 		toSerialize["city"] = o.City.Get()
 	}
@@ -670,6 +638,46 @@ func (o DivisionReadOnly) ToMap() (map[string]interface{}, error) {
 		toSerialize["use_parent_on_report"] = o.UseParentOnReport
 	}
 	return toSerialize, nil
+}
+
+func (o *DivisionReadOnly) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"parent",
+		"created_at",
+		"updated_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varDivisionReadOnly := _DivisionReadOnly{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varDivisionReadOnly)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DivisionReadOnly(varDivisionReadOnly)
+
+	return err
 }
 
 type NullableDivisionReadOnly struct {

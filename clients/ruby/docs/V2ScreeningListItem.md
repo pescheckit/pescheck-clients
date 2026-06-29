@@ -4,15 +4,15 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [optional][readonly] |
+| **id** | **String** |  | [readonly] |
 | **status** | **String** |  | [optional] |
-| **profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] |
-| **candidate** | [**V2Candidate**](V2Candidate.md) |  | [optional][readonly] |
-| **checks** | [**Array&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  | [optional][readonly] |
-| **candidate_wizard_url** | **String** |  | [optional][readonly] |
-| **dashboard_url** | **String** |  | [optional][readonly] |
-| **created_at** | **Time** |  | [optional][readonly] |
-| **updated_at** | **Time** |  | [optional][readonly] |
+| **profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  |  |
+| **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] |
+| **checks** | [**Array&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  | [readonly] |
+| **candidate_wizard_url** | **String** |  | [readonly] |
+| **dashboard_url** | **String** |  | [readonly] |
+| **created_at** | **Time** |  | [readonly] |
+| **updated_at** | **Time** |  | [readonly] |
 
 ## Example
 

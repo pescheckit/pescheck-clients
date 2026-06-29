@@ -26,10 +26,18 @@ class V2ScreeningListItem {
      * Constructs a new <code>V2ScreeningListItem</code>.
      * List shape for GET /screenings/. Same candidate as detail; the only thing we slim here is per-check info (status only), since config/input/output are heavy and rarely needed at list time.
      * @alias module:model/V2ScreeningListItem
+     * @param id {String} 
+     * @param profile {module:model/V2ScreeningDetailProfile} 
+     * @param candidate {module:model/V2Candidate} 
+     * @param checks {Array.<module:model/V2ScreeningCheckListItem>} 
+     * @param candidateWizardUrl {String} 
+     * @param dashboardUrl {String} 
+     * @param createdAt {Date} 
+     * @param updatedAt {Date} 
      */
-    constructor() { 
+    constructor(id, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         
-        V2ScreeningListItem.initialize(this);
+        V2ScreeningListItem.initialize(this, id, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
     }
 
     /**
@@ -37,7 +45,15 @@ class V2ScreeningListItem {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, id, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+        obj['id'] = id;
+        obj['profile'] = profile;
+        obj['candidate'] = candidate;
+        obj['checks'] = checks;
+        obj['candidate_wizard_url'] = candidateWizardUrl;
+        obj['dashboard_url'] = dashboardUrl;
+        obj['created_at'] = createdAt;
+        obj['updated_at'] = updatedAt;
     }
 
     /**
@@ -88,6 +104,12 @@ class V2ScreeningListItem {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2ScreeningListItem</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2ScreeningListItem.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['id'] && !(typeof data['id'] === 'string' || data['id'] instanceof String)) {
             throw new Error("Expected the field `id` to be a primitive type in the JSON string but got " + data['id']);
@@ -129,7 +151,7 @@ class V2ScreeningListItem {
 
 }
 
-
+V2ScreeningListItem.RequiredProperties = ["id", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
 
 /**
  * @member {String} id

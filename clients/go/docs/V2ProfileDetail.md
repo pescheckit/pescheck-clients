@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | **string** |  | [readonly] 
 **Name** | **string** |  | 
 **Description** | **NullableString** |  | 
 **IsCustom** | Pointer to **bool** |  | [optional] 
-**Checks** | Pointer to [**[]V2ProfileCheckEntry**](V2ProfileCheckEntry.md) |  | [optional] [readonly] 
-**TotalPrice** | Pointer to [**V2Money**](V2Money.md) |  | [optional] [readonly] 
-**SupportedCountriesOfWork** | Pointer to **[]string** |  | [optional] [readonly] 
-**SupportedCountriesOfResidence** | Pointer to **[]string** |  | [optional] [readonly] 
-**CandidateFields** | Pointer to **[]map[string]interface{}** |  | [optional] [readonly] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**Checks** | [**[]V2ProfileCheckEntry**](V2ProfileCheckEntry.md) |  | [readonly] 
+**TotalPrice** | [**V2Money**](V2Money.md) |  | [readonly] 
+**SupportedCountriesOfWork** | **[]string** |  | [readonly] 
+**SupportedCountriesOfResidence** | **[]string** |  | [readonly] 
+**CandidateFields** | **[]map[string]interface{}** |  | [readonly] 
+**CreatedAt** | **time.Time** |  | [readonly] 
+**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewV2ProfileDetail
 
-`func NewV2ProfileDetail(name string, description NullableString, ) *V2ProfileDetail`
+`func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createdAt time.Time, updatedAt time.Time, ) *V2ProfileDetail`
 
 NewV2ProfileDetail instantiates a new V2ProfileDetail object
 This constructor will assign default values to properties that have it defined,
@@ -54,11 +54,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *V2ProfileDetail) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -154,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetChecks sets Checks field to given value.
 
-### HasChecks
-
-`func (o *V2ProfileDetail) HasChecks() bool`
-
-HasChecks returns a boolean if a field has been set.
 
 ### GetTotalPrice
 
@@ -179,11 +169,6 @@ and a boolean to check if the value has been set.
 
 SetTotalPrice sets TotalPrice field to given value.
 
-### HasTotalPrice
-
-`func (o *V2ProfileDetail) HasTotalPrice() bool`
-
-HasTotalPrice returns a boolean if a field has been set.
 
 ### GetSupportedCountriesOfWork
 
@@ -204,11 +189,6 @@ and a boolean to check if the value has been set.
 
 SetSupportedCountriesOfWork sets SupportedCountriesOfWork field to given value.
 
-### HasSupportedCountriesOfWork
-
-`func (o *V2ProfileDetail) HasSupportedCountriesOfWork() bool`
-
-HasSupportedCountriesOfWork returns a boolean if a field has been set.
 
 ### GetSupportedCountriesOfResidence
 
@@ -229,11 +209,6 @@ and a boolean to check if the value has been set.
 
 SetSupportedCountriesOfResidence sets SupportedCountriesOfResidence field to given value.
 
-### HasSupportedCountriesOfResidence
-
-`func (o *V2ProfileDetail) HasSupportedCountriesOfResidence() bool`
-
-HasSupportedCountriesOfResidence returns a boolean if a field has been set.
 
 ### GetCandidateFields
 
@@ -254,11 +229,6 @@ and a boolean to check if the value has been set.
 
 SetCandidateFields sets CandidateFields field to given value.
 
-### HasCandidateFields
-
-`func (o *V2ProfileDetail) HasCandidateFields() bool`
-
-HasCandidateFields returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -279,11 +249,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *V2ProfileDetail) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -304,11 +269,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-### HasUpdatedAt
-
-`func (o *V2ProfileDetail) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

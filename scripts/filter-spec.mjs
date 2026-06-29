@@ -126,17 +126,35 @@ for (const [name, fields] of Object.entries(RELAX_REQUIRED)) {
   }
 }
 
-// 5d. Strip readOnly properties from `required` on ALL schemas. Two reasons:
-//   - request bodies: DivisionWrite marks `id` both readOnly and required, so
-//     generated clients would demand an id when *creating* a division.
-//   - responses: the server may legitimately return a readOnly field as null
-//     (e.g. V2ProfileCheckEntry.id on some profile responses). A strict client
-//     (pydantic) then crashes *deserializing* the response.
-// Making readOnly fields non-required => clients neither require them on input
-// nor crash on a null on output. readOnly is server-assigned, never client-set,
-// so it should never be in `required` for a generated client either way.
+// 5d. Strip readOnly properties from `required` on a TARGETED set of schemas:
+//   - request-body schemas (transitively): DivisionWrite marks `id` both readOnly
+//     and required, so clients would otherwise demand an id when *creating*.
+//   - V2ProfileCheckEntry: the API can return its `id` as null in some profile
+//     responses, which crashes strict (pydantic) clients during deserialization.
+// We deliberately do NOT strip readOnly-required on ALL response schemas: that
+// would make ids (V2ProfileDetail.id, V2ScreeningDetail.id, ...) Optional
+// everywhere and force every consumer to unwrap them (and break strict clients).
+const stripReadOnlyRequired = new Set(["V2ProfileCheckEntry"]);
+const reqQueue = [];
+for (const item of Object.values(doc.paths)) {
+  for (const m of ["post", "put", "patch"]) {
+    const content = item[m]?.requestBody?.content;
+    if (!content) continue;
+    for (const media of Object.values(content)) {
+      for (const ref of collectRefs(media.schema ?? {}, new Set())) reqQueue.push(ref);
+    }
+  }
+}
+while (reqQueue.length) {
+  const parsed = refKey(reqQueue.pop());
+  if (!parsed || parsed.bucket !== "schemas" || stripReadOnlyRequired.has(parsed.name)) continue;
+  stripReadOnlyRequired.add(parsed.name);
+  const target = doc.components?.schemas?.[parsed.name];
+  if (target) for (const r of collectRefs(target, new Set())) reqQueue.push(r);
+}
 let readOnlyRequiredStripped = 0;
-for (const schema of Object.values(doc.components?.schemas ?? {})) {
+for (const name of stripReadOnlyRequired) {
+  const schema = doc.components?.schemas?.[name];
   if (!schema?.required || !schema.properties) continue;
   const before = schema.required.length;
   schema.required = schema.required.filter((f) => !schema.properties[f]?.readOnly);

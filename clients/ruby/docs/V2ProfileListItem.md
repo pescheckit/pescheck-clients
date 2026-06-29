@@ -4,13 +4,13 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [optional][readonly] |
+| **id** | **String** |  | [readonly] |
 | **name** | **String** |  |  |
 | **description** | **String** |  |  |
 | **is_custom** | **Boolean** |  | [optional] |
-| **check_types** | **Array&lt;String&gt;** |  | [optional][readonly] |
-| **created_at** | **Time** |  | [optional][readonly] |
-| **updated_at** | **Time** |  | [optional][readonly] |
+| **check_types** | **Array&lt;String&gt;** |  | [readonly] |
+| **created_at** | **Time** |  | [readonly] |
+| **updated_at** | **Time** |  | [readonly] |
 
 ## Example
 

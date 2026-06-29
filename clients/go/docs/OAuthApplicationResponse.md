@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | **string** |  | [readonly] 
 **Name** | Pointer to **string** |  | [optional] 
 **ClientId** | Pointer to **string** |  | [optional] 
-**ClientSecret** | Pointer to **string** |  | [optional] [readonly] 
+**ClientSecret** | **string** |  | [readonly] 
 **ClientType** | **string** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public | 
 **AuthorizationGrantType** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
-**Created** | Pointer to **time.Time** |  | [optional] [readonly] 
-**Updated** | Pointer to **time.Time** |  | [optional] [readonly] 
+**Created** | **time.Time** |  | [readonly] 
+**Updated** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewOAuthApplicationResponse
 
-`func NewOAuthApplicationResponse(clientType string, authorizationGrantType string, ) *OAuthApplicationResponse`
+`func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, created time.Time, updated time.Time, ) *OAuthApplicationResponse`
 
 NewOAuthApplicationResponse instantiates a new OAuthApplicationResponse object
 This constructor will assign default values to properties that have it defined,
@@ -51,11 +51,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *OAuthApplicationResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -126,11 +121,6 @@ and a boolean to check if the value has been set.
 
 SetClientSecret sets ClientSecret field to given value.
 
-### HasClientSecret
-
-`func (o *OAuthApplicationResponse) HasClientSecret() bool`
-
-HasClientSecret returns a boolean if a field has been set.
 
 ### GetClientType
 
@@ -191,11 +181,6 @@ and a boolean to check if the value has been set.
 
 SetCreated sets Created field to given value.
 
-### HasCreated
-
-`func (o *OAuthApplicationResponse) HasCreated() bool`
-
-HasCreated returns a boolean if a field has been set.
 
 ### GetUpdated
 
@@ -216,11 +201,6 @@ and a boolean to check if the value has been set.
 
 SetUpdated sets Updated field to given value.
 
-### HasUpdated
-
-`func (o *OAuthApplicationResponse) HasUpdated() bool`
-
-HasUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -153,7 +153,7 @@ async fn run_lifecycle(
         serde_json::from_value(serde_json::Value::String(check_type.clone()))?;
     // Reference the existing check by its profile_check_id so the PUT updates it
     // in place rather than trying to add a duplicate of the same type.
-    let existing_check_id = patched.checks.first().map(|c| c.id);
+    let existing_check_id = patched.checks.first().and_then(|c| c.id);
     let put_name = format!("E2E test profile {suffix} v2");
     let put_updated = profiles_api::v2_profiles_update(
         cfg,

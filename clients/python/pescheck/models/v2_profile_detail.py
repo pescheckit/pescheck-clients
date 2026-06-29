@@ -31,17 +31,17 @@ class V2ProfileDetail(BaseModel):
     """
     V2ProfileDetail
     """ # noqa: E501
-    id: Optional[UUID] = None
+    id: UUID
     name: StrictStr
     description: Optional[StrictStr]
     is_custom: Optional[StrictBool] = None
-    checks: Optional[List[V2ProfileCheckEntry]] = None
-    total_price: Optional[V2Money] = None
-    supported_countries_of_work: Optional[List[StrictStr]] = None
-    supported_countries_of_residence: Optional[List[StrictStr]] = None
-    candidate_fields: Optional[List[Dict[str, Any]]] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    checks: List[V2ProfileCheckEntry]
+    total_price: V2Money
+    supported_countries_of_work: List[StrictStr]
+    supported_countries_of_residence: List[StrictStr]
+    candidate_fields: List[Dict[str, Any]]
+    created_at: datetime
+    updated_at: datetime
     __properties: ClassVar[List[str]] = ["id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"]
 
     model_config = ConfigDict(

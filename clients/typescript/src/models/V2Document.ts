@@ -33,7 +33,7 @@ export interface V2Document {
      * @type {string}
      * @memberof V2Document
      */
-    readonly checkId?: string | null;
+    readonly checkId: string | null;
     /**
      * * `addresscheck` - addresscheck
      * * `adversemediacheck` - adversemediacheck
@@ -60,31 +60,31 @@ export interface V2Document {
      * @type {V2DocumentCheckTypeEnum}
      * @memberof V2Document
      */
-    readonly checkType?: V2DocumentCheckTypeEnum;
+    readonly checkType: V2DocumentCheckTypeEnum;
     /**
      * 
      * @type {string}
      * @memberof V2Document
      */
-    readonly filename?: string;
+    readonly filename: string;
     /**
      * 
      * @type {string}
      * @memberof V2Document
      */
-    readonly extension?: string;
+    readonly extension: string;
     /**
      * 
      * @type {V2DocumentContent}
      * @memberof V2Document
      */
-    readonly content?: V2DocumentContent;
+    readonly content: V2DocumentContent;
     /**
      * 
      * @type {{ [key: string]: any; }}
      * @memberof V2Document
      */
-    readonly metadata?: { [key: string]: any; };
+    readonly metadata: { [key: string]: any; };
 }
 
 
@@ -122,6 +122,12 @@ export type V2DocumentCheckTypeEnum = typeof V2DocumentCheckTypeEnum[keyof typeo
  * Check if a given object implements the V2Document interface.
  */
 export function instanceOfV2Document(value: any): value is V2Document {
+    if ((!('checkId' in value) && !('check_id' in value)) || (value['checkId'] === undefined && value['check_id'] === undefined)) return false;
+    if ((!('checkType' in value) && !('check_type' in value)) || (value['checkType'] === undefined && value['check_type'] === undefined)) return false;
+    if (!('filename' in value) || value['filename'] === undefined) return false;
+    if (!('extension' in value) || value['extension'] === undefined) return false;
+    if (!('content' in value) || value['content'] === undefined) return false;
+    if (!('metadata' in value) || value['metadata'] === undefined) return false;
     return true;
 }
 
@@ -135,12 +141,12 @@ export function V2DocumentFromJSONTyped(json: any, ignoreDiscriminator: boolean)
     }
     return {
         
-        'checkId': json['check_id'] == null ? undefined : json['check_id'],
-        'checkType': json['check_type'] == null ? undefined : json['check_type'],
-        'filename': json['filename'] == null ? undefined : json['filename'],
-        'extension': json['extension'] == null ? undefined : json['extension'],
-        'content': json['content'] == null ? undefined : V2DocumentContentFromJSON(json['content']),
-        'metadata': json['metadata'] == null ? undefined : json['metadata'],
+        'checkId': json['check_id'],
+        'checkType': json['check_type'],
+        'filename': json['filename'],
+        'extension': json['extension'],
+        'content': V2DocumentContentFromJSON(json['content']),
+        'metadata': json['metadata'],
     };
 }
 

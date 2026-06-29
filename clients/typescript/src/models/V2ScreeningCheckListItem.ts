@@ -24,7 +24,7 @@ export interface V2ScreeningCheckListItem {
      * @type {string}
      * @memberof V2ScreeningCheckListItem
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * * `addresscheck` - addresscheck
      * * `adversemediacheck` - adversemediacheck
@@ -51,13 +51,13 @@ export interface V2ScreeningCheckListItem {
      * @type {V2ScreeningCheckListItemCheckTypeEnum}
      * @memberof V2ScreeningCheckListItem
      */
-    readonly checkType?: V2ScreeningCheckListItemCheckTypeEnum;
+    readonly checkType: V2ScreeningCheckListItemCheckTypeEnum;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningCheckListItem
      */
-    readonly status?: string;
+    readonly status: string;
 }
 
 
@@ -95,6 +95,9 @@ export type V2ScreeningCheckListItemCheckTypeEnum = typeof V2ScreeningCheckListI
  * Check if a given object implements the V2ScreeningCheckListItem interface.
  */
 export function instanceOfV2ScreeningCheckListItem(value: any): value is V2ScreeningCheckListItem {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if ((!('checkType' in value) && !('check_type' in value)) || (value['checkType'] === undefined && value['check_type'] === undefined)) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
     return true;
 }
 
@@ -108,9 +111,9 @@ export function V2ScreeningCheckListItemFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'checkType': json['check_type'] == null ? undefined : json['check_type'],
-        'status': json['status'] == null ? undefined : json['status'],
+        'id': json['id'],
+        'checkType': json['check_type'],
+        'status': json['status'],
     };
 }
 

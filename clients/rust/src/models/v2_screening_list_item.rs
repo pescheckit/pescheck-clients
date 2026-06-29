@@ -14,39 +14,39 @@ use serde::{Deserialize, Serialize};
 /// V2ScreeningListItem : List shape for GET /screenings/. Same candidate as detail; the only thing we slim here is per-check info (status only), since config/input/output are heavy and rarely needed at list time.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2ScreeningListItem {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<uuid::Uuid>,
+    #[serde(rename = "id")]
+    pub id: uuid::Uuid,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    #[serde(rename = "profile", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub profile: Option<Option<Box<models::V2ScreeningDetailProfile>>>,
-    #[serde(rename = "candidate", skip_serializing_if = "Option::is_none")]
-    pub candidate: Option<Box<models::V2Candidate>>,
-    #[serde(rename = "checks", skip_serializing_if = "Option::is_none")]
-    pub checks: Option<Vec<models::V2ScreeningCheckListItem>>,
-    #[serde(rename = "candidate_wizard_url", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub candidate_wizard_url: Option<Option<String>>,
-    #[serde(rename = "dashboard_url", skip_serializing_if = "Option::is_none")]
-    pub dashboard_url: Option<String>,
-    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
-    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "profile", deserialize_with = "Option::deserialize")]
+    pub profile: Option<Box<models::V2ScreeningDetailProfile>>,
+    #[serde(rename = "candidate")]
+    pub candidate: Box<models::V2Candidate>,
+    #[serde(rename = "checks")]
+    pub checks: Vec<models::V2ScreeningCheckListItem>,
+    #[serde(rename = "candidate_wizard_url", deserialize_with = "Option::deserialize")]
+    pub candidate_wizard_url: Option<String>,
+    #[serde(rename = "dashboard_url")]
+    pub dashboard_url: String,
+    #[serde(rename = "created_at")]
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "updated_at")]
+    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl V2ScreeningListItem {
     /// List shape for GET /screenings/. Same candidate as detail; the only thing we slim here is per-check info (status only), since config/input/output are heavy and rarely needed at list time.
-    pub fn new() -> V2ScreeningListItem {
+    pub fn new(id: uuid::Uuid, profile: Option<models::V2ScreeningDetailProfile>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckListItem>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningListItem {
         V2ScreeningListItem {
-            id: None,
+            id,
             status: None,
-            profile: None,
-            candidate: None,
-            checks: None,
-            candidate_wizard_url: None,
-            dashboard_url: None,
-            created_at: None,
-            updated_at: None,
+            profile: if let Some(x) = profile {Some(Box::new(x))} else {None},
+            candidate: Box::new(candidate),
+            checks,
+            candidate_wizard_url,
+            dashboard_url,
+            created_at,
+            updated_at,
         }
     }
 }

@@ -54,7 +54,7 @@ import io.pescheck.client.JSON;
 public class OAuthApplicationResponse {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private UUID id;
 
   public static final String SERIALIZED_NAME_NAME = "name";
@@ -69,7 +69,7 @@ public class OAuthApplicationResponse {
 
   public static final String SERIALIZED_NAME_CLIENT_SECRET = "client_secret";
   @SerializedName(SERIALIZED_NAME_CLIENT_SECRET)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String clientSecret;
 
   /**
@@ -194,12 +194,12 @@ public class OAuthApplicationResponse {
 
   public static final String SERIALIZED_NAME_CREATED = "created";
   @SerializedName(SERIALIZED_NAME_CREATED)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime created;
 
   public static final String SERIALIZED_NAME_UPDATED = "updated";
   @SerializedName(SERIALIZED_NAME_UPDATED)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime updated;
 
   public OAuthApplicationResponse() {
@@ -222,7 +222,7 @@ public class OAuthApplicationResponse {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public UUID getId() {
     return id;
   }
@@ -271,7 +271,7 @@ public class OAuthApplicationResponse {
    * Get clientSecret
    * @return clientSecret
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getClientSecret() {
     return clientSecret;
   }
@@ -320,7 +320,7 @@ public class OAuthApplicationResponse {
    * Get created
    * @return created
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getCreated() {
     return created;
   }
@@ -331,7 +331,7 @@ public class OAuthApplicationResponse {
    * Get updated
    * @return updated
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getUpdated() {
     return updated;
   }
@@ -396,7 +396,7 @@ public class OAuthApplicationResponse {
     openapiFields = new HashSet<String>(Arrays.asList("id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("client_type", "authorization_grant_type"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"));
   }
 
   /**
@@ -427,7 +427,7 @@ public class OAuthApplicationResponse {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
+      if (!jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
       if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
@@ -436,7 +436,7 @@ public class OAuthApplicationResponse {
       if ((jsonObj.get("client_id") != null && !jsonObj.get("client_id").isJsonNull()) && !jsonObj.get("client_id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `client_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("client_id").toString()));
       }
-      if ((jsonObj.get("client_secret") != null && !jsonObj.get("client_secret").isJsonNull()) && !jsonObj.get("client_secret").isJsonPrimitive()) {
+      if (!jsonObj.get("client_secret").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `client_secret` to be a primitive type in the JSON string but got `%s`", jsonObj.get("client_secret").toString()));
       }
       if (!jsonObj.get("client_type").isJsonPrimitive()) {

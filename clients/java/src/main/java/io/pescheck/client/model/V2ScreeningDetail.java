@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -61,12 +60,12 @@ import io.pescheck.client.JSON;
 public class V2ScreeningDetail {
   public static final String SERIALIZED_NAME_ID = "id";
   @SerializedName(SERIALIZED_NAME_ID)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private UUID id;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String status;
 
   public static final String SERIALIZED_NAME_PROFILE = "profile";
@@ -76,12 +75,12 @@ public class V2ScreeningDetail {
 
   public static final String SERIALIZED_NAME_CANDIDATE = "candidate";
   @SerializedName(SERIALIZED_NAME_CANDIDATE)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private V2Candidate candidate;
 
   public static final String SERIALIZED_NAME_CHECKS = "checks";
   @SerializedName(SERIALIZED_NAME_CHECKS)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private List<V2ScreeningCheckEntry> checks = new ArrayList<>();
 
   public static final String SERIALIZED_NAME_CANDIDATE_WIZARD_URL = "candidate_wizard_url";
@@ -91,17 +90,17 @@ public class V2ScreeningDetail {
 
   public static final String SERIALIZED_NAME_DASHBOARD_URL = "dashboard_url";
   @SerializedName(SERIALIZED_NAME_DASHBOARD_URL)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private URI dashboardUrl;
 
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime createdAt;
 
   public static final String SERIALIZED_NAME_UPDATED_AT = "updated_at";
   @SerializedName(SERIALIZED_NAME_UPDATED_AT)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private OffsetDateTime updatedAt;
 
   public V2ScreeningDetail() {
@@ -132,7 +131,7 @@ public class V2ScreeningDetail {
    * Get id
    * @return id
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public UUID getId() {
     return id;
   }
@@ -143,7 +142,7 @@ public class V2ScreeningDetail {
    * Get status
    * @return status
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getStatus() {
     return status;
   }
@@ -173,7 +172,7 @@ public class V2ScreeningDetail {
    * Get candidate
    * @return candidate
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public V2Candidate getCandidate() {
     return candidate;
   }
@@ -184,7 +183,7 @@ public class V2ScreeningDetail {
    * Get checks
    * @return checks
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public List<V2ScreeningCheckEntry> getChecks() {
     return checks;
   }
@@ -206,7 +205,7 @@ public class V2ScreeningDetail {
    * Dashboard URL for this screening.
    * @return dashboardUrl
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public URI getDashboardUrl() {
     return dashboardUrl;
   }
@@ -217,7 +216,7 @@ public class V2ScreeningDetail {
    * Get createdAt
    * @return createdAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getCreatedAt() {
     return createdAt;
   }
@@ -228,7 +227,7 @@ public class V2ScreeningDetail {
    * Get updatedAt
    * @return updatedAt
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public OffsetDateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -256,20 +255,9 @@ public class V2ScreeningDetail {
         Objects.equals(this.updatedAt, v2ScreeningDetail.updatedAt);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
     return Objects.hash(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -306,7 +294,7 @@ public class V2ScreeningDetail {
     openapiFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(0);
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
   }
 
   /**
@@ -329,39 +317,40 @@ public class V2ScreeningDetail {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2ScreeningDetail` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : V2ScreeningDetail.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("id") != null && !jsonObj.get("id").isJsonNull()) && !jsonObj.get("id").isJsonPrimitive()) {
+      if (!jsonObj.get("id").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("id").toString()));
       }
-      if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
+      if (!jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }
-      // validate the optional field `profile`
       if (jsonObj.get("profile") != null && !jsonObj.get("profile").isJsonNull()) {
-        V2ScreeningDetailProfile.validateJsonElement(jsonObj.get("profile"));
+      // validate the required field `profile`
+      V2ScreeningDetailProfile.validateJsonElement(jsonObj.get("profile"));
       }
-      // validate the optional field `candidate`
-      if (jsonObj.get("candidate") != null && !jsonObj.get("candidate").isJsonNull()) {
-        V2Candidate.validateJsonElement(jsonObj.get("candidate"));
-      }
-      if (jsonObj.get("checks") != null && !jsonObj.get("checks").isJsonNull()) {
+      // validate the required field `candidate`
+      V2Candidate.validateJsonElement(jsonObj.get("candidate"));
+      if (jsonObj.get("checks") != null) {
+        if (!jsonObj.get("checks").isJsonArray()) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
+        }
         JsonArray jsonArraychecks = jsonObj.getAsJsonArray("checks");
-        if (jsonArraychecks != null) {
-          // ensure the json data is an array
-          if (!jsonObj.get("checks").isJsonArray()) {
-            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `checks` to be an array in the JSON string but got `%s`", jsonObj.get("checks").toString()));
-          }
-
-          // validate the optional field `checks` (array)
-          for (int i = 0; i < jsonArraychecks.size(); i++) {
-            V2ScreeningCheckEntry.validateJsonElement(jsonArraychecks.get(i));
-          };
+        // validate the required field `checks` (array)
+        for (int i = 0; i < jsonArraychecks.size(); i++) {
+          V2ScreeningCheckEntry.validateJsonElement(jsonArraychecks.get(i));
         }
       }
       if ((jsonObj.get("candidate_wizard_url") != null && !jsonObj.get("candidate_wizard_url").isJsonNull()) && !jsonObj.get("candidate_wizard_url").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_wizard_url` to be a primitive type in the JSON string but got `%s`", jsonObj.get("candidate_wizard_url").toString()));
       }
-      if ((jsonObj.get("dashboard_url") != null && !jsonObj.get("dashboard_url").isJsonNull()) && !jsonObj.get("dashboard_url").isJsonPrimitive()) {
+      if (!jsonObj.get("dashboard_url").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `dashboard_url` to be a primitive type in the JSON string but got `%s`", jsonObj.get("dashboard_url").toString()));
       }
   }

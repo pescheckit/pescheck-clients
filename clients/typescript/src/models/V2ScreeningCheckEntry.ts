@@ -24,13 +24,13 @@ export interface V2ScreeningCheckEntry {
      * @type {string}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly profileCheckId?: string | null;
+    readonly profileCheckId: string | null;
     /**
      * * `addresscheck` - addresscheck
      * * `adversemediacheck` - adversemediacheck
@@ -57,43 +57,43 @@ export interface V2ScreeningCheckEntry {
      * @type {V2ScreeningCheckEntryCheckTypeEnum}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly checkType?: V2ScreeningCheckEntryCheckTypeEnum;
+    readonly checkType: V2ScreeningCheckEntryCheckTypeEnum;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly displayName?: string;
+    readonly displayName: string;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly status?: string;
+    readonly status: string;
     /**
      * 
      * @type {{ [key: string]: any; }}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly config?: { [key: string]: any; };
+    readonly config: { [key: string]: any; };
     /**
      * 
      * @type {{ [key: string]: any; }}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly input?: { [key: string]: any; };
+    readonly input: { [key: string]: any; };
     /**
      * 
      * @type {{ [key: string]: any; }}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly output?: { [key: string]: any; };
+    readonly output: { [key: string]: any; };
     /**
      * Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
      * @type {string}
      * @memberof V2ScreeningCheckEntry
      */
-    readonly candidateWizardUrl?: string | null;
+    readonly candidateWizardUrl: string | null;
 }
 
 
@@ -131,6 +131,15 @@ export type V2ScreeningCheckEntryCheckTypeEnum = typeof V2ScreeningCheckEntryChe
  * Check if a given object implements the V2ScreeningCheckEntry interface.
  */
 export function instanceOfV2ScreeningCheckEntry(value: any): value is V2ScreeningCheckEntry {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if ((!('profileCheckId' in value) && !('profile_check_id' in value)) || (value['profileCheckId'] === undefined && value['profile_check_id'] === undefined)) return false;
+    if ((!('checkType' in value) && !('check_type' in value)) || (value['checkType'] === undefined && value['check_type'] === undefined)) return false;
+    if ((!('displayName' in value) && !('display_name' in value)) || (value['displayName'] === undefined && value['display_name'] === undefined)) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('config' in value) || value['config'] === undefined) return false;
+    if (!('input' in value) || value['input'] === undefined) return false;
+    if (!('output' in value) || value['output'] === undefined) return false;
+    if ((!('candidateWizardUrl' in value) && !('candidate_wizard_url' in value)) || (value['candidateWizardUrl'] === undefined && value['candidate_wizard_url'] === undefined)) return false;
     return true;
 }
 
@@ -144,15 +153,15 @@ export function V2ScreeningCheckEntryFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
-        'profileCheckId': json['profile_check_id'] == null ? undefined : json['profile_check_id'],
-        'checkType': json['check_type'] == null ? undefined : json['check_type'],
-        'displayName': json['display_name'] == null ? undefined : json['display_name'],
-        'status': json['status'] == null ? undefined : json['status'],
-        'config': json['config'] == null ? undefined : json['config'],
-        'input': json['input'] == null ? undefined : json['input'],
-        'output': json['output'] == null ? undefined : json['output'],
-        'candidateWizardUrl': json['candidate_wizard_url'] == null ? undefined : json['candidate_wizard_url'],
+        'id': json['id'],
+        'profileCheckId': json['profile_check_id'],
+        'checkType': json['check_type'],
+        'displayName': json['display_name'],
+        'status': json['status'],
+        'config': json['config'],
+        'input': json['input'],
+        'output': json['output'],
+        'candidateWizardUrl': json['candidate_wizard_url'],
     };
 }
 

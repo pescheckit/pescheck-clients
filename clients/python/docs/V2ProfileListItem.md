@@ -5,13 +5,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [optional] [readonly] 
+**id** | **UUID** |  | [readonly] 
 **name** | **str** |  | 
 **description** | **str** |  | 
 **is_custom** | **bool** |  | [optional] 
-**check_types** | **List[str]** |  | [optional] [readonly] 
-**created_at** | **datetime** |  | [optional] [readonly] 
-**updated_at** | **datetime** |  | [optional] [readonly] 
+**check_types** | **List[str]** |  | [readonly] 
+**created_at** | **datetime** |  | [readonly] 
+**updated_at** | **datetime** |  | [readonly] 
 
 ## Example
 

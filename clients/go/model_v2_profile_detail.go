@@ -22,17 +22,17 @@ var _ MappedNullable = &V2ProfileDetail{}
 
 // V2ProfileDetail struct for V2ProfileDetail
 type V2ProfileDetail struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Description NullableString `json:"description"`
 	IsCustom *bool `json:"is_custom,omitempty"`
-	Checks []V2ProfileCheckEntry `json:"checks,omitempty"`
-	TotalPrice *V2Money `json:"total_price,omitempty"`
-	SupportedCountriesOfWork []string `json:"supported_countries_of_work,omitempty"`
-	SupportedCountriesOfResidence []string `json:"supported_countries_of_residence,omitempty"`
-	CandidateFields []map[string]interface{} `json:"candidate_fields,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	Checks []V2ProfileCheckEntry `json:"checks"`
+	TotalPrice V2Money `json:"total_price"`
+	SupportedCountriesOfWork []string `json:"supported_countries_of_work"`
+	SupportedCountriesOfResidence []string `json:"supported_countries_of_residence"`
+	CandidateFields []map[string]interface{} `json:"candidate_fields"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type _V2ProfileDetail V2ProfileDetail
@@ -41,10 +41,18 @@ type _V2ProfileDetail V2ProfileDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ProfileDetail(name string, description NullableString) *V2ProfileDetail {
+func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createdAt time.Time, updatedAt time.Time) *V2ProfileDetail {
 	this := V2ProfileDetail{}
+	this.Id = id
 	this.Name = name
 	this.Description = description
+	this.Checks = checks
+	this.TotalPrice = totalPrice
+	this.SupportedCountriesOfWork = supportedCountriesOfWork
+	this.SupportedCountriesOfResidence = supportedCountriesOfResidence
+	this.CandidateFields = candidateFields
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -56,36 +64,28 @@ func NewV2ProfileDetailWithDefaults() *V2ProfileDetail {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *V2ProfileDetail) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *V2ProfileDetail) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -170,228 +170,172 @@ func (o *V2ProfileDetail) SetIsCustom(v bool) {
 	o.IsCustom = &v
 }
 
-// GetChecks returns the Checks field value if set, zero value otherwise.
+// GetChecks returns the Checks field value
 func (o *V2ProfileDetail) GetChecks() []V2ProfileCheckEntry {
-	if o == nil || IsNil(o.Checks) {
+	if o == nil {
 		var ret []V2ProfileCheckEntry
 		return ret
 	}
+
 	return o.Checks
 }
 
-// GetChecksOk returns a tuple with the Checks field value if set, nil otherwise
+// GetChecksOk returns a tuple with the Checks field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetChecksOk() ([]V2ProfileCheckEntry, bool) {
-	if o == nil || IsNil(o.Checks) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Checks, true
 }
 
-// HasChecks returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasChecks() bool {
-	if o != nil && !IsNil(o.Checks) {
-		return true
-	}
-
-	return false
-}
-
-// SetChecks gets a reference to the given []V2ProfileCheckEntry and assigns it to the Checks field.
+// SetChecks sets field value
 func (o *V2ProfileDetail) SetChecks(v []V2ProfileCheckEntry) {
 	o.Checks = v
 }
 
-// GetTotalPrice returns the TotalPrice field value if set, zero value otherwise.
+// GetTotalPrice returns the TotalPrice field value
 func (o *V2ProfileDetail) GetTotalPrice() V2Money {
-	if o == nil || IsNil(o.TotalPrice) {
+	if o == nil {
 		var ret V2Money
 		return ret
 	}
-	return *o.TotalPrice
+
+	return o.TotalPrice
 }
 
-// GetTotalPriceOk returns a tuple with the TotalPrice field value if set, nil otherwise
+// GetTotalPriceOk returns a tuple with the TotalPrice field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetTotalPriceOk() (*V2Money, bool) {
-	if o == nil || IsNil(o.TotalPrice) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TotalPrice, true
+	return &o.TotalPrice, true
 }
 
-// HasTotalPrice returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasTotalPrice() bool {
-	if o != nil && !IsNil(o.TotalPrice) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalPrice gets a reference to the given V2Money and assigns it to the TotalPrice field.
+// SetTotalPrice sets field value
 func (o *V2ProfileDetail) SetTotalPrice(v V2Money) {
-	o.TotalPrice = &v
+	o.TotalPrice = v
 }
 
-// GetSupportedCountriesOfWork returns the SupportedCountriesOfWork field value if set, zero value otherwise.
+// GetSupportedCountriesOfWork returns the SupportedCountriesOfWork field value
 func (o *V2ProfileDetail) GetSupportedCountriesOfWork() []string {
-	if o == nil || IsNil(o.SupportedCountriesOfWork) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.SupportedCountriesOfWork
 }
 
-// GetSupportedCountriesOfWorkOk returns a tuple with the SupportedCountriesOfWork field value if set, nil otherwise
+// GetSupportedCountriesOfWorkOk returns a tuple with the SupportedCountriesOfWork field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetSupportedCountriesOfWorkOk() ([]string, bool) {
-	if o == nil || IsNil(o.SupportedCountriesOfWork) {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupportedCountriesOfWork, true
 }
 
-// HasSupportedCountriesOfWork returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasSupportedCountriesOfWork() bool {
-	if o != nil && !IsNil(o.SupportedCountriesOfWork) {
-		return true
-	}
-
-	return false
-}
-
-// SetSupportedCountriesOfWork gets a reference to the given []string and assigns it to the SupportedCountriesOfWork field.
+// SetSupportedCountriesOfWork sets field value
 func (o *V2ProfileDetail) SetSupportedCountriesOfWork(v []string) {
 	o.SupportedCountriesOfWork = v
 }
 
-// GetSupportedCountriesOfResidence returns the SupportedCountriesOfResidence field value if set, zero value otherwise.
+// GetSupportedCountriesOfResidence returns the SupportedCountriesOfResidence field value
 func (o *V2ProfileDetail) GetSupportedCountriesOfResidence() []string {
-	if o == nil || IsNil(o.SupportedCountriesOfResidence) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.SupportedCountriesOfResidence
 }
 
-// GetSupportedCountriesOfResidenceOk returns a tuple with the SupportedCountriesOfResidence field value if set, nil otherwise
+// GetSupportedCountriesOfResidenceOk returns a tuple with the SupportedCountriesOfResidence field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetSupportedCountriesOfResidenceOk() ([]string, bool) {
-	if o == nil || IsNil(o.SupportedCountriesOfResidence) {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupportedCountriesOfResidence, true
 }
 
-// HasSupportedCountriesOfResidence returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasSupportedCountriesOfResidence() bool {
-	if o != nil && !IsNil(o.SupportedCountriesOfResidence) {
-		return true
-	}
-
-	return false
-}
-
-// SetSupportedCountriesOfResidence gets a reference to the given []string and assigns it to the SupportedCountriesOfResidence field.
+// SetSupportedCountriesOfResidence sets field value
 func (o *V2ProfileDetail) SetSupportedCountriesOfResidence(v []string) {
 	o.SupportedCountriesOfResidence = v
 }
 
-// GetCandidateFields returns the CandidateFields field value if set, zero value otherwise.
+// GetCandidateFields returns the CandidateFields field value
 func (o *V2ProfileDetail) GetCandidateFields() []map[string]interface{} {
-	if o == nil || IsNil(o.CandidateFields) {
+	if o == nil {
 		var ret []map[string]interface{}
 		return ret
 	}
+
 	return o.CandidateFields
 }
 
-// GetCandidateFieldsOk returns a tuple with the CandidateFields field value if set, nil otherwise
+// GetCandidateFieldsOk returns a tuple with the CandidateFields field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetCandidateFieldsOk() ([]map[string]interface{}, bool) {
-	if o == nil || IsNil(o.CandidateFields) {
+	if o == nil {
 		return nil, false
 	}
 	return o.CandidateFields, true
 }
 
-// HasCandidateFields returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasCandidateFields() bool {
-	if o != nil && !IsNil(o.CandidateFields) {
-		return true
-	}
-
-	return false
-}
-
-// SetCandidateFields gets a reference to the given []map[string]interface{} and assigns it to the CandidateFields field.
+// SetCandidateFields sets field value
 func (o *V2ProfileDetail) SetCandidateFields(v []map[string]interface{}) {
 	o.CandidateFields = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *V2ProfileDetail) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *V2ProfileDetail) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value
 func (o *V2ProfileDetail) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileDetail) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *V2ProfileDetail) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *V2ProfileDetail) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 }
 
 func (o V2ProfileDetail) MarshalJSON() ([]byte, error) {
@@ -404,35 +348,19 @@ func (o V2ProfileDetail) MarshalJSON() ([]byte, error) {
 
 func (o V2ProfileDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description.Get()
 	if !IsNil(o.IsCustom) {
 		toSerialize["is_custom"] = o.IsCustom
 	}
-	if !IsNil(o.Checks) {
-		toSerialize["checks"] = o.Checks
-	}
-	if !IsNil(o.TotalPrice) {
-		toSerialize["total_price"] = o.TotalPrice
-	}
-	if !IsNil(o.SupportedCountriesOfWork) {
-		toSerialize["supported_countries_of_work"] = o.SupportedCountriesOfWork
-	}
-	if !IsNil(o.SupportedCountriesOfResidence) {
-		toSerialize["supported_countries_of_residence"] = o.SupportedCountriesOfResidence
-	}
-	if !IsNil(o.CandidateFields) {
-		toSerialize["candidate_fields"] = o.CandidateFields
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
+	toSerialize["checks"] = o.Checks
+	toSerialize["total_price"] = o.TotalPrice
+	toSerialize["supported_countries_of_work"] = o.SupportedCountriesOfWork
+	toSerialize["supported_countries_of_residence"] = o.SupportedCountriesOfResidence
+	toSerialize["candidate_fields"] = o.CandidateFields
+	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["updated_at"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
@@ -441,8 +369,16 @@ func (o *V2ProfileDetail) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"name",
 		"description",
+		"checks",
+		"total_price",
+		"supported_countries_of_work",
+		"supported_countries_of_residence",
+		"candidate_fields",
+		"created_at",
+		"updated_at",
 	}
 
 	allProperties := make(map[string]interface{})

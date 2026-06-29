@@ -29,13 +29,13 @@ class V2ProfileListItem(BaseModel):
     """
     V2ProfileListItem
     """ # noqa: E501
-    id: Optional[UUID] = None
+    id: UUID
     name: StrictStr
     description: Optional[StrictStr]
     is_custom: Optional[StrictBool] = None
-    check_types: Optional[List[StrictStr]] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    check_types: List[StrictStr]
+    created_at: datetime
+    updated_at: datetime
     __properties: ClassVar[List[str]] = ["id", "name", "description", "is_custom", "check_types", "created_at", "updated_at"]
 
     model_config = ConfigDict(

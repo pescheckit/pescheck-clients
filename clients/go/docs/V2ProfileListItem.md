@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] [readonly] 
+**Id** | **string** |  | [readonly] 
 **Name** | **string** |  | 
 **Description** | **NullableString** |  | 
 **IsCustom** | Pointer to **bool** |  | [optional] 
-**CheckTypes** | Pointer to **[]string** |  | [optional] [readonly] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
+**CheckTypes** | **[]string** |  | [readonly] 
+**CreatedAt** | **time.Time** |  | [readonly] 
+**UpdatedAt** | **time.Time** |  | [readonly] 
 
 ## Methods
 
 ### NewV2ProfileListItem
 
-`func NewV2ProfileListItem(name string, description NullableString, ) *V2ProfileListItem`
+`func NewV2ProfileListItem(id string, name string, description NullableString, checkTypes []string, createdAt time.Time, updatedAt time.Time, ) *V2ProfileListItem`
 
 NewV2ProfileListItem instantiates a new V2ProfileListItem object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *V2ProfileListItem) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -150,11 +145,6 @@ and a boolean to check if the value has been set.
 
 SetCheckTypes sets CheckTypes field to given value.
 
-### HasCheckTypes
-
-`func (o *V2ProfileListItem) HasCheckTypes() bool`
-
-HasCheckTypes returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -175,11 +165,6 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
-### HasCreatedAt
-
-`func (o *V2ProfileListItem) HasCreatedAt() bool`
-
-HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -200,11 +185,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-### HasUpdatedAt
-
-`func (o *V2ProfileListItem) HasUpdatedAt() bool`
-
-HasUpdatedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

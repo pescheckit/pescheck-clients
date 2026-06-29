@@ -127,7 +127,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
         public Guid Id { get; private set; }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets ClientSecret
         /// </summary>
-        [DataMember(Name = "client_secret", EmitDefaultValue = false)]
+        [DataMember(Name = "client_secret", IsRequired = true, EmitDefaultValue = true)]
         public string ClientSecret { get; private set; }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Created
         /// </summary>
-        [DataMember(Name = "created", EmitDefaultValue = false)]
+        [DataMember(Name = "created", IsRequired = true, EmitDefaultValue = true)]
         public DateTime Created { get; private set; }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Updated
         /// </summary>
-        [DataMember(Name = "updated", EmitDefaultValue = false)]
+        [DataMember(Name = "updated", IsRequired = true, EmitDefaultValue = true)]
         public DateTime Updated { get; private set; }
 
         /// <summary>

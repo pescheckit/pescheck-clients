@@ -22,13 +22,13 @@ var _ MappedNullable = &V2ProfileListItem{}
 
 // V2ProfileListItem struct for V2ProfileListItem
 type V2ProfileListItem struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Description NullableString `json:"description"`
 	IsCustom *bool `json:"is_custom,omitempty"`
-	CheckTypes []string `json:"check_types,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CheckTypes []string `json:"check_types"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type _V2ProfileListItem V2ProfileListItem
@@ -37,10 +37,14 @@ type _V2ProfileListItem V2ProfileListItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ProfileListItem(name string, description NullableString) *V2ProfileListItem {
+func NewV2ProfileListItem(id string, name string, description NullableString, checkTypes []string, createdAt time.Time, updatedAt time.Time) *V2ProfileListItem {
 	this := V2ProfileListItem{}
+	this.Id = id
 	this.Name = name
 	this.Description = description
+	this.CheckTypes = checkTypes
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
@@ -52,36 +56,28 @@ func NewV2ProfileListItemWithDefaults() *V2ProfileListItem {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *V2ProfileListItem) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileListItem) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *V2ProfileListItem) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *V2ProfileListItem) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -166,100 +162,76 @@ func (o *V2ProfileListItem) SetIsCustom(v bool) {
 	o.IsCustom = &v
 }
 
-// GetCheckTypes returns the CheckTypes field value if set, zero value otherwise.
+// GetCheckTypes returns the CheckTypes field value
 func (o *V2ProfileListItem) GetCheckTypes() []string {
-	if o == nil || IsNil(o.CheckTypes) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.CheckTypes
 }
 
-// GetCheckTypesOk returns a tuple with the CheckTypes field value if set, nil otherwise
+// GetCheckTypesOk returns a tuple with the CheckTypes field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileListItem) GetCheckTypesOk() ([]string, bool) {
-	if o == nil || IsNil(o.CheckTypes) {
+	if o == nil {
 		return nil, false
 	}
 	return o.CheckTypes, true
 }
 
-// HasCheckTypes returns a boolean if a field has been set.
-func (o *V2ProfileListItem) HasCheckTypes() bool {
-	if o != nil && !IsNil(o.CheckTypes) {
-		return true
-	}
-
-	return false
-}
-
-// SetCheckTypes gets a reference to the given []string and assigns it to the CheckTypes field.
+// SetCheckTypes sets field value
 func (o *V2ProfileListItem) SetCheckTypes(v []string) {
 	o.CheckTypes = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *V2ProfileListItem) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileListItem) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *V2ProfileListItem) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *V2ProfileListItem) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// GetUpdatedAt returns the UpdatedAt field value
 func (o *V2ProfileListItem) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.UpdatedAt
+
+	return o.UpdatedAt
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 func (o *V2ProfileListItem) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.UpdatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UpdatedAt, true
+	return &o.UpdatedAt, true
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *V2ProfileListItem) HasUpdatedAt() bool {
-	if o != nil && !IsNil(o.UpdatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *V2ProfileListItem) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
+	o.UpdatedAt = v
 }
 
 func (o V2ProfileListItem) MarshalJSON() ([]byte, error) {
@@ -272,23 +244,15 @@ func (o V2ProfileListItem) MarshalJSON() ([]byte, error) {
 
 func (o V2ProfileListItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	toSerialize["name"] = o.Name
 	toSerialize["description"] = o.Description.Get()
 	if !IsNil(o.IsCustom) {
 		toSerialize["is_custom"] = o.IsCustom
 	}
-	if !IsNil(o.CheckTypes) {
-		toSerialize["check_types"] = o.CheckTypes
-	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if !IsNil(o.UpdatedAt) {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
+	toSerialize["check_types"] = o.CheckTypes
+	toSerialize["created_at"] = o.CreatedAt
+	toSerialize["updated_at"] = o.UpdatedAt
 	return toSerialize, nil
 }
 
@@ -297,8 +261,12 @@ func (o *V2ProfileListItem) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"id",
 		"name",
 		"description",
+		"check_types",
+		"created_at",
+		"updated_at",
 	}
 
 	allProperties := make(map[string]interface{})

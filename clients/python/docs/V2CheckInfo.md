@@ -6,18 +6,18 @@ Everything a client needs to know to use a check type via the API.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**check_type** | **str** |  | [optional] [readonly] 
-**display_name** | **str** |  | [optional] [readonly] 
-**description** | **str** |  | [optional] [readonly] 
-**has_config** | **bool** |  | [optional] [readonly] 
-**is_system_managed** | **bool** | True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these. | [optional] [readonly] 
-**requires_checks** | **List[str]** | Other check types this check pulls in automatically when added. | [optional] [readonly] 
-**supported_countries_of_work** | **List[str]** |  | [optional] [readonly] 
-**supported_countries_of_residence** | **List[str]** |  | [optional] [readonly] 
-**default_price** | [**V2Money**](V2Money.md) |  | [optional] [readonly] 
-**config_fields** | [**List[V2CheckField]**](V2CheckField.md) |  | [optional] [readonly] 
-**input_fields** | [**List[V2CheckField]**](V2CheckField.md) |  | [optional] [readonly] 
-**candidate_fields** | [**List[V2CheckField]**](V2CheckField.md) | Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.). | [optional] [readonly] 
+**check_type** | **str** |  | [readonly] 
+**display_name** | **str** |  | [readonly] 
+**description** | **str** |  | [readonly] 
+**has_config** | **bool** |  | [readonly] 
+**is_system_managed** | **bool** | True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these. | [readonly] 
+**requires_checks** | **List[str]** | Other check types this check pulls in automatically when added. | [readonly] 
+**supported_countries_of_work** | **List[str]** |  | [readonly] 
+**supported_countries_of_residence** | **List[str]** |  | [readonly] 
+**default_price** | [**V2Money**](V2Money.md) |  | [readonly] 
+**config_fields** | [**List[V2CheckField]**](V2CheckField.md) |  | [readonly] 
+**input_fields** | [**List[V2CheckField]**](V2CheckField.md) |  | [readonly] 
+**candidate_fields** | [**List[V2CheckField]**](V2CheckField.md) | Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.). | [readonly] 
 
 ## Example
 

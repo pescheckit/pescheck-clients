@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | Option<**uuid::Uuid**> |  | [optional][readonly]
+**id** | **uuid::Uuid** |  | [readonly]
 **name** | Option<**String**> |  | [optional]
-**parent** | Option<**String**> |  | [optional][readonly]
-**created_at** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional][readonly]
-**updated_at** | Option<**chrono::DateTime<chrono::FixedOffset>**> |  | [optional][readonly]
+**parent** | **String** |  | [readonly]
+**created_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
+**updated_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 **city** | Option<**String**> |  | [optional]
 **address** | Option<**String**> |  | [optional]
 **postal** | Option<**String**> |  | [optional]

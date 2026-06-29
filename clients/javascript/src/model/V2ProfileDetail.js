@@ -24,12 +24,20 @@ class V2ProfileDetail {
     /**
      * Constructs a new <code>V2ProfileDetail</code>.
      * @alias module:model/V2ProfileDetail
+     * @param id {String} 
      * @param name {String} 
      * @param description {String} 
+     * @param checks {Array.<module:model/V2ProfileCheckEntry>} 
+     * @param totalPrice {module:model/V2Money} 
+     * @param supportedCountriesOfWork {Array.<String>} 
+     * @param supportedCountriesOfResidence {Array.<String>} 
+     * @param candidateFields {Array.<Object>} 
+     * @param createdAt {Date} 
+     * @param updatedAt {Date} 
      */
-    constructor(name, description) { 
+    constructor(id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt) { 
         
-        V2ProfileDetail.initialize(this, name, description);
+        V2ProfileDetail.initialize(this, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt);
     }
 
     /**
@@ -37,9 +45,17 @@ class V2ProfileDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, name, description) { 
+    static initialize(obj, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt) { 
+        obj['id'] = id;
         obj['name'] = name;
         obj['description'] = description;
+        obj['checks'] = checks;
+        obj['total_price'] = totalPrice;
+        obj['supported_countries_of_work'] = supportedCountriesOfWork;
+        obj['supported_countries_of_residence'] = supportedCountriesOfResidence;
+        obj['candidate_fields'] = candidateFields;
+        obj['created_at'] = createdAt;
+        obj['updated_at'] = updatedAt;
     }
 
     /**
@@ -147,7 +163,7 @@ class V2ProfileDetail {
 
 }
 
-V2ProfileDetail.RequiredProperties = ["name", "description"];
+V2ProfileDetail.RequiredProperties = ["id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"];
 
 /**
  * @member {String} id

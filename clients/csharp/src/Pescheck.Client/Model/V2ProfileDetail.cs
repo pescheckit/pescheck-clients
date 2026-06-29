@@ -63,7 +63,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
+        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = true)]
         public Guid Id { get; private set; }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Checks
         /// </summary>
-        [DataMember(Name = "checks", EmitDefaultValue = false)]
+        [DataMember(Name = "checks", IsRequired = true, EmitDefaultValue = true)]
         public List<V2ProfileCheckEntry> Checks { get; private set; }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets TotalPrice
         /// </summary>
-        [DataMember(Name = "total_price", EmitDefaultValue = false)]
+        [DataMember(Name = "total_price", IsRequired = true, EmitDefaultValue = true)]
         public V2Money TotalPrice { get; private set; }
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets SupportedCountriesOfWork
         /// </summary>
-        [DataMember(Name = "supported_countries_of_work", EmitDefaultValue = false)]
+        [DataMember(Name = "supported_countries_of_work", IsRequired = true, EmitDefaultValue = true)]
         public List<string> SupportedCountriesOfWork { get; private set; }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets SupportedCountriesOfResidence
         /// </summary>
-        [DataMember(Name = "supported_countries_of_residence", EmitDefaultValue = false)]
+        [DataMember(Name = "supported_countries_of_residence", IsRequired = true, EmitDefaultValue = true)]
         public List<string> SupportedCountriesOfResidence { get; private set; }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CandidateFields
         /// </summary>
-        [DataMember(Name = "candidate_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "candidate_fields", IsRequired = true, EmitDefaultValue = true)]
         public List<Object> CandidateFields { get; private set; }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
-        [DataMember(Name = "created_at", EmitDefaultValue = false)]
+        [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = true)]
         public DateTime CreatedAt { get; private set; }
 
         /// <summary>
@@ -179,7 +179,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets UpdatedAt
         /// </summary>
-        [DataMember(Name = "updated_at", EmitDefaultValue = false)]
+        [DataMember(Name = "updated_at", IsRequired = true, EmitDefaultValue = true)]
         public DateTime UpdatedAt { get; private set; }
 
         /// <summary>

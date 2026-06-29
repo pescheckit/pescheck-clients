@@ -177,8 +177,8 @@ namespace Pescheck.Client.Model
         /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
         /// </summary>
         /// <value>* &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;focumcheck&#x60; - focumcheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck</value>
-        [DataMember(Name = "check_type", EmitDefaultValue = false)]
-        public CheckTypeEnum? CheckType { get; set; }
+        [DataMember(Name = "check_type", IsRequired = true, EmitDefaultValue = true)]
+        public CheckTypeEnum CheckType { get; set; }
 
         /// <summary>
         /// Returns false as CheckType should not be serialized given that it's read-only.
@@ -199,7 +199,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CheckId
         /// </summary>
-        [DataMember(Name = "check_id", EmitDefaultValue = true)]
+        [DataMember(Name = "check_id", IsRequired = true, EmitDefaultValue = true)]
         public Guid? CheckId { get; private set; }
 
         /// <summary>
@@ -213,7 +213,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Filename
         /// </summary>
-        [DataMember(Name = "filename", EmitDefaultValue = false)]
+        [DataMember(Name = "filename", IsRequired = true, EmitDefaultValue = true)]
         public string Filename { get; private set; }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Extension
         /// </summary>
-        [DataMember(Name = "extension", EmitDefaultValue = false)]
+        [DataMember(Name = "extension", IsRequired = true, EmitDefaultValue = true)]
         public string Extension { get; private set; }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Content
         /// </summary>
-        [DataMember(Name = "content", EmitDefaultValue = false)]
+        [DataMember(Name = "content", IsRequired = true, EmitDefaultValue = true)]
         public V2DocumentContent Content { get; private set; }
 
         /// <summary>
@@ -255,7 +255,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Metadata
         /// </summary>
-        [DataMember(Name = "metadata", EmitDefaultValue = false)]
+        [DataMember(Name = "metadata", IsRequired = true, EmitDefaultValue = true)]
         public Dictionary<string, Object> Metadata { get; private set; }
 
         /// <summary>

@@ -29,18 +29,18 @@ class V2CheckInfo(BaseModel):
     """
     Everything a client needs to know to use a check type via the API.
     """ # noqa: E501
-    check_type: Optional[StrictStr] = None
-    display_name: Optional[StrictStr] = None
-    description: Optional[StrictStr] = None
-    has_config: Optional[StrictBool] = None
-    is_system_managed: Optional[StrictBool] = Field(default=None, description="True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.")
-    requires_checks: Optional[List[StrictStr]] = Field(default=None, description="Other check types this check pulls in automatically when added.")
-    supported_countries_of_work: Optional[List[StrictStr]] = None
-    supported_countries_of_residence: Optional[List[StrictStr]] = None
-    default_price: Optional[V2Money] = None
-    config_fields: Optional[List[V2CheckField]] = None
-    input_fields: Optional[List[V2CheckField]] = None
-    candidate_fields: Optional[List[V2CheckField]] = Field(default=None, description="Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).")
+    check_type: StrictStr
+    display_name: StrictStr
+    description: Optional[StrictStr]
+    has_config: StrictBool
+    is_system_managed: StrictBool = Field(description="True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.")
+    requires_checks: List[StrictStr] = Field(description="Other check types this check pulls in automatically when added.")
+    supported_countries_of_work: List[StrictStr]
+    supported_countries_of_residence: List[StrictStr]
+    default_price: Optional[V2Money]
+    config_fields: List[V2CheckField]
+    input_fields: List[V2CheckField]
+    candidate_fields: List[V2CheckField] = Field(description="Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).")
     __properties: ClassVar[List[str]] = ["check_type", "display_name", "description", "has_config", "is_system_managed", "requires_checks", "supported_countries_of_work", "supported_countries_of_residence", "default_price", "config_fields", "input_fields", "candidate_fields"]
 
     model_config = ConfigDict(

@@ -344,11 +344,35 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
         if ($this->container['description'] === null && !$this->isNullableSetToNull('description')) {
             $invalidProperties[] = "'description' is required";
+        }
+        if ($this->container['checks'] === null) {
+            $invalidProperties[] = "'checks' can't be null";
+        }
+        if ($this->container['total_price'] === null) {
+            $invalidProperties[] = "'total_price' can't be null";
+        }
+        if ($this->container['supported_countries_of_work'] === null) {
+            $invalidProperties[] = "'supported_countries_of_work' can't be null";
+        }
+        if ($this->container['supported_countries_of_residence'] === null) {
+            $invalidProperties[] = "'supported_countries_of_residence' can't be null";
+        }
+        if ($this->container['candidate_fields'] === null) {
+            $invalidProperties[] = "'candidate_fields' can't be null";
+        }
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
+        if ($this->container['updated_at'] === null) {
+            $invalidProperties[] = "'updated_at' can't be null";
         }
         return $invalidProperties;
     }
@@ -368,7 +392,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -378,7 +402,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -483,7 +507,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets checks
      *
-     * @return \Pescheck\Client\Model\V2ProfileCheckEntry[]|null
+     * @return \Pescheck\Client\Model\V2ProfileCheckEntry[]
      */
     public function getChecks()
     {
@@ -493,7 +517,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets checks
      *
-     * @param \Pescheck\Client\Model\V2ProfileCheckEntry[]|null $checks checks
+     * @param \Pescheck\Client\Model\V2ProfileCheckEntry[] $checks checks
      *
      * @return self
      */
@@ -510,7 +534,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets total_price
      *
-     * @return \Pescheck\Client\Model\V2Money|null
+     * @return \Pescheck\Client\Model\V2Money
      */
     public function getTotalPrice()
     {
@@ -520,7 +544,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets total_price
      *
-     * @param \Pescheck\Client\Model\V2Money|null $total_price total_price
+     * @param \Pescheck\Client\Model\V2Money $total_price total_price
      *
      * @return self
      */
@@ -537,7 +561,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets supported_countries_of_work
      *
-     * @return string[]|null
+     * @return string[]
      */
     public function getSupportedCountriesOfWork()
     {
@@ -547,7 +571,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets supported_countries_of_work
      *
-     * @param string[]|null $supported_countries_of_work supported_countries_of_work
+     * @param string[] $supported_countries_of_work supported_countries_of_work
      *
      * @return self
      */
@@ -564,7 +588,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets supported_countries_of_residence
      *
-     * @return string[]|null
+     * @return string[]
      */
     public function getSupportedCountriesOfResidence()
     {
@@ -574,7 +598,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets supported_countries_of_residence
      *
-     * @param string[]|null $supported_countries_of_residence supported_countries_of_residence
+     * @param string[] $supported_countries_of_residence supported_countries_of_residence
      *
      * @return self
      */
@@ -591,7 +615,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets candidate_fields
      *
-     * @return object[]|null
+     * @return object[]
      */
     public function getCandidateFields()
     {
@@ -601,7 +625,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets candidate_fields
      *
-     * @param object[]|null $candidate_fields candidate_fields
+     * @param object[] $candidate_fields candidate_fields
      *
      * @return self
      */
@@ -618,7 +642,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -628,7 +652,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */
@@ -645,7 +669,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets updated_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -655,7 +679,7 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets updated_at
      *
-     * @param \DateTime|null $updated_at updated_at
+     * @param \DateTime $updated_at updated_at
      *
      * @return self
      */

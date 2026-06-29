@@ -14,42 +14,42 @@ use serde::{Deserialize, Serialize};
 /// WebhookResponse : Serializer for webhook responses
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct WebhookResponse {
-    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id: Option<uuid::Uuid>,
+    #[serde(rename = "id")]
+    pub id: uuid::Uuid,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "url")]
     pub url: String,
-    #[serde(rename = "events", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub events: Option<Option<serde_json::Value>>,
+    #[serde(rename = "events", deserialize_with = "Option::deserialize")]
+    pub events: Option<serde_json::Value>,
     #[serde(rename = "active", skip_serializing_if = "Option::is_none")]
     pub active: Option<bool>,
-    #[serde(rename = "verified", skip_serializing_if = "Option::is_none")]
-    pub verified: Option<bool>,
+    #[serde(rename = "verified")]
+    pub verified: bool,
     #[serde(rename = "token", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub token: Option<Option<String>>,
     #[serde(rename = "organisation_name", skip_serializing_if = "Option::is_none")]
     pub organisation_name: Option<String>,
-    #[serde(rename = "created_at", skip_serializing_if = "Option::is_none")]
-    pub created_at: Option<chrono::DateTime<chrono::FixedOffset>>,
-    #[serde(rename = "updated_at", skip_serializing_if = "Option::is_none")]
-    pub updated_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(rename = "created_at")]
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    #[serde(rename = "updated_at")]
+    pub updated_at: chrono::DateTime<chrono::FixedOffset>,
 }
 
 impl WebhookResponse {
     /// Serializer for webhook responses
-    pub fn new(name: String, url: String) -> WebhookResponse {
+    pub fn new(id: uuid::Uuid, name: String, url: String, events: Option<serde_json::Value>, verified: bool, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> WebhookResponse {
         WebhookResponse {
-            id: None,
+            id,
             name,
             url,
-            events: None,
+            events,
             active: None,
-            verified: None,
+            verified,
             token: None,
             organisation_name: None,
-            created_at: None,
-            updated_at: None,
+            created_at,
+            updated_at,
         }
     }
 }

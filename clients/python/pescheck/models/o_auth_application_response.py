@@ -30,14 +30,14 @@ class OAuthApplicationResponse(BaseModel):
     """
     Serializer for OAuth application responses
     """ # noqa: E501
-    id: Optional[UUID] = None
+    id: UUID
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     client_id: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
-    client_secret: Optional[StrictStr] = None
+    client_secret: StrictStr
     client_type: StrictStr = Field(description="* `confidential` - Confidential * `public` - Public")
     authorization_grant_type: StrictStr = Field(description="* `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
-    created: Optional[datetime] = None
-    updated: Optional[datetime] = None
+    created: datetime
+    updated: datetime
     __properties: ClassVar[List[str]] = ["id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"]
 
     @field_validator('client_type')

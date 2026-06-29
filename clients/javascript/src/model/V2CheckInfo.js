@@ -25,10 +25,22 @@ class V2CheckInfo {
      * Constructs a new <code>V2CheckInfo</code>.
      * Everything a client needs to know to use a check type via the API.
      * @alias module:model/V2CheckInfo
+     * @param checkType {String} 
+     * @param displayName {String} 
+     * @param description {String} 
+     * @param hasConfig {Boolean} 
+     * @param isSystemManaged {Boolean} True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
+     * @param requiresChecks {Array.<String>} Other check types this check pulls in automatically when added.
+     * @param supportedCountriesOfWork {Array.<String>} 
+     * @param supportedCountriesOfResidence {Array.<String>} 
+     * @param defaultPrice {module:model/V2Money} 
+     * @param configFields {Array.<module:model/V2CheckField>} 
+     * @param inputFields {Array.<module:model/V2CheckField>} 
+     * @param candidateFields {Array.<module:model/V2CheckField>} Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
      */
-    constructor() { 
+    constructor(checkType, displayName, description, hasConfig, isSystemManaged, requiresChecks, supportedCountriesOfWork, supportedCountriesOfResidence, defaultPrice, configFields, inputFields, candidateFields) { 
         
-        V2CheckInfo.initialize(this);
+        V2CheckInfo.initialize(this, checkType, displayName, description, hasConfig, isSystemManaged, requiresChecks, supportedCountriesOfWork, supportedCountriesOfResidence, defaultPrice, configFields, inputFields, candidateFields);
     }
 
     /**
@@ -36,7 +48,19 @@ class V2CheckInfo {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj) { 
+    static initialize(obj, checkType, displayName, description, hasConfig, isSystemManaged, requiresChecks, supportedCountriesOfWork, supportedCountriesOfResidence, defaultPrice, configFields, inputFields, candidateFields) { 
+        obj['check_type'] = checkType;
+        obj['display_name'] = displayName;
+        obj['description'] = description;
+        obj['has_config'] = hasConfig;
+        obj['is_system_managed'] = isSystemManaged;
+        obj['requires_checks'] = requiresChecks;
+        obj['supported_countries_of_work'] = supportedCountriesOfWork;
+        obj['supported_countries_of_residence'] = supportedCountriesOfResidence;
+        obj['default_price'] = defaultPrice;
+        obj['config_fields'] = configFields;
+        obj['input_fields'] = inputFields;
+        obj['candidate_fields'] = candidateFields;
     }
 
     /**
@@ -96,6 +120,12 @@ class V2CheckInfo {
      * @return {boolean} to indicate whether the JSON data is valid with respect to <code>V2CheckInfo</code>.
      */
     static validateJSON(data) {
+        // check to make sure all required properties are present in the JSON string
+        for (const property of V2CheckInfo.RequiredProperties) {
+            if (!data.hasOwnProperty(property)) {
+                throw new Error("The required field `" + property + "` is not found in the JSON data: " + JSON.stringify(data));
+            }
+        }
         // ensure the json data is a string
         if (data['check_type'] && !(typeof data['check_type'] === 'string' || data['check_type'] instanceof String)) {
             throw new Error("Expected the field `check_type` to be a primitive type in the JSON string but got " + data['check_type']);
@@ -161,7 +191,7 @@ class V2CheckInfo {
 
 }
 
-
+V2CheckInfo.RequiredProperties = ["check_type", "display_name", "description", "has_config", "is_system_managed", "requires_checks", "supported_countries_of_work", "supported_countries_of_residence", "default_price", "config_fields", "input_fields", "candidate_fields"];
 
 /**
  * @member {String} check_type

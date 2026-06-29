@@ -14,31 +14,31 @@ use serde::{Deserialize, Serialize};
 /// V2Document : One document attached to a screening's check. `metadata` carries check-specific extras and may be empty.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V2Document {
-    #[serde(rename = "check_id", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub check_id: Option<Option<uuid::Uuid>>,
+    #[serde(rename = "check_id", deserialize_with = "Option::deserialize")]
+    pub check_id: Option<uuid::Uuid>,
     /// * `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-    #[serde(rename = "check_type", skip_serializing_if = "Option::is_none")]
-    pub check_type: Option<CheckType>,
-    #[serde(rename = "filename", skip_serializing_if = "Option::is_none")]
-    pub filename: Option<String>,
-    #[serde(rename = "extension", skip_serializing_if = "Option::is_none")]
-    pub extension: Option<String>,
-    #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
-    pub content: Option<Box<models::V2DocumentContent>>,
-    #[serde(rename = "metadata", skip_serializing_if = "Option::is_none")]
-    pub metadata: Option<std::collections::HashMap<String, serde_json::Value>>,
+    #[serde(rename = "check_type")]
+    pub check_type: CheckType,
+    #[serde(rename = "filename")]
+    pub filename: String,
+    #[serde(rename = "extension")]
+    pub extension: String,
+    #[serde(rename = "content")]
+    pub content: Box<models::V2DocumentContent>,
+    #[serde(rename = "metadata")]
+    pub metadata: std::collections::HashMap<String, serde_json::Value>,
 }
 
 impl V2Document {
     /// One document attached to a screening's check. `metadata` carries check-specific extras and may be empty.
-    pub fn new() -> V2Document {
+    pub fn new(check_id: Option<uuid::Uuid>, check_type: CheckType, filename: String, extension: String, content: models::V2DocumentContent, metadata: std::collections::HashMap<String, serde_json::Value>) -> V2Document {
         V2Document {
-            check_id: None,
-            check_type: None,
-            filename: None,
-            extension: None,
-            content: None,
-            metadata: None,
+            check_id,
+            check_type,
+            filename,
+            extension,
+            content: Box::new(content),
+            metadata,
         }
     }
 }

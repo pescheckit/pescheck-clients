@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -55,17 +54,17 @@ import io.pescheck.client.JSON;
 public class V2CheckField {
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String name;
 
   public static final String SERIALIZED_NAME_TYPE = "type";
   @SerializedName(SERIALIZED_NAME_TYPE)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private String type;
 
   public static final String SERIALIZED_NAME_REQUIRED = "required";
   @SerializedName(SERIALIZED_NAME_REQUIRED)
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   private Boolean required;
 
   public static final String SERIALIZED_NAME_CHOICES = "choices";
@@ -100,7 +99,7 @@ public class V2CheckField {
    * Get name
    * @return name
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getName() {
     return name;
   }
@@ -111,7 +110,7 @@ public class V2CheckField {
    * \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot;
    * @return type
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public String getType() {
     return type;
   }
@@ -122,7 +121,7 @@ public class V2CheckField {
    * Whether the request body must include this field.
    * @return required
    */
-  @javax.annotation.Nullable
+  @javax.annotation.Nonnull
   public Boolean getRequired() {
     return required;
   }
@@ -168,20 +167,9 @@ public class V2CheckField {
         Objects.equals(this.helpText, v2CheckField.helpText);
   }
 
-  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
-  }
-
   @Override
   public int hashCode() {
     return Objects.hash(name, type, required, choices, helpText);
-  }
-
-  private static <T> int hashCodeNullable(JsonNullable<T> a) {
-    if (a == null) {
-      return 1;
-    }
-    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
   }
 
   @Override
@@ -214,7 +202,7 @@ public class V2CheckField {
     openapiFields = new HashSet<String>(Arrays.asList("name", "type", "required", "choices", "help_text"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(0);
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("name", "type", "required", "choices", "help_text"));
   }
 
   /**
@@ -237,15 +225,24 @@ public class V2CheckField {
           throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The field `%s` in the JSON string is not defined in the `V2CheckField` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
       }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : V2CheckField.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+      if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }
-      if ((jsonObj.get("type") != null && !jsonObj.get("type").isJsonNull()) && !jsonObj.get("type").isJsonPrimitive()) {
+      if (!jsonObj.get("type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
       }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("choices") != null && !jsonObj.get("choices").isJsonNull() && !jsonObj.get("choices").isJsonArray()) {
+      // ensure the required json array is present
+      if (jsonObj.get("choices") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("choices").isJsonArray() && !jsonObj.get("choices").isJsonNull()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `choices` to be an array in the JSON string but got `%s`", jsonObj.get("choices").toString()));
       }
       if ((jsonObj.get("help_text") != null && !jsonObj.get("help_text").isJsonNull()) && !jsonObj.get("help_text").isJsonPrimitive()) {

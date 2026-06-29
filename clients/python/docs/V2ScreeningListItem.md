@@ -6,15 +6,15 @@ List shape for GET /screenings/. Same candidate as detail; the only thing we sli
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **UUID** |  | [optional] [readonly] 
+**id** | **UUID** |  | [readonly] 
 **status** | **str** |  | [optional] 
-**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] 
-**candidate** | [**V2Candidate**](V2Candidate.md) |  | [optional] [readonly] 
-**checks** | [**List[V2ScreeningCheckListItem]**](V2ScreeningCheckListItem.md) |  | [optional] [readonly] 
-**candidate_wizard_url** | **str** |  | [optional] [readonly] 
-**dashboard_url** | **str** |  | [optional] [readonly] 
-**created_at** | **datetime** |  | [optional] [readonly] 
-**updated_at** | **datetime** |  | [optional] [readonly] 
+**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
+**checks** | [**List[V2ScreeningCheckListItem]**](V2ScreeningCheckListItem.md) |  | [readonly] 
+**candidate_wizard_url** | **str** |  | [readonly] 
+**dashboard_url** | **str** |  | [readonly] 
+**created_at** | **datetime** |  | [readonly] 
+**updated_at** | **datetime** |  | [readonly] 
 
 ## Example
 

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | [optional] [readonly] 
+**id** | **String** |  | [readonly] 
 **name** | **String** |  | 
 **description** | **String** |  | 
 **isCustom** | **Boolean** |  | [optional] 
-**checkTypes** | **[String]** |  | [optional] [readonly] 
-**createdAt** | **Date** |  | [optional] [readonly] 
-**updatedAt** | **Date** |  | [optional] [readonly] 
+**checkTypes** | **[String]** |  | [readonly] 
+**createdAt** | **Date** |  | [readonly] 
+**updatedAt** | **Date** |  | [readonly] 
 
 

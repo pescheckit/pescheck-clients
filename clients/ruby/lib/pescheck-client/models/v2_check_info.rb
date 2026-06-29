@@ -115,62 +115,86 @@ module Pescheck
 
       if attributes.key?(:'check_type')
         self.check_type = attributes[:'check_type']
+      else
+        self.check_type = nil
       end
 
       if attributes.key?(:'display_name')
         self.display_name = attributes[:'display_name']
+      else
+        self.display_name = nil
       end
 
       if attributes.key?(:'description')
         self.description = attributes[:'description']
+      else
+        self.description = nil
       end
 
       if attributes.key?(:'has_config')
         self.has_config = attributes[:'has_config']
+      else
+        self.has_config = nil
       end
 
       if attributes.key?(:'is_system_managed')
         self.is_system_managed = attributes[:'is_system_managed']
+      else
+        self.is_system_managed = nil
       end
 
       if attributes.key?(:'requires_checks')
         if (value = attributes[:'requires_checks']).is_a?(Array)
           self.requires_checks = value
         end
+      else
+        self.requires_checks = nil
       end
 
       if attributes.key?(:'supported_countries_of_work')
         if (value = attributes[:'supported_countries_of_work']).is_a?(Array)
           self.supported_countries_of_work = value
         end
+      else
+        self.supported_countries_of_work = nil
       end
 
       if attributes.key?(:'supported_countries_of_residence')
         if (value = attributes[:'supported_countries_of_residence']).is_a?(Array)
           self.supported_countries_of_residence = value
         end
+      else
+        self.supported_countries_of_residence = nil
       end
 
       if attributes.key?(:'default_price')
         self.default_price = attributes[:'default_price']
+      else
+        self.default_price = nil
       end
 
       if attributes.key?(:'config_fields')
         if (value = attributes[:'config_fields']).is_a?(Array)
           self.config_fields = value
         end
+      else
+        self.config_fields = nil
       end
 
       if attributes.key?(:'input_fields')
         if (value = attributes[:'input_fields']).is_a?(Array)
           self.input_fields = value
         end
+      else
+        self.input_fields = nil
       end
 
       if attributes.key?(:'candidate_fields')
         if (value = attributes[:'candidate_fields']).is_a?(Array)
           self.candidate_fields = value
         end
+      else
+        self.candidate_fields = nil
       end
     end
 
@@ -179,6 +203,46 @@ module Pescheck
     def list_invalid_properties
       warn '[DEPRECATED] the `list_invalid_properties` method is obsolete'
       invalid_properties = Array.new
+      if @check_type.nil?
+        invalid_properties.push('invalid value for "check_type", check_type cannot be nil.')
+      end
+
+      if @display_name.nil?
+        invalid_properties.push('invalid value for "display_name", display_name cannot be nil.')
+      end
+
+      if @has_config.nil?
+        invalid_properties.push('invalid value for "has_config", has_config cannot be nil.')
+      end
+
+      if @is_system_managed.nil?
+        invalid_properties.push('invalid value for "is_system_managed", is_system_managed cannot be nil.')
+      end
+
+      if @requires_checks.nil?
+        invalid_properties.push('invalid value for "requires_checks", requires_checks cannot be nil.')
+      end
+
+      if @supported_countries_of_work.nil?
+        invalid_properties.push('invalid value for "supported_countries_of_work", supported_countries_of_work cannot be nil.')
+      end
+
+      if @supported_countries_of_residence.nil?
+        invalid_properties.push('invalid value for "supported_countries_of_residence", supported_countries_of_residence cannot be nil.')
+      end
+
+      if @config_fields.nil?
+        invalid_properties.push('invalid value for "config_fields", config_fields cannot be nil.')
+      end
+
+      if @input_fields.nil?
+        invalid_properties.push('invalid value for "input_fields", input_fields cannot be nil.')
+      end
+
+      if @candidate_fields.nil?
+        invalid_properties.push('invalid value for "candidate_fields", candidate_fields cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -186,7 +250,117 @@ module Pescheck
     # @return true if the model is valid
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
+      return false if @check_type.nil?
+      return false if @display_name.nil?
+      return false if @has_config.nil?
+      return false if @is_system_managed.nil?
+      return false if @requires_checks.nil?
+      return false if @supported_countries_of_work.nil?
+      return false if @supported_countries_of_residence.nil?
+      return false if @config_fields.nil?
+      return false if @input_fields.nil?
+      return false if @candidate_fields.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] check_type Value to be assigned
+    def check_type=(check_type)
+      if check_type.nil?
+        fail ArgumentError, 'check_type cannot be nil'
+      end
+
+      @check_type = check_type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] display_name Value to be assigned
+    def display_name=(display_name)
+      if display_name.nil?
+        fail ArgumentError, 'display_name cannot be nil'
+      end
+
+      @display_name = display_name
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] has_config Value to be assigned
+    def has_config=(has_config)
+      if has_config.nil?
+        fail ArgumentError, 'has_config cannot be nil'
+      end
+
+      @has_config = has_config
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] is_system_managed Value to be assigned
+    def is_system_managed=(is_system_managed)
+      if is_system_managed.nil?
+        fail ArgumentError, 'is_system_managed cannot be nil'
+      end
+
+      @is_system_managed = is_system_managed
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] requires_checks Value to be assigned
+    def requires_checks=(requires_checks)
+      if requires_checks.nil?
+        fail ArgumentError, 'requires_checks cannot be nil'
+      end
+
+      @requires_checks = requires_checks
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] supported_countries_of_work Value to be assigned
+    def supported_countries_of_work=(supported_countries_of_work)
+      if supported_countries_of_work.nil?
+        fail ArgumentError, 'supported_countries_of_work cannot be nil'
+      end
+
+      @supported_countries_of_work = supported_countries_of_work
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] supported_countries_of_residence Value to be assigned
+    def supported_countries_of_residence=(supported_countries_of_residence)
+      if supported_countries_of_residence.nil?
+        fail ArgumentError, 'supported_countries_of_residence cannot be nil'
+      end
+
+      @supported_countries_of_residence = supported_countries_of_residence
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] config_fields Value to be assigned
+    def config_fields=(config_fields)
+      if config_fields.nil?
+        fail ArgumentError, 'config_fields cannot be nil'
+      end
+
+      @config_fields = config_fields
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] input_fields Value to be assigned
+    def input_fields=(input_fields)
+      if input_fields.nil?
+        fail ArgumentError, 'input_fields cannot be nil'
+      end
+
+      @input_fields = input_fields
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] candidate_fields Value to be assigned
+    def candidate_fields=(candidate_fields)
+      if candidate_fields.nil?
+        fail ArgumentError, 'candidate_fields cannot be nil'
+      end
+
+      @candidate_fields = candidate_fields
     end
 
     # Checks equality by comparing each attribute.

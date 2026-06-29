@@ -48,7 +48,7 @@ export interface V2ScreeningListItem {
      * @type {string}
      * @memberof V2ScreeningListItem
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * 
      * @type {string}
@@ -60,49 +60,57 @@ export interface V2ScreeningListItem {
      * @type {V2ScreeningDetailProfile}
      * @memberof V2ScreeningListItem
      */
-    profile?: V2ScreeningDetailProfile | null;
+    profile: V2ScreeningDetailProfile | null;
     /**
      * 
      * @type {V2Candidate}
      * @memberof V2ScreeningListItem
      */
-    readonly candidate?: V2Candidate;
+    readonly candidate: V2Candidate;
     /**
      * 
      * @type {Array<V2ScreeningCheckListItem>}
      * @memberof V2ScreeningListItem
      */
-    readonly checks?: Array<V2ScreeningCheckListItem>;
+    readonly checks: Array<V2ScreeningCheckListItem>;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningListItem
      */
-    readonly candidateWizardUrl?: string | null;
+    readonly candidateWizardUrl: string | null;
     /**
      * 
      * @type {string}
      * @memberof V2ScreeningListItem
      */
-    readonly dashboardUrl?: string;
+    readonly dashboardUrl: string;
     /**
      * 
      * @type {Date}
      * @memberof V2ScreeningListItem
      */
-    readonly createdAt?: Date;
+    readonly createdAt: Date;
     /**
      * 
      * @type {Date}
      * @memberof V2ScreeningListItem
      */
-    readonly updatedAt?: Date;
+    readonly updatedAt: Date;
 }
 
 /**
  * Check if a given object implements the V2ScreeningListItem interface.
  */
 export function instanceOfV2ScreeningListItem(value: any): value is V2ScreeningListItem {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('profile' in value) || value['profile'] === undefined) return false;
+    if (!('candidate' in value) || value['candidate'] === undefined) return false;
+    if (!('checks' in value) || value['checks'] === undefined) return false;
+    if ((!('candidateWizardUrl' in value) && !('candidate_wizard_url' in value)) || (value['candidateWizardUrl'] === undefined && value['candidate_wizard_url'] === undefined)) return false;
+    if ((!('dashboardUrl' in value) && !('dashboard_url' in value)) || (value['dashboardUrl'] === undefined && value['dashboard_url'] === undefined)) return false;
+    if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
+    if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
 }
 
@@ -116,15 +124,15 @@ export function V2ScreeningListItemFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
         'status': json['status'] == null ? undefined : json['status'],
-        'profile': json['profile'] == null ? undefined : V2ScreeningDetailProfileFromJSON(json['profile']),
-        'candidate': json['candidate'] == null ? undefined : V2CandidateFromJSON(json['candidate']),
-        'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(V2ScreeningCheckListItemFromJSON)),
-        'candidateWizardUrl': json['candidate_wizard_url'] == null ? undefined : json['candidate_wizard_url'],
-        'dashboardUrl': json['dashboard_url'] == null ? undefined : json['dashboard_url'],
-        'createdAt': json['created_at'] == null ? undefined : (new Date(json['created_at'])),
-        'updatedAt': json['updated_at'] == null ? undefined : (new Date(json['updated_at'])),
+        'profile': V2ScreeningDetailProfileFromJSON(json['profile']),
+        'candidate': V2CandidateFromJSON(json['candidate']),
+        'checks': ((json['checks'] as Array<any>).map(V2ScreeningCheckListItemFromJSON)),
+        'candidateWizardUrl': json['candidate_wizard_url'],
+        'dashboardUrl': json['dashboard_url'],
+        'createdAt': (new Date(json['created_at'])),
+        'updatedAt': (new Date(json['updated_at'])),
     };
 }
 

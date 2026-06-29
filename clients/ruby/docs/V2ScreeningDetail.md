@@ -4,15 +4,15 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **id** | **String** |  | [optional][readonly] |
-| **status** | **String** |  | [optional][readonly] |
-| **profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | [optional] |
-| **candidate** | [**V2Candidate**](V2Candidate.md) |  | [optional][readonly] |
-| **checks** | [**Array&lt;V2ScreeningCheckEntry&gt;**](V2ScreeningCheckEntry.md) |  | [optional][readonly] |
-| **candidate_wizard_url** | **String** | Public wizard URL for the candidate. Null when no check needs candidate input. | [optional][readonly] |
-| **dashboard_url** | **String** | Dashboard URL for this screening. | [optional][readonly] |
-| **created_at** | **Time** |  | [optional][readonly] |
-| **updated_at** | **Time** |  | [optional][readonly] |
+| **id** | **String** |  | [readonly] |
+| **status** | **String** |  | [readonly] |
+| **profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  |  |
+| **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] |
+| **checks** | [**Array&lt;V2ScreeningCheckEntry&gt;**](V2ScreeningCheckEntry.md) |  | [readonly] |
+| **candidate_wizard_url** | **String** | Public wizard URL for the candidate. Null when no check needs candidate input. | [readonly] |
+| **dashboard_url** | **String** | Dashboard URL for this screening. | [readonly] |
+| **created_at** | **Time** |  | [readonly] |
+| **updated_at** | **Time** |  | [readonly] |
 
 ## Example
 

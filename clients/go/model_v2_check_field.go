@@ -12,6 +12,8 @@ package pescheck
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the V2CheckField type satisfies the MappedNullable interface at compile time
@@ -19,22 +21,29 @@ var _ MappedNullable = &V2CheckField{}
 
 // V2CheckField One config or input field a check accepts via the API.
 type V2CheckField struct {
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
-	Type *string `json:"type,omitempty"`
+	Type string `json:"type"`
 	// Whether the request body must include this field.
-	Required *bool `json:"required,omitempty"`
+	Required bool `json:"required"`
 	// Allowed values, or null if the field isn't constrained to a set.
-	Choices []string `json:"choices,omitempty"`
-	HelpText NullableString `json:"help_text,omitempty"`
+	Choices []string `json:"choices"`
+	HelpText NullableString `json:"help_text"`
 }
+
+type _V2CheckField V2CheckField
 
 // NewV2CheckField instantiates a new V2CheckField object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2CheckField() *V2CheckField {
+func NewV2CheckField(name string, type_ string, required bool, choices []string, helpText NullableString) *V2CheckField {
 	this := V2CheckField{}
+	this.Name = name
+	this.Type = type_
+	this.Required = required
+	this.Choices = choices
+	this.HelpText = helpText
 	return &this
 }
 
@@ -46,112 +55,90 @@ func NewV2CheckFieldWithDefaults() *V2CheckField {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *V2CheckField) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *V2CheckField) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *V2CheckField) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *V2CheckField) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *V2CheckField) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *V2CheckField) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *V2CheckField) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *V2CheckField) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
-// GetRequired returns the Required field value if set, zero value otherwise.
+// GetRequired returns the Required field value
 func (o *V2CheckField) GetRequired() bool {
-	if o == nil || IsNil(o.Required) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Required
+
+	return o.Required
 }
 
-// GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
+// GetRequiredOk returns a tuple with the Required field value
 // and a boolean to check if the value has been set.
 func (o *V2CheckField) GetRequiredOk() (*bool, bool) {
-	if o == nil || IsNil(o.Required) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Required, true
+	return &o.Required, true
 }
 
-// HasRequired returns a boolean if a field has been set.
-func (o *V2CheckField) HasRequired() bool {
-	if o != nil && !IsNil(o.Required) {
-		return true
-	}
-
-	return false
-}
-
-// SetRequired gets a reference to the given bool and assigns it to the Required field.
+// SetRequired sets field value
 func (o *V2CheckField) SetRequired(v bool) {
-	o.Required = &v
+	o.Required = v
 }
 
-// GetChoices returns the Choices field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetChoices returns the Choices field value
+// If the value is explicit nil, the zero value for []string will be returned
 func (o *V2CheckField) GetChoices() []string {
 	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Choices
 }
 
-// GetChoicesOk returns a tuple with the Choices field value if set, nil otherwise
+// GetChoicesOk returns a tuple with the Choices field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2CheckField) GetChoicesOk() ([]string, bool) {
@@ -161,30 +148,23 @@ func (o *V2CheckField) GetChoicesOk() ([]string, bool) {
 	return o.Choices, true
 }
 
-// HasChoices returns a boolean if a field has been set.
-func (o *V2CheckField) HasChoices() bool {
-	if o != nil && !IsNil(o.Choices) {
-		return true
-	}
-
-	return false
-}
-
-// SetChoices gets a reference to the given []string and assigns it to the Choices field.
+// SetChoices sets field value
 func (o *V2CheckField) SetChoices(v []string) {
 	o.Choices = v
 }
 
-// GetHelpText returns the HelpText field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetHelpText returns the HelpText field value
+// If the value is explicit nil, the zero value for string will be returned
 func (o *V2CheckField) GetHelpText() string {
-	if o == nil || IsNil(o.HelpText.Get()) {
+	if o == nil || o.HelpText.Get() == nil {
 		var ret string
 		return ret
 	}
+
 	return *o.HelpText.Get()
 }
 
-// GetHelpTextOk returns a tuple with the HelpText field value if set, nil otherwise
+// GetHelpTextOk returns a tuple with the HelpText field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *V2CheckField) GetHelpTextOk() (*string, bool) {
@@ -194,27 +174,9 @@ func (o *V2CheckField) GetHelpTextOk() (*string, bool) {
 	return o.HelpText.Get(), o.HelpText.IsSet()
 }
 
-// HasHelpText returns a boolean if a field has been set.
-func (o *V2CheckField) HasHelpText() bool {
-	if o != nil && o.HelpText.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetHelpText gets a reference to the given NullableString and assigns it to the HelpText field.
+// SetHelpText sets field value
 func (o *V2CheckField) SetHelpText(v string) {
 	o.HelpText.Set(&v)
-}
-// SetHelpTextNil sets the value for HelpText to be an explicit nil
-func (o *V2CheckField) SetHelpTextNil() {
-	o.HelpText.Set(nil)
-}
-
-// UnsetHelpText ensures that no value is present for HelpText, not even an explicit nil
-func (o *V2CheckField) UnsetHelpText() {
-	o.HelpText.Unset()
 }
 
 func (o V2CheckField) MarshalJSON() ([]byte, error) {
@@ -227,22 +189,55 @@ func (o V2CheckField) MarshalJSON() ([]byte, error) {
 
 func (o V2CheckField) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
-	if !IsNil(o.Required) {
-		toSerialize["required"] = o.Required
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	toSerialize["required"] = o.Required
 	if o.Choices != nil {
 		toSerialize["choices"] = o.Choices
 	}
-	if o.HelpText.IsSet() {
-		toSerialize["help_text"] = o.HelpText.Get()
-	}
+	toSerialize["help_text"] = o.HelpText.Get()
 	return toSerialize, nil
+}
+
+func (o *V2CheckField) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+		"required",
+		"choices",
+		"help_text",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varV2CheckField := _V2CheckField{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varV2CheckField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = V2CheckField(varV2CheckField)
+
+	return err
 }
 
 type NullableV2CheckField struct {

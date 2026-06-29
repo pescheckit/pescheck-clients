@@ -24,7 +24,7 @@ export interface OAuthApplicationResponse {
      * @type {string}
      * @memberof OAuthApplicationResponse
      */
-    readonly id?: string;
+    readonly id: string;
     /**
      * 
      * @type {string}
@@ -42,7 +42,7 @@ export interface OAuthApplicationResponse {
      * @type {string}
      * @memberof OAuthApplicationResponse
      */
-    readonly clientSecret?: string;
+    readonly clientSecret: string;
     /**
      * * `confidential` - Confidential
      * * `public` - Public
@@ -65,13 +65,13 @@ export interface OAuthApplicationResponse {
      * @type {Date}
      * @memberof OAuthApplicationResponse
      */
-    readonly created?: Date;
+    readonly created: Date;
     /**
      * 
      * @type {Date}
      * @memberof OAuthApplicationResponse
      */
-    readonly updated?: Date;
+    readonly updated: Date;
 }
 
 
@@ -101,8 +101,12 @@ export type OAuthApplicationResponseAuthorizationGrantTypeEnum = typeof OAuthApp
  * Check if a given object implements the OAuthApplicationResponse interface.
  */
 export function instanceOfOAuthApplicationResponse(value: any): value is OAuthApplicationResponse {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if ((!('clientSecret' in value) && !('client_secret' in value)) || (value['clientSecret'] === undefined && value['client_secret'] === undefined)) return false;
     if ((!('clientType' in value) && !('client_type' in value)) || (value['clientType'] === undefined && value['client_type'] === undefined)) return false;
     if ((!('authorizationGrantType' in value) && !('authorization_grant_type' in value)) || (value['authorizationGrantType'] === undefined && value['authorization_grant_type'] === undefined)) return false;
+    if (!('created' in value) || value['created'] === undefined) return false;
+    if (!('updated' in value) || value['updated'] === undefined) return false;
     return true;
 }
 
@@ -116,14 +120,14 @@ export function OAuthApplicationResponseFromJSONTyped(json: any, ignoreDiscrimin
     }
     return {
         
-        'id': json['id'] == null ? undefined : json['id'],
+        'id': json['id'],
         'name': json['name'] == null ? undefined : json['name'],
         'clientId': json['client_id'] == null ? undefined : json['client_id'],
-        'clientSecret': json['client_secret'] == null ? undefined : json['client_secret'],
+        'clientSecret': json['client_secret'],
         'clientType': json['client_type'],
         'authorizationGrantType': json['authorization_grant_type'],
-        'created': json['created'] == null ? undefined : (new Date(json['created'])),
-        'updated': json['updated'] == null ? undefined : (new Date(json['updated'])),
+        'created': (new Date(json['created'])),
+        'updated': (new Date(json['updated'])),
     };
 }
 

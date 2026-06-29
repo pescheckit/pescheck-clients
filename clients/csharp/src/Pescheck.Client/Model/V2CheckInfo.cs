@@ -43,7 +43,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets CheckType
         /// </summary>
-        [DataMember(Name = "check_type", EmitDefaultValue = false)]
+        [DataMember(Name = "check_type", IsRequired = true, EmitDefaultValue = true)]
         public string CheckType { get; private set; }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets DisplayName
         /// </summary>
-        [DataMember(Name = "display_name", EmitDefaultValue = false)]
+        [DataMember(Name = "display_name", IsRequired = true, EmitDefaultValue = true)]
         public string DisplayName { get; private set; }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
-        [DataMember(Name = "description", EmitDefaultValue = true)]
+        [DataMember(Name = "description", IsRequired = true, EmitDefaultValue = true)]
         public string Description { get; private set; }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets HasConfig
         /// </summary>
-        [DataMember(Name = "has_config", EmitDefaultValue = true)]
+        [DataMember(Name = "has_config", IsRequired = true, EmitDefaultValue = true)]
         public bool HasConfig { get; private set; }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Pescheck.Client.Model
         /// True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.
         /// </summary>
         /// <value>True for checks added automatically (e.g. as a dependency) - clients neither add nor configure these.</value>
-        [DataMember(Name = "is_system_managed", EmitDefaultValue = true)]
+        [DataMember(Name = "is_system_managed", IsRequired = true, EmitDefaultValue = true)]
         public bool IsSystemManaged { get; private set; }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Pescheck.Client.Model
         /// Other check types this check pulls in automatically when added.
         /// </summary>
         /// <value>Other check types this check pulls in automatically when added.</value>
-        [DataMember(Name = "requires_checks", EmitDefaultValue = false)]
+        [DataMember(Name = "requires_checks", IsRequired = true, EmitDefaultValue = true)]
         public List<string> RequiresChecks { get; private set; }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets SupportedCountriesOfWork
         /// </summary>
-        [DataMember(Name = "supported_countries_of_work", EmitDefaultValue = false)]
+        [DataMember(Name = "supported_countries_of_work", IsRequired = true, EmitDefaultValue = true)]
         public List<string> SupportedCountriesOfWork { get; private set; }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets SupportedCountriesOfResidence
         /// </summary>
-        [DataMember(Name = "supported_countries_of_residence", EmitDefaultValue = false)]
+        [DataMember(Name = "supported_countries_of_residence", IsRequired = true, EmitDefaultValue = true)]
         public List<string> SupportedCountriesOfResidence { get; private set; }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets DefaultPrice
         /// </summary>
-        [DataMember(Name = "default_price", EmitDefaultValue = true)]
+        [DataMember(Name = "default_price", IsRequired = true, EmitDefaultValue = true)]
         public V2Money DefaultPrice { get; private set; }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets ConfigFields
         /// </summary>
-        [DataMember(Name = "config_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "config_fields", IsRequired = true, EmitDefaultValue = true)]
         public List<V2CheckField> ConfigFields { get; private set; }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets InputFields
         /// </summary>
-        [DataMember(Name = "input_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "input_fields", IsRequired = true, EmitDefaultValue = true)]
         public List<V2CheckField> InputFields { get; private set; }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Pescheck.Client.Model
         /// Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
         /// </summary>
         /// <value>Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).</value>
-        [DataMember(Name = "candidate_fields", EmitDefaultValue = false)]
+        [DataMember(Name = "candidate_fields", IsRequired = true, EmitDefaultValue = true)]
         public List<V2CheckField> CandidateFields { get; private set; }
 
         /// <summary>
