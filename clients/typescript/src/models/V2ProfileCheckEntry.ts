@@ -32,7 +32,7 @@ export interface V2ProfileCheckEntry {
      * @type {string}
      * @memberof V2ProfileCheckEntry
      */
-    readonly id?: string;
+    readonly id?: string | null;
     /**
      * * `addresscheck` - addresscheck
      * * `adversemediacheck` - adversemediacheck

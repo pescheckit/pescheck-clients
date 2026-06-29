@@ -104,6 +104,11 @@ class V2ProfileCheckEntry(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of configured_price
         if self.configured_price:
             _dict['configured_price'] = self.configured_price.to_dict()
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['id'] = None
+
         return _dict
 
     @classmethod

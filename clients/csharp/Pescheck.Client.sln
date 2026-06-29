@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.0.0
 MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client", "src\Pescheck.Client\Pescheck.Client.csproj", "{33DAA720-CE86-4C0C-871A-48145E1330A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client", "src\Pescheck.Client\Pescheck.Client.csproj", "{CF938CE9-4715-4B07-99BB-E116A1863800}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client.Test", "src\Pescheck.Client.Test\Pescheck.Client.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
 EndProject
@@ -12,10 +12,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{33DAA720-CE86-4C0C-871A-48145E1330A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33DAA720-CE86-4C0C-871A-48145E1330A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33DAA720-CE86-4C0C-871A-48145E1330A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33DAA720-CE86-4C0C-871A-48145E1330A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF938CE9-4715-4B07-99BB-E116A1863800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF938CE9-4715-4B07-99BB-E116A1863800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF938CE9-4715-4B07-99BB-E116A1863800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF938CE9-4715-4B07-99BB-E116A1863800}.Release|Any CPU.Build.0 = Release|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU

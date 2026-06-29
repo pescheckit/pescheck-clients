@@ -20,8 +20,6 @@ namespace model {
 
 V2ProfileCheckEntry::V2ProfileCheckEntry()
 {
-    m_Id = utility::conversions::to_string_t("");
-    m_IdIsSet = false;
     m_Check_typeIsSet = false;
     m_Display_name = utility::conversions::to_string_t("");
     m_Display_nameIsSet = false;
@@ -44,10 +42,10 @@ void V2ProfileCheckEntry::validate()
 web::json::value V2ProfileCheckEntry::toJson() const
 {
     web::json::value val = web::json::value::object();
-    if(m_IdIsSet)
+    if(m_Id.has_value())
     {
         
-        val[utility::conversions::to_string_t(_XPLATSTR("id"))] = ModelBase::toJson(m_Id);
+        val[utility::conversions::to_string_t(_XPLATSTR("id"))] = ModelBase::toJson(m_Id.get());
     }
     if(m_Check_typeIsSet)
     {
@@ -176,9 +174,9 @@ void V2ProfileCheckEntry::toMultipart(std::shared_ptr<MultipartFormData> multipa
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
-    if(m_IdIsSet)
+    if(m_Id.has_value())
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("id")), m_Id));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("id")), m_Id.get()));
     }
     if(m_Check_typeIsSet)
     {
@@ -410,24 +408,23 @@ const utility::string_t V2ProfileCheckEntry::fromCheck_typeEnum(const Check_type
 
 utility::string_t V2ProfileCheckEntry::getId() const
 {
-    return m_Id;
+    return m_Id.get();
 }
 
 
 void V2ProfileCheckEntry::setId(const utility::string_t& value)
 {
     m_Id = value;
-    m_IdIsSet = true;
 }
 
 bool V2ProfileCheckEntry::idIsSet() const
 {
-    return m_IdIsSet;
+    return m_Id.has_value();
 }
 
 void V2ProfileCheckEntry::unsetId()
 {
-    m_IdIsSet = false;
+    m_Id.reset();
 }
 V2ProfileCheckEntry::Check_typeEnum V2ProfileCheckEntry::getCheckType() const
 {

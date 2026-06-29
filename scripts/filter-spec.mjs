@@ -126,15 +126,13 @@ for (const [name, fields] of Object.entries(RELAX_REQUIRED)) {
   }
 }
 
-// 5d. Strip readOnly properties from `required` on a TARGETED set of schemas:
-//   - request-body schemas (transitively): DivisionWrite marks `id` both readOnly
-//     and required, so clients would otherwise demand an id when *creating*.
-//   - V2ProfileCheckEntry: the API can return its `id` as null in some profile
-//     responses, which crashes strict (pydantic) clients during deserialization.
-// We deliberately do NOT strip readOnly-required on ALL response schemas: that
-// would make ids (V2ProfileDetail.id, V2ScreeningDetail.id, ...) Optional
-// everywhere and force every consumer to unwrap them (and break strict clients).
-const stripReadOnlyRequired = new Set(["V2ProfileCheckEntry"]);
+// 5d. Strip readOnly properties from `required` on request-body schemas
+// (transitively): DivisionWrite marks `id` both readOnly and required, so clients
+// would otherwise demand an id when *creating* a division. We deliberately do NOT
+// strip readOnly-required on response schemas: that would make ids
+// (V2ProfileDetail.id, V2ScreeningDetail.id, ...) Optional everywhere and force
+// every consumer to unwrap them (and break strict clients).
+const stripReadOnlyRequired = new Set();
 const reqQueue = [];
 for (const item of Object.values(doc.paths)) {
   for (const m of ["post", "put", "patch"]) {
@@ -160,6 +158,15 @@ for (const name of stripReadOnlyRequired) {
   schema.required = schema.required.filter((f) => !schema.properties[f]?.readOnly);
   readOnlyRequiredStripped += before - schema.required.length;
 }
+
+// The API can return V2ProfileCheckEntry.id as null on some profile responses
+// (e.g. an extra check with no id yet in a PUT response). Mark it nullable so
+// EVERY generator emits a null-tolerant type (C# Guid?, rust Option<Uuid>,
+// python Optional) and deserialization of the null doesn't throw. We keep it in
+// `required`: required+nullable yields a SINGLE optional in Option-by-default
+// generators, whereas not-required+nullable double-wraps it (Option<Option<…>>).
+const pceId = doc.components?.schemas?.V2ProfileCheckEntry?.properties?.id;
+if (pceId) pceId.nullable = true;
 
 // 5e. Allow extra properties on response schemas that the API returns with
 // fields the spec doesn't document. The webhook endpoints are inconsistent —

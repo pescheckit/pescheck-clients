@@ -3175,6 +3175,7 @@ components:
       properties:
         id:
           format: uuid
+          nullable: true
           readOnly: true
           type: string
         check_type:

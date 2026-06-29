@@ -91,6 +91,7 @@ module Pescheck
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'id',
       ])
     end
 

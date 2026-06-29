@@ -199,8 +199,8 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Gets or Sets Id
         /// </summary>
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public Guid Id { get; private set; }
+        [DataMember(Name = "id", EmitDefaultValue = true)]
+        public Guid? Id { get; private set; }
 
         /// <summary>
         /// Returns false as Id should not be serialized given that it's read-only.

@@ -89,7 +89,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
      * @var boolean[]
      */
     protected static array $openAPINullables = [
-        'id' => false,
+        'id' => true,
         'check_type' => false,
         'display_name' => false,
         'configured_price' => false,
@@ -415,7 +415,14 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     public function setId($id)
     {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'id');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('id', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['id'] = $id;
 

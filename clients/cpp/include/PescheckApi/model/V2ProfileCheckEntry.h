@@ -133,8 +133,7 @@ public:
 
 
 protected:
-    utility::string_t m_Id;
-    bool m_IdIsSet;
+    boost::optional<utility::string_t> m_Id;
 
     Check_typeEnum m_Check_type;
     bool m_Check_typeIsSet;
