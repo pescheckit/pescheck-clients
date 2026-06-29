@@ -108,6 +108,16 @@ public:
     void unsetUpdated_at();
     void setUpdatedAt(const utility::datetime& value);
 
+    bool isVerificationSent() const;
+    bool verificationSentIsSet() const;
+    void unsetVerification_sent();
+    void setVerificationSent(bool value);
+
+    utility::string_t getWarning() const;
+    bool warningIsSet() const;
+    void unsetWarning();
+    void setWarning(const utility::string_t& value);
+
 
 protected:
     utility::string_t m_Id;
@@ -137,6 +147,12 @@ protected:
 
     utility::datetime m_Updated_at;
     bool m_Updated_atIsSet;
+
+    bool m_Verification_sent;
+    bool m_Verification_sentIsSet;
+
+    utility::string_t m_Warning;
+    bool m_WarningIsSet;
 
 };
 

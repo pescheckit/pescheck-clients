@@ -79,6 +79,18 @@ export interface WebhookResponse {
      * @memberof WebhookResponse
      */
     readonly updatedAt: Date;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof WebhookResponse
+     */
+    verificationSent?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof WebhookResponse
+     */
+    warning?: string;
 }
 
 /**
@@ -115,6 +127,8 @@ export function WebhookResponseFromJSONTyped(json: any, ignoreDiscriminator: boo
         'organisationName': json['organisation_name'] == null ? undefined : json['organisation_name'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
+        'verificationSent': json['verification_sent'] == null ? undefined : json['verification_sent'],
+        'warning': json['warning'] == null ? undefined : json['warning'],
     };
 }
 
@@ -132,6 +146,8 @@ export function WebhookResponseToJSONTyped(value?: Omit<WebhookResponse, 'id'|'e
         'name': value['name'],
         'url': value['url'],
         'active': value['active'],
+        'verification_sent': value['verificationSent'],
+        'warning': value['warning'],
     };
 }
 

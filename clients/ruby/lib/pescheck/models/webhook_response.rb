@@ -36,6 +36,10 @@ module Pescheck
 
     attr_accessor :updated_at
 
+    attr_accessor :verification_sent
+
+    attr_accessor :warning
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -48,7 +52,9 @@ module Pescheck
         :'token' => :'token',
         :'organisation_name' => :'organisation_name',
         :'created_at' => :'created_at',
-        :'updated_at' => :'updated_at'
+        :'updated_at' => :'updated_at',
+        :'verification_sent' => :'verification_sent',
+        :'warning' => :'warning'
       }
     end
 
@@ -74,7 +80,9 @@ module Pescheck
         :'token' => :'String',
         :'organisation_name' => :'String',
         :'created_at' => :'Time',
-        :'updated_at' => :'Time'
+        :'updated_at' => :'Time',
+        :'verification_sent' => :'Boolean',
+        :'warning' => :'String'
       }
     end
 
@@ -154,6 +162,14 @@ module Pescheck
         self.updated_at = attributes[:'updated_at']
       else
         self.updated_at = nil
+      end
+
+      if attributes.key?(:'verification_sent')
+        self.verification_sent = attributes[:'verification_sent']
+      end
+
+      if attributes.key?(:'warning')
+        self.warning = attributes[:'warning']
       end
     end
 
@@ -294,7 +310,9 @@ module Pescheck
           token == o.token &&
           organisation_name == o.organisation_name &&
           created_at == o.created_at &&
-          updated_at == o.updated_at
+          updated_at == o.updated_at &&
+          verification_sent == o.verification_sent &&
+          warning == o.warning
     end
 
     # @see the `==` method
@@ -306,7 +324,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, url, events, active, verified, token, organisation_name, created_at, updated_at].hash
+      [id, name, url, events, active, verified, token, organisation_name, created_at, updated_at, verification_sent, warning].hash
     end
 
     # Builds the object from hash

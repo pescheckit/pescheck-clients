@@ -36,6 +36,10 @@ WebhookResponse::WebhookResponse()
     m_Created_atIsSet = false;
     m_Updated_at = utility::datetime();
     m_Updated_atIsSet = false;
+    m_Verification_sent = false;
+    m_Verification_sentIsSet = false;
+    m_Warning = utility::conversions::to_string_t("");
+    m_WarningIsSet = false;
 }
 
 WebhookResponse::~WebhookResponse()
@@ -99,6 +103,16 @@ web::json::value WebhookResponse::toJson() const
     {
         
         val[utility::conversions::to_string_t(_XPLATSTR("updated_at"))] = ModelBase::toJson(m_Updated_at);
+    }
+    if(m_Verification_sentIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("verification_sent"))] = ModelBase::toJson(m_Verification_sent);
+    }
+    if(m_WarningIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("warning"))] = ModelBase::toJson(m_Warning);
     }
 
     return val;
@@ -217,6 +231,28 @@ bool WebhookResponse::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("verification_sent")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setVerificationSent;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setVerificationSent);
+            setVerificationSent(refVal_setVerificationSent);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("warning"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("warning")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setWarning;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setWarning);
+            setWarning(refVal_setWarning);
+            
+        }
+    }
     return ok;
 }
 
@@ -266,6 +302,14 @@ void WebhookResponse::toMultipart(std::shared_ptr<MultipartFormData> multipart, 
     if(m_Updated_atIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("updated_at")), m_Updated_at));
+    }
+    if(m_Verification_sentIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("verification_sent")), m_Verification_sent));
+    }
+    if(m_WarningIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("warning")), m_Warning));
     }
 }
 
@@ -337,6 +381,18 @@ bool WebhookResponse::fromMultiPart(std::shared_ptr<MultipartFormData> multipart
         utility::datetime refVal_setUpdatedAt;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("updated_at"))), refVal_setUpdatedAt );
         setUpdatedAt(refVal_setUpdatedAt);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))))
+    {
+        bool refVal_setVerificationSent;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("verification_sent"))), refVal_setVerificationSent );
+        setVerificationSent(refVal_setVerificationSent);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("warning"))))
+    {
+        utility::string_t refVal_setWarning;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("warning"))), refVal_setWarning );
+        setWarning(refVal_setWarning);
     }
     return ok;
 }
@@ -547,6 +603,47 @@ bool WebhookResponse::updatedAtIsSet() const
 void WebhookResponse::unsetUpdated_at()
 {
     m_Updated_atIsSet = false;
+}
+bool WebhookResponse::isVerificationSent() const
+{
+    return m_Verification_sent;
+}
+
+void WebhookResponse::setVerificationSent(bool value)
+{
+    m_Verification_sent = value;
+    m_Verification_sentIsSet = true;
+}
+
+bool WebhookResponse::verificationSentIsSet() const
+{
+    return m_Verification_sentIsSet;
+}
+
+void WebhookResponse::unsetVerification_sent()
+{
+    m_Verification_sentIsSet = false;
+}
+utility::string_t WebhookResponse::getWarning() const
+{
+    return m_Warning;
+}
+
+
+void WebhookResponse::setWarning(const utility::string_t& value)
+{
+    m_Warning = value;
+    m_WarningIsSet = true;
+}
+
+bool WebhookResponse::warningIsSet() const
+{
+    return m_WarningIsSet;
+}
+
+void WebhookResponse::unsetWarning()
+{
+    m_WarningIsSet = false;
 }
 
 }

@@ -40,7 +40,9 @@ class WebhookResponse(BaseModel):
     organisation_name: Optional[StrictStr] = None
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at"]
+    verification_sent: Optional[StrictBool] = None
+    warning: Optional[StrictStr] = None
+    __properties: ClassVar[List[str]] = ["id", "name", "url", "events", "active", "verified", "token", "organisation_name", "created_at", "updated_at", "verification_sent", "warning"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -126,7 +128,9 @@ class WebhookResponse(BaseModel):
             "token": obj.get("token"),
             "organisation_name": obj.get("organisation_name"),
             "created_at": obj.get("created_at"),
-            "updated_at": obj.get("updated_at")
+            "updated_at": obj.get("updated_at"),
+            "verification_sent": obj.get("verification_sent"),
+            "warning": obj.get("warning")
         })
         return _obj
 

@@ -67,7 +67,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => 'string',
         'organisation_name' => 'string',
         'created_at' => '\DateTime',
-        'updated_at' => '\DateTime'
+        'updated_at' => '\DateTime',
+        'verification_sent' => 'bool',
+        'warning' => 'string'
     ];
 
     /**
@@ -87,7 +89,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => null,
         'organisation_name' => null,
         'created_at' => 'date-time',
-        'updated_at' => 'date-time'
+        'updated_at' => 'date-time',
+        'verification_sent' => null,
+        'warning' => null
     ];
 
     /**
@@ -105,7 +109,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => true,
         'organisation_name' => false,
         'created_at' => false,
-        'updated_at' => false
+        'updated_at' => false,
+        'verification_sent' => false,
+        'warning' => false
     ];
 
     /**
@@ -203,7 +209,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => 'token',
         'organisation_name' => 'organisation_name',
         'created_at' => 'created_at',
-        'updated_at' => 'updated_at'
+        'updated_at' => 'updated_at',
+        'verification_sent' => 'verification_sent',
+        'warning' => 'warning'
     ];
 
     /**
@@ -221,7 +229,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => 'setToken',
         'organisation_name' => 'setOrganisationName',
         'created_at' => 'setCreatedAt',
-        'updated_at' => 'setUpdatedAt'
+        'updated_at' => 'setUpdatedAt',
+        'verification_sent' => 'setVerificationSent',
+        'warning' => 'setWarning'
     ];
 
     /**
@@ -239,7 +249,9 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         'token' => 'getToken',
         'organisation_name' => 'getOrganisationName',
         'created_at' => 'getCreatedAt',
-        'updated_at' => 'getUpdatedAt'
+        'updated_at' => 'getUpdatedAt',
+        'verification_sent' => 'getVerificationSent',
+        'warning' => 'getWarning'
     ];
 
     /**
@@ -309,6 +321,8 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('organisation_name', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('verification_sent', $data ?? [], null);
+        $this->setIfExists('warning', $data ?? [], null);
     }
 
     /**
@@ -670,6 +684,60 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
         }
         $this->container['updated_at'] = $updated_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets verification_sent
+     *
+     * @return bool|null
+     */
+    public function getVerificationSent()
+    {
+        return $this->container['verification_sent'];
+    }
+
+    /**
+     * Sets verification_sent
+     *
+     * @param bool|null $verification_sent verification_sent
+     *
+     * @return self
+     */
+    public function setVerificationSent($verification_sent)
+    {
+        if (is_null($verification_sent)) {
+            throw new \InvalidArgumentException('non-nullable verification_sent cannot be null');
+        }
+        $this->container['verification_sent'] = $verification_sent;
+
+        return $this;
+    }
+
+    /**
+     * Gets warning
+     *
+     * @return string|null
+     */
+    public function getWarning()
+    {
+        return $this->container['warning'];
+    }
+
+    /**
+     * Sets warning
+     *
+     * @param string|null $warning warning
+     *
+     * @return self
+     */
+    public function setWarning($warning)
+    {
+        if (is_null($warning)) {
+            throw new \InvalidArgumentException('non-nullable warning cannot be null');
+        }
+        $this->container['warning'] = $warning;
 
         return $this;
     }

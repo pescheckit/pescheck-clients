@@ -18,6 +18,8 @@ Serializer for webhook responses
 |**organisationName** | **String** |  |  [optional] [readonly] |
 |**createdAt** | **OffsetDateTime** |  |  [readonly] |
 |**updatedAt** | **OffsetDateTime** |  |  [readonly] |
+|**verificationSent** | **Boolean** |  |  [optional] |
+|**warning** | **String** |  |  [optional] |
 
 
 

@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **organisation_name** | **str** |  | [optional] [readonly] 
 **created_at** | **datetime** |  | [readonly] 
 **updated_at** | **datetime** |  | [readonly] 
+**verification_sent** | **bool** |  | [optional] 
+**warning** | **str** |  | [optional] 
 
 ## Example
 

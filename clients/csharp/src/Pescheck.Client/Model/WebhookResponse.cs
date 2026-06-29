@@ -43,7 +43,9 @@ namespace Pescheck.Client.Model
         /// <param name="name">name (required).</param>
         /// <param name="url">url (required).</param>
         /// <param name="active">active.</param>
-        public WebhookResponse(string name = default, string url = default, bool active = default)
+        /// <param name="verificationSent">verificationSent.</param>
+        /// <param name="warning">warning.</param>
+        public WebhookResponse(string name = default, string url = default, bool active = default, bool verificationSent = default, string warning = default)
         {
             // to ensure "name" is required (not null)
             if (name == null)
@@ -58,6 +60,8 @@ namespace Pescheck.Client.Model
             }
             this.Url = url;
             this.Active = active;
+            this.VerificationSent = verificationSent;
+            this.Warning = warning;
         }
 
         /// <summary>
@@ -177,6 +181,18 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
+        /// Gets or Sets VerificationSent
+        /// </summary>
+        [DataMember(Name = "verification_sent", EmitDefaultValue = true)]
+        public bool VerificationSent { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Warning
+        /// </summary>
+        [DataMember(Name = "warning", EmitDefaultValue = false)]
+        public string Warning { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -194,6 +210,8 @@ namespace Pescheck.Client.Model
             sb.Append("  OrganisationName: ").Append(OrganisationName).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
+            sb.Append("  VerificationSent: ").Append(VerificationSent).Append("\n");
+            sb.Append("  Warning: ").Append(Warning).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

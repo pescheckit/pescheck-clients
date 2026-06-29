@@ -32,6 +32,8 @@ type WebhookResponse struct {
 	OrganisationName *string `json:"organisation_name,omitempty"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	VerificationSent *bool `json:"verification_sent,omitempty"`
+	Warning *string `json:"warning,omitempty"`
 }
 
 type _WebhookResponse WebhookResponse
@@ -336,6 +338,70 @@ func (o *WebhookResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
 }
 
+// GetVerificationSent returns the VerificationSent field value if set, zero value otherwise.
+func (o *WebhookResponse) GetVerificationSent() bool {
+	if o == nil || IsNil(o.VerificationSent) {
+		var ret bool
+		return ret
+	}
+	return *o.VerificationSent
+}
+
+// GetVerificationSentOk returns a tuple with the VerificationSent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookResponse) GetVerificationSentOk() (*bool, bool) {
+	if o == nil || IsNil(o.VerificationSent) {
+		return nil, false
+	}
+	return o.VerificationSent, true
+}
+
+// HasVerificationSent returns a boolean if a field has been set.
+func (o *WebhookResponse) HasVerificationSent() bool {
+	if o != nil && !IsNil(o.VerificationSent) {
+		return true
+	}
+
+	return false
+}
+
+// SetVerificationSent gets a reference to the given bool and assigns it to the VerificationSent field.
+func (o *WebhookResponse) SetVerificationSent(v bool) {
+	o.VerificationSent = &v
+}
+
+// GetWarning returns the Warning field value if set, zero value otherwise.
+func (o *WebhookResponse) GetWarning() string {
+	if o == nil || IsNil(o.Warning) {
+		var ret string
+		return ret
+	}
+	return *o.Warning
+}
+
+// GetWarningOk returns a tuple with the Warning field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookResponse) GetWarningOk() (*string, bool) {
+	if o == nil || IsNil(o.Warning) {
+		return nil, false
+	}
+	return o.Warning, true
+}
+
+// HasWarning returns a boolean if a field has been set.
+func (o *WebhookResponse) HasWarning() bool {
+	if o != nil && !IsNil(o.Warning) {
+		return true
+	}
+
+	return false
+}
+
+// SetWarning gets a reference to the given string and assigns it to the Warning field.
+func (o *WebhookResponse) SetWarning(v string) {
+	o.Warning = &v
+}
+
 func (o WebhookResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -364,6 +430,12 @@ func (o WebhookResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
+	if !IsNil(o.VerificationSent) {
+		toSerialize["verification_sent"] = o.VerificationSent
+	}
+	if !IsNil(o.Warning) {
+		toSerialize["warning"] = o.Warning
+	}
 	return toSerialize, nil
 }
 

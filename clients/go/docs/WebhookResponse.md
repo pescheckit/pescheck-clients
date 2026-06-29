@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **OrganisationName** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
+**VerificationSent** | Pointer to **bool** |  | [optional] 
+**Warning** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -268,6 +270,56 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+
+### GetVerificationSent
+
+`func (o *WebhookResponse) GetVerificationSent() bool`
+
+GetVerificationSent returns the VerificationSent field if non-nil, zero value otherwise.
+
+### GetVerificationSentOk
+
+`func (o *WebhookResponse) GetVerificationSentOk() (*bool, bool)`
+
+GetVerificationSentOk returns a tuple with the VerificationSent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVerificationSent
+
+`func (o *WebhookResponse) SetVerificationSent(v bool)`
+
+SetVerificationSent sets VerificationSent field to given value.
+
+### HasVerificationSent
+
+`func (o *WebhookResponse) HasVerificationSent() bool`
+
+HasVerificationSent returns a boolean if a field has been set.
+
+### GetWarning
+
+`func (o *WebhookResponse) GetWarning() string`
+
+GetWarning returns the Warning field if non-nil, zero value otherwise.
+
+### GetWarningOk
+
+`func (o *WebhookResponse) GetWarningOk() (*string, bool)`
+
+GetWarningOk returns a tuple with the Warning field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWarning
+
+`func (o *WebhookResponse) SetWarning(v string)`
+
+SetWarning sets Warning field to given value.
+
+### HasWarning
+
+`func (o *WebhookResponse) HasWarning() bool`
+
+HasWarning returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

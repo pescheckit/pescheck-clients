@@ -3459,6 +3459,10 @@ components:
           type: string
           format: date-time
           readOnly: true
+        verification_sent:
+          type: boolean
+        warning:
+          type: string
       required:
         - created_at
         - events

@@ -14,5 +14,7 @@ Name | Type | Description | Notes
 **organisationName** | **String** |  | [optional] [readonly] 
 **createdAt** | **Date** |  | [readonly] 
 **updatedAt** | **Date** |  | [readonly] 
+**verificationSent** | **Boolean** |  | [optional] 
+**warning** | **String** |  | [optional] 
 
 
