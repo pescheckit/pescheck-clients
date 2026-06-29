@@ -1,4 +1,4 @@
-# Pescheck Clients
+# Official Pescheck API Clients
 
 The **official Pescheck API client libraries** for the
 [Pescheck API](https://api.pescheck.io/api/schema/swagger-ui/), generated from the OpenAPI schema
