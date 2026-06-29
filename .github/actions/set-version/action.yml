@@ -1,0 +1,43 @@
+name: Set package version from release tag
+description: >
+  Stamp the release tag version (vX.Y.Z -> X.Y.Z) into a client's manifest so
+  the published package version matches the git tag. No-op for non-release refs
+  (e.g. workflow_dispatch on a branch), which keep the committed version.
+inputs:
+  ecosystem:
+    description: npm | python | cargo | rubygems | nuget | java
+    required: true
+  path:
+    description: Client directory (e.g. clients/typescript)
+    required: true
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      working-directory: ${{ inputs.path }}
+      env:
+        ECO: ${{ inputs.ecosystem }}
+      run: |
+        set -euo pipefail
+        case "${GITHUB_REF_NAME:-}" in
+          v[0-9]*) VER="${GITHUB_REF_NAME#v}" ;;
+          *) echo "Not a release tag (${GITHUB_REF_NAME:-none}) - keeping committed version"; exit 0 ;;
+        esac
+        echo "Stamping $ECO version -> $VER"
+        case "$ECO" in
+          npm)
+            npm version "$VER" --no-git-tag-version --allow-same-version ;;
+          python)
+            sed -i -E "0,/^version = \"/s/^version = \".*\"/version = \"$VER\"/" pyproject.toml
+            sed -i -E "s/^VERSION = \".*\"/VERSION = \"$VER\"/" setup.py ;;
+          cargo)
+            sed -i -E "0,/^version = \"/s/^version = \".*\"/version = \"$VER\"/" Cargo.toml ;;
+          rubygems)
+            f=$(find lib -name version.rb); sed -i -E "s/VERSION = '.*'/VERSION = '$VER'/" "$f" ;;
+          nuget)
+            sed -i -E "s#<Version>[^<]*</Version>#<Version>$VER</Version>#" src/Pescheck.Client/Pescheck.Client.csproj ;;
+          java)
+            mvn -q versions:set -DnewVersion="$VER" -DgenerateBackupPoms=false ;;
+          *) echo "unknown ecosystem $ECO"; exit 1 ;;
+        esac
+        echo "version stamped to $VER"
