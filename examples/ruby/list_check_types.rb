@@ -9,7 +9,7 @@
 #   PESCHECK_ACCESS_TOKEN OAuth2 / JWT bearer access token
 
 require 'uri'
-require 'pescheck'
+require 'pescheck-client'
 
 base_url = ENV['PESCHECK_BASE_URL']
 access_token = ENV['PESCHECK_ACCESS_TOKEN']

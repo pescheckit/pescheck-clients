@@ -20,10 +20,10 @@ jobs:
       - run: |
           mkdir t && cd t && npm init -y >/dev/null
           for i in $(seq 1 10); do
-            npm install "@pescheckit/api-client@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
+            npm install "@pescheckit/pescheck-client@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
           done
-          test -f node_modules/@pescheckit/api-client/package.json
-          echo "VERIFIED: @pescheckit/api-client@${{ inputs.version }} installs from npm"
+          test -f node_modules/@pescheckit/pescheck-client/package.json
+          echo "VERIFIED: @pescheckit/pescheck-client@${{ inputs.version }} installs from npm"
 
   npm-javascript:
     runs-on: ubuntu-latest
@@ -33,10 +33,10 @@ jobs:
       - run: |
           mkdir t && cd t && npm init -y >/dev/null
           for i in $(seq 1 10); do
-            npm install "@pescheckit/api-client-js@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
+            npm install "@pescheckit/pescheck-client-js@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
           done
-          node -e "require('@pescheckit/api-client-js'); console.log('require ok')"
-          echo "VERIFIED: @pescheckit/api-client-js@${{ inputs.version }} installs + requires from npm"
+          node -e "require('@pescheckit/pescheck-client-js'); console.log('require ok')"
+          echo "VERIFIED: @pescheckit/pescheck-client-js@${{ inputs.version }} installs + requires from npm"
 
   rust:
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
       - run: |
           cargo new t && cd t
           for i in $(seq 1 10); do
-            cargo add "pescheck@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
+            cargo add "pescheck-client@${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
           done
           cargo build
           echo "VERIFIED: pescheck ${{ inputs.version }} builds from crates.io"
@@ -57,9 +57,9 @@ jobs:
         with: { ruby-version: "3.3" }
       - run: |
           for i in $(seq 1 10); do
-            gem install pescheck -v "${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
+            gem install pescheck-client -v "${{ inputs.version }}" && break || { echo "retry $i…"; sleep 20; }
           done
-          ruby -e "require 'pescheck'; puts 'require ok'"
+          ruby -e "require 'pescheck-client'; puts 'require ok'"
           echo "VERIFIED: pescheck ${{ inputs.version }} installs + requires from RubyGems"
 
   php-packagist:
@@ -70,7 +70,7 @@ jobs:
       - run: |
           mkdir t && cd t
           for i in $(seq 1 10); do
-            composer require "pescheckit/pescheck-clients:${{ inputs.version }}" --no-interaction && break || { echo "retry $i…"; sleep 20; }
+            composer require "pescheckit/pescheck-client:${{ inputs.version }}" --no-interaction && break || { echo "retry $i…"; sleep 20; }
           done
           php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "autoload ok\n";'
           echo "VERIFIED: pescheckit/pescheck-clients ${{ inputs.version }} installs from Packagist"

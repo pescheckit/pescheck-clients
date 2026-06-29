@@ -10,7 +10,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::V2ProfileCheck.new(
   check_type: null,

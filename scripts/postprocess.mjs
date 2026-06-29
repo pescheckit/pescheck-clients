@@ -53,13 +53,23 @@ const auth = patchDir(resolve(root, "clients/typescript/src/apis"), (s) =>
 // the cookieAuth entry in auth_settings. Ruby 3 parses the bare `in` as a method
 // call -> NameError at runtime. Give it a valid empty-string value.
 let ruby = 0;
-const rubyConfig = resolve(root, "clients/ruby/lib/pescheck/configuration.rb");
+// The lib subdir is named after the gem (e.g. lib/pescheck-client/), so locate
+// configuration.rb dynamically rather than hardcoding the path.
 try {
-  const before = readFileSync(rubyConfig, "utf8");
-  const after = before.replace(/^(\s*)in: ,$/gm, "$1in: '',");
-  if (after !== before) {
-    writeFileSync(rubyConfig, after);
-    ruby = 1;
+  const libDir = resolve(root, "clients/ruby/lib");
+  for (const sub of readdirSync(libDir)) {
+    const rubyConfig = join(libDir, sub, "configuration.rb");
+    let before;
+    try {
+      before = readFileSync(rubyConfig, "utf8");
+    } catch {
+      continue;
+    }
+    const after = before.replace(/^(\s*)in: ,$/gm, "$1in: '',");
+    if (after !== before) {
+      writeFileSync(rubyConfig, after);
+      ruby = 1;
+    }
   }
 } catch {
   /* ruby client not generated */
@@ -112,6 +122,21 @@ try {
       `$1  s.metadata = { "source_code_uri" => "${REPO_URL}", "homepage_uri" => "${HOME_URL}" }\n`
     );
     writeFileSync(p, c);
+    manifests++;
+  }
+} catch {
+  /* not generated */
+}
+
+// Python: the generator sets pyproject.toml [project].name from packageName
+// (pescheck) but setup.py NAME from projectName (pescheck-client). PEP 621 builds
+// use pyproject, so force the distribution name there too. Import stays `pescheck`.
+try {
+  const p = resolve(root, "clients/python/pyproject.toml");
+  let c = readFileSync(p, "utf8");
+  const fixed = c.replace(/^name = "pescheck"$/m, 'name = "pescheck-client"');
+  if (fixed !== c) {
+    writeFileSync(p, fixed);
     manifests++;
   }
 } catch {

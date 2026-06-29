@@ -20,7 +20,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -89,7 +89,7 @@ Documents attached to the screening's checks. Files are delivered inline as Base
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -162,7 +162,7 @@ end
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -235,7 +235,7 @@ end
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

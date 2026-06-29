@@ -24,11 +24,11 @@ Log in with email + password. Returns a JWT pair scoped to the organization or d
 import {
   Configuration,
   AuthenticationApi,
-} from '@pescheckit/api-client';
-import type { GenerateJWTToken2Request } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { GenerateJWTToken2Request } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -98,11 +98,11 @@ Log in with email + password. Returns a JWT pair scoped to your current organiza
 import {
   Configuration,
   AuthenticationApi,
-} from '@pescheckit/api-client';
-import type { JwtCreateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { JwtCreateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -169,11 +169,11 @@ Takes a refresh type JSON web token and returns an access type JSON web token if
 import {
   Configuration,
   AuthenticationApi,
-} from '@pescheckit/api-client';
-import type { JwtRefreshCreateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { JwtRefreshCreateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

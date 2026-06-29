@@ -13,16 +13,15 @@ Generator version: 7.23.0
 =end
 
 $:.push File.expand_path("../lib", __FILE__)
-require "pescheck/version"
+require "pescheck-client/version"
 
 Gem::Specification.new do |s|
-  s.name        = "pescheck"
+  s.name        = "pescheck-client"
   s.version     = Pescheck::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Pescheck"]
   s.email       = [""]
   s.homepage    = "https://pescheck.io"
-  s.metadata = { "source_code_uri" => "https://github.com/pescheckit/pescheck-clients", "homepage_uri" => "https://pescheck.io" }
   s.summary     = "Official Ruby client for the Pescheck API"
   s.description = "Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage."
   s.license     = "Unlicense"

@@ -18,7 +18,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::WebhookResponse.new(
   id: null,

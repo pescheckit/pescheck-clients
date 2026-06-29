@@ -7,7 +7,7 @@
 //   PESCHECK_BASE_URL      - API base URL, e.g. https://api.pescheck.io
 //   PESCHECK_ACCESS_TOKEN  - OAuth2 access token (client credentials flow)
 
-const PescheckApi = require('@pescheckit/api-client-js');
+const PescheckApi = require('@pescheckit/pescheck-client-js');
 
 const baseUrl = process.env.PESCHECK_BASE_URL;
 const accessToken = process.env.PESCHECK_ACCESS_TOKEN;

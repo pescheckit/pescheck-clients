@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { V2DocumentContent } from '@pescheckit/api-client'
+import type { V2DocumentContent } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

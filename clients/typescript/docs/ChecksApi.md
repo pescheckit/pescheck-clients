@@ -23,11 +23,11 @@ List the check types this API supports. The list is bounded metadata about the a
 import {
   Configuration,
   ChecksApi,
-} from '@pescheckit/api-client';
-import type { V2ChecksListRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ChecksListRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -92,11 +92,11 @@ example().catch(console.error);
 import {
   Configuration,
   ChecksApi,
-} from '@pescheckit/api-client';
-import type { V2ChecksRetrieveRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ChecksRetrieveRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

@@ -16,7 +16,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { Webhook } from '@pescheckit/api-client'
+import type { Webhook } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

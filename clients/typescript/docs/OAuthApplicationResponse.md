@@ -19,7 +19,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OAuthApplicationResponse } from '@pescheckit/api-client'
+import type { OAuthApplicationResponse } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

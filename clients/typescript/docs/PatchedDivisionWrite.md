@@ -22,7 +22,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PatchedDivisionWrite } from '@pescheckit/api-client'
+import type { PatchedDivisionWrite } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

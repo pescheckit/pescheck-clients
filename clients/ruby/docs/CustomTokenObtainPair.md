@@ -10,7 +10,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::CustomTokenObtainPair.new(
   email: null,

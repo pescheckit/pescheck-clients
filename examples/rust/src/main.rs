@@ -5,7 +5,7 @@
 
 use std::process::exit;
 
-use pescheck::apis::{checks_api, configuration::Configuration};
+use pescheck_client::apis::{checks_api, configuration::Configuration};
 
 #[tokio::main]
 async fn main() {

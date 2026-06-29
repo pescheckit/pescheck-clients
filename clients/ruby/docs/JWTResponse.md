@@ -14,7 +14,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::JWTResponse.new(
   access_token: null,

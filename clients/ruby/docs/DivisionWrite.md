@@ -20,7 +20,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::DivisionWrite.new(
   id: null,

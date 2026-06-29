@@ -16,7 +16,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { OAuthApplication } from '@pescheckit/api-client'
+import type { OAuthApplication } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

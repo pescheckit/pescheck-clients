@@ -16,7 +16,7 @@
 //   PESCHECK_TEST_EMAIL    - candidate email (default noreply@pescheck.nl)
 
 const crypto = require('crypto');
-const PescheckApi = require('@pescheckit/api-client-js');
+const PescheckApi = require('@pescheckit/pescheck-client-js');
 
 // Profile/webhook names must be unique per run: the API soft-deletes and returns
 // a 500 on a duplicate name. The division has no delete endpoint, so we reuse a

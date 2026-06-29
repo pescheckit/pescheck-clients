@@ -23,11 +23,11 @@ All URIs are relative to *https://api.pescheck.io*
 import {
   Configuration,
   ScreeningsApi,
-} from '@pescheckit/api-client';
-import type { V2ScreeningsCreateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ScreeningsCreateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -94,11 +94,11 @@ Documents attached to the screening\&#39;s checks. Files are delivered inline as
 import {
   Configuration,
   ScreeningsApi,
-} from '@pescheckit/api-client';
-import type { V2ScreeningsDocumentsListRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ScreeningsDocumentsListRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -169,11 +169,11 @@ example().catch(console.error);
 import {
   Configuration,
   ScreeningsApi,
-} from '@pescheckit/api-client';
-import type { V2ScreeningsListRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ScreeningsListRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -244,11 +244,11 @@ example().catch(console.error);
 import {
   Configuration,
   ScreeningsApi,
-} from '@pescheckit/api-client';
-import type { V2ScreeningsRetrieveRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2ScreeningsRetrieveRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

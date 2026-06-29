@@ -16,8 +16,14 @@ on:
   workflow_dispatch:
 
 jobs:
+  # Build + test everything first. If the e2e suite fails, no publish job runs.
+  test:
+    uses: ./.github/workflows/e2e.yml
+    secrets: inherit
+
   typescript:
     runs-on: ubuntu-latest
+    needs: test
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
@@ -38,12 +44,13 @@ jobs:
         if: env.NODE_AUTH_TOKEN != ''
         run: |
           mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          for i in $(seq 1 10); do npm install @pescheckit/api-client && break || { echo "propagating… ($i)"; sleep 20; }; done
-          test -f node_modules/@pescheckit/api-client/package.json
-          echo "OK: installed @pescheckit/api-client from npm"
+          for i in $(seq 1 10); do npm install @pescheckit/pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
+          test -f node_modules/@pescheckit/pescheck-client/package.json
+          echo "OK: installed @pescheckit/pescheck-client from npm"
 
   javascript:
     runs-on: ubuntu-latest
+    needs: test
     env:
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
@@ -61,11 +68,12 @@ jobs:
         if: env.NODE_AUTH_TOKEN != ''
         run: |
           mkdir /tmp/t && cd /tmp/t && npm init -y >/dev/null
-          for i in $(seq 1 10); do npm install @pescheckit/api-client-js && break || { echo "propagating… ($i)"; sleep 20; }; done
-          node -e "require('@pescheckit/api-client-js'); console.log('OK: required @pescheckit/api-client-js from npm')"
+          for i in $(seq 1 10); do npm install @pescheckit/pescheck-client-js && break || { echo "propagating… ($i)"; sleep 20; }; done
+          node -e "require('@pescheckit/pescheck-client-js'); console.log('OK: required @pescheckit/pescheck-client-js from npm')"
 
   ruby:
     runs-on: ubuntu-latest
+    needs: test
     env:
       RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
     steps:
@@ -89,11 +97,12 @@ jobs:
       - name: Test from registry
         if: env.RUBYGEMS_API_KEY != ''
         run: |
-          for i in $(seq 1 10); do gem install pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
-          ruby -e "require 'pescheck'; puts 'OK: required pescheck from RubyGems'"
+          for i in $(seq 1 10); do gem install pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
+          ruby -e "require 'pescheck-client'; puts 'OK: required pescheck-client from RubyGems'"
 
   rust:
     runs-on: ubuntu-latest
+    needs: test
     env:
       CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
     steps:
@@ -110,12 +119,13 @@ jobs:
         if: env.CARGO_REGISTRY_TOKEN != ''
         run: |
           cargo new /tmp/t && cd /tmp/t
-          for i in $(seq 1 10); do cargo add pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
+          for i in $(seq 1 10); do cargo add pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
           cargo build
           echo "OK: built pescheck from crates.io"
 
   php:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - uses: actions/checkout@v7
       - uses: shivammathur/setup-php@v2
@@ -127,12 +137,13 @@ jobs:
       - name: Test from registry (Packagist auto-updates from this repo)
         run: |
           mkdir /tmp/t && cd /tmp/t
-          for i in $(seq 1 10); do composer require pescheckit/pescheck-clients --no-interaction && break || { echo "propagating… ($i)"; sleep 30; }; done
+          for i in $(seq 1 10); do composer require pescheckit/pescheck-client --no-interaction && break || { echo "propagating… ($i)"; sleep 30; }; done
           php -r 'require "vendor/autoload.php"; class_exists("Pescheck\\Client\\Api\\ChecksApi") or exit(1); echo "OK: installed pescheckit/pescheck-clients from Packagist\n";'
     continue-on-error: true # depends on the one-time Packagist Submit being done
 
   csharp:
     runs-on: ubuntu-latest
+    needs: test
     permissions:
       id-token: write # NuGet trusted publishing (OIDC)
     steps:
@@ -166,6 +177,7 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
+    needs: test
     env:
       PYPI_API_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
     steps:
@@ -188,11 +200,12 @@ jobs:
       - name: Test from registry
         if: env.PYPI_API_TOKEN != ''
         run: |
-          for i in $(seq 1 10); do pip install pescheck && break || { echo "propagating… ($i)"; sleep 20; }; done
+          for i in $(seq 1 10); do pip install pescheck-client && break || { echo "propagating… ($i)"; sleep 20; }; done
           python -c "import pescheck; print('OK: imported pescheck from PyPI')"
 
   java:
     runs-on: ubuntu-latest
+    needs: test
     permissions:
       contents: read
       packages: write
@@ -222,6 +235,7 @@ jobs:
   go:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
+    needs: test
     permissions: { contents: write }
     steps:
       - uses: actions/checkout@v7
@@ -239,6 +253,7 @@ jobs:
   cpp:
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
+    needs: test
     permissions: { contents: write }
     steps:
       - uses: actions/checkout@v7
@@ -246,3 +261,26 @@ jobs:
         run: tar -czf pescheck-cpp-${GITHUB_REF_NAME}.tar.gz -C clients cpp
       - uses: softprops/action-gh-release@v2
         with: { files: pescheck-cpp-*.tar.gz }
+
+  # Downloadable per-language zips on the GitHub Release, for users who don't use
+  # a package manager.
+  archives:
+    if: github.event_name == 'release'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Zip each client (versioned)
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          mkdir -p dist-archives
+          for d in clients/*/; do
+            lang=$(basename "$d")
+            (cd clients && zip -rq "../dist-archives/pescheck-client-${lang}-${V}.zip" "$lang")
+          done
+          ls -la dist-archives
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist-archives/*.zip

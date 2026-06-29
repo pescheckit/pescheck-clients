@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.pescheck</groupId>
-    <artifactId>pescheck-api-client</artifactId>
+    <artifactId>pescheck-client</artifactId>
     <packaging>jar</packaging>
-    <name>pescheck-api-client</name>
-    <version>0.0.4</version>
+    <name>pescheck-client</name>
+    <version>0.0.5</version>
     <url>https://github.com/openapitools/openapi-generator</url>
     <description>OpenAPI Java</description>
     <scm>

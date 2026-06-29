@@ -17,7 +17,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::V2ScreeningListItem.new(
   id: null,

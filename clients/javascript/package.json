@@ -1,6 +1,6 @@
 {
-  "name": "@pescheckit/api-client-js",
-  "version": "0.0.4",
+  "name": "@pescheckit/pescheck-client-js",
+  "version": "0.0.5",
   "description": "Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.",
   "license": "Unlicense",
   "main": "dist/index.js",

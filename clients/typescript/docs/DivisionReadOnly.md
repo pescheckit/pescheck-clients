@@ -25,7 +25,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { DivisionReadOnly } from '@pescheckit/api-client'
+import type { DivisionReadOnly } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

@@ -22,7 +22,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -89,7 +89,7 @@ end
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -155,7 +155,7 @@ nil (empty response body)
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -238,7 +238,7 @@ Update name and/or description only. Use PUT to change the check list.
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -309,7 +309,7 @@ end
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -378,7 +378,7 @@ Replace the profile. Checks matched by profile_check_id are updated in place; en
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

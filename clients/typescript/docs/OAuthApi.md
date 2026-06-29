@@ -24,11 +24,11 @@ Create OAuth application for API access
 import {
   Configuration,
   OAuthApi,
-} from '@pescheckit/api-client';
-import type { CreateOAuthApplication2Request } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { CreateOAuthApplication2Request } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -98,11 +98,11 @@ Delete an OAuth application
 import {
   Configuration,
   OAuthApi,
-} from '@pescheckit/api-client';
-import type { DeleteOAuthApplication2Request } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { DeleteOAuthApplication2Request } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -171,11 +171,11 @@ List OAuth applications for the organization
 import {
   Configuration,
   OAuthApi,
-} from '@pescheckit/api-client';
-import type { ListOAuthApplications2Request } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { ListOAuthApplications2Request } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

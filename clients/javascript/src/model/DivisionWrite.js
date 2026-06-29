@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The DivisionWrite model module.
  * @module model/DivisionWrite
- * @version 0.0.4
+ * @version 0.0.5
  */
 class DivisionWrite {
     /**

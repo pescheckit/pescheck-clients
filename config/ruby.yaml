@@ -6,9 +6,9 @@ gitUserId: pescheckit
 gitRepoId: pescheck-clients
 library: faraday
 additionalProperties:
-  gemName: pescheck
+  gemName: pescheck-client
   moduleName: Pescheck
-  gemVersion: 0.0.4
+  gemVersion: 0.0.5
   gemHomepage: https://pescheck.io
   gemSummary: Official Ruby client for the Pescheck API
   gemAuthor: Pescheck

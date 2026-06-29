@@ -8,6 +8,7 @@ name: E2E tests
 # (optional) repo variable PESCHECK_BASE_URL (defaults to staging).
 on:
   workflow_dispatch:
+  workflow_call: # lets publish.yml run this as a gate before publishing
   push:
     branches: [main]
     paths: ["clients/**", "examples/**", "scripts/**", ".github/workflows/e2e.yml"]
@@ -78,7 +79,7 @@ jobs:
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - uses: ruby/setup-ruby@v1
         with: { ruby-version: "3.3" }
-      - run: cd clients/ruby && gem build pescheck.gemspec && gem install ./pescheck-*.gem
+      - run: cd clients/ruby && gem build *.gemspec && gem install ./pescheck-client-*.gem
       - run: cd examples/ruby && ruby crud_lifecycle.rb
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}

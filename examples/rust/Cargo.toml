@@ -13,7 +13,7 @@ name = "crud_lifecycle"
 path = "src/bin/crud_lifecycle.rs"
 
 [dependencies]
-pescheck = { path = "../../clients/rust" }
+pescheck-client = { path = "../../clients/rust" }
 tokio = { version = "1", features = ["full"] }
 uuid = { version = "1", features = ["v4"] }
 serde_json = "1"

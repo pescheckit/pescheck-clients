@@ -18,11 +18,11 @@
 use std::error::Error;
 use std::process::exit;
 
-use pescheck::apis::configuration::Configuration;
-use pescheck::apis::{checks_api, divisions_api, profiles_api, screenings_api, webhooks_api};
-use pescheck::models::v2_profile_check::CheckType;
-use pescheck::models::webhook::Events;
-use pescheck::models::{
+use pescheck_client::apis::configuration::Configuration;
+use pescheck_client::apis::{checks_api, divisions_api, profiles_api, screenings_api, webhooks_api};
+use pescheck_client::models::v2_profile_check::CheckType;
+use pescheck_client::models::webhook::Events;
+use pescheck_client::models::{
     DivisionWrite, PatchedDivisionWrite, PatchedV2ProfilePartialUpdate, V2Candidate,
     V2ProfileCheck, V2ProfileCreate, V2ScreeningCreate, Webhook,
 };

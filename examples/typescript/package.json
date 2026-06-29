@@ -9,7 +9,7 @@
     "crud": "node dist/crud_lifecycle.js"
   },
   "dependencies": {
-    "@pescheckit/api-client": "file:../../clients/typescript"
+    "@pescheckit/pescheck-client": "file:../../clients/typescript"
   },
   "devDependencies": {
     "@types/node": "^20",

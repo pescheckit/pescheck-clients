@@ -22,7 +22,7 @@ Method | HTTP request | Description
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -114,7 +114,7 @@ null (empty response body)
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -176,7 +176,7 @@ Update name and/or description only. Use PUT to change the check list.
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -226,7 +226,7 @@ Name | Type | Description  | Notes
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];
@@ -274,7 +274,7 @@ Replace the profile. Checks matched by profile_check_id are updated in place; en
 ### Example
 
 ```javascript
-import PescheckApi from '@pescheckit/api-client-js';
+import PescheckApi from '@pescheckit/pescheck-client-js';
 let defaultClient = PescheckApi.ApiClient.instance;
 // Configure OAuth2 access token for authorization: oauth2
 let oauth2 = defaultClient.authentications['oauth2'];

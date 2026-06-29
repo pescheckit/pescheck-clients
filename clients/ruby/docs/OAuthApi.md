@@ -21,7 +21,7 @@ Create OAuth application for API access
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -90,7 +90,7 @@ Delete an OAuth application
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -158,7 +158,7 @@ List OAuth applications for the organization
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

@@ -1,8 +1,8 @@
 lazy val root = (project in file(".")).
   settings(
     organization := "io.pescheck",
-    name := "pescheck-api-client",
-    version := "0.0.4",
+    name := "pescheck-client",
+    version := "0.0.5",
     scalaVersion := "2.11.12",
     scalacOptions ++= Seq("-feature"),
     compile / javacOptions ++= Seq("-Xlint:deprecation"),

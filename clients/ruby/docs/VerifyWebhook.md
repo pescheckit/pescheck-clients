@@ -9,7 +9,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::VerifyWebhook.new(
   verification_code: null

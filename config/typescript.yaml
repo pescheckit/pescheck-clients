@@ -5,8 +5,8 @@ gitHost: github.com
 gitUserId: pescheckit
 gitRepoId: pescheck-clients
 additionalProperties:
-  npmName: "@pescheckit/api-client"
-  npmVersion: 0.0.4
+  npmName: "@pescheckit/pescheck-client"
+  npmVersion: 0.0.5
   supportsES6: "true"
   typescriptThreePlus: "true"
   withInterfaces: "true"

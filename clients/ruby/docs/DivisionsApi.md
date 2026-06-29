@@ -23,7 +23,7 @@ Create a division (a child organisation under the current parent org). Divisions
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -92,7 +92,7 @@ List method that handles both paginated and unpaginated responses and enforces t
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -167,7 +167,7 @@ A division is a child organisation under a parent org, used only when a customer
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -240,7 +240,7 @@ A division is a child organisation under a parent org, used only when a customer
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -309,7 +309,7 @@ Update an existing division's contact, billing, and address details.  Override a
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

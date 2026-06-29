@@ -13,7 +13,7 @@ Name | Type
 ## Example
 
 ```typescript
-import type { PatchedV2ProfilePartialUpdate } from '@pescheckit/api-client'
+import type { PatchedV2ProfilePartialUpdate } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {

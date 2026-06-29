@@ -87,7 +87,7 @@ import WebhooksApi from './api/WebhooksApi';
 * </pre>
 * </p>
 * @module index
-* @version 0.0.4
+* @version 0.0.5
 */
 export {
     /**

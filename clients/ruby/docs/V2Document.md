@@ -14,7 +14,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::V2Document.new(
   check_id: null,

@@ -12,7 +12,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::PaginatedV2ScreeningListItemList.new(
   count: 1,

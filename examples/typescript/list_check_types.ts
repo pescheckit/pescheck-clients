@@ -8,7 +8,7 @@
  *   PESCHECK_BASE_URL       e.g. https://api-staging.pescheck.io
  *   PESCHECK_ACCESS_TOKEN   OAuth2 / JWT bearer access token
  */
-import { Configuration, ChecksApi } from '@pescheckit/api-client';
+import { Configuration, ChecksApi } from '@pescheckit/pescheck-client';
 
 async function main(): Promise<number> {
   const basePath = process.env.PESCHECK_BASE_URL;

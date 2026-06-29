@@ -22,7 +22,7 @@ Create webhook for event notifications.          **Authentication Notes:**      
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -97,7 +97,7 @@ Delete a webhook
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -165,7 +165,7 @@ List webhooks for the organization
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -231,7 +231,7 @@ Verify webhook ownership
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

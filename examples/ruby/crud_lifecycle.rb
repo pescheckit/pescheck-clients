@@ -20,7 +20,7 @@
 
 require 'uri'
 require 'securerandom'
-require 'pescheck'
+require 'pescheck-client'
 
 # Profile/webhook names must be unique per run: the API soft-deletes and returns
 # a 500 on a duplicate name. The division has no delete endpoint, so we reuse a

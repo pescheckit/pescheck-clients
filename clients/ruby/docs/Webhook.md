@@ -13,7 +13,7 @@
 ## Example
 
 ```ruby
-require 'pescheck'
+require 'pescheck-client'
 
 instance = Pescheck::Webhook.new(
   name: null,

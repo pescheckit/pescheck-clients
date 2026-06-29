@@ -21,7 +21,7 @@ Log in with email + password. Returns a JWT pair scoped to the organization or d
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -90,7 +90,7 @@ Log in with email + password. Returns a JWT pair scoped to your current organiza
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
@@ -159,7 +159,7 @@ Takes a refresh type JSON web token and returns an access type JSON web token if
 
 ```ruby
 require 'time'
-require 'pescheck'
+require 'pescheck-client'
 # setup authorization
 Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2

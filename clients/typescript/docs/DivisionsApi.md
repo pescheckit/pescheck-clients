@@ -26,11 +26,11 @@ Create a division (a child organisation under the current parent org). Divisions
 import {
   Configuration,
   DivisionsApi,
-} from '@pescheckit/api-client';
-import type { V2OrganisationsDivisionsCreateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2OrganisationsDivisionsCreateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -97,11 +97,11 @@ List method that handles both paginated and unpaginated responses and enforces t
 import {
   Configuration,
   DivisionsApi,
-} from '@pescheckit/api-client';
-import type { V2OrganisationsDivisionsListRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2OrganisationsDivisionsListRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -174,11 +174,11 @@ A division is a child organisation under a parent org, used only when a customer
 import {
   Configuration,
   DivisionsApi,
-} from '@pescheckit/api-client';
-import type { V2OrganisationsDivisionsPartialUpdateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2OrganisationsDivisionsPartialUpdateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -248,11 +248,11 @@ A division is a child organisation under a parent org, used only when a customer
 import {
   Configuration,
   DivisionsApi,
-} from '@pescheckit/api-client';
-import type { V2OrganisationsDivisionsRetrieveRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2OrganisationsDivisionsRetrieveRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
@@ -319,11 +319,11 @@ Update an existing division\&#39;s contact, billing, and address details.  Overr
 import {
   Configuration,
   DivisionsApi,
-} from '@pescheckit/api-client';
-import type { V2OrganisationsDivisionsUpdateRequest } from '@pescheckit/api-client';
+} from '@pescheckit/pescheck-client';
+import type { V2OrganisationsDivisionsUpdateRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
-  console.log("🚀 Testing @pescheckit/api-client SDK...");
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
   const config = new Configuration({ 
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",

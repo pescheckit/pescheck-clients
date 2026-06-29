@@ -1,4 +1,4 @@
-# pescheck-api-client
+# pescheck-client
 
 Pescheck API
 - API version: 2.0.0
@@ -39,8 +39,8 @@ Add this dependency to your project's POM:
 ```xml
 <dependency>
   <groupId>io.pescheck</groupId>
-  <artifactId>pescheck-api-client</artifactId>
-  <version>0.0.4</version>
+  <artifactId>pescheck-client</artifactId>
+  <version>0.0.5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -51,12 +51,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'pescheck-api-client' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'pescheck-api-client' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'pescheck-client' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'pescheck-client' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "io.pescheck:pescheck-api-client:0.0.4"
+     implementation "io.pescheck:pescheck-client:0.0.5"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/pescheck-api-client-0.0.4.jar`
+* `target/pescheck-client-0.0.5.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

@@ -6,8 +6,8 @@ gitUserId: pescheckit
 gitRepoId: pescheck-clients
 additionalProperties:
   packageName: pescheck
-  projectName: pescheck
-  packageVersion: 0.0.4
+  projectName: pescheck-client
+  packageVersion: 0.0.5
   packageUrl: https://pescheck.io
   library: urllib3
   generateSourceCodeOnly: "false"

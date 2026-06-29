@@ -7,5 +7,5 @@ rvm:
 script:
   - bundle install --path vendor/bundle
   - bundle exec rspec
-  - gem build pescheck.gemspec
-  - gem install ./pescheck-0.0.4.gem
+  - gem build pescheck-client.gemspec
+  - gem install ./pescheck-client-0.0.5.gem

@@ -1,7 +1,7 @@
 {
-  "name": "@pescheckit/api-client",
-  "version": "0.0.4",
-  "description": "OpenAPI client for @pescheckit/api-client",
+  "name": "@pescheckit/pescheck-client",
+  "version": "0.0.5",
+  "description": "OpenAPI client for @pescheckit/pescheck-client",
   "author": "OpenAPI-Generator",
   "repository": {
     "type": "git",

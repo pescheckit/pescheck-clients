@@ -1,6 +1,6 @@
 {
-    "name": "pescheckit/pescheck-clients",
-    "description": "Official Pescheck API PHP SDK (generated). Install via `composer require pescheckit/pescheck-clients`.",
+    "name": "pescheckit/pescheck-client",
+    "description": "Official Pescheck API PHP SDK (generated). Install via `composer require pescheckit/pescheck-client`.",
     "type": "library",
     "license": "unlicense",
     "homepage": "https://pescheck.io",

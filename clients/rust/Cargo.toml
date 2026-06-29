@@ -1,6 +1,6 @@
 [package]
-name = "pescheck"
-version = "0.0.4"
+name = "pescheck-client"
+version = "0.0.5"
 homepage = "https://pescheck.io"
 repository = "https://github.com/pescheckit/pescheck-clients"
 documentation = "https://github.com/pescheckit/pescheck-clients"

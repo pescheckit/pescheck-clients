@@ -16,7 +16,7 @@ import ApiClient from '../ApiClient';
 /**
  * The JWTGeneration model module.
  * @module model/JWTGeneration
- * @version 0.0.4
+ * @version 0.0.5
  */
 class JWTGeneration {
     /**

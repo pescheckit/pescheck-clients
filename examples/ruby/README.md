@@ -15,7 +15,7 @@ and list check types via `GET /api/v2/checks/`.
 ```shell
 # Build and install the generated gem (pulls runtime deps: faraday, etc.)
 cd clients/ruby
-gem build pescheck.gemspec
+gem build pescheck-client.gemspec
 gem install ./pescheck-2.0.0.gem
 cd -
 
