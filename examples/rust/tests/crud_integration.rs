@@ -197,6 +197,7 @@ async fn run_lifecycle(
                 ..Default::default()
             }),
             checks: None,
+            ..Default::default()
         },
     )
     .await?;
