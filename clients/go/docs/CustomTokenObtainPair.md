@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**OrganizationId** | Pointer to **string** | Organization or division ID to scope the token to. Required when your account has access to more than one organization. | [optional] 
 **Email** | **string** |  | 
 **Password** | **string** |  | 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewCustomTokenObtainPairWithDefaults instantiates a new CustomTokenObtainPair object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetOrganizationId
+
+`func (o *CustomTokenObtainPair) GetOrganizationId() string`
+
+GetOrganizationId returns the OrganizationId field if non-nil, zero value otherwise.
+
+### GetOrganizationIdOk
+
+`func (o *CustomTokenObtainPair) GetOrganizationIdOk() (*string, bool)`
+
+GetOrganizationIdOk returns a tuple with the OrganizationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganizationId
+
+`func (o *CustomTokenObtainPair) SetOrganizationId(v string)`
+
+SetOrganizationId sets OrganizationId field to given value.
+
+### HasOrganizationId
+
+`func (o *CustomTokenObtainPair) HasOrganizationId() bool`
+
+HasOrganizationId returns a boolean if a field has been set.
 
 ### GetEmail
 

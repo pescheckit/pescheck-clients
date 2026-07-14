@@ -175,7 +175,7 @@ async function example() {
   const api = new ProfilesApi(config);
 
   const body = {
-    // 'addresscheck' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck' | Restrict to profiles containing at least one check of this type. (optional)
+    // 'addresscheck' | 'adversemedia2check' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck' | Restrict to profiles containing at least one check of this type. (optional)
     checkType: checkType_example,
     // boolean | Restrict to custom (true) or system (false) profiles. (optional)
     isCustom: true,
@@ -208,7 +208,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **checkType** | `addresscheck`, `adversemediacheck`, `bigcheck`, `criminalrecordscheck`, `criminalrecordsuploadcheck`, `customintegritycheck`, `cvcheck`, `edrcheck`, `id2check`, `integritycheck`, `openhealthcarecheck`, `qualificationcheck`, `righttoworkcheck`, `vogcheck`, `watchlist2check`, `watchlistcheck`, `workreferencecheck`, `worldwidecreditcheck` | Restrict to profiles containing at least one check of this type. | [Optional] [Defaults to `undefined`] [Enum: addresscheck, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, id2check, integritycheck, openhealthcarecheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck] |
+| **checkType** | `addresscheck`, `adversemedia2check`, `adversemediacheck`, `bigcheck`, `criminalrecordscheck`, `criminalrecordsuploadcheck`, `customintegritycheck`, `cvcheck`, `edrcheck`, `id2check`, `integritycheck`, `openhealthcarecheck`, `qualificationcheck`, `righttoworkcheck`, `vogcheck`, `watchlist2check`, `watchlistcheck`, `workreferencecheck`, `worldwidecreditcheck` | Restrict to profiles containing at least one check of this type. | [Optional] [Defaults to `undefined`] [Enum: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, id2check, integritycheck, openhealthcarecheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck] |
 | **isCustom** | `boolean` | Restrict to custom (true) or system (false) profiles. | [Optional] [Defaults to `undefined`] |
 | **name** | `string` | Restrict to profiles whose name contains this value (case-insensitive). | [Optional] [Defaults to `undefined`] |
 | **page** | `number` | A page number within the paginated result set. | [Optional] [Defaults to `1`] |

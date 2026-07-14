@@ -62,7 +62,10 @@ jobs:
       - uses: actions/checkout@v7
       - uses: actions/setup-go@v6
         with: { go-version: "1.23", cache: false }
-      - run: cd clients/go && go build ./...
+      # go mod tidy first: the generator writes a go.mod requiring testify (for the
+      # generated tests) but doesn't populate go.sum, so a bare `go build` fails
+      # with "missing go.sum entry".
+      - run: cd clients/go && go mod tidy && go build ./...
 
   php:
     runs-on: ubuntu-latest

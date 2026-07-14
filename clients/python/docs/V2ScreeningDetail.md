@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
 **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **checks** | [**List[V2ScreeningCheckEntry]**](V2ScreeningCheckEntry.md) |  | [readonly] 
+**screening_notes** | [**List[V2ScreeningNote]**](V2ScreeningNote.md) |  | [readonly] 
 **candidate_wizard_url** | **str** | Public wizard URL for the candidate. Null when no check needs candidate input. | [readonly] 
 **dashboard_url** | **str** | Dashboard URL for this screening. | [readonly] 
 **created_at** | **datetime** |  | [readonly] 

@@ -19,6 +19,8 @@ pub struct V2ScreeningCreate {
     pub candidate: Box<models::V2Candidate>,
     #[serde(rename = "checks", skip_serializing_if = "Option::is_none")]
     pub checks: Option<Vec<models::V2ScreeningCheck>>,
+    #[serde(rename = "screening_notes", skip_serializing_if = "Option::is_none")]
+    pub screening_notes: Option<Vec<models::V2ScreeningNoteInput>>,
 }
 
 impl V2ScreeningCreate {
@@ -27,6 +29,7 @@ impl V2ScreeningCreate {
             profile_id,
             candidate: Box::new(candidate),
             checks: None,
+            screening_notes: None,
         }
     }
 }

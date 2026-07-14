@@ -18,8 +18,10 @@ import (
 // checks if the CustomTokenObtainPair type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CustomTokenObtainPair{}
 
-// CustomTokenObtainPair Custom JWT serializer that includes organization information in the token.
+// CustomTokenObtainPair Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user's single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
 type CustomTokenObtainPair struct {
+	// Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+	OrganizationId *string `json:"organization_id,omitempty"`
 	Email string `json:"email"`
 	Password string `json:"password"`
 	AdditionalProperties map[string]interface{}
@@ -44,6 +46,38 @@ func NewCustomTokenObtainPair(email string, password string) *CustomTokenObtainP
 func NewCustomTokenObtainPairWithDefaults() *CustomTokenObtainPair {
 	this := CustomTokenObtainPair{}
 	return &this
+}
+
+// GetOrganizationId returns the OrganizationId field value if set, zero value otherwise.
+func (o *CustomTokenObtainPair) GetOrganizationId() string {
+	if o == nil || IsNil(o.OrganizationId) {
+		var ret string
+		return ret
+	}
+	return *o.OrganizationId
+}
+
+// GetOrganizationIdOk returns a tuple with the OrganizationId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomTokenObtainPair) GetOrganizationIdOk() (*string, bool) {
+	if o == nil || IsNil(o.OrganizationId) {
+		return nil, false
+	}
+	return o.OrganizationId, true
+}
+
+// HasOrganizationId returns a boolean if a field has been set.
+func (o *CustomTokenObtainPair) HasOrganizationId() bool {
+	if o != nil && !IsNil(o.OrganizationId) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrganizationId gets a reference to the given string and assigns it to the OrganizationId field.
+func (o *CustomTokenObtainPair) SetOrganizationId(v string) {
+	o.OrganizationId = &v
 }
 
 // GetEmail returns the Email field value
@@ -104,6 +138,9 @@ func (o CustomTokenObtainPair) MarshalJSON() ([]byte, error) {
 
 func (o CustomTokenObtainPair) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.OrganizationId) {
+		toSerialize["organization_id"] = o.OrganizationId
+	}
 	toSerialize["email"] = o.Email
 	toSerialize["password"] = o.Password
 
@@ -150,6 +187,7 @@ func (o *CustomTokenObtainPair) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "organization_id")
 		delete(additionalProperties, "email")
 		delete(additionalProperties, "password")
 		o.AdditionalProperties = additionalProperties

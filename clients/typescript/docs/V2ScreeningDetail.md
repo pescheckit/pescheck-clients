@@ -11,6 +11,7 @@ Name | Type
 `profile` | [V2ScreeningDetailProfile](V2ScreeningDetailProfile.md)
 `candidate` | [V2Candidate](V2Candidate.md)
 `checks` | [Array&lt;V2ScreeningCheckEntry&gt;](V2ScreeningCheckEntry.md)
+`screeningNotes` | [Array&lt;V2ScreeningNote&gt;](V2ScreeningNote.md)
 `candidateWizardUrl` | string
 `dashboardUrl` | string
 `createdAt` | Date
@@ -28,6 +29,7 @@ const example = {
   "profile": null,
   "candidate": null,
   "checks": null,
+  "screeningNotes": null,
   "candidateWizardUrl": null,
   "dashboardUrl": null,
   "createdAt": null,

@@ -67,6 +67,8 @@ __all__ = [
     "V2ScreeningDetail",
     "V2ScreeningDetailProfile",
     "V2ScreeningListItem",
+    "V2ScreeningNote",
+    "V2ScreeningNoteInput",
     "VerifyWebhook",
     "Webhook",
     "WebhookResponse",
@@ -126,6 +128,8 @@ from pescheck.models.v2_screening_create import V2ScreeningCreate as V2Screening
 from pescheck.models.v2_screening_detail import V2ScreeningDetail as V2ScreeningDetail
 from pescheck.models.v2_screening_detail_profile import V2ScreeningDetailProfile as V2ScreeningDetailProfile
 from pescheck.models.v2_screening_list_item import V2ScreeningListItem as V2ScreeningListItem
+from pescheck.models.v2_screening_note import V2ScreeningNote as V2ScreeningNote
+from pescheck.models.v2_screening_note_input import V2ScreeningNoteInput as V2ScreeningNoteInput
 from pescheck.models.verify_webhook import VerifyWebhook as VerifyWebhook
 from pescheck.models.webhook import Webhook as Webhook
 from pescheck.models.webhook_response import WebhookResponse as WebhookResponse

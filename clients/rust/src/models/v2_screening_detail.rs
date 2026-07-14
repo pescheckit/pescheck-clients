@@ -23,6 +23,8 @@ pub struct V2ScreeningDetail {
     pub candidate: Box<models::V2Candidate>,
     #[serde(rename = "checks")]
     pub checks: Vec<models::V2ScreeningCheckEntry>,
+    #[serde(rename = "screening_notes")]
+    pub screening_notes: Vec<models::V2ScreeningNote>,
     /// Public wizard URL for the candidate. Null when no check needs candidate input.
     #[serde(rename = "candidate_wizard_url", deserialize_with = "Option::deserialize")]
     pub candidate_wizard_url: Option<String>,
@@ -36,13 +38,14 @@ pub struct V2ScreeningDetail {
 }
 
 impl V2ScreeningDetail {
-    pub fn new(id: uuid::Uuid, status: String, profile: Option<models::V2ScreeningDetailProfile>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckEntry>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningDetail {
+    pub fn new(id: uuid::Uuid, status: String, profile: Option<models::V2ScreeningDetailProfile>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckEntry>, screening_notes: Vec<models::V2ScreeningNote>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningDetail {
         V2ScreeningDetail {
             id,
             status,
             profile: if let Some(x) = profile {Some(Box::new(x))} else {None},
             candidate: Box::new(candidate),
             checks,
+            screening_notes,
             candidate_wizard_url,
             dashboard_url,
             created_at,

@@ -26,6 +26,7 @@ type V2ScreeningDetail struct {
 	Profile NullableV2ScreeningDetailProfile `json:"profile"`
 	Candidate V2Candidate `json:"candidate"`
 	Checks []V2ScreeningCheckEntry `json:"checks"`
+	ScreeningNotes []V2ScreeningNote `json:"screening_notes"`
 	// Public wizard URL for the candidate. Null when no check needs candidate input.
 	CandidateWizardUrl NullableString `json:"candidate_wizard_url"`
 	// Dashboard URL for this screening.
@@ -41,13 +42,14 @@ type _V2ScreeningDetail V2ScreeningDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ScreeningDetail(id string, status string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckEntry, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time) *V2ScreeningDetail {
+func NewV2ScreeningDetail(id string, status string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckEntry, screeningNotes []V2ScreeningNote, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time) *V2ScreeningDetail {
 	this := V2ScreeningDetail{}
 	this.Id = id
 	this.Status = status
 	this.Profile = profile
 	this.Candidate = candidate
 	this.Checks = checks
+	this.ScreeningNotes = screeningNotes
 	this.CandidateWizardUrl = candidateWizardUrl
 	this.DashboardUrl = dashboardUrl
 	this.CreatedAt = createdAt
@@ -185,6 +187,30 @@ func (o *V2ScreeningDetail) SetChecks(v []V2ScreeningCheckEntry) {
 	o.Checks = v
 }
 
+// GetScreeningNotes returns the ScreeningNotes field value
+func (o *V2ScreeningDetail) GetScreeningNotes() []V2ScreeningNote {
+	if o == nil {
+		var ret []V2ScreeningNote
+		return ret
+	}
+
+	return o.ScreeningNotes
+}
+
+// GetScreeningNotesOk returns a tuple with the ScreeningNotes field value
+// and a boolean to check if the value has been set.
+func (o *V2ScreeningDetail) GetScreeningNotesOk() ([]V2ScreeningNote, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ScreeningNotes, true
+}
+
+// SetScreeningNotes sets field value
+func (o *V2ScreeningDetail) SetScreeningNotes(v []V2ScreeningNote) {
+	o.ScreeningNotes = v
+}
+
 // GetCandidateWizardUrl returns the CandidateWizardUrl field value
 // If the value is explicit nil, the zero value for string will be returned
 func (o *V2ScreeningDetail) GetCandidateWizardUrl() string {
@@ -298,6 +324,7 @@ func (o V2ScreeningDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["profile"] = o.Profile.Get()
 	toSerialize["candidate"] = o.Candidate
 	toSerialize["checks"] = o.Checks
+	toSerialize["screening_notes"] = o.ScreeningNotes
 	toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
 	toSerialize["dashboard_url"] = o.DashboardUrl
 	toSerialize["created_at"] = o.CreatedAt
@@ -320,6 +347,7 @@ func (o *V2ScreeningDetail) UnmarshalJSON(data []byte) (err error) {
 		"profile",
 		"candidate",
 		"checks",
+		"screening_notes",
 		"candidate_wizard_url",
 		"dashboard_url",
 		"created_at",
@@ -358,6 +386,7 @@ func (o *V2ScreeningDetail) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "candidate")
 		delete(additionalProperties, "checks")
+		delete(additionalProperties, "screening_notes")
 		delete(additionalProperties, "candidate_wizard_url")
 		delete(additionalProperties, "dashboard_url")
 		delete(additionalProperties, "created_at")

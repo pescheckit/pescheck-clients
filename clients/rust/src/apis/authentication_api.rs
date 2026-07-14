@@ -40,7 +40,7 @@ pub enum JwtRefreshCreateError {
 }
 
 
-/// Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+/// Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
 pub async fn generate_jwt_token2(configuration: &configuration::Configuration, jwt_generation: models::JwtGeneration) -> Result<models::JwtResponse, Error<GenerateJwtToken2Error>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_jwt_generation = jwt_generation;
@@ -81,7 +81,7 @@ pub async fn generate_jwt_token2(configuration: &configuration::Configuration, j
     }
 }
 
-/// Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+/// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
 pub async fn jwt_create(configuration: &configuration::Configuration, custom_token_obtain_pair: models::CustomTokenObtainPair) -> Result<models::CustomTokenObtainPair, Error<JwtCreateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_body_custom_token_obtain_pair = custom_token_obtain_pair;

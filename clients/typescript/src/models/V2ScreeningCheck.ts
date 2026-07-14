@@ -23,6 +23,7 @@ import { mapValues } from '../runtime';
 export interface V2ScreeningCheck {
     /**
      * * `addresscheck` - addresscheck
+     * * `adversemedia2check` - adversemedia2check
      * * `adversemediacheck` - adversemediacheck
      * * `bigcheck` - bigcheck
      * * `criminalrecordscheck` - criminalrecordscheck
@@ -70,6 +71,7 @@ export interface V2ScreeningCheck {
  */
 export const V2ScreeningCheckCheckTypeEnum = {
     Addresscheck: 'addresscheck',
+    Adversemedia2check: 'adversemedia2check',
     Adversemediacheck: 'adversemediacheck',
     Bigcheck: 'bigcheck',
     Criminalrecordscheck: 'criminalrecordscheck',

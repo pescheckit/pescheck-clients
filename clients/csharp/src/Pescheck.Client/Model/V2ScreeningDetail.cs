@@ -114,6 +114,20 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
+        /// Gets or Sets ScreeningNotes
+        /// </summary>
+        [DataMember(Name = "screening_notes", IsRequired = true, EmitDefaultValue = true)]
+        public List<V2ScreeningNote> ScreeningNotes { get; private set; }
+
+        /// <summary>
+        /// Returns false as ScreeningNotes should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeScreeningNotes()
+        {
+            return false;
+        }
+        /// <summary>
         /// Public wizard URL for the candidate. Null when no check needs candidate input.
         /// </summary>
         /// <value>Public wizard URL for the candidate. Null when no check needs candidate input.</value>
@@ -184,6 +198,7 @@ namespace Pescheck.Client.Model
             sb.Append("  Profile: ").Append(Profile).Append("\n");
             sb.Append("  Candidate: ").Append(Candidate).Append("\n");
             sb.Append("  Checks: ").Append(Checks).Append("\n");
+            sb.Append("  ScreeningNotes: ").Append(ScreeningNotes).Append("\n");
             sb.Append("  CandidateWizardUrl: ").Append(CandidateWizardUrl).Append("\n");
             sb.Append("  DashboardUrl: ").Append(DashboardUrl).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");

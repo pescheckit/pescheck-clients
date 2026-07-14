@@ -21,7 +21,7 @@ import ApiClient from '../ApiClient';
 class CustomTokenObtainPair {
     /**
      * Constructs a new <code>CustomTokenObtainPair</code>.
-     * Custom JWT serializer that includes organization information in the token.
+     * Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
      * @alias module:model/CustomTokenObtainPair
      * @param email {String} 
      * @param password {String} 
@@ -52,6 +52,9 @@ class CustomTokenObtainPair {
         if (data) {
             obj = obj || new CustomTokenObtainPair();
 
+            if (data.hasOwnProperty('organization_id')) {
+                obj['organization_id'] = ApiClient.convertToType(data['organization_id'], 'String');
+            }
             if (data.hasOwnProperty('email')) {
                 obj['email'] = ApiClient.convertToType(data['email'], 'String');
             }
@@ -75,6 +78,10 @@ class CustomTokenObtainPair {
             }
         }
         // ensure the json data is a string
+        if (data['organization_id'] && !(typeof data['organization_id'] === 'string' || data['organization_id'] instanceof String)) {
+            throw new Error("Expected the field `organization_id` to be a primitive type in the JSON string but got " + data['organization_id']);
+        }
+        // ensure the json data is a string
         if (data['email'] && !(typeof data['email'] === 'string' || data['email'] instanceof String)) {
             throw new Error("Expected the field `email` to be a primitive type in the JSON string but got " + data['email']);
         }
@@ -90,6 +97,12 @@ class CustomTokenObtainPair {
 }
 
 CustomTokenObtainPair.RequiredProperties = ["email", "password"];
+
+/**
+ * Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+ * @member {String} organization_id
+ */
+CustomTokenObtainPair.prototype['organization_id'] = undefined;
 
 /**
  * @member {String} email

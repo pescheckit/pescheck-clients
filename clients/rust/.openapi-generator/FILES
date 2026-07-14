@@ -41,6 +41,8 @@ docs/V2ScreeningCreate.md
 docs/V2ScreeningDetail.md
 docs/V2ScreeningDetailProfile.md
 docs/V2ScreeningListItem.md
+docs/V2ScreeningNote.md
+docs/V2ScreeningNoteInput.md
 docs/VerifyWebhook.md
 docs/Webhook.md
 docs/WebhookResponse.md
@@ -90,6 +92,8 @@ src/models/v2_screening_create.rs
 src/models/v2_screening_detail.rs
 src/models/v2_screening_detail_profile.rs
 src/models/v2_screening_list_item.rs
+src/models/v2_screening_note.rs
+src/models/v2_screening_note_input.rs
 src/models/verify_webhook.rs
 src/models/webhook.rs
 src/models/webhook_response.rs

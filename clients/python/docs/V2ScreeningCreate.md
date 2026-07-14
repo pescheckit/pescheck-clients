@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **profile_id** | **UUID** |  | 
 **candidate** | [**V2Candidate**](V2Candidate.md) |  | 
 **checks** | [**List[V2ScreeningCheck]**](V2ScreeningCheck.md) |  | [optional] 
+**screening_notes** | [**List[V2ScreeningNoteInput]**](V2ScreeningNoteInput.md) |  | [optional] 
 
 ## Example
 

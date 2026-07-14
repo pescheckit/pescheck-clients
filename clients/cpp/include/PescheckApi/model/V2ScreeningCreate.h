@@ -25,6 +25,7 @@
 #include "PescheckApi/model/V2Candidate.h"
 #include "PescheckApi/model/V2ScreeningCheck.h"
 #include <cpprest/details/basic_types.h>
+#include "PescheckApi/model/V2ScreeningNoteInput.h"
 #include <vector>
 
 namespace org {
@@ -34,6 +35,7 @@ namespace model {
 
 class V2Candidate;
 class V2ScreeningCheck;
+class V2ScreeningNoteInput;
 
 
 class  V2ScreeningCreate
@@ -74,6 +76,11 @@ public:
     void unsetChecks();
     void setChecks(const std::vector<std::shared_ptr<V2ScreeningCheck>>& value);
 
+    std::vector<std::shared_ptr<V2ScreeningNoteInput>> getScreeningNotes() const;
+    bool screeningNotesIsSet() const;
+    void unsetScreening_notes();
+    void setScreeningNotes(const std::vector<std::shared_ptr<V2ScreeningNoteInput>>& value);
+
 
 protected:
     utility::string_t m_Profile_id;
@@ -84,6 +91,9 @@ protected:
 
     std::vector<std::shared_ptr<V2ScreeningCheck>> m_Checks;
     bool m_ChecksIsSet;
+
+    std::vector<std::shared_ptr<V2ScreeningNoteInput>> m_Screening_notes;
+    bool m_Screening_notesIsSet;
 
 };
 

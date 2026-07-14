@@ -29,6 +29,11 @@ jobs:
           distribution: temurin
           java-version: "17"
 
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "1.23"
+          cache: false
+
       - name: Install tooling
         run: npm ci
 
@@ -36,6 +41,11 @@ jobs:
         run: npm run build
         env:
           PESCHECK_SCHEMA_URL: https://api.pescheck.io/api/schema/
+
+      # The generator writes a go.mod requiring testify but doesn't populate
+      # go.sum; complete it so the regenerated Go client actually builds.
+      - name: Complete Go go.sum
+        run: cd clients/go && go mod tidy
 
       # Opens (or updates) a PR only if spec/ or clients/ actually changed;
       # a no-op when there's no drift. Review the diff and merge to adopt.

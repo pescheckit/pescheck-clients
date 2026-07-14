@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Profile** | [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
 **Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **Checks** | [**[]V2ScreeningCheckEntry**](V2ScreeningCheckEntry.md) |  | [readonly] 
+**ScreeningNotes** | [**[]V2ScreeningNote**](V2ScreeningNote.md) |  | [readonly] 
 **CandidateWizardUrl** | **NullableString** | Public wizard URL for the candidate. Null when no check needs candidate input. | [readonly] 
 **DashboardUrl** | **string** | Dashboard URL for this screening. | [readonly] 
 **CreatedAt** | **time.Time** |  | [readonly] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewV2ScreeningDetail
 
-`func NewV2ScreeningDetail(id string, status string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckEntry, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningDetail`
+`func NewV2ScreeningDetail(id string, status string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckEntry, screeningNotes []V2ScreeningNote, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningDetail`
 
 NewV2ScreeningDetail instantiates a new V2ScreeningDetail object
 This constructor will assign default values to properties that have it defined,
@@ -141,6 +142,26 @@ and a boolean to check if the value has been set.
 `func (o *V2ScreeningDetail) SetChecks(v []V2ScreeningCheckEntry)`
 
 SetChecks sets Checks field to given value.
+
+
+### GetScreeningNotes
+
+`func (o *V2ScreeningDetail) GetScreeningNotes() []V2ScreeningNote`
+
+GetScreeningNotes returns the ScreeningNotes field if non-nil, zero value otherwise.
+
+### GetScreeningNotesOk
+
+`func (o *V2ScreeningDetail) GetScreeningNotesOk() (*[]V2ScreeningNote, bool)`
+
+GetScreeningNotesOk returns a tuple with the ScreeningNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScreeningNotes
+
+`func (o *V2ScreeningDetail) SetScreeningNotes(v []V2ScreeningNote)`
+
+SetScreeningNotes sets ScreeningNotes field to given value.
 
 
 ### GetCandidateWizardUrl

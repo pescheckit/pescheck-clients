@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from pescheck.models.v2_candidate import V2Candidate
 from pescheck.models.v2_screening_check import V2ScreeningCheck
+from pescheck.models.v2_screening_note_input import V2ScreeningNoteInput
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -33,7 +34,8 @@ class V2ScreeningCreate(BaseModel):
     profile_id: UUID
     candidate: V2Candidate
     checks: Optional[List[V2ScreeningCheck]] = None
-    __properties: ClassVar[List[str]] = ["profile_id", "candidate", "checks"]
+    screening_notes: Optional[List[V2ScreeningNoteInput]] = None
+    __properties: ClassVar[List[str]] = ["profile_id", "candidate", "checks", "screening_notes"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -84,6 +86,13 @@ class V2ScreeningCreate(BaseModel):
                 if _item_checks:
                     _items.append(_item_checks.to_dict())
             _dict['checks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in screening_notes (list)
+        _items = []
+        if self.screening_notes:
+            for _item_screening_notes in self.screening_notes:
+                if _item_screening_notes:
+                    _items.append(_item_screening_notes.to_dict())
+            _dict['screening_notes'] = _items
         return _dict
 
     @classmethod
@@ -98,7 +107,8 @@ class V2ScreeningCreate(BaseModel):
         _obj = cls.model_validate({
             "profile_id": obj.get("profile_id"),
             "candidate": V2Candidate.from_dict(obj["candidate"]) if obj.get("candidate") is not None else None,
-            "checks": [V2ScreeningCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None
+            "checks": [V2ScreeningCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
+            "screening_notes": [V2ScreeningNoteInput.from_dict(_item) for _item in obj["screening_notes"]] if obj.get("screening_notes") is not None else None
         })
         return _obj
 

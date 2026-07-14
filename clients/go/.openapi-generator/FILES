@@ -50,6 +50,8 @@ docs/V2ScreeningCreate.md
 docs/V2ScreeningDetail.md
 docs/V2ScreeningDetailProfile.md
 docs/V2ScreeningListItem.md
+docs/V2ScreeningNote.md
+docs/V2ScreeningNoteInput.md
 docs/VerifyWebhook.md
 docs/Webhook.md
 docs/WebhookResponse.md
@@ -90,6 +92,8 @@ model_v2_screening_create.go
 model_v2_screening_detail.go
 model_v2_screening_detail_profile.go
 model_v2_screening_list_item.go
+model_v2_screening_note.go
+model_v2_screening_note_input.go
 model_verify_webhook.go
 model_webhook.go
 model_webhook_response.go

@@ -22,6 +22,7 @@ import { mapValues } from '../runtime';
 export interface V2ProfileUpdateCheck {
     /**
      * * `addresscheck` - addresscheck
+     * * `adversemedia2check` - adversemedia2check
      * * `adversemediacheck` - adversemediacheck
      * * `bigcheck` - bigcheck
      * * `criminalrecordscheck` - criminalrecordscheck
@@ -67,6 +68,7 @@ export interface V2ProfileUpdateCheck {
  */
 export const V2ProfileUpdateCheckCheckTypeEnum = {
     Addresscheck: 'addresscheck',
+    Adversemedia2check: 'adversemedia2check',
     Adversemediacheck: 'adversemediacheck',
     Bigcheck: 'bigcheck',
     Criminalrecordscheck: 'criminalrecordscheck',

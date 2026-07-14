@@ -59,7 +59,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPITypes = [
         'profile_id' => 'string',
         'candidate' => '\Pescheck\Client\Model\V2Candidate',
-        'checks' => '\Pescheck\Client\Model\V2ScreeningCheck[]'
+        'checks' => '\Pescheck\Client\Model\V2ScreeningCheck[]',
+        'screening_notes' => '\Pescheck\Client\Model\V2ScreeningNoteInput[]'
     ];
 
     /**
@@ -72,7 +73,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'profile_id' => 'uuid',
         'candidate' => null,
-        'checks' => null
+        'checks' => null,
+        'screening_notes' => null
     ];
 
     /**
@@ -83,7 +85,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static array $openAPINullables = [
         'profile_id' => false,
         'candidate' => false,
-        'checks' => false
+        'checks' => false,
+        'screening_notes' => false
     ];
 
     /**
@@ -174,7 +177,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $attributeMap = [
         'profile_id' => 'profile_id',
         'candidate' => 'candidate',
-        'checks' => 'checks'
+        'checks' => 'checks',
+        'screening_notes' => 'screening_notes'
     ];
 
     /**
@@ -185,7 +189,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $setters = [
         'profile_id' => 'setProfileId',
         'candidate' => 'setCandidate',
-        'checks' => 'setChecks'
+        'checks' => 'setChecks',
+        'screening_notes' => 'setScreeningNotes'
     ];
 
     /**
@@ -196,7 +201,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $getters = [
         'profile_id' => 'getProfileId',
         'candidate' => 'getCandidate',
-        'checks' => 'getChecks'
+        'checks' => 'getChecks',
+        'screening_notes' => 'getScreeningNotes'
     ];
 
     /**
@@ -259,6 +265,7 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('profile_id', $data ?? [], null);
         $this->setIfExists('candidate', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('screening_notes', $data ?? [], null);
     }
 
     /**
@@ -386,6 +393,33 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable checks cannot be null');
         }
         $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets screening_notes
+     *
+     * @return \Pescheck\Client\Model\V2ScreeningNoteInput[]|null
+     */
+    public function getScreeningNotes()
+    {
+        return $this->container['screening_notes'];
+    }
+
+    /**
+     * Sets screening_notes
+     *
+     * @param \Pescheck\Client\Model\V2ScreeningNoteInput[]|null $screening_notes screening_notes
+     *
+     * @return self
+     */
+    public function setScreeningNotes($screening_notes)
+    {
+        if (is_null($screening_notes)) {
+            throw new \InvalidArgumentException('non-nullable screening_notes cannot be null');
+        }
+        $this->container['screening_notes'] = $screening_notes;
 
         return $this;
     }

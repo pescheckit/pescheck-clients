@@ -24,6 +24,7 @@ V2ScreeningCreate::V2ScreeningCreate()
     m_Profile_idIsSet = false;
     m_CandidateIsSet = false;
     m_ChecksIsSet = false;
+    m_Screening_notesIsSet = false;
 }
 
 V2ScreeningCreate::~V2ScreeningCreate()
@@ -52,6 +53,11 @@ web::json::value V2ScreeningCreate::toJson() const
     {
         
         val[utility::conversions::to_string_t(_XPLATSTR("checks"))] = ModelBase::toJson(m_Checks);
+    }
+    if(m_Screening_notesIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("screening_notes"))] = ModelBase::toJson(m_Screening_notes);
     }
 
     return val;
@@ -93,6 +99,17 @@ bool V2ScreeningCreate::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("screening_notes"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("screening_notes")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<std::shared_ptr<V2ScreeningNoteInput>> refVal_setScreeningNotes;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setScreeningNotes);
+            setScreeningNotes(refVal_setScreeningNotes);
+            
+        }
+    }
     return ok;
 }
 
@@ -114,6 +131,10 @@ void V2ScreeningCreate::toMultipart(std::shared_ptr<MultipartFormData> multipart
     if(m_ChecksIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("checks")), m_Checks));
+    }
+    if(m_Screening_notesIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("screening_notes")), m_Screening_notes));
     }
 }
 
@@ -143,6 +164,12 @@ bool V2ScreeningCreate::fromMultiPart(std::shared_ptr<MultipartFormData> multipa
         std::vector<std::shared_ptr<V2ScreeningCheck>> refVal_setChecks;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("checks"))), refVal_setChecks );
         setChecks(refVal_setChecks);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("screening_notes"))))
+    {
+        std::vector<std::shared_ptr<V2ScreeningNoteInput>> refVal_setScreeningNotes;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("screening_notes"))), refVal_setScreeningNotes );
+        setScreeningNotes(refVal_setScreeningNotes);
     }
     return ok;
 }
@@ -210,6 +237,27 @@ bool V2ScreeningCreate::checksIsSet() const
 void V2ScreeningCreate::unsetChecks()
 {
     m_ChecksIsSet = false;
+}
+std::vector<std::shared_ptr<V2ScreeningNoteInput>> V2ScreeningCreate::getScreeningNotes() const
+{
+    return m_Screening_notes;
+}
+
+
+void V2ScreeningCreate::setScreeningNotes(const std::vector<std::shared_ptr<V2ScreeningNoteInput>>& value)
+{
+    m_Screening_notes = value;
+    m_Screening_notesIsSet = true;
+}
+
+bool V2ScreeningCreate::screeningNotesIsSet() const
+{
+    return m_Screening_notesIsSet;
+}
+
+void V2ScreeningCreate::unsetScreening_notes()
+{
+    m_Screening_notesIsSet = false;
 }
 
 }

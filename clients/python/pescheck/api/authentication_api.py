@@ -57,7 +57,7 @@ class AuthenticationApi:
     ) -> JWTResponse:
         """generate_jwt_token2
 
-        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
 
         :param jwt_generation: (required)
         :type jwt_generation: JWTGeneration
@@ -127,7 +127,7 @@ class AuthenticationApi:
     ) -> ApiResponse[JWTResponse]:
         """generate_jwt_token2
 
-        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
 
         :param jwt_generation: (required)
         :type jwt_generation: JWTGeneration
@@ -197,7 +197,7 @@ class AuthenticationApi:
     ) -> RESTResponseType:
         """generate_jwt_token2
 
-        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
 
         :param jwt_generation: (required)
         :type jwt_generation: JWTGeneration
@@ -341,7 +341,7 @@ class AuthenticationApi:
     ) -> CustomTokenObtainPair:
         """jwt_create
 
-        Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+        Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
 
         :param custom_token_obtain_pair: (required)
         :type custom_token_obtain_pair: CustomTokenObtainPair
@@ -408,7 +408,7 @@ class AuthenticationApi:
     ) -> ApiResponse[CustomTokenObtainPair]:
         """jwt_create
 
-        Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+        Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
 
         :param custom_token_obtain_pair: (required)
         :type custom_token_obtain_pair: CustomTokenObtainPair
@@ -475,7 +475,7 @@ class AuthenticationApi:
     ) -> RESTResponseType:
         """jwt_create
 
-        Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+        Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
 
         :param custom_token_obtain_pair: (required)
         :type custom_token_obtain_pair: CustomTokenObtainPair

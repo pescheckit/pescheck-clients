@@ -151,6 +151,8 @@ Class | Method | HTTP request | Description
  - [Pescheck::V2ScreeningDetail](docs/V2ScreeningDetail.md)
  - [Pescheck::V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
  - [Pescheck::V2ScreeningListItem](docs/V2ScreeningListItem.md)
+ - [Pescheck::V2ScreeningNote](docs/V2ScreeningNote.md)
+ - [Pescheck::V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
  - [Pescheck::VerifyWebhook](docs/VerifyWebhook.md)
  - [Pescheck::Webhook](docs/Webhook.md)
  - [Pescheck::WebhookResponse](docs/WebhookResponse.md)

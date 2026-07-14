@@ -53,6 +53,8 @@ include/PescheckApi/model/V2ScreeningCreate.h
 include/PescheckApi/model/V2ScreeningDetail.h
 include/PescheckApi/model/V2ScreeningDetail_profile.h
 include/PescheckApi/model/V2ScreeningListItem.h
+include/PescheckApi/model/V2ScreeningNote.h
+include/PescheckApi/model/V2ScreeningNoteInput.h
 include/PescheckApi/model/VerifyWebhook.h
 include/PescheckApi/model/Webhook.h
 include/PescheckApi/model/WebhookResponse.h
@@ -105,6 +107,8 @@ src/model/V2ScreeningCreate.cpp
 src/model/V2ScreeningDetail.cpp
 src/model/V2ScreeningDetail_profile.cpp
 src/model/V2ScreeningListItem.cpp
+src/model/V2ScreeningNote.cpp
+src/model/V2ScreeningNoteInput.cpp
 src/model/VerifyWebhook.cpp
 src/model/Webhook.cpp
 src/model/WebhookResponse.cpp

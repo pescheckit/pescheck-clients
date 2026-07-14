@@ -25,6 +25,8 @@ module Pescheck
 
     attr_accessor :checks
 
+    attr_accessor :screening_notes
+
     # Public wizard URL for the candidate. Null when no check needs candidate input.
     attr_accessor :candidate_wizard_url
 
@@ -43,6 +45,7 @@ module Pescheck
         :'profile' => :'profile',
         :'candidate' => :'candidate',
         :'checks' => :'checks',
+        :'screening_notes' => :'screening_notes',
         :'candidate_wizard_url' => :'candidate_wizard_url',
         :'dashboard_url' => :'dashboard_url',
         :'created_at' => :'created_at',
@@ -68,6 +71,7 @@ module Pescheck
         :'profile' => :'V2ScreeningDetailProfile',
         :'candidate' => :'V2Candidate',
         :'checks' => :'Array<V2ScreeningCheckEntry>',
+        :'screening_notes' => :'Array<V2ScreeningNote>',
         :'candidate_wizard_url' => :'String',
         :'dashboard_url' => :'String',
         :'created_at' => :'Time',
@@ -131,6 +135,14 @@ module Pescheck
         self.checks = nil
       end
 
+      if attributes.key?(:'screening_notes')
+        if (value = attributes[:'screening_notes']).is_a?(Array)
+          self.screening_notes = value
+        end
+      else
+        self.screening_notes = nil
+      end
+
       if attributes.key?(:'candidate_wizard_url')
         self.candidate_wizard_url = attributes[:'candidate_wizard_url']
       else
@@ -177,6 +189,10 @@ module Pescheck
         invalid_properties.push('invalid value for "checks", checks cannot be nil.')
       end
 
+      if @screening_notes.nil?
+        invalid_properties.push('invalid value for "screening_notes", screening_notes cannot be nil.')
+      end
+
       if @dashboard_url.nil?
         invalid_properties.push('invalid value for "dashboard_url", dashboard_url cannot be nil.')
       end
@@ -200,6 +216,7 @@ module Pescheck
       return false if @status.nil?
       return false if @candidate.nil?
       return false if @checks.nil?
+      return false if @screening_notes.nil?
       return false if @dashboard_url.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
@@ -247,6 +264,16 @@ module Pescheck
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] screening_notes Value to be assigned
+    def screening_notes=(screening_notes)
+      if screening_notes.nil?
+        fail ArgumentError, 'screening_notes cannot be nil'
+      end
+
+      @screening_notes = screening_notes
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] dashboard_url Value to be assigned
     def dashboard_url=(dashboard_url)
       if dashboard_url.nil?
@@ -286,6 +313,7 @@ module Pescheck
           profile == o.profile &&
           candidate == o.candidate &&
           checks == o.checks &&
+          screening_notes == o.screening_notes &&
           candidate_wizard_url == o.candidate_wizard_url &&
           dashboard_url == o.dashboard_url &&
           created_at == o.created_at &&
@@ -301,7 +329,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, profile, candidate, checks, candidate_wizard_url, dashboard_url, created_at, updated_at].hash
+      [id, status, profile, candidate, checks, screening_notes, candidate_wizard_url, dashboard_url, created_at, updated_at].hash
     end
 
     # Builds the object from hash
