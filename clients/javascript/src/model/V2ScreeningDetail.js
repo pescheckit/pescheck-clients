@@ -15,6 +15,7 @@ import ApiClient from '../ApiClient';
 import V2Candidate from './V2Candidate';
 import V2ScreeningCheckEntry from './V2ScreeningCheckEntry';
 import V2ScreeningDetailProfile from './V2ScreeningDetailProfile';
+import V2ScreeningNote from './V2ScreeningNote';
 
 /**
  * The V2ScreeningDetail model module.
@@ -30,14 +31,15 @@ class V2ScreeningDetail {
      * @param profile {module:model/V2ScreeningDetailProfile} 
      * @param candidate {module:model/V2Candidate} 
      * @param checks {Array.<module:model/V2ScreeningCheckEntry>} 
+     * @param screeningNotes {Array.<module:model/V2ScreeningNote>} 
      * @param candidateWizardUrl {String} Public wizard URL for the candidate. Null when no check needs candidate input.
      * @param dashboardUrl {String} Dashboard URL for this screening.
      * @param createdAt {Date} 
      * @param updatedAt {Date} 
      */
-    constructor(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+    constructor(id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         
-        V2ScreeningDetail.initialize(this, id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
+        V2ScreeningDetail.initialize(this, id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
     }
 
     /**
@@ -45,12 +47,13 @@ class V2ScreeningDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+    static initialize(obj, id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         obj['id'] = id;
         obj['status'] = status;
         obj['profile'] = profile;
         obj['candidate'] = candidate;
         obj['checks'] = checks;
+        obj['screening_notes'] = screeningNotes;
         obj['candidate_wizard_url'] = candidateWizardUrl;
         obj['dashboard_url'] = dashboardUrl;
         obj['created_at'] = createdAt;
@@ -82,6 +85,9 @@ class V2ScreeningDetail {
             }
             if (data.hasOwnProperty('checks')) {
                 obj['checks'] = ApiClient.convertToType(data['checks'], [V2ScreeningCheckEntry]);
+            }
+            if (data.hasOwnProperty('screening_notes')) {
+                obj['screening_notes'] = ApiClient.convertToType(data['screening_notes'], [V2ScreeningNote]);
             }
             if (data.hasOwnProperty('candidate_wizard_url')) {
                 obj['candidate_wizard_url'] = ApiClient.convertToType(data['candidate_wizard_url'], 'String');
@@ -137,6 +143,16 @@ class V2ScreeningDetail {
                 V2ScreeningCheckEntry.validateJSON(item);
             };
         }
+        if (data['screening_notes']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['screening_notes'])) {
+                throw new Error("Expected the field `screening_notes` to be an array in the JSON data but got " + data['screening_notes']);
+            }
+            // validate the optional field `screening_notes` (array)
+            for (const item of data['screening_notes']) {
+                V2ScreeningNote.validateJSON(item);
+            };
+        }
         // ensure the json data is a string
         if (data['candidate_wizard_url'] && !(typeof data['candidate_wizard_url'] === 'string' || data['candidate_wizard_url'] instanceof String)) {
             throw new Error("Expected the field `candidate_wizard_url` to be a primitive type in the JSON string but got " + data['candidate_wizard_url']);
@@ -152,7 +168,7 @@ class V2ScreeningDetail {
 
 }
 
-V2ScreeningDetail.RequiredProperties = ["id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
+V2ScreeningDetail.RequiredProperties = ["id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
 
 /**
  * @member {String} id
@@ -178,6 +194,11 @@ V2ScreeningDetail.prototype['candidate'] = undefined;
  * @member {Array.<module:model/V2ScreeningCheckEntry>} checks
  */
 V2ScreeningDetail.prototype['checks'] = undefined;
+
+/**
+ * @member {Array.<module:model/V2ScreeningNote>} screening_notes
+ */
+V2ScreeningDetail.prototype['screening_notes'] = undefined;
 
 /**
  * Public wizard URL for the candidate. Null when no check needs candidate input.

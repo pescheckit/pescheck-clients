@@ -20,6 +20,13 @@ import {
     V2CandidateToJSON,
     V2CandidateToJSONTyped,
 } from './V2Candidate';
+import type { V2ScreeningNoteInput } from './V2ScreeningNoteInput';
+import {
+    V2ScreeningNoteInputFromJSON,
+    V2ScreeningNoteInputFromJSONTyped,
+    V2ScreeningNoteInputToJSON,
+    V2ScreeningNoteInputToJSONTyped,
+} from './V2ScreeningNoteInput';
 import type { V2ScreeningCheck } from './V2ScreeningCheck';
 import {
     V2ScreeningCheckFromJSON,
@@ -52,6 +59,12 @@ export interface V2ScreeningCreate {
      * @memberof V2ScreeningCreate
      */
     checks?: Array<V2ScreeningCheck>;
+    /**
+     * 
+     * @type {Array<V2ScreeningNoteInput>}
+     * @memberof V2ScreeningCreate
+     */
+    screeningNotes?: Array<V2ScreeningNoteInput>;
 }
 
 /**
@@ -76,6 +89,7 @@ export function V2ScreeningCreateFromJSONTyped(json: any, ignoreDiscriminator: b
         'profileId': json['profile_id'],
         'candidate': V2CandidateFromJSON(json['candidate']),
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(V2ScreeningCheckFromJSON)),
+        'screeningNotes': json['screening_notes'] == null ? undefined : ((json['screening_notes'] as Array<any>).map(V2ScreeningNoteInputFromJSON)),
     };
 }
 
@@ -93,6 +107,7 @@ export function V2ScreeningCreateToJSONTyped(value?: V2ScreeningCreate | null, i
         'profile_id': value['profileId'],
         'candidate': V2CandidateToJSON(value['candidate']),
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(V2ScreeningCheckToJSON)),
+        'screening_notes': value['screeningNotes'] == null ? undefined : ((value['screeningNotes'] as Array<any>).map(V2ScreeningNoteInputToJSON)),
     };
 }
 

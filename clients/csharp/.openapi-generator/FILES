@@ -42,11 +42,15 @@ docs/V2ScreeningCreate.md
 docs/V2ScreeningDetail.md
 docs/V2ScreeningDetailProfile.md
 docs/V2ScreeningListItem.md
+docs/V2ScreeningNote.md
+docs/V2ScreeningNoteInput.md
 docs/VerifyWebhook.md
 docs/Webhook.md
 docs/WebhookResponse.md
 docs/WebhooksApi.md
 git_push.sh
+src/Pescheck.Client.Test/Model/V2ScreeningNoteInputTests.cs
+src/Pescheck.Client.Test/Model/V2ScreeningNoteTests.cs
 src/Pescheck.Client.Test/Pescheck.Client.Test.csproj
 src/Pescheck.Client/Api/AuthenticationApi.cs
 src/Pescheck.Client/Api/ChecksApi.cs
@@ -106,6 +110,8 @@ src/Pescheck.Client/Model/V2ScreeningCreate.cs
 src/Pescheck.Client/Model/V2ScreeningDetail.cs
 src/Pescheck.Client/Model/V2ScreeningDetailProfile.cs
 src/Pescheck.Client/Model/V2ScreeningListItem.cs
+src/Pescheck.Client/Model/V2ScreeningNote.cs
+src/Pescheck.Client/Model/V2ScreeningNoteInput.cs
 src/Pescheck.Client/Model/VerifyWebhook.cs
 src/Pescheck.Client/Model/Webhook.cs
 src/Pescheck.Client/Model/WebhookResponse.cs

@@ -28,7 +28,7 @@ class V2ScreeningCheck(BaseModel):
     """
     Per-screening entry: identifies a target ProfileCheck (by check_type when unambiguous, or via profile_check_id when the profile has multiple ProfileChecks of the same type) and supplies optional `config` patch + per-check `input`.
     """ # noqa: E501
-    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
+    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
     config: Optional[Dict[str, Any]] = None
     profile_check_id: Optional[UUID] = Field(default=None, description="Disambiguator. Use when the profile has multiple ProfileChecks of the same check_type.")
     input: Optional[Any] = None
@@ -37,8 +37,8 @@ class V2ScreeningCheck(BaseModel):
     @field_validator('check_type')
     def check_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
-            raise ValueError("must be one of enum values ('addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
+        if value not in set(['addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
+            raise ValueError("must be one of enum values ('addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
         return value
 
     model_config = ConfigDict(

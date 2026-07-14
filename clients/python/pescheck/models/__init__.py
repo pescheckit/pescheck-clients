@@ -46,6 +46,8 @@ from pescheck.models.v2_screening_create import V2ScreeningCreate
 from pescheck.models.v2_screening_detail import V2ScreeningDetail
 from pescheck.models.v2_screening_detail_profile import V2ScreeningDetailProfile
 from pescheck.models.v2_screening_list_item import V2ScreeningListItem
+from pescheck.models.v2_screening_note import V2ScreeningNote
+from pescheck.models.v2_screening_note_input import V2ScreeningNoteInput
 from pescheck.models.verify_webhook import VerifyWebhook
 from pescheck.models.webhook import Webhook
 from pescheck.models.webhook_response import WebhookResponse

@@ -27,15 +27,15 @@ class V2ProfileCheck(BaseModel):
     """
     Input serializer for one `{check_type, config}` profile-check entry.  Used by profile create directly. Subclass with `PARTIAL_CONFIG = True` for screening overrides where only the fields actually being changed should be validated.
     """ # noqa: E501
-    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
+    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
     config: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["check_type", "config"]
 
     @field_validator('check_type')
     def check_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
-            raise ValueError("must be one of enum values ('addresscheck', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
+        if value not in set(['addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
+            raise ValueError("must be one of enum values ('addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'id2check', 'integritycheck', 'openhealthcarecheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
         return value
 
     model_config = ConfigDict(

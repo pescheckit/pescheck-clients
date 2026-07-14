@@ -27,6 +27,7 @@
 #include "PescheckApi/model/V2Candidate.h"
 #include <cpprest/details/basic_types.h>
 #include <vector>
+#include "PescheckApi/model/V2ScreeningNote.h"
 
 namespace org {
 namespace openapitools {
@@ -36,6 +37,7 @@ namespace model {
 class V2ScreeningDetail_profile;
 class V2Candidate;
 class V2ScreeningCheckEntry;
+class V2ScreeningNote;
 
 
 class  V2ScreeningDetail
@@ -86,6 +88,11 @@ public:
     void unsetChecks();
     void setChecks(const std::vector<std::shared_ptr<V2ScreeningCheckEntry>>& value);
 
+    std::vector<std::shared_ptr<V2ScreeningNote>> getScreeningNotes() const;
+    bool screeningNotesIsSet() const;
+    void unsetScreening_notes();
+    void setScreeningNotes(const std::vector<std::shared_ptr<V2ScreeningNote>>& value);
+
     /// <summary>
     /// Public wizard URL for the candidate. Null when no check needs candidate input.
     /// </summary>
@@ -127,6 +134,9 @@ protected:
 
     std::vector<std::shared_ptr<V2ScreeningCheckEntry>> m_Checks;
     bool m_ChecksIsSet;
+
+    std::vector<std::shared_ptr<V2ScreeningNote>> m_Screening_notes;
+    bool m_Screening_notesIsSet;
 
     boost::optional<utility::string_t> m_Candidate_wizard_url;
 

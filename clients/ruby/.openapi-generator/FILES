@@ -45,6 +45,8 @@ docs/V2ScreeningCreate.md
 docs/V2ScreeningDetail.md
 docs/V2ScreeningDetailProfile.md
 docs/V2ScreeningListItem.md
+docs/V2ScreeningNote.md
+docs/V2ScreeningNoteInput.md
 docs/VerifyWebhook.md
 docs/Webhook.md
 docs/WebhookResponse.md
@@ -95,9 +97,13 @@ lib/pescheck-client/models/v2_screening_create.rb
 lib/pescheck-client/models/v2_screening_detail.rb
 lib/pescheck-client/models/v2_screening_detail_profile.rb
 lib/pescheck-client/models/v2_screening_list_item.rb
+lib/pescheck-client/models/v2_screening_note.rb
+lib/pescheck-client/models/v2_screening_note_input.rb
 lib/pescheck-client/models/verify_webhook.rb
 lib/pescheck-client/models/webhook.rb
 lib/pescheck-client/models/webhook_response.rb
 lib/pescheck-client/version.rb
 pescheck-client.gemspec
+spec/models/v2_screening_note_input_spec.rb
+spec/models/v2_screening_note_spec.rb
 spec/spec_helper.rb

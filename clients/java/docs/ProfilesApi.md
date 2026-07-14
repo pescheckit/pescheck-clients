@@ -192,7 +192,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **checkType** | **String**| Restrict to profiles containing at least one check of this type. | [optional] [enum: addresscheck, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, id2check, integritycheck, openhealthcarecheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck] |
+| **checkType** | **String**| Restrict to profiles containing at least one check of this type. | [optional] [enum: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, id2check, integritycheck, openhealthcarecheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck] |
 | **isCustom** | **Boolean**| Restrict to custom (true) or system (false) profiles. | [optional] |
 | **name** | **String**| Restrict to profiles whose name contains this value (case-insensitive). | [optional] |
 | **page** | **Integer**| A page number within the paginated result set. | [optional] [default to 1] |

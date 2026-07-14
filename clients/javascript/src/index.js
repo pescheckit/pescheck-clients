@@ -46,6 +46,8 @@ import V2ScreeningCreate from './model/V2ScreeningCreate';
 import V2ScreeningDetail from './model/V2ScreeningDetail';
 import V2ScreeningDetailProfile from './model/V2ScreeningDetailProfile';
 import V2ScreeningListItem from './model/V2ScreeningListItem';
+import V2ScreeningNote from './model/V2ScreeningNote';
+import V2ScreeningNoteInput from './model/V2ScreeningNoteInput';
 import VerifyWebhook from './model/VerifyWebhook';
 import Webhook from './model/Webhook';
 import WebhookResponse from './model/WebhookResponse';
@@ -293,6 +295,18 @@ export {
      * @property {module:model/V2ScreeningListItem}
      */
     V2ScreeningListItem,
+
+    /**
+     * The V2ScreeningNote model constructor.
+     * @property {module:model/V2ScreeningNote}
+     */
+    V2ScreeningNote,
+
+    /**
+     * The V2ScreeningNoteInput model constructor.
+     * @property {module:model/V2ScreeningNoteInput}
+     */
+    V2ScreeningNoteInput,
 
     /**
      * The VerifyWebhook model constructor.

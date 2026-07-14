@@ -1,12 +1,13 @@
 
 # CustomTokenObtainPair
 
-Custom JWT serializer that includes organization information in the token.
+Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user\'s single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
 
 ## Properties
 
 Name | Type
 ------------ | -------------
+`organizationId` | string
 `email` | string
 `password` | string
 
@@ -17,6 +18,7 @@ import type { CustomTokenObtainPair } from '@pescheckit/pescheck-client'
 
 // TODO: Update the object below with actual values
 const example = {
+  "organizationId": null,
   "email": null,
   "password": null,
 } satisfies CustomTokenObtainPair

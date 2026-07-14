@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCheck;
+import io.pescheck.client.model.V2ScreeningNoteInput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,6 +70,11 @@ public class V2ScreeningCreate {
   @SerializedName(SERIALIZED_NAME_CHECKS)
   @javax.annotation.Nullable
   private List<V2ScreeningCheck> checks = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_SCREENING_NOTES = "screening_notes";
+  @SerializedName(SERIALIZED_NAME_SCREENING_NOTES)
+  @javax.annotation.Nullable
+  private List<V2ScreeningNoteInput> screeningNotes = new ArrayList<>();
 
   public V2ScreeningCreate() {
   }
@@ -138,6 +144,33 @@ public class V2ScreeningCreate {
   }
 
 
+  public V2ScreeningCreate screeningNotes(@javax.annotation.Nullable List<V2ScreeningNoteInput> screeningNotes) {
+    this.screeningNotes = screeningNotes;
+    return this;
+  }
+
+  public V2ScreeningCreate addScreeningNotesItem(V2ScreeningNoteInput screeningNotesItem) {
+    if (this.screeningNotes == null) {
+      this.screeningNotes = new ArrayList<>();
+    }
+    this.screeningNotes.add(screeningNotesItem);
+    return this;
+  }
+
+  /**
+   * Get screeningNotes
+   * @return screeningNotes
+   */
+  @javax.annotation.Nullable
+  public List<V2ScreeningNoteInput> getScreeningNotes() {
+    return screeningNotes;
+  }
+
+  public void setScreeningNotes(@javax.annotation.Nullable List<V2ScreeningNoteInput> screeningNotes) {
+    this.screeningNotes = screeningNotes;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -150,12 +183,13 @@ public class V2ScreeningCreate {
     V2ScreeningCreate v2ScreeningCreate = (V2ScreeningCreate) o;
     return Objects.equals(this.profileId, v2ScreeningCreate.profileId) &&
         Objects.equals(this.candidate, v2ScreeningCreate.candidate) &&
-        Objects.equals(this.checks, v2ScreeningCreate.checks);
+        Objects.equals(this.checks, v2ScreeningCreate.checks) &&
+        Objects.equals(this.screeningNotes, v2ScreeningCreate.screeningNotes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(profileId, candidate, checks);
+    return Objects.hash(profileId, candidate, checks, screeningNotes);
   }
 
   @Override
@@ -165,6 +199,7 @@ public class V2ScreeningCreate {
     sb.append("    profileId: ").append(toIndentedString(profileId)).append("\n");
     sb.append("    candidate: ").append(toIndentedString(candidate)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
+    sb.append("    screeningNotes: ").append(toIndentedString(screeningNotes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -183,7 +218,7 @@ public class V2ScreeningCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("profile_id", "candidate", "checks"));
+    openapiFields = new HashSet<String>(Arrays.asList("profile_id", "candidate", "checks", "screening_notes"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("profile_id", "candidate"));
@@ -233,6 +268,20 @@ public class V2ScreeningCreate {
           // validate the optional field `checks` (array)
           for (int i = 0; i < jsonArraychecks.size(); i++) {
             V2ScreeningCheck.validateJsonElement(jsonArraychecks.get(i));
+          };
+        }
+      }
+      if (jsonObj.get("screening_notes") != null && !jsonObj.get("screening_notes").isJsonNull()) {
+        JsonArray jsonArrayscreeningNotes = jsonObj.getAsJsonArray("screening_notes");
+        if (jsonArrayscreeningNotes != null) {
+          // ensure the json data is an array
+          if (!jsonObj.get("screening_notes").isJsonArray()) {
+            throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `screening_notes` to be an array in the JSON string but got `%s`", jsonObj.get("screening_notes").toString()));
+          }
+
+          // validate the optional field `screening_notes` (array)
+          for (int i = 0; i < jsonArrayscreeningNotes.size(); i++) {
+            V2ScreeningNoteInput.validateJsonElement(jsonArrayscreeningNotes.get(i));
           };
         }
       }

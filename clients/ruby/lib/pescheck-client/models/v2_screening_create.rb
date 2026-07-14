@@ -21,12 +21,15 @@ module Pescheck
 
     attr_accessor :checks
 
+    attr_accessor :screening_notes
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'profile_id' => :'profile_id',
         :'candidate' => :'candidate',
-        :'checks' => :'checks'
+        :'checks' => :'checks',
+        :'screening_notes' => :'screening_notes'
       }
     end
 
@@ -45,7 +48,8 @@ module Pescheck
       {
         :'profile_id' => :'String',
         :'candidate' => :'V2Candidate',
-        :'checks' => :'Array<V2ScreeningCheck>'
+        :'checks' => :'Array<V2ScreeningCheck>',
+        :'screening_notes' => :'Array<V2ScreeningNoteInput>'
       }
     end
 
@@ -86,6 +90,12 @@ module Pescheck
       if attributes.key?(:'checks')
         if (value = attributes[:'checks']).is_a?(Array)
           self.checks = value
+        end
+      end
+
+      if attributes.key?(:'screening_notes')
+        if (value = attributes[:'screening_notes']).is_a?(Array)
+          self.screening_notes = value
         end
       end
     end
@@ -142,7 +152,8 @@ module Pescheck
       self.class == o.class &&
           profile_id == o.profile_id &&
           candidate == o.candidate &&
-          checks == o.checks
+          checks == o.checks &&
+          screening_notes == o.screening_notes
     end
 
     # @see the `==` method
@@ -154,7 +165,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [profile_id, candidate, checks].hash
+      [profile_id, candidate, checks, screening_notes].hash
     end
 
     # Builds the object from hash

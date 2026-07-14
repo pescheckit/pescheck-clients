@@ -40,6 +40,8 @@ docs/V2ScreeningCreate.md
 docs/V2ScreeningDetail.md
 docs/V2ScreeningDetailProfile.md
 docs/V2ScreeningListItem.md
+docs/V2ScreeningNote.md
+docs/V2ScreeningNoteInput.md
 docs/VerifyWebhook.md
 docs/Webhook.md
 docs/WebhookResponse.md
@@ -87,6 +89,8 @@ src/models/V2ScreeningCreate.ts
 src/models/V2ScreeningDetail.ts
 src/models/V2ScreeningDetailProfile.ts
 src/models/V2ScreeningListItem.ts
+src/models/V2ScreeningNote.ts
+src/models/V2ScreeningNoteInput.ts
 src/models/VerifyWebhook.ts
 src/models/Webhook.ts
 src/models/WebhookResponse.ts

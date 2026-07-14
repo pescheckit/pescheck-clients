@@ -12,7 +12,7 @@
 /*
  * CustomTokenObtainPair.h
  *
- * Custom JWT serializer that includes organization information in the token.
+ * Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
  */
 
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_CustomTokenObtainPair_H_
@@ -32,7 +32,7 @@ namespace model {
 
 
 /// <summary>
-/// Custom JWT serializer that includes organization information in the token.
+/// Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
 /// </summary>
 class  CustomTokenObtainPair
     : public ModelBase
@@ -57,6 +57,14 @@ public:
     /// CustomTokenObtainPair members
 
 
+    /// <summary>
+    /// Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+    /// </summary>
+    utility::string_t getOrganizationId() const;
+    bool organizationIdIsSet() const;
+    void unsetOrganization_id();
+    void setOrganizationId(const utility::string_t& value);
+
     utility::string_t getEmail() const;
     bool emailIsSet() const;
     void unsetEmail();
@@ -69,6 +77,9 @@ public:
 
 
 protected:
+    utility::string_t m_Organization_id;
+    bool m_Organization_idIsSet;
+
     utility::string_t m_Email;
     bool m_EmailIsSet;
 

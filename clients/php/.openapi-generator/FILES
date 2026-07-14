@@ -43,6 +43,8 @@ docs/Model/V2ScreeningCreate.md
 docs/Model/V2ScreeningDetail.md
 docs/Model/V2ScreeningDetailProfile.md
 docs/Model/V2ScreeningListItem.md
+docs/Model/V2ScreeningNote.md
+docs/Model/V2ScreeningNoteInput.md
 docs/Model/VerifyWebhook.md
 docs/Model/Webhook.md
 docs/Model/WebhookResponse.md
@@ -92,8 +94,12 @@ lib/Model/V2ScreeningCreate.php
 lib/Model/V2ScreeningDetail.php
 lib/Model/V2ScreeningDetailProfile.php
 lib/Model/V2ScreeningListItem.php
+lib/Model/V2ScreeningNote.php
+lib/Model/V2ScreeningNoteInput.php
 lib/Model/VerifyWebhook.php
 lib/Model/Webhook.php
 lib/Model/WebhookResponse.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
+test/Model/V2ScreeningNoteInputTest.php
+test/Model/V2ScreeningNoteTest.php

@@ -189,6 +189,8 @@ Class | Method | HTTP request | Description
  - [PescheckApi.V2ScreeningDetail](docs/V2ScreeningDetail.md)
  - [PescheckApi.V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
  - [PescheckApi.V2ScreeningListItem](docs/V2ScreeningListItem.md)
+ - [PescheckApi.V2ScreeningNote](docs/V2ScreeningNote.md)
+ - [PescheckApi.V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
  - [PescheckApi.VerifyWebhook](docs/VerifyWebhook.md)
  - [PescheckApi.Webhook](docs/Webhook.md)
  - [PescheckApi.WebhookResponse](docs/WebhookResponse.md)

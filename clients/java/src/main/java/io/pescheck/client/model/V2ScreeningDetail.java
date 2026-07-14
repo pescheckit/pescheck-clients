@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCheckEntry;
 import io.pescheck.client.model.V2ScreeningDetailProfile;
+import io.pescheck.client.model.V2ScreeningNote;
 import java.io.IOException;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -83,6 +84,11 @@ public class V2ScreeningDetail {
   @javax.annotation.Nonnull
   private List<V2ScreeningCheckEntry> checks = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_SCREENING_NOTES = "screening_notes";
+  @SerializedName(SERIALIZED_NAME_SCREENING_NOTES)
+  @javax.annotation.Nonnull
+  private List<V2ScreeningNote> screeningNotes = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_CANDIDATE_WIZARD_URL = "candidate_wizard_url";
   @SerializedName(SERIALIZED_NAME_CANDIDATE_WIZARD_URL)
   @javax.annotation.Nullable
@@ -111,6 +117,7 @@ public class V2ScreeningDetail {
      String status, 
      V2Candidate candidate, 
      List<V2ScreeningCheckEntry> checks, 
+     List<V2ScreeningNote> screeningNotes, 
      URI candidateWizardUrl, 
      URI dashboardUrl, 
      OffsetDateTime createdAt, 
@@ -121,6 +128,7 @@ public class V2ScreeningDetail {
     this.status = status;
     this.candidate = candidate;
     this.checks = checks;
+    this.screeningNotes = screeningNotes;
     this.candidateWizardUrl = candidateWizardUrl;
     this.dashboardUrl = dashboardUrl;
     this.createdAt = createdAt;
@@ -191,6 +199,17 @@ public class V2ScreeningDetail {
 
 
   /**
+   * Get screeningNotes
+   * @return screeningNotes
+   */
+  @javax.annotation.Nonnull
+  public List<V2ScreeningNote> getScreeningNotes() {
+    return screeningNotes;
+  }
+
+
+
+  /**
    * Public wizard URL for the candidate. Null when no check needs candidate input.
    * @return candidateWizardUrl
    */
@@ -249,6 +268,7 @@ public class V2ScreeningDetail {
         Objects.equals(this.profile, v2ScreeningDetail.profile) &&
         Objects.equals(this.candidate, v2ScreeningDetail.candidate) &&
         Objects.equals(this.checks, v2ScreeningDetail.checks) &&
+        Objects.equals(this.screeningNotes, v2ScreeningDetail.screeningNotes) &&
         Objects.equals(this.candidateWizardUrl, v2ScreeningDetail.candidateWizardUrl) &&
         Objects.equals(this.dashboardUrl, v2ScreeningDetail.dashboardUrl) &&
         Objects.equals(this.createdAt, v2ScreeningDetail.createdAt) &&
@@ -257,7 +277,7 @@ public class V2ScreeningDetail {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
+    return Objects.hash(id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
   }
 
   @Override
@@ -269,6 +289,7 @@ public class V2ScreeningDetail {
     sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
     sb.append("    candidate: ").append(toIndentedString(candidate)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
+    sb.append("    screeningNotes: ").append(toIndentedString(screeningNotes)).append("\n");
     sb.append("    candidateWizardUrl: ").append(toIndentedString(candidateWizardUrl)).append("\n");
     sb.append("    dashboardUrl: ").append(toIndentedString(dashboardUrl)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
@@ -291,10 +312,10 @@ public class V2ScreeningDetail {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
+    openapiFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
   }
 
   /**
@@ -345,6 +366,16 @@ public class V2ScreeningDetail {
         // validate the required field `checks` (array)
         for (int i = 0; i < jsonArraychecks.size(); i++) {
           V2ScreeningCheckEntry.validateJsonElement(jsonArraychecks.get(i));
+        }
+      }
+      if (jsonObj.get("screening_notes") != null) {
+        if (!jsonObj.get("screening_notes").isJsonArray()) {
+          throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `screening_notes` to be an array in the JSON string but got `%s`", jsonObj.get("screening_notes").toString()));
+        }
+        JsonArray jsonArrayscreeningNotes = jsonObj.getAsJsonArray("screening_notes");
+        // validate the required field `screening_notes` (array)
+        for (int i = 0; i < jsonArrayscreeningNotes.size(); i++) {
+          V2ScreeningNote.validateJsonElement(jsonArrayscreeningNotes.get(i));
         }
       }
       if ((jsonObj.get("candidate_wizard_url") != null && !jsonObj.get("candidate_wizard_url").isJsonNull()) && !jsonObj.get("candidate_wizard_url").isJsonPrimitive()) {

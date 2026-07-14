@@ -265,6 +265,10 @@ V2ProfileCheckEntry::Check_typeEnum V2ProfileCheckEntry::toCheck_typeEnum(const 
         return Check_typeEnum::ADDRESSCHECK;
     }
     
+    if (value == utility::conversions::to_string_t("adversemedia2check")) {
+        return Check_typeEnum::ADVERSEMEDIA2CHECK;
+    }
+    
     if (value == utility::conversions::to_string_t("adversemediacheck")) {
         return Check_typeEnum::ADVERSEMEDIACHECK;
     }
@@ -359,6 +363,8 @@ const utility::string_t V2ProfileCheckEntry::fromCheck_typeEnum(const Check_type
     {
         
         case Check_typeEnum::ADDRESSCHECK: return utility::conversions::to_string_t("addresscheck");
+        
+        case Check_typeEnum::ADVERSEMEDIA2CHECK: return utility::conversions::to_string_t("adversemedia2check");
         
         case Check_typeEnum::ADVERSEMEDIACHECK: return utility::conversions::to_string_t("adversemediacheck");
         

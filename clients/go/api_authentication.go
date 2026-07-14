@@ -40,7 +40,7 @@ func (r ApiGenerateJWTToken2Request) Execute() (*JWTResponse, *http.Response, er
 /*
 GenerateJWTToken2 Method for GenerateJWTToken2
 
-Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).
+Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.
 
 For a plain login, use POST /api/jwt/.
 
@@ -152,10 +152,11 @@ func (r ApiJwtCreateRequest) Execute() (*CustomTokenObtainPair, *http.Response, 
 /*
 JwtCreate Method for JwtCreate
 
-Log in with email + password. Returns a JWT pair scoped to your current
-organization (last viewed, or first available).
+Log in with email + password. Returns a JWT pair scoped to one organization.
 
-For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+Pass organization_id to select the organization or division to act for;
+it is required when your account has access to more than one. Without
+it, your single organization is used.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiJwtCreateRequest

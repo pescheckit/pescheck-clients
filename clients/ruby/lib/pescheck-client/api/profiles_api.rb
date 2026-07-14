@@ -167,7 +167,7 @@ module Pescheck
       if @api_client.config.debugging
         @api_client.config.logger.debug 'Calling API: ProfilesApi.v2_profiles_list ...'
       end
-      allowable_values = ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "id2check", "integritycheck", "openhealthcarecheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"]
+      allowable_values = ["addresscheck", "adversemedia2check", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "id2check", "integritycheck", "openhealthcarecheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"]
       if @api_client.config.client_side_validation && opts[:'check_type'] && !allowable_values.include?(opts[:'check_type'])
         fail ArgumentError, "invalid value for \"check_type\", must be one of #{allowable_values}"
       end

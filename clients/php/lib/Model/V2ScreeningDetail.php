@@ -62,6 +62,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => '\Pescheck\Client\Model\V2ScreeningDetailProfile',
         'candidate' => '\Pescheck\Client\Model\V2Candidate',
         'checks' => '\Pescheck\Client\Model\V2ScreeningCheckEntry[]',
+        'screening_notes' => '\Pescheck\Client\Model\V2ScreeningNote[]',
         'candidate_wizard_url' => 'string',
         'dashboard_url' => 'string',
         'created_at' => '\DateTime',
@@ -81,6 +82,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => null,
         'candidate' => null,
         'checks' => null,
+        'screening_notes' => null,
         'candidate_wizard_url' => 'uri',
         'dashboard_url' => 'uri',
         'created_at' => 'date-time',
@@ -98,6 +100,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => true,
         'candidate' => false,
         'checks' => false,
+        'screening_notes' => false,
         'candidate_wizard_url' => true,
         'dashboard_url' => false,
         'created_at' => false,
@@ -195,6 +198,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => 'profile',
         'candidate' => 'candidate',
         'checks' => 'checks',
+        'screening_notes' => 'screening_notes',
         'candidate_wizard_url' => 'candidate_wizard_url',
         'dashboard_url' => 'dashboard_url',
         'created_at' => 'created_at',
@@ -212,6 +216,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => 'setProfile',
         'candidate' => 'setCandidate',
         'checks' => 'setChecks',
+        'screening_notes' => 'setScreeningNotes',
         'candidate_wizard_url' => 'setCandidateWizardUrl',
         'dashboard_url' => 'setDashboardUrl',
         'created_at' => 'setCreatedAt',
@@ -229,6 +234,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile' => 'getProfile',
         'candidate' => 'getCandidate',
         'checks' => 'getChecks',
+        'screening_notes' => 'getScreeningNotes',
         'candidate_wizard_url' => 'getCandidateWizardUrl',
         'dashboard_url' => 'getDashboardUrl',
         'created_at' => 'getCreatedAt',
@@ -297,6 +303,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('profile', $data ?? [], null);
         $this->setIfExists('candidate', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('screening_notes', $data ?? [], null);
         $this->setIfExists('candidate_wizard_url', $data ?? [], null);
         $this->setIfExists('dashboard_url', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
@@ -344,6 +351,9 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['checks'] === null) {
             $invalidProperties[] = "'checks' can't be null";
+        }
+        if ($this->container['screening_notes'] === null) {
+            $invalidProperties[] = "'screening_notes' can't be null";
         }
         if ($this->container['candidate_wizard_url'] === null && !$this->isNullableSetToNull('candidate_wizard_url')) {
             $invalidProperties[] = "'candidate_wizard_url' is required";
@@ -510,6 +520,33 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable checks cannot be null');
         }
         $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets screening_notes
+     *
+     * @return \Pescheck\Client\Model\V2ScreeningNote[]
+     */
+    public function getScreeningNotes()
+    {
+        return $this->container['screening_notes'];
+    }
+
+    /**
+     * Sets screening_notes
+     *
+     * @param \Pescheck\Client\Model\V2ScreeningNote[] $screening_notes screening_notes
+     *
+     * @return self
+     */
+    public function setScreeningNotes($screening_notes)
+    {
+        if (is_null($screening_notes)) {
+            throw new \InvalidArgumentException('non-nullable screening_notes cannot be null');
+        }
+        $this->container['screening_notes'] = $screening_notes;
 
         return $this;
     }

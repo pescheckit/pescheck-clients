@@ -43,7 +43,8 @@ namespace Pescheck.Client.Model
         /// <param name="profileId">profileId (required).</param>
         /// <param name="candidate">candidate (required).</param>
         /// <param name="checks">checks.</param>
-        public V2ScreeningCreate(Guid profileId = default, V2Candidate candidate = default, List<V2ScreeningCheck> checks = default)
+        /// <param name="screeningNotes">screeningNotes.</param>
+        public V2ScreeningCreate(Guid profileId = default, V2Candidate candidate = default, List<V2ScreeningCheck> checks = default, List<V2ScreeningNoteInput> screeningNotes = default)
         {
             this.ProfileId = profileId;
             // to ensure "candidate" is required (not null)
@@ -53,6 +54,7 @@ namespace Pescheck.Client.Model
             }
             this.Candidate = candidate;
             this.Checks = checks;
+            this.ScreeningNotes = screeningNotes;
         }
 
         /// <summary>
@@ -74,6 +76,12 @@ namespace Pescheck.Client.Model
         public List<V2ScreeningCheck> Checks { get; set; }
 
         /// <summary>
+        /// Gets or Sets ScreeningNotes
+        /// </summary>
+        [DataMember(Name = "screening_notes", EmitDefaultValue = false)]
+        public List<V2ScreeningNoteInput> ScreeningNotes { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -84,6 +92,7 @@ namespace Pescheck.Client.Model
             sb.Append("  ProfileId: ").Append(ProfileId).Append("\n");
             sb.Append("  Candidate: ").Append(Candidate).Append("\n");
             sb.Append("  Checks: ").Append(Checks).Append("\n");
+            sb.Append("  ScreeningNotes: ").Append(ScreeningNotes).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

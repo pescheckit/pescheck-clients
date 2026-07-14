@@ -14,8 +14,11 @@ require 'date'
 require 'time'
 
 module Pescheck
-  # Custom JWT serializer that includes organization information in the token.
+  # Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user's single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
   class CustomTokenObtainPair < ApiModelBase
+    # Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+    attr_accessor :organization_id
+
     attr_accessor :email
 
     attr_accessor :password
@@ -23,6 +26,7 @@ module Pescheck
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
+        :'organization_id' => :'organization_id',
         :'email' => :'email',
         :'password' => :'password'
       }
@@ -41,6 +45,7 @@ module Pescheck
     # Attribute type mapping.
     def self.openapi_types
       {
+        :'organization_id' => :'String',
         :'email' => :'String',
         :'password' => :'String'
       }
@@ -67,6 +72,10 @@ module Pescheck
         end
         h[k.to_sym] = v
       }
+
+      if attributes.key?(:'organization_id')
+        self.organization_id = attributes[:'organization_id']
+      end
 
       if attributes.key?(:'email')
         self.email = attributes[:'email']
@@ -131,6 +140,7 @@ module Pescheck
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
+          organization_id == o.organization_id &&
           email == o.email &&
           password == o.password
     end
@@ -144,7 +154,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [email, password].hash
+      [organization_id, email, password].hash
     end
 
     # Builds the object from hash

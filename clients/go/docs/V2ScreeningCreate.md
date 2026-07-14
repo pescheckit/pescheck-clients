@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ProfileId** | **string** |  | 
 **Candidate** | [**V2Candidate**](V2Candidate.md) |  | 
 **Checks** | Pointer to [**[]V2ScreeningCheck**](V2ScreeningCheck.md) |  | [optional] 
+**ScreeningNotes** | Pointer to [**[]V2ScreeningNoteInput**](V2ScreeningNoteInput.md) |  | [optional] 
 
 ## Methods
 
@@ -91,6 +92,31 @@ SetChecks sets Checks field to given value.
 `func (o *V2ScreeningCreate) HasChecks() bool`
 
 HasChecks returns a boolean if a field has been set.
+
+### GetScreeningNotes
+
+`func (o *V2ScreeningCreate) GetScreeningNotes() []V2ScreeningNoteInput`
+
+GetScreeningNotes returns the ScreeningNotes field if non-nil, zero value otherwise.
+
+### GetScreeningNotesOk
+
+`func (o *V2ScreeningCreate) GetScreeningNotesOk() (*[]V2ScreeningNoteInput, bool)`
+
+GetScreeningNotesOk returns a tuple with the ScreeningNotes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScreeningNotes
+
+`func (o *V2ScreeningCreate) SetScreeningNotes(v []V2ScreeningNoteInput)`
+
+SetScreeningNotes sets ScreeningNotes field to given value.
+
+### HasScreeningNotes
+
+`func (o *V2ScreeningCreate) HasScreeningNotes() bool`
+
+HasScreeningNotes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

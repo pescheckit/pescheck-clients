@@ -140,6 +140,8 @@ Class | Method | HTTP request | Description
 - [V2ScreeningDetail](docs/Model/V2ScreeningDetail.md)
 - [V2ScreeningDetailProfile](docs/Model/V2ScreeningDetailProfile.md)
 - [V2ScreeningListItem](docs/Model/V2ScreeningListItem.md)
+- [V2ScreeningNote](docs/Model/V2ScreeningNote.md)
+- [V2ScreeningNoteInput](docs/Model/V2ScreeningNoteInput.md)
 - [VerifyWebhook](docs/Model/VerifyWebhook.md)
 - [Webhook](docs/Model/Webhook.md)
 - [WebhookResponse](docs/Model/WebhookResponse.md)

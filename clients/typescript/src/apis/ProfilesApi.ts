@@ -122,7 +122,7 @@ export interface ProfilesApiInterface {
 
     /**
      * Creates request options for v2ProfilesList without sending the request
-     * @param {'addresscheck' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck'} [checkType] Restrict to profiles containing at least one check of this type.
+     * @param {'addresscheck' | 'adversemedia2check' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck'} [checkType] Restrict to profiles containing at least one check of this type.
      * @param {boolean} [isCustom] Restrict to custom (true) or system (false) profiles.
      * @param {string} [name] Restrict to profiles whose name contains this value (case-insensitive).
      * @param {number} [page] A page number within the paginated result set.
@@ -136,7 +136,7 @@ export interface ProfilesApiInterface {
 
     /**
      * 
-     * @param {'addresscheck' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck'} [checkType] Restrict to profiles containing at least one check of this type.
+     * @param {'addresscheck' | 'adversemedia2check' | 'adversemediacheck' | 'bigcheck' | 'criminalrecordscheck' | 'criminalrecordsuploadcheck' | 'customintegritycheck' | 'cvcheck' | 'edrcheck' | 'id2check' | 'integritycheck' | 'openhealthcarecheck' | 'qualificationcheck' | 'righttoworkcheck' | 'vogcheck' | 'watchlist2check' | 'watchlistcheck' | 'workreferencecheck' | 'worldwidecreditcheck'} [checkType] Restrict to profiles containing at least one check of this type.
      * @param {boolean} [isCustom] Restrict to custom (true) or system (false) profiles.
      * @param {string} [name] Restrict to profiles whose name contains this value (case-insensitive).
      * @param {number} [page] A page number within the paginated result set.
@@ -562,6 +562,7 @@ export class ProfilesApi extends runtime.BaseAPI implements ProfilesApiInterface
  */
 export const V2ProfilesListCheckTypeEnum = {
     Addresscheck: 'addresscheck',
+    Adversemedia2check: 'adversemedia2check',
     Adversemediacheck: 'adversemediacheck',
     Bigcheck: 'bigcheck',
     Criminalrecordscheck: 'criminalrecordscheck',

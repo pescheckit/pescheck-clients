@@ -129,6 +129,8 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.V2ScreeningDetail.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.V2ScreeningDetailProfile.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.V2ScreeningListItem.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.V2ScreeningNote.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.V2ScreeningNoteInput.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.VerifyWebhook.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.Webhook.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(new io.pescheck.client.model.WebhookResponse.CustomTypeAdapterFactory());

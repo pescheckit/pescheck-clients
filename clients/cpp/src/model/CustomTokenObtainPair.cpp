@@ -20,6 +20,8 @@ namespace model {
 
 CustomTokenObtainPair::CustomTokenObtainPair()
 {
+    m_Organization_id = utility::conversions::to_string_t("");
+    m_Organization_idIsSet = false;
     m_Email = utility::conversions::to_string_t("");
     m_EmailIsSet = false;
     m_Password = utility::conversions::to_string_t("");
@@ -38,6 +40,11 @@ void CustomTokenObtainPair::validate()
 web::json::value CustomTokenObtainPair::toJson() const
 {
     web::json::value val = web::json::value::object();
+    if(m_Organization_idIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("organization_id"))] = ModelBase::toJson(m_Organization_id);
+    }
     if(m_EmailIsSet)
     {
         
@@ -55,6 +62,17 @@ web::json::value CustomTokenObtainPair::toJson() const
 bool CustomTokenObtainPair::fromJson(const web::json::value& val)
 {
     bool ok = true;
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("organization_id"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("organization_id")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setOrganizationId;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOrganizationId);
+            setOrganizationId(refVal_setOrganizationId);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("email"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("email")));
@@ -87,6 +105,10 @@ void CustomTokenObtainPair::toMultipart(std::shared_ptr<MultipartFormData> multi
     {
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
+    if(m_Organization_idIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("organization_id")), m_Organization_id));
+    }
     if(m_EmailIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("email")), m_Email));
@@ -106,6 +128,12 @@ bool CustomTokenObtainPair::fromMultiPart(std::shared_ptr<MultipartFormData> mul
         namePrefix += utility::conversions::to_string_t(_XPLATSTR("."));
     }
 
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("organization_id"))))
+    {
+        utility::string_t refVal_setOrganizationId;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("organization_id"))), refVal_setOrganizationId );
+        setOrganizationId(refVal_setOrganizationId);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("email"))))
     {
         utility::string_t refVal_setEmail;
@@ -122,6 +150,27 @@ bool CustomTokenObtainPair::fromMultiPart(std::shared_ptr<MultipartFormData> mul
 }
 
 
+utility::string_t CustomTokenObtainPair::getOrganizationId() const
+{
+    return m_Organization_id;
+}
+
+
+void CustomTokenObtainPair::setOrganizationId(const utility::string_t& value)
+{
+    m_Organization_id = value;
+    m_Organization_idIsSet = true;
+}
+
+bool CustomTokenObtainPair::organizationIdIsSet() const
+{
+    return m_Organization_idIsSet;
+}
+
+void CustomTokenObtainPair::unsetOrganization_id()
+{
+    m_Organization_idIsSet = false;
+}
 utility::string_t CustomTokenObtainPair::getEmail() const
 {
     return m_Email;

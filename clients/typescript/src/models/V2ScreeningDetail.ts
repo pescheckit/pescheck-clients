@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { V2ScreeningNote } from './V2ScreeningNote';
+import {
+    V2ScreeningNoteFromJSON,
+    V2ScreeningNoteFromJSONTyped,
+    V2ScreeningNoteToJSON,
+    V2ScreeningNoteToJSONTyped,
+} from './V2ScreeningNote';
 import type { V2Candidate } from './V2Candidate';
 import {
     V2CandidateFromJSON,
@@ -72,6 +79,12 @@ export interface V2ScreeningDetail {
      */
     readonly checks: Array<V2ScreeningCheckEntry>;
     /**
+     * 
+     * @type {Array<V2ScreeningNote>}
+     * @memberof V2ScreeningDetail
+     */
+    readonly screeningNotes: Array<V2ScreeningNote>;
+    /**
      * Public wizard URL for the candidate. Null when no check needs candidate input.
      * @type {string}
      * @memberof V2ScreeningDetail
@@ -106,6 +119,7 @@ export function instanceOfV2ScreeningDetail(value: any): value is V2ScreeningDet
     if (!('profile' in value) || value['profile'] === undefined) return false;
     if (!('candidate' in value) || value['candidate'] === undefined) return false;
     if (!('checks' in value) || value['checks'] === undefined) return false;
+    if ((!('screeningNotes' in value) && !('screening_notes' in value)) || (value['screeningNotes'] === undefined && value['screening_notes'] === undefined)) return false;
     if ((!('candidateWizardUrl' in value) && !('candidate_wizard_url' in value)) || (value['candidateWizardUrl'] === undefined && value['candidate_wizard_url'] === undefined)) return false;
     if ((!('dashboardUrl' in value) && !('dashboard_url' in value)) || (value['dashboardUrl'] === undefined && value['dashboard_url'] === undefined)) return false;
     if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
@@ -128,6 +142,7 @@ export function V2ScreeningDetailFromJSONTyped(json: any, ignoreDiscriminator: b
         'profile': V2ScreeningDetailProfileFromJSON(json['profile']),
         'candidate': V2CandidateFromJSON(json['candidate']),
         'checks': ((json['checks'] as Array<any>).map(V2ScreeningCheckEntryFromJSON)),
+        'screeningNotes': ((json['screening_notes'] as Array<any>).map(V2ScreeningNoteFromJSON)),
         'candidateWizardUrl': json['candidate_wizard_url'],
         'dashboardUrl': json['dashboard_url'],
         'createdAt': (new Date(json['created_at'])),
@@ -139,7 +154,7 @@ export function V2ScreeningDetailToJSON(json: any): V2ScreeningDetail {
     return V2ScreeningDetailToJSONTyped(json, false);
 }
 
-export function V2ScreeningDetailToJSONTyped(value?: Omit<V2ScreeningDetail, 'id'|'status'|'candidate'|'checks'|'candidate_wizard_url'|'dashboard_url'|'created_at'|'updated_at'> | null, ignoreDiscriminator: boolean = false): any {
+export function V2ScreeningDetailToJSONTyped(value?: Omit<V2ScreeningDetail, 'id'|'status'|'candidate'|'checks'|'screening_notes'|'candidate_wizard_url'|'dashboard_url'|'created_at'|'updated_at'> | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

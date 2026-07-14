@@ -120,6 +120,8 @@ All URIs are relative to *https://api.pescheck.io*
 - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
 - [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
 - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
+- [V2ScreeningNote](docs/V2ScreeningNote.md)
+- [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
 - [VerifyWebhook](docs/VerifyWebhook.md)
 - [Webhook](docs/Webhook.md)
 - [WebhookResponse](docs/WebhookResponse.md)

@@ -35,7 +35,7 @@ use \Pescheck\Client\ObjectSerializer;
  * CustomTokenObtainPair Class Doc Comment
  *
  * @category Class
- * @description Custom JWT serializer that includes organization information in the token.
+ * @description Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
  * @package  Pescheck\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -58,6 +58,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @var string[]
      */
     protected static $openAPITypes = [
+        'organization_id' => 'string',
         'email' => 'string',
         'password' => 'string'
     ];
@@ -70,6 +71,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @psalm-var array<string, string|null>
      */
     protected static $openAPIFormats = [
+        'organization_id' => 'uuid',
         'email' => null,
         'password' => null
     ];
@@ -80,6 +82,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @var boolean[]
      */
     protected static array $openAPINullables = [
+        'organization_id' => false,
         'email' => false,
         'password' => false
     ];
@@ -170,6 +173,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @var string[]
      */
     protected static $attributeMap = [
+        'organization_id' => 'organization_id',
         'email' => 'email',
         'password' => 'password'
     ];
@@ -180,6 +184,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @var string[]
      */
     protected static $setters = [
+        'organization_id' => 'setOrganizationId',
         'email' => 'setEmail',
         'password' => 'setPassword'
     ];
@@ -190,6 +195,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      * @var string[]
      */
     protected static $getters = [
+        'organization_id' => 'getOrganizationId',
         'email' => 'getEmail',
         'password' => 'getPassword'
     ];
@@ -251,6 +257,7 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('organization_id', $data ?? [], null);
         $this->setIfExists('email', $data ?? [], null);
         $this->setIfExists('password', $data ?? [], null);
     }
@@ -302,6 +309,33 @@ class CustomTokenObtainPair implements ModelInterface, ArrayAccess, \JsonSeriali
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets organization_id
+     *
+     * @return string|null
+     */
+    public function getOrganizationId()
+    {
+        return $this->container['organization_id'];
+    }
+
+    /**
+     * Sets organization_id
+     *
+     * @param string|null $organization_id Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+     *
+     * @return self
+     */
+    public function setOrganizationId($organization_id)
+    {
+        if (is_null($organization_id)) {
+            throw new \InvalidArgumentException('non-nullable organization_id cannot be null');
+        }
+        $this->container['organization_id'] = $organization_id;
+
+        return $this;
+    }
 
     /**
      * Gets email

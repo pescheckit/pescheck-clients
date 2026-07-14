@@ -24,6 +24,7 @@ from uuid import UUID
 from pescheck.models.v2_candidate import V2Candidate
 from pescheck.models.v2_screening_check_entry import V2ScreeningCheckEntry
 from pescheck.models.v2_screening_detail_profile import V2ScreeningDetailProfile
+from pescheck.models.v2_screening_note import V2ScreeningNote
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -37,11 +38,12 @@ class V2ScreeningDetail(BaseModel):
     profile: Optional[V2ScreeningDetailProfile]
     candidate: V2Candidate
     checks: List[V2ScreeningCheckEntry]
+    screening_notes: List[V2ScreeningNote]
     candidate_wizard_url: Optional[StrictStr] = Field(description="Public wizard URL for the candidate. Null when no check needs candidate input.")
     dashboard_url: StrictStr = Field(description="Dashboard URL for this screening.")
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -81,12 +83,14 @@ class V2ScreeningDetail(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
             "status",
             "candidate",
             "checks",
+            "screening_notes",
             "candidate_wizard_url",
             "dashboard_url",
             "created_at",
@@ -111,6 +115,13 @@ class V2ScreeningDetail(BaseModel):
                 if _item_checks:
                     _items.append(_item_checks.to_dict())
             _dict['checks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in screening_notes (list)
+        _items = []
+        if self.screening_notes:
+            for _item_screening_notes in self.screening_notes:
+                if _item_screening_notes:
+                    _items.append(_item_screening_notes.to_dict())
+            _dict['screening_notes'] = _items
         # set to None if profile (nullable) is None
         # and model_fields_set contains the field
         if self.profile is None and "profile" in self.model_fields_set:
@@ -138,6 +149,7 @@ class V2ScreeningDetail(BaseModel):
             "profile": V2ScreeningDetailProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
             "candidate": V2Candidate.from_dict(obj["candidate"]) if obj.get("candidate") is not None else None,
             "checks": [V2ScreeningCheckEntry.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
+            "screening_notes": [V2ScreeningNote.from_dict(_item) for _item in obj["screening_notes"]] if obj.get("screening_notes") is not None else None,
             "candidate_wizard_url": obj.get("candidate_wizard_url"),
             "dashboard_url": obj.get("dashboard_url"),
             "created_at": obj.get("created_at"),

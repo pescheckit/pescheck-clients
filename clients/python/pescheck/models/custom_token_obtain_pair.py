@@ -17,19 +17,21 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
+from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
 class CustomTokenObtainPair(BaseModel):
     """
-    Custom JWT serializer that includes organization information in the token.
+    Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user's single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
     """ # noqa: E501
+    organization_id: Optional[UUID] = Field(default=None, description="Organization or division ID to scope the token to. Required when your account has access to more than one organization.")
     email: StrictStr
     password: StrictStr
-    __properties: ClassVar[List[str]] = ["email", "password"]
+    __properties: ClassVar[List[str]] = ["organization_id", "email", "password"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,6 +84,7 @@ class CustomTokenObtainPair(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "organization_id": obj.get("organization_id"),
             "email": obj.get("email"),
             "password": obj.get("password")
         })

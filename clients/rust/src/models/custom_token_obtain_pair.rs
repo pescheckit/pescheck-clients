@@ -11,9 +11,12 @@
 use crate::models;
 use serde::{Deserialize, Serialize};
 
-/// CustomTokenObtainPair : Custom JWT serializer that includes organization information in the token.
+/// CustomTokenObtainPair : Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user's single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CustomTokenObtainPair {
+    /// Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+    #[serde(rename = "organization_id", skip_serializing_if = "Option::is_none")]
+    pub organization_id: Option<uuid::Uuid>,
     #[serde(rename = "email")]
     pub email: String,
     #[serde(rename = "password")]
@@ -21,9 +24,10 @@ pub struct CustomTokenObtainPair {
 }
 
 impl CustomTokenObtainPair {
-    /// Custom JWT serializer that includes organization information in the token.
+    /// Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional ``organization_id`` field, or from the user's single organization when the field is absent. Users with access to multiple organizations must pass ``organization_id`` explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
     pub fn new(email: String, password: String) -> CustomTokenObtainPair {
         CustomTokenObtainPair {
+            organization_id: None,
             email,
             password,
         }

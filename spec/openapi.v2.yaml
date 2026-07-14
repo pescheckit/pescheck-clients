@@ -8,10 +8,11 @@ paths:
     post:
       operationId: jwt_create
       description: |-
-        Log in with email + password. Returns a JWT pair scoped to your current
-        organization (last viewed, or first available).
+        Log in with email + password. Returns a JWT pair scoped to one organization.
 
-        For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+        Pass organization_id to select the organization or division to act for;
+        it is required when your account has access to more than one. Without
+        it, your single organization is used.
       tags:
         - Authentication
       requestBody:
@@ -98,7 +99,7 @@ paths:
     post:
       operationId: generateJWTToken_2
       description: |-
-        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).
+        Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.
 
         For a plain login, use POST /api/jwt/.
       tags:
@@ -363,6 +364,7 @@ paths:
             type: string
             enum:
               - addresscheck
+              - adversemedia2check
               - adversemediacheck
               - bigcheck
               - criminalrecordscheck
@@ -1116,6 +1118,20 @@ paths:
                       input:
                         registration_number: '19000001'
                 summary: Screen a candidate with per-check input
+              ScreenACandidateWithNotes(scopedToACheckOrFree-standing):
+                value:
+                  profile_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f0
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                  screening_notes:
+                    - note: Candidate confirmed their details by phone.
+                      check_type: vogcheck
+                    - note: Second reference still pending a reply.
+                      profile_check_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f1
+                    - note: General intake note, not tied to a check.
+                summary: Screen a candidate with notes (scoped to a check or free-standing)
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/V2ScreeningCreate'
@@ -1176,6 +1192,15 @@ paths:
                               entity:
                                 results: []
                         candidate_wizard_url: null
+                    screening_notes:
+                      - note: Candidate confirmed their details by phone.
+                        check_type: vogcheck
+                        check_id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                        created_at: '2026-05-13T11:05:00Z'
+                      - note: General intake note.
+                        check_type: other
+                        check_id: null
+                        created_at: '2026-05-13T11:06:00Z'
                     candidate_wizard_url: null
                     dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7/home/edit
                     created_at: '2026-05-13T11:00:00Z'
@@ -1227,6 +1252,15 @@ paths:
                         input: {}
                         output: {}
                         candidate_wizard_url: null
+                    screening_notes:
+                      - note: Candidate confirmed their details by phone.
+                        check_type: vogcheck
+                        check_id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                        created_at: '2026-05-13T11:05:00Z'
+                      - note: General intake note.
+                        check_type: other
+                        check_id: null
+                        created_at: '2026-05-13T11:06:00Z'
                     candidate_wizard_url: null
                     dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4c10-7d20-b3e2-d5e6f7a8b9c0/home/edit
                     created_at: '2026-05-13T11:00:00Z'
@@ -1302,6 +1336,15 @@ paths:
                               entity:
                                 results: []
                         candidate_wizard_url: null
+                    screening_notes:
+                      - note: Candidate confirmed their details by phone.
+                        check_type: vogcheck
+                        check_id: 018e9f1e-4b30-7c10-a4f2-c3d4e5f6a7b8
+                        created_at: '2026-05-13T11:05:00Z'
+                      - note: General intake note.
+                        check_type: other
+                        check_id: null
+                        created_at: '2026-05-13T11:06:00Z'
                     candidate_wizard_url: null
                     dashboard_url: https://dashboard.example.com/organisation/018e9f1e-1234-7000-aaaa-bbbbcccc0001/screening/018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7/home/edit
                     created_at: '2026-05-13T11:00:00Z'
@@ -1509,8 +1552,20 @@ components:
   schemas:
     CustomTokenObtainPair:
       type: object
-      description: Custom JWT serializer that includes organization information in the token.
+      description: |-
+        Custom JWT serializer that scopes the token to one organization.
+
+        The organization comes from the optional ``organization_id`` field, or
+        from the user's single organization when the field is absent. Users
+        with access to multiple organizations must pass ``organization_id``
+        explicitly; the token is never scoped implicitly (e.g. via the last
+        viewed organization, which is mutable web-UI state).
       properties:
+        organization_id:
+          type: string
+          format: uuid
+          writeOnly: true
+          description: Organization or division ID to scope the token to. Required when your account has access to more than one organization.
         email:
           type: string
           writeOnly: true
@@ -2575,6 +2630,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -2599,6 +2655,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -2620,7 +2677,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 59fab1a0c1368839
+          x-spec-enum-id: d4cf17b1eff0d66d
           readOnly: true
         filename:
           type: string
@@ -2681,6 +2738,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -2701,6 +2759,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -2718,7 +2777,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 228a6aba1c358dfb
+          x-spec-enum-id: 9c6636bcd10c30f5
         config:
           type: object
           additionalProperties: {}
@@ -2735,6 +2794,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -2759,6 +2819,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -2780,7 +2841,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 59fab1a0c1368839
+          x-spec-enum-id: d4cf17b1eff0d66d
           readOnly: true
         display_name:
           type: string
@@ -2945,6 +3006,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -2969,6 +3031,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -2990,7 +3053,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 59fab1a0c1368839
+          x-spec-enum-id: d4cf17b1eff0d66d
         config:
           type: object
           additionalProperties: {}
@@ -3009,6 +3072,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -3029,6 +3093,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -3046,7 +3111,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 228a6aba1c358dfb
+          x-spec-enum-id: 9c6636bcd10c30f5
         config:
           type: object
           additionalProperties: {}
@@ -3072,6 +3137,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -3096,6 +3162,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -3117,7 +3184,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 59fab1a0c1368839
+          x-spec-enum-id: d4cf17b1eff0d66d
           readOnly: true
         display_name:
           type: string
@@ -3164,6 +3231,7 @@ components:
         check_type:
           enum:
             - addresscheck
+            - adversemedia2check
             - adversemediacheck
             - bigcheck
             - criminalrecordscheck
@@ -3188,6 +3256,7 @@ components:
           type: string
           description: |-
             * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
             * `adversemediacheck` - adversemediacheck
             * `bigcheck` - bigcheck
             * `criminalrecordscheck` - criminalrecordscheck
@@ -3209,7 +3278,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: 59fab1a0c1368839
+          x-spec-enum-id: d4cf17b1eff0d66d
           readOnly: true
         status:
           type: string
@@ -3230,6 +3299,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/V2ScreeningCheck'
+        screening_notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningNoteInput'
       required:
         - candidate
         - profile_id
@@ -3262,6 +3335,11 @@ components:
           items:
             $ref: '#/components/schemas/V2ScreeningCheckEntry'
           readOnly: true
+        screening_notes:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ScreeningNote'
+          readOnly: true
         candidate_wizard_url:
           type: string
           format: uri
@@ -3289,6 +3367,7 @@ components:
         - dashboard_url
         - id
         - profile
+        - screening_notes
         - status
         - updated_at
     V2ScreeningListItem:
@@ -3349,6 +3428,99 @@ components:
         - id
         - profile
         - updated_at
+    V2ScreeningNote:
+      type: object
+      description: |-
+        A note recorded on the screening. `check_id` is the Check the note targets
+        (null for type-only or unscoped notes).
+      properties:
+        note:
+          type: string
+        check_type:
+          type: string
+        check_id:
+          type: string
+          format: uuid
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+      required:
+        - check_id
+        - check_type
+        - created_at
+        - note
+    V2ScreeningNoteInput:
+      type: object
+      description: |-
+        A note to record on the screening at creation. Scope it to a specific check with
+        `profile_check_id` (links the note to the Check spawned from that ProfileCheck) or to
+        a `check_type`; `profile_check_id` wins when both are given. With neither, the note is
+        recorded against the screening with no check (check_type 'other').
+      properties:
+        note:
+          type: string
+        profile_check_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: Links the note to the Check spawned from this ProfileCheck. Wins over check_type.
+        check_type:
+          enum:
+            - addresscheck
+            - adversemedia2check
+            - adversemediacheck
+            - bigcheck
+            - criminalrecordscheck
+            - criminalrecordsuploadcheck
+            - customintegritycheck
+            - cvcheck
+            - edrcheck
+            - focumcheck
+            - id2check
+            - idcheck
+            - integritycheck
+            - openhealthcarecheck
+            - permissioncheck
+            - pescheckadversemediacheck
+            - qualificationcheck
+            - righttoworkcheck
+            - vogcheck
+            - watchlist2check
+            - watchlistcheck
+            - workreferencecheck
+            - worldwidecreditcheck
+            - ''
+          type: string
+          x-spec-enum-id: d4cf17b1eff0d66d
+          description: |-
+            Scope the note to a check type. Ignored when profile_check_id is given.
+
+            * `addresscheck` - addresscheck
+            * `adversemedia2check` - adversemedia2check
+            * `adversemediacheck` - adversemediacheck
+            * `bigcheck` - bigcheck
+            * `criminalrecordscheck` - criminalrecordscheck
+            * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
+            * `customintegritycheck` - customintegritycheck
+            * `cvcheck` - cvcheck
+            * `edrcheck` - edrcheck
+            * `focumcheck` - focumcheck
+            * `id2check` - id2check
+            * `idcheck` - idcheck
+            * `integritycheck` - integritycheck
+            * `openhealthcarecheck` - openhealthcarecheck
+            * `permissioncheck` - permissioncheck
+            * `pescheckadversemediacheck` - pescheckadversemediacheck
+            * `qualificationcheck` - qualificationcheck
+            * `righttoworkcheck` - righttoworkcheck
+            * `vogcheck` - vogcheck
+            * `watchlist2check` - watchlist2check
+            * `watchlistcheck` - watchlistcheck
+            * `workreferencecheck` - workreferencecheck
+            * `worldwidecreditcheck` - worldwidecreditcheck
+      required:
+        - note
     VerifyWebhook:
       type: object
       description: |-

@@ -14,6 +14,7 @@
 import ApiClient from '../ApiClient';
 import V2Candidate from './V2Candidate';
 import V2ScreeningCheck from './V2ScreeningCheck';
+import V2ScreeningNoteInput from './V2ScreeningNoteInput';
 
 /**
  * The V2ScreeningCreate model module.
@@ -62,6 +63,9 @@ class V2ScreeningCreate {
             if (data.hasOwnProperty('checks')) {
                 obj['checks'] = ApiClient.convertToType(data['checks'], [V2ScreeningCheck]);
             }
+            if (data.hasOwnProperty('screening_notes')) {
+                obj['screening_notes'] = ApiClient.convertToType(data['screening_notes'], [V2ScreeningNoteInput]);
+            }
         }
         return obj;
     }
@@ -96,6 +100,16 @@ class V2ScreeningCreate {
                 V2ScreeningCheck.validateJSON(item);
             };
         }
+        if (data['screening_notes']) { // data not null
+            // ensure the json data is an array
+            if (!Array.isArray(data['screening_notes'])) {
+                throw new Error("Expected the field `screening_notes` to be an array in the JSON data but got " + data['screening_notes']);
+            }
+            // validate the optional field `screening_notes` (array)
+            for (const item of data['screening_notes']) {
+                V2ScreeningNoteInput.validateJSON(item);
+            };
+        }
 
         return true;
     }
@@ -119,6 +133,11 @@ V2ScreeningCreate.prototype['candidate'] = undefined;
  * @member {Array.<module:model/V2ScreeningCheck>} checks
  */
 V2ScreeningCreate.prototype['checks'] = undefined;
+
+/**
+ * @member {Array.<module:model/V2ScreeningNoteInput>} screening_notes
+ */
+V2ScreeningCreate.prototype['screening_notes'] = undefined;
 
 
 

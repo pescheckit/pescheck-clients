@@ -62,7 +62,7 @@ export interface AuthenticationApiInterface {
     generateJWTToken2RequestOpts(requestParameters: GenerateJWTToken2Request): Promise<runtime.RequestOpts>;
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      * @param {JWTGeneration} jWTGeneration 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -71,7 +71,7 @@ export interface AuthenticationApiInterface {
     generateJWTToken2Raw(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JWTResponse>>;
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      */
     generateJWTToken2(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JWTResponse>;
 
@@ -84,7 +84,7 @@ export interface AuthenticationApiInterface {
     jwtCreateRequestOpts(requestParameters: JwtCreateRequest): Promise<runtime.RequestOpts>;
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
      * @param {CustomTokenObtainPair} customTokenObtainPair 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -93,7 +93,7 @@ export interface AuthenticationApiInterface {
     jwtCreateRaw(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomTokenObtainPair>>;
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
      */
     jwtCreate(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomTokenObtainPair>;
 
@@ -161,7 +161,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
     }
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      */
     async generateJWTToken2Raw(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<JWTResponse>> {
         const requestOptions = await this.generateJWTToken2RequestOpts(requestParameters);
@@ -171,7 +171,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
     }
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      */
     async generateJWTToken2(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JWTResponse> {
         const response = await this.generateJWTToken2Raw(requestParameters, initOverrides);
@@ -213,7 +213,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
     }
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
      */
     async jwtCreateRaw(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomTokenObtainPair>> {
         const requestOptions = await this.jwtCreateRequestOpts(requestParameters);
@@ -223,7 +223,7 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
     }
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
+     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
      */
     async jwtCreate(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomTokenObtainPair> {
         const response = await this.jwtCreateRaw(requestParameters, initOverrides);

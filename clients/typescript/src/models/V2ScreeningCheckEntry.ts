@@ -33,6 +33,7 @@ export interface V2ScreeningCheckEntry {
     readonly profileCheckId: string | null;
     /**
      * * `addresscheck` - addresscheck
+     * * `adversemedia2check` - adversemedia2check
      * * `adversemediacheck` - adversemediacheck
      * * `bigcheck` - bigcheck
      * * `criminalrecordscheck` - criminalrecordscheck
@@ -102,6 +103,7 @@ export interface V2ScreeningCheckEntry {
  */
 export const V2ScreeningCheckEntryCheckTypeEnum = {
     Addresscheck: 'addresscheck',
+    Adversemedia2check: 'adversemedia2check',
     Adversemediacheck: 'adversemediacheck',
     Bigcheck: 'bigcheck',
     Criminalrecordscheck: 'criminalrecordscheck',

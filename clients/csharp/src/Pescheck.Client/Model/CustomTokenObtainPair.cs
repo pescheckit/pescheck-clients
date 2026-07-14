@@ -27,7 +27,7 @@ using OpenAPIDateConverter = Pescheck.Client.Client.OpenAPIDateConverter;
 namespace Pescheck.Client.Model
 {
     /// <summary>
-    /// Custom JWT serializer that includes organization information in the token.
+    /// Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
     /// </summary>
     [DataContract(Name = "CustomTokenObtainPair")]
     public partial class CustomTokenObtainPair : IValidatableObject
@@ -40,9 +40,10 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomTokenObtainPair" /> class.
         /// </summary>
+        /// <param name="organizationId">Organization or division ID to scope the token to. Required when your account has access to more than one organization..</param>
         /// <param name="email">email (required).</param>
         /// <param name="password">password (required).</param>
-        public CustomTokenObtainPair(string email = default, string password = default)
+        public CustomTokenObtainPair(Guid organizationId = default, string email = default, string password = default)
         {
             // to ensure "email" is required (not null)
             if (email == null)
@@ -56,7 +57,15 @@ namespace Pescheck.Client.Model
                 throw new ArgumentNullException("password is a required property for CustomTokenObtainPair and cannot be null");
             }
             this.Password = password;
+            this.OrganizationId = organizationId;
         }
+
+        /// <summary>
+        /// Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+        /// </summary>
+        /// <value>Organization or division ID to scope the token to. Required when your account has access to more than one organization.</value>
+        [DataMember(Name = "organization_id", EmitDefaultValue = false)]
+        public Guid OrganizationId { get; set; }
 
         /// <summary>
         /// Gets or Sets Email
@@ -78,6 +87,7 @@ namespace Pescheck.Client.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class CustomTokenObtainPair {\n");
+            sb.Append("  OrganizationId: ").Append(OrganizationId).Append("\n");
             sb.Append("  Email: ").Append(Email).Append("\n");
             sb.Append("  Password: ").Append(Password).Append("\n");
             sb.Append("}\n");

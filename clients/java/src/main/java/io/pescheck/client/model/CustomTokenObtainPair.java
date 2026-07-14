@@ -21,6 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,10 +47,15 @@ import java.util.Set;
 import io.pescheck.client.JSON;
 
 /**
- * Custom JWT serializer that includes organization information in the token.
+ * Custom JWT serializer that scopes the token to one organization.  The organization comes from the optional &#x60;&#x60;organization_id&#x60;&#x60; field, or from the user&#39;s single organization when the field is absent. Users with access to multiple organizations must pass &#x60;&#x60;organization_id&#x60;&#x60; explicitly; the token is never scoped implicitly (e.g. via the last viewed organization, which is mutable web-UI state).
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
 public class CustomTokenObtainPair {
+  public static final String SERIALIZED_NAME_ORGANIZATION_ID = "organization_id";
+  @SerializedName(SERIALIZED_NAME_ORGANIZATION_ID)
+  @javax.annotation.Nullable
+  private UUID organizationId;
+
   public static final String SERIALIZED_NAME_EMAIL = "email";
   @SerializedName(SERIALIZED_NAME_EMAIL)
   @javax.annotation.Nonnull
@@ -62,6 +68,25 @@ public class CustomTokenObtainPair {
 
   public CustomTokenObtainPair() {
   }
+
+  public CustomTokenObtainPair organizationId(@javax.annotation.Nullable UUID organizationId) {
+    this.organizationId = organizationId;
+    return this;
+  }
+
+  /**
+   * Organization or division ID to scope the token to. Required when your account has access to more than one organization.
+   * @return organizationId
+   */
+  @javax.annotation.Nullable
+  public UUID getOrganizationId() {
+    return organizationId;
+  }
+
+  public void setOrganizationId(@javax.annotation.Nullable UUID organizationId) {
+    this.organizationId = organizationId;
+  }
+
 
   public CustomTokenObtainPair email(@javax.annotation.Nonnull String email) {
     this.email = email;
@@ -111,19 +136,21 @@ public class CustomTokenObtainPair {
       return false;
     }
     CustomTokenObtainPair customTokenObtainPair = (CustomTokenObtainPair) o;
-    return Objects.equals(this.email, customTokenObtainPair.email) &&
+    return Objects.equals(this.organizationId, customTokenObtainPair.organizationId) &&
+        Objects.equals(this.email, customTokenObtainPair.email) &&
         Objects.equals(this.password, customTokenObtainPair.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, password);
+    return Objects.hash(organizationId, email, password);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CustomTokenObtainPair {\n");
+    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("}");
@@ -144,7 +171,7 @@ public class CustomTokenObtainPair {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("email", "password"));
+    openapiFields = new HashSet<String>(Arrays.asList("organization_id", "email", "password"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("email", "password"));
@@ -178,6 +205,9 @@ public class CustomTokenObtainPair {
         }
       }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
+      if ((jsonObj.get("organization_id") != null && !jsonObj.get("organization_id").isJsonNull()) && !jsonObj.get("organization_id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `organization_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organization_id").toString()));
+      }
       if (!jsonObj.get("email").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("email").toString()));
       }

@@ -33,6 +33,8 @@ export * from './V2ScreeningCreate';
 export * from './V2ScreeningDetail';
 export * from './V2ScreeningDetailProfile';
 export * from './V2ScreeningListItem';
+export * from './V2ScreeningNote';
+export * from './V2ScreeningNoteInput';
 export * from './VerifyWebhook';
 export * from './Webhook';
 export * from './WebhookResponse';

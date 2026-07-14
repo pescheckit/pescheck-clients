@@ -23,6 +23,7 @@ type V2ScreeningCreate struct {
 	ProfileId string `json:"profile_id"`
 	Candidate V2Candidate `json:"candidate"`
 	Checks []V2ScreeningCheck `json:"checks,omitempty"`
+	ScreeningNotes []V2ScreeningNoteInput `json:"screening_notes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -127,6 +128,38 @@ func (o *V2ScreeningCreate) SetChecks(v []V2ScreeningCheck) {
 	o.Checks = v
 }
 
+// GetScreeningNotes returns the ScreeningNotes field value if set, zero value otherwise.
+func (o *V2ScreeningCreate) GetScreeningNotes() []V2ScreeningNoteInput {
+	if o == nil || IsNil(o.ScreeningNotes) {
+		var ret []V2ScreeningNoteInput
+		return ret
+	}
+	return o.ScreeningNotes
+}
+
+// GetScreeningNotesOk returns a tuple with the ScreeningNotes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *V2ScreeningCreate) GetScreeningNotesOk() ([]V2ScreeningNoteInput, bool) {
+	if o == nil || IsNil(o.ScreeningNotes) {
+		return nil, false
+	}
+	return o.ScreeningNotes, true
+}
+
+// HasScreeningNotes returns a boolean if a field has been set.
+func (o *V2ScreeningCreate) HasScreeningNotes() bool {
+	if o != nil && !IsNil(o.ScreeningNotes) {
+		return true
+	}
+
+	return false
+}
+
+// SetScreeningNotes gets a reference to the given []V2ScreeningNoteInput and assigns it to the ScreeningNotes field.
+func (o *V2ScreeningCreate) SetScreeningNotes(v []V2ScreeningNoteInput) {
+	o.ScreeningNotes = v
+}
+
 func (o V2ScreeningCreate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -141,6 +174,9 @@ func (o V2ScreeningCreate) ToMap() (map[string]interface{}, error) {
 	toSerialize["candidate"] = o.Candidate
 	if !IsNil(o.Checks) {
 		toSerialize["checks"] = o.Checks
+	}
+	if !IsNil(o.ScreeningNotes) {
+		toSerialize["screening_notes"] = o.ScreeningNotes
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -189,6 +225,7 @@ func (o *V2ScreeningCreate) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "profile_id")
 		delete(additionalProperties, "candidate")
 		delete(additionalProperties, "checks")
+		delete(additionalProperties, "screening_notes")
 		o.AdditionalProperties = additionalProperties
 	}
 
