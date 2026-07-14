@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,6 +31,7 @@ type V2ScreeningCheckEntry struct {
 	Output map[string]interface{} `json:"output"`
 	// Deep link to this check's candidate wizard step. Null when the check has no dedicated candidate step.
 	CandidateWizardUrl NullableString `json:"candidate_wizard_url"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ScreeningCheckEntry V2ScreeningCheckEntry
@@ -301,6 +301,11 @@ func (o V2ScreeningCheckEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize["input"] = o.Input
 	toSerialize["output"] = o.Output
 	toSerialize["candidate_wizard_url"] = o.CandidateWizardUrl.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -336,15 +341,28 @@ func (o *V2ScreeningCheckEntry) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ScreeningCheckEntry := _V2ScreeningCheckEntry{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningCheckEntry)
+	err = json.Unmarshal(data, &varV2ScreeningCheckEntry)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ScreeningCheckEntry(varV2ScreeningCheckEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "profile_check_id")
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "display_name")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "input")
+		delete(additionalProperties, "output")
+		delete(additionalProperties, "candidate_wizard_url")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

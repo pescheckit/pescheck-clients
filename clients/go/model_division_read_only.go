@@ -13,7 +13,6 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -37,6 +36,7 @@ type DivisionReadOnly struct {
 	UseParentOnEmail *bool `json:"use_parent_on_email,omitempty"`
 	UseParentOnBilling *bool `json:"use_parent_on_billing,omitempty"`
 	UseParentOnReport *bool `json:"use_parent_on_report,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DivisionReadOnly DivisionReadOnly
@@ -637,6 +637,11 @@ func (o DivisionReadOnly) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseParentOnReport) {
 		toSerialize["use_parent_on_report"] = o.UseParentOnReport
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -667,15 +672,34 @@ func (o *DivisionReadOnly) UnmarshalJSON(data []byte) (err error) {
 
 	varDivisionReadOnly := _DivisionReadOnly{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDivisionReadOnly)
+	err = json.Unmarshal(data, &varDivisionReadOnly)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DivisionReadOnly(varDivisionReadOnly)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "parent")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "address")
+		delete(additionalProperties, "postal")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "contact_name")
+		delete(additionalProperties, "contact_email")
+		delete(additionalProperties, "invoice_email")
+		delete(additionalProperties, "use_parent_on_email")
+		delete(additionalProperties, "use_parent_on_billing")
+		delete(additionalProperties, "use_parent_on_report")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

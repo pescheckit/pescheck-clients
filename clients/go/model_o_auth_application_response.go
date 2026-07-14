@@ -13,7 +13,6 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -32,6 +31,7 @@ type OAuthApplicationResponse struct {
 	AuthorizationGrantType string `json:"authorization_grant_type"`
 	Created time.Time `json:"created"`
 	Updated time.Time `json:"updated"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OAuthApplicationResponse OAuthApplicationResponse
@@ -289,6 +289,11 @@ func (o OAuthApplicationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["authorization_grant_type"] = o.AuthorizationGrantType
 	toSerialize["created"] = o.Created
 	toSerialize["updated"] = o.Updated
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -321,15 +326,27 @@ func (o *OAuthApplicationResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varOAuthApplicationResponse := _OAuthApplicationResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOAuthApplicationResponse)
+	err = json.Unmarshal(data, &varOAuthApplicationResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OAuthApplicationResponse(varOAuthApplicationResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "client_id")
+		delete(additionalProperties, "client_secret")
+		delete(additionalProperties, "client_type")
+		delete(additionalProperties, "authorization_grant_type")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "updated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

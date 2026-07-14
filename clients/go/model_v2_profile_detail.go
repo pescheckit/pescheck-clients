@@ -13,7 +13,6 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -33,6 +32,7 @@ type V2ProfileDetail struct {
 	CandidateFields []map[string]interface{} `json:"candidate_fields"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ProfileDetail V2ProfileDetail
@@ -361,6 +361,11 @@ func (o V2ProfileDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["candidate_fields"] = o.CandidateFields
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -397,15 +402,30 @@ func (o *V2ProfileDetail) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ProfileDetail := _V2ProfileDetail{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ProfileDetail)
+	err = json.Unmarshal(data, &varV2ProfileDetail)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ProfileDetail(varV2ProfileDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "is_custom")
+		delete(additionalProperties, "checks")
+		delete(additionalProperties, "total_price")
+		delete(additionalProperties, "supported_countries_of_work")
+		delete(additionalProperties, "supported_countries_of_residence")
+		delete(additionalProperties, "candidate_fields")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -31,7 +31,10 @@ type PatchedDivisionWrite struct {
 	UseParentOnEmail *bool `json:"use_parent_on_email,omitempty"`
 	UseParentOnBilling *bool `json:"use_parent_on_billing,omitempty"`
 	UseParentOnReport *bool `json:"use_parent_on_report,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PatchedDivisionWrite PatchedDivisionWrite
 
 // NewPatchedDivisionWrite instantiates a new PatchedDivisionWrite object
 // This constructor will assign default values to properties that have it defined,
@@ -480,7 +483,44 @@ func (o PatchedDivisionWrite) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UseParentOnReport) {
 		toSerialize["use_parent_on_report"] = o.UseParentOnReport
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PatchedDivisionWrite) UnmarshalJSON(data []byte) (err error) {
+	varPatchedDivisionWrite := _PatchedDivisionWrite{}
+
+	err = json.Unmarshal(data, &varPatchedDivisionWrite)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchedDivisionWrite(varPatchedDivisionWrite)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "address")
+		delete(additionalProperties, "postal")
+		delete(additionalProperties, "phone")
+		delete(additionalProperties, "contact_name")
+		delete(additionalProperties, "contact_email")
+		delete(additionalProperties, "invoice_email")
+		delete(additionalProperties, "use_parent_on_email")
+		delete(additionalProperties, "use_parent_on_billing")
+		delete(additionalProperties, "use_parent_on_report")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePatchedDivisionWrite struct {

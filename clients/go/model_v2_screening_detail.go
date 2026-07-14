@@ -13,7 +13,6 @@ package pescheck
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -33,6 +32,7 @@ type V2ScreeningDetail struct {
 	DashboardUrl string `json:"dashboard_url"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ScreeningDetail V2ScreeningDetail
@@ -302,6 +302,11 @@ func (o V2ScreeningDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["dashboard_url"] = o.DashboardUrl
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -337,15 +342,28 @@ func (o *V2ScreeningDetail) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ScreeningDetail := _V2ScreeningDetail{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningDetail)
+	err = json.Unmarshal(data, &varV2ScreeningDetail)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ScreeningDetail(varV2ScreeningDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "profile")
+		delete(additionalProperties, "candidate")
+		delete(additionalProperties, "checks")
+		delete(additionalProperties, "candidate_wizard_url")
+		delete(additionalProperties, "dashboard_url")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

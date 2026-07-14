@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &VerifyWebhook{}
 type VerifyWebhook struct {
 	// The verification code delivered to the webhook URL on creation.
 	VerificationCode string `json:"verification_code"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _VerifyWebhook VerifyWebhook
@@ -80,6 +80,11 @@ func (o VerifyWebhook) MarshalJSON() ([]byte, error) {
 func (o VerifyWebhook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["verification_code"] = o.VerificationCode
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *VerifyWebhook) UnmarshalJSON(data []byte) (err error) {
 
 	varVerifyWebhook := _VerifyWebhook{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varVerifyWebhook)
+	err = json.Unmarshal(data, &varVerifyWebhook)
 
 	if err != nil {
 		return err
 	}
 
 	*o = VerifyWebhook(varVerifyWebhook)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "verification_code")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

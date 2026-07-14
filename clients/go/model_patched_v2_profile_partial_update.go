@@ -21,7 +21,10 @@ var _ MappedNullable = &PatchedV2ProfilePartialUpdate{}
 type PatchedV2ProfilePartialUpdate struct {
 	Name *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PatchedV2ProfilePartialUpdate PatchedV2ProfilePartialUpdate
 
 // NewPatchedV2ProfilePartialUpdate instantiates a new PatchedV2ProfilePartialUpdate object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o PatchedV2ProfilePartialUpdate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PatchedV2ProfilePartialUpdate) UnmarshalJSON(data []byte) (err error) {
+	varPatchedV2ProfilePartialUpdate := _PatchedV2ProfilePartialUpdate{}
+
+	err = json.Unmarshal(data, &varPatchedV2ProfilePartialUpdate)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchedV2ProfilePartialUpdate(varPatchedV2ProfilePartialUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePatchedV2ProfilePartialUpdate struct {

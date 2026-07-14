@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type JWTGeneration struct {
 	OrganisationId *string `json:"organisation_id,omitempty"`
 	// Division ID to generate token for (optional)
 	DivisionId *string `json:"division_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JWTGeneration JWTGeneration
@@ -182,6 +182,11 @@ func (o JWTGeneration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DivisionId) {
 		toSerialize["division_id"] = o.DivisionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -210,15 +215,23 @@ func (o *JWTGeneration) UnmarshalJSON(data []byte) (err error) {
 
 	varJWTGeneration := _JWTGeneration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJWTGeneration)
+	err = json.Unmarshal(data, &varJWTGeneration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JWTGeneration(varJWTGeneration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "organisation_id")
+		delete(additionalProperties, "division_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

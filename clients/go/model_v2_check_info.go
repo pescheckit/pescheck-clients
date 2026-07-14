@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -36,6 +35,7 @@ type V2CheckInfo struct {
 	InputFields []V2CheckField `json:"input_fields"`
 	// Screening-level candidate facts this check needs (name, email, sometimes date of birth, etc.).
 	CandidateFields []V2CheckField `json:"candidate_fields"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2CheckInfo V2CheckInfo
@@ -383,6 +383,11 @@ func (o V2CheckInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize["config_fields"] = o.ConfigFields
 	toSerialize["input_fields"] = o.InputFields
 	toSerialize["candidate_fields"] = o.CandidateFields
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -421,15 +426,31 @@ func (o *V2CheckInfo) UnmarshalJSON(data []byte) (err error) {
 
 	varV2CheckInfo := _V2CheckInfo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2CheckInfo)
+	err = json.Unmarshal(data, &varV2CheckInfo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2CheckInfo(varV2CheckInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "display_name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "has_config")
+		delete(additionalProperties, "is_system_managed")
+		delete(additionalProperties, "requires_checks")
+		delete(additionalProperties, "supported_countries_of_work")
+		delete(additionalProperties, "supported_countries_of_residence")
+		delete(additionalProperties, "default_price")
+		delete(additionalProperties, "config_fields")
+		delete(additionalProperties, "input_fields")
+		delete(additionalProperties, "candidate_fields")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

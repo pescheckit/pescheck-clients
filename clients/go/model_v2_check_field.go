@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type V2CheckField struct {
 	// Allowed values, or null if the field isn't constrained to a set.
 	Choices []string `json:"choices"`
 	HelpText NullableString `json:"help_text"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2CheckField V2CheckField
@@ -196,6 +196,11 @@ func (o V2CheckField) ToMap() (map[string]interface{}, error) {
 		toSerialize["choices"] = o.Choices
 	}
 	toSerialize["help_text"] = o.HelpText.Get()
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -227,15 +232,24 @@ func (o *V2CheckField) UnmarshalJSON(data []byte) (err error) {
 
 	varV2CheckField := _V2CheckField{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2CheckField)
+	err = json.Unmarshal(data, &varV2CheckField)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2CheckField(varV2CheckField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "choices")
+		delete(additionalProperties, "help_text")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

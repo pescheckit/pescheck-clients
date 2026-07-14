@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ type V2ScreeningCreate struct {
 	ProfileId string `json:"profile_id"`
 	Candidate V2Candidate `json:"candidate"`
 	Checks []V2ScreeningCheck `json:"checks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ScreeningCreate V2ScreeningCreate
@@ -142,6 +142,11 @@ func (o V2ScreeningCreate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Checks) {
 		toSerialize["checks"] = o.Checks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -170,15 +175,22 @@ func (o *V2ScreeningCreate) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ScreeningCreate := _V2ScreeningCreate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningCreate)
+	err = json.Unmarshal(data, &varV2ScreeningCreate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ScreeningCreate(varV2ScreeningCreate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "profile_id")
+		delete(additionalProperties, "candidate")
+		delete(additionalProperties, "checks")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

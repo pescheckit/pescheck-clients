@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type PaginatedV2ScreeningListItemList struct {
 	Next NullableString `json:"next"`
 	Previous NullableString `json:"previous"`
 	Results []V2ScreeningListItem `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaginatedV2ScreeningListItemList PaginatedV2ScreeningListItemList
@@ -164,6 +164,11 @@ func (o PaginatedV2ScreeningListItemList) ToMap() (map[string]interface{}, error
 	toSerialize["next"] = o.Next.Get()
 	toSerialize["previous"] = o.Previous.Get()
 	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -194,15 +199,23 @@ func (o *PaginatedV2ScreeningListItemList) UnmarshalJSON(data []byte) (err error
 
 	varPaginatedV2ScreeningListItemList := _PaginatedV2ScreeningListItemList{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaginatedV2ScreeningListItemList)
+	err = json.Unmarshal(data, &varPaginatedV2ScreeningListItemList)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaginatedV2ScreeningListItemList(varPaginatedV2ScreeningListItemList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "next")
+		delete(additionalProperties, "previous")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

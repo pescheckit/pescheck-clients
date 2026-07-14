@@ -6,6 +6,11 @@ gitUserId: pescheckit
 # Monorepo subdir module path: github.com/pescheckit/pescheck-clients/clients/go
 # (published via tags like clients/go/vX.Y.Z)
 gitRepoId: pescheck-clients/clients/go
+# Don't hard-fail on JSON fields the spec doesn't declare. The Go client
+# otherwise decodes with DisallowUnknownFields and errors ("json: unknown field
+# ...") the moment the API adds a new response field (e.g. screening_notes),
+# while every other client just ignores it. This makes Go tolerant too.
+disallowAdditionalPropertiesIfNotPresent: false
 additionalProperties:
   packageName: pescheck
   packageVersion: 0.1.0

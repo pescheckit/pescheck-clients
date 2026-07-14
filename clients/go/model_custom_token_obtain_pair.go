@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &CustomTokenObtainPair{}
 type CustomTokenObtainPair struct {
 	Email string `json:"email"`
 	Password string `json:"password"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CustomTokenObtainPair CustomTokenObtainPair
@@ -106,6 +106,11 @@ func (o CustomTokenObtainPair) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["email"] = o.Email
 	toSerialize["password"] = o.Password
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,15 +139,21 @@ func (o *CustomTokenObtainPair) UnmarshalJSON(data []byte) (err error) {
 
 	varCustomTokenObtainPair := _CustomTokenObtainPair{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCustomTokenObtainPair)
+	err = json.Unmarshal(data, &varCustomTokenObtainPair)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CustomTokenObtainPair(varCustomTokenObtainPair)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "password")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

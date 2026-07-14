@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type V2ProfileCheckEntry struct {
 	Config map[string]interface{} `json:"config"`
 	InputFields []map[string]interface{} `json:"input_fields"`
 	IsSystemManaged bool `json:"is_system_managed"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ProfileCheckEntry V2ProfileCheckEntry
@@ -244,6 +244,11 @@ func (o V2ProfileCheckEntry) ToMap() (map[string]interface{}, error) {
 	toSerialize["config"] = o.Config
 	toSerialize["input_fields"] = o.InputFields
 	toSerialize["is_system_managed"] = o.IsSystemManaged
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -277,15 +282,26 @@ func (o *V2ProfileCheckEntry) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ProfileCheckEntry := _V2ProfileCheckEntry{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ProfileCheckEntry)
+	err = json.Unmarshal(data, &varV2ProfileCheckEntry)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ProfileCheckEntry(varV2ProfileCheckEntry)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "display_name")
+		delete(additionalProperties, "configured_price")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "input_fields")
+		delete(additionalProperties, "is_system_managed")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -31,6 +30,7 @@ type Webhook struct {
 	Active *bool `json:"active,omitempty"`
 	// Division ID to create webhook for (optional)
 	DivisionId *string `json:"division_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Webhook Webhook
@@ -214,6 +214,11 @@ func (o Webhook) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DivisionId) {
 		toSerialize["division_id"] = o.DivisionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -243,15 +248,24 @@ func (o *Webhook) UnmarshalJSON(data []byte) (err error) {
 
 	varWebhook := _Webhook{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varWebhook)
+	err = json.Unmarshal(data, &varWebhook)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Webhook(varWebhook)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "events")
+		delete(additionalProperties, "active")
+		delete(additionalProperties, "division_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

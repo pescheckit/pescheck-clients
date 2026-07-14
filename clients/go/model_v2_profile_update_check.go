@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type V2ProfileUpdateCheck struct {
 	CheckType string `json:"check_type"`
 	Config map[string]interface{} `json:"config,omitempty"`
 	ProfileCheckId *string `json:"profile_check_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ProfileUpdateCheck V2ProfileUpdateCheck
@@ -152,6 +152,11 @@ func (o V2ProfileUpdateCheck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProfileCheckId) {
 		toSerialize["profile_check_id"] = o.ProfileCheckId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *V2ProfileUpdateCheck) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ProfileUpdateCheck := _V2ProfileUpdateCheck{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ProfileUpdateCheck)
+	err = json.Unmarshal(data, &varV2ProfileUpdateCheck)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ProfileUpdateCheck(varV2ProfileUpdateCheck)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "profile_check_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

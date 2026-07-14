@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ type V2DocumentContent struct {
 	Type string `json:"type"`
 	// Base64-encoded file contents (type == base64).
 	Data *string `json:"data,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2DocumentContent V2DocumentContent
@@ -116,6 +116,11 @@ func (o V2DocumentContent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *V2DocumentContent) UnmarshalJSON(data []byte) (err error) {
 
 	varV2DocumentContent := _V2DocumentContent{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2DocumentContent)
+	err = json.Unmarshal(data, &varV2DocumentContent)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2DocumentContent(varV2DocumentContent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "data")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

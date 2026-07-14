@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &TokenRefresh{}
 type TokenRefresh struct {
 	Access *string `json:"access,omitempty"`
 	Refresh string `json:"refresh"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TokenRefresh TokenRefresh
@@ -115,6 +115,11 @@ func (o TokenRefresh) ToMap() (map[string]interface{}, error) {
 		toSerialize["access"] = o.Access
 	}
 	toSerialize["refresh"] = o.Refresh
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -142,15 +147,21 @@ func (o *TokenRefresh) UnmarshalJSON(data []byte) (err error) {
 
 	varTokenRefresh := _TokenRefresh{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTokenRefresh)
+	err = json.Unmarshal(data, &varTokenRefresh)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TokenRefresh(varTokenRefresh)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access")
+		delete(additionalProperties, "refresh")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

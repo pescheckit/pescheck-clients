@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -27,6 +26,7 @@ type V2ScreeningCheck struct {
 	// Disambiguator. Use when the profile has multiple ProfileChecks of the same check_type.
 	ProfileCheckId *string `json:"profile_check_id,omitempty"`
 	Input interface{} `json:"input,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ScreeningCheck V2ScreeningCheck
@@ -190,6 +190,11 @@ func (o V2ScreeningCheck) ToMap() (map[string]interface{}, error) {
 	if o.Input != nil {
 		toSerialize["input"] = o.Input
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -217,15 +222,23 @@ func (o *V2ScreeningCheck) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ScreeningCheck := _V2ScreeningCheck{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ScreeningCheck)
+	err = json.Unmarshal(data, &varV2ScreeningCheck)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ScreeningCheck(varV2ScreeningCheck)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "config")
+		delete(additionalProperties, "profile_check_id")
+		delete(additionalProperties, "input")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

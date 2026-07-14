@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,6 +31,7 @@ type V2Candidate struct {
 	PostalCode *string `json:"postal_code,omitempty"`
 	HouseNumber *string `json:"house_number,omitempty"`
 	Extension *string `json:"extension,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2Candidate V2Candidate
@@ -386,6 +386,11 @@ func (o V2Candidate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Extension) {
 		toSerialize["extension"] = o.Extension
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -415,15 +420,29 @@ func (o *V2Candidate) UnmarshalJSON(data []byte) (err error) {
 
 	varV2Candidate := _V2Candidate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2Candidate)
+	err = json.Unmarshal(data, &varV2Candidate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2Candidate(varV2Candidate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "first_name")
+		delete(additionalProperties, "last_name")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "initials")
+		delete(additionalProperties, "date_of_birth")
+		delete(additionalProperties, "gender")
+		delete(additionalProperties, "nationality")
+		delete(additionalProperties, "postal_code")
+		delete(additionalProperties, "house_number")
+		delete(additionalProperties, "extension")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

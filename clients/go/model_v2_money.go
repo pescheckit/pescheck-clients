@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -23,6 +22,7 @@ var _ MappedNullable = &V2Money{}
 type V2Money struct {
 	Amount string `json:"amount" validate:"regexp=^-?\\\\d{0,18}(?:\\\\.\\\\d{0,2})?$"`
 	Currency string `json:"currency"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2Money V2Money
@@ -106,6 +106,11 @@ func (o V2Money) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["amount"] = o.Amount
 	toSerialize["currency"] = o.Currency
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -134,15 +139,21 @@ func (o *V2Money) UnmarshalJSON(data []byte) (err error) {
 
 	varV2Money := _V2Money{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2Money)
+	err = json.Unmarshal(data, &varV2Money)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2Money(varV2Money)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

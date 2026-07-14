@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ type V2ProfileUpdate struct {
 	Name string `json:"name"`
 	Description *string `json:"description,omitempty"`
 	Checks []V2ProfileUpdateCheck `json:"checks"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2ProfileUpdate V2ProfileUpdate
@@ -146,6 +146,11 @@ func (o V2ProfileUpdate) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["checks"] = o.Checks
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *V2ProfileUpdate) UnmarshalJSON(data []byte) (err error) {
 
 	varV2ProfileUpdate := _V2ProfileUpdate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2ProfileUpdate)
+	err = json.Unmarshal(data, &varV2ProfileUpdate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2ProfileUpdate(varV2ProfileUpdate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "checks")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

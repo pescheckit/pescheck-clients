@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type V2Document struct {
 	Extension string `json:"extension"`
 	Content V2DocumentContent `json:"content"`
 	Metadata map[string]interface{} `json:"metadata"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _V2Document V2Document
@@ -217,6 +217,11 @@ func (o V2Document) ToMap() (map[string]interface{}, error) {
 	toSerialize["extension"] = o.Extension
 	toSerialize["content"] = o.Content
 	toSerialize["metadata"] = o.Metadata
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -249,15 +254,25 @@ func (o *V2Document) UnmarshalJSON(data []byte) (err error) {
 
 	varV2Document := _V2Document{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varV2Document)
+	err = json.Unmarshal(data, &varV2Document)
 
 	if err != nil {
 		return err
 	}
 
 	*o = V2Document(varV2Document)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "check_id")
+		delete(additionalProperties, "check_type")
+		delete(additionalProperties, "filename")
+		delete(additionalProperties, "extension")
+		delete(additionalProperties, "content")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

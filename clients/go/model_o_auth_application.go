@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -31,6 +30,7 @@ type OAuthApplication struct {
 	RedirectUris *string `json:"redirect_uris,omitempty"`
 	// Division ID to create application for (optional)
 	DivisionId *string `json:"division_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _OAuthApplication OAuthApplication
@@ -236,6 +236,11 @@ func (o OAuthApplication) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DivisionId) {
 		toSerialize["division_id"] = o.DivisionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -263,15 +268,24 @@ func (o *OAuthApplication) UnmarshalJSON(data []byte) (err error) {
 
 	varOAuthApplication := _OAuthApplication{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varOAuthApplication)
+	err = json.Unmarshal(data, &varOAuthApplication)
 
 	if err != nil {
 		return err
 	}
 
 	*o = OAuthApplication(varOAuthApplication)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "client_type")
+		delete(additionalProperties, "authorization_grant_type")
+		delete(additionalProperties, "redirect_uris")
+		delete(additionalProperties, "division_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

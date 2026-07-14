@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -25,6 +24,7 @@ type PaginatedDivisionReadOnlyList struct {
 	Next NullableString `json:"next"`
 	Previous NullableString `json:"previous"`
 	Results []DivisionReadOnly `json:"results"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaginatedDivisionReadOnlyList PaginatedDivisionReadOnlyList
@@ -164,6 +164,11 @@ func (o PaginatedDivisionReadOnlyList) ToMap() (map[string]interface{}, error) {
 	toSerialize["next"] = o.Next.Get()
 	toSerialize["previous"] = o.Previous.Get()
 	toSerialize["results"] = o.Results
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -194,15 +199,23 @@ func (o *PaginatedDivisionReadOnlyList) UnmarshalJSON(data []byte) (err error) {
 
 	varPaginatedDivisionReadOnlyList := _PaginatedDivisionReadOnlyList{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaginatedDivisionReadOnlyList)
+	err = json.Unmarshal(data, &varPaginatedDivisionReadOnlyList)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaginatedDivisionReadOnlyList(varPaginatedDivisionReadOnlyList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "next")
+		delete(additionalProperties, "previous")
+		delete(additionalProperties, "results")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

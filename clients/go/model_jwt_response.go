@@ -12,7 +12,6 @@ package pescheck
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -32,6 +31,7 @@ type JWTResponse struct {
 	Organisation string `json:"organisation"`
 	// Organization ID
 	OrganisationId string `json:"organisation_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _JWTResponse JWTResponse
@@ -232,6 +232,11 @@ func (o JWTResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["expires_in"] = o.ExpiresIn
 	toSerialize["organisation"] = o.Organisation
 	toSerialize["organisation_id"] = o.OrganisationId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -263,15 +268,25 @@ func (o *JWTResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varJWTResponse := _JWTResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varJWTResponse)
+	err = json.Unmarshal(data, &varJWTResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = JWTResponse(varJWTResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "refresh_token")
+		delete(additionalProperties, "token_type")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "organisation")
+		delete(additionalProperties, "organisation_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,7 +21,10 @@ var _ MappedNullable = &V2ScreeningDetailProfile{}
 type V2ScreeningDetailProfile struct {
 	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _V2ScreeningDetailProfile V2ScreeningDetailProfile
 
 // NewV2ScreeningDetailProfile instantiates a new V2ScreeningDetailProfile object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +123,34 @@ func (o V2ScreeningDetailProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *V2ScreeningDetailProfile) UnmarshalJSON(data []byte) (err error) {
+	varV2ScreeningDetailProfile := _V2ScreeningDetailProfile{}
+
+	err = json.Unmarshal(data, &varV2ScreeningDetailProfile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = V2ScreeningDetailProfile(varV2ScreeningDetailProfile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableV2ScreeningDetailProfile struct {
