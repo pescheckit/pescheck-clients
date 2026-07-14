@@ -40,7 +40,11 @@ jobs:
       - name: Fetch + filter + generate
         run: npm run build
         env:
-          PESCHECK_SCHEMA_URL: https://api.pescheck.io/api/schema/
+          # Track STAGING, not prod: new API fields land on staging first, and the
+          # e2e tests run against staging too. Fetching staging here means the
+          # regen PR shows up when the API actually changes - ahead of an e2e break -
+          # instead of after prod catches up.
+          PESCHECK_SCHEMA_URL: https://api-staging.pescheck.io/api/schema/
 
       # The generator writes a go.mod requiring testify but doesn't populate
       # go.sum; complete it so the regenerated Go client actually builds.
