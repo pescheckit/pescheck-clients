@@ -104,6 +104,4 @@ lib/pescheck-client/models/webhook.rb
 lib/pescheck-client/models/webhook_response.rb
 lib/pescheck-client/version.rb
 pescheck-client.gemspec
-spec/models/v2_screening_note_input_spec.rb
-spec/models/v2_screening_note_spec.rb
 spec/spec_helper.rb

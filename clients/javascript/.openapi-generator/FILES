@@ -97,5 +97,3 @@ src/model/V2ScreeningNoteInput.js
 src/model/VerifyWebhook.js
 src/model/Webhook.js
 src/model/WebhookResponse.js
-test/model/V2ScreeningNote.spec.js
-test/model/V2ScreeningNoteInput.spec.js

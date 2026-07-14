@@ -49,8 +49,6 @@ docs/Webhook.md
 docs/WebhookResponse.md
 docs/WebhooksApi.md
 git_push.sh
-src/Pescheck.Client.Test/Model/V2ScreeningNoteInputTests.cs
-src/Pescheck.Client.Test/Model/V2ScreeningNoteTests.cs
 src/Pescheck.Client.Test/Pescheck.Client.Test.csproj
 src/Pescheck.Client/Api/AuthenticationApi.cs
 src/Pescheck.Client/Api/ChecksApi.cs

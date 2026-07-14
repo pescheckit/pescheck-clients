@@ -109,6 +109,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_v2_screening_note.py
-test/test_v2_screening_note_input.py
 tox.ini
