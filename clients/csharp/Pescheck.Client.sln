@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 VisualStudioVersion = 12.0.0.0
 MinimumVisualStudioVersion = 10.0.0.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client", "src\Pescheck.Client\Pescheck.Client.csproj", "{78EAE46B-5683-41FE-97B2-828FF3308FC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client", "src\Pescheck.Client\Pescheck.Client.csproj", "{A1B2C3D4-0001-4000-8000-000000000001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client.Test", "src\Pescheck.Client.Test\Pescheck.Client.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pescheck.Client.Test", "src\Pescheck.Client.Test\Pescheck.Client.Test.csproj", "{A1B2C3D4-0002-4000-8000-000000000002}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,14 +12,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78EAE46B-5683-41FE-97B2-828FF3308FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78EAE46B-5683-41FE-97B2-828FF3308FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78EAE46B-5683-41FE-97B2-828FF3308FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78EAE46B-5683-41FE-97B2-828FF3308FC9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19F1DEBC-DE5E-4517-8062-F000CD499087}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-0001-4000-8000-000000000001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-0001-4000-8000-000000000001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-0001-4000-8000-000000000001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-0001-4000-8000-000000000001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1B2C3D4-0002-4000-8000-000000000002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1B2C3D4-0002-4000-8000-000000000002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1B2C3D4-0002-4000-8000-000000000002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1B2C3D4-0002-4000-8000-000000000002}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

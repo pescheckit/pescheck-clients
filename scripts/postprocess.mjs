@@ -158,6 +158,27 @@ try {
   /* not generated */
 }
 
+// C#: the generator assigns a RANDOM GUID to each project in the .sln every run,
+// so the file churns on every regen -> perpetual false "drift". Pin each project's
+// GUID (by project name) to a fixed value so the .sln is deterministic.
+try {
+  const p = resolve(root, "clients/csharp/Pescheck.Client.sln");
+  let c = readFileSync(p, "utf8");
+  const fixedGuids = {
+    "Pescheck.Client": "A1B2C3D4-0001-4000-8000-000000000001",
+    "Pescheck.Client.Test": "A1B2C3D4-0002-4000-8000-000000000002",
+  };
+  const before = c;
+  for (const [name, guid] of Object.entries(fixedGuids)) {
+    const re = new RegExp(`= "${name.replace(/[.]/g, "\\.")}", "[^"]+", "\\{([0-9A-Fa-f-]{36})\\}"`);
+    const m = c.match(re);
+    if (m) c = c.split(m[1]).join(guid); // replace the GUID in the Project + config sections
+  }
+  if (c !== before) writeFileSync(p, c);
+} catch {
+  /* not generated */
+}
+
 // Python: the generator sets pyproject.toml [project].name from packageName
 // (pescheck) but setup.py NAME from projectName (pescheck-client). PEP 621 builds
 // use pyproject, so force the distribution name there too. Import stays `pescheck`.

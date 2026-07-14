@@ -1,16 +1,18 @@
 name: Regenerate clients
 
 # Re-fetch the upstream OpenAPI schema, filter it to v2, regenerate all 10
-# clients, and — if that drifts from what's committed (i.e. the upstream API
-# changed) — open an ISSUE so a human regenerates + reviews. Does NOT open a PR.
+# clients, and - if that drifts from what's committed (the upstream API changed) -
+# open a PULL REQUEST with the regenerated spec/ + clients/ for review. CI does
+# the regeneration; a human reviews + merges, so you stay in control. Does NOT
+# commit to main directly.
 on:
   workflow_dispatch:
   schedule:
     - cron: "0 6 * * 1" # every Monday 06:00 UTC
 
 permissions:
-  contents: read
-  issues: write
+  contents: write
+  pull-requests: write
 
 jobs:
   regenerate:
@@ -35,27 +37,29 @@ jobs:
         env:
           PESCHECK_SCHEMA_URL: https://api.pescheck.io/api/schema/
 
-      - name: Detect drift
-        id: drift
-        run: |
-          if [ -n "$(git status --porcelain spec clients)" ]; then
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "No drift — clients are up to date."
-          fi
+      # Opens (or updates) a PR only if spec/ or clients/ actually changed;
+      # a no-op when there's no drift. Review the diff and merge to adopt.
+      - name: Open PR if the clients drifted
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: automated/regenerate-clients
+          delete-branch: true
+          add-paths: |
+            spec
+            clients
+          commit-message: "chore: regenerate clients from latest OpenAPI schema"
+          title: "Regenerate clients from latest OpenAPI schema"
+          body: |
+            The upstream Pescheck OpenAPI schema changed, so the scheduled
+            **Regenerate clients** workflow regenerated `spec/` + the 10 clients.
 
-      - name: Open issue if drifted
-        if: steps.drift.outputs.changed == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          TITLE="Clients out of date — regenerate from latest schema"
-          existing=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number // empty')
-          if [ -n "$existing" ]; then
-            echo "Issue #$existing already open; skipping."
-            exit 0
-          fi
-          changed="$(git status --porcelain spec clients | head -60)"
-          body=$(printf 'The scheduled regeneration differs from the committed clients — the upstream Pescheck OpenAPI schema has changed.\n\n**Action:** run `make build` locally and open a PR with the regenerated `spec/` + `clients/`.\n\nChanged paths:\n```\n%s\n```' "$changed")
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$body"
+            Review the diff and merge to adopt the changes. If nothing here looks
+            intentional, close the PR and investigate the upstream schema change.
+
+            > Note: this PR is created with the built-in `GITHUB_TOKEN`, so the
+            > e2e/build checks do not auto-run on it (GitHub blocks token-created
+            > PRs from triggering workflows). They run on `main` after you merge.
+          labels: |
+            automated
+            codegen
