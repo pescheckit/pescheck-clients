@@ -101,5 +101,3 @@ lib/Model/Webhook.php
 lib/Model/WebhookResponse.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
-test/Model/V2ScreeningNoteInputTest.php
-test/Model/V2ScreeningNoteTest.php

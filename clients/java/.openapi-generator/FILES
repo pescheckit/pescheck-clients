@@ -126,5 +126,3 @@ src/main/java/io/pescheck/client/model/V2ScreeningNoteInput.java
 src/main/java/io/pescheck/client/model/VerifyWebhook.java
 src/main/java/io/pescheck/client/model/Webhook.java
 src/main/java/io/pescheck/client/model/WebhookResponse.java
-src/test/java/io/pescheck/client/model/V2ScreeningNoteInputTest.java
-src/test/java/io/pescheck/client/model/V2ScreeningNoteTest.java
