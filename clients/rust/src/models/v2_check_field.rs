@@ -22,16 +22,16 @@ pub struct V2CheckField {
     /// Whether the request body must include this field.
     #[serde(rename = "required")]
     pub required: bool,
-    /// Allowed values, or null if the field isn't constrained to a set.
+    /// Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
     #[serde(rename = "choices", deserialize_with = "Option::deserialize")]
-    pub choices: Option<Vec<String>>,
+    pub choices: Option<Vec<std::collections::HashMap<String, serde_json::Value>>>,
     #[serde(rename = "help_text", deserialize_with = "Option::deserialize")]
     pub help_text: Option<String>,
 }
 
 impl V2CheckField {
     /// One config or input field a check accepts via the API.
-    pub fn new(name: String, r#type: String, required: bool, choices: Option<Vec<String>>, help_text: Option<String>) -> V2CheckField {
+    pub fn new(name: String, r#type: String, required: bool, choices: Option<Vec<std::collections::HashMap<String, serde_json::Value>>>, help_text: Option<String>) -> V2CheckField {
         V2CheckField {
             name,
             r#type,

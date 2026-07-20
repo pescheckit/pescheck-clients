@@ -85,11 +85,11 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
-        /// Allowed values, or null if the field isn&#39;t constrained to a set.
+        /// Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;.
         /// </summary>
-        /// <value>Allowed values, or null if the field isn&#39;t constrained to a set.</value>
+        /// <value>Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;.</value>
         [DataMember(Name = "choices", IsRequired = true, EmitDefaultValue = true)]
-        public List<string> Choices { get; private set; }
+        public List<Dictionary<string, Object>> Choices { get; private set; }
 
         /// <summary>
         /// Returns false as Choices should not be serialized given that it's read-only.

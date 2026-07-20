@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **Name** | **string** |  | [readonly] 
 **Type** | **string** | \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot; | [readonly] 
 **Required** | **bool** | Whether the request body must include this field. | [readonly] 
-**Choices** | **[]string** | Allowed values, or null if the field isn&#39;t constrained to a set. | [readonly] 
+**Choices** | **[]map[string]interface{}** | Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;. | [readonly] 
 **HelpText** | **NullableString** |  | [readonly] 
 
 ## Methods
 
 ### NewV2CheckField
 
-`func NewV2CheckField(name string, type_ string, required bool, choices []string, helpText NullableString, ) *V2CheckField`
+`func NewV2CheckField(name string, type_ string, required bool, choices []map[string]interface{}, helpText NullableString, ) *V2CheckField`
 
 NewV2CheckField instantiates a new V2CheckField object
 This constructor will assign default values to properties that have it defined,
@@ -91,20 +91,20 @@ SetRequired sets Required field to given value.
 
 ### GetChoices
 
-`func (o *V2CheckField) GetChoices() []string`
+`func (o *V2CheckField) GetChoices() []map[string]interface{}`
 
 GetChoices returns the Choices field if non-nil, zero value otherwise.
 
 ### GetChoicesOk
 
-`func (o *V2CheckField) GetChoicesOk() (*[]string, bool)`
+`func (o *V2CheckField) GetChoicesOk() (*[]map[string]interface{}, bool)`
 
 GetChoicesOk returns a tuple with the Choices field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChoices
 
-`func (o *V2CheckField) SetChoices(v []string)`
+`func (o *V2CheckField) SetChoices(v []map[string]interface{})`
 
 SetChoices sets Choices field to given value.
 
