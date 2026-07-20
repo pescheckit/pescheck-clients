@@ -61,7 +61,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
         'name' => 'string',
         'type' => 'string',
         'required' => 'bool',
-        'choices' => 'string[]',
+        'choices' => 'array<string,mixed>[]',
         'help_text' => 'string'
     ];
 
@@ -417,7 +417,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets choices
      *
-     * @return string[]|null
+     * @return array<string,mixed>[]|null
      */
     public function getChoices()
     {
@@ -427,7 +427,7 @@ class V2CheckField implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets choices
      *
-     * @param string[]|null $choices Allowed values, or null if the field isn't constrained to a set.
+     * @param array<string,mixed>[]|null $choices Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
      *
      * @return self
      */

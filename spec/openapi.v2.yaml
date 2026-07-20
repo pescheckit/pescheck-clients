@@ -578,12 +578,12 @@ paths:
                         type: string
                         required: false
                         choices:
-                          - AD
-                          - AE
-                          - AF
-                          - AG
-                          - AI
-                          - ...
+                          - value: AD
+                            label: Andorra
+                          - value: AE
+                            label: United Arab Emirates
+                          - value: ...
+                            label: ...
                         help_text: null
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T10:30:00Z'
@@ -693,12 +693,12 @@ paths:
                         type: string
                         required: false
                         choices:
-                          - AD
-                          - AE
-                          - AF
-                          - AG
-                          - AI
-                          - ...
+                          - value: AD
+                            label: Andorra
+                          - value: AE
+                            label: United Arab Emirates
+                          - value: ...
+                            label: ...
                         help_text: null
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T10:30:00Z'
@@ -844,12 +844,12 @@ paths:
                         type: string
                         required: false
                         choices:
-                          - AD
-                          - AE
-                          - AF
-                          - AG
-                          - AI
-                          - ...
+                          - value: AD
+                            label: Andorra
+                          - value: AE
+                            label: United Arab Emirates
+                          - value: ...
+                            label: ...
                         help_text: null
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T11:45:00Z'
@@ -973,12 +973,12 @@ paths:
                         type: string
                         required: false
                         choices:
-                          - AD
-                          - AE
-                          - AF
-                          - AG
-                          - AI
-                          - ...
+                          - value: AD
+                            label: Andorra
+                          - value: AE
+                            label: United Arab Emirates
+                          - value: ...
+                            label: ...
                         help_text: null
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T11:45:00Z'
@@ -2531,10 +2531,11 @@ components:
         choices:
           type: array
           items:
-            type: string
+            type: object
+            additionalProperties: {}
           readOnly: true
           nullable: true
-          description: Allowed values, or null if the field isn't constrained to a set.
+          description: Allowed values, or null if the field isn't constrained to a set. Each choice has "value" (what to send), "label" (human-readable), and possibly check-specific extras such as "description".
         help_text:
           type: string
           readOnly: true
@@ -3642,8 +3643,8 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: https://api.pescheck.io/api/o/token/
-          refreshUrl: https://api.pescheck.io/api/o/token/
+          tokenUrl: https://api-staging.pescheck.io/api/o/token/
+          refreshUrl: https://api-staging.pescheck.io/api/o/token/
           scopes:
             read:api: read groups
             create:api: create groups

@@ -38,11 +38,11 @@ export interface V2CheckField {
      */
     readonly required: boolean;
     /**
-     * Allowed values, or null if the field isn't constrained to a set.
-     * @type {Array<string>}
+     * Allowed values, or null if the field isn't constrained to a set. Each choice has "value" (what to send), "label" (human-readable), and possibly check-specific extras such as "description".
+     * @type {Array<{ [key: string]: any; }>}
      * @memberof V2CheckField
      */
-    readonly choices: Array<string> | null;
+    readonly choices: Array<{ [key: string]: any; }> | null;
     /**
      * 
      * @type {string}
