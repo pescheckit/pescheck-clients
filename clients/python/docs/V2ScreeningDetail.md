@@ -7,7 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **UUID** |  | [readonly] 
 **status** | **str** |  | [readonly] 
-**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**organisation** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
+**profile** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
 **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **checks** | [**List[V2ScreeningCheckEntry]**](V2ScreeningCheckEntry.md) |  | [readonly] 
 **screening_notes** | [**List[V2ScreeningNote]**](V2ScreeningNote.md) |  | [readonly] 

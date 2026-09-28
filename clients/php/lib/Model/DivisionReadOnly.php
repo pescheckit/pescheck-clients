@@ -67,8 +67,8 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
         'postal' => 'string',
         'phone' => 'string',
         'contact_name' => 'string',
-        'contact_email' => 'string',
-        'invoice_email' => 'string',
+        'contact_email' => '\Pescheck\Client\Model\DivisionReadOnlyContactEmail',
+        'invoice_email' => '\Pescheck\Client\Model\DivisionReadOnlyContactEmail',
         'use_parent_on_email' => 'bool',
         'use_parent_on_billing' => 'bool',
         'use_parent_on_report' => 'bool'
@@ -92,8 +92,8 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
         'postal' => null,
         'phone' => null,
         'contact_name' => null,
-        'contact_email' => 'email',
-        'invoice_email' => 'email',
+        'contact_email' => null,
+        'invoice_email' => null,
         'use_parent_on_email' => null,
         'use_parent_on_billing' => null,
         'use_parent_on_report' => null
@@ -406,14 +406,6 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
 
         if (!is_null($this->container['contact_name']) && (mb_strlen($this->container['contact_name']) > 255)) {
             $invalidProperties[] = "invalid value for 'contact_name', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['contact_email']) && (mb_strlen($this->container['contact_email']) > 254)) {
-            $invalidProperties[] = "invalid value for 'contact_email', the character length must be smaller than or equal to 254.";
-        }
-
-        if (!is_null($this->container['invoice_email']) && (mb_strlen($this->container['invoice_email']) > 254)) {
-            $invalidProperties[] = "invalid value for 'invoice_email', the character length must be smaller than or equal to 254.";
         }
 
         return $invalidProperties;
@@ -770,7 +762,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets contact_email
      *
-     * @return string|null
+     * @return \Pescheck\Client\Model\DivisionReadOnlyContactEmail|null
      */
     public function getContactEmail()
     {
@@ -780,7 +772,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets contact_email
      *
-     * @param string|null $contact_email contact_email
+     * @param \Pescheck\Client\Model\DivisionReadOnlyContactEmail|null $contact_email contact_email
      *
      * @return self
      */
@@ -796,10 +788,6 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        if (!is_null($contact_email) && (mb_strlen($contact_email) > 254)) {
-            throw new \InvalidArgumentException('invalid length for $contact_email when calling DivisionReadOnly., must be smaller than or equal to 254.');
-        }
-
         $this->container['contact_email'] = $contact_email;
 
         return $this;
@@ -808,7 +796,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets invoice_email
      *
-     * @return string|null
+     * @return \Pescheck\Client\Model\DivisionReadOnlyContactEmail|null
      */
     public function getInvoiceEmail()
     {
@@ -818,7 +806,7 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets invoice_email
      *
-     * @param string|null $invoice_email invoice_email
+     * @param \Pescheck\Client\Model\DivisionReadOnlyContactEmail|null $invoice_email invoice_email
      *
      * @return self
      */
@@ -834,10 +822,6 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        if (!is_null($invoice_email) && (mb_strlen($invoice_email) > 254)) {
-            throw new \InvalidArgumentException('invalid length for $invoice_email when calling DivisionReadOnly., must be smaller than or equal to 254.');
-        }
-
         $this->container['invoice_email'] = $invoice_email;
 
         return $this;

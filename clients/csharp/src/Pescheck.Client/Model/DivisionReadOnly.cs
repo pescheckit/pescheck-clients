@@ -51,7 +51,7 @@ namespace Pescheck.Client.Model
         /// <param name="useParentOnEmail">useParentOnEmail.</param>
         /// <param name="useParentOnBilling">useParentOnBilling.</param>
         /// <param name="useParentOnReport">useParentOnReport.</param>
-        public DivisionReadOnly(string name = default, string city = default, string address = default, string postal = default, string phone = default, string contactName = default, string contactEmail = default, string invoiceEmail = default, bool useParentOnEmail = default, bool useParentOnBilling = default, bool useParentOnReport = default)
+        public DivisionReadOnly(string name = default, string city = default, string address = default, string postal = default, string phone = default, string contactName = default, DivisionReadOnlyContactEmail contactEmail = default, DivisionReadOnlyContactEmail invoiceEmail = default, bool useParentOnEmail = default, bool useParentOnBilling = default, bool useParentOnReport = default)
         {
             this.Name = name;
             this.City = city;
@@ -162,13 +162,13 @@ namespace Pescheck.Client.Model
         /// Gets or Sets ContactEmail
         /// </summary>
         [DataMember(Name = "contact_email", EmitDefaultValue = true)]
-        public string ContactEmail { get; set; }
+        public DivisionReadOnlyContactEmail ContactEmail { get; set; }
 
         /// <summary>
         /// Gets or Sets InvoiceEmail
         /// </summary>
         [DataMember(Name = "invoice_email", EmitDefaultValue = true)]
-        public string InvoiceEmail { get; set; }
+        public DivisionReadOnlyContactEmail InvoiceEmail { get; set; }
 
         /// <summary>
         /// Gets or Sets UseParentOnEmail
@@ -265,18 +265,6 @@ namespace Pescheck.Client.Model
             if (this.ContactName != null && this.ContactName.Length > 255)
             {
                 yield return new ValidationResult("Invalid value for ContactName, length must be less than 255.", new [] { "ContactName" });
-            }
-
-            // ContactEmail (string) maxLength
-            if (this.ContactEmail != null && this.ContactEmail.Length > 254)
-            {
-                yield return new ValidationResult("Invalid value for ContactEmail, length must be less than 254.", new [] { "ContactEmail" });
-            }
-
-            // InvoiceEmail (string) maxLength
-            if (this.InvoiceEmail != null && this.InvoiceEmail.Length > 254)
-            {
-                yield return new ValidationResult("Invalid value for InvoiceEmail, length must be less than 254.", new [] { "InvoiceEmail" });
             }
 
             yield break;

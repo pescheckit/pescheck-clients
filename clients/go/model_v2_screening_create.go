@@ -24,6 +24,8 @@ type V2ScreeningCreate struct {
 	Candidate V2Candidate `json:"candidate"`
 	Checks []V2ScreeningCheck `json:"checks,omitempty"`
 	ScreeningNotes []V2ScreeningNoteInput `json:"screening_notes,omitempty"`
+	// Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+	DivisionId *string `json:"division_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -160,6 +162,38 @@ func (o *V2ScreeningCreate) SetScreeningNotes(v []V2ScreeningNoteInput) {
 	o.ScreeningNotes = v
 }
 
+// GetDivisionId returns the DivisionId field value if set, zero value otherwise.
+func (o *V2ScreeningCreate) GetDivisionId() string {
+	if o == nil || IsNil(o.DivisionId) {
+		var ret string
+		return ret
+	}
+	return *o.DivisionId
+}
+
+// GetDivisionIdOk returns a tuple with the DivisionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *V2ScreeningCreate) GetDivisionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.DivisionId) {
+		return nil, false
+	}
+	return o.DivisionId, true
+}
+
+// HasDivisionId returns a boolean if a field has been set.
+func (o *V2ScreeningCreate) HasDivisionId() bool {
+	if o != nil && !IsNil(o.DivisionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetDivisionId gets a reference to the given string and assigns it to the DivisionId field.
+func (o *V2ScreeningCreate) SetDivisionId(v string) {
+	o.DivisionId = &v
+}
+
 func (o V2ScreeningCreate) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -177,6 +211,9 @@ func (o V2ScreeningCreate) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ScreeningNotes) {
 		toSerialize["screening_notes"] = o.ScreeningNotes
+	}
+	if !IsNil(o.DivisionId) {
+		toSerialize["division_id"] = o.DivisionId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -226,6 +263,7 @@ func (o *V2ScreeningCreate) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "candidate")
 		delete(additionalProperties, "checks")
 		delete(additionalProperties, "screening_notes")
+		delete(additionalProperties, "division_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

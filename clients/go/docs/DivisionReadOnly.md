@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **Postal** | Pointer to **NullableString** |  | [optional] 
 **Phone** | Pointer to **NullableString** |  | [optional] 
 **ContactName** | Pointer to **NullableString** |  | [optional] 
-**ContactEmail** | Pointer to **NullableString** |  | [optional] 
-**InvoiceEmail** | Pointer to **NullableString** |  | [optional] 
+**ContactEmail** | Pointer to [**NullableDivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  | [optional] 
+**InvoiceEmail** | Pointer to [**NullableDivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  | [optional] 
 **UseParentOnEmail** | Pointer to **bool** |  | [optional] 
 **UseParentOnBilling** | Pointer to **bool** |  | [optional] 
 **UseParentOnReport** | Pointer to **bool** |  | [optional] 
@@ -331,20 +331,20 @@ HasContactName returns a boolean if a field has been set.
 UnsetContactName ensures that no value is present for ContactName, not even an explicit nil
 ### GetContactEmail
 
-`func (o *DivisionReadOnly) GetContactEmail() string`
+`func (o *DivisionReadOnly) GetContactEmail() DivisionReadOnlyContactEmail`
 
 GetContactEmail returns the ContactEmail field if non-nil, zero value otherwise.
 
 ### GetContactEmailOk
 
-`func (o *DivisionReadOnly) GetContactEmailOk() (*string, bool)`
+`func (o *DivisionReadOnly) GetContactEmailOk() (*DivisionReadOnlyContactEmail, bool)`
 
 GetContactEmailOk returns a tuple with the ContactEmail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContactEmail
 
-`func (o *DivisionReadOnly) SetContactEmail(v string)`
+`func (o *DivisionReadOnly) SetContactEmail(v DivisionReadOnlyContactEmail)`
 
 SetContactEmail sets ContactEmail field to given value.
 
@@ -366,20 +366,20 @@ HasContactEmail returns a boolean if a field has been set.
 UnsetContactEmail ensures that no value is present for ContactEmail, not even an explicit nil
 ### GetInvoiceEmail
 
-`func (o *DivisionReadOnly) GetInvoiceEmail() string`
+`func (o *DivisionReadOnly) GetInvoiceEmail() DivisionReadOnlyContactEmail`
 
 GetInvoiceEmail returns the InvoiceEmail field if non-nil, zero value otherwise.
 
 ### GetInvoiceEmailOk
 
-`func (o *DivisionReadOnly) GetInvoiceEmailOk() (*string, bool)`
+`func (o *DivisionReadOnly) GetInvoiceEmailOk() (*DivisionReadOnlyContactEmail, bool)`
 
 GetInvoiceEmailOk returns a tuple with the InvoiceEmail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInvoiceEmail
 
-`func (o *DivisionReadOnly) SetInvoiceEmail(v string)`
+`func (o *DivisionReadOnly) SetInvoiceEmail(v DivisionReadOnlyContactEmail)`
 
 SetInvoiceEmail sets InvoiceEmail field to given value.
 

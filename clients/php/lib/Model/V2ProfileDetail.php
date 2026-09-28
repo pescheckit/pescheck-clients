@@ -66,6 +66,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => 'string[]',
         'supported_countries_of_residence' => 'string[]',
         'candidate_fields' => 'object[]',
+        'creates_as_draft' => 'bool',
+        'draft_reasons' => 'string[]',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime'
     ];
@@ -87,6 +89,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => null,
         'supported_countries_of_residence' => null,
         'candidate_fields' => null,
+        'creates_as_draft' => null,
+        'draft_reasons' => null,
         'created_at' => 'date-time',
         'updated_at' => 'date-time'
     ];
@@ -106,6 +110,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => false,
         'supported_countries_of_residence' => false,
         'candidate_fields' => false,
+        'creates_as_draft' => false,
+        'draft_reasons' => false,
         'created_at' => false,
         'updated_at' => false
     ];
@@ -205,6 +211,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => 'supported_countries_of_work',
         'supported_countries_of_residence' => 'supported_countries_of_residence',
         'candidate_fields' => 'candidate_fields',
+        'creates_as_draft' => 'creates_as_draft',
+        'draft_reasons' => 'draft_reasons',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     ];
@@ -224,6 +232,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => 'setSupportedCountriesOfWork',
         'supported_countries_of_residence' => 'setSupportedCountriesOfResidence',
         'candidate_fields' => 'setCandidateFields',
+        'creates_as_draft' => 'setCreatesAsDraft',
+        'draft_reasons' => 'setDraftReasons',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     ];
@@ -243,6 +253,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         'supported_countries_of_work' => 'getSupportedCountriesOfWork',
         'supported_countries_of_residence' => 'getSupportedCountriesOfResidence',
         'candidate_fields' => 'getCandidateFields',
+        'creates_as_draft' => 'getCreatesAsDraft',
+        'draft_reasons' => 'getDraftReasons',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     ];
@@ -313,6 +325,8 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('supported_countries_of_work', $data ?? [], null);
         $this->setIfExists('supported_countries_of_residence', $data ?? [], null);
         $this->setIfExists('candidate_fields', $data ?? [], null);
+        $this->setIfExists('creates_as_draft', $data ?? [], null);
+        $this->setIfExists('draft_reasons', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
     }
@@ -367,6 +381,12 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         if ($this->container['candidate_fields'] === null) {
             $invalidProperties[] = "'candidate_fields' can't be null";
+        }
+        if ($this->container['creates_as_draft'] === null) {
+            $invalidProperties[] = "'creates_as_draft' can't be null";
+        }
+        if ($this->container['draft_reasons'] === null) {
+            $invalidProperties[] = "'draft_reasons' can't be null";
         }
         if ($this->container['created_at'] === null) {
             $invalidProperties[] = "'created_at' can't be null";
@@ -635,6 +655,60 @@ class V2ProfileDetail implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable candidate_fields cannot be null');
         }
         $this->container['candidate_fields'] = $candidate_fields;
+
+        return $this;
+    }
+
+    /**
+     * Gets creates_as_draft
+     *
+     * @return bool
+     */
+    public function getCreatesAsDraft()
+    {
+        return $this->container['creates_as_draft'];
+    }
+
+    /**
+     * Sets creates_as_draft
+     *
+     * @param bool $creates_as_draft creates_as_draft
+     *
+     * @return self
+     */
+    public function setCreatesAsDraft($creates_as_draft)
+    {
+        if (is_null($creates_as_draft)) {
+            throw new \InvalidArgumentException('non-nullable creates_as_draft cannot be null');
+        }
+        $this->container['creates_as_draft'] = $creates_as_draft;
+
+        return $this;
+    }
+
+    /**
+     * Gets draft_reasons
+     *
+     * @return string[]
+     */
+    public function getDraftReasons()
+    {
+        return $this->container['draft_reasons'];
+    }
+
+    /**
+     * Sets draft_reasons
+     *
+     * @param string[] $draft_reasons draft_reasons
+     *
+     * @return self
+     */
+    public function setDraftReasons($draft_reasons)
+    {
+        if (is_null($draft_reasons)) {
+            throw new \InvalidArgumentException('non-nullable draft_reasons cannot be null');
+        }
+        $this->container['draft_reasons'] = $draft_reasons;
 
         return $this;
     }

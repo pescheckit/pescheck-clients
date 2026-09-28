@@ -320,7 +320,7 @@ pplx::task<std::vector<std::shared_ptr<V2Document>>> ScreeningsApi::v2Screenings
         return localVarResult;
     });
 }
-pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> ScreeningsApi::v2ScreeningsList(boost::optional<int32_t> page, boost::optional<int32_t> pageSize, boost::optional<bool> paginate) const
+pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> ScreeningsApi::v2ScreeningsList(boost::optional<utility::string_t> organisation, boost::optional<int32_t> page, boost::optional<int32_t> pageSize, boost::optional<bool> paginate) const
 {
 
 
@@ -361,6 +361,10 @@ pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> ScreeningsApi::v2S
 
     std::unordered_set<utility::string_t> localVarConsumeHttpContentTypes;
 
+    if (organisation)
+    {
+        localVarQueryParams[utility::conversions::to_string_t("organisation")] = ApiClient::parameterToString(*organisation);
+    }
     if (page)
     {
         localVarQueryParams[utility::conversions::to_string_t("page")] = ApiClient::parameterToString(*page);

@@ -44,7 +44,8 @@ namespace Pescheck.Client.Model
         /// <param name="candidate">candidate (required).</param>
         /// <param name="checks">checks.</param>
         /// <param name="screeningNotes">screeningNotes.</param>
-        public V2ScreeningCreate(Guid profileId = default, V2Candidate candidate = default, List<V2ScreeningCheck> checks = default, List<V2ScreeningNoteInput> screeningNotes = default)
+        /// <param name="divisionId">Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation..</param>
+        public V2ScreeningCreate(Guid profileId = default, V2Candidate candidate = default, List<V2ScreeningCheck> checks = default, List<V2ScreeningNoteInput> screeningNotes = default, Guid divisionId = default)
         {
             this.ProfileId = profileId;
             // to ensure "candidate" is required (not null)
@@ -55,6 +56,7 @@ namespace Pescheck.Client.Model
             this.Candidate = candidate;
             this.Checks = checks;
             this.ScreeningNotes = screeningNotes;
+            this.DivisionId = divisionId;
         }
 
         /// <summary>
@@ -82,6 +84,13 @@ namespace Pescheck.Client.Model
         public List<V2ScreeningNoteInput> ScreeningNotes { get; set; }
 
         /// <summary>
+        /// Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+        /// </summary>
+        /// <value>Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.</value>
+        [DataMember(Name = "division_id", EmitDefaultValue = false)]
+        public Guid DivisionId { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -93,6 +102,7 @@ namespace Pescheck.Client.Model
             sb.Append("  Candidate: ").Append(Candidate).Append("\n");
             sb.Append("  Checks: ").Append(Checks).Append("\n");
             sb.Append("  ScreeningNotes: ").Append(ScreeningNotes).Append("\n");
+            sb.Append("  DivisionId: ").Append(DivisionId).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

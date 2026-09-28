@@ -23,7 +23,9 @@
 
 #include "PescheckApi/ModelBase.h"
 
+#include "PescheckApi/model/V2Candidate_postal_code.h"
 #include <cpprest/details/basic_types.h>
+#include "PescheckApi/model/V2Candidate_house_number.h"
 
 namespace org {
 namespace openapitools {
@@ -354,15 +356,15 @@ public:
     void unsetNationality();
     void setNationality(const NationalityEnum value);
 
-    utility::string_t getPostalCode() const;
+    std::shared_ptr<V2Candidate_postal_code> getPostalCode() const;
     bool postalCodeIsSet() const;
     void unsetPostal_code();
-    void setPostalCode(const utility::string_t& value);
+    void setPostalCode(const std::shared_ptr<V2Candidate_postal_code>& value);
 
-    utility::string_t getHouseNumber() const;
+    std::shared_ptr<V2Candidate_house_number> getHouseNumber() const;
     bool houseNumberIsSet() const;
     void unsetHouse_number();
-    void setHouseNumber(const utility::string_t& value);
+    void setHouseNumber(const std::shared_ptr<V2Candidate_house_number>& value);
 
     utility::string_t getExtension() const;
     bool extensionIsSet() const;
@@ -392,10 +394,10 @@ protected:
     NationalityEnum m_Nationality;
     bool m_NationalityIsSet;
 
-    utility::string_t m_Postal_code;
+    std::shared_ptr<V2Candidate_postal_code> m_Postal_code;
     bool m_Postal_codeIsSet;
 
-    utility::string_t m_House_number;
+    std::shared_ptr<V2Candidate_house_number> m_House_number;
     bool m_House_numberIsSet;
 
     utility::string_t m_Extension;

@@ -66,6 +66,9 @@ class V2ScreeningCreate {
             if (data.hasOwnProperty('screening_notes')) {
                 obj['screening_notes'] = ApiClient.convertToType(data['screening_notes'], [V2ScreeningNoteInput]);
             }
+            if (data.hasOwnProperty('division_id')) {
+                obj['division_id'] = ApiClient.convertToType(data['division_id'], 'String');
+            }
         }
         return obj;
     }
@@ -110,6 +113,10 @@ class V2ScreeningCreate {
                 V2ScreeningNoteInput.validateJSON(item);
             };
         }
+        // ensure the json data is a string
+        if (data['division_id'] && !(typeof data['division_id'] === 'string' || data['division_id'] instanceof String)) {
+            throw new Error("Expected the field `division_id` to be a primitive type in the JSON string but got " + data['division_id']);
+        }
 
         return true;
     }
@@ -138,6 +145,12 @@ V2ScreeningCreate.prototype['checks'] = undefined;
  * @member {Array.<module:model/V2ScreeningNoteInput>} screening_notes
  */
 V2ScreeningCreate.prototype['screening_notes'] = undefined;
+
+/**
+ * Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+ * @member {String} division_id
+ */
+V2ScreeningCreate.prototype['division_id'] = undefined;
 
 
 

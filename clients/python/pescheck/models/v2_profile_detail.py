@@ -40,9 +40,11 @@ class V2ProfileDetail(BaseModel):
     supported_countries_of_work: List[StrictStr]
     supported_countries_of_residence: List[StrictStr]
     candidate_fields: List[Dict[str, Any]]
+    creates_as_draft: StrictBool
+    draft_reasons: List[StrictStr]
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "creates_as_draft", "draft_reasons", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -82,6 +84,8 @@ class V2ProfileDetail(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
@@ -90,6 +94,8 @@ class V2ProfileDetail(BaseModel):
             "supported_countries_of_work",
             "supported_countries_of_residence",
             "candidate_fields",
+            "creates_as_draft",
+            "draft_reasons",
             "created_at",
             "updated_at",
         ])
@@ -135,6 +141,8 @@ class V2ProfileDetail(BaseModel):
             "supported_countries_of_work": obj.get("supported_countries_of_work"),
             "supported_countries_of_residence": obj.get("supported_countries_of_residence"),
             "candidate_fields": obj.get("candidate_fields"),
+            "creates_as_draft": obj.get("creates_as_draft"),
+            "draft_reasons": obj.get("draft_reasons"),
             "created_at": obj.get("created_at"),
             "updated_at": obj.get("updated_at")
         })

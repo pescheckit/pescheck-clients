@@ -22,11 +22,11 @@
 
 #include "PescheckApi/ModelBase.h"
 
-#include "PescheckApi/model/V2ScreeningDetail_profile.h"
 #include "PescheckApi/model/V2ScreeningCheckEntry.h"
 #include "PescheckApi/model/V2Candidate.h"
 #include <cpprest/details/basic_types.h>
 #include <vector>
+#include "PescheckApi/model/V2ScreeningDetail_organisation.h"
 #include "PescheckApi/model/V2ScreeningNote.h"
 
 namespace org {
@@ -34,7 +34,7 @@ namespace openapitools {
 namespace client {
 namespace model {
 
-class V2ScreeningDetail_profile;
+class V2ScreeningDetail_organisation;
 class V2Candidate;
 class V2ScreeningCheckEntry;
 class V2ScreeningNote;
@@ -73,10 +73,15 @@ public:
     void unsetStatus();
     void setStatus(const utility::string_t& value);
 
-    std::shared_ptr<V2ScreeningDetail_profile> getProfile() const;
+    std::shared_ptr<V2ScreeningDetail_organisation> getOrganisation() const;
+    bool organisationIsSet() const;
+    void unsetOrganisation();
+    void setOrganisation(const std::shared_ptr<V2ScreeningDetail_organisation>& value);
+
+    std::shared_ptr<V2ScreeningDetail_organisation> getProfile() const;
     bool profileIsSet() const;
     void unsetProfile();
-    void setProfile(const std::shared_ptr<V2ScreeningDetail_profile>& value);
+    void setProfile(const std::shared_ptr<V2ScreeningDetail_organisation>& value);
 
     std::shared_ptr<V2Candidate> getCandidate() const;
     bool candidateIsSet() const;
@@ -127,7 +132,9 @@ protected:
     utility::string_t m_Status;
     bool m_StatusIsSet;
 
-    boost::optional<std::shared_ptr<V2ScreeningDetail_profile>> m_Profile;
+    boost::optional<std::shared_ptr<V2ScreeningDetail_organisation>> m_Organisation;
+
+    boost::optional<std::shared_ptr<V2ScreeningDetail_organisation>> m_Profile;
 
     std::shared_ptr<V2Candidate> m_Candidate;
     bool m_CandidateIsSet;

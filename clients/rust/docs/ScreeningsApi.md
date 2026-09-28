@@ -73,7 +73,7 @@ Name | Type | Description  | Required | Notes
 
 ## v2_screenings_list
 
-> models::PaginatedV2ScreeningListItemList v2_screenings_list(page, page_size, paginate)
+> models::PaginatedV2ScreeningListItemList v2_screenings_list(organisation, page, page_size, paginate)
 
 
 ### Parameters
@@ -81,6 +81,7 @@ Name | Type | Description  | Required | Notes
 
 Name | Type | Description  | Required | Notes
 ------------- | ------------- | ------------- | ------------- | -------------
+**organisation** | Option<**uuid::Uuid**> | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. |  |
 **page** | Option<**i32**> | A page number within the paginated result set. |  |[default to 1]
 **page_size** | Option<**i32**> | Number of results to return per page. |  |[default to 50]
 **paginate** | Option<**bool**> | Enable/disable pagination. When false, max 500 records returned. |  |[default to true]

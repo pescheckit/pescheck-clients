@@ -30,7 +30,6 @@ export interface V2ProfileUpdateCheck {
      * * `customintegritycheck` - customintegritycheck
      * * `cvcheck` - cvcheck
      * * `edrcheck` - edrcheck
-     * * `focumcheck` - focumcheck
      * * `id2check` - id2check
      * * `idcheck` - idcheck
      * * `integritycheck` - integritycheck
@@ -76,7 +75,6 @@ export const V2ProfileUpdateCheckCheckTypeEnum = {
     Customintegritycheck: 'customintegritycheck',
     Cvcheck: 'cvcheck',
     Edrcheck: 'edrcheck',
-    Focumcheck: 'focumcheck',
     Id2check: 'id2check',
     Idcheck: 'idcheck',
     Integritycheck: 'integritycheck',

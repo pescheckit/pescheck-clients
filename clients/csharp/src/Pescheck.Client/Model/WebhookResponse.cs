@@ -232,9 +232,9 @@ namespace Pescheck.Client.Model
             }
 
             // Url (string) maxLength
-            if (this.Url != null && this.Url.Length > 200)
+            if (this.Url != null && this.Url.Length > 400)
             {
-                yield return new ValidationResult("Invalid value for Url, length must be less than 200.", new [] { "Url" });
+                yield return new ValidationResult("Invalid value for Url, length must be less than 400.", new [] { "Url" });
             }
 
             yield break;

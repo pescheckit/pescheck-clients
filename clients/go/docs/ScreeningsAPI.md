@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ## V2ScreeningsList
 
-> PaginatedV2ScreeningListItemList V2ScreeningsList(ctx).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
+> PaginatedV2ScreeningListItemList V2ScreeningsList(ctx).Organisation(organisation).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
 
 
 
@@ -168,13 +168,14 @@ import (
 )
 
 func main() {
+	organisation := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. (optional)
 	page := int32(1) // int32 | A page number within the paginated result set. (optional) (default to 1)
 	pageSize := int32(50) // int32 | Number of results to return per page. (optional) (default to 50)
 	paginate := true // bool | Enable/disable pagination. When false, max 500 records returned. (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ScreeningsAPI.V2ScreeningsList(context.Background()).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
+	resp, r, err := apiClient.ScreeningsAPI.V2ScreeningsList(context.Background()).Organisation(organisation).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ScreeningsAPI.V2ScreeningsList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,6 +196,7 @@ Other parameters are passed through a pointer to a apiV2ScreeningsListRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **organisation** | **string** | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | 
  **page** | **int32** | A page number within the paginated result set. | [default to 1]
  **pageSize** | **int32** | Number of results to return per page. | [default to 50]
  **paginate** | **bool** | Enable/disable pagination. When false, max 500 records returned. | [default to true]

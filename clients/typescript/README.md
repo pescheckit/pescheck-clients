@@ -18,9 +18,9 @@ Next, try it out.
 ```ts
 import {
   Configuration,
-  AuthenticationApi,
+  AddOnsApi,
 } from '@pescheckit/pescheck-client';
-import type { GenerateJWTToken2Request } from '@pescheckit/pescheck-client';
+import type { V2OrganisationsAddonsListRequest } from '@pescheckit/pescheck-client';
 
 async function example() {
   console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
@@ -28,15 +28,15 @@ async function example() {
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
   });
-  const api = new AuthenticationApi(config);
+  const api = new AddOnsApi(config);
 
   const body = {
-    // JWTGeneration
-    jWTGeneration: ...,
-  } satisfies GenerateJWTToken2Request;
+    // string | Act on this division instead of the organisation the token belongs to. (optional)
+    divisionId: divisionId_example,
+  } satisfies V2OrganisationsAddonsListRequest;
 
   try {
-    const data = await api.generateJWTToken2(body);
+    const data = await api.v2OrganisationsAddonsList(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -56,6 +56,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 | Class | Method | HTTP request | Description
 | ----- | ------ | ------------ | -------------
+*AddOnsApi* | [**v2OrganisationsAddonsList**](docs/AddOnsApi.md#v2organisationsaddonslist) | **GET** /api/v2/organisations/addons/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsPartialUpdate**](docs/AddOnsApi.md#v2organisationsaddonspartialupdate) | **PATCH** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsRetrieve**](docs/AddOnsApi.md#v2organisationsaddonsretrieve) | **GET** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsUpdate**](docs/AddOnsApi.md#v2organisationsaddonsupdate) | **PUT** /api/v2/organisations/addons/{addon}/ | 
 *AuthenticationApi* | [**generateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ | 
 *AuthenticationApi* | [**jwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ | 
 *AuthenticationApi* | [**jwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ | 
@@ -87,20 +91,29 @@ All URIs are relative to *https://api.pescheck.io*
 
 ### Models
 
+- [AddonPrice](docs/AddonPrice.md)
 - [CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+- [DisabledDivision](docs/DisabledDivision.md)
 - [DivisionReadOnly](docs/DivisionReadOnly.md)
+- [DivisionReadOnlyContactEmail](docs/DivisionReadOnlyContactEmail.md)
 - [DivisionWrite](docs/DivisionWrite.md)
 - [JWTGeneration](docs/JWTGeneration.md)
 - [JWTResponse](docs/JWTResponse.md)
 - [OAuthApplication](docs/OAuthApplication.md)
 - [OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+- [OrganisationAddon](docs/OrganisationAddon.md)
+- [OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+- [OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
 - [PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
 - [PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
 - [PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
 - [PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+- [PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
 - [PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
 - [TokenRefresh](docs/TokenRefresh.md)
 - [V2Candidate](docs/V2Candidate.md)
+- [V2CandidateHouseNumber](docs/V2CandidateHouseNumber.md)
+- [V2CandidatePostalCode](docs/V2CandidatePostalCode.md)
 - [V2CheckField](docs/V2CheckField.md)
 - [V2CheckInfo](docs/V2CheckInfo.md)
 - [V2Document](docs/V2Document.md)
@@ -118,7 +131,7 @@ All URIs are relative to *https://api.pescheck.io*
 - [V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
 - [V2ScreeningCreate](docs/V2ScreeningCreate.md)
 - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
-- [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+- [V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
 - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
 - [V2ScreeningNote](docs/V2ScreeningNote.md)
 - [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
@@ -150,9 +163,9 @@ Authentication schemes defined for the API:
 - **Flow**: application
 - **Authorization URL**: 
 - **Scopes**: 
-  - `read:api`: read groups
-  - `create:api`: create groups
-  - `update:api`: update groups
+  - `read:api`: Read access to API
+  - `create:api`: Create access to API
+  - `update:api`: Update access to API
 
 ## About
 

@@ -9,7 +9,8 @@ Name | Type
 ------------ | -------------
 `id` | string
 `status` | string
-`profile` | [V2ScreeningDetailProfile](V2ScreeningDetailProfile.md)
+`organisation` | [V2ScreeningDetailOrganisation](V2ScreeningDetailOrganisation.md)
+`profile` | [V2ScreeningDetailOrganisation](V2ScreeningDetailOrganisation.md)
 `candidate` | [V2Candidate](V2Candidate.md)
 `checks` | [Array&lt;V2ScreeningCheckListItem&gt;](V2ScreeningCheckListItem.md)
 `candidateWizardUrl` | string
@@ -26,6 +27,7 @@ import type { V2ScreeningListItem } from '@pescheckit/pescheck-client'
 const example = {
   "id": null,
   "status": null,
+  "organisation": null,
   "profile": null,
   "candidate": null,
   "checks": null,

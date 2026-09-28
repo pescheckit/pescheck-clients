@@ -73,6 +73,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsAPI* | [**V2OrganisationsAddonsList**](docs/AddOnsAPI.md#v2organisationsaddonslist) | **Get** /api/v2/organisations/addons/ | 
+*AddOnsAPI* | [**V2OrganisationsAddonsPartialUpdate**](docs/AddOnsAPI.md#v2organisationsaddonspartialupdate) | **Patch** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsAPI* | [**V2OrganisationsAddonsRetrieve**](docs/AddOnsAPI.md#v2organisationsaddonsretrieve) | **Get** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsAPI* | [**V2OrganisationsAddonsUpdate**](docs/AddOnsAPI.md#v2organisationsaddonsupdate) | **Put** /api/v2/organisations/addons/{addon}/ | 
 *AuthenticationAPI* | [**GenerateJWTToken2**](docs/AuthenticationAPI.md#generatejwttoken2) | **Post** /api/v2/jwt/generate/ | 
 *AuthenticationAPI* | [**JwtCreate**](docs/AuthenticationAPI.md#jwtcreate) | **Post** /api/jwt/ | 
 *AuthenticationAPI* | [**JwtRefreshCreate**](docs/AuthenticationAPI.md#jwtrefreshcreate) | **Post** /api/jwt/refresh/ | 
@@ -104,20 +108,29 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AddonPrice](docs/AddonPrice.md)
  - [CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [DisabledDivision](docs/DisabledDivision.md)
  - [DivisionReadOnly](docs/DivisionReadOnly.md)
+ - [DivisionReadOnlyContactEmail](docs/DivisionReadOnlyContactEmail.md)
  - [DivisionWrite](docs/DivisionWrite.md)
  - [JWTGeneration](docs/JWTGeneration.md)
  - [JWTResponse](docs/JWTResponse.md)
  - [OAuthApplication](docs/OAuthApplication.md)
  - [OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [OrganisationAddon](docs/OrganisationAddon.md)
+ - [OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [TokenRefresh](docs/TokenRefresh.md)
  - [V2Candidate](docs/V2Candidate.md)
+ - [V2CandidateHouseNumber](docs/V2CandidateHouseNumber.md)
+ - [V2CandidatePostalCode](docs/V2CandidatePostalCode.md)
  - [V2CheckField](docs/V2CheckField.md)
  - [V2CheckInfo](docs/V2CheckInfo.md)
  - [V2Document](docs/V2Document.md)
@@ -135,7 +148,7 @@ Class | Method | HTTP request | Description
  - [V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [V2ScreeningNote](docs/V2ScreeningNote.md)
  - [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
@@ -187,9 +200,9 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: application
 - **Authorization URL**: 
 - **Scopes**: 
- - **read:api**: read groups
- - **create:api**: create groups
- - **update:api**: update groups
+ - **read:api**: Read access to API
+ - **create:api**: Create access to API
+ - **update:api**: Update access to API
 
 Example
 

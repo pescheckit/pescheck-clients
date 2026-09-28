@@ -54,19 +54,19 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
 
 
-$apiInstance = new Pescheck\Client\Api\AuthenticationApi(
+$apiInstance = new Pescheck\Client\Api\AddOnsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
     $config
 );
-$jwt_generation = new \Pescheck\Client\Model\JWTGeneration(); // \Pescheck\Client\Model\JWTGeneration
+$division_id = 'division_id_example'; // string | Act on this division instead of the organisation the token belongs to.
 
 try {
-    $result = $apiInstance->generateJWTToken2($jwt_generation);
+    $result = $apiInstance->v2OrganisationsAddonsList($division_id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling AuthenticationApi->generateJWTToken2: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling AddOnsApi->v2OrganisationsAddonsList: ', $e->getMessage(), PHP_EOL;
 }
 
 ```
@@ -77,6 +77,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsApi* | [**v2OrganisationsAddonsList**](docs/Api/AddOnsApi.md#v2organisationsaddonslist) | **GET** /api/v2/organisations/addons/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsPartialUpdate**](docs/Api/AddOnsApi.md#v2organisationsaddonspartialupdate) | **PATCH** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsRetrieve**](docs/Api/AddOnsApi.md#v2organisationsaddonsretrieve) | **GET** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2OrganisationsAddonsUpdate**](docs/Api/AddOnsApi.md#v2organisationsaddonsupdate) | **PUT** /api/v2/organisations/addons/{addon}/ | 
 *AuthenticationApi* | [**generateJWTToken2**](docs/Api/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ | 
 *AuthenticationApi* | [**jwtCreate**](docs/Api/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ | 
 *AuthenticationApi* | [**jwtRefreshCreate**](docs/Api/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ | 
@@ -107,20 +111,29 @@ Class | Method | HTTP request | Description
 
 ## Models
 
+- [AddonPrice](docs/Model/AddonPrice.md)
 - [CustomTokenObtainPair](docs/Model/CustomTokenObtainPair.md)
+- [DisabledDivision](docs/Model/DisabledDivision.md)
 - [DivisionReadOnly](docs/Model/DivisionReadOnly.md)
+- [DivisionReadOnlyContactEmail](docs/Model/DivisionReadOnlyContactEmail.md)
 - [DivisionWrite](docs/Model/DivisionWrite.md)
 - [JWTGeneration](docs/Model/JWTGeneration.md)
 - [JWTResponse](docs/Model/JWTResponse.md)
 - [OAuthApplication](docs/Model/OAuthApplication.md)
 - [OAuthApplicationResponse](docs/Model/OAuthApplicationResponse.md)
+- [OrganisationAddon](docs/Model/OrganisationAddon.md)
+- [OrganisationAddonUpdate](docs/Model/OrganisationAddonUpdate.md)
+- [OrganisationAddonUpdateResult](docs/Model/OrganisationAddonUpdateResult.md)
 - [PaginatedDivisionReadOnlyList](docs/Model/PaginatedDivisionReadOnlyList.md)
 - [PaginatedV2ProfileListItemList](docs/Model/PaginatedV2ProfileListItemList.md)
 - [PaginatedV2ScreeningListItemList](docs/Model/PaginatedV2ScreeningListItemList.md)
 - [PatchedDivisionWrite](docs/Model/PatchedDivisionWrite.md)
+- [PatchedOrganisationAddonUpdate](docs/Model/PatchedOrganisationAddonUpdate.md)
 - [PatchedV2ProfilePartialUpdate](docs/Model/PatchedV2ProfilePartialUpdate.md)
 - [TokenRefresh](docs/Model/TokenRefresh.md)
 - [V2Candidate](docs/Model/V2Candidate.md)
+- [V2CandidateHouseNumber](docs/Model/V2CandidateHouseNumber.md)
+- [V2CandidatePostalCode](docs/Model/V2CandidatePostalCode.md)
 - [V2CheckField](docs/Model/V2CheckField.md)
 - [V2CheckInfo](docs/Model/V2CheckInfo.md)
 - [V2Document](docs/Model/V2Document.md)
@@ -138,7 +151,7 @@ Class | Method | HTTP request | Description
 - [V2ScreeningCheckListItem](docs/Model/V2ScreeningCheckListItem.md)
 - [V2ScreeningCreate](docs/Model/V2ScreeningCreate.md)
 - [V2ScreeningDetail](docs/Model/V2ScreeningDetail.md)
-- [V2ScreeningDetailProfile](docs/Model/V2ScreeningDetailProfile.md)
+- [V2ScreeningDetailOrganisation](docs/Model/V2ScreeningDetailOrganisation.md)
 - [V2ScreeningListItem](docs/Model/V2ScreeningListItem.md)
 - [V2ScreeningNote](docs/Model/V2ScreeningNote.md)
 - [V2ScreeningNoteInput](docs/Model/V2ScreeningNoteInput.md)
@@ -166,9 +179,9 @@ Authentication schemes defined for the API:
 - **Flow**: `application`
 - **Authorization URL**: ``
 - **Scopes**: 
-    - **read:api**: read groups
-    - **create:api**: create groups
-    - **update:api**: update groups
+    - **read:api**: Read access to API
+    - **create:api**: Create access to API
+    - **update:api**: Update access to API
 
 ## Tests
 

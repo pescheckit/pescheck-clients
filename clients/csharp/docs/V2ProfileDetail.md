@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **SupportedCountriesOfWork** | **List&lt;string&gt;** |  | [readonly] 
 **SupportedCountriesOfResidence** | **List&lt;string&gt;** |  | [readonly] 
 **CandidateFields** | **List&lt;Object&gt;** |  | [readonly] 
+**CreatesAsDraft** | **bool** |  | [readonly] 
+**DraftReasons** | **List&lt;string&gt;** |  | [readonly] 
 **CreatedAt** | **DateTime** |  | [readonly] 
 **UpdatedAt** | **DateTime** |  | [readonly] 
 

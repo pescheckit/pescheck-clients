@@ -116,17 +116,17 @@ namespace Example
             // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
-            var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
-            var jWTGeneration = new JWTGeneration(); // JWTGeneration | 
+            var apiInstance = new AddOnsApi(httpClient, config, httpClientHandler);
+            var divisionId = "divisionId_example";  // string? | Act on this division instead of the organisation the token belongs to. (optional) 
 
             try
             {
-                JWTResponse result = apiInstance.GenerateJWTToken2(jWTGeneration);
+                List<OrganisationAddon> result = apiInstance.V2OrganisationsAddonsList(divisionId);
                 Debug.WriteLine(result);
             }
             catch (ApiException e)
             {
-                Debug.Print("Exception when calling AuthenticationApi.GenerateJWTToken2: " + e.Message );
+                Debug.Print("Exception when calling AddOnsApi.V2OrganisationsAddonsList: " + e.Message );
                 Debug.Print("Status Code: "+ e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
@@ -143,6 +143,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsApi* | [**V2OrganisationsAddonsList**](docs/AddOnsApi.md#v2organisationsaddonslist) | **GET** /api/v2/organisations/addons/ | 
+*AddOnsApi* | [**V2OrganisationsAddonsPartialUpdate**](docs/AddOnsApi.md#v2organisationsaddonspartialupdate) | **PATCH** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**V2OrganisationsAddonsRetrieve**](docs/AddOnsApi.md#v2organisationsaddonsretrieve) | **GET** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**V2OrganisationsAddonsUpdate**](docs/AddOnsApi.md#v2organisationsaddonsupdate) | **PUT** /api/v2/organisations/addons/{addon}/ | 
 *AuthenticationApi* | [**GenerateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ | 
 *AuthenticationApi* | [**JwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ | 
 *AuthenticationApi* | [**JwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ | 
@@ -175,20 +179,29 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [Model.AddonPrice](docs/AddonPrice.md)
  - [Model.CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [Model.DisabledDivision](docs/DisabledDivision.md)
  - [Model.DivisionReadOnly](docs/DivisionReadOnly.md)
+ - [Model.DivisionReadOnlyContactEmail](docs/DivisionReadOnlyContactEmail.md)
  - [Model.DivisionWrite](docs/DivisionWrite.md)
  - [Model.JWTGeneration](docs/JWTGeneration.md)
  - [Model.JWTResponse](docs/JWTResponse.md)
  - [Model.OAuthApplication](docs/OAuthApplication.md)
  - [Model.OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [Model.OrganisationAddon](docs/OrganisationAddon.md)
+ - [Model.OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [Model.OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [Model.PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [Model.PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [Model.PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [Model.PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [Model.PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [Model.PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [Model.TokenRefresh](docs/TokenRefresh.md)
  - [Model.V2Candidate](docs/V2Candidate.md)
+ - [Model.V2CandidateHouseNumber](docs/V2CandidateHouseNumber.md)
+ - [Model.V2CandidatePostalCode](docs/V2CandidatePostalCode.md)
  - [Model.V2CheckField](docs/V2CheckField.md)
  - [Model.V2CheckInfo](docs/V2CheckInfo.md)
  - [Model.V2Document](docs/V2Document.md)
@@ -206,7 +219,7 @@ Class | Method | HTTP request | Description
  - [Model.V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [Model.V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [Model.V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [Model.V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [Model.V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [Model.V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [Model.V2ScreeningNote](docs/V2ScreeningNote.md)
  - [Model.V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
@@ -239,7 +252,7 @@ Authentication schemes defined for the API:
 - **Flow**: application
 - **Authorization URL**: 
 - **Scopes**: 
-  - read:api: read groups
-  - create:api: create groups
-  - update:api: update groups
+  - read:api: Read access to API
+  - create:api: Create access to API
+  - update:api: Update access to API
 

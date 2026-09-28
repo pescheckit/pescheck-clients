@@ -27,8 +27,10 @@ type OAuthApplicationResponse struct {
 	ClientSecret string `json:"client_secret"`
 	// * `confidential` - Confidential * `public` - Public
 	ClientType string `json:"client_type"`
-	// * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+	// * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
 	AuthorizationGrantType string `json:"authorization_grant_type"`
+	Organisation string `json:"organisation"`
+	OrganisationId string `json:"organisation_id"`
 	Created time.Time `json:"created"`
 	Updated time.Time `json:"updated"`
 	AdditionalProperties map[string]interface{}
@@ -40,12 +42,14 @@ type _OAuthApplicationResponse OAuthApplicationResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, created time.Time, updated time.Time) *OAuthApplicationResponse {
+func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, organisation string, organisationId string, created time.Time, updated time.Time) *OAuthApplicationResponse {
 	this := OAuthApplicationResponse{}
 	this.Id = id
 	this.ClientSecret = clientSecret
 	this.ClientType = clientType
 	this.AuthorizationGrantType = authorizationGrantType
+	this.Organisation = organisation
+	this.OrganisationId = organisationId
 	this.Created = created
 	this.Updated = updated
 	return &this
@@ -219,6 +223,54 @@ func (o *OAuthApplicationResponse) SetAuthorizationGrantType(v string) {
 	o.AuthorizationGrantType = v
 }
 
+// GetOrganisation returns the Organisation field value
+func (o *OAuthApplicationResponse) GetOrganisation() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Organisation
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+func (o *OAuthApplicationResponse) GetOrganisationOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Organisation, true
+}
+
+// SetOrganisation sets field value
+func (o *OAuthApplicationResponse) SetOrganisation(v string) {
+	o.Organisation = v
+}
+
+// GetOrganisationId returns the OrganisationId field value
+func (o *OAuthApplicationResponse) GetOrganisationId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.OrganisationId
+}
+
+// GetOrganisationIdOk returns a tuple with the OrganisationId field value
+// and a boolean to check if the value has been set.
+func (o *OAuthApplicationResponse) GetOrganisationIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.OrganisationId, true
+}
+
+// SetOrganisationId sets field value
+func (o *OAuthApplicationResponse) SetOrganisationId(v string) {
+	o.OrganisationId = v
+}
+
 // GetCreated returns the Created field value
 func (o *OAuthApplicationResponse) GetCreated() time.Time {
 	if o == nil {
@@ -287,6 +339,8 @@ func (o OAuthApplicationResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["client_secret"] = o.ClientSecret
 	toSerialize["client_type"] = o.ClientType
 	toSerialize["authorization_grant_type"] = o.AuthorizationGrantType
+	toSerialize["organisation"] = o.Organisation
+	toSerialize["organisation_id"] = o.OrganisationId
 	toSerialize["created"] = o.Created
 	toSerialize["updated"] = o.Updated
 
@@ -306,6 +360,8 @@ func (o *OAuthApplicationResponse) UnmarshalJSON(data []byte) (err error) {
 		"client_secret",
 		"client_type",
 		"authorization_grant_type",
+		"organisation",
+		"organisation_id",
 		"created",
 		"updated",
 	}
@@ -343,6 +399,8 @@ func (o *OAuthApplicationResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "client_secret")
 		delete(additionalProperties, "client_type")
 		delete(additionalProperties, "authorization_grant_type")
+		delete(additionalProperties, "organisation")
+		delete(additionalProperties, "organisation_id")
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "updated")
 		o.AdditionalProperties = additionalProperties

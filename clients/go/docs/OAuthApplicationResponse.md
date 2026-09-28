@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **ClientId** | Pointer to **string** |  | [optional] 
 **ClientSecret** | **string** |  | [readonly] 
 **ClientType** | **string** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public | 
-**AuthorizationGrantType** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**AuthorizationGrantType** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**Organisation** | **string** |  | [readonly] 
+**OrganisationId** | **string** |  | [readonly] 
 **Created** | **time.Time** |  | [readonly] 
 **Updated** | **time.Time** |  | [readonly] 
 
@@ -17,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewOAuthApplicationResponse
 
-`func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, created time.Time, updated time.Time, ) *OAuthApplicationResponse`
+`func NewOAuthApplicationResponse(id string, clientSecret string, clientType string, authorizationGrantType string, organisation string, organisationId string, created time.Time, updated time.Time, ) *OAuthApplicationResponse`
 
 NewOAuthApplicationResponse instantiates a new OAuthApplicationResponse object
 This constructor will assign default values to properties that have it defined,
@@ -160,6 +162,46 @@ and a boolean to check if the value has been set.
 `func (o *OAuthApplicationResponse) SetAuthorizationGrantType(v string)`
 
 SetAuthorizationGrantType sets AuthorizationGrantType field to given value.
+
+
+### GetOrganisation
+
+`func (o *OAuthApplicationResponse) GetOrganisation() string`
+
+GetOrganisation returns the Organisation field if non-nil, zero value otherwise.
+
+### GetOrganisationOk
+
+`func (o *OAuthApplicationResponse) GetOrganisationOk() (*string, bool)`
+
+GetOrganisationOk returns a tuple with the Organisation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganisation
+
+`func (o *OAuthApplicationResponse) SetOrganisation(v string)`
+
+SetOrganisation sets Organisation field to given value.
+
+
+### GetOrganisationId
+
+`func (o *OAuthApplicationResponse) GetOrganisationId() string`
+
+GetOrganisationId returns the OrganisationId field if non-nil, zero value otherwise.
+
+### GetOrganisationIdOk
+
+`func (o *OAuthApplicationResponse) GetOrganisationIdOk() (*string, bool)`
+
+GetOrganisationIdOk returns a tuple with the OrganisationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganisationId
+
+`func (o *OAuthApplicationResponse) SetOrganisationId(v string)`
+
+SetOrganisationId sets OrganisationId field to given value.
 
 
 ### GetCreated

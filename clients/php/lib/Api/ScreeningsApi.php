@@ -703,6 +703,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsList
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -712,15 +713,16 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
      */
-    public function v2ScreeningsList($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsList($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        list($response) = $this->v2ScreeningsListWithHttpInfo($page, $page_size, $paginate, $contentType);
+        list($response) = $this->v2ScreeningsListWithHttpInfo($organisation, $page, $page_size, $paginate, $contentType);
         return $response;
     }
 
     /**
      * Operation v2ScreeningsListWithHttpInfo
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -730,9 +732,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return array of \Pescheck\Client\Model\PaginatedV2ScreeningListItemList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function v2ScreeningsListWithHttpInfo($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListWithHttpInfo($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        $request = $this->v2ScreeningsListRequest($page, $page_size, $paginate, $contentType);
+        $request = $this->v2ScreeningsListRequest($organisation, $page, $page_size, $paginate, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -806,6 +808,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsListAsync
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -814,9 +817,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function v2ScreeningsListAsync($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListAsync($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        return $this->v2ScreeningsListAsyncWithHttpInfo($page, $page_size, $paginate, $contentType)
+        return $this->v2ScreeningsListAsyncWithHttpInfo($organisation, $page, $page_size, $paginate, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -827,6 +830,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsListAsyncWithHttpInfo
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -835,10 +839,10 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function v2ScreeningsListAsyncWithHttpInfo($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListAsyncWithHttpInfo($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
         $returnType = '\Pescheck\Client\Model\PaginatedV2ScreeningListItemList';
-        $request = $this->v2ScreeningsListRequest($page, $page_size, $paginate, $contentType);
+        $request = $this->v2ScreeningsListRequest($organisation, $page, $page_size, $paginate, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -879,6 +883,7 @@ class ScreeningsApi
     /**
      * Create request for operation 'v2ScreeningsList'
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -887,8 +892,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function v2ScreeningsListRequest($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListRequest($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
+
 
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling ScreeningsApi.v2ScreeningsList, must be bigger than or equal to 1.');
@@ -910,6 +916,15 @@ class ScreeningsApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $organisation,
+            'organisation', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $page,

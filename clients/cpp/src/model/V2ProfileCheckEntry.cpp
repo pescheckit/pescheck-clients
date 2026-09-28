@@ -297,10 +297,6 @@ V2ProfileCheckEntry::Check_typeEnum V2ProfileCheckEntry::toCheck_typeEnum(const 
         return Check_typeEnum::EDRCHECK;
     }
     
-    if (value == utility::conversions::to_string_t("focumcheck")) {
-        return Check_typeEnum::FOCUMCHECK;
-    }
-    
     if (value == utility::conversions::to_string_t("id2check")) {
         return Check_typeEnum::ID2CHECK;
     }
@@ -379,8 +375,6 @@ const utility::string_t V2ProfileCheckEntry::fromCheck_typeEnum(const Check_type
         case Check_typeEnum::CVCHECK: return utility::conversions::to_string_t("cvcheck");
         
         case Check_typeEnum::EDRCHECK: return utility::conversions::to_string_t("edrcheck");
-        
-        case Check_typeEnum::FOCUMCHECK: return utility::conversions::to_string_t("focumcheck");
         
         case Check_typeEnum::ID2CHECK: return utility::conversions::to_string_t("id2check");
         

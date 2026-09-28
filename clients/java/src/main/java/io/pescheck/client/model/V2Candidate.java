@@ -19,6 +19,8 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.pescheck.client.model.V2CandidateHouseNumber;
+import io.pescheck.client.model.V2CandidatePostalCode;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -632,12 +634,12 @@ public class V2Candidate {
   public static final String SERIALIZED_NAME_POSTAL_CODE = "postal_code";
   @SerializedName(SERIALIZED_NAME_POSTAL_CODE)
   @javax.annotation.Nullable
-  private String postalCode;
+  private V2CandidatePostalCode postalCode;
 
   public static final String SERIALIZED_NAME_HOUSE_NUMBER = "house_number";
   @SerializedName(SERIALIZED_NAME_HOUSE_NUMBER)
   @javax.annotation.Nullable
-  private String houseNumber;
+  private V2CandidateHouseNumber houseNumber;
 
   public static final String SERIALIZED_NAME_EXTENSION = "extension";
   @SerializedName(SERIALIZED_NAME_EXTENSION)
@@ -780,7 +782,7 @@ public class V2Candidate {
   }
 
 
-  public V2Candidate postalCode(@javax.annotation.Nullable String postalCode) {
+  public V2Candidate postalCode(@javax.annotation.Nullable V2CandidatePostalCode postalCode) {
     this.postalCode = postalCode;
     return this;
   }
@@ -790,16 +792,16 @@ public class V2Candidate {
    * @return postalCode
    */
   @javax.annotation.Nullable
-  public String getPostalCode() {
+  public V2CandidatePostalCode getPostalCode() {
     return postalCode;
   }
 
-  public void setPostalCode(@javax.annotation.Nullable String postalCode) {
+  public void setPostalCode(@javax.annotation.Nullable V2CandidatePostalCode postalCode) {
     this.postalCode = postalCode;
   }
 
 
-  public V2Candidate houseNumber(@javax.annotation.Nullable String houseNumber) {
+  public V2Candidate houseNumber(@javax.annotation.Nullable V2CandidateHouseNumber houseNumber) {
     this.houseNumber = houseNumber;
     return this;
   }
@@ -809,11 +811,11 @@ public class V2Candidate {
    * @return houseNumber
    */
   @javax.annotation.Nullable
-  public String getHouseNumber() {
+  public V2CandidateHouseNumber getHouseNumber() {
     return houseNumber;
   }
 
-  public void setHouseNumber(@javax.annotation.Nullable String houseNumber) {
+  public void setHouseNumber(@javax.annotation.Nullable V2CandidateHouseNumber houseNumber) {
     this.houseNumber = houseNumber;
   }
 
@@ -955,11 +957,13 @@ public class V2Candidate {
       if (jsonObj.get("nationality") != null && !jsonObj.get("nationality").isJsonNull()) {
         NationalityEnum.validateJsonElement(jsonObj.get("nationality"));
       }
-      if ((jsonObj.get("postal_code") != null && !jsonObj.get("postal_code").isJsonNull()) && !jsonObj.get("postal_code").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `postal_code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("postal_code").toString()));
+      // validate the optional field `postal_code`
+      if (jsonObj.get("postal_code") != null && !jsonObj.get("postal_code").isJsonNull()) {
+        V2CandidatePostalCode.validateJsonElement(jsonObj.get("postal_code"));
       }
-      if ((jsonObj.get("house_number") != null && !jsonObj.get("house_number").isJsonNull()) && !jsonObj.get("house_number").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `house_number` to be a primitive type in the JSON string but got `%s`", jsonObj.get("house_number").toString()));
+      // validate the optional field `house_number`
+      if (jsonObj.get("house_number") != null && !jsonObj.get("house_number").isJsonNull()) {
+        V2CandidateHouseNumber.validateJsonElement(jsonObj.get("house_number"));
       }
       if ((jsonObj.get("extension") != null && !jsonObj.get("extension").isJsonNull()) && !jsonObj.get("extension").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `extension` to be a primitive type in the JSON string but got `%s`", jsonObj.get("extension").toString()));

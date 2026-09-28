@@ -76,6 +76,11 @@ public class V2ScreeningCreate {
   @javax.annotation.Nullable
   private List<V2ScreeningNoteInput> screeningNotes = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_DIVISION_ID = "division_id";
+  @SerializedName(SERIALIZED_NAME_DIVISION_ID)
+  @javax.annotation.Nullable
+  private UUID divisionId;
+
   public V2ScreeningCreate() {
   }
 
@@ -171,6 +176,25 @@ public class V2ScreeningCreate {
   }
 
 
+  public V2ScreeningCreate divisionId(@javax.annotation.Nullable UUID divisionId) {
+    this.divisionId = divisionId;
+    return this;
+  }
+
+  /**
+   * Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+   * @return divisionId
+   */
+  @javax.annotation.Nullable
+  public UUID getDivisionId() {
+    return divisionId;
+  }
+
+  public void setDivisionId(@javax.annotation.Nullable UUID divisionId) {
+    this.divisionId = divisionId;
+  }
+
+
 
   @Override
   public boolean equals(Object o) {
@@ -184,12 +208,13 @@ public class V2ScreeningCreate {
     return Objects.equals(this.profileId, v2ScreeningCreate.profileId) &&
         Objects.equals(this.candidate, v2ScreeningCreate.candidate) &&
         Objects.equals(this.checks, v2ScreeningCreate.checks) &&
-        Objects.equals(this.screeningNotes, v2ScreeningCreate.screeningNotes);
+        Objects.equals(this.screeningNotes, v2ScreeningCreate.screeningNotes) &&
+        Objects.equals(this.divisionId, v2ScreeningCreate.divisionId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(profileId, candidate, checks, screeningNotes);
+    return Objects.hash(profileId, candidate, checks, screeningNotes, divisionId);
   }
 
   @Override
@@ -200,6 +225,7 @@ public class V2ScreeningCreate {
     sb.append("    candidate: ").append(toIndentedString(candidate)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
     sb.append("    screeningNotes: ").append(toIndentedString(screeningNotes)).append("\n");
+    sb.append("    divisionId: ").append(toIndentedString(divisionId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -218,7 +244,7 @@ public class V2ScreeningCreate {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("profile_id", "candidate", "checks", "screening_notes"));
+    openapiFields = new HashSet<String>(Arrays.asList("profile_id", "candidate", "checks", "screening_notes", "division_id"));
 
     // a set of required properties/fields (JSON key names)
     openapiRequiredFields = new HashSet<String>(Arrays.asList("profile_id", "candidate"));
@@ -284,6 +310,9 @@ public class V2ScreeningCreate {
             V2ScreeningNoteInput.validateJsonElement(jsonArrayscreeningNotes.get(i));
           };
         }
+      }
+      if ((jsonObj.get("division_id") != null && !jsonObj.get("division_id").isJsonNull()) && !jsonObj.get("division_id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `division_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("division_id").toString()));
       }
   }
 
