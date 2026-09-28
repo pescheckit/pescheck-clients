@@ -34,9 +34,9 @@ pub struct DivisionReadOnly {
     #[serde(rename = "contact_name", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
     pub contact_name: Option<Option<String>>,
     #[serde(rename = "contact_email", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub contact_email: Option<Option<String>>,
+    pub contact_email: Option<Option<Box<models::DivisionReadOnlyContactEmail>>>,
     #[serde(rename = "invoice_email", default, with = "::serde_with::rust::double_option", skip_serializing_if = "Option::is_none")]
-    pub invoice_email: Option<Option<String>>,
+    pub invoice_email: Option<Option<Box<models::DivisionReadOnlyContactEmail>>>,
     #[serde(rename = "use_parent_on_email", skip_serializing_if = "Option::is_none")]
     pub use_parent_on_email: Option<bool>,
     #[serde(rename = "use_parent_on_billing", skip_serializing_if = "Option::is_none")]

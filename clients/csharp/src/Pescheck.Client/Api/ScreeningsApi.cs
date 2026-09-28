@@ -74,11 +74,12 @@ namespace Pescheck.Client.Api
         /// 
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>PaginatedV2ScreeningListItemList</returns>
-        PaginatedV2ScreeningListItemList V2ScreeningsList(int? page = default, int? pageSize = default, bool? paginate = default);
+        PaginatedV2ScreeningListItemList V2ScreeningsList(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default);
 
         /// <summary>
         /// 
@@ -87,11 +88,12 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>ApiResponse of PaginatedV2ScreeningListItemList</returns>
-        ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(int? page = default, int? pageSize = default, bool? paginate = default);
+        ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default);
         /// <summary>
         /// 
         /// </summary>
@@ -176,12 +178,13 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PaginatedV2ScreeningListItemList</returns>
-        System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -190,12 +193,13 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PaginatedV2ScreeningListItemList)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -710,13 +714,14 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>PaginatedV2ScreeningListItemList</returns>
-        public PaginatedV2ScreeningListItemList V2ScreeningsList(int? page = default, int? pageSize = default, bool? paginate = default)
+        public PaginatedV2ScreeningListItemList V2ScreeningsList(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default)
         {
-            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = V2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = V2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
             return localVarResponse.Data;
         }
 
@@ -724,11 +729,12 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>ApiResponse of PaginatedV2ScreeningListItemList</returns>
-        public Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(int? page = default, int? pageSize = default, bool? paginate = default)
+        public Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default)
         {
             Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
 
@@ -746,6 +752,10 @@ namespace Pescheck.Client.Api
             var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (organisation != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "organisation", organisation));
+            }
             if (page != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "page", page));
@@ -782,14 +792,15 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PaginatedV2ScreeningListItemList</returns>
-        public async System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
         {
-            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = await V2ScreeningsListWithHttpInfoAsync(page, pageSize, paginate, cancellationToken).ConfigureAwait(false);
+            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = await V2ScreeningsListWithHttpInfoAsync(organisation, page, pageSize, paginate, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -797,12 +808,13 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PaginatedV2ScreeningListItemList)</returns>
-        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
         {
 
             Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
@@ -822,6 +834,10 @@ namespace Pescheck.Client.Api
             var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (organisation != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "organisation", organisation));
+            }
             if (page != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "page", page));

@@ -23,7 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from pescheck.models.v2_candidate import V2Candidate
 from pescheck.models.v2_screening_check_entry import V2ScreeningCheckEntry
-from pescheck.models.v2_screening_detail_profile import V2ScreeningDetailProfile
+from pescheck.models.v2_screening_detail_organisation import V2ScreeningDetailOrganisation
 from pescheck.models.v2_screening_note import V2ScreeningNote
 from typing import Optional, Set
 from typing_extensions import Self
@@ -35,7 +35,8 @@ class V2ScreeningDetail(BaseModel):
     """ # noqa: E501
     id: UUID
     status: StrictStr
-    profile: Optional[V2ScreeningDetailProfile]
+    organisation: Optional[V2ScreeningDetailOrganisation]
+    profile: Optional[V2ScreeningDetailOrganisation]
     candidate: V2Candidate
     checks: List[V2ScreeningCheckEntry]
     screening_notes: List[V2ScreeningNote]
@@ -43,7 +44,7 @@ class V2ScreeningDetail(BaseModel):
     dashboard_url: StrictStr = Field(description="Dashboard URL for this screening.")
     created_at: datetime
     updated_at: datetime
-    __properties: ClassVar[List[str]] = ["id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
+    __properties: ClassVar[List[str]] = ["id", "status", "organisation", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -102,6 +103,9 @@ class V2ScreeningDetail(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of organisation
+        if self.organisation:
+            _dict['organisation'] = self.organisation.to_dict()
         # override the default output from pydantic by calling `to_dict()` of profile
         if self.profile:
             _dict['profile'] = self.profile.to_dict()
@@ -122,6 +126,11 @@ class V2ScreeningDetail(BaseModel):
                 if _item_screening_notes:
                     _items.append(_item_screening_notes.to_dict())
             _dict['screening_notes'] = _items
+        # set to None if organisation (nullable) is None
+        # and model_fields_set contains the field
+        if self.organisation is None and "organisation" in self.model_fields_set:
+            _dict['organisation'] = None
+
         # set to None if profile (nullable) is None
         # and model_fields_set contains the field
         if self.profile is None and "profile" in self.model_fields_set:
@@ -146,7 +155,8 @@ class V2ScreeningDetail(BaseModel):
         _obj = cls.model_validate({
             "id": obj.get("id"),
             "status": obj.get("status"),
-            "profile": V2ScreeningDetailProfile.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
+            "organisation": V2ScreeningDetailOrganisation.from_dict(obj["organisation"]) if obj.get("organisation") is not None else None,
+            "profile": V2ScreeningDetailOrganisation.from_dict(obj["profile"]) if obj.get("profile") is not None else None,
             "candidate": V2Candidate.from_dict(obj["candidate"]) if obj.get("candidate") is not None else None,
             "checks": [V2ScreeningCheckEntry.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
             "screening_notes": [V2ScreeningNote.from_dict(_item) for _item in obj["screening_notes"]] if obj.get("screening_notes") is not None else None,

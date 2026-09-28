@@ -14,8 +14,8 @@
 | **postal** | **String** |  | [optional] |
 | **phone** | **String** |  | [optional] |
 | **contact_name** | **String** |  | [optional] |
-| **contact_email** | **String** |  | [optional] |
-| **invoice_email** | **String** |  | [optional] |
+| **contact_email** | [**DivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  | [optional] |
+| **invoice_email** | [**DivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  | [optional] |
 | **use_parent_on_email** | **Boolean** |  | [optional] |
 | **use_parent_on_billing** | **Boolean** |  | [optional] |
 | **use_parent_on_report** | **Boolean** |  | [optional] |

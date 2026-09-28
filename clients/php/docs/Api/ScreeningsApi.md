@@ -137,7 +137,7 @@ try {
 ## `v2ScreeningsList()`
 
 ```php
-v2ScreeningsList($page, $page_size, $paginate): \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
+v2ScreeningsList($organisation, $page, $page_size, $paginate): \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
 ```
 
 
@@ -159,12 +159,13 @@ $apiInstance = new Pescheck\Client\Api\ScreeningsApi(
     new GuzzleHttp\Client(),
     $config
 );
+$organisation = 'organisation_example'; // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
 $page = 1; // int | A page number within the paginated result set.
 $page_size = 50; // int | Number of results to return per page.
 $paginate = true; // bool | Enable/disable pagination. When false, max 500 records returned.
 
 try {
-    $result = $apiInstance->v2ScreeningsList($page, $page_size, $paginate);
+    $result = $apiInstance->v2ScreeningsList($organisation, $page, $page_size, $paginate);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ScreeningsApi->v2ScreeningsList: ', $e->getMessage(), PHP_EOL;
@@ -175,6 +176,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
+| **organisation** | **string**| Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] |
 | **page** | **int**| A page number within the paginated result set. | [optional] [default to 1] |
 | **page_size** | **int**| Number of results to return per page. | [optional] [default to 50] |
 | **paginate** | **bool**| Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true] |

@@ -95,8 +95,8 @@ module Pescheck
         :'date_of_birth' => :'String',
         :'gender' => :'String',
         :'nationality' => :'String',
-        :'postal_code' => :'String',
-        :'house_number' => :'String',
+        :'postal_code' => :'V2CandidatePostalCode',
+        :'house_number' => :'V2CandidateHouseNumber',
         :'extension' => :'String'
       }
     end
@@ -199,14 +199,6 @@ module Pescheck
         invalid_properties.push('invalid value for "date_of_birth", the character length must be smaller than or equal to 10.')
       end
 
-      if !@postal_code.nil? && @postal_code.to_s.length > 255
-        invalid_properties.push('invalid value for "postal_code", the character length must be smaller than or equal to 255.')
-      end
-
-      if !@house_number.nil? && @house_number.to_s.length > 50
-        invalid_properties.push('invalid value for "house_number", the character length must be smaller than or equal to 50.')
-      end
-
       invalid_properties
     end
 
@@ -222,8 +214,6 @@ module Pescheck
       return false if !@date_of_birth.nil? && @date_of_birth.to_s.length > 10
       nationality_validator = EnumAttributeValidator.new('String', ["AD", "AE", "AF", "AG", "AI", "AL", "AM", "AN", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DE", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ES", "ET", "FI", "FJ", "FK", "FM", "FO", "FR", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NL", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "ST", "SV", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "US", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN", "VU", "WF", "WS", "XK", "YE", "YT", "ZA", "ZM", "ZW", ""])
       return false unless nationality_validator.valid?(@nationality)
-      return false if !@postal_code.nil? && @postal_code.to_s.length > 255
-      return false if !@house_number.nil? && @house_number.to_s.length > 50
       true
     end
 
@@ -287,34 +277,6 @@ module Pescheck
         fail ArgumentError, "invalid value for \"nationality\", must be one of #{validator.allowable_values}."
       end
       @nationality = nationality
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] postal_code Value to be assigned
-    def postal_code=(postal_code)
-      if postal_code.nil?
-        fail ArgumentError, 'postal_code cannot be nil'
-      end
-
-      if postal_code.to_s.length > 255
-        fail ArgumentError, 'invalid value for "postal_code", the character length must be smaller than or equal to 255.'
-      end
-
-      @postal_code = postal_code
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] house_number Value to be assigned
-    def house_number=(house_number)
-      if house_number.nil?
-        fail ArgumentError, 'house_number cannot be nil'
-      end
-
-      if house_number.to_s.length > 50
-        fail ArgumentError, 'invalid value for "house_number", the character length must be smaller than or equal to 50.'
-      end
-
-      @house_number = house_number
     end
 
     # Checks equality by comparing each attribute.

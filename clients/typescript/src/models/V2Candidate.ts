@@ -13,6 +13,21 @@
  */
 
 import { mapValues } from '../runtime';
+import type { V2CandidateHouseNumber } from './V2CandidateHouseNumber';
+import {
+    V2CandidateHouseNumberFromJSON,
+    V2CandidateHouseNumberFromJSONTyped,
+    V2CandidateHouseNumberToJSON,
+    V2CandidateHouseNumberToJSONTyped,
+} from './V2CandidateHouseNumber';
+import type { V2CandidatePostalCode } from './V2CandidatePostalCode';
+import {
+    V2CandidatePostalCodeFromJSON,
+    V2CandidatePostalCodeFromJSONTyped,
+    V2CandidatePostalCodeToJSON,
+    V2CandidatePostalCodeToJSONTyped,
+} from './V2CandidatePostalCode';
+
 /**
  * Bucket-level candidate facts. Required-ness varies per profile; serializer is lenient.
  * 
@@ -315,16 +330,16 @@ export interface V2Candidate {
     nationality?: V2CandidateNationalityEnum;
     /**
      * 
-     * @type {string}
+     * @type {V2CandidatePostalCode}
      * @memberof V2Candidate
      */
-    postalCode?: string;
+    postalCode?: V2CandidatePostalCode;
     /**
      * 
-     * @type {string}
+     * @type {V2CandidateHouseNumber}
      * @memberof V2Candidate
      */
-    houseNumber?: string;
+    houseNumber?: V2CandidateHouseNumber;
     /**
      * 
      * @type {string}
@@ -617,8 +632,8 @@ export function V2CandidateFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'dateOfBirth': json['date_of_birth'] == null ? undefined : json['date_of_birth'],
         'gender': json['gender'] == null ? undefined : json['gender'],
         'nationality': json['nationality'] == null ? undefined : json['nationality'],
-        'postalCode': json['postal_code'] == null ? undefined : json['postal_code'],
-        'houseNumber': json['house_number'] == null ? undefined : json['house_number'],
+        'postalCode': json['postal_code'] == null ? undefined : V2CandidatePostalCodeFromJSON(json['postal_code']),
+        'houseNumber': json['house_number'] == null ? undefined : V2CandidateHouseNumberFromJSON(json['house_number']),
         'extension': json['extension'] == null ? undefined : json['extension'],
     };
 }
@@ -641,8 +656,8 @@ export function V2CandidateToJSONTyped(value?: V2Candidate | null, ignoreDiscrim
         'date_of_birth': value['dateOfBirth'],
         'gender': value['gender'],
         'nationality': value['nationality'],
-        'postal_code': value['postalCode'],
-        'house_number': value['houseNumber'],
+        'postal_code': V2CandidatePostalCodeToJSON(value['postalCode']),
+        'house_number': V2CandidateHouseNumberToJSON(value['houseNumber']),
         'extension': value['extension'],
     };
 }

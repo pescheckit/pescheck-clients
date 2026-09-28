@@ -64,6 +64,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => 'string',
         'client_type' => 'string',
         'authorization_grant_type' => 'string',
+        'organisation' => 'string',
+        'organisation_id' => 'string',
         'created' => '\DateTime',
         'updated' => '\DateTime'
     ];
@@ -82,6 +84,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => null,
         'client_type' => null,
         'authorization_grant_type' => null,
+        'organisation' => null,
+        'organisation_id' => 'uuid',
         'created' => 'date-time',
         'updated' => 'date-time'
     ];
@@ -98,6 +102,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => false,
         'client_type' => false,
         'authorization_grant_type' => false,
+        'organisation' => false,
+        'organisation_id' => false,
         'created' => false,
         'updated' => false
     ];
@@ -194,6 +200,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => 'client_secret',
         'client_type' => 'client_type',
         'authorization_grant_type' => 'authorization_grant_type',
+        'organisation' => 'organisation',
+        'organisation_id' => 'organisation_id',
         'created' => 'created',
         'updated' => 'updated'
     ];
@@ -210,6 +218,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => 'setClientSecret',
         'client_type' => 'setClientType',
         'authorization_grant_type' => 'setAuthorizationGrantType',
+        'organisation' => 'setOrganisation',
+        'organisation_id' => 'setOrganisationId',
         'created' => 'setCreated',
         'updated' => 'setUpdated'
     ];
@@ -226,6 +236,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         'client_secret' => 'getClientSecret',
         'client_type' => 'getClientType',
         'authorization_grant_type' => 'getAuthorizationGrantType',
+        'organisation' => 'getOrganisation',
+        'organisation_id' => 'getOrganisationId',
         'created' => 'getCreated',
         'updated' => 'getUpdated'
     ];
@@ -274,6 +286,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     public const CLIENT_TYPE_CONFIDENTIAL = 'confidential';
     public const CLIENT_TYPE__PUBLIC = 'public';
     public const AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE = 'authorization-code';
+    public const AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE = 'urn:ietf:params:oauth:grant-type:device_code';
     public const AUTHORIZATION_GRANT_TYPE_IMPLICIT = 'implicit';
     public const AUTHORIZATION_GRANT_TYPE_PASSWORD = 'password';
     public const AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS = 'client-credentials';
@@ -301,6 +314,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     {
         return [
             self::AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE,
+            self::AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE,
             self::AUTHORIZATION_GRANT_TYPE_IMPLICIT,
             self::AUTHORIZATION_GRANT_TYPE_PASSWORD,
             self::AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS,
@@ -329,6 +343,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         $this->setIfExists('client_secret', $data ?? [], null);
         $this->setIfExists('client_type', $data ?? [], null);
         $this->setIfExists('authorization_grant_type', $data ?? [], null);
+        $this->setIfExists('organisation', $data ?? [], null);
+        $this->setIfExists('organisation_id', $data ?? [], null);
         $this->setIfExists('created', $data ?? [], null);
         $this->setIfExists('updated', $data ?? [], null);
     }
@@ -367,8 +383,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
             $invalidProperties[] = "invalid value for 'name', the character length must be smaller than or equal to 255.";
         }
 
-        if (!is_null($this->container['client_id']) && (mb_strlen($this->container['client_id']) > 100)) {
-            $invalidProperties[] = "invalid value for 'client_id', the character length must be smaller than or equal to 100.";
+        if (!is_null($this->container['client_id']) && (mb_strlen($this->container['client_id']) > 255)) {
+            $invalidProperties[] = "invalid value for 'client_id', the character length must be smaller than or equal to 255.";
         }
 
         if ($this->container['client_secret'] === null) {
@@ -398,6 +414,12 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
 
+        if ($this->container['organisation'] === null) {
+            $invalidProperties[] = "'organisation' can't be null";
+        }
+        if ($this->container['organisation_id'] === null) {
+            $invalidProperties[] = "'organisation_id' can't be null";
+        }
         if ($this->container['created'] === null) {
             $invalidProperties[] = "'created' can't be null";
         }
@@ -499,8 +521,8 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         if (is_null($client_id)) {
             throw new \InvalidArgumentException('non-nullable client_id cannot be null');
         }
-        if ((mb_strlen($client_id) > 100)) {
-            throw new \InvalidArgumentException('invalid length for $client_id when calling OAuthApplicationResponse., must be smaller than or equal to 100.');
+        if ((mb_strlen($client_id) > 255)) {
+            throw new \InvalidArgumentException('invalid length for $client_id when calling OAuthApplicationResponse., must be smaller than or equal to 255.');
         }
 
         $this->container['client_id'] = $client_id;
@@ -585,7 +607,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets authorization_grant_type
      *
-     * @param string $authorization_grant_type * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param string $authorization_grant_type * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
      *
      * @return self
      */
@@ -605,6 +627,60 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
             );
         }
         $this->container['authorization_grant_type'] = $authorization_grant_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets organisation
+     *
+     * @return string
+     */
+    public function getOrganisation()
+    {
+        return $this->container['organisation'];
+    }
+
+    /**
+     * Sets organisation
+     *
+     * @param string $organisation organisation
+     *
+     * @return self
+     */
+    public function setOrganisation($organisation)
+    {
+        if (is_null($organisation)) {
+            throw new \InvalidArgumentException('non-nullable organisation cannot be null');
+        }
+        $this->container['organisation'] = $organisation;
+
+        return $this;
+    }
+
+    /**
+     * Gets organisation_id
+     *
+     * @return string
+     */
+    public function getOrganisationId()
+    {
+        return $this->container['organisation_id'];
+    }
+
+    /**
+     * Sets organisation_id
+     *
+     * @param string $organisation_id organisation_id
+     *
+     * @return self
+     */
+    public function setOrganisationId($organisation_id)
+    {
+        if (is_null($organisation_id)) {
+            throw new \InvalidArgumentException('non-nullable organisation_id cannot be null');
+        }
+        $this->container['organisation_id'] = $organisation_id;
 
         return $this;
     }

@@ -31,6 +31,10 @@ pub struct V2ProfileDetail {
     pub supported_countries_of_residence: Vec<String>,
     #[serde(rename = "candidate_fields")]
     pub candidate_fields: Vec<serde_json::Value>,
+    #[serde(rename = "creates_as_draft")]
+    pub creates_as_draft: bool,
+    #[serde(rename = "draft_reasons")]
+    pub draft_reasons: Vec<String>,
     #[serde(rename = "created_at")]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "updated_at")]
@@ -38,7 +42,7 @@ pub struct V2ProfileDetail {
 }
 
 impl V2ProfileDetail {
-    pub fn new(id: uuid::Uuid, name: String, description: Option<String>, checks: Vec<models::V2ProfileCheckEntry>, total_price: models::V2Money, supported_countries_of_work: Vec<String>, supported_countries_of_residence: Vec<String>, candidate_fields: Vec<serde_json::Value>, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ProfileDetail {
+    pub fn new(id: uuid::Uuid, name: String, description: Option<String>, checks: Vec<models::V2ProfileCheckEntry>, total_price: models::V2Money, supported_countries_of_work: Vec<String>, supported_countries_of_residence: Vec<String>, candidate_fields: Vec<serde_json::Value>, creates_as_draft: bool, draft_reasons: Vec<String>, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ProfileDetail {
         V2ProfileDetail {
             id,
             name,
@@ -49,6 +53,8 @@ impl V2ProfileDetail {
             supported_countries_of_work,
             supported_countries_of_residence,
             candidate_fields,
+            creates_as_draft,
+            draft_reasons,
             created_at,
             updated_at,
         }

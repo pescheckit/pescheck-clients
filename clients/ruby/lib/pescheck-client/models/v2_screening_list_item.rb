@@ -20,6 +20,8 @@ module Pescheck
 
     attr_accessor :status
 
+    attr_accessor :organisation
+
     attr_accessor :profile
 
     attr_accessor :candidate
@@ -39,6 +41,7 @@ module Pescheck
       {
         :'id' => :'id',
         :'status' => :'status',
+        :'organisation' => :'organisation',
         :'profile' => :'profile',
         :'candidate' => :'candidate',
         :'checks' => :'checks',
@@ -64,7 +67,8 @@ module Pescheck
       {
         :'id' => :'String',
         :'status' => :'String',
-        :'profile' => :'V2ScreeningDetailProfile',
+        :'organisation' => :'V2ScreeningDetailOrganisation',
+        :'profile' => :'V2ScreeningDetailOrganisation',
         :'candidate' => :'V2Candidate',
         :'checks' => :'Array<V2ScreeningCheckListItem>',
         :'candidate_wizard_url' => :'String',
@@ -77,6 +81,7 @@ module Pescheck
     # List of attributes with nullable: true
     def self.openapi_nullable
       Set.new([
+        :'organisation',
         :'profile',
         :'candidate_wizard_url',
       ])
@@ -106,6 +111,12 @@ module Pescheck
 
       if attributes.key?(:'status')
         self.status = attributes[:'status']
+      end
+
+      if attributes.key?(:'organisation')
+        self.organisation = attributes[:'organisation']
+      else
+        self.organisation = nil
       end
 
       if attributes.key?(:'profile')
@@ -265,6 +276,7 @@ module Pescheck
       self.class == o.class &&
           id == o.id &&
           status == o.status &&
+          organisation == o.organisation &&
           profile == o.profile &&
           candidate == o.candidate &&
           checks == o.checks &&
@@ -283,7 +295,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, status, profile, candidate, checks, candidate_wizard_url, dashboard_url, created_at, updated_at].hash
+      [id, status, organisation, profile, candidate, checks, candidate_wizard_url, dashboard_url, created_at, updated_at].hash
     end
 
     # Builds the object from hash

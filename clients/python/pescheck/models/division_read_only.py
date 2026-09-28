@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
+from pescheck.models.division_read_only_contact_email import DivisionReadOnlyContactEmail
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -40,8 +41,8 @@ class DivisionReadOnly(BaseModel):
     postal: Optional[Annotated[str, Field(strict=True, max_length=20)]] = None
     phone: Optional[Annotated[str, Field(strict=True, max_length=20)]] = None
     contact_name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
-    contact_email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
-    invoice_email: Optional[Annotated[str, Field(strict=True, max_length=254)]] = None
+    contact_email: Optional[DivisionReadOnlyContactEmail] = None
+    invoice_email: Optional[DivisionReadOnlyContactEmail] = None
     use_parent_on_email: Optional[StrictBool] = None
     use_parent_on_billing: Optional[StrictBool] = None
     use_parent_on_report: Optional[StrictBool] = None
@@ -94,6 +95,12 @@ class DivisionReadOnly(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of contact_email
+        if self.contact_email:
+            _dict['contact_email'] = self.contact_email.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of invoice_email
+        if self.invoice_email:
+            _dict['invoice_email'] = self.invoice_email.to_dict()
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -156,8 +163,8 @@ class DivisionReadOnly(BaseModel):
             "postal": obj.get("postal"),
             "phone": obj.get("phone"),
             "contact_name": obj.get("contact_name"),
-            "contact_email": obj.get("contact_email"),
-            "invoice_email": obj.get("invoice_email"),
+            "contact_email": DivisionReadOnlyContactEmail.from_dict(obj["contact_email"]) if obj.get("contact_email") is not None else None,
+            "invoice_email": DivisionReadOnlyContactEmail.from_dict(obj["invoice_email"]) if obj.get("invoice_email") is not None else None,
             "use_parent_on_email": obj.get("use_parent_on_email"),
             "use_parent_on_billing": obj.get("use_parent_on_billing"),
             "use_parent_on_report": obj.get("use_parent_on_report")

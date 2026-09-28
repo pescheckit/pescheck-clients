@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Candidate** | [**V2Candidate**](V2Candidate.md) |  | 
 **Checks** | Pointer to [**[]V2ScreeningCheck**](V2ScreeningCheck.md) |  | [optional] 
 **ScreeningNotes** | Pointer to [**[]V2ScreeningNoteInput**](V2ScreeningNoteInput.md) |  | [optional] 
+**DivisionId** | Pointer to **string** | Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation. | [optional] 
 
 ## Methods
 
@@ -117,6 +118,31 @@ SetScreeningNotes sets ScreeningNotes field to given value.
 `func (o *V2ScreeningCreate) HasScreeningNotes() bool`
 
 HasScreeningNotes returns a boolean if a field has been set.
+
+### GetDivisionId
+
+`func (o *V2ScreeningCreate) GetDivisionId() string`
+
+GetDivisionId returns the DivisionId field if non-nil, zero value otherwise.
+
+### GetDivisionIdOk
+
+`func (o *V2ScreeningCreate) GetDivisionIdOk() (*string, bool)`
+
+GetDivisionIdOk returns a tuple with the DivisionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDivisionId
+
+`func (o *V2ScreeningCreate) SetDivisionId(v string)`
+
+SetDivisionId sets DivisionId field to given value.
+
+### HasDivisionId
+
+`func (o *V2ScreeningCreate) HasDivisionId() bool`
+
+HasDivisionId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

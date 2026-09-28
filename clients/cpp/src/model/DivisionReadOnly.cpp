@@ -245,7 +245,7 @@ bool DivisionReadOnly::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("contact_email")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setContactEmail;
+            std::shared_ptr<DivisionReadOnly_contact_email> refVal_setContactEmail;
             ok &= ModelBase::fromJson(fieldValue, refVal_setContactEmail);
             setContactEmail(refVal_setContactEmail);
             
@@ -256,7 +256,7 @@ bool DivisionReadOnly::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("invoice_email")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setInvoiceEmail;
+            std::shared_ptr<DivisionReadOnly_contact_email> refVal_setInvoiceEmail;
             ok &= ModelBase::fromJson(fieldValue, refVal_setInvoiceEmail);
             setInvoiceEmail(refVal_setInvoiceEmail);
             
@@ -438,13 +438,13 @@ bool DivisionReadOnly::fromMultiPart(std::shared_ptr<MultipartFormData> multipar
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("contact_email"))))
     {
-        utility::string_t refVal_setContactEmail;
+        std::shared_ptr<DivisionReadOnly_contact_email> refVal_setContactEmail;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("contact_email"))), refVal_setContactEmail );
         setContactEmail(refVal_setContactEmail);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("invoice_email"))))
     {
-        utility::string_t refVal_setInvoiceEmail;
+        std::shared_ptr<DivisionReadOnly_contact_email> refVal_setInvoiceEmail;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("invoice_email"))), refVal_setInvoiceEmail );
         setInvoiceEmail(refVal_setInvoiceEmail);
     }
@@ -674,13 +674,13 @@ void DivisionReadOnly::unsetContact_name()
 {
     m_Contact_name.reset();
 }
-utility::string_t DivisionReadOnly::getContactEmail() const
+std::shared_ptr<DivisionReadOnly_contact_email> DivisionReadOnly::getContactEmail() const
 {
     return m_Contact_email.get();
 }
 
 
-void DivisionReadOnly::setContactEmail(const utility::string_t& value)
+void DivisionReadOnly::setContactEmail(const std::shared_ptr<DivisionReadOnly_contact_email>& value)
 {
     m_Contact_email = value;
 }
@@ -694,13 +694,13 @@ void DivisionReadOnly::unsetContact_email()
 {
     m_Contact_email.reset();
 }
-utility::string_t DivisionReadOnly::getInvoiceEmail() const
+std::shared_ptr<DivisionReadOnly_contact_email> DivisionReadOnly::getInvoiceEmail() const
 {
     return m_Invoice_email.get();
 }
 
 
-void DivisionReadOnly::setInvoiceEmail(const utility::string_t& value)
+void DivisionReadOnly::setInvoiceEmail(const std::shared_ptr<DivisionReadOnly_contact_email>& value)
 {
     m_Invoice_email = value;
 }

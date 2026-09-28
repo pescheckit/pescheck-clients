@@ -180,7 +180,7 @@ public class ApiClient {
             this.basePath = basePath;
         }
 
-        String tokenUrl = "https://api.pescheck.io/api/o/token/";
+        String tokenUrl = "https://api-staging.pescheck.io/api/o/token/";
         if (!"".equals(tokenUrl) && !URI.create(tokenUrl).isAbsolute()) {
             URI uri = URI.create(getBasePath());
             tokenUrl = uri.getScheme() + ":" +

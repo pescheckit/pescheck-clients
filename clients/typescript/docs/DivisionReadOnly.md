@@ -16,8 +16,8 @@ Name | Type
 `postal` | string
 `phone` | string
 `contactName` | string
-`contactEmail` | string
-`invoiceEmail` | string
+`contactEmail` | [DivisionReadOnlyContactEmail](DivisionReadOnlyContactEmail.md)
+`invoiceEmail` | [DivisionReadOnlyContactEmail](DivisionReadOnlyContactEmail.md)
 `useParentOnEmail` | boolean
 `useParentOnBilling` | boolean
 `useParentOnReport` | boolean

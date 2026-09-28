@@ -153,6 +153,7 @@ module Pescheck
     end
 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
     # @option opts [Integer] :page A page number within the paginated result set. (default to 1)
     # @option opts [Integer] :page_size Number of results to return per page. (default to 50)
     # @option opts [Boolean] :paginate Enable/disable pagination. When false, max 500 records returned. (default to true)
@@ -163,6 +164,7 @@ module Pescheck
     end
 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
     # @option opts [Integer] :page A page number within the paginated result set. (default to 1)
     # @option opts [Integer] :page_size Number of results to return per page. (default to 50)
     # @option opts [Boolean] :paginate Enable/disable pagination. When false, max 500 records returned. (default to true)
@@ -188,6 +190,7 @@ module Pescheck
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'organisation'] = opts[:'organisation'] if !opts[:'organisation'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'page_size'] = opts[:'page_size'] if !opts[:'page_size'].nil?
       query_params[:'paginate'] = opts[:'paginate'] if !opts[:'paginate'].nil?

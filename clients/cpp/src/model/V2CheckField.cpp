@@ -110,7 +110,7 @@ bool V2CheckField::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("choices")));
         if(!fieldValue.is_null())
         {
-            std::vector<utility::string_t> refVal_setChoices;
+            std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>> refVal_setChoices;
             ok &= ModelBase::fromJson(fieldValue, refVal_setChoices);
             setChoices(refVal_setChoices);
             
@@ -188,7 +188,7 @@ bool V2CheckField::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, c
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("choices"))))
     {
-        std::vector<utility::string_t> refVal_setChoices;
+        std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>> refVal_setChoices;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("choices"))), refVal_setChoices );
         setChoices(refVal_setChoices);
     }
@@ -264,13 +264,13 @@ void V2CheckField::unsetRequired()
 {
     m_RequiredIsSet = false;
 }
-std::vector<utility::string_t> V2CheckField::getChoices() const
+std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>> V2CheckField::getChoices() const
 {
     return m_Choices.get();
 }
 
 
-void V2CheckField::setChoices(const std::vector<utility::string_t>& value)
+void V2CheckField::setChoices(const std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>>& value)
 {
     m_Choices = value;
 }

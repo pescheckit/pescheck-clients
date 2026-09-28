@@ -60,9 +60,9 @@ namespace Pescheck.Client.Model
         [DataMember(Name = "client_type", EmitDefaultValue = false)]
         public ClientTypeEnum? ClientType { get; set; }
         /// <summary>
-        /// Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+        /// Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
         /// </summary>
-        /// <value>Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
+        /// <value>Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthorizationGrantTypeEnum
         {
@@ -73,35 +73,41 @@ namespace Pescheck.Client.Model
             AuthorizationCode = 1,
 
             /// <summary>
+            /// Enum UrnietfparamsoauthgrantTypedeviceCode for value: urn:ietf:params:oauth:grant-type:device_code
+            /// </summary>
+            [EnumMember(Value = "urn:ietf:params:oauth:grant-type:device_code")]
+            UrnietfparamsoauthgrantTypedeviceCode = 2,
+
+            /// <summary>
             /// Enum Implicit for value: implicit
             /// </summary>
             [EnumMember(Value = "implicit")]
-            Implicit = 2,
+            Implicit = 3,
 
             /// <summary>
             /// Enum Password for value: password
             /// </summary>
             [EnumMember(Value = "password")]
-            Password = 3,
+            Password = 4,
 
             /// <summary>
             /// Enum ClientCredentials for value: client-credentials
             /// </summary>
             [EnumMember(Value = "client-credentials")]
-            ClientCredentials = 4,
+            ClientCredentials = 5,
 
             /// <summary>
             /// Enum OpenidHybrid for value: openid-hybrid
             /// </summary>
             [EnumMember(Value = "openid-hybrid")]
-            OpenidHybrid = 5
+            OpenidHybrid = 6
         }
 
 
         /// <summary>
-        /// Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+        /// Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
         /// </summary>
-        /// <value>Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
+        /// <value>Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
         [DataMember(Name = "authorization_grant_type", EmitDefaultValue = false)]
         public AuthorizationGrantTypeEnum? AuthorizationGrantType { get; set; }
         /// <summary>
@@ -114,7 +120,7 @@ namespace Pescheck.Client.Model
         /// </summary>
         /// <param name="name">Name for the OAuth application (required).</param>
         /// <param name="clientType">Client type (confidential recommended for server-to-server)  * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public (default to ClientTypeEnum.Confidential).</param>
-        /// <param name="authorizationGrantType">Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid (default to AuthorizationGrantTypeEnum.ClientCredentials).</param>
+        /// <param name="authorizationGrantType">Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid (default to AuthorizationGrantTypeEnum.ClientCredentials).</param>
         /// <param name="redirectUris">Space-separated redirect URIs (optional for client_credentials).</param>
         /// <param name="divisionId">Division ID to create application for (optional).</param>
         public OAuthApplication(string name = default, ClientTypeEnum? clientType = ClientTypeEnum.Confidential, AuthorizationGrantTypeEnum? authorizationGrantType = AuthorizationGrantTypeEnum.ClientCredentials, string redirectUris = default, Guid divisionId = default)

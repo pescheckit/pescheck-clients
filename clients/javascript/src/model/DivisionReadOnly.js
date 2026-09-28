@@ -12,6 +12,7 @@
  */
 
 import ApiClient from '../ApiClient';
+import DivisionReadOnlyContactEmail from './DivisionReadOnlyContactEmail';
 
 /**
  * The DivisionReadOnly model module.
@@ -86,10 +87,10 @@ class DivisionReadOnly {
                 obj['contact_name'] = ApiClient.convertToType(data['contact_name'], 'String');
             }
             if (data.hasOwnProperty('contact_email')) {
-                obj['contact_email'] = ApiClient.convertToType(data['contact_email'], 'String');
+                obj['contact_email'] = DivisionReadOnlyContactEmail.constructFromObject(data['contact_email']);
             }
             if (data.hasOwnProperty('invoice_email')) {
-                obj['invoice_email'] = ApiClient.convertToType(data['invoice_email'], 'String');
+                obj['invoice_email'] = DivisionReadOnlyContactEmail.constructFromObject(data['invoice_email']);
             }
             if (data.hasOwnProperty('use_parent_on_email')) {
                 obj['use_parent_on_email'] = ApiClient.convertToType(data['use_parent_on_email'], 'Boolean');
@@ -148,13 +149,13 @@ class DivisionReadOnly {
         if (data['contact_name'] && !(typeof data['contact_name'] === 'string' || data['contact_name'] instanceof String)) {
             throw new Error("Expected the field `contact_name` to be a primitive type in the JSON string but got " + data['contact_name']);
         }
-        // ensure the json data is a string
-        if (data['contact_email'] && !(typeof data['contact_email'] === 'string' || data['contact_email'] instanceof String)) {
-            throw new Error("Expected the field `contact_email` to be a primitive type in the JSON string but got " + data['contact_email']);
+        // validate the optional field `contact_email`
+        if (data['contact_email']) { // data not null
+          DivisionReadOnlyContactEmail.validateJSON(data['contact_email']);
         }
-        // ensure the json data is a string
-        if (data['invoice_email'] && !(typeof data['invoice_email'] === 'string' || data['invoice_email'] instanceof String)) {
-            throw new Error("Expected the field `invoice_email` to be a primitive type in the JSON string but got " + data['invoice_email']);
+        // validate the optional field `invoice_email`
+        if (data['invoice_email']) { // data not null
+          DivisionReadOnlyContactEmail.validateJSON(data['invoice_email']);
         }
 
         return true;
@@ -216,12 +217,12 @@ DivisionReadOnly.prototype['phone'] = undefined;
 DivisionReadOnly.prototype['contact_name'] = undefined;
 
 /**
- * @member {String} contact_email
+ * @member {module:model/DivisionReadOnlyContactEmail} contact_email
  */
 DivisionReadOnly.prototype['contact_email'] = undefined;
 
 /**
- * @member {String} invoice_email
+ * @member {module:model/DivisionReadOnlyContactEmail} invoice_email
  */
 DivisionReadOnly.prototype['invoice_email'] = undefined;
 

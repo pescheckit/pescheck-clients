@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **supported_countries_of_work** | **string[]** |  | [readonly]
 **supported_countries_of_residence** | **string[]** |  | [readonly]
 **candidate_fields** | **object[]** |  | [readonly]
+**creates_as_draft** | **bool** |  | [readonly]
+**draft_reasons** | **string[]** |  | [readonly]
 **created_at** | **\DateTime** |  | [readonly]
 **updated_at** | **\DateTime** |  | [readonly]
 

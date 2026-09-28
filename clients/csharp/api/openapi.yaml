@@ -216,6 +216,226 @@ paths:
           description: Forbidden
       tags:
       - OAuth
+  /api/v2/organisations/addons/:
+    get:
+      description: List every add-on with whether it is enabled for the organisation.
+      operationId: v2_organisations_addons_list
+      parameters:
+      - description: Act on this division instead of the organisation the token belongs
+          to.
+        explode: true
+        in: query
+        name: division_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Add-on:
+                  value:
+                  - addon: api_access
+                    name: API Access
+                    description: "PESCHECK API access, auth guidance, standard API\
+                      \ docs"
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: "25.00"
+                      currency: EUR
+                    price_is_indicative: false
+              schema:
+                items:
+                  $ref: "#/components/schemas/OrganisationAddon"
+                type: array
+          description: ""
+      tags:
+      - Add-ons
+  /api/v2/organisations/addons/{addon}/:
+    get:
+      description: Get one add-on's state for the organisation.
+      operationId: v2_organisations_addons_retrieve
+      parameters:
+      - description: The add-on to act on.
+        explode: false
+        in: path
+        name: addon
+        required: true
+        schema:
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+          type: string
+        style: simple
+      - description: Act on this division instead of the organisation the token belongs
+          to.
+        explode: true
+        in: query
+        name: division_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                Add-on:
+                  value:
+                    addon: api_access
+                    name: API Access
+                    description: "PESCHECK API access, auth guidance, standard API\
+                      \ docs"
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: "25.00"
+                      currency: EUR
+                    price_is_indicative: false
+              schema:
+                $ref: "#/components/schemas/OrganisationAddon"
+          description: ""
+      tags:
+      - Add-ons
+    patch:
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      operationId: v2_organisations_addons_partial_update
+      parameters:
+      - description: The add-on to act on.
+        explode: false
+        in: path
+        name: addon
+        required: true
+        schema:
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+          type: string
+        style: simple
+      - description: Act on this division instead of the organisation the token belongs
+          to.
+        explode: true
+        in: query
+        name: division_id
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              SwitchAnAdd-onOff:
+                summary: Switch an add-on off
+                value:
+                  enabled: false
+            schema:
+              $ref: "#/components/schemas/PatchedOrganisationAddonUpdate"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/PatchedOrganisationAddonUpdate"
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  summary: "Switched off on a parent, cascaded to one division"
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: "25.00"
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+              schema:
+                $ref: "#/components/schemas/OrganisationAddonUpdateResult"
+          description: ""
+      tags:
+      - Add-ons
+    put:
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      operationId: v2_organisations_addons_update
+      parameters:
+      - description: The add-on to act on.
+        explode: false
+        in: path
+        name: addon
+        required: true
+        schema:
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+          type: string
+        style: simple
+      - description: Act on this division instead of the organisation the token belongs
+          to.
+        explode: true
+        in: query
+        name: division_id
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              SwitchAnAdd-onOff:
+                summary: Switch an add-on off
+                value:
+                  enabled: false
+            schema:
+              $ref: "#/components/schemas/OrganisationAddonUpdate"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/OrganisationAddonUpdate"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  summary: "Switched off on a parent, cascaded to one division"
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: "25.00"
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+              schema:
+                $ref: "#/components/schemas/OrganisationAddonUpdateResult"
+          description: ""
+      tags:
+      - Add-ons
   /api/v2/organisations/divisions/:
     get:
       description: |-
@@ -632,13 +852,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: 2026-05-13T10:30:00Z
                     updated_at: 2026-05-13T10:30:00Z
               schema:
@@ -767,13 +989,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: 2026-05-13T10:30:00Z
                     updated_at: 2026-05-13T10:30:00Z
               schema:
@@ -899,13 +1123,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: 2026-05-13T10:30:00Z
                     updated_at: 2026-05-13T11:45:00Z
               schema:
@@ -1054,13 +1280,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: 2026-05-13T10:30:00Z
                     updated_at: 2026-05-13T11:45:00Z
               schema:
@@ -1072,6 +1300,16 @@ paths:
     get:
       operationId: v2_screenings_list
       parameters:
+      - description: Restrict to screenings owned by this organisation. Use it with
+          a parent-organisation token to list a single department's screenings.
+        explode: true
+        in: query
+        name: organisation
+        required: false
+        schema:
+          format: uuid
+          type: string
+        style: form
       - description: A page number within the paginated result set.
         explode: true
         in: query
@@ -1120,6 +1358,9 @@ paths:
                     results:
                     - id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                       status: OPEN
+                      organisation:
+                        id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                        name: Acme Amsterdam
                       profile:
                         id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                         name: VOG + Watchlist Screening
@@ -1203,6 +1444,16 @@ paths:
                   - note: Second reference still pending a reply.
                     profile_check_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f1
                   - note: "General intake note, not tied to a check."
+              ScreenACandidateForADepartment(parent-organisationToken):
+                summary: Screen a candidate for a department (parent-organisation
+                  token)
+                value:
+                  profile_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f0
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                  division_id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
             schema:
               $ref: "#/components/schemas/V2ScreeningCreate"
           multipart/form-data:
@@ -1219,6 +1470,9 @@ paths:
                   value:
                     id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -1282,6 +1536,9 @@ paths:
                   value:
                     id: 018e9f1e-4c10-7d20-b3e2-d5e6f7a8b9c0
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -1365,6 +1622,9 @@ paths:
                   value:
                     id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -1494,14 +1754,13 @@ paths:
                 - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
 
                 **Valid Events:**
-                - `check.started` - Check has been initiated
-                - `check.completed` - Check has been completed successfully
-                - `check.failed` - Check has failed
-                - `screening.created` - New screening has been created
-                - `screening.completed` - Screening has been completed
+                - `check.status_changed` - Check status has changed (new status in payload)
+                - `screening.status_changed` - Screening status has changed (new status in payload)
                 - `screening.archived` - Screening has been archived
                 - `package.created` - New package has been created
                 - `package.updated` - Package has been updated
+                - `profile.created` - New profile has been created
+                - `profile.updated` - Profile has been updated
                 - `division.created` - New division has been created
                 - `division.updated` - Division has been updated
 
@@ -1536,9 +1795,8 @@ paths:
                   name: My Event Webhook
                   url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                   events:
-                  - check.completed
-                  - screening.created
-                  - screening.completed
+                  - check.status_changed
+                  - screening.status_changed
                   active: true
                   division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
             schema:
@@ -1560,9 +1818,8 @@ paths:
                     name: My Event Webhook
                     url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                     events:
-                    - check.completed
-                    - screening.created
-                    - screening.completed
+                    - check.status_changed
+                    - screening.status_changed
                     active: true
                     division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
               schema:
@@ -1648,6 +1905,18 @@ paths:
       - Webhooks
 components:
   schemas:
+    AddonPrice:
+      properties:
+        amount:
+          pattern: "^-?\\d{0,12}(?:\\.\\d{0,2})?$"
+          type: string
+        currency:
+          description: "ISO 4217 code, e.g. EUR."
+          type: string
+      required:
+      - amount
+      - currency
+      type: object
     CustomTokenObtainPair:
       description: |-
         Custom JWT serializer that scopes the token to one organization.
@@ -1678,6 +1947,20 @@ components:
       - email
       - password
       type: object
+    DisabledDivision:
+      example:
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+      properties:
+        id:
+          format: uuid
+          type: string
+        name:
+          type: string
+      required:
+      - id
+      - name
+      type: object
     DivisionReadOnly:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -1690,8 +1973,8 @@ components:
         postal: postal
         phone: phone
         contact_name: contact_name
-        contact_email: contact_email
-        invoice_email: invoice_email
+        contact_email: DivisionReadOnly_contact_email
+        invoice_email: null
         use_parent_on_email: true
         use_parent_on_billing: true
         use_parent_on_report: true
@@ -1737,15 +2020,9 @@ components:
           nullable: true
           type: string
         contact_email:
-          format: email
-          maxLength: 254
-          nullable: true
-          type: string
+          $ref: "#/components/schemas/DivisionReadOnly_contact_email"
         invoice_email:
-          format: email
-          maxLength: 254
-          nullable: true
-          type: string
+          $ref: "#/components/schemas/DivisionReadOnly_contact_email"
         use_parent_on_email:
           type: boolean
         use_parent_on_billing:
@@ -1912,18 +2189,20 @@ components:
             Grant type (client_credentials for API access)
 
             * `authorization-code` - Authorization code
+            * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
             * `implicit` - Implicit
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
             * `openid-hybrid` - OpenID connect hybrid
           enum:
           - authorization-code
+          - urn:ietf:params:oauth:grant-type:device_code
           - implicit
           - password
           - client-credentials
           - openid-hybrid
           type: string
-          x-spec-enum-id: 22f388741b5d4173
+          x-spec-enum-id: 520f84b4eb7c22d1
         redirect_uris:
           description: Space-separated redirect URIs (optional for client_credentials)
           type: string
@@ -1943,6 +2222,8 @@ components:
         client_secret: client_secret
         client_type: confidential
         authorization_grant_type: authorization-code
+        organisation: organisation
+        organisation_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         created: 2000-01-23T04:56:07.000+00:00
         updated: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -1954,7 +2235,7 @@ components:
           maxLength: 255
           type: string
         client_id:
-          maxLength: 100
+          maxLength: 255
           type: string
         client_secret:
           readOnly: true
@@ -1971,18 +2252,27 @@ components:
         authorization_grant_type:
           description: |-
             * `authorization-code` - Authorization code
+            * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
             * `implicit` - Implicit
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
             * `openid-hybrid` - OpenID connect hybrid
           enum:
           - authorization-code
+          - urn:ietf:params:oauth:grant-type:device_code
           - implicit
           - password
           - client-credentials
           - openid-hybrid
           type: string
-          x-spec-enum-id: 22f388741b5d4173
+          x-spec-enum-id: 520f84b4eb7c22d1
+        organisation:
+          readOnly: true
+          type: string
+        organisation_id:
+          format: uuid
+          readOnly: true
+          type: string
         created:
           format: date-time
           readOnly: true
@@ -1997,7 +2287,154 @@ components:
       - client_type
       - created
       - id
+      - organisation
+      - organisation_id
       - updated
+      type: object
+    OrganisationAddon:
+      description: "One add-on for one organisation, built from ``addon_service.addon_cards``."
+      example:
+        addon: branded_journey
+        name: name
+        description: description
+        enabled: true
+        active: true
+        blocked_by_parent: true
+        monthly_price: ""
+        price_is_indicative: true
+      properties:
+        addon:
+          description: |-
+            Add-on identifier, used in the URL.
+
+            * `branded_journey` - Branded Journey
+            * `sso` - Single Sign-On (SSO)
+            * `api_access` - API Access
+            * `connected_ats` - Connected ATS - Click & Go
+          enum:
+          - branded_journey
+          - sso
+          - api_access
+          - connected_ats
+          type: string
+          x-spec-enum-id: 1475464dc8f81ff9
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          description: Switched on (and billed) for this organisation.
+          type: boolean
+        active:
+          description: Usable right now. A division also needs the add-on on its parent
+            organisation.
+          type: boolean
+        blocked_by_parent:
+          description: Only the missing add-on on the parent organisation stands in
+            the way.
+          type: boolean
+        monthly_price:
+          allOf:
+          - $ref: "#/components/schemas/AddonPrice"
+          description: What this organisation pays per month; the division price for
+            a division. Null when unpriced.
+          nullable: true
+        price_is_indicative:
+          description: The price is a starting price ("from").
+          type: boolean
+      required:
+      - active
+      - addon
+      - blocked_by_parent
+      - description
+      - enabled
+      - monthly_price
+      - name
+      - price_is_indicative
+      type: object
+    OrganisationAddonUpdate:
+      example:
+        enabled: true
+      properties:
+        enabled:
+          description: Switch the add-on on (billed monthly from today) or off (billing
+            stops at the end of the month).
+          type: boolean
+      required:
+      - enabled
+      type: object
+    OrganisationAddonUpdateResult:
+      description: "One add-on for one organisation, built from ``addon_service.addon_cards``."
+      example:
+        addon: branded_journey
+        name: name
+        description: description
+        enabled: true
+        active: true
+        blocked_by_parent: true
+        monthly_price: ""
+        price_is_indicative: true
+        disabled_divisions:
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+        - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+      properties:
+        addon:
+          description: |-
+            Add-on identifier, used in the URL.
+
+            * `branded_journey` - Branded Journey
+            * `sso` - Single Sign-On (SSO)
+            * `api_access` - API Access
+            * `connected_ats` - Connected ATS - Click & Go
+          enum:
+          - branded_journey
+          - sso
+          - api_access
+          - connected_ats
+          type: string
+          x-spec-enum-id: 1475464dc8f81ff9
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          description: Switched on (and billed) for this organisation.
+          type: boolean
+        active:
+          description: Usable right now. A division also needs the add-on on its parent
+            organisation.
+          type: boolean
+        blocked_by_parent:
+          description: Only the missing add-on on the parent organisation stands in
+            the way.
+          type: boolean
+        monthly_price:
+          allOf:
+          - $ref: "#/components/schemas/AddonPrice"
+          description: What this organisation pays per month; the division price for
+            a division. Null when unpriced.
+          nullable: true
+        price_is_indicative:
+          description: The price is a starting price ("from").
+          type: boolean
+        disabled_divisions:
+          description: "Divisions that were switched off too, because the add-on was\
+            \ switched off on their parent."
+          items:
+            $ref: "#/components/schemas/DisabledDivision"
+          type: array
+      required:
+      - active
+      - addon
+      - blocked_by_parent
+      - description
+      - disabled_divisions
+      - enabled
+      - monthly_price
+      - name
+      - price_is_indicative
       type: object
     PaginatedDivisionReadOnlyList:
       example:
@@ -2015,8 +2452,8 @@ components:
           postal: postal
           phone: phone
           contact_name: contact_name
-          contact_email: contact_email
-          invoice_email: invoice_email
+          contact_email: DivisionReadOnly_contact_email
+          invoice_email: null
           use_parent_on_email: true
           use_parent_on_billing: true
           use_parent_on_report: true
@@ -2030,8 +2467,8 @@ components:
           postal: postal
           phone: phone
           contact_name: contact_name
-          contact_email: contact_email
-          invoice_email: invoice_email
+          contact_email: DivisionReadOnly_contact_email
+          invoice_email: null
           use_parent_on_email: true
           use_parent_on_billing: true
           use_parent_on_report: true
@@ -2115,6 +2552,9 @@ components:
         results:
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           status: status
+          organisation:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
           profile:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
@@ -2132,6 +2572,9 @@ components:
           updated_at: 2000-01-23T04:56:07.000+00:00
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           status: status
+          organisation:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
           profile:
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
@@ -2221,6 +2664,15 @@ components:
         use_parent_on_report:
           type: boolean
       type: object
+    PatchedOrganisationAddonUpdate:
+      example:
+        enabled: true
+      properties:
+        enabled:
+          description: Switch the add-on on (billed monthly from today) or off (billing
+            stops at the end of the month).
+          type: boolean
+      type: object
     PatchedV2ProfilePartialUpdate:
       description: |-
         PATCH body. Only name and description are editable. Sending `checks`
@@ -2264,8 +2716,8 @@ components:
         date_of_birth: date_of_birth
         gender: gender
         nationality: AD
-        postal_code: postal_code
-        house_number: house_number
+        postal_code: V2Candidate_postal_code
+        house_number: V2Candidate_house_number
         extension: extension
       properties:
         first_name:
@@ -2787,11 +3239,9 @@ components:
           type: string
           x-spec-enum-id: bcbf7da1ea0d7ab0
         postal_code:
-          maxLength: 255
-          type: string
+          $ref: "#/components/schemas/V2Candidate_postal_code"
         house_number:
-          maxLength: 50
-          type: string
+          $ref: "#/components/schemas/V2Candidate_house_number"
         extension:
           type: string
       required:
@@ -2806,8 +3256,8 @@ components:
         type: type
         required: true
         choices:
-        - choices
-        - choices
+        - key: ""
+        - key: ""
         help_text: help_text
       properties:
         name:
@@ -2823,9 +3273,11 @@ components:
           type: boolean
         choices:
           description: "Allowed values, or null if the field isn't constrained to\
-            \ a set."
+            \ a set. Each choice has \"value\" (what to send), \"label\" (human-readable),\
+            \ and possibly check-specific extras such as \"description\"."
           items:
-            type: string
+            additionalProperties: {}
+            type: object
           nullable: true
           readOnly: true
           type: array
@@ -2863,45 +3315,45 @@ components:
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
         - name: name
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
         input_fields:
         - name: name
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
         - name: name
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
         candidate_fields:
         - name: name
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
         - name: name
           type: type
           required: true
           choices:
-          - choices
-          - choices
+          - key: ""
+          - key: ""
           help_text: help_text
       properties:
         check_type:
@@ -3003,7 +3455,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -3027,7 +3478,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -3043,7 +3493,7 @@ components:
           - worldwidecreditcheck
           readOnly: true
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         filename:
           readOnly: true
           type: string
@@ -3182,7 +3632,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -3206,7 +3655,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -3222,7 +3670,7 @@ components:
           - worldwidecreditcheck
           readOnly: true
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         display_name:
           readOnly: true
           type: string
@@ -3314,6 +3762,10 @@ components:
         candidate_fields:
         - "{}"
         - "{}"
+        creates_as_draft: true
+        draft_reasons:
+        - draft_reasons
+        - draft_reasons
         created_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -3352,6 +3804,14 @@ components:
             type: object
           readOnly: true
           type: array
+        creates_as_draft:
+          readOnly: true
+          type: boolean
+        draft_reasons:
+          items:
+            type: string
+          readOnly: true
+          type: array
         created_at:
           format: date-time
           readOnly: true
@@ -3364,7 +3824,9 @@ components:
       - candidate_fields
       - checks
       - created_at
+      - creates_as_draft
       - description
+      - draft_reasons
       - id
       - name
       - supported_countries_of_residence
@@ -3469,7 +3931,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -3493,7 +3954,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -3508,7 +3968,7 @@ components:
           - workreferencecheck
           - worldwidecreditcheck
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         config:
           additionalProperties: {}
           type: object
@@ -3620,7 +4080,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -3644,7 +4103,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -3660,7 +4118,7 @@ components:
           - worldwidecreditcheck
           readOnly: true
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         display_name:
           readOnly: true
           type: string
@@ -3719,7 +4177,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -3743,7 +4200,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -3759,7 +4215,7 @@ components:
           - worldwidecreditcheck
           readOnly: true
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         status:
           readOnly: true
           type: string
@@ -3779,8 +4235,8 @@ components:
           date_of_birth: date_of_birth
           gender: gender
           nationality: AD
-          postal_code: postal_code
-          house_number: house_number
+          postal_code: V2Candidate_postal_code
+          house_number: V2Candidate_house_number
           extension: extension
         checks:
         - check_type: addresscheck
@@ -3800,6 +4256,7 @@ components:
         - note: note
           profile_check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           check_type: addresscheck
+        division_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         profile_id:
           format: uuid
@@ -3814,6 +4271,12 @@ components:
           items:
             $ref: "#/components/schemas/V2ScreeningNoteInput"
           type: array
+        division_id:
+          description: Create the screening for this department instead of the token's
+            own organisation. Omit for the usual case. Same field as on webhook and
+            OAuth application creation.
+          format: uuid
+          type: string
       required:
       - candidate
       - profile_id
@@ -3822,6 +4285,9 @@ components:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         status: status
+        organisation:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
         profile:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           name: name
@@ -3872,8 +4338,10 @@ components:
         status:
           readOnly: true
           type: string
+        organisation:
+          $ref: "#/components/schemas/V2ScreeningDetail_organisation"
         profile:
-          $ref: "#/components/schemas/V2ScreeningDetail_profile"
+          $ref: "#/components/schemas/V2ScreeningDetail_organisation"
         candidate:
           allOf:
           - $ref: "#/components/schemas/V2Candidate"
@@ -3915,6 +4383,7 @@ components:
       - created_at
       - dashboard_url
       - id
+      - organisation
       - profile
       - screening_notes
       - status
@@ -3928,6 +4397,9 @@ components:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         status: status
+        organisation:
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
         profile:
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           name: name
@@ -3950,8 +4422,10 @@ components:
           type: string
         status:
           type: string
+        organisation:
+          $ref: "#/components/schemas/V2ScreeningDetail_organisation"
         profile:
-          $ref: "#/components/schemas/V2ScreeningDetail_profile"
+          $ref: "#/components/schemas/V2ScreeningDetail_organisation"
         candidate:
           allOf:
           - $ref: "#/components/schemas/V2Candidate"
@@ -3985,6 +4459,7 @@ components:
       - created_at
       - dashboard_url
       - id
+      - organisation
       - profile
       - updated_at
       type: object
@@ -4047,7 +4522,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4071,7 +4545,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4087,7 +4560,7 @@ components:
           - worldwidecreditcheck
           - ""
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
       required:
       - note
       type: object
@@ -4150,7 +4623,7 @@ components:
             - division.created
             - division.updated
             type: string
-            x-spec-enum-id: 4434dcfa22790647
+            x-spec-enum-id: a3d120e98c30fb30
           type: array
         active:
           default: true
@@ -4189,7 +4662,7 @@ components:
           type: string
         url:
           format: uri
-          maxLength: 200
+          maxLength: 400
           type: string
         events:
           readOnly: true
@@ -4222,7 +4695,31 @@ components:
       - url
       - verified
       type: object
-    V2ScreeningDetail_profile:
+    DivisionReadOnly_contact_email:
+      nullable: true
+      oneOf:
+      - format: email
+        maxLength: 254
+        type: string
+      - maxLength: 0
+        type: string
+    V2Candidate_postal_code:
+      oneOf:
+      - maxLength: 255
+        pattern: "^[0-9]{4}\\s?[A-Za-z]{2}$"
+        type: string
+      - maxLength: 0
+        type: string
+    V2Candidate_house_number:
+      oneOf:
+      - maxLength: 50
+        pattern: "^[0-9]+$"
+        type: string
+      - maxLength: 0
+        type: string
+    V2ScreeningDetail_organisation:
+      description: "Organisation owning this screening. For departments, the department\
+        \ itself."
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         name: name
@@ -4247,11 +4744,11 @@ components:
     oauth2:
       flows:
         clientCredentials:
-          refreshUrl: https://api.pescheck.io/api/o/token/
+          refreshUrl: https://api-staging.pescheck.io/api/o/token/
           scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
-          tokenUrl: https://api.pescheck.io/api/o/token/
+            read:api: Read access to API
+            create:api: Create access to API
+            update:api: Update access to API
+          tokenUrl: https://api-staging.pescheck.io/api/o/token/
       type: oauth2
 

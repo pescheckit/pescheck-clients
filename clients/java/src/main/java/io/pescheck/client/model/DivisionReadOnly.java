@@ -19,6 +19,7 @@ import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import io.pescheck.client.model.DivisionReadOnlyContactEmail;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
@@ -106,12 +107,12 @@ public class DivisionReadOnly {
   public static final String SERIALIZED_NAME_CONTACT_EMAIL = "contact_email";
   @SerializedName(SERIALIZED_NAME_CONTACT_EMAIL)
   @javax.annotation.Nullable
-  private String contactEmail;
+  private DivisionReadOnlyContactEmail contactEmail;
 
   public static final String SERIALIZED_NAME_INVOICE_EMAIL = "invoice_email";
   @SerializedName(SERIALIZED_NAME_INVOICE_EMAIL)
   @javax.annotation.Nullable
-  private String invoiceEmail;
+  private DivisionReadOnlyContactEmail invoiceEmail;
 
   public static final String SERIALIZED_NAME_USE_PARENT_ON_EMAIL = "use_parent_on_email";
   @SerializedName(SERIALIZED_NAME_USE_PARENT_ON_EMAIL)
@@ -302,7 +303,7 @@ public class DivisionReadOnly {
   }
 
 
-  public DivisionReadOnly contactEmail(@javax.annotation.Nullable String contactEmail) {
+  public DivisionReadOnly contactEmail(@javax.annotation.Nullable DivisionReadOnlyContactEmail contactEmail) {
     this.contactEmail = contactEmail;
     return this;
   }
@@ -312,16 +313,16 @@ public class DivisionReadOnly {
    * @return contactEmail
    */
   @javax.annotation.Nullable
-  public String getContactEmail() {
+  public DivisionReadOnlyContactEmail getContactEmail() {
     return contactEmail;
   }
 
-  public void setContactEmail(@javax.annotation.Nullable String contactEmail) {
+  public void setContactEmail(@javax.annotation.Nullable DivisionReadOnlyContactEmail contactEmail) {
     this.contactEmail = contactEmail;
   }
 
 
-  public DivisionReadOnly invoiceEmail(@javax.annotation.Nullable String invoiceEmail) {
+  public DivisionReadOnly invoiceEmail(@javax.annotation.Nullable DivisionReadOnlyContactEmail invoiceEmail) {
     this.invoiceEmail = invoiceEmail;
     return this;
   }
@@ -331,11 +332,11 @@ public class DivisionReadOnly {
    * @return invoiceEmail
    */
   @javax.annotation.Nullable
-  public String getInvoiceEmail() {
+  public DivisionReadOnlyContactEmail getInvoiceEmail() {
     return invoiceEmail;
   }
 
-  public void setInvoiceEmail(@javax.annotation.Nullable String invoiceEmail) {
+  public void setInvoiceEmail(@javax.annotation.Nullable DivisionReadOnlyContactEmail invoiceEmail) {
     this.invoiceEmail = invoiceEmail;
   }
 
@@ -535,11 +536,13 @@ public class DivisionReadOnly {
       if ((jsonObj.get("contact_name") != null && !jsonObj.get("contact_name").isJsonNull()) && !jsonObj.get("contact_name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `contact_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("contact_name").toString()));
       }
-      if ((jsonObj.get("contact_email") != null && !jsonObj.get("contact_email").isJsonNull()) && !jsonObj.get("contact_email").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `contact_email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("contact_email").toString()));
+      // validate the optional field `contact_email`
+      if (jsonObj.get("contact_email") != null && !jsonObj.get("contact_email").isJsonNull()) {
+        DivisionReadOnlyContactEmail.validateJsonElement(jsonObj.get("contact_email"));
       }
-      if ((jsonObj.get("invoice_email") != null && !jsonObj.get("invoice_email").isJsonNull()) && !jsonObj.get("invoice_email").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `invoice_email` to be a primitive type in the JSON string but got `%s`", jsonObj.get("invoice_email").toString()));
+      // validate the optional field `invoice_email`
+      if (jsonObj.get("invoice_email") != null && !jsonObj.get("invoice_email").isJsonNull()) {
+        DivisionReadOnlyContactEmail.validateJsonElement(jsonObj.get("invoice_email"));
       }
   }
 

@@ -612,6 +612,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -631,6 +632,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -660,6 +663,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -686,6 +690,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list_with_http_info(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -705,6 +710,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -734,6 +741,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -760,6 +768,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list_without_preload_content(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -779,6 +788,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -808,6 +819,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -829,6 +841,7 @@ class ScreeningsApi:
 
     def _v2_screenings_list_serialize(
         self,
+        organisation,
         page,
         page_size,
         paginate,
@@ -854,6 +867,10 @@ class ScreeningsApi:
 
         # process the path parameters
         # process the query parameters
+        if organisation is not None:
+            
+            _query_params.append(('organisation', organisation))
+            
         if page is not None:
             
             _query_params.append(('page', page))

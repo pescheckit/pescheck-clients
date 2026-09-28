@@ -23,13 +23,17 @@ module Pescheck
 
     attr_accessor :screening_notes
 
+    # Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+    attr_accessor :division_id
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'profile_id' => :'profile_id',
         :'candidate' => :'candidate',
         :'checks' => :'checks',
-        :'screening_notes' => :'screening_notes'
+        :'screening_notes' => :'screening_notes',
+        :'division_id' => :'division_id'
       }
     end
 
@@ -49,7 +53,8 @@ module Pescheck
         :'profile_id' => :'String',
         :'candidate' => :'V2Candidate',
         :'checks' => :'Array<V2ScreeningCheck>',
-        :'screening_notes' => :'Array<V2ScreeningNoteInput>'
+        :'screening_notes' => :'Array<V2ScreeningNoteInput>',
+        :'division_id' => :'String'
       }
     end
 
@@ -97,6 +102,10 @@ module Pescheck
         if (value = attributes[:'screening_notes']).is_a?(Array)
           self.screening_notes = value
         end
+      end
+
+      if attributes.key?(:'division_id')
+        self.division_id = attributes[:'division_id']
       end
     end
 
@@ -153,7 +162,8 @@ module Pescheck
           profile_id == o.profile_id &&
           candidate == o.candidate &&
           checks == o.checks &&
-          screening_notes == o.screening_notes
+          screening_notes == o.screening_notes &&
+          division_id == o.division_id
     end
 
     # @see the `==` method
@@ -165,7 +175,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [profile_id, candidate, checks, screening_notes].hash
+      [profile_id, candidate, checks, screening_notes, division_id].hash
     end
 
     # Builds the object from hash

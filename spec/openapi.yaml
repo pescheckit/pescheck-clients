@@ -205,6 +205,208 @@ paths:
           description: ''
         '403':
           description: Forbidden
+  /api/v1/organisations/addons/:
+    get:
+      operationId: v1_organisations_addons_list
+      description: List every add-on with whether it is enabled for the organisation.
+      parameters:
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganisationAddon'
+              examples:
+                Add-on:
+                  value:
+                  - addon: api_access
+                    name: API Access
+                    description: PESCHECK API access, auth guidance, standard API
+                      docs
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+          description: ''
+  /api/v1/organisations/addons/{addon}/:
+    get:
+      operationId: v1_organisations_addons_retrieve
+      description: Get one add-on's state for the organisation.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddon'
+              examples:
+                Add-on:
+                  value:
+                    addon: api_access
+                    name: API Access
+                    description: PESCHECK API access, auth guidance, standard API
+                      docs
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+          description: ''
+    put:
+      operationId: v1_organisations_addons_update
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganisationAddonUpdate'
+            examples:
+              SwitchAnAdd-onOff:
+                value:
+                  enabled: false
+                summary: Switch an add-on off
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrganisationAddonUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddonUpdateResult'
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+                  summary: Switched off on a parent, cascaded to one division
+          description: ''
+    patch:
+      operationId: v1_organisations_addons_partial_update
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisationAddonUpdate'
+            examples:
+              SwitchAnAdd-onOff:
+                value:
+                  enabled: false
+                summary: Switch an add-on off
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisationAddonUpdate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddonUpdateResult'
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+                  summary: Switched off on a parent, cascaded to one division
+          description: ''
   /api/v1/organisations/divisions/:
     get:
       operationId: v1_organisations_divisions_list
@@ -606,14 +808,13 @@ paths:
                 - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
 
                 **Valid Events:**
-                - `check.started` - Check has been initiated
-                - `check.completed` - Check has been completed successfully
-                - `check.failed` - Check has failed
-                - `screening.created` - New screening has been created
-                - `screening.completed` - Screening has been completed
+                - `check.status_changed` - Check status has changed (new status in payload)
+                - `screening.status_changed` - Screening status has changed (new status in payload)
                 - `screening.archived` - Screening has been archived
                 - `package.created` - New package has been created
                 - `package.updated` - Package has been updated
+                - `profile.created` - New profile has been created
+                - `profile.updated` - Profile has been updated
                 - `division.created` - New division has been created
                 - `division.updated` - Division has been updated
 
@@ -642,9 +843,8 @@ paths:
                   name: My Event Webhook
                   url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                   events:
-                  - check.completed
-                  - screening.created
-                  - screening.completed
+                  - check.status_changed
+                  - screening.status_changed
                   active: true
                   division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                 summary: Create Webhook Example
@@ -666,9 +866,8 @@ paths:
                     name: My Event Webhook
                     url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                     events:
-                    - check.completed
-                    - screening.created
-                    - screening.completed
+                    - check.status_changed
+                    - screening.status_changed
                     active: true
                     division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                   summary: Create Webhook Example
@@ -885,6 +1084,208 @@ paths:
           description: ''
         '403':
           description: Forbidden
+  /api/v2/organisations/addons/:
+    get:
+      operationId: v2_organisations_addons_list
+      description: List every add-on with whether it is enabled for the organisation.
+      parameters:
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganisationAddon'
+              examples:
+                Add-on:
+                  value:
+                  - addon: api_access
+                    name: API Access
+                    description: PESCHECK API access, auth guidance, standard API
+                      docs
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+          description: ''
+  /api/v2/organisations/addons/{addon}/:
+    get:
+      operationId: v2_organisations_addons_retrieve
+      description: Get one add-on's state for the organisation.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddon'
+              examples:
+                Add-on:
+                  value:
+                    addon: api_access
+                    name: API Access
+                    description: PESCHECK API access, auth guidance, standard API
+                      docs
+                    enabled: true
+                    active: true
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+          description: ''
+    put:
+      operationId: v2_organisations_addons_update
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganisationAddonUpdate'
+            examples:
+              SwitchAnAdd-onOff:
+                value:
+                  enabled: false
+                summary: Switch an add-on off
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrganisationAddonUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddonUpdateResult'
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+                  summary: Switched off on a parent, cascaded to one division
+          description: ''
+    patch:
+      operationId: v2_organisations_addons_partial_update
+      description: Switch an add-on on or off. Enabling is billed monthly from today.
+      parameters:
+      - in: path
+        name: addon
+        schema:
+          type: string
+          enum:
+          - api_access
+          - branded_journey
+          - connected_ats
+          - sso
+        description: The add-on to act on.
+        required: true
+      - in: query
+        name: division_id
+        schema:
+          type: string
+        description: Act on this division instead of the organisation the token belongs
+          to.
+      tags:
+      - Add-ons
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisationAddonUpdate'
+            examples:
+              SwitchAnAdd-onOff:
+                value:
+                  enabled: false
+                summary: Switch an add-on off
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedOrganisationAddonUpdate'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganisationAddonUpdateResult'
+              examples:
+                SwitchedOffOnAParent,CascadedToOneDivision:
+                  value:
+                    addon: sso
+                    name: Single Sign-On (SSO)
+                    description: Secure SSO for platform users
+                    enabled: false
+                    active: false
+                    blocked_by_parent: false
+                    monthly_price:
+                      amount: '25.00'
+                      currency: EUR
+                    price_is_indicative: false
+                    disabled_divisions:
+                    - id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                      name: Pescheck Utrecht
+                  summary: Switched off on a parent, cascaded to one division
+          description: ''
   /api/v2/organisations/divisions/:
     get:
       operationId: v2_organisations_divisions_list
@@ -1275,13 +1676,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T10:30:00Z'
                   summary: Profile detail
@@ -1391,13 +1794,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T10:30:00Z'
                   summary: Profile detail
@@ -1544,13 +1949,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T11:45:00Z'
                   summary: Profile detail (after PUT)
@@ -1674,13 +2081,15 @@ paths:
                       type: string
                       required: false
                       choices:
-                      - AD
-                      - AE
-                      - AF
-                      - AG
-                      - AI
-                      - '...'
+                      - value: AD
+                        label: Andorra
+                      - value: AE
+                        label: United Arab Emirates
+                      - value: '...'
+                        label: '...'
                       help_text: null
+                    creates_as_draft: false
+                    draft_reasons: []
                     created_at: '2026-05-13T10:30:00Z'
                     updated_at: '2026-05-13T11:45:00Z'
                   summary: Profile detail (after PATCH)
@@ -1704,6 +2113,13 @@ paths:
     get:
       operationId: v2_screenings_list
       parameters:
+      - in: query
+        name: organisation
+        schema:
+          type: string
+          format: uuid
+        description: Restrict to screenings owned by this organisation. Use it with
+          a parent-organisation token to list a single department's screenings.
       - name: page
         required: false
         in: query
@@ -1749,6 +2165,9 @@ paths:
                     results:
                     - id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                       status: OPEN
+                      organisation:
+                        id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                        name: Acme Amsterdam
                       profile:
                         id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                         name: VOG + Watchlist Screening
@@ -1833,6 +2252,16 @@ paths:
                     profile_check_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f1
                   - note: General intake note, not tied to a check.
                 summary: Screen a candidate with notes (scoped to a check or free-standing)
+              ScreenACandidateForADepartment(parent-organisationToken):
+                value:
+                  profile_id: 018e9f1e-5a02-7b1c-9d4e-a5b6c7d8e9f0
+                  candidate:
+                    first_name: Jan
+                    last_name: de Vries
+                    email: jan.devries@example.com
+                  division_id: 018e9f1e-1234-7000-aaaa-bbbbcccc0002
+                summary: Screen a candidate for a department (parent-organisation
+                  token)
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/V2ScreeningCreate'
@@ -1848,6 +2277,9 @@ paths:
                   value:
                     id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -1911,6 +2343,9 @@ paths:
                   value:
                     id: 018e9f1e-4c10-7d20-b3e2-d5e6f7a8b9c0
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -1992,6 +2427,9 @@ paths:
                   value:
                     id: 018e9f1e-4b21-7c0e-a3f1-b2c3d4e5f6a7
                     status: OPEN
+                    organisation:
+                      id: 018e9f1e-1234-7000-aaaa-bbbbcccc0001
+                      name: Acme Amsterdam
                     profile:
                       id: 018e9f1e-3a73-7eba-b29c-c2c4a8c40c8a
                       name: VOG + Watchlist Screening
@@ -2111,14 +2549,13 @@ paths:
                 - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
 
                 **Valid Events:**
-                - `check.started` - Check has been initiated
-                - `check.completed` - Check has been completed successfully
-                - `check.failed` - Check has failed
-                - `screening.created` - New screening has been created
-                - `screening.completed` - Screening has been completed
+                - `check.status_changed` - Check status has changed (new status in payload)
+                - `screening.status_changed` - Screening status has changed (new status in payload)
                 - `screening.archived` - Screening has been archived
                 - `package.created` - New package has been created
                 - `package.updated` - Package has been updated
+                - `profile.created` - New profile has been created
+                - `profile.updated` - Profile has been updated
                 - `division.created` - New division has been created
                 - `division.updated` - Division has been updated
 
@@ -2147,9 +2584,8 @@ paths:
                   name: My Event Webhook
                   url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                   events:
-                  - check.completed
-                  - screening.created
-                  - screening.completed
+                  - check.status_changed
+                  - screening.status_changed
                   active: true
                   division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                 summary: Create Webhook Example
@@ -2171,9 +2607,8 @@ paths:
                     name: My Event Webhook
                     url: https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3
                     events:
-                    - check.completed
-                    - screening.created
-                    - screening.completed
+                    - check.status_changed
+                    - screening.status_changed
                     active: true
                     division_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
                   summary: Create Webhook Example
@@ -2254,6 +2689,19 @@ paths:
           description: Forbidden
 components:
   schemas:
+    AddonPrice:
+      type: object
+      properties:
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,12}(?:\.\d{0,2})?$
+        currency:
+          type: string
+          description: ISO 4217 code, e.g. EUR.
+      required:
+      - amount
+      - currency
     Bucket:
       type: object
       description: |-
@@ -2474,6 +2922,17 @@ components:
       required:
       - email
       - password
+    DisabledDivision:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
     DivisionReadOnly:
       type: object
       properties:
@@ -2518,15 +2977,21 @@ components:
           nullable: true
           maxLength: 255
         contact_email:
-          type: string
-          format: email
           nullable: true
-          maxLength: 254
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
         invoice_email:
-          type: string
-          format: email
           nullable: true
-          maxLength: 254
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
         use_parent_on_email:
           type: boolean
         use_parent_on_billing:
@@ -2716,17 +3181,19 @@ components:
         authorization_grant_type:
           enum:
           - authorization-code
+          - urn:ietf:params:oauth:grant-type:device_code
           - implicit
           - password
           - client-credentials
           - openid-hybrid
           type: string
-          x-spec-enum-id: 22f388741b5d4173
+          x-spec-enum-id: 520f84b4eb7c22d1
           default: client-credentials
           description: |-
             Grant type (client_credentials for API access)
 
             * `authorization-code` - Authorization code
+            * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
             * `implicit` - Implicit
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
@@ -2753,7 +3220,7 @@ components:
           maxLength: 255
         client_id:
           type: string
-          maxLength: 100
+          maxLength: 255
         client_secret:
           type: string
           readOnly: true
@@ -2769,6 +3236,7 @@ components:
         authorization_grant_type:
           enum:
           - authorization-code
+          - urn:ietf:params:oauth:grant-type:device_code
           - implicit
           - password
           - client-credentials
@@ -2776,11 +3244,19 @@ components:
           type: string
           description: |-
             * `authorization-code` - Authorization code
+            * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
             * `implicit` - Implicit
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
             * `openid-hybrid` - OpenID connect hybrid
-          x-spec-enum-id: 22f388741b5d4173
+          x-spec-enum-id: 520f84b4eb7c22d1
+        organisation:
+          type: string
+          readOnly: true
+        organisation_id:
+          type: string
+          format: uuid
+          readOnly: true
         created:
           type: string
           format: date-time
@@ -2795,7 +3271,129 @@ components:
       - client_type
       - created
       - id
+      - organisation
+      - organisation_id
       - updated
+    OrganisationAddon:
+      type: object
+      description: One add-on for one organisation, built from ``addon_service.addon_cards``.
+      properties:
+        addon:
+          enum:
+          - branded_journey
+          - sso
+          - api_access
+          - connected_ats
+          type: string
+          x-spec-enum-id: 1475464dc8f81ff9
+          description: |-
+            Add-on identifier, used in the URL.
+
+            * `branded_journey` - Branded Journey
+            * `sso` - Single Sign-On (SSO)
+            * `api_access` - API Access
+            * `connected_ats` - Connected ATS - Click & Go
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+          description: Switched on (and billed) for this organisation.
+        active:
+          type: boolean
+          description: Usable right now. A division also needs the add-on on its parent
+            organisation.
+        blocked_by_parent:
+          type: boolean
+          description: Only the missing add-on on the parent organisation stands in
+            the way.
+        monthly_price:
+          allOf:
+          - $ref: '#/components/schemas/AddonPrice'
+          nullable: true
+          description: What this organisation pays per month; the division price for
+            a division. Null when unpriced.
+        price_is_indicative:
+          type: boolean
+          description: The price is a starting price ("from").
+      required:
+      - active
+      - addon
+      - blocked_by_parent
+      - description
+      - enabled
+      - monthly_price
+      - name
+      - price_is_indicative
+    OrganisationAddonUpdate:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Switch the add-on on (billed monthly from today) or off (billing
+            stops at the end of the month).
+      required:
+      - enabled
+    OrganisationAddonUpdateResult:
+      type: object
+      description: One add-on for one organisation, built from ``addon_service.addon_cards``.
+      properties:
+        addon:
+          enum:
+          - branded_journey
+          - sso
+          - api_access
+          - connected_ats
+          type: string
+          x-spec-enum-id: 1475464dc8f81ff9
+          description: |-
+            Add-on identifier, used in the URL.
+
+            * `branded_journey` - Branded Journey
+            * `sso` - Single Sign-On (SSO)
+            * `api_access` - API Access
+            * `connected_ats` - Connected ATS - Click & Go
+        name:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+          description: Switched on (and billed) for this organisation.
+        active:
+          type: boolean
+          description: Usable right now. A division also needs the add-on on its parent
+            organisation.
+        blocked_by_parent:
+          type: boolean
+          description: Only the missing add-on on the parent organisation stands in
+            the way.
+        monthly_price:
+          allOf:
+          - $ref: '#/components/schemas/AddonPrice'
+          nullable: true
+          description: What this organisation pays per month; the division price for
+            a division. Null when unpriced.
+        price_is_indicative:
+          type: boolean
+          description: The price is a starting price ("from").
+        disabled_divisions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DisabledDivision'
+          description: Divisions that were switched off too, because the add-on was
+            switched off on their parent.
+      required:
+      - active
+      - addon
+      - blocked_by_parent
+      - description
+      - disabled_divisions
+      - enabled
+      - monthly_price
+      - name
+      - price_is_indicative
     Package:
       type: object
       properties:
@@ -3066,6 +3664,13 @@ components:
           type: boolean
         use_parent_on_report:
           type: boolean
+    PatchedOrganisationAddonUpdate:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Switch the add-on on (billed monthly from today) or off (billing
+            stops at the end of the month).
     PatchedV2ProfilePartialUpdate:
       type: object
       description: |-
@@ -3893,11 +4498,19 @@ components:
             * `ZM` - ZM
             * `ZW` - ZW
         postal_code:
-          type: string
-          maxLength: 255
+          oneOf:
+          - type: string
+            pattern: ^[0-9]{4}\s?[A-Za-z]{2}$
+            maxLength: 255
+          - type: string
+            maxLength: 0
         house_number:
-          type: string
-          maxLength: 50
+          oneOf:
+          - type: string
+            pattern: ^[0-9]+$
+            maxLength: 50
+          - type: string
+            maxLength: 0
         extension:
           type: string
       required:
@@ -3922,11 +4535,13 @@ components:
         choices:
           type: array
           items:
-            type: string
+            type: object
+            additionalProperties: {}
           readOnly: true
           nullable: true
           description: Allowed values, or null if the field isn't constrained to a
-            set.
+            set. Each choice has "value" (what to send), "label" (human-readable),
+            and possibly check-specific extras such as "description".
         help_text:
           type: string
           readOnly: true
@@ -4032,7 +4647,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4057,7 +4671,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4071,7 +4684,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
           readOnly: true
         filename:
           type: string
@@ -4196,7 +4809,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4221,7 +4833,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4235,7 +4846,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
           readOnly: true
         display_name:
           type: string
@@ -4318,6 +4929,14 @@ components:
           items:
             type: object
           readOnly: true
+        creates_as_draft:
+          type: boolean
+          readOnly: true
+        draft_reasons:
+          type: array
+          items:
+            type: string
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -4330,7 +4949,9 @@ components:
       - candidate_fields
       - checks
       - created_at
+      - creates_as_draft
       - description
+      - draft_reasons
       - id
       - name
       - supported_countries_of_residence
@@ -4408,7 +5029,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4433,7 +5053,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4447,7 +5066,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
         config:
           type: object
           additionalProperties: {}
@@ -4540,7 +5159,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4565,7 +5183,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4579,7 +5196,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
           readOnly: true
         display_name:
           type: string
@@ -4635,7 +5252,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4660,7 +5276,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4674,7 +5289,7 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
           readOnly: true
         status:
           type: string
@@ -4699,6 +5314,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/V2ScreeningNoteInput'
+        division_id:
+          type: string
+          format: uuid
+          description: Create the screening for this department instead of the token's
+            own organisation. Omit for the usual case. Same field as on webhook and
+            OAuth application creation.
       required:
       - candidate
       - profile_id
@@ -4711,6 +5332,18 @@ components:
           readOnly: true
         status:
           type: string
+          readOnly: true
+        organisation:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+          nullable: true
+          description: Organisation owning this screening. For departments, the department
+            itself.
           readOnly: true
         profile:
           type: object
@@ -4763,6 +5396,7 @@ components:
       - created_at
       - dashboard_url
       - id
+      - organisation
       - profile
       - screening_notes
       - status
@@ -4780,6 +5414,18 @@ components:
           readOnly: true
         status:
           type: string
+        organisation:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+          nullable: true
+          description: Organisation owning this screening. For departments, the department
+            itself.
+          readOnly: true
         profile:
           type: object
           properties:
@@ -4823,6 +5469,7 @@ components:
       - created_at
       - dashboard_url
       - id
+      - organisation
       - profile
       - updated_at
     V2ScreeningNote:
@@ -4874,7 +5521,6 @@ components:
           - customintegritycheck
           - cvcheck
           - edrcheck
-          - focumcheck
           - id2check
           - idcheck
           - integritycheck
@@ -4890,7 +5536,7 @@ components:
           - worldwidecreditcheck
           - ''
           type: string
-          x-spec-enum-id: d4cf17b1eff0d66d
+          x-spec-enum-id: 946b8303cf81dbca
           description: |-
             Scope the note to a check type. Ignored when profile_check_id is given.
 
@@ -4903,7 +5549,6 @@ components:
             * `customintegritycheck` - customintegritycheck
             * `cvcheck` - cvcheck
             * `edrcheck` - edrcheck
-            * `focumcheck` - focumcheck
             * `id2check` - id2check
             * `idcheck` - idcheck
             * `integritycheck` - integritycheck
@@ -4967,7 +5612,7 @@ components:
               * `profile.updated` - profile.updated
               * `division.created` - division.created
               * `division.updated` - division.updated
-            x-spec-enum-id: 4434dcfa22790647
+            x-spec-enum-id: a3d120e98c30fb30
           description: 'List of events to subscribe to. Valid events: check.status_changed,
             screening.status_changed, screening.archived, package.created, package.updated,
             profile.created, profile.updated, division.created, division.updated'
@@ -4997,7 +5642,7 @@ components:
         url:
           type: string
           format: uri
-          maxLength: 200
+          maxLength: 400
         events:
           readOnly: true
         active:
@@ -5043,33 +5688,33 @@ components:
       type: oauth2
       flows:
         authorizationCode:
-          authorizationUrl: https://api.pescheck.io/api/o/authorize/
-          tokenUrl: https://api.pescheck.io/api/o/token/
-          refreshUrl: https://api.pescheck.io/api/o/token/
+          authorizationUrl: https://api-staging.pescheck.io/api/o/authorize/
+          tokenUrl: https://api-staging.pescheck.io/api/o/token/
+          refreshUrl: https://api-staging.pescheck.io/api/o/token/
           scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
+            read:api: Read access to API
+            create:api: Create access to API
+            update:api: Update access to API
         clientCredentials:
-          tokenUrl: https://api.pescheck.io/api/o/token/
-          refreshUrl: https://api.pescheck.io/api/o/token/
+          tokenUrl: https://api-staging.pescheck.io/api/o/token/
+          refreshUrl: https://api-staging.pescheck.io/api/o/token/
           scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
+            read:api: Read access to API
+            create:api: Create access to API
+            update:api: Update access to API
         password:
-          tokenUrl: https://api.pescheck.io/api/o/token/
-          refreshUrl: https://api.pescheck.io/api/o/token/
+          tokenUrl: https://api-staging.pescheck.io/api/o/token/
+          refreshUrl: https://api-staging.pescheck.io/api/o/token/
           scopes:
-            read:api: read groups
-            create:api: create groups
-            update:api: update groups
+            read:api: Read access to API
+            create:api: Create access to API
+            update:api: Update access to API
 servers:
 - url: '{baseUrl}'
   description: Current environment
   variables:
     baseUrl:
-      default: https://api.pescheck.io
+      default: https://api-staging.pescheck.io
       description: API base URL
 - url: https://dash-test-api.pescheck.me
   description: Test server

@@ -285,7 +285,6 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     public const CHECK_TYPE_CUSTOMINTEGRITYCHECK = 'customintegritycheck';
     public const CHECK_TYPE_CVCHECK = 'cvcheck';
     public const CHECK_TYPE_EDRCHECK = 'edrcheck';
-    public const CHECK_TYPE_FOCUMCHECK = 'focumcheck';
     public const CHECK_TYPE_ID2CHECK = 'id2check';
     public const CHECK_TYPE_IDCHECK = 'idcheck';
     public const CHECK_TYPE_INTEGRITYCHECK = 'integritycheck';
@@ -317,7 +316,6 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
             self::CHECK_TYPE_CUSTOMINTEGRITYCHECK,
             self::CHECK_TYPE_CVCHECK,
             self::CHECK_TYPE_EDRCHECK,
-            self::CHECK_TYPE_FOCUMCHECK,
             self::CHECK_TYPE_ID2CHECK,
             self::CHECK_TYPE_IDCHECK,
             self::CHECK_TYPE_INTEGRITYCHECK,
@@ -512,7 +510,7 @@ class V2ScreeningCheckEntry implements ModelInterface, ArrayAccess, \JsonSeriali
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */
