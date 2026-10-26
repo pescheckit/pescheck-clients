@@ -60,7 +60,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => 'string',
         'candidate' => '\Pescheck\Client\Model\V2Candidate',
         'checks' => '\Pescheck\Client\Model\V2ScreeningCheck[]',
-        'screening_notes' => '\Pescheck\Client\Model\V2ScreeningNoteInput[]'
+        'screening_notes' => '\Pescheck\Client\Model\V2ScreeningNoteInput[]',
+        'division_id' => 'string'
     ];
 
     /**
@@ -74,7 +75,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => 'uuid',
         'candidate' => null,
         'checks' => null,
-        'screening_notes' => null
+        'screening_notes' => null,
+        'division_id' => 'uuid'
     ];
 
     /**
@@ -86,7 +88,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => false,
         'candidate' => false,
         'checks' => false,
-        'screening_notes' => false
+        'screening_notes' => false,
+        'division_id' => false
     ];
 
     /**
@@ -178,7 +181,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => 'profile_id',
         'candidate' => 'candidate',
         'checks' => 'checks',
-        'screening_notes' => 'screening_notes'
+        'screening_notes' => 'screening_notes',
+        'division_id' => 'division_id'
     ];
 
     /**
@@ -190,7 +194,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => 'setProfileId',
         'candidate' => 'setCandidate',
         'checks' => 'setChecks',
-        'screening_notes' => 'setScreeningNotes'
+        'screening_notes' => 'setScreeningNotes',
+        'division_id' => 'setDivisionId'
     ];
 
     /**
@@ -202,7 +207,8 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         'profile_id' => 'getProfileId',
         'candidate' => 'getCandidate',
         'checks' => 'getChecks',
-        'screening_notes' => 'getScreeningNotes'
+        'screening_notes' => 'getScreeningNotes',
+        'division_id' => 'getDivisionId'
     ];
 
     /**
@@ -266,6 +272,7 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('candidate', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
         $this->setIfExists('screening_notes', $data ?? [], null);
+        $this->setIfExists('division_id', $data ?? [], null);
     }
 
     /**
@@ -420,6 +427,33 @@ class V2ScreeningCreate implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable screening_notes cannot be null');
         }
         $this->container['screening_notes'] = $screening_notes;
+
+        return $this;
+    }
+
+    /**
+     * Gets division_id
+     *
+     * @return string|null
+     */
+    public function getDivisionId()
+    {
+        return $this->container['division_id'];
+    }
+
+    /**
+     * Sets division_id
+     *
+     * @param string|null $division_id Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+     *
+     * @return self
+     */
+    public function setDivisionId($division_id)
+    {
+        if (is_null($division_id)) {
+            throw new \InvalidArgumentException('non-nullable division_id cannot be null');
+        }
+        $this->container['division_id'] = $division_id;
 
         return $this;
     }

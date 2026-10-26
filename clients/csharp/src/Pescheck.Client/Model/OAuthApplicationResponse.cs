@@ -60,9 +60,9 @@ namespace Pescheck.Client.Model
         [DataMember(Name = "client_type", IsRequired = true, EmitDefaultValue = true)]
         public ClientTypeEnum ClientType { get; set; }
         /// <summary>
-        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
         /// </summary>
-        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
+        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum AuthorizationGrantTypeEnum
         {
@@ -73,35 +73,41 @@ namespace Pescheck.Client.Model
             AuthorizationCode = 1,
 
             /// <summary>
+            /// Enum UrnietfparamsoauthgrantTypedeviceCode for value: urn:ietf:params:oauth:grant-type:device_code
+            /// </summary>
+            [EnumMember(Value = "urn:ietf:params:oauth:grant-type:device_code")]
+            UrnietfparamsoauthgrantTypedeviceCode = 2,
+
+            /// <summary>
             /// Enum Implicit for value: implicit
             /// </summary>
             [EnumMember(Value = "implicit")]
-            Implicit = 2,
+            Implicit = 3,
 
             /// <summary>
             /// Enum Password for value: password
             /// </summary>
             [EnumMember(Value = "password")]
-            Password = 3,
+            Password = 4,
 
             /// <summary>
             /// Enum ClientCredentials for value: client-credentials
             /// </summary>
             [EnumMember(Value = "client-credentials")]
-            ClientCredentials = 4,
+            ClientCredentials = 5,
 
             /// <summary>
             /// Enum OpenidHybrid for value: openid-hybrid
             /// </summary>
             [EnumMember(Value = "openid-hybrid")]
-            OpenidHybrid = 5
+            OpenidHybrid = 6
         }
 
 
         /// <summary>
-        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
         /// </summary>
-        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
+        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
         [DataMember(Name = "authorization_grant_type", IsRequired = true, EmitDefaultValue = true)]
         public AuthorizationGrantTypeEnum AuthorizationGrantType { get; set; }
         /// <summary>
@@ -115,7 +121,7 @@ namespace Pescheck.Client.Model
         /// <param name="name">name.</param>
         /// <param name="clientId">clientId.</param>
         /// <param name="clientType">* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public (required).</param>
-        /// <param name="authorizationGrantType">* &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid (required).</param>
+        /// <param name="authorizationGrantType">* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid (required).</param>
         public OAuthApplicationResponse(string name = default, string clientId = default, ClientTypeEnum clientType = default, AuthorizationGrantTypeEnum authorizationGrantType = default)
         {
             this.ClientType = clientType;
@@ -165,6 +171,34 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
+        /// Gets or Sets Organisation
+        /// </summary>
+        [DataMember(Name = "organisation", IsRequired = true, EmitDefaultValue = true)]
+        public string Organisation { get; private set; }
+
+        /// <summary>
+        /// Returns false as Organisation should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeOrganisation()
+        {
+            return false;
+        }
+        /// <summary>
+        /// Gets or Sets OrganisationId
+        /// </summary>
+        [DataMember(Name = "organisation_id", IsRequired = true, EmitDefaultValue = true)]
+        public Guid OrganisationId { get; private set; }
+
+        /// <summary>
+        /// Returns false as OrganisationId should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeOrganisationId()
+        {
+            return false;
+        }
+        /// <summary>
         /// Gets or Sets Created
         /// </summary>
         [DataMember(Name = "created", IsRequired = true, EmitDefaultValue = true)]
@@ -206,6 +240,8 @@ namespace Pescheck.Client.Model
             sb.Append("  ClientSecret: ").Append(ClientSecret).Append("\n");
             sb.Append("  ClientType: ").Append(ClientType).Append("\n");
             sb.Append("  AuthorizationGrantType: ").Append(AuthorizationGrantType).Append("\n");
+            sb.Append("  Organisation: ").Append(Organisation).Append("\n");
+            sb.Append("  OrganisationId: ").Append(OrganisationId).Append("\n");
             sb.Append("  Created: ").Append(Created).Append("\n");
             sb.Append("  Updated: ").Append(Updated).Append("\n");
             sb.Append("}\n");
@@ -235,9 +271,9 @@ namespace Pescheck.Client.Model
             }
 
             // ClientId (string) maxLength
-            if (this.ClientId != null && this.ClientId.Length > 100)
+            if (this.ClientId != null && this.ClientId.Length > 255)
             {
-                yield return new ValidationResult("Invalid value for ClientId, length must be less than 100.", new [] { "ClientId" });
+                yield return new ValidationResult("Invalid value for ClientId, length must be less than 255.", new [] { "ClientId" });
             }
 
             yield break;

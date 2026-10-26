@@ -187,10 +187,6 @@ V2ScreeningCheck::Check_typeEnum V2ScreeningCheck::toCheck_typeEnum(const utilit
         return Check_typeEnum::ADVERSEMEDIA2CHECK;
     }
     
-    if (value == utility::conversions::to_string_t("adversemediacheck")) {
-        return Check_typeEnum::ADVERSEMEDIACHECK;
-    }
-    
     if (value == utility::conversions::to_string_t("bigcheck")) {
         return Check_typeEnum::BIGCHECK;
     }
@@ -213,6 +209,10 @@ V2ScreeningCheck::Check_typeEnum V2ScreeningCheck::toCheck_typeEnum(const utilit
     
     if (value == utility::conversions::to_string_t("edrcheck")) {
         return Check_typeEnum::EDRCHECK;
+    }
+    
+    if (value == utility::conversions::to_string_t("ibancheck")) {
+        return Check_typeEnum::IBANCHECK;
     }
     
     if (value == utility::conversions::to_string_t("id2check")) {
@@ -268,8 +268,6 @@ const utility::string_t V2ScreeningCheck::fromCheck_typeEnum(const Check_typeEnu
         
         case Check_typeEnum::ADVERSEMEDIA2CHECK: return utility::conversions::to_string_t("adversemedia2check");
         
-        case Check_typeEnum::ADVERSEMEDIACHECK: return utility::conversions::to_string_t("adversemediacheck");
-        
         case Check_typeEnum::BIGCHECK: return utility::conversions::to_string_t("bigcheck");
         
         case Check_typeEnum::CRIMINALRECORDSCHECK: return utility::conversions::to_string_t("criminalrecordscheck");
@@ -281,6 +279,8 @@ const utility::string_t V2ScreeningCheck::fromCheck_typeEnum(const Check_typeEnu
         case Check_typeEnum::CVCHECK: return utility::conversions::to_string_t("cvcheck");
         
         case Check_typeEnum::EDRCHECK: return utility::conversions::to_string_t("edrcheck");
+        
+        case Check_typeEnum::IBANCHECK: return utility::conversions::to_string_t("ibancheck");
         
         case Check_typeEnum::ID2CHECK: return utility::conversions::to_string_t("id2check");
         

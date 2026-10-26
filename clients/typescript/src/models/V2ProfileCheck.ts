@@ -26,13 +26,13 @@ export interface V2ProfileCheck {
     /**
      * * `addresscheck` - addresscheck
      * * `adversemedia2check` - adversemedia2check
-     * * `adversemediacheck` - adversemediacheck
      * * `bigcheck` - bigcheck
      * * `criminalrecordscheck` - criminalrecordscheck
      * * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck
      * * `customintegritycheck` - customintegritycheck
      * * `cvcheck` - cvcheck
      * * `edrcheck` - edrcheck
+     * * `ibancheck` - ibancheck
      * * `id2check` - id2check
      * * `integritycheck` - integritycheck
      * * `openhealthcarecheck` - openhealthcarecheck
@@ -62,13 +62,13 @@ export interface V2ProfileCheck {
 export const V2ProfileCheckCheckTypeEnum = {
     Addresscheck: 'addresscheck',
     Adversemedia2check: 'adversemedia2check',
-    Adversemediacheck: 'adversemediacheck',
     Bigcheck: 'bigcheck',
     Criminalrecordscheck: 'criminalrecordscheck',
     Criminalrecordsuploadcheck: 'criminalrecordsuploadcheck',
     Customintegritycheck: 'customintegritycheck',
     Cvcheck: 'cvcheck',
     Edrcheck: 'edrcheck',
+    Ibancheck: 'ibancheck',
     Id2check: 'id2check',
     Integritycheck: 'integritycheck',
     Openhealthcarecheck: 'openhealthcarecheck',

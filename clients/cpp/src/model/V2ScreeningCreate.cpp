@@ -25,6 +25,8 @@ V2ScreeningCreate::V2ScreeningCreate()
     m_CandidateIsSet = false;
     m_ChecksIsSet = false;
     m_Screening_notesIsSet = false;
+    m_Division_id = utility::conversions::to_string_t("");
+    m_Division_idIsSet = false;
 }
 
 V2ScreeningCreate::~V2ScreeningCreate()
@@ -58,6 +60,11 @@ web::json::value V2ScreeningCreate::toJson() const
     {
         
         val[utility::conversions::to_string_t(_XPLATSTR("screening_notes"))] = ModelBase::toJson(m_Screening_notes);
+    }
+    if(m_Division_idIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("division_id"))] = ModelBase::toJson(m_Division_id);
     }
 
     return val;
@@ -110,6 +117,17 @@ bool V2ScreeningCreate::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("division_id"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("division_id")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setDivisionId;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDivisionId);
+            setDivisionId(refVal_setDivisionId);
+            
+        }
+    }
     return ok;
 }
 
@@ -135,6 +153,10 @@ void V2ScreeningCreate::toMultipart(std::shared_ptr<MultipartFormData> multipart
     if(m_Screening_notesIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("screening_notes")), m_Screening_notes));
+    }
+    if(m_Division_idIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("division_id")), m_Division_id));
     }
 }
 
@@ -170,6 +192,12 @@ bool V2ScreeningCreate::fromMultiPart(std::shared_ptr<MultipartFormData> multipa
         std::vector<std::shared_ptr<V2ScreeningNoteInput>> refVal_setScreeningNotes;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("screening_notes"))), refVal_setScreeningNotes );
         setScreeningNotes(refVal_setScreeningNotes);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("division_id"))))
+    {
+        utility::string_t refVal_setDivisionId;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("division_id"))), refVal_setDivisionId );
+        setDivisionId(refVal_setDivisionId);
     }
     return ok;
 }
@@ -258,6 +286,27 @@ bool V2ScreeningCreate::screeningNotesIsSet() const
 void V2ScreeningCreate::unsetScreening_notes()
 {
     m_Screening_notesIsSet = false;
+}
+utility::string_t V2ScreeningCreate::getDivisionId() const
+{
+    return m_Division_id;
+}
+
+
+void V2ScreeningCreate::setDivisionId(const utility::string_t& value)
+{
+    m_Division_id = value;
+    m_Division_idIsSet = true;
+}
+
+bool V2ScreeningCreate::divisionIdIsSet() const
+{
+    return m_Division_idIsSet;
+}
+
+void V2ScreeningCreate::unsetDivision_id()
+{
+    m_Division_idIsSet = false;
 }
 
 }

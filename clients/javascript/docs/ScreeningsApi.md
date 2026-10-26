@@ -128,6 +128,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 let apiInstance = new PescheckApi.ScreeningsApi();
 let opts = {
+  'organisation': "organisation_example", // String | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
   'page': 1, // Number | A page number within the paginated result set.
   'pageSize': 50, // Number | Number of results to return per page.
   'paginate': true // Boolean | Enable/disable pagination. When false, max 500 records returned.
@@ -145,6 +146,7 @@ apiInstance.v2ScreeningsList(opts).then((data) => {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **organisation** | **String**| Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] 
  **page** | **Number**| A page number within the paginated result set. | [optional] [default to 1]
  **pageSize** | **Number**| Number of results to return per page. | [optional] [default to 50]
  **paginate** | **Boolean**| Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true]

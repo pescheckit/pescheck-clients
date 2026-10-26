@@ -38,6 +38,7 @@ export interface OAuthApplication {
      * Grant type (client_credentials for API access)
      * 
      * * `authorization-code` - Authorization code
+     * * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
      * * `implicit` - Implicit
      * * `password` - Resource owner password-based
      * * `client-credentials` - Client credentials
@@ -75,6 +76,7 @@ export type OAuthApplicationClientTypeEnum = typeof OAuthApplicationClientTypeEn
  */
 export const OAuthApplicationAuthorizationGrantTypeEnum = {
     AuthorizationCode: 'authorization-code',
+    UrnIetfParamsOauthGrantTypeDeviceCode: 'urn:ietf:params:oauth:grant-type:device_code',
     Implicit: 'implicit',
     Password: 'password',
     ClientCredentials: 'client-credentials',

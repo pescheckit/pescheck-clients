@@ -130,11 +130,13 @@ public class OAuthApplicationResponse {
   private ClientTypeEnum clientType;
 
   /**
-   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
    */
   @JsonAdapter(AuthorizationGrantTypeEnum.Adapter.class)
   public enum AuthorizationGrantTypeEnum {
     AUTHORIZATION_CODE("authorization-code"),
+    
+    URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE("urn:ietf:params:oauth:grant-type:device_code"),
     
     IMPLICIT("implicit"),
     
@@ -192,6 +194,16 @@ public class OAuthApplicationResponse {
   @javax.annotation.Nonnull
   private AuthorizationGrantTypeEnum authorizationGrantType;
 
+  public static final String SERIALIZED_NAME_ORGANISATION = "organisation";
+  @SerializedName(SERIALIZED_NAME_ORGANISATION)
+  @javax.annotation.Nonnull
+  private String organisation;
+
+  public static final String SERIALIZED_NAME_ORGANISATION_ID = "organisation_id";
+  @SerializedName(SERIALIZED_NAME_ORGANISATION_ID)
+  @javax.annotation.Nonnull
+  private UUID organisationId;
+
   public static final String SERIALIZED_NAME_CREATED = "created";
   @SerializedName(SERIALIZED_NAME_CREATED)
   @javax.annotation.Nonnull
@@ -208,12 +220,16 @@ public class OAuthApplicationResponse {
   public OAuthApplicationResponse(
      UUID id, 
      String clientSecret, 
+     String organisation, 
+     UUID organisationId, 
      OffsetDateTime created, 
      OffsetDateTime updated
   ) {
     this();
     this.id = id;
     this.clientSecret = clientSecret;
+    this.organisation = organisation;
+    this.organisationId = organisationId;
     this.created = created;
     this.updated = updated;
   }
@@ -303,7 +319,7 @@ public class OAuthApplicationResponse {
   }
 
   /**
-   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
    * @return authorizationGrantType
    */
   @javax.annotation.Nonnull
@@ -314,6 +330,28 @@ public class OAuthApplicationResponse {
   public void setAuthorizationGrantType(@javax.annotation.Nonnull AuthorizationGrantTypeEnum authorizationGrantType) {
     this.authorizationGrantType = authorizationGrantType;
   }
+
+
+  /**
+   * Get organisation
+   * @return organisation
+   */
+  @javax.annotation.Nonnull
+  public String getOrganisation() {
+    return organisation;
+  }
+
+
+
+  /**
+   * Get organisationId
+   * @return organisationId
+   */
+  @javax.annotation.Nonnull
+  public UUID getOrganisationId() {
+    return organisationId;
+  }
+
 
 
   /**
@@ -354,13 +392,15 @@ public class OAuthApplicationResponse {
         Objects.equals(this.clientSecret, oauthApplicationResponse.clientSecret) &&
         Objects.equals(this.clientType, oauthApplicationResponse.clientType) &&
         Objects.equals(this.authorizationGrantType, oauthApplicationResponse.authorizationGrantType) &&
+        Objects.equals(this.organisation, oauthApplicationResponse.organisation) &&
+        Objects.equals(this.organisationId, oauthApplicationResponse.organisationId) &&
         Objects.equals(this.created, oauthApplicationResponse.created) &&
         Objects.equals(this.updated, oauthApplicationResponse.updated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, clientId, clientSecret, clientType, authorizationGrantType, created, updated);
+    return Objects.hash(id, name, clientId, clientSecret, clientType, authorizationGrantType, organisation, organisationId, created, updated);
   }
 
   @Override
@@ -373,6 +413,8 @@ public class OAuthApplicationResponse {
     sb.append("    clientSecret: ").append(toIndentedString(clientSecret)).append("\n");
     sb.append("    clientType: ").append(toIndentedString(clientType)).append("\n");
     sb.append("    authorizationGrantType: ").append(toIndentedString(authorizationGrantType)).append("\n");
+    sb.append("    organisation: ").append(toIndentedString(organisation)).append("\n");
+    sb.append("    organisationId: ").append(toIndentedString(organisationId)).append("\n");
     sb.append("    created: ").append(toIndentedString(created)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("}");
@@ -393,10 +435,10 @@ public class OAuthApplicationResponse {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"));
+    openapiFields = new HashSet<String>(Arrays.asList("id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "organisation", "organisation_id", "created", "updated"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "client_secret", "client_type", "authorization_grant_type", "organisation", "organisation_id", "created", "updated"));
   }
 
   /**
@@ -449,6 +491,12 @@ public class OAuthApplicationResponse {
       }
       // validate the required field `authorization_grant_type`
       AuthorizationGrantTypeEnum.validateJsonElement(jsonObj.get("authorization_grant_type"));
+      if (!jsonObj.get("organisation").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `organisation` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organisation").toString()));
+      }
+      if (!jsonObj.get("organisation_id").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `organisation_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organisation_id").toString()));
+      }
   }
 
   public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

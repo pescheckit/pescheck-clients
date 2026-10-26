@@ -69,14 +69,16 @@ Pescheck.configure do |config|
   config.configure_faraday_connection { |connection| 'YOUR CONNECTION CONFIG PROC' }
 end
 
-api_instance = Pescheck::AuthenticationApi.new
-jwt_generation = Pescheck::JWTGeneration.new({email: 'email_example', password: 'password_example'}) # JWTGeneration | 
+api_instance = Pescheck::AddOnsApi.new
+opts = {
+  division_id: 'division_id_example' # String | Act on this division instead of the organisation the token belongs to.
+}
 
 begin
-  result = api_instance.generate_jwt_token2(jwt_generation)
+  result = api_instance.v2_organisations_addons_list(opts)
   p result
 rescue Pescheck::ApiError => e
-  puts "Exception when calling AuthenticationApi->generate_jwt_token2: #{e}"
+  puts "Exception when calling AddOnsApi->v2_organisations_addons_list: #{e}"
 end
 
 ```
@@ -87,6 +89,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*Pescheck::AddOnsApi* | [**v2_organisations_addons_list**](docs/AddOnsApi.md#v2_organisations_addons_list) | **GET** /api/v2/organisations/addons/ | 
+*Pescheck::AddOnsApi* | [**v2_organisations_addons_partial_update**](docs/AddOnsApi.md#v2_organisations_addons_partial_update) | **PATCH** /api/v2/organisations/addons/{addon}/ | 
+*Pescheck::AddOnsApi* | [**v2_organisations_addons_retrieve**](docs/AddOnsApi.md#v2_organisations_addons_retrieve) | **GET** /api/v2/organisations/addons/{addon}/ | 
+*Pescheck::AddOnsApi* | [**v2_organisations_addons_update**](docs/AddOnsApi.md#v2_organisations_addons_update) | **PUT** /api/v2/organisations/addons/{addon}/ | 
 *Pescheck::AuthenticationApi* | [**generate_jwt_token2**](docs/AuthenticationApi.md#generate_jwt_token2) | **POST** /api/v2/jwt/generate/ | 
 *Pescheck::AuthenticationApi* | [**jwt_create**](docs/AuthenticationApi.md#jwt_create) | **POST** /api/jwt/ | 
 *Pescheck::AuthenticationApi* | [**jwt_refresh_create**](docs/AuthenticationApi.md#jwt_refresh_create) | **POST** /api/jwt/refresh/ | 
@@ -118,20 +124,29 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
+ - [Pescheck::AddonPrice](docs/AddonPrice.md)
  - [Pescheck::CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [Pescheck::DisabledDivision](docs/DisabledDivision.md)
  - [Pescheck::DivisionReadOnly](docs/DivisionReadOnly.md)
+ - [Pescheck::DivisionReadOnlyContactEmail](docs/DivisionReadOnlyContactEmail.md)
  - [Pescheck::DivisionWrite](docs/DivisionWrite.md)
  - [Pescheck::JWTGeneration](docs/JWTGeneration.md)
  - [Pescheck::JWTResponse](docs/JWTResponse.md)
  - [Pescheck::OAuthApplication](docs/OAuthApplication.md)
  - [Pescheck::OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [Pescheck::OrganisationAddon](docs/OrganisationAddon.md)
+ - [Pescheck::OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [Pescheck::OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [Pescheck::PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [Pescheck::PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [Pescheck::PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [Pescheck::PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [Pescheck::PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [Pescheck::PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [Pescheck::TokenRefresh](docs/TokenRefresh.md)
  - [Pescheck::V2Candidate](docs/V2Candidate.md)
+ - [Pescheck::V2CandidateHouseNumber](docs/V2CandidateHouseNumber.md)
+ - [Pescheck::V2CandidatePostalCode](docs/V2CandidatePostalCode.md)
  - [Pescheck::V2CheckField](docs/V2CheckField.md)
  - [Pescheck::V2CheckInfo](docs/V2CheckInfo.md)
  - [Pescheck::V2Document](docs/V2Document.md)
@@ -149,7 +164,7 @@ Class | Method | HTTP request | Description
  - [Pescheck::V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [Pescheck::V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [Pescheck::V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [Pescheck::V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [Pescheck::V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [Pescheck::V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [Pescheck::V2ScreeningNote](docs/V2ScreeningNote.md)
  - [Pescheck::V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
@@ -180,7 +195,7 @@ Authentication schemes defined for the API:
 - **Flow**: application
 - **Authorization URL**: 
 - **Scopes**: 
-  - read:api: read groups
-  - create:api: create groups
-  - update:api: update groups
+  - read:api: Read access to API
+  - create:api: Create access to API
+  - update:api: Update access to API
 

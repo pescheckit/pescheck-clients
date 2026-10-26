@@ -159,7 +159,7 @@ example().catch(console.error);
 
 ## v2ScreeningsList
 
-> PaginatedV2ScreeningListItemList v2ScreeningsList(page, pageSize, paginate)
+> PaginatedV2ScreeningListItemList v2ScreeningsList(organisation, page, pageSize, paginate)
 
 
 
@@ -181,6 +181,8 @@ async function example() {
   const api = new ScreeningsApi(config);
 
   const body = {
+    // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\'s screenings. (optional)
+    organisation: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // number | A page number within the paginated result set. (optional)
     page: 1,
     // number | Number of results to return per page. (optional)
@@ -206,6 +208,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **organisation** | `string` | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings. | [Optional] [Defaults to `undefined`] |
 | **page** | `number` | A page number within the paginated result set. | [Optional] [Defaults to `1`] |
 | **pageSize** | `number` | Number of results to return per page. | [Optional] [Defaults to `50`] |
 | **paginate** | `boolean` | Enable/disable pagination. When false, max 500 records returned. | [Optional] [Defaults to `true`] |

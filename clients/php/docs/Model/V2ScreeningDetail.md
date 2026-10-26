@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **string** |  | [readonly]
 **status** | **string** |  | [readonly]
-**profile** | [**\Pescheck\Client\Model\V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  |
+**organisation** | [**\Pescheck\Client\Model\V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  |
+**profile** | [**\Pescheck\Client\Model\V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  |
 **candidate** | [**\Pescheck\Client\Model\V2Candidate**](V2Candidate.md) |  | [readonly]
 **checks** | [**\Pescheck\Client\Model\V2ScreeningCheckEntry[]**](V2ScreeningCheckEntry.md) |  | [readonly]
 **screening_notes** | [**\Pescheck\Client\Model\V2ScreeningNote[]**](V2ScreeningNote.md) |  | [readonly]

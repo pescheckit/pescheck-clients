@@ -25,9 +25,13 @@ pub struct OAuthApplicationResponse {
     /// * `confidential` - Confidential * `public` - Public
     #[serde(rename = "client_type")]
     pub client_type: ClientType,
-    /// * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+    /// * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
     #[serde(rename = "authorization_grant_type")]
     pub authorization_grant_type: AuthorizationGrantType,
+    #[serde(rename = "organisation")]
+    pub organisation: String,
+    #[serde(rename = "organisation_id")]
+    pub organisation_id: uuid::Uuid,
     #[serde(rename = "created")]
     pub created: chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "updated")]
@@ -36,7 +40,7 @@ pub struct OAuthApplicationResponse {
 
 impl OAuthApplicationResponse {
     /// Serializer for OAuth application responses
-    pub fn new(id: uuid::Uuid, client_secret: String, client_type: ClientType, authorization_grant_type: AuthorizationGrantType, created: chrono::DateTime<chrono::FixedOffset>, updated: chrono::DateTime<chrono::FixedOffset>) -> OAuthApplicationResponse {
+    pub fn new(id: uuid::Uuid, client_secret: String, client_type: ClientType, authorization_grant_type: AuthorizationGrantType, organisation: String, organisation_id: uuid::Uuid, created: chrono::DateTime<chrono::FixedOffset>, updated: chrono::DateTime<chrono::FixedOffset>) -> OAuthApplicationResponse {
         OAuthApplicationResponse {
             id,
             name: None,
@@ -44,6 +48,8 @@ impl OAuthApplicationResponse {
             client_secret,
             client_type,
             authorization_grant_type,
+            organisation,
+            organisation_id,
             created,
             updated,
         }
@@ -63,11 +69,13 @@ impl Default for ClientType {
         Self::Confidential
     }
 }
-/// * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+/// * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AuthorizationGrantType {
     #[serde(rename = "authorization-code")]
     AuthorizationCode,
+    #[serde(rename = "urn:ietf:params:oauth:grant-type:device_code")]
+    UrnColonIetfColonParamsColonOauthColonGrantTypeColonDeviceCode,
     #[serde(rename = "implicit")]
     Implicit,
     #[serde(rename = "password")]

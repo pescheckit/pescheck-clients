@@ -1,5 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AddOnsApi';
 export * from './AuthenticationApi';
 export * from './ChecksApi';
 export * from './DivisionsApi';

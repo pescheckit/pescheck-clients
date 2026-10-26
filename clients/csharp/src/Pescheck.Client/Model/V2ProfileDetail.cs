@@ -163,6 +163,34 @@ namespace Pescheck.Client.Model
             return false;
         }
         /// <summary>
+        /// Gets or Sets CreatesAsDraft
+        /// </summary>
+        [DataMember(Name = "creates_as_draft", IsRequired = true, EmitDefaultValue = true)]
+        public bool CreatesAsDraft { get; private set; }
+
+        /// <summary>
+        /// Returns false as CreatesAsDraft should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeCreatesAsDraft()
+        {
+            return false;
+        }
+        /// <summary>
+        /// Gets or Sets DraftReasons
+        /// </summary>
+        [DataMember(Name = "draft_reasons", IsRequired = true, EmitDefaultValue = true)]
+        public List<string> DraftReasons { get; private set; }
+
+        /// <summary>
+        /// Returns false as DraftReasons should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeDraftReasons()
+        {
+            return false;
+        }
+        /// <summary>
         /// Gets or Sets CreatedAt
         /// </summary>
         [DataMember(Name = "created_at", IsRequired = true, EmitDefaultValue = true)]
@@ -207,6 +235,8 @@ namespace Pescheck.Client.Model
             sb.Append("  SupportedCountriesOfWork: ").Append(SupportedCountriesOfWork).Append("\n");
             sb.Append("  SupportedCountriesOfResidence: ").Append(SupportedCountriesOfResidence).Append("\n");
             sb.Append("  CandidateFields: ").Append(CandidateFields).Append("\n");
+            sb.Append("  CreatesAsDraft: ").Append(CreatesAsDraft).Append("\n");
+            sb.Append("  DraftReasons: ").Append(DraftReasons).Append("\n");
             sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
             sb.Append("  UpdatedAt: ").Append(UpdatedAt).Append("\n");
             sb.Append("}\n");

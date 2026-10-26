@@ -132,8 +132,9 @@ pub async fn v2_screenings_documents_list(configuration: &configuration::Configu
     }
 }
 
-pub async fn v2_screenings_list(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
+pub async fn v2_screenings_list(configuration: &configuration::Configuration, organisation: Option<&str>, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_organisation = organisation;
     let p_query_page = page;
     let p_query_page_size = page_size;
     let p_query_paginate = paginate;
@@ -141,6 +142,9 @@ pub async fn v2_screenings_list(configuration: &configuration::Configuration, pa
     let uri_str = format!("{}/api/v2/screenings/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_organisation {
+        req_builder = req_builder.query(&[("organisation", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }

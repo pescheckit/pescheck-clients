@@ -65,8 +65,8 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
         'date_of_birth' => 'string',
         'gender' => 'string',
         'nationality' => 'string',
-        'postal_code' => 'string',
-        'house_number' => 'string',
+        'postal_code' => '\Pescheck\Client\Model\V2CandidatePostalCode',
+        'house_number' => '\Pescheck\Client\Model\V2CandidateHouseNumber',
         'extension' => 'string'
     ];
 
@@ -875,14 +875,6 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['postal_code']) && (mb_strlen($this->container['postal_code']) > 255)) {
-            $invalidProperties[] = "invalid value for 'postal_code', the character length must be smaller than or equal to 255.";
-        }
-
-        if (!is_null($this->container['house_number']) && (mb_strlen($this->container['house_number']) > 50)) {
-            $invalidProperties[] = "invalid value for 'house_number', the character length must be smaller than or equal to 50.";
-        }
-
         return $invalidProperties;
     }
 
@@ -1112,7 +1104,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets postal_code
      *
-     * @return string|null
+     * @return \Pescheck\Client\Model\V2CandidatePostalCode|null
      */
     public function getPostalCode()
     {
@@ -1122,7 +1114,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets postal_code
      *
-     * @param string|null $postal_code postal_code
+     * @param \Pescheck\Client\Model\V2CandidatePostalCode|null $postal_code postal_code
      *
      * @return self
      */
@@ -1131,10 +1123,6 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($postal_code)) {
             throw new \InvalidArgumentException('non-nullable postal_code cannot be null');
         }
-        if ((mb_strlen($postal_code) > 255)) {
-            throw new \InvalidArgumentException('invalid length for $postal_code when calling V2Candidate., must be smaller than or equal to 255.');
-        }
-
         $this->container['postal_code'] = $postal_code;
 
         return $this;
@@ -1143,7 +1131,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets house_number
      *
-     * @return string|null
+     * @return \Pescheck\Client\Model\V2CandidateHouseNumber|null
      */
     public function getHouseNumber()
     {
@@ -1153,7 +1141,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets house_number
      *
-     * @param string|null $house_number house_number
+     * @param \Pescheck\Client\Model\V2CandidateHouseNumber|null $house_number house_number
      *
      * @return self
      */
@@ -1162,10 +1150,6 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($house_number)) {
             throw new \InvalidArgumentException('non-nullable house_number cannot be null');
         }
-        if ((mb_strlen($house_number) > 50)) {
-            throw new \InvalidArgumentException('invalid length for $house_number when calling V2Candidate., must be smaller than or equal to 50.');
-        }
-
         $this->container['house_number'] = $house_number;
 
         return $this;

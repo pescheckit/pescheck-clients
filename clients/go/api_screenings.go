@@ -257,9 +257,16 @@ func (a *ScreeningsAPIService) V2ScreeningsDocumentsListExecute(r ApiV2Screening
 type ApiV2ScreeningsListRequest struct {
 	ctx context.Context
 	ApiService *ScreeningsAPIService
+	organisation *string
 	page *int32
 	pageSize *int32
 	paginate *bool
+}
+
+// Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
+func (r ApiV2ScreeningsListRequest) Organisation(organisation string) ApiV2ScreeningsListRequest {
+	r.organisation = &organisation
+	return r
 }
 
 // A page number within the paginated result set.
@@ -318,6 +325,9 @@ func (a *ScreeningsAPIService) V2ScreeningsListExecute(r ApiV2ScreeningsListRequ
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.organisation != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "organisation", r.organisation, "form", "")
+	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	} else {

@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { DivisionReadOnlyContactEmail } from './DivisionReadOnlyContactEmail';
+import {
+    DivisionReadOnlyContactEmailFromJSON,
+    DivisionReadOnlyContactEmailFromJSONTyped,
+    DivisionReadOnlyContactEmailToJSON,
+    DivisionReadOnlyContactEmailToJSONTyped,
+} from './DivisionReadOnlyContactEmail';
+
 /**
  * 
  * @export
@@ -81,16 +89,16 @@ export interface DivisionReadOnly {
     contactName?: string | null;
     /**
      * 
-     * @type {string}
+     * @type {DivisionReadOnlyContactEmail}
      * @memberof DivisionReadOnly
      */
-    contactEmail?: string | null;
+    contactEmail?: DivisionReadOnlyContactEmail | null;
     /**
      * 
-     * @type {string}
+     * @type {DivisionReadOnlyContactEmail}
      * @memberof DivisionReadOnly
      */
-    invoiceEmail?: string | null;
+    invoiceEmail?: DivisionReadOnlyContactEmail | null;
     /**
      * 
      * @type {boolean}
@@ -142,8 +150,8 @@ export function DivisionReadOnlyFromJSONTyped(json: any, ignoreDiscriminator: bo
         'postal': json['postal'] == null ? undefined : json['postal'],
         'phone': json['phone'] == null ? undefined : json['phone'],
         'contactName': json['contact_name'] == null ? undefined : json['contact_name'],
-        'contactEmail': json['contact_email'] == null ? undefined : json['contact_email'],
-        'invoiceEmail': json['invoice_email'] == null ? undefined : json['invoice_email'],
+        'contactEmail': json['contact_email'] == null ? undefined : DivisionReadOnlyContactEmailFromJSON(json['contact_email']),
+        'invoiceEmail': json['invoice_email'] == null ? undefined : DivisionReadOnlyContactEmailFromJSON(json['invoice_email']),
         'useParentOnEmail': json['use_parent_on_email'] == null ? undefined : json['use_parent_on_email'],
         'useParentOnBilling': json['use_parent_on_billing'] == null ? undefined : json['use_parent_on_billing'],
         'useParentOnReport': json['use_parent_on_report'] == null ? undefined : json['use_parent_on_report'],
@@ -167,8 +175,8 @@ export function DivisionReadOnlyToJSONTyped(value?: Omit<DivisionReadOnly, 'id'|
         'postal': value['postal'],
         'phone': value['phone'],
         'contact_name': value['contactName'],
-        'contact_email': value['contactEmail'],
-        'invoice_email': value['invoiceEmail'],
+        'contact_email': DivisionReadOnlyContactEmailToJSON(value['contactEmail']),
+        'invoice_email': DivisionReadOnlyContactEmailToJSON(value['invoiceEmail']),
         'use_parent_on_email': value['useParentOnEmail'],
         'use_parent_on_billing': value['useParentOnBilling'],
         'use_parent_on_report': value['useParentOnReport'],

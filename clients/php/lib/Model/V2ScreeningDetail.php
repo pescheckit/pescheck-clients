@@ -59,7 +59,8 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPITypes = [
         'id' => 'string',
         'status' => 'string',
-        'profile' => '\Pescheck\Client\Model\V2ScreeningDetailProfile',
+        'organisation' => '\Pescheck\Client\Model\V2ScreeningDetailOrganisation',
+        'profile' => '\Pescheck\Client\Model\V2ScreeningDetailOrganisation',
         'candidate' => '\Pescheck\Client\Model\V2Candidate',
         'checks' => '\Pescheck\Client\Model\V2ScreeningCheckEntry[]',
         'screening_notes' => '\Pescheck\Client\Model\V2ScreeningNote[]',
@@ -79,6 +80,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $openAPIFormats = [
         'id' => 'uuid',
         'status' => null,
+        'organisation' => null,
         'profile' => null,
         'candidate' => null,
         'checks' => null,
@@ -97,6 +99,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static array $openAPINullables = [
         'id' => false,
         'status' => false,
+        'organisation' => true,
         'profile' => true,
         'candidate' => false,
         'checks' => false,
@@ -195,6 +198,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $attributeMap = [
         'id' => 'id',
         'status' => 'status',
+        'organisation' => 'organisation',
         'profile' => 'profile',
         'candidate' => 'candidate',
         'checks' => 'checks',
@@ -213,6 +217,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $setters = [
         'id' => 'setId',
         'status' => 'setStatus',
+        'organisation' => 'setOrganisation',
         'profile' => 'setProfile',
         'candidate' => 'setCandidate',
         'checks' => 'setChecks',
@@ -231,6 +236,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     protected static $getters = [
         'id' => 'getId',
         'status' => 'getStatus',
+        'organisation' => 'getOrganisation',
         'profile' => 'getProfile',
         'candidate' => 'getCandidate',
         'checks' => 'getChecks',
@@ -300,6 +306,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('organisation', $data ?? [], null);
         $this->setIfExists('profile', $data ?? [], null);
         $this->setIfExists('candidate', $data ?? [], null);
         $this->setIfExists('checks', $data ?? [], null);
@@ -342,6 +349,9 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
         }
         if ($this->container['status'] === null) {
             $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['organisation'] === null && !$this->isNullableSetToNull('organisation')) {
+            $invalidProperties[] = "'organisation' is required";
         }
         if ($this->container['profile'] === null && !$this->isNullableSetToNull('profile')) {
             $invalidProperties[] = "'profile' is required";
@@ -437,9 +447,43 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     }
 
     /**
+     * Gets organisation
+     *
+     * @return \Pescheck\Client\Model\V2ScreeningDetailOrganisation|null
+     */
+    public function getOrganisation()
+    {
+        return $this->container['organisation'];
+    }
+
+    /**
+     * Sets organisation
+     *
+     * @param \Pescheck\Client\Model\V2ScreeningDetailOrganisation|null $organisation organisation
+     *
+     * @return self
+     */
+    public function setOrganisation($organisation)
+    {
+        if (is_null($organisation)) {
+            array_push($this->openAPINullablesSetToNull, 'organisation');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('organisation', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['organisation'] = $organisation;
+
+        return $this;
+    }
+
+    /**
      * Gets profile
      *
-     * @return \Pescheck\Client\Model\V2ScreeningDetailProfile|null
+     * @return \Pescheck\Client\Model\V2ScreeningDetailOrganisation|null
      */
     public function getProfile()
     {
@@ -449,7 +493,7 @@ class V2ScreeningDetail implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets profile
      *
-     * @param \Pescheck\Client\Model\V2ScreeningDetailProfile|null $profile profile
+     * @param \Pescheck\Client\Model\V2ScreeningDetailOrganisation|null $profile profile
      *
      * @return self
      */

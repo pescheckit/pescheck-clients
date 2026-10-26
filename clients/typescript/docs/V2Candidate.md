@@ -14,8 +14,8 @@ Name | Type
 `dateOfBirth` | string
 `gender` | string
 `nationality` | string
-`postalCode` | string
-`houseNumber` | string
+`postalCode` | [V2CandidatePostalCode](V2CandidatePostalCode.md)
+`houseNumber` | [V2CandidateHouseNumber](V2CandidateHouseNumber.md)
 `extension` | string
 
 ## Example

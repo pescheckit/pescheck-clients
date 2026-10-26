@@ -32,12 +32,14 @@ class V2ProfileDetail {
      * @param supportedCountriesOfWork {Array.<String>} 
      * @param supportedCountriesOfResidence {Array.<String>} 
      * @param candidateFields {Array.<Object>} 
+     * @param createsAsDraft {Boolean} 
+     * @param draftReasons {Array.<String>} 
      * @param createdAt {Date} 
      * @param updatedAt {Date} 
      */
-    constructor(id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt) { 
+    constructor(id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createsAsDraft, draftReasons, createdAt, updatedAt) { 
         
-        V2ProfileDetail.initialize(this, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt);
+        V2ProfileDetail.initialize(this, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createsAsDraft, draftReasons, createdAt, updatedAt);
     }
 
     /**
@@ -45,7 +47,7 @@ class V2ProfileDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt) { 
+    static initialize(obj, id, name, description, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createsAsDraft, draftReasons, createdAt, updatedAt) { 
         obj['id'] = id;
         obj['name'] = name;
         obj['description'] = description;
@@ -54,6 +56,8 @@ class V2ProfileDetail {
         obj['supported_countries_of_work'] = supportedCountriesOfWork;
         obj['supported_countries_of_residence'] = supportedCountriesOfResidence;
         obj['candidate_fields'] = candidateFields;
+        obj['creates_as_draft'] = createsAsDraft;
+        obj['draft_reasons'] = draftReasons;
         obj['created_at'] = createdAt;
         obj['updated_at'] = updatedAt;
     }
@@ -95,6 +99,12 @@ class V2ProfileDetail {
             }
             if (data.hasOwnProperty('candidate_fields')) {
                 obj['candidate_fields'] = ApiClient.convertToType(data['candidate_fields'], [Object]);
+            }
+            if (data.hasOwnProperty('creates_as_draft')) {
+                obj['creates_as_draft'] = ApiClient.convertToType(data['creates_as_draft'], 'Boolean');
+            }
+            if (data.hasOwnProperty('draft_reasons')) {
+                obj['draft_reasons'] = ApiClient.convertToType(data['draft_reasons'], ['String']);
             }
             if (data.hasOwnProperty('created_at')) {
                 obj['created_at'] = ApiClient.convertToType(data['created_at'], 'Date');
@@ -156,6 +166,10 @@ class V2ProfileDetail {
         if (!Array.isArray(data['candidate_fields'])) {
             throw new Error("Expected the field `candidate_fields` to be an array in the JSON data but got " + data['candidate_fields']);
         }
+        // ensure the json data is an array
+        if (!Array.isArray(data['draft_reasons'])) {
+            throw new Error("Expected the field `draft_reasons` to be an array in the JSON data but got " + data['draft_reasons']);
+        }
 
         return true;
     }
@@ -163,7 +177,7 @@ class V2ProfileDetail {
 
 }
 
-V2ProfileDetail.RequiredProperties = ["id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"];
+V2ProfileDetail.RequiredProperties = ["id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "creates_as_draft", "draft_reasons", "created_at", "updated_at"];
 
 /**
  * @member {String} id
@@ -209,6 +223,16 @@ V2ProfileDetail.prototype['supported_countries_of_residence'] = undefined;
  * @member {Array.<Object>} candidate_fields
  */
 V2ProfileDetail.prototype['candidate_fields'] = undefined;
+
+/**
+ * @member {Boolean} creates_as_draft
+ */
+V2ProfileDetail.prototype['creates_as_draft'] = undefined;
+
+/**
+ * @member {Array.<String>} draft_reasons
+ */
+V2ProfileDetail.prototype['draft_reasons'] = undefined;
 
 /**
  * @member {Date} created_at

@@ -17,8 +17,8 @@
 |**postal** | **String** |  |  [optional] |
 |**phone** | **String** |  |  [optional] |
 |**contactName** | **String** |  |  [optional] |
-|**contactEmail** | **String** |  |  [optional] |
-|**invoiceEmail** | **String** |  |  [optional] |
+|**contactEmail** | [**DivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  |  [optional] |
+|**invoiceEmail** | [**DivisionReadOnlyContactEmail**](DivisionReadOnlyContactEmail.md) |  |  [optional] |
 |**useParentOnEmail** | **Boolean** |  |  [optional] |
 |**useParentOnBilling** | **Boolean** |  |  [optional] |
 |**useParentOnReport** | **Boolean** |  |  [optional] |

@@ -8,5 +8,6 @@ Name | Type | Description | Notes
 **candidate** | [**\Pescheck\Client\Model\V2Candidate**](V2Candidate.md) |  |
 **checks** | [**\Pescheck\Client\Model\V2ScreeningCheck[]**](V2ScreeningCheck.md) |  | [optional]
 **screening_notes** | [**\Pescheck\Client\Model\V2ScreeningNoteInput[]**](V2ScreeningNoteInput.md) |  | [optional]
+**division_id** | **string** | Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation. | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

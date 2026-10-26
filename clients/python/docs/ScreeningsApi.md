@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **v2_screenings_list**
-> PaginatedV2ScreeningListItemList v2_screenings_list(page=page, page_size=page_size, paginate=paginate)
+> PaginatedV2ScreeningListItemList v2_screenings_list(organisation=organisation, page=page, page_size=page_size, paginate=paginate)
 
 ### Example
 
@@ -190,12 +190,13 @@ configuration.access_token = os.environ["ACCESS_TOKEN"]
 with pescheck.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = pescheck.ScreeningsApi(api_client)
+    organisation = UUID('38400000-8cf0-11bd-b23e-10b96e4ef00d') # UUID | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. (optional)
     page = 1 # int | A page number within the paginated result set. (optional) (default to 1)
     page_size = 50 # int | Number of results to return per page. (optional) (default to 50)
     paginate = True # bool | Enable/disable pagination. When false, max 500 records returned. (optional) (default to True)
 
     try:
-        api_response = api_instance.v2_screenings_list(page=page, page_size=page_size, paginate=paginate)
+        api_response = api_instance.v2_screenings_list(organisation=organisation, page=page, page_size=page_size, paginate=paginate)
         print("The response of ScreeningsApi->v2_screenings_list:\n")
         pprint(api_response)
     except Exception as e:
@@ -209,6 +210,7 @@ with pescheck.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **organisation** | **UUID**| Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] 
  **page** | **int**| A page number within the paginated result set. | [optional] [default to 1]
  **page_size** | **int**| Number of results to return per page. | [optional] [default to 50]
  **paginate** | **bool**| Enable/disable pagination. When false, max 500 records returned. | [optional] [default to True]

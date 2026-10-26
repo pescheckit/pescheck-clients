@@ -32,13 +32,15 @@ class OAuthApplicationResponse(BaseModel):
     """ # noqa: E501
     id: UUID
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
-    client_id: Optional[Annotated[str, Field(strict=True, max_length=100)]] = None
+    client_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     client_secret: StrictStr
     client_type: StrictStr = Field(description="* `confidential` - Confidential * `public` - Public")
-    authorization_grant_type: StrictStr = Field(description="* `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
+    authorization_grant_type: StrictStr = Field(description="* `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
+    organisation: StrictStr
+    organisation_id: UUID
     created: datetime
     updated: datetime
-    __properties: ClassVar[List[str]] = ["id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"]
+    __properties: ClassVar[List[str]] = ["id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "organisation", "organisation_id", "created", "updated"]
 
     @field_validator('client_type')
     def client_type_validate_enum(cls, value):
@@ -50,8 +52,8 @@ class OAuthApplicationResponse(BaseModel):
     @field_validator('authorization_grant_type')
     def authorization_grant_type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in set(['authorization-code', 'implicit', 'password', 'client-credentials', 'openid-hybrid']):
-            raise ValueError("must be one of enum values ('authorization-code', 'implicit', 'password', 'client-credentials', 'openid-hybrid')")
+        if value not in set(['authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid']):
+            raise ValueError("must be one of enum values ('authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid')")
         return value
 
     model_config = ConfigDict(
@@ -88,10 +90,14 @@ class OAuthApplicationResponse(BaseModel):
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
         * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
+        * OpenAPI `readOnly` fields are excluded.
         """
         excluded_fields: Set[str] = set([
             "id",
             "client_secret",
+            "organisation",
+            "organisation_id",
             "created",
             "updated",
         ])
@@ -119,6 +125,8 @@ class OAuthApplicationResponse(BaseModel):
             "client_secret": obj.get("client_secret"),
             "client_type": obj.get("client_type"),
             "authorization_grant_type": obj.get("authorization_grant_type"),
+            "organisation": obj.get("organisation"),
+            "organisation_id": obj.get("organisation_id"),
             "created": obj.get("created"),
             "updated": obj.get("updated")
         })

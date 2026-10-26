@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **SupportedCountriesOfWork** | **[]string** |  | [readonly] 
 **SupportedCountriesOfResidence** | **[]string** |  | [readonly] 
 **CandidateFields** | **[]map[string]interface{}** |  | [readonly] 
+**CreatesAsDraft** | **bool** |  | [readonly] 
+**DraftReasons** | **[]string** |  | [readonly] 
 **CreatedAt** | **time.Time** |  | [readonly] 
 **UpdatedAt** | **time.Time** |  | [readonly] 
 
@@ -20,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewV2ProfileDetail
 
-`func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createdAt time.Time, updatedAt time.Time, ) *V2ProfileDetail`
+`func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createsAsDraft bool, draftReasons []string, createdAt time.Time, updatedAt time.Time, ) *V2ProfileDetail`
 
 NewV2ProfileDetail instantiates a new V2ProfileDetail object
 This constructor will assign default values to properties that have it defined,
@@ -228,6 +230,46 @@ and a boolean to check if the value has been set.
 `func (o *V2ProfileDetail) SetCandidateFields(v []map[string]interface{})`
 
 SetCandidateFields sets CandidateFields field to given value.
+
+
+### GetCreatesAsDraft
+
+`func (o *V2ProfileDetail) GetCreatesAsDraft() bool`
+
+GetCreatesAsDraft returns the CreatesAsDraft field if non-nil, zero value otherwise.
+
+### GetCreatesAsDraftOk
+
+`func (o *V2ProfileDetail) GetCreatesAsDraftOk() (*bool, bool)`
+
+GetCreatesAsDraftOk returns a tuple with the CreatesAsDraft field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatesAsDraft
+
+`func (o *V2ProfileDetail) SetCreatesAsDraft(v bool)`
+
+SetCreatesAsDraft sets CreatesAsDraft field to given value.
+
+
+### GetDraftReasons
+
+`func (o *V2ProfileDetail) GetDraftReasons() []string`
+
+GetDraftReasons returns the DraftReasons field if non-nil, zero value otherwise.
+
+### GetDraftReasonsOk
+
+`func (o *V2ProfileDetail) GetDraftReasonsOk() (*[]string, bool)`
+
+GetDraftReasonsOk returns a tuple with the DraftReasons field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDraftReasons
+
+`func (o *V2ProfileDetail) SetDraftReasons(v []string)`
+
+SetDraftReasons sets DraftReasons field to given value.
 
 
 ### GetCreatedAt

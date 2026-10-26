@@ -32,7 +32,7 @@ class WebhookResponse(BaseModel):
     """ # noqa: E501
     id: UUID
     name: Annotated[str, Field(strict=True, max_length=255)]
-    url: Annotated[str, Field(strict=True, max_length=200)]
+    url: Annotated[str, Field(strict=True, max_length=400)]
     events: Optional[Any]
     active: Optional[StrictBool] = None
     verified: StrictBool

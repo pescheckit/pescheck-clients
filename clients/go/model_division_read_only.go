@@ -31,8 +31,8 @@ type DivisionReadOnly struct {
 	Postal NullableString `json:"postal,omitempty"`
 	Phone NullableString `json:"phone,omitempty"`
 	ContactName NullableString `json:"contact_name,omitempty"`
-	ContactEmail NullableString `json:"contact_email,omitempty"`
-	InvoiceEmail NullableString `json:"invoice_email,omitempty"`
+	ContactEmail NullableDivisionReadOnlyContactEmail `json:"contact_email,omitempty"`
+	InvoiceEmail NullableDivisionReadOnlyContactEmail `json:"invoice_email,omitempty"`
 	UseParentOnEmail *bool `json:"use_parent_on_email,omitempty"`
 	UseParentOnBilling *bool `json:"use_parent_on_billing,omitempty"`
 	UseParentOnReport *bool `json:"use_parent_on_report,omitempty"`
@@ -411,9 +411,9 @@ func (o *DivisionReadOnly) UnsetContactName() {
 }
 
 // GetContactEmail returns the ContactEmail field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DivisionReadOnly) GetContactEmail() string {
+func (o *DivisionReadOnly) GetContactEmail() DivisionReadOnlyContactEmail {
 	if o == nil || IsNil(o.ContactEmail.Get()) {
-		var ret string
+		var ret DivisionReadOnlyContactEmail
 		return ret
 	}
 	return *o.ContactEmail.Get()
@@ -422,7 +422,7 @@ func (o *DivisionReadOnly) GetContactEmail() string {
 // GetContactEmailOk returns a tuple with the ContactEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DivisionReadOnly) GetContactEmailOk() (*string, bool) {
+func (o *DivisionReadOnly) GetContactEmailOk() (*DivisionReadOnlyContactEmail, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -438,8 +438,8 @@ func (o *DivisionReadOnly) HasContactEmail() bool {
 	return false
 }
 
-// SetContactEmail gets a reference to the given NullableString and assigns it to the ContactEmail field.
-func (o *DivisionReadOnly) SetContactEmail(v string) {
+// SetContactEmail gets a reference to the given NullableDivisionReadOnlyContactEmail and assigns it to the ContactEmail field.
+func (o *DivisionReadOnly) SetContactEmail(v DivisionReadOnlyContactEmail) {
 	o.ContactEmail.Set(&v)
 }
 // SetContactEmailNil sets the value for ContactEmail to be an explicit nil
@@ -453,9 +453,9 @@ func (o *DivisionReadOnly) UnsetContactEmail() {
 }
 
 // GetInvoiceEmail returns the InvoiceEmail field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *DivisionReadOnly) GetInvoiceEmail() string {
+func (o *DivisionReadOnly) GetInvoiceEmail() DivisionReadOnlyContactEmail {
 	if o == nil || IsNil(o.InvoiceEmail.Get()) {
-		var ret string
+		var ret DivisionReadOnlyContactEmail
 		return ret
 	}
 	return *o.InvoiceEmail.Get()
@@ -464,7 +464,7 @@ func (o *DivisionReadOnly) GetInvoiceEmail() string {
 // GetInvoiceEmailOk returns a tuple with the InvoiceEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *DivisionReadOnly) GetInvoiceEmailOk() (*string, bool) {
+func (o *DivisionReadOnly) GetInvoiceEmailOk() (*DivisionReadOnlyContactEmail, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -480,8 +480,8 @@ func (o *DivisionReadOnly) HasInvoiceEmail() bool {
 	return false
 }
 
-// SetInvoiceEmail gets a reference to the given NullableString and assigns it to the InvoiceEmail field.
-func (o *DivisionReadOnly) SetInvoiceEmail(v string) {
+// SetInvoiceEmail gets a reference to the given NullableDivisionReadOnlyContactEmail and assigns it to the InvoiceEmail field.
+func (o *DivisionReadOnly) SetInvoiceEmail(v DivisionReadOnlyContactEmail) {
 	o.InvoiceEmail.Set(&v)
 }
 // SetInvoiceEmailNil sets the value for InvoiceEmail to be an explicit nil
