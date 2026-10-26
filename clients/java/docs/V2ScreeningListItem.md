@@ -10,7 +10,8 @@ List shape for GET /screenings/. Same candidate as detail; the only thing we sli
 |------------ | ------------- | ------------- | -------------|
 |**id** | **UUID** |  |  [readonly] |
 |**status** | **String** |  |  [optional] |
-|**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  |  |
+|**organisation** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  |  |
+|**profile** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  |  |
 |**candidate** | [**V2Candidate**](V2Candidate.md) |  |  [readonly] |
 |**checks** | [**List&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  |  [readonly] |
 |**candidateWizardUrl** | **URI** |  |  [readonly] |

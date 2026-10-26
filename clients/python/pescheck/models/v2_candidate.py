@@ -20,6 +20,8 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from pescheck.models.v2_candidate_house_number import V2CandidateHouseNumber
+from pescheck.models.v2_candidate_postal_code import V2CandidatePostalCode
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -35,8 +37,8 @@ class V2Candidate(BaseModel):
     date_of_birth: Optional[Annotated[str, Field(strict=True, max_length=10)]] = None
     gender: Optional[StrictStr] = None
     nationality: Optional[StrictStr] = Field(default=None, description="ISO 3166-1 alpha-2 country code (e.g. \"NL\", \"DE\", \"US\").  * `AD` - AD * `AE` - AE * `AF` - AF * `AG` - AG * `AI` - AI * `AL` - AL * `AM` - AM * `AN` - AN * `AO` - AO * `AQ` - AQ * `AR` - AR * `AS` - AS * `AT` - AT * `AU` - AU * `AW` - AW * `AX` - AX * `AZ` - AZ * `BA` - BA * `BB` - BB * `BD` - BD * `BE` - BE * `BF` - BF * `BG` - BG * `BH` - BH * `BI` - BI * `BJ` - BJ * `BL` - BL * `BM` - BM * `BN` - BN * `BO` - BO * `BR` - BR * `BS` - BS * `BT` - BT * `BV` - BV * `BW` - BW * `BY` - BY * `BZ` - BZ * `CA` - CA * `CC` - CC * `CD` - CD * `CF` - CF * `CG` - CG * `CH` - CH * `CI` - CI * `CK` - CK * `CL` - CL * `CM` - CM * `CN` - CN * `CO` - CO * `CR` - CR * `CU` - CU * `CV` - CV * `CW` - CW * `CX` - CX * `CY` - CY * `CZ` - CZ * `DE` - DE * `DJ` - DJ * `DK` - DK * `DM` - DM * `DO` - DO * `DZ` - DZ * `EC` - EC * `EE` - EE * `EG` - EG * `EH` - EH * `ER` - ER * `ES` - ES * `ET` - ET * `FI` - FI * `FJ` - FJ * `FK` - FK * `FM` - FM * `FO` - FO * `FR` - FR * `GA` - GA * `GB` - GB * `GD` - GD * `GE` - GE * `GF` - GF * `GG` - GG * `GH` - GH * `GI` - GI * `GL` - GL * `GM` - GM * `GN` - GN * `GP` - GP * `GQ` - GQ * `GR` - GR * `GS` - GS * `GT` - GT * `GU` - GU * `GW` - GW * `GY` - GY * `HK` - HK * `HM` - HM * `HN` - HN * `HR` - HR * `HT` - HT * `HU` - HU * `ID` - ID * `IE` - IE * `IL` - IL * `IM` - IM * `IN` - IN * `IO` - IO * `IQ` - IQ * `IR` - IR * `IS` - IS * `IT` - IT * `JE` - JE * `JM` - JM * `JO` - JO * `JP` - JP * `KE` - KE * `KG` - KG * `KH` - KH * `KI` - KI * `KM` - KM * `KN` - KN * `KP` - KP * `KR` - KR * `KW` - KW * `KY` - KY * `KZ` - KZ * `LA` - LA * `LB` - LB * `LC` - LC * `LI` - LI * `LK` - LK * `LR` - LR * `LS` - LS * `LT` - LT * `LU` - LU * `LV` - LV * `LY` - LY * `MA` - MA * `MC` - MC * `MD` - MD * `ME` - ME * `MG` - MG * `MH` - MH * `MK` - MK * `ML` - ML * `MM` - MM * `MN` - MN * `MO` - MO * `MP` - MP * `MQ` - MQ * `MR` - MR * `MS` - MS * `MT` - MT * `MU` - MU * `MV` - MV * `MW` - MW * `MX` - MX * `MY` - MY * `MZ` - MZ * `NA` - NA * `NC` - NC * `NE` - NE * `NF` - NF * `NG` - NG * `NI` - NI * `NL` - NL * `NO` - NO * `NP` - NP * `NR` - NR * `NU` - NU * `NZ` - NZ * `OM` - OM * `PA` - PA * `PE` - PE * `PF` - PF * `PG` - PG * `PH` - PH * `PK` - PK * `PL` - PL * `PM` - PM * `PN` - PN * `PR` - PR * `PS` - PS * `PT` - PT * `PW` - PW * `PY` - PY * `QA` - QA * `RE` - RE * `RO` - RO * `RS` - RS * `RU` - RU * `RW` - RW * `SA` - SA * `SB` - SB * `SC` - SC * `SD` - SD * `SE` - SE * `SG` - SG * `SH` - SH * `SI` - SI * `SJ` - SJ * `SK` - SK * `SL` - SL * `SM` - SM * `SN` - SN * `SO` - SO * `SR` - SR * `ST` - ST * `SV` - SV * `SY` - SY * `SZ` - SZ * `TC` - TC * `TD` - TD * `TF` - TF * `TG` - TG * `TH` - TH * `TJ` - TJ * `TK` - TK * `TL` - TL * `TM` - TM * `TN` - TN * `TO` - TO * `TR` - TR * `TT` - TT * `TV` - TV * `TW` - TW * `TZ` - TZ * `UA` - UA * `UG` - UG * `UM` - UM * `US` - US * `UY` - UY * `UZ` - UZ * `VA` - VA * `VC` - VC * `VE` - VE * `VG` - VG * `VI` - VI * `VN` - VN * `VU` - VU * `WF` - WF * `WS` - WS * `XK` - XK * `YE` - YE * `YT` - YT * `ZA` - ZA * `ZM` - ZM * `ZW` - ZW")
-    postal_code: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
-    house_number: Optional[Annotated[str, Field(strict=True, max_length=50)]] = None
+    postal_code: Optional[V2CandidatePostalCode] = None
+    house_number: Optional[V2CandidateHouseNumber] = None
     extension: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["first_name", "last_name", "email", "initials", "date_of_birth", "gender", "nationality", "postal_code", "house_number", "extension"]
 
@@ -89,6 +91,12 @@ class V2Candidate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of postal_code
+        if self.postal_code:
+            _dict['postal_code'] = self.postal_code.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of house_number
+        if self.house_number:
+            _dict['house_number'] = self.house_number.to_dict()
         return _dict
 
     @classmethod
@@ -108,8 +116,8 @@ class V2Candidate(BaseModel):
             "date_of_birth": obj.get("date_of_birth"),
             "gender": obj.get("gender"),
             "nationality": obj.get("nationality"),
-            "postal_code": obj.get("postal_code"),
-            "house_number": obj.get("house_number"),
+            "postal_code": V2CandidatePostalCode.from_dict(obj["postal_code"]) if obj.get("postal_code") is not None else None,
+            "house_number": V2CandidateHouseNumber.from_dict(obj["house_number"]) if obj.get("house_number") is not None else None,
             "extension": obj.get("extension")
         })
         return _obj

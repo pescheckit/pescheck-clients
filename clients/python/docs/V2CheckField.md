@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | **str** |  | [readonly] 
 **type** | **str** | \&quot;string\&quot; | \&quot;integer\&quot; | \&quot;number\&quot; | \&quot;boolean\&quot; | \&quot;array\&quot; | \&quot;object\&quot; | [readonly] 
 **required** | **bool** | Whether the request body must include this field. | [readonly] 
-**choices** | **List[str]** | Allowed values, or null if the field isn&#39;t constrained to a set. | [readonly] 
+**choices** | **List[Dict[str, object]]** | Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;. | [readonly] 
 **help_text** | **str** |  | [readonly] 
 
 ## Example

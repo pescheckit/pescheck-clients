@@ -28,6 +28,10 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsApi* | [**v2_organisations_addons_list**](docs/AddOnsApi.md#v2_organisations_addons_list) | **GET** /api/v2/organisations/addons/ | 
+*AddOnsApi* | [**v2_organisations_addons_partial_update**](docs/AddOnsApi.md#v2_organisations_addons_partial_update) | **PATCH** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2_organisations_addons_retrieve**](docs/AddOnsApi.md#v2_organisations_addons_retrieve) | **GET** /api/v2/organisations/addons/{addon}/ | 
+*AddOnsApi* | [**v2_organisations_addons_update**](docs/AddOnsApi.md#v2_organisations_addons_update) | **PUT** /api/v2/organisations/addons/{addon}/ | 
 *AuthenticationApi* | [**generate_jwt_token2**](docs/AuthenticationApi.md#generate_jwt_token2) | **POST** /api/v2/jwt/generate/ | 
 *AuthenticationApi* | [**jwt_create**](docs/AuthenticationApi.md#jwt_create) | **POST** /api/jwt/ | 
 *AuthenticationApi* | [**jwt_refresh_create**](docs/AuthenticationApi.md#jwt_refresh_create) | **POST** /api/jwt/refresh/ | 
@@ -59,20 +63,29 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AddonPrice](docs/AddonPrice.md)
  - [CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [DisabledDivision](docs/DisabledDivision.md)
  - [DivisionReadOnly](docs/DivisionReadOnly.md)
+ - [DivisionReadOnlyContactEmail](docs/DivisionReadOnlyContactEmail.md)
  - [DivisionWrite](docs/DivisionWrite.md)
  - [JwtGeneration](docs/JwtGeneration.md)
  - [JwtResponse](docs/JwtResponse.md)
  - [OAuthApplication](docs/OAuthApplication.md)
  - [OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [OrganisationAddon](docs/OrganisationAddon.md)
+ - [OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [TokenRefresh](docs/TokenRefresh.md)
  - [V2Candidate](docs/V2Candidate.md)
+ - [V2CandidateHouseNumber](docs/V2CandidateHouseNumber.md)
+ - [V2CandidatePostalCode](docs/V2CandidatePostalCode.md)
  - [V2CheckField](docs/V2CheckField.md)
  - [V2CheckInfo](docs/V2CheckInfo.md)
  - [V2Document](docs/V2Document.md)
@@ -90,7 +103,7 @@ Class | Method | HTTP request | Description
  - [V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [V2ScreeningNote](docs/V2ScreeningNote.md)
  - [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)

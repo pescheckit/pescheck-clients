@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | [readonly] 
 **status** | **String** |  | [readonly] 
-**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**organisation** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
+**profile** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
 **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **checks** | [**[V2ScreeningCheckEntry]**](V2ScreeningCheckEntry.md) |  | [readonly] 
 **screeningNotes** | [**[V2ScreeningNote]**](V2ScreeningNote.md) |  | [readonly] 

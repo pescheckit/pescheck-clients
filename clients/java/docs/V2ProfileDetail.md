@@ -16,6 +16,8 @@
 |**supportedCountriesOfWork** | **List&lt;String&gt;** |  |  [readonly] |
 |**supportedCountriesOfResidence** | **List&lt;String&gt;** |  |  [readonly] |
 |**candidateFields** | **List&lt;Object&gt;** |  |  [readonly] |
+|**createsAsDraft** | **Boolean** |  |  [readonly] |
+|**draftReasons** | **List&lt;String&gt;** |  |  [readonly] |
 |**createdAt** | **OffsetDateTime** |  |  [readonly] |
 |**updatedAt** | **OffsetDateTime** |  |  [readonly] |
 

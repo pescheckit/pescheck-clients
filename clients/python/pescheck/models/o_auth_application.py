@@ -31,7 +31,7 @@ class OAuthApplication(BaseModel):
     """ # noqa: E501
     name: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Name for the OAuth application")
     client_type: Optional[StrictStr] = Field(default='confidential', description="Client type (confidential recommended for server-to-server)  * `confidential` - Confidential * `public` - Public")
-    authorization_grant_type: Optional[StrictStr] = Field(default='client-credentials', description="Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
+    authorization_grant_type: Optional[StrictStr] = Field(default='client-credentials', description="Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
     redirect_uris: Optional[StrictStr] = Field(default=None, description="Space-separated redirect URIs (optional for client_credentials)")
     division_id: Optional[UUID] = Field(default=None, description="Division ID to create application for (optional)")
     __properties: ClassVar[List[str]] = ["name", "client_type", "authorization_grant_type", "redirect_uris", "division_id"]
@@ -52,8 +52,8 @@ class OAuthApplication(BaseModel):
         if value is None:
             return value
 
-        if value not in set(['authorization-code', 'implicit', 'password', 'client-credentials', 'openid-hybrid']):
-            raise ValueError("must be one of enum values ('authorization-code', 'implicit', 'password', 'client-credentials', 'openid-hybrid')")
+        if value not in set(['authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid']):
+            raise ValueError("must be one of enum values ('authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid')")
         return value
 
     model_config = ConfigDict(

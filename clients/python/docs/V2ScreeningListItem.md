@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **UUID** |  | [readonly] 
 **status** | **str** |  | [optional] 
-**profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**organisation** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
+**profile** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
 **candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **checks** | [**List[V2ScreeningCheckListItem]**](V2ScreeningCheckListItem.md) |  | [readonly] 
 **candidate_wizard_url** | **str** |  | [readonly] 

@@ -30,6 +30,10 @@ OAuthApplicationResponse::OAuthApplicationResponse()
     m_Client_secretIsSet = false;
     m_Client_typeIsSet = false;
     m_Authorization_grant_typeIsSet = false;
+    m_Organisation = utility::conversions::to_string_t("");
+    m_OrganisationIsSet = false;
+    m_Organisation_id = utility::conversions::to_string_t("");
+    m_Organisation_idIsSet = false;
     m_Created = utility::datetime();
     m_CreatedIsSet = false;
     m_Updated = utility::datetime();
@@ -81,6 +85,16 @@ web::json::value OAuthApplicationResponse::toJson() const
         utility::string_t refVal = fromAuthorization_grant_typeEnum(m_Authorization_grant_type);
         val[utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))] = ModelBase::toJson(refVal);
         
+    }
+    if(m_OrganisationIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("organisation"))] = ModelBase::toJson(m_Organisation);
+    }
+    if(m_Organisation_idIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("organisation_id"))] = ModelBase::toJson(m_Organisation_id);
     }
     if(m_CreatedIsSet)
     {
@@ -167,6 +181,28 @@ bool OAuthApplicationResponse::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("organisation"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("organisation")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setOrganisation;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOrganisation);
+            setOrganisation(refVal_setOrganisation);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("organisation_id"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("organisation_id")));
+        if(!fieldValue.is_null())
+        {
+            utility::string_t refVal_setOrganisationId;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOrganisationId);
+            setOrganisationId(refVal_setOrganisationId);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("created"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("created")));
@@ -223,6 +259,14 @@ void OAuthApplicationResponse::toMultipart(std::shared_ptr<MultipartFormData> mu
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type")), fromAuthorization_grant_typeEnum(m_Authorization_grant_type)));
     }
+    if(m_OrganisationIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("organisation")), m_Organisation));
+    }
+    if(m_Organisation_idIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("organisation_id")), m_Organisation_id));
+    }
     if(m_CreatedIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("created")), m_Created));
@@ -278,6 +322,18 @@ bool OAuthApplicationResponse::fromMultiPart(std::shared_ptr<MultipartFormData> 
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))), refVal_setAuthorizationGrantType );
         setAuthorizationGrantType(toAuthorization_grant_typeEnum(refVal_setAuthorizationGrantType));
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("organisation"))))
+    {
+        utility::string_t refVal_setOrganisation;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("organisation"))), refVal_setOrganisation );
+        setOrganisation(refVal_setOrganisation);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("organisation_id"))))
+    {
+        utility::string_t refVal_setOrganisationId;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("organisation_id"))), refVal_setOrganisationId );
+        setOrganisationId(refVal_setOrganisationId);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("created"))))
     {
         utility::datetime refVal_setCreated;
@@ -327,6 +383,10 @@ OAuthApplicationResponse::Authorization_grant_typeEnum OAuthApplicationResponse:
         return Authorization_grant_typeEnum::AUTHORIZATION_CODE;
     }
     
+    if (value == utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code")) {
+        return Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE;
+    }
+    
     if (value == utility::conversions::to_string_t("implicit")) {
         return Authorization_grant_typeEnum::IMPLICIT;
     }
@@ -353,6 +413,8 @@ const utility::string_t OAuthApplicationResponse::fromAuthorization_grant_typeEn
     {
         
         case Authorization_grant_typeEnum::AUTHORIZATION_CODE: return utility::conversions::to_string_t("authorization-code");
+        
+        case Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE: return utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code");
         
         case Authorization_grant_typeEnum::IMPLICIT: return utility::conversions::to_string_t("implicit");
         
@@ -491,6 +553,48 @@ bool OAuthApplicationResponse::authorizationGrantTypeIsSet() const
 void OAuthApplicationResponse::unsetAuthorization_grant_type()
 {
     m_Authorization_grant_typeIsSet = false;
+}
+utility::string_t OAuthApplicationResponse::getOrganisation() const
+{
+    return m_Organisation;
+}
+
+
+void OAuthApplicationResponse::setOrganisation(const utility::string_t& value)
+{
+    m_Organisation = value;
+    m_OrganisationIsSet = true;
+}
+
+bool OAuthApplicationResponse::organisationIsSet() const
+{
+    return m_OrganisationIsSet;
+}
+
+void OAuthApplicationResponse::unsetOrganisation()
+{
+    m_OrganisationIsSet = false;
+}
+utility::string_t OAuthApplicationResponse::getOrganisationId() const
+{
+    return m_Organisation_id;
+}
+
+
+void OAuthApplicationResponse::setOrganisationId(const utility::string_t& value)
+{
+    m_Organisation_id = value;
+    m_Organisation_idIsSet = true;
+}
+
+bool OAuthApplicationResponse::organisationIdIsSet() const
+{
+    return m_Organisation_idIsSet;
+}
+
+void OAuthApplicationResponse::unsetOrganisation_id()
+{
+    m_Organisation_idIsSet = false;
 }
 utility::datetime OAuthApplicationResponse::getCreated() const
 {

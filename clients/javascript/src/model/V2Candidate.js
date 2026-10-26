@@ -12,6 +12,8 @@
  */
 
 import ApiClient from '../ApiClient';
+import V2CandidateHouseNumber from './V2CandidateHouseNumber';
+import V2CandidatePostalCode from './V2CandidatePostalCode';
 
 /**
  * The V2Candidate model module.
@@ -76,10 +78,10 @@ class V2Candidate {
                 obj['nationality'] = ApiClient.convertToType(data['nationality'], 'String');
             }
             if (data.hasOwnProperty('postal_code')) {
-                obj['postal_code'] = ApiClient.convertToType(data['postal_code'], 'String');
+                obj['postal_code'] = V2CandidatePostalCode.constructFromObject(data['postal_code']);
             }
             if (data.hasOwnProperty('house_number')) {
-                obj['house_number'] = ApiClient.convertToType(data['house_number'], 'String');
+                obj['house_number'] = V2CandidateHouseNumber.constructFromObject(data['house_number']);
             }
             if (data.hasOwnProperty('extension')) {
                 obj['extension'] = ApiClient.convertToType(data['extension'], 'String');
@@ -128,13 +130,13 @@ class V2Candidate {
         if (data['nationality'] && !(typeof data['nationality'] === 'string' || data['nationality'] instanceof String)) {
             throw new Error("Expected the field `nationality` to be a primitive type in the JSON string but got " + data['nationality']);
         }
-        // ensure the json data is a string
-        if (data['postal_code'] && !(typeof data['postal_code'] === 'string' || data['postal_code'] instanceof String)) {
-            throw new Error("Expected the field `postal_code` to be a primitive type in the JSON string but got " + data['postal_code']);
+        // validate the optional field `postal_code`
+        if (data['postal_code']) { // data not null
+          V2CandidatePostalCode.validateJSON(data['postal_code']);
         }
-        // ensure the json data is a string
-        if (data['house_number'] && !(typeof data['house_number'] === 'string' || data['house_number'] instanceof String)) {
-            throw new Error("Expected the field `house_number` to be a primitive type in the JSON string but got " + data['house_number']);
+        // validate the optional field `house_number`
+        if (data['house_number']) { // data not null
+          V2CandidateHouseNumber.validateJSON(data['house_number']);
         }
         // ensure the json data is a string
         if (data['extension'] && !(typeof data['extension'] === 'string' || data['extension'] instanceof String)) {
@@ -186,12 +188,12 @@ V2Candidate.prototype['gender'] = undefined;
 V2Candidate.prototype['nationality'] = undefined;
 
 /**
- * @member {String} postal_code
+ * @member {module:model/V2CandidatePostalCode} postal_code
  */
 V2Candidate.prototype['postal_code'] = undefined;
 
 /**
- * @member {String} house_number
+ * @member {module:model/V2CandidateHouseNumber} house_number
  */
 V2Candidate.prototype['house_number'] = undefined;
 

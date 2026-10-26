@@ -77,10 +77,12 @@ public:
     /// <remarks>
     /// 
     /// </remarks>
+    /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
     /// <param name="page">A page number within the paginated result set. (optional, default to 0)</param>
     /// <param name="pageSize">Number of results to return per page. (optional, default to 0)</param>
     /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to false)</param>
     pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> v2ScreeningsList(
+        boost::optional<utility::string_t> organisation,
         boost::optional<int32_t> page,
         boost::optional<int32_t> pageSize,
         boost::optional<bool> paginate

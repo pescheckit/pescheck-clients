@@ -31,6 +31,9 @@ V2ProfileDetail::V2ProfileDetail()
     m_Supported_countries_of_workIsSet = false;
     m_Supported_countries_of_residenceIsSet = false;
     m_Candidate_fieldsIsSet = false;
+    m_Creates_as_draft = false;
+    m_Creates_as_draftIsSet = false;
+    m_Draft_reasonsIsSet = false;
     m_Created_at = utility::datetime();
     m_Created_atIsSet = false;
     m_Updated_at = utility::datetime();
@@ -93,6 +96,16 @@ web::json::value V2ProfileDetail::toJson() const
     {
         
         val[utility::conversions::to_string_t(_XPLATSTR("candidate_fields"))] = ModelBase::toJson(m_Candidate_fields);
+    }
+    if(m_Creates_as_draftIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("creates_as_draft"))] = ModelBase::toJson(m_Creates_as_draft);
+    }
+    if(m_Draft_reasonsIsSet)
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("draft_reasons"))] = ModelBase::toJson(m_Draft_reasons);
     }
     if(m_Created_atIsSet)
     {
@@ -210,6 +223,28 @@ bool V2ProfileDetail::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("creates_as_draft"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("creates_as_draft")));
+        if(!fieldValue.is_null())
+        {
+            bool refVal_setCreatesAsDraft;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setCreatesAsDraft);
+            setCreatesAsDraft(refVal_setCreatesAsDraft);
+            
+        }
+    }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("draft_reasons"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("draft_reasons")));
+        if(!fieldValue.is_null())
+        {
+            std::vector<utility::string_t> refVal_setDraftReasons;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setDraftReasons);
+            setDraftReasons(refVal_setDraftReasons);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("created_at"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("created_at")));
@@ -277,6 +312,14 @@ void V2ProfileDetail::toMultipart(std::shared_ptr<MultipartFormData> multipart, 
     if(m_Candidate_fieldsIsSet)
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("candidate_fields")), m_Candidate_fields));
+    }
+    if(m_Creates_as_draftIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("creates_as_draft")), m_Creates_as_draft));
+    }
+    if(m_Draft_reasonsIsSet)
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("draft_reasons")), m_Draft_reasons));
     }
     if(m_Created_atIsSet)
     {
@@ -350,6 +393,18 @@ bool V2ProfileDetail::fromMultiPart(std::shared_ptr<MultipartFormData> multipart
         std::vector<std::shared_ptr<Object>> refVal_setCandidateFields;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("candidate_fields"))), refVal_setCandidateFields );
         setCandidateFields(refVal_setCandidateFields);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("creates_as_draft"))))
+    {
+        bool refVal_setCreatesAsDraft;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("creates_as_draft"))), refVal_setCreatesAsDraft );
+        setCreatesAsDraft(refVal_setCreatesAsDraft);
+    }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("draft_reasons"))))
+    {
+        std::vector<utility::string_t> refVal_setDraftReasons;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("draft_reasons"))), refVal_setDraftReasons );
+        setDraftReasons(refVal_setDraftReasons);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("created_at"))))
     {
@@ -553,6 +608,47 @@ bool V2ProfileDetail::candidateFieldsIsSet() const
 void V2ProfileDetail::unsetCandidate_fields()
 {
     m_Candidate_fieldsIsSet = false;
+}
+bool V2ProfileDetail::isCreatesAsDraft() const
+{
+    return m_Creates_as_draft;
+}
+
+void V2ProfileDetail::setCreatesAsDraft(bool value)
+{
+    m_Creates_as_draft = value;
+    m_Creates_as_draftIsSet = true;
+}
+
+bool V2ProfileDetail::createsAsDraftIsSet() const
+{
+    return m_Creates_as_draftIsSet;
+}
+
+void V2ProfileDetail::unsetCreates_as_draft()
+{
+    m_Creates_as_draftIsSet = false;
+}
+std::vector<utility::string_t> V2ProfileDetail::getDraftReasons() const
+{
+    return m_Draft_reasons;
+}
+
+
+void V2ProfileDetail::setDraftReasons(const std::vector<utility::string_t>& value)
+{
+    m_Draft_reasons = value;
+    m_Draft_reasonsIsSet = true;
+}
+
+bool V2ProfileDetail::draftReasonsIsSet() const
+{
+    return m_Draft_reasonsIsSet;
+}
+
+void V2ProfileDetail::unsetDraft_reasons()
+{
+    m_Draft_reasonsIsSet = false;
 }
 utility::datetime V2ProfileDetail::getCreatedAt() const
 {

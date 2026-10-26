@@ -81,6 +81,14 @@ public:
     void unsetScreening_notes();
     void setScreeningNotes(const std::vector<std::shared_ptr<V2ScreeningNoteInput>>& value);
 
+    /// <summary>
+    /// Create the screening for this department instead of the token&#39;s own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+    /// </summary>
+    utility::string_t getDivisionId() const;
+    bool divisionIdIsSet() const;
+    void unsetDivision_id();
+    void setDivisionId(const utility::string_t& value);
+
 
 protected:
     utility::string_t m_Profile_id;
@@ -94,6 +102,9 @@ protected:
 
     std::vector<std::shared_ptr<V2ScreeningNoteInput>> m_Screening_notes;
     bool m_Screening_notesIsSet;
+
+    utility::string_t m_Division_id;
+    bool m_Division_idIsSet;
 
 };
 

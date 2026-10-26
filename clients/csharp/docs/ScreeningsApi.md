@@ -207,7 +207,7 @@ catch (ApiException e)
 
 <a id="v2screeningslist"></a>
 # **V2ScreeningsList**
-> PaginatedV2ScreeningListItemList V2ScreeningsList (int? page = null, int? pageSize = null, bool? paginate = null)
+> PaginatedV2ScreeningListItemList V2ScreeningsList (Guid? organisation = null, int? page = null, int? pageSize = null, bool? paginate = null)
 
 
 
@@ -235,13 +235,14 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new ScreeningsApi(httpClient, config, httpClientHandler);
+            var organisation = "organisation_example";  // Guid? | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. (optional) 
             var page = 1;  // int? | A page number within the paginated result set. (optional)  (default to 1)
             var pageSize = 50;  // int? | Number of results to return per page. (optional)  (default to 50)
             var paginate = true;  // bool? | Enable/disable pagination. When false, max 500 records returned. (optional)  (default to true)
 
             try
             {
-                PaginatedV2ScreeningListItemList result = apiInstance.V2ScreeningsList(page, pageSize, paginate);
+                PaginatedV2ScreeningListItemList result = apiInstance.V2ScreeningsList(organisation, page, pageSize, paginate);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -261,7 +262,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<PaginatedV2ScreeningListItemList> response = apiInstance.V2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+    ApiResponse<PaginatedV2ScreeningListItemList> response = apiInstance.V2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -278,6 +279,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **organisation** | **Guid?** | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional]  |
 | **page** | **int?** | A page number within the paginated result set. | [optional] [default to 1] |
 | **pageSize** | **int?** | Number of results to return per page. | [optional] [default to 50] |
 | **paginate** | **bool?** | Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true] |

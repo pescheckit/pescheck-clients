@@ -28,8 +28,8 @@ type V2Candidate struct {
 	Gender *string `json:"gender,omitempty"`
 	// ISO 3166-1 alpha-2 country code (e.g. \"NL\", \"DE\", \"US\").  * `AD` - AD * `AE` - AE * `AF` - AF * `AG` - AG * `AI` - AI * `AL` - AL * `AM` - AM * `AN` - AN * `AO` - AO * `AQ` - AQ * `AR` - AR * `AS` - AS * `AT` - AT * `AU` - AU * `AW` - AW * `AX` - AX * `AZ` - AZ * `BA` - BA * `BB` - BB * `BD` - BD * `BE` - BE * `BF` - BF * `BG` - BG * `BH` - BH * `BI` - BI * `BJ` - BJ * `BL` - BL * `BM` - BM * `BN` - BN * `BO` - BO * `BR` - BR * `BS` - BS * `BT` - BT * `BV` - BV * `BW` - BW * `BY` - BY * `BZ` - BZ * `CA` - CA * `CC` - CC * `CD` - CD * `CF` - CF * `CG` - CG * `CH` - CH * `CI` - CI * `CK` - CK * `CL` - CL * `CM` - CM * `CN` - CN * `CO` - CO * `CR` - CR * `CU` - CU * `CV` - CV * `CW` - CW * `CX` - CX * `CY` - CY * `CZ` - CZ * `DE` - DE * `DJ` - DJ * `DK` - DK * `DM` - DM * `DO` - DO * `DZ` - DZ * `EC` - EC * `EE` - EE * `EG` - EG * `EH` - EH * `ER` - ER * `ES` - ES * `ET` - ET * `FI` - FI * `FJ` - FJ * `FK` - FK * `FM` - FM * `FO` - FO * `FR` - FR * `GA` - GA * `GB` - GB * `GD` - GD * `GE` - GE * `GF` - GF * `GG` - GG * `GH` - GH * `GI` - GI * `GL` - GL * `GM` - GM * `GN` - GN * `GP` - GP * `GQ` - GQ * `GR` - GR * `GS` - GS * `GT` - GT * `GU` - GU * `GW` - GW * `GY` - GY * `HK` - HK * `HM` - HM * `HN` - HN * `HR` - HR * `HT` - HT * `HU` - HU * `ID` - ID * `IE` - IE * `IL` - IL * `IM` - IM * `IN` - IN * `IO` - IO * `IQ` - IQ * `IR` - IR * `IS` - IS * `IT` - IT * `JE` - JE * `JM` - JM * `JO` - JO * `JP` - JP * `KE` - KE * `KG` - KG * `KH` - KH * `KI` - KI * `KM` - KM * `KN` - KN * `KP` - KP * `KR` - KR * `KW` - KW * `KY` - KY * `KZ` - KZ * `LA` - LA * `LB` - LB * `LC` - LC * `LI` - LI * `LK` - LK * `LR` - LR * `LS` - LS * `LT` - LT * `LU` - LU * `LV` - LV * `LY` - LY * `MA` - MA * `MC` - MC * `MD` - MD * `ME` - ME * `MG` - MG * `MH` - MH * `MK` - MK * `ML` - ML * `MM` - MM * `MN` - MN * `MO` - MO * `MP` - MP * `MQ` - MQ * `MR` - MR * `MS` - MS * `MT` - MT * `MU` - MU * `MV` - MV * `MW` - MW * `MX` - MX * `MY` - MY * `MZ` - MZ * `NA` - NA * `NC` - NC * `NE` - NE * `NF` - NF * `NG` - NG * `NI` - NI * `NL` - NL * `NO` - NO * `NP` - NP * `NR` - NR * `NU` - NU * `NZ` - NZ * `OM` - OM * `PA` - PA * `PE` - PE * `PF` - PF * `PG` - PG * `PH` - PH * `PK` - PK * `PL` - PL * `PM` - PM * `PN` - PN * `PR` - PR * `PS` - PS * `PT` - PT * `PW` - PW * `PY` - PY * `QA` - QA * `RE` - RE * `RO` - RO * `RS` - RS * `RU` - RU * `RW` - RW * `SA` - SA * `SB` - SB * `SC` - SC * `SD` - SD * `SE` - SE * `SG` - SG * `SH` - SH * `SI` - SI * `SJ` - SJ * `SK` - SK * `SL` - SL * `SM` - SM * `SN` - SN * `SO` - SO * `SR` - SR * `ST` - ST * `SV` - SV * `SY` - SY * `SZ` - SZ * `TC` - TC * `TD` - TD * `TF` - TF * `TG` - TG * `TH` - TH * `TJ` - TJ * `TK` - TK * `TL` - TL * `TM` - TM * `TN` - TN * `TO` - TO * `TR` - TR * `TT` - TT * `TV` - TV * `TW` - TW * `TZ` - TZ * `UA` - UA * `UG` - UG * `UM` - UM * `US` - US * `UY` - UY * `UZ` - UZ * `VA` - VA * `VC` - VC * `VE` - VE * `VG` - VG * `VI` - VI * `VN` - VN * `VU` - VU * `WF` - WF * `WS` - WS * `XK` - XK * `YE` - YE * `YT` - YT * `ZA` - ZA * `ZM` - ZM * `ZW` - ZW
 	Nationality *string `json:"nationality,omitempty"`
-	PostalCode *string `json:"postal_code,omitempty"`
-	HouseNumber *string `json:"house_number,omitempty"`
+	PostalCode *V2CandidatePostalCode `json:"postal_code,omitempty"`
+	HouseNumber *V2CandidateHouseNumber `json:"house_number,omitempty"`
 	Extension *string `json:"extension,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -257,9 +257,9 @@ func (o *V2Candidate) SetNationality(v string) {
 }
 
 // GetPostalCode returns the PostalCode field value if set, zero value otherwise.
-func (o *V2Candidate) GetPostalCode() string {
+func (o *V2Candidate) GetPostalCode() V2CandidatePostalCode {
 	if o == nil || IsNil(o.PostalCode) {
-		var ret string
+		var ret V2CandidatePostalCode
 		return ret
 	}
 	return *o.PostalCode
@@ -267,7 +267,7 @@ func (o *V2Candidate) GetPostalCode() string {
 
 // GetPostalCodeOk returns a tuple with the PostalCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *V2Candidate) GetPostalCodeOk() (*string, bool) {
+func (o *V2Candidate) GetPostalCodeOk() (*V2CandidatePostalCode, bool) {
 	if o == nil || IsNil(o.PostalCode) {
 		return nil, false
 	}
@@ -283,15 +283,15 @@ func (o *V2Candidate) HasPostalCode() bool {
 	return false
 }
 
-// SetPostalCode gets a reference to the given string and assigns it to the PostalCode field.
-func (o *V2Candidate) SetPostalCode(v string) {
+// SetPostalCode gets a reference to the given V2CandidatePostalCode and assigns it to the PostalCode field.
+func (o *V2Candidate) SetPostalCode(v V2CandidatePostalCode) {
 	o.PostalCode = &v
 }
 
 // GetHouseNumber returns the HouseNumber field value if set, zero value otherwise.
-func (o *V2Candidate) GetHouseNumber() string {
+func (o *V2Candidate) GetHouseNumber() V2CandidateHouseNumber {
 	if o == nil || IsNil(o.HouseNumber) {
-		var ret string
+		var ret V2CandidateHouseNumber
 		return ret
 	}
 	return *o.HouseNumber
@@ -299,7 +299,7 @@ func (o *V2Candidate) GetHouseNumber() string {
 
 // GetHouseNumberOk returns a tuple with the HouseNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *V2Candidate) GetHouseNumberOk() (*string, bool) {
+func (o *V2Candidate) GetHouseNumberOk() (*V2CandidateHouseNumber, bool) {
 	if o == nil || IsNil(o.HouseNumber) {
 		return nil, false
 	}
@@ -315,8 +315,8 @@ func (o *V2Candidate) HasHouseNumber() bool {
 	return false
 }
 
-// SetHouseNumber gets a reference to the given string and assigns it to the HouseNumber field.
-func (o *V2Candidate) SetHouseNumber(v string) {
+// SetHouseNumber gets a reference to the given V2CandidateHouseNumber and assigns it to the HouseNumber field.
+func (o *V2Candidate) SetHouseNumber(v V2CandidateHouseNumber) {
 	o.HouseNumber = &v
 }
 

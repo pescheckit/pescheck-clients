@@ -256,6 +256,7 @@ class OAuthApplication implements ModelInterface, ArrayAccess, \JsonSerializable
     public const CLIENT_TYPE_CONFIDENTIAL = 'confidential';
     public const CLIENT_TYPE__PUBLIC = 'public';
     public const AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE = 'authorization-code';
+    public const AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE = 'urn:ietf:params:oauth:grant-type:device_code';
     public const AUTHORIZATION_GRANT_TYPE_IMPLICIT = 'implicit';
     public const AUTHORIZATION_GRANT_TYPE_PASSWORD = 'password';
     public const AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS = 'client-credentials';
@@ -283,6 +284,7 @@ class OAuthApplication implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         return [
             self::AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE,
+            self::AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE,
             self::AUTHORIZATION_GRANT_TYPE_IMPLICIT,
             self::AUTHORIZATION_GRANT_TYPE_PASSWORD,
             self::AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS,
@@ -460,7 +462,7 @@ class OAuthApplication implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets authorization_grant_type
      *
-     * @param string|null $authorization_grant_type Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param string|null $authorization_grant_type Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
      *
      * @return self
      */

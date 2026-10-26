@@ -1,19 +1,28 @@
 /* tslint:disable */
 /* eslint-disable */
+export * from './AddonPrice';
 export * from './CustomTokenObtainPair';
+export * from './DisabledDivision';
 export * from './DivisionReadOnly';
+export * from './DivisionReadOnlyContactEmail';
 export * from './DivisionWrite';
 export * from './JWTGeneration';
 export * from './JWTResponse';
 export * from './OAuthApplication';
 export * from './OAuthApplicationResponse';
+export * from './OrganisationAddon';
+export * from './OrganisationAddonUpdate';
+export * from './OrganisationAddonUpdateResult';
 export * from './PaginatedDivisionReadOnlyList';
 export * from './PaginatedV2ProfileListItemList';
 export * from './PaginatedV2ScreeningListItemList';
 export * from './PatchedDivisionWrite';
+export * from './PatchedOrganisationAddonUpdate';
 export * from './PatchedV2ProfilePartialUpdate';
 export * from './TokenRefresh';
 export * from './V2Candidate';
+export * from './V2CandidateHouseNumber';
+export * from './V2CandidatePostalCode';
 export * from './V2CheckField';
 export * from './V2CheckInfo';
 export * from './V2Document';
@@ -31,7 +40,7 @@ export * from './V2ScreeningCheckEntry';
 export * from './V2ScreeningCheckListItem';
 export * from './V2ScreeningCreate';
 export * from './V2ScreeningDetail';
-export * from './V2ScreeningDetailProfile';
+export * from './V2ScreeningDetailOrganisation';
 export * from './V2ScreeningListItem';
 export * from './V2ScreeningNote';
 export * from './V2ScreeningNoteInput';

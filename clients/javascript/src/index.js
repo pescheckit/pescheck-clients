@@ -13,20 +13,29 @@
 
 
 import ApiClient from './ApiClient';
+import AddonPrice from './model/AddonPrice';
 import CustomTokenObtainPair from './model/CustomTokenObtainPair';
+import DisabledDivision from './model/DisabledDivision';
 import DivisionReadOnly from './model/DivisionReadOnly';
+import DivisionReadOnlyContactEmail from './model/DivisionReadOnlyContactEmail';
 import DivisionWrite from './model/DivisionWrite';
 import JWTGeneration from './model/JWTGeneration';
 import JWTResponse from './model/JWTResponse';
 import OAuthApplication from './model/OAuthApplication';
 import OAuthApplicationResponse from './model/OAuthApplicationResponse';
+import OrganisationAddon from './model/OrganisationAddon';
+import OrganisationAddonUpdate from './model/OrganisationAddonUpdate';
+import OrganisationAddonUpdateResult from './model/OrganisationAddonUpdateResult';
 import PaginatedDivisionReadOnlyList from './model/PaginatedDivisionReadOnlyList';
 import PaginatedV2ProfileListItemList from './model/PaginatedV2ProfileListItemList';
 import PaginatedV2ScreeningListItemList from './model/PaginatedV2ScreeningListItemList';
 import PatchedDivisionWrite from './model/PatchedDivisionWrite';
+import PatchedOrganisationAddonUpdate from './model/PatchedOrganisationAddonUpdate';
 import PatchedV2ProfilePartialUpdate from './model/PatchedV2ProfilePartialUpdate';
 import TokenRefresh from './model/TokenRefresh';
 import V2Candidate from './model/V2Candidate';
+import V2CandidateHouseNumber from './model/V2CandidateHouseNumber';
+import V2CandidatePostalCode from './model/V2CandidatePostalCode';
 import V2CheckField from './model/V2CheckField';
 import V2CheckInfo from './model/V2CheckInfo';
 import V2Document from './model/V2Document';
@@ -44,13 +53,14 @@ import V2ScreeningCheckEntry from './model/V2ScreeningCheckEntry';
 import V2ScreeningCheckListItem from './model/V2ScreeningCheckListItem';
 import V2ScreeningCreate from './model/V2ScreeningCreate';
 import V2ScreeningDetail from './model/V2ScreeningDetail';
-import V2ScreeningDetailProfile from './model/V2ScreeningDetailProfile';
+import V2ScreeningDetailOrganisation from './model/V2ScreeningDetailOrganisation';
 import V2ScreeningListItem from './model/V2ScreeningListItem';
 import V2ScreeningNote from './model/V2ScreeningNote';
 import V2ScreeningNoteInput from './model/V2ScreeningNoteInput';
 import VerifyWebhook from './model/VerifyWebhook';
 import Webhook from './model/Webhook';
 import WebhookResponse from './model/WebhookResponse';
+import AddOnsApi from './api/AddOnsApi';
 import AuthenticationApi from './api/AuthenticationApi';
 import ChecksApi from './api/ChecksApi';
 import DivisionsApi from './api/DivisionsApi';
@@ -99,16 +109,34 @@ export {
     ApiClient,
 
     /**
+     * The AddonPrice model constructor.
+     * @property {module:model/AddonPrice}
+     */
+    AddonPrice,
+
+    /**
      * The CustomTokenObtainPair model constructor.
      * @property {module:model/CustomTokenObtainPair}
      */
     CustomTokenObtainPair,
 
     /**
+     * The DisabledDivision model constructor.
+     * @property {module:model/DisabledDivision}
+     */
+    DisabledDivision,
+
+    /**
      * The DivisionReadOnly model constructor.
      * @property {module:model/DivisionReadOnly}
      */
     DivisionReadOnly,
+
+    /**
+     * The DivisionReadOnlyContactEmail model constructor.
+     * @property {module:model/DivisionReadOnlyContactEmail}
+     */
+    DivisionReadOnlyContactEmail,
 
     /**
      * The DivisionWrite model constructor.
@@ -141,6 +169,24 @@ export {
     OAuthApplicationResponse,
 
     /**
+     * The OrganisationAddon model constructor.
+     * @property {module:model/OrganisationAddon}
+     */
+    OrganisationAddon,
+
+    /**
+     * The OrganisationAddonUpdate model constructor.
+     * @property {module:model/OrganisationAddonUpdate}
+     */
+    OrganisationAddonUpdate,
+
+    /**
+     * The OrganisationAddonUpdateResult model constructor.
+     * @property {module:model/OrganisationAddonUpdateResult}
+     */
+    OrganisationAddonUpdateResult,
+
+    /**
      * The PaginatedDivisionReadOnlyList model constructor.
      * @property {module:model/PaginatedDivisionReadOnlyList}
      */
@@ -165,6 +211,12 @@ export {
     PatchedDivisionWrite,
 
     /**
+     * The PatchedOrganisationAddonUpdate model constructor.
+     * @property {module:model/PatchedOrganisationAddonUpdate}
+     */
+    PatchedOrganisationAddonUpdate,
+
+    /**
      * The PatchedV2ProfilePartialUpdate model constructor.
      * @property {module:model/PatchedV2ProfilePartialUpdate}
      */
@@ -181,6 +233,18 @@ export {
      * @property {module:model/V2Candidate}
      */
     V2Candidate,
+
+    /**
+     * The V2CandidateHouseNumber model constructor.
+     * @property {module:model/V2CandidateHouseNumber}
+     */
+    V2CandidateHouseNumber,
+
+    /**
+     * The V2CandidatePostalCode model constructor.
+     * @property {module:model/V2CandidatePostalCode}
+     */
+    V2CandidatePostalCode,
 
     /**
      * The V2CheckField model constructor.
@@ -285,10 +349,10 @@ export {
     V2ScreeningDetail,
 
     /**
-     * The V2ScreeningDetailProfile model constructor.
-     * @property {module:model/V2ScreeningDetailProfile}
+     * The V2ScreeningDetailOrganisation model constructor.
+     * @property {module:model/V2ScreeningDetailOrganisation}
      */
-    V2ScreeningDetailProfile,
+    V2ScreeningDetailOrganisation,
 
     /**
      * The V2ScreeningListItem model constructor.
@@ -325,6 +389,12 @@ export {
      * @property {module:model/WebhookResponse}
      */
     WebhookResponse,
+
+    /**
+    * The AddOnsApi service constructor.
+    * @property {module:api/AddOnsApi}
+    */
+    AddOnsApi,
 
     /**
     * The AuthenticationApi service constructor.

@@ -14,7 +14,7 @@
 import ApiClient from '../ApiClient';
 import V2Candidate from './V2Candidate';
 import V2ScreeningCheckEntry from './V2ScreeningCheckEntry';
-import V2ScreeningDetailProfile from './V2ScreeningDetailProfile';
+import V2ScreeningDetailOrganisation from './V2ScreeningDetailOrganisation';
 import V2ScreeningNote from './V2ScreeningNote';
 
 /**
@@ -28,7 +28,8 @@ class V2ScreeningDetail {
      * @alias module:model/V2ScreeningDetail
      * @param id {String} 
      * @param status {String} 
-     * @param profile {module:model/V2ScreeningDetailProfile} 
+     * @param organisation {module:model/V2ScreeningDetailOrganisation} 
+     * @param profile {module:model/V2ScreeningDetailOrganisation} 
      * @param candidate {module:model/V2Candidate} 
      * @param checks {Array.<module:model/V2ScreeningCheckEntry>} 
      * @param screeningNotes {Array.<module:model/V2ScreeningNote>} 
@@ -37,9 +38,9 @@ class V2ScreeningDetail {
      * @param createdAt {Date} 
      * @param updatedAt {Date} 
      */
-    constructor(id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+    constructor(id, status, organisation, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         
-        V2ScreeningDetail.initialize(this, id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
+        V2ScreeningDetail.initialize(this, id, status, organisation, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
     }
 
     /**
@@ -47,9 +48,10 @@ class V2ScreeningDetail {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, status, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
+    static initialize(obj, id, status, organisation, profile, candidate, checks, screeningNotes, candidateWizardUrl, dashboardUrl, createdAt, updatedAt) { 
         obj['id'] = id;
         obj['status'] = status;
+        obj['organisation'] = organisation;
         obj['profile'] = profile;
         obj['candidate'] = candidate;
         obj['checks'] = checks;
@@ -77,8 +79,11 @@ class V2ScreeningDetail {
             if (data.hasOwnProperty('status')) {
                 obj['status'] = ApiClient.convertToType(data['status'], 'String');
             }
+            if (data.hasOwnProperty('organisation')) {
+                obj['organisation'] = V2ScreeningDetailOrganisation.constructFromObject(data['organisation']);
+            }
             if (data.hasOwnProperty('profile')) {
-                obj['profile'] = V2ScreeningDetailProfile.constructFromObject(data['profile']);
+                obj['profile'] = V2ScreeningDetailOrganisation.constructFromObject(data['profile']);
             }
             if (data.hasOwnProperty('candidate')) {
                 obj['candidate'] = ApiClient.convertToType(data['candidate'], V2Candidate);
@@ -125,9 +130,13 @@ class V2ScreeningDetail {
         if (data['status'] && !(typeof data['status'] === 'string' || data['status'] instanceof String)) {
             throw new Error("Expected the field `status` to be a primitive type in the JSON string but got " + data['status']);
         }
+        // validate the optional field `organisation`
+        if (data['organisation']) { // data not null
+          V2ScreeningDetailOrganisation.validateJSON(data['organisation']);
+        }
         // validate the optional field `profile`
         if (data['profile']) { // data not null
-          V2ScreeningDetailProfile.validateJSON(data['profile']);
+          V2ScreeningDetailOrganisation.validateJSON(data['profile']);
         }
         // validate the optional field `candidate`
         if (data['candidate']) { // data not null
@@ -168,7 +177,7 @@ class V2ScreeningDetail {
 
 }
 
-V2ScreeningDetail.RequiredProperties = ["id", "status", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
+V2ScreeningDetail.RequiredProperties = ["id", "status", "organisation", "profile", "candidate", "checks", "screening_notes", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"];
 
 /**
  * @member {String} id
@@ -181,7 +190,12 @@ V2ScreeningDetail.prototype['id'] = undefined;
 V2ScreeningDetail.prototype['status'] = undefined;
 
 /**
- * @member {module:model/V2ScreeningDetailProfile} profile
+ * @member {module:model/V2ScreeningDetailOrganisation} organisation
+ */
+V2ScreeningDetail.prototype['organisation'] = undefined;
+
+/**
+ * @member {module:model/V2ScreeningDetailOrganisation} profile
  */
 V2ScreeningDetail.prototype['profile'] = undefined;
 

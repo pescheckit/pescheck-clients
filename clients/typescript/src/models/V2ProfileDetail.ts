@@ -90,6 +90,18 @@ export interface V2ProfileDetail {
     readonly candidateFields: Array<object>;
     /**
      * 
+     * @type {boolean}
+     * @memberof V2ProfileDetail
+     */
+    readonly createsAsDraft: boolean;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof V2ProfileDetail
+     */
+    readonly draftReasons: Array<string>;
+    /**
+     * 
      * @type {Date}
      * @memberof V2ProfileDetail
      */
@@ -114,6 +126,8 @@ export function instanceOfV2ProfileDetail(value: any): value is V2ProfileDetail 
     if ((!('supportedCountriesOfWork' in value) && !('supported_countries_of_work' in value)) || (value['supportedCountriesOfWork'] === undefined && value['supported_countries_of_work'] === undefined)) return false;
     if ((!('supportedCountriesOfResidence' in value) && !('supported_countries_of_residence' in value)) || (value['supportedCountriesOfResidence'] === undefined && value['supported_countries_of_residence'] === undefined)) return false;
     if ((!('candidateFields' in value) && !('candidate_fields' in value)) || (value['candidateFields'] === undefined && value['candidate_fields'] === undefined)) return false;
+    if ((!('createsAsDraft' in value) && !('creates_as_draft' in value)) || (value['createsAsDraft'] === undefined && value['creates_as_draft'] === undefined)) return false;
+    if ((!('draftReasons' in value) && !('draft_reasons' in value)) || (value['draftReasons'] === undefined && value['draft_reasons'] === undefined)) return false;
     if ((!('createdAt' in value) && !('created_at' in value)) || (value['createdAt'] === undefined && value['created_at'] === undefined)) return false;
     if ((!('updatedAt' in value) && !('updated_at' in value)) || (value['updatedAt'] === undefined && value['updated_at'] === undefined)) return false;
     return true;
@@ -138,6 +152,8 @@ export function V2ProfileDetailFromJSONTyped(json: any, ignoreDiscriminator: boo
         'supportedCountriesOfWork': json['supported_countries_of_work'],
         'supportedCountriesOfResidence': json['supported_countries_of_residence'],
         'candidateFields': json['candidate_fields'],
+        'createsAsDraft': json['creates_as_draft'],
+        'draftReasons': json['draft_reasons'],
         'createdAt': (new Date(json['created_at'])),
         'updatedAt': (new Date(json['updated_at'])),
     };
@@ -147,7 +163,7 @@ export function V2ProfileDetailToJSON(json: any): V2ProfileDetail {
     return V2ProfileDetailToJSONTyped(json, false);
 }
 
-export function V2ProfileDetailToJSONTyped(value?: Omit<V2ProfileDetail, 'id'|'checks'|'total_price'|'supported_countries_of_work'|'supported_countries_of_residence'|'candidate_fields'|'created_at'|'updated_at'> | null, ignoreDiscriminator: boolean = false): any {
+export function V2ProfileDetailToJSONTyped(value?: Omit<V2ProfileDetail, 'id'|'checks'|'total_price'|'supported_countries_of_work'|'supported_countries_of_residence'|'candidate_fields'|'creates_as_draft'|'draft_reasons'|'created_at'|'updated_at'> | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

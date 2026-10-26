@@ -140,6 +140,7 @@ export default class ScreeningsApi {
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
      * @param {Number} [page = 1)] A page number within the paginated result set.
      * @param {Number} [pageSize = 50)] Number of results to return per page.
      * @param {Boolean} [paginate = true)] Enable/disable pagination. When false, max 500 records returned.
@@ -152,6 +153,7 @@ export default class ScreeningsApi {
       let pathParams = {
       };
       let queryParams = {
+        'organisation': opts['organisation'],
         'page': opts['page'],
         'page_size': opts['pageSize'],
         'paginate': opts['paginate']
@@ -174,6 +176,7 @@ export default class ScreeningsApi {
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} opts.organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
      * @param {Number} opts.page A page number within the paginated result set. (default to 1)
      * @param {Number} opts.pageSize Number of results to return per page. (default to 50)
      * @param {Boolean} opts.paginate Enable/disable pagination. When false, max 500 records returned. (default to true)

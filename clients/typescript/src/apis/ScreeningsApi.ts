@@ -45,6 +45,7 @@ export interface V2ScreeningsDocumentsListRequest {
 }
 
 export interface V2ScreeningsListRequest {
+    organisation?: string;
     page?: number;
     pageSize?: number;
     paginate?: boolean;
@@ -112,6 +113,7 @@ export interface ScreeningsApiInterface {
 
     /**
      * Creates request options for v2ScreeningsList without sending the request
+     * @param {string} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings.
      * @param {number} [page] A page number within the paginated result set.
      * @param {number} [pageSize] Number of results to return per page.
      * @param {boolean} [paginate] Enable/disable pagination. When false, max 500 records returned.
@@ -122,6 +124,7 @@ export interface ScreeningsApiInterface {
 
     /**
      * 
+     * @param {string} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings.
      * @param {number} [page] A page number within the paginated result set.
      * @param {number} [pageSize] Number of results to return per page.
      * @param {boolean} [paginate] Enable/disable pagination. When false, max 500 records returned.
@@ -278,6 +281,10 @@ export class ScreeningsApi extends runtime.BaseAPI implements ScreeningsApiInter
      */
     async v2ScreeningsListRequestOpts(requestParameters: V2ScreeningsListRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
+
+        if (requestParameters['organisation'] != null) {
+            queryParameters['organisation'] = requestParameters['organisation'];
+        }
 
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];

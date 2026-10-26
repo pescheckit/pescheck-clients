@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **supported_countries_of_work** | **List[str]** |  | [readonly] 
 **supported_countries_of_residence** | **List[str]** |  | [readonly] 
 **candidate_fields** | **List[object]** |  | [readonly] 
+**creates_as_draft** | **bool** |  | [readonly] 
+**draft_reasons** | **List[str]** |  | [readonly] 
 **created_at** | **datetime** |  | [readonly] 
 **updated_at** | **datetime** |  | [readonly] 
 

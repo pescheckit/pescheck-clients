@@ -351,8 +351,8 @@ V2ScreeningCheckEntry::Check_typeEnum V2ScreeningCheckEntry::toCheck_typeEnum(co
         return Check_typeEnum::EDRCHECK;
     }
     
-    if (value == utility::conversions::to_string_t("focumcheck")) {
-        return Check_typeEnum::FOCUMCHECK;
+    if (value == utility::conversions::to_string_t("ibancheck")) {
+        return Check_typeEnum::IBANCHECK;
     }
     
     if (value == utility::conversions::to_string_t("id2check")) {
@@ -434,7 +434,7 @@ const utility::string_t V2ScreeningCheckEntry::fromCheck_typeEnum(const Check_ty
         
         case Check_typeEnum::EDRCHECK: return utility::conversions::to_string_t("edrcheck");
         
-        case Check_typeEnum::FOCUMCHECK: return utility::conversions::to_string_t("focumcheck");
+        case Check_typeEnum::IBANCHECK: return utility::conversions::to_string_t("ibancheck");
         
         case Check_typeEnum::ID2CHECK: return utility::conversions::to_string_t("id2check");
         

@@ -33,9 +33,7 @@ V2Candidate::V2Candidate()
     m_Gender = utility::conversions::to_string_t("");
     m_GenderIsSet = false;
     m_NationalityIsSet = false;
-    m_Postal_code = utility::conversions::to_string_t("");
     m_Postal_codeIsSet = false;
-    m_House_number = utility::conversions::to_string_t("");
     m_House_numberIsSet = false;
     m_Extension = utility::conversions::to_string_t("");
     m_ExtensionIsSet = false;
@@ -195,7 +193,7 @@ bool V2Candidate::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("postal_code")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setPostalCode;
+            std::shared_ptr<V2Candidate_postal_code> refVal_setPostalCode;
             ok &= ModelBase::fromJson(fieldValue, refVal_setPostalCode);
             setPostalCode(refVal_setPostalCode);
             
@@ -206,7 +204,7 @@ bool V2Candidate::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("house_number")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setHouseNumber;
+            std::shared_ptr<V2Candidate_house_number> refVal_setHouseNumber;
             ok &= ModelBase::fromJson(fieldValue, refVal_setHouseNumber);
             setHouseNumber(refVal_setHouseNumber);
             
@@ -328,13 +326,13 @@ bool V2Candidate::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, co
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("postal_code"))))
     {
-        utility::string_t refVal_setPostalCode;
+        std::shared_ptr<V2Candidate_postal_code> refVal_setPostalCode;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("postal_code"))), refVal_setPostalCode );
         setPostalCode(refVal_setPostalCode);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("house_number"))))
     {
-        utility::string_t refVal_setHouseNumber;
+        std::shared_ptr<V2Candidate_house_number> refVal_setHouseNumber;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("house_number"))), refVal_setHouseNumber );
         setHouseNumber(refVal_setHouseNumber);
     }
@@ -1998,13 +1996,13 @@ void V2Candidate::unsetNationality()
 {
     m_NationalityIsSet = false;
 }
-utility::string_t V2Candidate::getPostalCode() const
+std::shared_ptr<V2Candidate_postal_code> V2Candidate::getPostalCode() const
 {
     return m_Postal_code;
 }
 
 
-void V2Candidate::setPostalCode(const utility::string_t& value)
+void V2Candidate::setPostalCode(const std::shared_ptr<V2Candidate_postal_code>& value)
 {
     m_Postal_code = value;
     m_Postal_codeIsSet = true;
@@ -2019,13 +2017,13 @@ void V2Candidate::unsetPostal_code()
 {
     m_Postal_codeIsSet = false;
 }
-utility::string_t V2Candidate::getHouseNumber() const
+std::shared_ptr<V2Candidate_house_number> V2Candidate::getHouseNumber() const
 {
     return m_House_number;
 }
 
 
-void V2Candidate::setHouseNumber(const utility::string_t& value)
+void V2Candidate::setHouseNumber(const std::shared_ptr<V2Candidate_house_number>& value)
 {
     m_House_number = value;
     m_House_numberIsSet = true;
