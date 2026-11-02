@@ -21,7 +21,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCheckListItem;
-import io.pescheck.client.model.V2ScreeningDetailProfile;
+import io.pescheck.client.model.V2ScreeningDetailOrganisation;
 import java.io.IOException;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -68,10 +68,15 @@ public class V2ScreeningListItem {
   @javax.annotation.Nullable
   private String status;
 
+  public static final String SERIALIZED_NAME_ORGANISATION = "organisation";
+  @SerializedName(SERIALIZED_NAME_ORGANISATION)
+  @javax.annotation.Nullable
+  private V2ScreeningDetailOrganisation organisation;
+
   public static final String SERIALIZED_NAME_PROFILE = "profile";
   @SerializedName(SERIALIZED_NAME_PROFILE)
   @javax.annotation.Nullable
-  private V2ScreeningDetailProfile profile;
+  private V2ScreeningDetailOrganisation profile;
 
   public static final String SERIALIZED_NAME_CANDIDATE = "candidate";
   @SerializedName(SERIALIZED_NAME_CANDIDATE)
@@ -155,7 +160,26 @@ public class V2ScreeningListItem {
   }
 
 
-  public V2ScreeningListItem profile(@javax.annotation.Nullable V2ScreeningDetailProfile profile) {
+  public V2ScreeningListItem organisation(@javax.annotation.Nullable V2ScreeningDetailOrganisation organisation) {
+    this.organisation = organisation;
+    return this;
+  }
+
+  /**
+   * Get organisation
+   * @return organisation
+   */
+  @javax.annotation.Nullable
+  public V2ScreeningDetailOrganisation getOrganisation() {
+    return organisation;
+  }
+
+  public void setOrganisation(@javax.annotation.Nullable V2ScreeningDetailOrganisation organisation) {
+    this.organisation = organisation;
+  }
+
+
+  public V2ScreeningListItem profile(@javax.annotation.Nullable V2ScreeningDetailOrganisation profile) {
     this.profile = profile;
     return this;
   }
@@ -165,11 +189,11 @@ public class V2ScreeningListItem {
    * @return profile
    */
   @javax.annotation.Nullable
-  public V2ScreeningDetailProfile getProfile() {
+  public V2ScreeningDetailOrganisation getProfile() {
     return profile;
   }
 
-  public void setProfile(@javax.annotation.Nullable V2ScreeningDetailProfile profile) {
+  public void setProfile(@javax.annotation.Nullable V2ScreeningDetailOrganisation profile) {
     this.profile = profile;
   }
 
@@ -252,6 +276,7 @@ public class V2ScreeningListItem {
     V2ScreeningListItem v2ScreeningListItem = (V2ScreeningListItem) o;
     return Objects.equals(this.id, v2ScreeningListItem.id) &&
         Objects.equals(this.status, v2ScreeningListItem.status) &&
+        Objects.equals(this.organisation, v2ScreeningListItem.organisation) &&
         Objects.equals(this.profile, v2ScreeningListItem.profile) &&
         Objects.equals(this.candidate, v2ScreeningListItem.candidate) &&
         Objects.equals(this.checks, v2ScreeningListItem.checks) &&
@@ -263,7 +288,7 @@ public class V2ScreeningListItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, status, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
+    return Objects.hash(id, status, organisation, profile, candidate, checks, candidateWizardUrl, dashboardUrl, createdAt, updatedAt);
   }
 
   @Override
@@ -272,6 +297,7 @@ public class V2ScreeningListItem {
     sb.append("class V2ScreeningListItem {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    organisation: ").append(toIndentedString(organisation)).append("\n");
     sb.append("    profile: ").append(toIndentedString(profile)).append("\n");
     sb.append("    candidate: ").append(toIndentedString(candidate)).append("\n");
     sb.append("    checks: ").append(toIndentedString(checks)).append("\n");
@@ -297,10 +323,10 @@ public class V2ScreeningListItem {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "status", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
+    openapiFields = new HashSet<String>(Arrays.asList("id", "status", "organisation", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "organisation", "profile", "candidate", "checks", "candidate_wizard_url", "dashboard_url", "created_at", "updated_at"));
   }
 
   /**
@@ -337,9 +363,13 @@ public class V2ScreeningListItem {
       if ((jsonObj.get("status") != null && !jsonObj.get("status").isJsonNull()) && !jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }
+      if (jsonObj.get("organisation") != null && !jsonObj.get("organisation").isJsonNull()) {
+      // validate the required field `organisation`
+      V2ScreeningDetailOrganisation.validateJsonElement(jsonObj.get("organisation"));
+      }
       if (jsonObj.get("profile") != null && !jsonObj.get("profile").isJsonNull()) {
       // validate the required field `profile`
-      V2ScreeningDetailProfile.validateJsonElement(jsonObj.get("profile"));
+      V2ScreeningDetailOrganisation.validateJsonElement(jsonObj.get("profile"));
       }
       // validate the required field `candidate`
       V2Candidate.validateJsonElement(jsonObj.get("candidate"));

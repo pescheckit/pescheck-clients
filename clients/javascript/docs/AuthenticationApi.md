@@ -5,7 +5,6 @@ All URIs are relative to *https://api.pescheck.io*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**generateJWTToken2**](AuthenticationApi.md#generateJWTToken2) | **POST** /api/v2/jwt/generate/ | 
-[**jwtCreate**](AuthenticationApi.md#jwtCreate) | **POST** /api/jwt/ | 
 [**jwtRefreshCreate**](AuthenticationApi.md#jwtRefreshCreate) | **POST** /api/jwt/refresh/ | 
 
 
@@ -47,54 +46,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**JWTResponse**](JWTResponse.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: application/json, multipart/form-data
-- **Accept**: application/json
-
-
-## jwtCreate
-
-> CustomTokenObtainPair jwtCreate(customTokenObtainPair)
-
-
-
-Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-
-### Example
-
-```javascript
-import PescheckApi from '@pescheckit/pescheck-client-js';
-let defaultClient = PescheckApi.ApiClient.instance;
-// Configure OAuth2 access token for authorization: oauth2
-let oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-let apiInstance = new PescheckApi.AuthenticationApi();
-let customTokenObtainPair = new PescheckApi.CustomTokenObtainPair(); // CustomTokenObtainPair | 
-apiInstance.jwtCreate(customTokenObtainPair).then((data) => {
-  console.log('API called successfully. Returned data: ' + data);
-}, (error) => {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **customTokenObtainPair** | [**CustomTokenObtainPair**](CustomTokenObtainPair.md)|  | 
-
-### Return type
-
-[**CustomTokenObtainPair**](CustomTokenObtainPair.md)
 
 ### Authorization
 

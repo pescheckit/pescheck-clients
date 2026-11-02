@@ -10,7 +10,9 @@ Name | Type | Description | Notes
 **ClientId** | **string** |  | [optional] 
 **ClientSecret** | **string** |  | [readonly] 
 **ClientType** | **string** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public | 
-**AuthorizationGrantType** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**AuthorizationGrantType** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**Organisation** | **string** |  | [readonly] 
+**OrganisationId** | **Guid** |  | [readonly] 
 **Created** | **DateTime** |  | [readonly] 
 **Updated** | **DateTime** |  | [readonly] 
 

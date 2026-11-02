@@ -62,14 +62,13 @@ Create webhook for event notifications.
         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter
 
         **Valid Events:**
-        - `check.started` - Check has been initiated
-        - `check.completed` - Check has been completed successfully
-        - `check.failed` - Check has failed
-        - `screening.created` - New screening has been created
-        - `screening.completed` - Screening has been completed
+        - `check.status_changed` - Check status has changed (new status in payload)
+        - `screening.status_changed` - Screening status has changed (new status in payload)
         - `screening.archived` - Screening has been archived
         - `package.created` - New package has been created
         - `package.updated` - Package has been updated
+        - `profile.created` - New profile has been created
+        - `profile.updated` - Profile has been updated
         - `division.created` - New division has been created
         - `division.updated` - Division has been updated
 

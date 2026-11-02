@@ -22,6 +22,7 @@
 
 #include "PescheckApi/ModelBase.h"
 
+#include "PescheckApi/model/DivisionReadOnly_contact_email.h"
 #include <cpprest/details/basic_types.h>
 
 namespace org {
@@ -104,15 +105,15 @@ public:
     void unsetContact_name();
     void setContactName(const utility::string_t& value);
 
-    utility::string_t getContactEmail() const;
+    std::shared_ptr<DivisionReadOnly_contact_email> getContactEmail() const;
     bool contactEmailIsSet() const;
     void unsetContact_email();
-    void setContactEmail(const utility::string_t& value);
+    void setContactEmail(const std::shared_ptr<DivisionReadOnly_contact_email>& value);
 
-    utility::string_t getInvoiceEmail() const;
+    std::shared_ptr<DivisionReadOnly_contact_email> getInvoiceEmail() const;
     bool invoiceEmailIsSet() const;
     void unsetInvoice_email();
-    void setInvoiceEmail(const utility::string_t& value);
+    void setInvoiceEmail(const std::shared_ptr<DivisionReadOnly_contact_email>& value);
 
     bool isUseParentOnEmail() const;
     bool useParentOnEmailIsSet() const;
@@ -155,9 +156,9 @@ protected:
 
     boost::optional<utility::string_t> m_Contact_name;
 
-    boost::optional<utility::string_t> m_Contact_email;
+    boost::optional<std::shared_ptr<DivisionReadOnly_contact_email>> m_Contact_email;
 
-    boost::optional<utility::string_t> m_Invoice_email;
+    boost::optional<std::shared_ptr<DivisionReadOnly_contact_email>> m_Invoice_email;
 
     bool m_Use_parent_on_email;
     bool m_Use_parent_on_emailIsSet;

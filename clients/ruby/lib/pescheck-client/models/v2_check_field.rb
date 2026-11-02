@@ -24,7 +24,7 @@ module Pescheck
     # Whether the request body must include this field.
     attr_accessor :required
 
-    # Allowed values, or null if the field isn't constrained to a set.
+    # Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
     attr_accessor :choices
 
     attr_accessor :help_text
@@ -56,7 +56,7 @@ module Pescheck
         :'name' => :'String',
         :'type' => :'String',
         :'required' => :'Boolean',
-        :'choices' => :'Array<String>',
+        :'choices' => :'Array<Hash<String, Object>>',
         :'help_text' => :'String'
       }
     end

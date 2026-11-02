@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **client_id** | Option<**String**> |  | [optional]
 **client_secret** | **String** |  | [readonly]
 **client_type** | **ClientType** | * `confidential` - Confidential * `public` - Public (enum: confidential, public) | 
-**authorization_grant_type** | **AuthorizationGrantType** | * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid (enum: authorization-code, implicit, password, client-credentials, openid-hybrid) | 
+**authorization_grant_type** | **AuthorizationGrantType** | * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid (enum: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid) | 
+**organisation** | **String** |  | [readonly]
+**organisation_id** | **uuid::Uuid** |  | [readonly]
 **created** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 **updated** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 

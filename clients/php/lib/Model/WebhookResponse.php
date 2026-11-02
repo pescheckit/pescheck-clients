@@ -351,8 +351,8 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['url'] === null) {
             $invalidProperties[] = "'url' can't be null";
         }
-        if ((mb_strlen($this->container['url']) > 200)) {
-            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 200.";
+        if ((mb_strlen($this->container['url']) > 400)) {
+            $invalidProperties[] = "invalid value for 'url', the character length must be smaller than or equal to 400.";
         }
 
         if ($this->container['events'] === null && !$this->isNullableSetToNull('events')) {
@@ -462,8 +462,8 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($url)) {
             throw new \InvalidArgumentException('non-nullable url cannot be null');
         }
-        if ((mb_strlen($url) > 200)) {
-            throw new \InvalidArgumentException('invalid length for $url when calling WebhookResponse., must be smaller than or equal to 200.');
+        if ((mb_strlen($url) > 400)) {
+            throw new \InvalidArgumentException('invalid length for $url when calling WebhookResponse., must be smaller than or equal to 400.');
         }
 
         $this->container['url'] = $url;

@@ -30,6 +30,8 @@ type V2ProfileDetail struct {
 	SupportedCountriesOfWork []string `json:"supported_countries_of_work"`
 	SupportedCountriesOfResidence []string `json:"supported_countries_of_residence"`
 	CandidateFields []map[string]interface{} `json:"candidate_fields"`
+	CreatesAsDraft bool `json:"creates_as_draft"`
+	DraftReasons []string `json:"draft_reasons"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 	AdditionalProperties map[string]interface{}
@@ -41,7 +43,7 @@ type _V2ProfileDetail V2ProfileDetail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createdAt time.Time, updatedAt time.Time) *V2ProfileDetail {
+func NewV2ProfileDetail(id string, name string, description NullableString, checks []V2ProfileCheckEntry, totalPrice V2Money, supportedCountriesOfWork []string, supportedCountriesOfResidence []string, candidateFields []map[string]interface{}, createsAsDraft bool, draftReasons []string, createdAt time.Time, updatedAt time.Time) *V2ProfileDetail {
 	this := V2ProfileDetail{}
 	this.Id = id
 	this.Name = name
@@ -51,6 +53,8 @@ func NewV2ProfileDetail(id string, name string, description NullableString, chec
 	this.SupportedCountriesOfWork = supportedCountriesOfWork
 	this.SupportedCountriesOfResidence = supportedCountriesOfResidence
 	this.CandidateFields = candidateFields
+	this.CreatesAsDraft = createsAsDraft
+	this.DraftReasons = draftReasons
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
 	return &this
@@ -290,6 +294,54 @@ func (o *V2ProfileDetail) SetCandidateFields(v []map[string]interface{}) {
 	o.CandidateFields = v
 }
 
+// GetCreatesAsDraft returns the CreatesAsDraft field value
+func (o *V2ProfileDetail) GetCreatesAsDraft() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.CreatesAsDraft
+}
+
+// GetCreatesAsDraftOk returns a tuple with the CreatesAsDraft field value
+// and a boolean to check if the value has been set.
+func (o *V2ProfileDetail) GetCreatesAsDraftOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatesAsDraft, true
+}
+
+// SetCreatesAsDraft sets field value
+func (o *V2ProfileDetail) SetCreatesAsDraft(v bool) {
+	o.CreatesAsDraft = v
+}
+
+// GetDraftReasons returns the DraftReasons field value
+func (o *V2ProfileDetail) GetDraftReasons() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.DraftReasons
+}
+
+// GetDraftReasonsOk returns a tuple with the DraftReasons field value
+// and a boolean to check if the value has been set.
+func (o *V2ProfileDetail) GetDraftReasonsOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DraftReasons, true
+}
+
+// SetDraftReasons sets field value
+func (o *V2ProfileDetail) SetDraftReasons(v []string) {
+	o.DraftReasons = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *V2ProfileDetail) GetCreatedAt() time.Time {
 	if o == nil {
@@ -359,6 +411,8 @@ func (o V2ProfileDetail) ToMap() (map[string]interface{}, error) {
 	toSerialize["supported_countries_of_work"] = o.SupportedCountriesOfWork
 	toSerialize["supported_countries_of_residence"] = o.SupportedCountriesOfResidence
 	toSerialize["candidate_fields"] = o.CandidateFields
+	toSerialize["creates_as_draft"] = o.CreatesAsDraft
+	toSerialize["draft_reasons"] = o.DraftReasons
 	toSerialize["created_at"] = o.CreatedAt
 	toSerialize["updated_at"] = o.UpdatedAt
 
@@ -382,6 +436,8 @@ func (o *V2ProfileDetail) UnmarshalJSON(data []byte) (err error) {
 		"supported_countries_of_work",
 		"supported_countries_of_residence",
 		"candidate_fields",
+		"creates_as_draft",
+		"draft_reasons",
 		"created_at",
 		"updated_at",
 	}
@@ -422,6 +478,8 @@ func (o *V2ProfileDetail) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "supported_countries_of_work")
 		delete(additionalProperties, "supported_countries_of_residence")
 		delete(additionalProperties, "candidate_fields")
+		delete(additionalProperties, "creates_as_draft")
+		delete(additionalProperties, "draft_reasons")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
 		o.AdditionalProperties = additionalProperties

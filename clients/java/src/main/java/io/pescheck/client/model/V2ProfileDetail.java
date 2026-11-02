@@ -101,6 +101,16 @@ public class V2ProfileDetail {
   @javax.annotation.Nonnull
   private List<Object> candidateFields = new ArrayList<>();
 
+  public static final String SERIALIZED_NAME_CREATES_AS_DRAFT = "creates_as_draft";
+  @SerializedName(SERIALIZED_NAME_CREATES_AS_DRAFT)
+  @javax.annotation.Nonnull
+  private Boolean createsAsDraft;
+
+  public static final String SERIALIZED_NAME_DRAFT_REASONS = "draft_reasons";
+  @SerializedName(SERIALIZED_NAME_DRAFT_REASONS)
+  @javax.annotation.Nonnull
+  private List<String> draftReasons = new ArrayList<>();
+
   public static final String SERIALIZED_NAME_CREATED_AT = "created_at";
   @SerializedName(SERIALIZED_NAME_CREATED_AT)
   @javax.annotation.Nonnull
@@ -121,6 +131,8 @@ public class V2ProfileDetail {
      List<String> supportedCountriesOfWork, 
      List<String> supportedCountriesOfResidence, 
      List<Object> candidateFields, 
+     Boolean createsAsDraft, 
+     List<String> draftReasons, 
      OffsetDateTime createdAt, 
      OffsetDateTime updatedAt
   ) {
@@ -131,6 +143,8 @@ public class V2ProfileDetail {
     this.supportedCountriesOfWork = supportedCountriesOfWork;
     this.supportedCountriesOfResidence = supportedCountriesOfResidence;
     this.candidateFields = candidateFields;
+    this.createsAsDraft = createsAsDraft;
+    this.draftReasons = draftReasons;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
   }
@@ -259,6 +273,28 @@ public class V2ProfileDetail {
 
 
   /**
+   * Get createsAsDraft
+   * @return createsAsDraft
+   */
+  @javax.annotation.Nonnull
+  public Boolean getCreatesAsDraft() {
+    return createsAsDraft;
+  }
+
+
+
+  /**
+   * Get draftReasons
+   * @return draftReasons
+   */
+  @javax.annotation.Nonnull
+  public List<String> getDraftReasons() {
+    return draftReasons;
+  }
+
+
+
+  /**
    * Get createdAt
    * @return createdAt
    */
@@ -299,13 +335,15 @@ public class V2ProfileDetail {
         Objects.equals(this.supportedCountriesOfWork, v2ProfileDetail.supportedCountriesOfWork) &&
         Objects.equals(this.supportedCountriesOfResidence, v2ProfileDetail.supportedCountriesOfResidence) &&
         Objects.equals(this.candidateFields, v2ProfileDetail.candidateFields) &&
+        Objects.equals(this.createsAsDraft, v2ProfileDetail.createsAsDraft) &&
+        Objects.equals(this.draftReasons, v2ProfileDetail.draftReasons) &&
         Objects.equals(this.createdAt, v2ProfileDetail.createdAt) &&
         Objects.equals(this.updatedAt, v2ProfileDetail.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, description, isCustom, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createdAt, updatedAt);
+    return Objects.hash(id, name, description, isCustom, checks, totalPrice, supportedCountriesOfWork, supportedCountriesOfResidence, candidateFields, createsAsDraft, draftReasons, createdAt, updatedAt);
   }
 
   @Override
@@ -321,6 +359,8 @@ public class V2ProfileDetail {
     sb.append("    supportedCountriesOfWork: ").append(toIndentedString(supportedCountriesOfWork)).append("\n");
     sb.append("    supportedCountriesOfResidence: ").append(toIndentedString(supportedCountriesOfResidence)).append("\n");
     sb.append("    candidateFields: ").append(toIndentedString(candidateFields)).append("\n");
+    sb.append("    createsAsDraft: ").append(toIndentedString(createsAsDraft)).append("\n");
+    sb.append("    draftReasons: ").append(toIndentedString(draftReasons)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
@@ -341,10 +381,10 @@ public class V2ProfileDetail {
 
   static {
     // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>(Arrays.asList("id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"));
+    openapiFields = new HashSet<String>(Arrays.asList("id", "name", "description", "is_custom", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "creates_as_draft", "draft_reasons", "created_at", "updated_at"));
 
     // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "created_at", "updated_at"));
+    openapiRequiredFields = new HashSet<String>(Arrays.asList("id", "name", "description", "checks", "total_price", "supported_countries_of_work", "supported_countries_of_residence", "candidate_fields", "creates_as_draft", "draft_reasons", "created_at", "updated_at"));
   }
 
   /**
@@ -413,6 +453,12 @@ public class V2ProfileDetail {
         throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
       } else if (!jsonObj.get("candidate_fields").isJsonArray()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `candidate_fields` to be an array in the JSON string but got `%s`", jsonObj.get("candidate_fields").toString()));
+      }
+      // ensure the required json array is present
+      if (jsonObj.get("draft_reasons") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("draft_reasons").isJsonArray()) {
+        throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `draft_reasons` to be an array in the JSON string but got `%s`", jsonObj.get("draft_reasons").toString()));
       }
   }
 

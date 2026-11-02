@@ -26,13 +26,15 @@ class OAuthApplicationResponse {
      * @param id {String} 
      * @param clientSecret {String} 
      * @param clientType {module:model/OAuthApplicationResponse.ClientTypeEnum} * `confidential` - Confidential * `public` - Public
-     * @param authorizationGrantType {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param authorizationGrantType {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param organisation {String} 
+     * @param organisationId {String} 
      * @param created {Date} 
      * @param updated {Date} 
      */
-    constructor(id, clientSecret, clientType, authorizationGrantType, created, updated) { 
+    constructor(id, clientSecret, clientType, authorizationGrantType, organisation, organisationId, created, updated) { 
         
-        OAuthApplicationResponse.initialize(this, id, clientSecret, clientType, authorizationGrantType, created, updated);
+        OAuthApplicationResponse.initialize(this, id, clientSecret, clientType, authorizationGrantType, organisation, organisationId, created, updated);
     }
 
     /**
@@ -40,11 +42,13 @@ class OAuthApplicationResponse {
      * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
      * Only for internal use.
      */
-    static initialize(obj, id, clientSecret, clientType, authorizationGrantType, created, updated) { 
+    static initialize(obj, id, clientSecret, clientType, authorizationGrantType, organisation, organisationId, created, updated) { 
         obj['id'] = id;
         obj['client_secret'] = clientSecret;
         obj['client_type'] = clientType;
         obj['authorization_grant_type'] = authorizationGrantType;
+        obj['organisation'] = organisation;
+        obj['organisation_id'] = organisationId;
         obj['created'] = created;
         obj['updated'] = updated;
     }
@@ -77,6 +81,12 @@ class OAuthApplicationResponse {
             }
             if (data.hasOwnProperty('authorization_grant_type')) {
                 obj['authorization_grant_type'] = ApiClient.convertToType(data['authorization_grant_type'], 'String');
+            }
+            if (data.hasOwnProperty('organisation')) {
+                obj['organisation'] = ApiClient.convertToType(data['organisation'], 'String');
+            }
+            if (data.hasOwnProperty('organisation_id')) {
+                obj['organisation_id'] = ApiClient.convertToType(data['organisation_id'], 'String');
             }
             if (data.hasOwnProperty('created')) {
                 obj['created'] = ApiClient.convertToType(data['created'], 'Date');
@@ -124,6 +134,14 @@ class OAuthApplicationResponse {
         if (data['authorization_grant_type'] && !(typeof data['authorization_grant_type'] === 'string' || data['authorization_grant_type'] instanceof String)) {
             throw new Error("Expected the field `authorization_grant_type` to be a primitive type in the JSON string but got " + data['authorization_grant_type']);
         }
+        // ensure the json data is a string
+        if (data['organisation'] && !(typeof data['organisation'] === 'string' || data['organisation'] instanceof String)) {
+            throw new Error("Expected the field `organisation` to be a primitive type in the JSON string but got " + data['organisation']);
+        }
+        // ensure the json data is a string
+        if (data['organisation_id'] && !(typeof data['organisation_id'] === 'string' || data['organisation_id'] instanceof String)) {
+            throw new Error("Expected the field `organisation_id` to be a primitive type in the JSON string but got " + data['organisation_id']);
+        }
 
         return true;
     }
@@ -131,7 +149,7 @@ class OAuthApplicationResponse {
 
 }
 
-OAuthApplicationResponse.RequiredProperties = ["id", "client_secret", "client_type", "authorization_grant_type", "created", "updated"];
+OAuthApplicationResponse.RequiredProperties = ["id", "client_secret", "client_type", "authorization_grant_type", "organisation", "organisation_id", "created", "updated"];
 
 /**
  * @member {String} id
@@ -160,10 +178,20 @@ OAuthApplicationResponse.prototype['client_secret'] = undefined;
 OAuthApplicationResponse.prototype['client_type'] = undefined;
 
 /**
- * * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+ * * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
  * @member {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} authorization_grant_type
  */
 OAuthApplicationResponse.prototype['authorization_grant_type'] = undefined;
+
+/**
+ * @member {String} organisation
+ */
+OAuthApplicationResponse.prototype['organisation'] = undefined;
+
+/**
+ * @member {String} organisation_id
+ */
+OAuthApplicationResponse.prototype['organisation_id'] = undefined;
 
 /**
  * @member {Date} created
@@ -212,6 +240,12 @@ OAuthApplicationResponse['AuthorizationGrantTypeEnum'] = {
      * @const
      */
     "authorization-code": "authorization-code",
+
+    /**
+     * value: "urn:ietf:params:oauth:grant-type:device_code"
+     * @const
+     */
+    "urn:ietf:params:oauth:grant-type:device_code": "urn:ietf:params:oauth:grant-type:device_code",
 
     /**
      * value: "implicit"

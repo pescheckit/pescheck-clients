@@ -27,8 +27,12 @@ module Pescheck
     # * `confidential` - Confidential * `public` - Public
     attr_accessor :client_type
 
-    # * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+    # * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
     attr_accessor :authorization_grant_type
+
+    attr_accessor :organisation
+
+    attr_accessor :organisation_id
 
     attr_accessor :created
 
@@ -65,6 +69,8 @@ module Pescheck
         :'client_secret' => :'client_secret',
         :'client_type' => :'client_type',
         :'authorization_grant_type' => :'authorization_grant_type',
+        :'organisation' => :'organisation',
+        :'organisation_id' => :'organisation_id',
         :'created' => :'created',
         :'updated' => :'updated'
       }
@@ -89,6 +95,8 @@ module Pescheck
         :'client_secret' => :'String',
         :'client_type' => :'String',
         :'authorization_grant_type' => :'String',
+        :'organisation' => :'String',
+        :'organisation_id' => :'String',
         :'created' => :'Time',
         :'updated' => :'Time'
       }
@@ -148,6 +156,18 @@ module Pescheck
         self.authorization_grant_type = nil
       end
 
+      if attributes.key?(:'organisation')
+        self.organisation = attributes[:'organisation']
+      else
+        self.organisation = nil
+      end
+
+      if attributes.key?(:'organisation_id')
+        self.organisation_id = attributes[:'organisation_id']
+      else
+        self.organisation_id = nil
+      end
+
       if attributes.key?(:'created')
         self.created = attributes[:'created']
       else
@@ -174,8 +194,8 @@ module Pescheck
         invalid_properties.push('invalid value for "name", the character length must be smaller than or equal to 255.')
       end
 
-      if !@client_id.nil? && @client_id.to_s.length > 100
-        invalid_properties.push('invalid value for "client_id", the character length must be smaller than or equal to 100.')
+      if !@client_id.nil? && @client_id.to_s.length > 255
+        invalid_properties.push('invalid value for "client_id", the character length must be smaller than or equal to 255.')
       end
 
       if @client_secret.nil?
@@ -188,6 +208,14 @@ module Pescheck
 
       if @authorization_grant_type.nil?
         invalid_properties.push('invalid value for "authorization_grant_type", authorization_grant_type cannot be nil.')
+      end
+
+      if @organisation.nil?
+        invalid_properties.push('invalid value for "organisation", organisation cannot be nil.')
+      end
+
+      if @organisation_id.nil?
+        invalid_properties.push('invalid value for "organisation_id", organisation_id cannot be nil.')
       end
 
       if @created.nil?
@@ -207,14 +235,16 @@ module Pescheck
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @id.nil?
       return false if !@name.nil? && @name.to_s.length > 255
-      return false if !@client_id.nil? && @client_id.to_s.length > 100
+      return false if !@client_id.nil? && @client_id.to_s.length > 255
       return false if @client_secret.nil?
       return false if @client_type.nil?
       client_type_validator = EnumAttributeValidator.new('String', ["confidential", "public"])
       return false unless client_type_validator.valid?(@client_type)
       return false if @authorization_grant_type.nil?
-      authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
+      authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
       return false unless authorization_grant_type_validator.valid?(@authorization_grant_type)
+      return false if @organisation.nil?
+      return false if @organisation_id.nil?
       return false if @created.nil?
       return false if @updated.nil?
       true
@@ -251,8 +281,8 @@ module Pescheck
         fail ArgumentError, 'client_id cannot be nil'
       end
 
-      if client_id.to_s.length > 100
-        fail ArgumentError, 'invalid value for "client_id", the character length must be smaller than or equal to 100.'
+      if client_id.to_s.length > 255
+        fail ArgumentError, 'invalid value for "client_id", the character length must be smaller than or equal to 255.'
       end
 
       @client_id = client_id
@@ -281,11 +311,31 @@ module Pescheck
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] authorization_grant_type Object to be assigned
     def authorization_grant_type=(authorization_grant_type)
-      validator = EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
+      validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
       unless validator.valid?(authorization_grant_type)
         fail ArgumentError, "invalid value for \"authorization_grant_type\", must be one of #{validator.allowable_values}."
       end
       @authorization_grant_type = authorization_grant_type
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] organisation Value to be assigned
+    def organisation=(organisation)
+      if organisation.nil?
+        fail ArgumentError, 'organisation cannot be nil'
+      end
+
+      @organisation = organisation
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] organisation_id Value to be assigned
+    def organisation_id=(organisation_id)
+      if organisation_id.nil?
+        fail ArgumentError, 'organisation_id cannot be nil'
+      end
+
+      @organisation_id = organisation_id
     end
 
     # Custom attribute writer method with validation
@@ -319,6 +369,8 @@ module Pescheck
           client_secret == o.client_secret &&
           client_type == o.client_type &&
           authorization_grant_type == o.authorization_grant_type &&
+          organisation == o.organisation &&
+          organisation_id == o.organisation_id &&
           created == o.created &&
           updated == o.updated
     end
@@ -332,7 +384,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, client_id, client_secret, client_type, authorization_grant_type, created, updated].hash
+      [id, name, client_id, client_secret, client_type, authorization_grant_type, organisation, organisation_id, created, updated].hash
     end
 
     # Builds the object from hash

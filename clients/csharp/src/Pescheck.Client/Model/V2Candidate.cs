@@ -1553,7 +1553,7 @@ namespace Pescheck.Client.Model
         /// <param name="postalCode">postalCode.</param>
         /// <param name="houseNumber">houseNumber.</param>
         /// <param name="extension">extension.</param>
-        public V2Candidate(string firstName = default, string lastName = default, string email = default, string initials = default, string dateOfBirth = default, string gender = default, NationalityEnum? nationality = default, string postalCode = default, string houseNumber = default, string extension = default)
+        public V2Candidate(string firstName = default, string lastName = default, string email = default, string initials = default, string dateOfBirth = default, string gender = default, NationalityEnum? nationality = default, V2CandidatePostalCode postalCode = default, V2CandidateHouseNumber houseNumber = default, string extension = default)
         {
             // to ensure "firstName" is required (not null)
             if (firstName == null)
@@ -1622,13 +1622,13 @@ namespace Pescheck.Client.Model
         /// Gets or Sets PostalCode
         /// </summary>
         [DataMember(Name = "postal_code", EmitDefaultValue = false)]
-        public string PostalCode { get; set; }
+        public V2CandidatePostalCode PostalCode { get; set; }
 
         /// <summary>
         /// Gets or Sets HouseNumber
         /// </summary>
         [DataMember(Name = "house_number", EmitDefaultValue = false)]
-        public string HouseNumber { get; set; }
+        public V2CandidateHouseNumber HouseNumber { get; set; }
 
         /// <summary>
         /// Gets or Sets Extension
@@ -1690,18 +1690,6 @@ namespace Pescheck.Client.Model
             if (this.DateOfBirth != null && this.DateOfBirth.Length > 10)
             {
                 yield return new ValidationResult("Invalid value for DateOfBirth, length must be less than 10.", new [] { "DateOfBirth" });
-            }
-
-            // PostalCode (string) maxLength
-            if (this.PostalCode != null && this.PostalCode.Length > 255)
-            {
-                yield return new ValidationResult("Invalid value for PostalCode, length must be less than 255.", new [] { "PostalCode" });
-            }
-
-            // HouseNumber (string) maxLength
-            if (this.HouseNumber != null && this.HouseNumber.Length > 50)
-            {
-                yield return new ValidationResult("Invalid value for HouseNumber, length must be less than 50.", new [] { "HouseNumber" });
             }
 
             yield break;

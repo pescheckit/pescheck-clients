@@ -349,6 +349,7 @@ public class ScreeningsApi {
     }
     /**
      * Build call for v2ScreeningsList
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -362,7 +363,7 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -386,6 +387,10 @@ public class ScreeningsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (organisation != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("organisation", organisation));
+        }
 
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
@@ -419,14 +424,15 @@ public class ScreeningsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call v2ScreeningsListValidateBeforeCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
-        return v2ScreeningsListCall(page, pageSize, paginate, _callback);
+    private okhttp3.Call v2ScreeningsListValidateBeforeCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+        return v2ScreeningsListCall(organisation, page, pageSize, paginate, _callback);
 
     }
 
     /**
      * 
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -439,14 +445,15 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public PaginatedV2ScreeningListItemList v2ScreeningsList(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+    public PaginatedV2ScreeningListItemList v2ScreeningsList(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+        ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -459,8 +466,8 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(page, pageSize, paginate, null);
+    public ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, null);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -468,6 +475,7 @@ public class ScreeningsApi {
     /**
      *  (asynchronously)
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -481,9 +489,9 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
+    public okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(page, pageSize, paginate, _callback);
+        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, _callback);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

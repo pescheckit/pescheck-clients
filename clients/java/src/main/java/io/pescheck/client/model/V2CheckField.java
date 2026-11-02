@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,7 +71,7 @@ public class V2CheckField {
   public static final String SERIALIZED_NAME_CHOICES = "choices";
   @SerializedName(SERIALIZED_NAME_CHOICES)
   @javax.annotation.Nullable
-  private List<String> choices;
+  private List<Map<String, Object>> choices;
 
   public static final String SERIALIZED_NAME_HELP_TEXT = "help_text";
   @SerializedName(SERIALIZED_NAME_HELP_TEXT)
@@ -84,7 +85,7 @@ public class V2CheckField {
      String name, 
      String type, 
      Boolean required, 
-     List<String> choices, 
+     List<Map<String, Object>> choices, 
      String helpText
   ) {
     this();
@@ -129,11 +130,11 @@ public class V2CheckField {
 
 
   /**
-   * Allowed values, or null if the field isn&#39;t constrained to a set.
+   * Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;.
    * @return choices
    */
   @javax.annotation.Nullable
-  public List<String> getChoices() {
+  public List<Map<String, Object>> getChoices() {
     return choices;
   }
 

@@ -120,6 +120,7 @@ impl From<&str> for ContentType {
     }
 }
 
+pub mod add_ons_api;
 pub mod authentication_api;
 pub mod checks_api;
 pub mod divisions_api;

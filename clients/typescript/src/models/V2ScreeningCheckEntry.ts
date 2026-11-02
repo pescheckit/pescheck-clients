@@ -41,7 +41,7 @@ export interface V2ScreeningCheckEntry {
      * * `customintegritycheck` - customintegritycheck
      * * `cvcheck` - cvcheck
      * * `edrcheck` - edrcheck
-     * * `focumcheck` - focumcheck
+     * * `ibancheck` - ibancheck
      * * `id2check` - id2check
      * * `idcheck` - idcheck
      * * `integritycheck` - integritycheck
@@ -111,7 +111,7 @@ export const V2ScreeningCheckEntryCheckTypeEnum = {
     Customintegritycheck: 'customintegritycheck',
     Cvcheck: 'cvcheck',
     Edrcheck: 'edrcheck',
-    Focumcheck: 'focumcheck',
+    Ibancheck: 'ibancheck',
     Id2check: 'id2check',
     Idcheck: 'idcheck',
     Integritycheck: 'integritycheck',
