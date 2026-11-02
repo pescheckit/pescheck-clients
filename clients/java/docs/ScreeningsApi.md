@@ -148,7 +148,7 @@ public class Example {
 
 <a id="v2ScreeningsList"></a>
 # **v2ScreeningsList**
-> PaginatedV2ScreeningListItemList v2ScreeningsList(page, pageSize, paginate)
+> PaginatedV2ScreeningListItemList v2ScreeningsList(organisation, page, pageSize, paginate)
 
 
 
@@ -172,11 +172,12 @@ public class Example {
     oauth2.setAccessToken("YOUR ACCESS TOKEN");
 
     ScreeningsApi apiInstance = new ScreeningsApi(defaultClient);
+    UUID organisation = UUID.randomUUID(); // UUID | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
     Integer page = 1; // Integer | A page number within the paginated result set.
     Integer pageSize = 50; // Integer | Number of results to return per page.
     Boolean paginate = true; // Boolean | Enable/disable pagination. When false, max 500 records returned.
     try {
-      PaginatedV2ScreeningListItemList result = apiInstance.v2ScreeningsList(page, pageSize, paginate);
+      PaginatedV2ScreeningListItemList result = apiInstance.v2ScreeningsList(organisation, page, pageSize, paginate);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsList");
@@ -193,6 +194,7 @@ public class Example {
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **organisation** | **UUID**| Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] |
 | **page** | **Integer**| A page number within the paginated result set. | [optional] [default to 1] |
 | **pageSize** | **Integer**| Number of results to return per page. | [optional] [default to 50] |
 | **paginate** | **Boolean**| Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true] |

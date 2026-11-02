@@ -171,6 +171,7 @@ end
 
 api_instance = Pescheck::ScreeningsApi.new
 opts = {
+  organisation: '38400000-8cf0-11bd-b23e-10b96e4ef00d', # String | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
   page: 1, # Integer | A page number within the paginated result set.
   page_size: 50, # Integer | Number of results to return per page.
   paginate: true # Boolean | Enable/disable pagination. When false, max 500 records returned.
@@ -207,6 +208,7 @@ end
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
+| **organisation** | **String** | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] |
 | **page** | **Integer** | A page number within the paginated result set. | [optional][default to 1] |
 | **page_size** | **Integer** | Number of results to return per page. | [optional][default to 50] |
 | **paginate** | **Boolean** | Enable/disable pagination. When false, max 500 records returned. | [optional][default to true] |

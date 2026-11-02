@@ -65,6 +65,12 @@ export interface V2ScreeningCreate {
      * @memberof V2ScreeningCreate
      */
     screeningNotes?: Array<V2ScreeningNoteInput>;
+    /**
+     * Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+     * @type {string}
+     * @memberof V2ScreeningCreate
+     */
+    divisionId?: string;
 }
 
 /**
@@ -90,6 +96,7 @@ export function V2ScreeningCreateFromJSONTyped(json: any, ignoreDiscriminator: b
         'candidate': V2CandidateFromJSON(json['candidate']),
         'checks': json['checks'] == null ? undefined : ((json['checks'] as Array<any>).map(V2ScreeningCheckFromJSON)),
         'screeningNotes': json['screening_notes'] == null ? undefined : ((json['screening_notes'] as Array<any>).map(V2ScreeningNoteInputFromJSON)),
+        'divisionId': json['division_id'] == null ? undefined : json['division_id'],
     };
 }
 
@@ -108,6 +115,7 @@ export function V2ScreeningCreateToJSONTyped(value?: V2ScreeningCreate | null, i
         'candidate': V2CandidateToJSON(value['candidate']),
         'checks': value['checks'] == null ? undefined : ((value['checks'] as Array<any>).map(V2ScreeningCheckToJSON)),
         'screening_notes': value['screeningNotes'] == null ? undefined : ((value['screeningNotes'] as Array<any>).map(V2ScreeningNoteInputToJSON)),
+        'division_id': value['divisionId'],
     };
 }
 

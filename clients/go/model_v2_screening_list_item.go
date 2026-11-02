@@ -23,7 +23,8 @@ var _ MappedNullable = &V2ScreeningListItem{}
 type V2ScreeningListItem struct {
 	Id string `json:"id"`
 	Status *string `json:"status,omitempty"`
-	Profile NullableV2ScreeningDetailProfile `json:"profile"`
+	Organisation NullableV2ScreeningDetailOrganisation `json:"organisation"`
+	Profile NullableV2ScreeningDetailOrganisation `json:"profile"`
 	Candidate V2Candidate `json:"candidate"`
 	Checks []V2ScreeningCheckListItem `json:"checks"`
 	CandidateWizardUrl NullableString `json:"candidate_wizard_url"`
@@ -39,9 +40,10 @@ type _V2ScreeningListItem V2ScreeningListItem
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2ScreeningListItem(id string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time) *V2ScreeningListItem {
+func NewV2ScreeningListItem(id string, organisation NullableV2ScreeningDetailOrganisation, profile NullableV2ScreeningDetailOrganisation, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time) *V2ScreeningListItem {
 	this := V2ScreeningListItem{}
 	this.Id = id
+	this.Organisation = organisation
 	this.Profile = profile
 	this.Candidate = candidate
 	this.Checks = checks
@@ -116,11 +118,37 @@ func (o *V2ScreeningListItem) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetOrganisation returns the Organisation field value
+// If the value is explicit nil, the zero value for V2ScreeningDetailOrganisation will be returned
+func (o *V2ScreeningListItem) GetOrganisation() V2ScreeningDetailOrganisation {
+	if o == nil || o.Organisation.Get() == nil {
+		var ret V2ScreeningDetailOrganisation
+		return ret
+	}
+
+	return *o.Organisation.Get()
+}
+
+// GetOrganisationOk returns a tuple with the Organisation field value
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *V2ScreeningListItem) GetOrganisationOk() (*V2ScreeningDetailOrganisation, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Organisation.Get(), o.Organisation.IsSet()
+}
+
+// SetOrganisation sets field value
+func (o *V2ScreeningListItem) SetOrganisation(v V2ScreeningDetailOrganisation) {
+	o.Organisation.Set(&v)
+}
+
 // GetProfile returns the Profile field value
-// If the value is explicit nil, the zero value for V2ScreeningDetailProfile will be returned
-func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailProfile {
+// If the value is explicit nil, the zero value for V2ScreeningDetailOrganisation will be returned
+func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailOrganisation {
 	if o == nil || o.Profile.Get() == nil {
-		var ret V2ScreeningDetailProfile
+		var ret V2ScreeningDetailOrganisation
 		return ret
 	}
 
@@ -130,7 +158,7 @@ func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailProfile {
 // GetProfileOk returns a tuple with the Profile field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailProfile, bool) {
+func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailOrganisation, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -138,7 +166,7 @@ func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailProfile, bool) {
 }
 
 // SetProfile sets field value
-func (o *V2ScreeningListItem) SetProfile(v V2ScreeningDetailProfile) {
+func (o *V2ScreeningListItem) SetProfile(v V2ScreeningDetailOrganisation) {
 	o.Profile.Set(&v)
 }
 
@@ -302,6 +330,7 @@ func (o V2ScreeningListItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+	toSerialize["organisation"] = o.Organisation.Get()
 	toSerialize["profile"] = o.Profile.Get()
 	toSerialize["candidate"] = o.Candidate
 	toSerialize["checks"] = o.Checks
@@ -323,6 +352,7 @@ func (o *V2ScreeningListItem) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"id",
+		"organisation",
 		"profile",
 		"candidate",
 		"checks",
@@ -361,6 +391,7 @@ func (o *V2ScreeningListItem) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "organisation")
 		delete(additionalProperties, "profile")
 		delete(additionalProperties, "candidate")
 		delete(additionalProperties, "checks")

@@ -178,8 +178,8 @@ module Pescheck
         invalid_properties.push('invalid value for "url", url cannot be nil.')
       end
 
-      if @url.to_s.length > 200
-        invalid_properties.push('invalid value for "url", the character length must be smaller than or equal to 200.')
+      if @url.to_s.length > 400
+        invalid_properties.push('invalid value for "url", the character length must be smaller than or equal to 400.')
       end
 
       if @verified.nil?
@@ -205,7 +205,7 @@ module Pescheck
       return false if @name.nil?
       return false if @name.to_s.length > 255
       return false if @url.nil?
-      return false if @url.to_s.length > 200
+      return false if @url.to_s.length > 400
       return false if @verified.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
@@ -243,8 +243,8 @@ module Pescheck
         fail ArgumentError, 'url cannot be nil'
       end
 
-      if url.to_s.length > 200
-        fail ArgumentError, 'invalid value for "url", the character length must be smaller than or equal to 200.'
+      if url.to_s.length > 400
+        fail ArgumentError, 'invalid value for "url", the character length must be smaller than or equal to 400.'
       end
 
       @url = url

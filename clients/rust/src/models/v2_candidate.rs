@@ -30,9 +30,9 @@ pub struct V2Candidate {
     #[serde(rename = "nationality", skip_serializing_if = "Option::is_none")]
     pub nationality: Option<Nationality>,
     #[serde(rename = "postal_code", skip_serializing_if = "Option::is_none")]
-    pub postal_code: Option<String>,
+    pub postal_code: Option<Box<models::V2CandidatePostalCode>>,
     #[serde(rename = "house_number", skip_serializing_if = "Option::is_none")]
-    pub house_number: Option<String>,
+    pub house_number: Option<Box<models::V2CandidateHouseNumber>>,
     #[serde(rename = "extension", skip_serializing_if = "Option::is_none")]
     pub extension: Option<String>,
 }

@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **supportedCountriesOfWork** | **[String]** |  | [readonly] 
 **supportedCountriesOfResidence** | **[String]** |  | [readonly] 
 **candidateFields** | **[Object]** |  | [readonly] 
+**createsAsDraft** | **Boolean** |  | [readonly] 
+**draftReasons** | **[String]** |  | [readonly] 
 **createdAt** | **Date** |  | [readonly] 
 **updatedAt** | **Date** |  | [readonly] 
 

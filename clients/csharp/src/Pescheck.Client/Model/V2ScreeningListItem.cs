@@ -41,9 +41,16 @@ namespace Pescheck.Client.Model
         /// Initializes a new instance of the <see cref="V2ScreeningListItem" /> class.
         /// </summary>
         /// <param name="status">status.</param>
+        /// <param name="organisation">organisation (required).</param>
         /// <param name="profile">profile (required).</param>
-        public V2ScreeningListItem(string status = default, V2ScreeningDetailProfile profile = default)
+        public V2ScreeningListItem(string status = default, V2ScreeningDetailOrganisation organisation = default, V2ScreeningDetailOrganisation profile = default)
         {
+            // to ensure "organisation" is required (not null)
+            if (organisation == null)
+            {
+                throw new ArgumentNullException("organisation is a required property for V2ScreeningListItem and cannot be null");
+            }
+            this.Organisation = organisation;
             // to ensure "profile" is required (not null)
             if (profile == null)
             {
@@ -74,10 +81,16 @@ namespace Pescheck.Client.Model
         public string Status { get; set; }
 
         /// <summary>
+        /// Gets or Sets Organisation
+        /// </summary>
+        [DataMember(Name = "organisation", IsRequired = true, EmitDefaultValue = true)]
+        public V2ScreeningDetailOrganisation Organisation { get; set; }
+
+        /// <summary>
         /// Gets or Sets Profile
         /// </summary>
         [DataMember(Name = "profile", IsRequired = true, EmitDefaultValue = true)]
-        public V2ScreeningDetailProfile Profile { get; set; }
+        public V2ScreeningDetailOrganisation Profile { get; set; }
 
         /// <summary>
         /// Gets or Sets Candidate
@@ -173,6 +186,7 @@ namespace Pescheck.Client.Model
             sb.Append("class V2ScreeningListItem {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Organisation: ").Append(Organisation).Append("\n");
             sb.Append("  Profile: ").Append(Profile).Append("\n");
             sb.Append("  Candidate: ").Append(Candidate).Append("\n");
             sb.Append("  Checks: ").Append(Checks).Append("\n");

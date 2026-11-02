@@ -249,13 +249,13 @@ class V2ScreeningCheck implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public const CHECK_TYPE_ADDRESSCHECK = 'addresscheck';
     public const CHECK_TYPE_ADVERSEMEDIA2CHECK = 'adversemedia2check';
-    public const CHECK_TYPE_ADVERSEMEDIACHECK = 'adversemediacheck';
     public const CHECK_TYPE_BIGCHECK = 'bigcheck';
     public const CHECK_TYPE_CRIMINALRECORDSCHECK = 'criminalrecordscheck';
     public const CHECK_TYPE_CRIMINALRECORDSUPLOADCHECK = 'criminalrecordsuploadcheck';
     public const CHECK_TYPE_CUSTOMINTEGRITYCHECK = 'customintegritycheck';
     public const CHECK_TYPE_CVCHECK = 'cvcheck';
     public const CHECK_TYPE_EDRCHECK = 'edrcheck';
+    public const CHECK_TYPE_IBANCHECK = 'ibancheck';
     public const CHECK_TYPE_ID2CHECK = 'id2check';
     public const CHECK_TYPE_INTEGRITYCHECK = 'integritycheck';
     public const CHECK_TYPE_OPENHEALTHCARECHECK = 'openhealthcarecheck';
@@ -277,13 +277,13 @@ class V2ScreeningCheck implements ModelInterface, ArrayAccess, \JsonSerializable
         return [
             self::CHECK_TYPE_ADDRESSCHECK,
             self::CHECK_TYPE_ADVERSEMEDIA2CHECK,
-            self::CHECK_TYPE_ADVERSEMEDIACHECK,
             self::CHECK_TYPE_BIGCHECK,
             self::CHECK_TYPE_CRIMINALRECORDSCHECK,
             self::CHECK_TYPE_CRIMINALRECORDSUPLOADCHECK,
             self::CHECK_TYPE_CUSTOMINTEGRITYCHECK,
             self::CHECK_TYPE_CVCHECK,
             self::CHECK_TYPE_EDRCHECK,
+            self::CHECK_TYPE_IBANCHECK,
             self::CHECK_TYPE_ID2CHECK,
             self::CHECK_TYPE_INTEGRITYCHECK,
             self::CHECK_TYPE_OPENHEALTHCARECHECK,
@@ -385,7 +385,7 @@ class V2ScreeningCheck implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      *
      * @return self
      */

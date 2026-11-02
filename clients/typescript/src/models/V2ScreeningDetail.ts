@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { V2ScreeningDetailOrganisation } from './V2ScreeningDetailOrganisation';
+import {
+    V2ScreeningDetailOrganisationFromJSON,
+    V2ScreeningDetailOrganisationFromJSONTyped,
+    V2ScreeningDetailOrganisationToJSON,
+    V2ScreeningDetailOrganisationToJSONTyped,
+} from './V2ScreeningDetailOrganisation';
 import type { V2ScreeningNote } from './V2ScreeningNote';
 import {
     V2ScreeningNoteFromJSON,
@@ -27,13 +34,6 @@ import {
     V2CandidateToJSON,
     V2CandidateToJSONTyped,
 } from './V2Candidate';
-import type { V2ScreeningDetailProfile } from './V2ScreeningDetailProfile';
-import {
-    V2ScreeningDetailProfileFromJSON,
-    V2ScreeningDetailProfileFromJSONTyped,
-    V2ScreeningDetailProfileToJSON,
-    V2ScreeningDetailProfileToJSONTyped,
-} from './V2ScreeningDetailProfile';
 import type { V2ScreeningCheckEntry } from './V2ScreeningCheckEntry';
 import {
     V2ScreeningCheckEntryFromJSON,
@@ -62,10 +62,16 @@ export interface V2ScreeningDetail {
     readonly status: string;
     /**
      * 
-     * @type {V2ScreeningDetailProfile}
+     * @type {V2ScreeningDetailOrganisation}
      * @memberof V2ScreeningDetail
      */
-    profile: V2ScreeningDetailProfile | null;
+    organisation: V2ScreeningDetailOrganisation | null;
+    /**
+     * 
+     * @type {V2ScreeningDetailOrganisation}
+     * @memberof V2ScreeningDetail
+     */
+    profile: V2ScreeningDetailOrganisation | null;
     /**
      * 
      * @type {V2Candidate}
@@ -116,6 +122,7 @@ export interface V2ScreeningDetail {
 export function instanceOfV2ScreeningDetail(value: any): value is V2ScreeningDetail {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
+    if (!('organisation' in value) || value['organisation'] === undefined) return false;
     if (!('profile' in value) || value['profile'] === undefined) return false;
     if (!('candidate' in value) || value['candidate'] === undefined) return false;
     if (!('checks' in value) || value['checks'] === undefined) return false;
@@ -139,7 +146,8 @@ export function V2ScreeningDetailFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'id': json['id'],
         'status': json['status'],
-        'profile': V2ScreeningDetailProfileFromJSON(json['profile']),
+        'organisation': V2ScreeningDetailOrganisationFromJSON(json['organisation']),
+        'profile': V2ScreeningDetailOrganisationFromJSON(json['profile']),
         'candidate': V2CandidateFromJSON(json['candidate']),
         'checks': ((json['checks'] as Array<any>).map(V2ScreeningCheckEntryFromJSON)),
         'screeningNotes': ((json['screening_notes'] as Array<any>).map(V2ScreeningNoteFromJSON)),
@@ -161,7 +169,8 @@ export function V2ScreeningDetailToJSONTyped(value?: Omit<V2ScreeningDetail, 'id
 
     return {
         
-        'profile': V2ScreeningDetailProfileToJSON(value['profile']),
+        'organisation': V2ScreeningDetailOrganisationToJSON(value['organisation']),
+        'profile': V2ScreeningDetailOrganisationToJSON(value['profile']),
     };
 }
 

@@ -25,13 +25,6 @@ pub enum GenerateJwtToken2Error {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method [`jwt_create`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum JwtCreateError {
-    UnknownValue(serde_json::Value),
-}
-
 /// struct for typed errors of method [`jwt_refresh_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -77,47 +70,6 @@ pub async fn generate_jwt_token2(configuration: &configuration::Configuration, j
     } else {
         let content = resp.text().await?;
         let entity: Option<GenerateJwtToken2Error> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent { status, content, entity }))
-    }
-}
-
-/// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-pub async fn jwt_create(configuration: &configuration::Configuration, custom_token_obtain_pair: models::CustomTokenObtainPair) -> Result<models::CustomTokenObtainPair, Error<JwtCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_custom_token_obtain_pair = custom_token_obtain_pair;
-
-    let uri_str = format!("{}/api/jwt/", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.oauth_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_custom_token_obtain_pair);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::CustomTokenObtainPair`"))),
-            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::CustomTokenObtainPair`")))),
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<JwtCreateError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent { status, content, entity }))
     }
 }

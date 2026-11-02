@@ -14,11 +14,6 @@
 
 import * as runtime from '../runtime';
 import {
-    type CustomTokenObtainPair,
-    CustomTokenObtainPairFromJSON,
-    CustomTokenObtainPairToJSON,
-} from '../models/CustomTokenObtainPair';
-import {
     type JWTGeneration,
     JWTGenerationFromJSON,
     JWTGenerationToJSON,
@@ -36,10 +31,6 @@ import {
 
 export interface GenerateJWTToken2Request {
     jWTGeneration: JWTGeneration;
-}
-
-export interface JwtCreateRequest {
-    customTokenObtainPair: CustomTokenObtainPair;
 }
 
 export interface JwtRefreshCreateRequest {
@@ -74,28 +65,6 @@ export interface AuthenticationApiInterface {
      * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      */
     generateJWTToken2(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JWTResponse>;
-
-    /**
-     * Creates request options for jwtCreate without sending the request
-     * @param {CustomTokenObtainPair} customTokenObtainPair 
-     * @throws {RequiredError}
-     * @memberof AuthenticationApiInterface
-     */
-    jwtCreateRequestOpts(requestParameters: JwtCreateRequest): Promise<runtime.RequestOpts>;
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     * @param {CustomTokenObtainPair} customTokenObtainPair 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof AuthenticationApiInterface
-     */
-    jwtCreateRaw(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomTokenObtainPair>>;
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     */
-    jwtCreate(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomTokenObtainPair>;
 
     /**
      * Creates request options for jwtRefreshCreate without sending the request
@@ -175,58 +144,6 @@ export class AuthenticationApi extends runtime.BaseAPI implements Authentication
      */
     async generateJWTToken2(requestParameters: GenerateJWTToken2Request, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<JWTResponse> {
         const response = await this.generateJWTToken2Raw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Creates request options for jwtCreate without sending the request
-     */
-    async jwtCreateRequestOpts(requestParameters: JwtCreateRequest): Promise<runtime.RequestOpts> {
-        if (requestParameters['customTokenObtainPair'] == null) {
-            throw new runtime.RequiredError(
-                'customTokenObtainPair',
-                'Required parameter "customTokenObtainPair" was null or undefined when calling jwtCreate().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = `Bearer ${await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"])}`;
-        }
-
-
-        let urlPath = `/api/jwt/`;
-
-        return {
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: CustomTokenObtainPairToJSON(requestParameters['customTokenObtainPair']),
-        };
-    }
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     */
-    async jwtCreateRaw(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomTokenObtainPair>> {
-        const requestOptions = await this.jwtCreateRequestOpts(requestParameters);
-        const response = await this.request(requestOptions, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CustomTokenObtainPairFromJSON(jsonValue));
-    }
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     */
-    async jwtCreate(requestParameters: JwtCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CustomTokenObtainPair> {
-        const response = await this.jwtCreateRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

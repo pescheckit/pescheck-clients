@@ -13,7 +13,6 @@
 
 
 import ApiClient from "../ApiClient";
-import CustomTokenObtainPair from '../model/CustomTokenObtainPair';
 import JWTGeneration from '../model/JWTGeneration';
 import JWTResponse from '../model/JWTResponse';
 import TokenRefresh from '../model/TokenRefresh';
@@ -77,51 +76,6 @@ export default class AuthenticationApi {
      */
     generateJWTToken2(jWTGeneration) {
       return this.generateJWTToken2WithHttpInfo(jWTGeneration)
-        .then(function(response_and_data) {
-          return response_and_data.data;
-        });
-    }
-
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     * @param {module:model/CustomTokenObtainPair} customTokenObtainPair 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/CustomTokenObtainPair} and HTTP response
-     */
-    jwtCreateWithHttpInfo(customTokenObtainPair) {
-      let postBody = customTokenObtainPair;
-      // verify the required parameter 'customTokenObtainPair' is set
-      if (customTokenObtainPair === undefined || customTokenObtainPair === null) {
-        throw new Error("Missing the required parameter 'customTokenObtainPair' when calling jwtCreate");
-      }
-
-      let pathParams = {
-      };
-      let queryParams = {
-      };
-      let headerParams = {
-      };
-      let formParams = {
-      };
-
-      let authNames = ['oauth2'];
-      let contentTypes = ['application/json', 'multipart/form-data'];
-      let accepts = ['application/json'];
-      let returnType = CustomTokenObtainPair;
-      return this.apiClient.callApi(
-        '/api/jwt/', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType, null
-      );
-    }
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-     * @param {module:model/CustomTokenObtainPair} customTokenObtainPair 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CustomTokenObtainPair}
-     */
-    jwtCreate(customTokenObtainPair) {
-      return this.jwtCreateWithHttpInfo(customTokenObtainPair)
         .then(function(response_and_data) {
           return response_and_data.data;
         });

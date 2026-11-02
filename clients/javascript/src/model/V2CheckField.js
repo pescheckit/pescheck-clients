@@ -26,7 +26,7 @@ class V2CheckField {
      * @param name {String} 
      * @param type {String} \"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"
      * @param required {Boolean} Whether the request body must include this field.
-     * @param choices {Array.<String>} Allowed values, or null if the field isn't constrained to a set.
+     * @param choices {Array.<Object.<String, Object>>} Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
      * @param helpText {String} 
      */
     constructor(name, type, required, choices, helpText) { 
@@ -68,7 +68,7 @@ class V2CheckField {
                 obj['required'] = ApiClient.convertToType(data['required'], 'Boolean');
             }
             if (data.hasOwnProperty('choices')) {
-                obj['choices'] = ApiClient.convertToType(data['choices'], ['String']);
+                obj['choices'] = ApiClient.convertToType(data['choices'], [{'String': Object}]);
             }
             if (data.hasOwnProperty('help_text')) {
                 obj['help_text'] = ApiClient.convertToType(data['help_text'], 'String');
@@ -132,8 +132,8 @@ V2CheckField.prototype['type'] = undefined;
 V2CheckField.prototype['required'] = undefined;
 
 /**
- * Allowed values, or null if the field isn't constrained to a set.
- * @member {Array.<String>} choices
+ * Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
+ * @member {Array.<Object.<String, Object>>} choices
  */
 V2CheckField.prototype['choices'] = undefined;
 
