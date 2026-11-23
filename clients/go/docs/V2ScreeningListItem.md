@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | [readonly] 
 **Status** | Pointer to **string** |  | [optional] 
-**Profile** | [**NullableV2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**Organisation** | [**NullableV2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
+**Profile** | [**NullableV2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
 **Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **Checks** | [**[]V2ScreeningCheckListItem**](V2ScreeningCheckListItem.md) |  | [readonly] 
 **CandidateWizardUrl** | **NullableString** |  | [readonly] 
@@ -18,7 +19,7 @@ Name | Type | Description | Notes
 
 ### NewV2ScreeningListItem
 
-`func NewV2ScreeningListItem(id string, profile NullableV2ScreeningDetailProfile, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningListItem`
+`func NewV2ScreeningListItem(id string, organisation NullableV2ScreeningDetailOrganisation, profile NullableV2ScreeningDetailOrganisation, candidate V2Candidate, checks []V2ScreeningCheckListItem, candidateWizardUrl NullableString, dashboardUrl string, createdAt time.Time, updatedAt time.Time, ) *V2ScreeningListItem`
 
 NewV2ScreeningListItem instantiates a new V2ScreeningListItem object
 This constructor will assign default values to properties that have it defined,
@@ -78,22 +79,52 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
+### GetOrganisation
+
+`func (o *V2ScreeningListItem) GetOrganisation() V2ScreeningDetailOrganisation`
+
+GetOrganisation returns the Organisation field if non-nil, zero value otherwise.
+
+### GetOrganisationOk
+
+`func (o *V2ScreeningListItem) GetOrganisationOk() (*V2ScreeningDetailOrganisation, bool)`
+
+GetOrganisationOk returns a tuple with the Organisation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrganisation
+
+`func (o *V2ScreeningListItem) SetOrganisation(v V2ScreeningDetailOrganisation)`
+
+SetOrganisation sets Organisation field to given value.
+
+
+### SetOrganisationNil
+
+`func (o *V2ScreeningListItem) SetOrganisationNil(b bool)`
+
+ SetOrganisationNil sets the value for Organisation to be an explicit nil
+
+### UnsetOrganisation
+`func (o *V2ScreeningListItem) UnsetOrganisation()`
+
+UnsetOrganisation ensures that no value is present for Organisation, not even an explicit nil
 ### GetProfile
 
-`func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailProfile`
+`func (o *V2ScreeningListItem) GetProfile() V2ScreeningDetailOrganisation`
 
 GetProfile returns the Profile field if non-nil, zero value otherwise.
 
 ### GetProfileOk
 
-`func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailProfile, bool)`
+`func (o *V2ScreeningListItem) GetProfileOk() (*V2ScreeningDetailOrganisation, bool)`
 
 GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfile
 
-`func (o *V2ScreeningListItem) SetProfile(v V2ScreeningDetailProfile)`
+`func (o *V2ScreeningListItem) SetProfile(v V2ScreeningDetailOrganisation)`
 
 SetProfile sets Profile field to given value.
 

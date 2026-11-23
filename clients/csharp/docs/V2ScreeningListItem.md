@@ -7,7 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **Guid** |  | [readonly] 
 **Status** | **string** |  | [optional] 
-**Profile** | [**V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md) |  | 
+**Organisation** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
+**Profile** | [**V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md) |  | 
 **Candidate** | [**V2Candidate**](V2Candidate.md) |  | [readonly] 
 **Checks** | [**List&lt;V2ScreeningCheckListItem&gt;**](V2ScreeningCheckListItem.md) |  | [readonly] 
 **CandidateWizardUrl** | **string** |  | [readonly] 

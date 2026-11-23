@@ -13,6 +13,21 @@
  */
 
 import { mapValues } from '../runtime';
+import type { V2CandidateHouseNumber } from './V2CandidateHouseNumber';
+import {
+    V2CandidateHouseNumberFromJSON,
+    V2CandidateHouseNumberFromJSONTyped,
+    V2CandidateHouseNumberToJSON,
+    V2CandidateHouseNumberToJSONTyped,
+} from './V2CandidateHouseNumber';
+import type { V2CandidatePostalCode } from './V2CandidatePostalCode';
+import {
+    V2CandidatePostalCodeFromJSON,
+    V2CandidatePostalCodeFromJSONTyped,
+    V2CandidatePostalCodeToJSON,
+    V2CandidatePostalCodeToJSONTyped,
+} from './V2CandidatePostalCode';
+
 /**
  * Bucket-level candidate facts. Required-ness varies per profile; serializer is lenient.
  * 
@@ -69,7 +84,6 @@ export interface V2Candidate {
      * * `AI` - AI
      * * `AL` - AL
      * * `AM` - AM
-     * * `AN` - AN
      * * `AO` - AO
      * * `AQ` - AQ
      * * `AR` - AR
@@ -92,6 +106,7 @@ export interface V2Candidate {
      * * `BM` - BM
      * * `BN` - BN
      * * `BO` - BO
+     * * `BQ` - BQ
      * * `BR` - BR
      * * `BS` - BS
      * * `BT` - BT
@@ -202,6 +217,7 @@ export interface V2Candidate {
      * * `MC` - MC
      * * `MD` - MD
      * * `ME` - ME
+     * * `MF` - MF
      * * `MG` - MG
      * * `MH` - MH
      * * `MK` - MK
@@ -268,8 +284,10 @@ export interface V2Candidate {
      * * `SN` - SN
      * * `SO` - SO
      * * `SR` - SR
+     * * `SS` - SS
      * * `ST` - ST
      * * `SV` - SV
+     * * `SX` - SX
      * * `SY` - SY
      * * `SZ` - SZ
      * * `TC` - TC
@@ -315,16 +333,16 @@ export interface V2Candidate {
     nationality?: V2CandidateNationalityEnum;
     /**
      * 
-     * @type {string}
+     * @type {V2CandidatePostalCode}
      * @memberof V2Candidate
      */
-    postalCode?: string;
+    postalCode?: V2CandidatePostalCode;
     /**
      * 
-     * @type {string}
+     * @type {V2CandidateHouseNumber}
      * @memberof V2Candidate
      */
-    houseNumber?: string;
+    houseNumber?: V2CandidateHouseNumber;
     /**
      * 
      * @type {string}
@@ -345,7 +363,6 @@ export const V2CandidateNationalityEnum = {
     Ai: 'AI',
     Al: 'AL',
     Am: 'AM',
-    An: 'AN',
     Ao: 'AO',
     Aq: 'AQ',
     Ar: 'AR',
@@ -368,6 +385,7 @@ export const V2CandidateNationalityEnum = {
     Bm: 'BM',
     Bn: 'BN',
     Bo: 'BO',
+    Bq: 'BQ',
     Br: 'BR',
     Bs: 'BS',
     Bt: 'BT',
@@ -478,6 +496,7 @@ export const V2CandidateNationalityEnum = {
     Mc: 'MC',
     Md: 'MD',
     Me: 'ME',
+    Mf: 'MF',
     Mg: 'MG',
     Mh: 'MH',
     Mk: 'MK',
@@ -544,8 +563,10 @@ export const V2CandidateNationalityEnum = {
     Sn: 'SN',
     So: 'SO',
     Sr: 'SR',
+    Ss: 'SS',
     St: 'ST',
     Sv: 'SV',
+    Sx: 'SX',
     Sy: 'SY',
     Sz: 'SZ',
     Tc: 'TC',
@@ -617,8 +638,8 @@ export function V2CandidateFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'dateOfBirth': json['date_of_birth'] == null ? undefined : json['date_of_birth'],
         'gender': json['gender'] == null ? undefined : json['gender'],
         'nationality': json['nationality'] == null ? undefined : json['nationality'],
-        'postalCode': json['postal_code'] == null ? undefined : json['postal_code'],
-        'houseNumber': json['house_number'] == null ? undefined : json['house_number'],
+        'postalCode': json['postal_code'] == null ? undefined : V2CandidatePostalCodeFromJSON(json['postal_code']),
+        'houseNumber': json['house_number'] == null ? undefined : V2CandidateHouseNumberFromJSON(json['house_number']),
         'extension': json['extension'] == null ? undefined : json['extension'],
     };
 }
@@ -641,8 +662,8 @@ export function V2CandidateToJSONTyped(value?: V2Candidate | null, ignoreDiscrim
         'date_of_birth': value['dateOfBirth'],
         'gender': value['gender'],
         'nationality': value['nationality'],
-        'postal_code': value['postalCode'],
-        'house_number': value['houseNumber'],
+        'postal_code': V2CandidatePostalCodeToJSON(value['postalCode']),
+        'house_number': V2CandidateHouseNumberToJSON(value['houseNumber']),
         'extension': value['extension'],
     };
 }

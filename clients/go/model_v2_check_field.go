@@ -25,8 +25,8 @@ type V2CheckField struct {
 	Type string `json:"type"`
 	// Whether the request body must include this field.
 	Required bool `json:"required"`
-	// Allowed values, or null if the field isn't constrained to a set.
-	Choices []string `json:"choices"`
+	// Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".
+	Choices []map[string]interface{} `json:"choices"`
 	HelpText NullableString `json:"help_text"`
 	AdditionalProperties map[string]interface{}
 }
@@ -37,7 +37,7 @@ type _V2CheckField V2CheckField
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewV2CheckField(name string, type_ string, required bool, choices []string, helpText NullableString) *V2CheckField {
+func NewV2CheckField(name string, type_ string, required bool, choices []map[string]interface{}, helpText NullableString) *V2CheckField {
 	this := V2CheckField{}
 	this.Name = name
 	this.Type = type_
@@ -128,10 +128,10 @@ func (o *V2CheckField) SetRequired(v bool) {
 }
 
 // GetChoices returns the Choices field value
-// If the value is explicit nil, the zero value for []string will be returned
-func (o *V2CheckField) GetChoices() []string {
+// If the value is explicit nil, the zero value for []map[string]interface{} will be returned
+func (o *V2CheckField) GetChoices() []map[string]interface{} {
 	if o == nil {
-		var ret []string
+		var ret []map[string]interface{}
 		return ret
 	}
 
@@ -141,7 +141,7 @@ func (o *V2CheckField) GetChoices() []string {
 // GetChoicesOk returns a tuple with the Choices field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *V2CheckField) GetChoicesOk() ([]string, bool) {
+func (o *V2CheckField) GetChoicesOk() ([]map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Choices) {
 		return nil, false
 	}
@@ -149,7 +149,7 @@ func (o *V2CheckField) GetChoicesOk() ([]string, bool) {
 }
 
 // SetChoices sets field value
-func (o *V2CheckField) SetChoices(v []string) {
+func (o *V2CheckField) SetChoices(v []map[string]interface{}) {
 	o.Choices = v
 }
 

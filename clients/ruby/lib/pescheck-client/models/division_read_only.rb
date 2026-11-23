@@ -89,8 +89,8 @@ module Pescheck
         :'postal' => :'String',
         :'phone' => :'String',
         :'contact_name' => :'String',
-        :'contact_email' => :'String',
-        :'invoice_email' => :'String',
+        :'contact_email' => :'DivisionReadOnlyContactEmail',
+        :'invoice_email' => :'DivisionReadOnlyContactEmail',
         :'use_parent_on_email' => :'Boolean',
         :'use_parent_on_billing' => :'Boolean',
         :'use_parent_on_report' => :'Boolean'
@@ -241,14 +241,6 @@ module Pescheck
         invalid_properties.push('invalid value for "contact_name", the character length must be smaller than or equal to 255.')
       end
 
-      if !@contact_email.nil? && @contact_email.to_s.length > 254
-        invalid_properties.push('invalid value for "contact_email", the character length must be smaller than or equal to 254.')
-      end
-
-      if !@invoice_email.nil? && @invoice_email.to_s.length > 254
-        invalid_properties.push('invalid value for "invoice_email", the character length must be smaller than or equal to 254.')
-      end
-
       invalid_properties
     end
 
@@ -266,8 +258,6 @@ module Pescheck
       return false if !@postal.nil? && @postal.to_s.length > 20
       return false if !@phone.nil? && @phone.to_s.length > 20
       return false if !@contact_name.nil? && @contact_name.to_s.length > 255
-      return false if !@contact_email.nil? && @contact_email.to_s.length > 254
-      return false if !@invoice_email.nil? && @invoice_email.to_s.length > 254
       true
     end
 
@@ -369,26 +359,6 @@ module Pescheck
       end
 
       @contact_name = contact_name
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] contact_email Value to be assigned
-    def contact_email=(contact_email)
-      if !contact_email.nil? && contact_email.to_s.length > 254
-        fail ArgumentError, 'invalid value for "contact_email", the character length must be smaller than or equal to 254.'
-      end
-
-      @contact_email = contact_email
-    end
-
-    # Custom attribute writer method with validation
-    # @param [Object] invoice_email Value to be assigned
-    def invoice_email=(invoice_email)
-      if !invoice_email.nil? && invoice_email.to_s.length > 254
-        fail ArgumentError, 'invalid value for "invoice_email", the character length must be smaller than or equal to 254.'
-      end
-
-      @invoice_email = invoice_email
     end
 
     # Checks equality by comparing each attribute.

@@ -243,6 +243,10 @@ OAuthApplication::Authorization_grant_typeEnum OAuthApplication::toAuthorization
         return Authorization_grant_typeEnum::AUTHORIZATION_CODE;
     }
     
+    if (value == utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code")) {
+        return Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE;
+    }
+    
     if (value == utility::conversions::to_string_t("implicit")) {
         return Authorization_grant_typeEnum::IMPLICIT;
     }
@@ -269,6 +273,8 @@ const utility::string_t OAuthApplication::fromAuthorization_grant_typeEnum(const
     {
         
         case Authorization_grant_typeEnum::AUTHORIZATION_CODE: return utility::conversions::to_string_t("authorization-code");
+        
+        case Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE: return utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code");
         
         case Authorization_grant_typeEnum::IMPLICIT: return utility::conversions::to_string_t("implicit");
         

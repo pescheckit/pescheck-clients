@@ -17,8 +17,10 @@ pub struct V2ScreeningDetail {
     pub id: uuid::Uuid,
     #[serde(rename = "status")]
     pub status: String,
+    #[serde(rename = "organisation", deserialize_with = "Option::deserialize")]
+    pub organisation: Option<Box<models::V2ScreeningDetailOrganisation>>,
     #[serde(rename = "profile", deserialize_with = "Option::deserialize")]
-    pub profile: Option<Box<models::V2ScreeningDetailProfile>>,
+    pub profile: Option<Box<models::V2ScreeningDetailOrganisation>>,
     #[serde(rename = "candidate")]
     pub candidate: Box<models::V2Candidate>,
     #[serde(rename = "checks")]
@@ -38,10 +40,11 @@ pub struct V2ScreeningDetail {
 }
 
 impl V2ScreeningDetail {
-    pub fn new(id: uuid::Uuid, status: String, profile: Option<models::V2ScreeningDetailProfile>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckEntry>, screening_notes: Vec<models::V2ScreeningNote>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningDetail {
+    pub fn new(id: uuid::Uuid, status: String, organisation: Option<models::V2ScreeningDetailOrganisation>, profile: Option<models::V2ScreeningDetailOrganisation>, candidate: models::V2Candidate, checks: Vec<models::V2ScreeningCheckEntry>, screening_notes: Vec<models::V2ScreeningNote>, candidate_wizard_url: Option<String>, dashboard_url: String, created_at: chrono::DateTime<chrono::FixedOffset>, updated_at: chrono::DateTime<chrono::FixedOffset>) -> V2ScreeningDetail {
         V2ScreeningDetail {
             id,
             status,
+            organisation: if let Some(x) = organisation {Some(Box::new(x))} else {None},
             profile: if let Some(x) = profile {Some(Box::new(x))} else {None},
             candidate: Box::new(candidate),
             checks,

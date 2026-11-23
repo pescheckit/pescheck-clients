@@ -1,6 +1,7 @@
 # flake8: noqa
 
 # import apis into api package
+from pescheck.api.add_ons_api import AddOnsApi
 from pescheck.api.authentication_api import AuthenticationApi
 from pescheck.api.checks_api import ChecksApi
 from pescheck.api.divisions_api import DivisionsApi

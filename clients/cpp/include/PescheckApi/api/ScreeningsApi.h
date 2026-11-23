@@ -48,6 +48,16 @@ public:
     virtual ~ScreeningsApi();
 
     /// <summary>
+    /// Close a screening
+    /// </summary>
+    /// <remarks>
+    /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+    /// </remarks>
+    /// <param name="id">A UUID string identifying this screening.</param>
+    pplx::task<std::shared_ptr<V2ScreeningDetail>> v2ScreeningsCloseCreate(
+        utility::string_t id
+    ) const;
+    /// <summary>
     /// 
     /// </summary>
     /// <remarks>
@@ -77,10 +87,12 @@ public:
     /// <remarks>
     /// 
     /// </remarks>
+    /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional, default to utility::conversions::to_string_t(&quot;&quot;))</param>
     /// <param name="page">A page number within the paginated result set. (optional, default to 0)</param>
     /// <param name="pageSize">Number of results to return per page. (optional, default to 0)</param>
     /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to false)</param>
     pplx::task<std::shared_ptr<PaginatedV2ScreeningListItemList>> v2ScreeningsList(
+        boost::optional<utility::string_t> organisation,
         boost::optional<int32_t> page,
         boost::optional<int32_t> pageSize,
         boost::optional<bool> paginate

@@ -6,11 +6,72 @@ All URIs are relative to https://api.pescheck.io, except if the operation define
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
+| [**v2ScreeningsCloseCreate()**](ScreeningsApi.md#v2ScreeningsCloseCreate) | **POST** /api/v2/screenings/{id}/close/ | Close a screening |
 | [**v2ScreeningsCreate()**](ScreeningsApi.md#v2ScreeningsCreate) | **POST** /api/v2/screenings/ |  |
 | [**v2ScreeningsDocumentsList()**](ScreeningsApi.md#v2ScreeningsDocumentsList) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents |
 | [**v2ScreeningsList()**](ScreeningsApi.md#v2ScreeningsList) | **GET** /api/v2/screenings/ |  |
 | [**v2ScreeningsRetrieve()**](ScreeningsApi.md#v2ScreeningsRetrieve) | **GET** /api/v2/screenings/{id}/ |  |
 
+
+## `v2ScreeningsCloseCreate()`
+
+```php
+v2ScreeningsCloseCreate($id): \Pescheck\Client\Model\V2ScreeningDetail
+```
+
+Close a screening
+
+Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure OAuth2 access token for authorization: oauth2
+$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new Pescheck\Client\Api\ScreeningsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$id = 'id_example'; // string | A UUID string identifying this screening.
+
+try {
+    $result = $apiInstance->v2ScreeningsCloseCreate($id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling ScreeningsApi->v2ScreeningsCloseCreate: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **id** | **string**| A UUID string identifying this screening. | |
+
+### Return type
+
+[**\Pescheck\Client\Model\V2ScreeningDetail**](../Model/V2ScreeningDetail.md)
+
+### Authorization
+
+[oauth2](../../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
 
 ## `v2ScreeningsCreate()`
 
@@ -137,7 +198,7 @@ try {
 ## `v2ScreeningsList()`
 
 ```php
-v2ScreeningsList($page, $page_size, $paginate): \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
+v2ScreeningsList($organisation, $page, $page_size, $paginate): \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
 ```
 
 
@@ -159,12 +220,13 @@ $apiInstance = new Pescheck\Client\Api\ScreeningsApi(
     new GuzzleHttp\Client(),
     $config
 );
+$organisation = 'organisation_example'; // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
 $page = 1; // int | A page number within the paginated result set.
 $page_size = 50; // int | Number of results to return per page.
 $paginate = true; // bool | Enable/disable pagination. When false, max 500 records returned.
 
 try {
-    $result = $apiInstance->v2ScreeningsList($page, $page_size, $paginate);
+    $result = $apiInstance->v2ScreeningsList($organisation, $page, $page_size, $paginate);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling ScreeningsApi->v2ScreeningsList: ', $e->getMessage(), PHP_EOL;
@@ -175,6 +237,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
+| **organisation** | **string**| Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional] |
 | **page** | **int**| A page number within the paginated result set. | [optional] [default to 1] |
 | **page_size** | **int**| Number of results to return per page. | [optional] [default to 50] |
 | **paginate** | **bool**| Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true] |

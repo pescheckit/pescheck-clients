@@ -4,10 +4,110 @@ All URIs are relative to *https://api.pescheck.io*
 
 | Method | HTTP request | Description |
 |--------|--------------|-------------|
+| [**V2ScreeningsCloseCreate**](ScreeningsApi.md#v2screeningsclosecreate) | **POST** /api/v2/screenings/{id}/close/ | Close a screening |
 | [**V2ScreeningsCreate**](ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ |  |
 | [**V2ScreeningsDocumentsList**](ScreeningsApi.md#v2screeningsdocumentslist) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents |
 | [**V2ScreeningsList**](ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ |  |
 | [**V2ScreeningsRetrieve**](ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ |  |
+
+<a id="v2screeningsclosecreate"></a>
+# **V2ScreeningsCloseCreate**
+> V2ScreeningDetail V2ScreeningsCloseCreate (Guid id)
+
+Close a screening
+
+Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using Pescheck.Client.Api;
+using Pescheck.Client.Client;
+using Pescheck.Client.Model;
+
+namespace Example
+{
+    public class V2ScreeningsCloseCreateExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://api.pescheck.io";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ScreeningsApi(httpClient, config, httpClientHandler);
+            var id = "id_example";  // Guid | A UUID string identifying this screening.
+
+            try
+            {
+                // Close a screening
+                V2ScreeningDetail result = apiInstance.V2ScreeningsCloseCreate(id);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling ScreeningsApi.V2ScreeningsCloseCreate: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the V2ScreeningsCloseCreateWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // Close a screening
+    ApiResponse<V2ScreeningDetail> response = apiInstance.V2ScreeningsCloseCreateWithHttpInfo(id);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ScreeningsApi.V2ScreeningsCloseCreateWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **id** | **Guid** | A UUID string identifying this screening. |  |
+
+### Return type
+
+[**V2ScreeningDetail**](V2ScreeningDetail.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** |  |  -  |
+| **409** | No response body |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a id="v2screeningscreate"></a>
 # **V2ScreeningsCreate**
@@ -207,7 +307,7 @@ catch (ApiException e)
 
 <a id="v2screeningslist"></a>
 # **V2ScreeningsList**
-> PaginatedV2ScreeningListItemList V2ScreeningsList (int? page = null, int? pageSize = null, bool? paginate = null)
+> PaginatedV2ScreeningListItemList V2ScreeningsList (Guid? organisation = null, int? page = null, int? pageSize = null, bool? paginate = null)
 
 
 
@@ -235,13 +335,14 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new ScreeningsApi(httpClient, config, httpClientHandler);
+            var organisation = "organisation_example";  // Guid? | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. (optional) 
             var page = 1;  // int? | A page number within the paginated result set. (optional)  (default to 1)
             var pageSize = 50;  // int? | Number of results to return per page. (optional)  (default to 50)
             var paginate = true;  // bool? | Enable/disable pagination. When false, max 500 records returned. (optional)  (default to true)
 
             try
             {
-                PaginatedV2ScreeningListItemList result = apiInstance.V2ScreeningsList(page, pageSize, paginate);
+                PaginatedV2ScreeningListItemList result = apiInstance.V2ScreeningsList(organisation, page, pageSize, paginate);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -261,7 +362,7 @@ This returns an ApiResponse object which contains the response data, status code
 ```csharp
 try
 {
-    ApiResponse<PaginatedV2ScreeningListItemList> response = apiInstance.V2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+    ApiResponse<PaginatedV2ScreeningListItemList> response = apiInstance.V2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
     Debug.Write("Status Code: " + response.StatusCode);
     Debug.Write("Response Headers: " + response.Headers);
     Debug.Write("Response Body: " + response.Data);
@@ -278,6 +379,7 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
+| **organisation** | **Guid?** | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | [optional]  |
 | **page** | **int?** | A page number within the paginated result set. | [optional] [default to 1] |
 | **pageSize** | **int?** | Number of results to return per page. | [optional] [default to 50] |
 | **paginate** | **bool?** | Enable/disable pagination. When false, max 500 records returned. | [optional] [default to true] |

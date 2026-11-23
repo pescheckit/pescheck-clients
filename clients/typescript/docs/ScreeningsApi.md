@@ -4,11 +4,84 @@ All URIs are relative to *https://api.pescheck.io*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**v2ScreeningsCloseCreate**](ScreeningsApi.md#v2screeningsclosecreate) | **POST** /api/v2/screenings/{id}/close/ | Close a screening |
 | [**v2ScreeningsCreate**](ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ |  |
 | [**v2ScreeningsDocumentsList**](ScreeningsApi.md#v2screeningsdocumentslist) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents |
 | [**v2ScreeningsList**](ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ |  |
 | [**v2ScreeningsRetrieve**](ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ |  |
 
+
+
+## v2ScreeningsCloseCreate
+
+> V2ScreeningDetail v2ScreeningsCloseCreate(id)
+
+Close a screening
+
+Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+### Example
+
+```ts
+import {
+  Configuration,
+  ScreeningsApi,
+} from '@pescheckit/pescheck-client';
+import type { V2ScreeningsCloseCreateRequest } from '@pescheckit/pescheck-client';
+
+async function example() {
+  console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
+  const config = new Configuration({ 
+    // To configure OAuth2 access token for authorization: oauth2 application
+    accessToken: "YOUR ACCESS TOKEN",
+  });
+  const api = new ScreeningsApi(config);
+
+  const body = {
+    // string | A UUID string identifying this screening.
+    id: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies V2ScreeningsCloseCreateRequest;
+
+  try {
+    const data = await api.v2ScreeningsCloseCreate(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **id** | `string` | A UUID string identifying this screening. | [Defaults to `undefined`] |
+
+### Return type
+
+[**V2ScreeningDetail**](V2ScreeningDetail.md)
+
+### Authorization
+
+[oauth2 application](../README.md#oauth2-application)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** |  |  -  |
+| **409** | No response body |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## v2ScreeningsCreate
@@ -159,7 +232,7 @@ example().catch(console.error);
 
 ## v2ScreeningsList
 
-> PaginatedV2ScreeningListItemList v2ScreeningsList(page, pageSize, paginate)
+> PaginatedV2ScreeningListItemList v2ScreeningsList(organisation, page, pageSize, paginate)
 
 
 
@@ -181,6 +254,8 @@ async function example() {
   const api = new ScreeningsApi(config);
 
   const body = {
+    // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\'s screenings. (optional)
+    organisation: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // number | A page number within the paginated result set. (optional)
     page: 1,
     // number | Number of results to return per page. (optional)
@@ -206,6 +281,7 @@ example().catch(console.error);
 
 | Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
+| **organisation** | `string` | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings. | [Optional] [Defaults to `undefined`] |
 | **page** | `number` | A page number within the paginated result set. | [Optional] [Defaults to `1`] |
 | **pageSize** | `number` | Number of results to return per page. | [Optional] [Defaults to `50`] |
 | **paginate** | `boolean` | Enable/disable pagination. When false, max 500 records returned. | [Optional] [Defaults to `true`] |

@@ -105,6 +105,16 @@ public:
     void unsetCandidate_fields();
     void setCandidateFields(const std::vector<std::shared_ptr<Object>>& value);
 
+    bool isCreatesAsDraft() const;
+    bool createsAsDraftIsSet() const;
+    void unsetCreates_as_draft();
+    void setCreatesAsDraft(bool value);
+
+    std::vector<utility::string_t> getDraftReasons() const;
+    bool draftReasonsIsSet() const;
+    void unsetDraft_reasons();
+    void setDraftReasons(const std::vector<utility::string_t>& value);
+
     utility::datetime getCreatedAt() const;
     bool createdAtIsSet() const;
     void unsetCreated_at();
@@ -142,6 +152,12 @@ protected:
 
     std::vector<std::shared_ptr<Object>> m_Candidate_fields;
     bool m_Candidate_fieldsIsSet;
+
+    bool m_Creates_as_draft;
+    bool m_Creates_as_draftIsSet;
+
+    std::vector<utility::string_t> m_Draft_reasons;
+    bool m_Draft_reasonsIsSet;
 
     utility::datetime m_Created_at;
     bool m_Created_atIsSet;

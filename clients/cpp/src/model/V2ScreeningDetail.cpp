@@ -57,6 +57,11 @@ web::json::value V2ScreeningDetail::toJson() const
         
         val[utility::conversions::to_string_t(_XPLATSTR("status"))] = ModelBase::toJson(m_Status);
     }
+    if(m_Organisation.has_value())
+    {
+        
+        val[utility::conversions::to_string_t(_XPLATSTR("organisation"))] = ModelBase::toJson(m_Organisation.get());
+    }
     if(m_Profile.has_value())
     {
         
@@ -126,12 +131,23 @@ bool V2ScreeningDetail::fromJson(const web::json::value& val)
             
         }
     }
+    if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("organisation"))))
+    {
+        const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("organisation")));
+        if(!fieldValue.is_null())
+        {
+            std::shared_ptr<V2ScreeningDetail_organisation> refVal_setOrganisation;
+            ok &= ModelBase::fromJson(fieldValue, refVal_setOrganisation);
+            setOrganisation(refVal_setOrganisation);
+            
+        }
+    }
     if(val.has_field(utility::conversions::to_string_t(_XPLATSTR("profile"))))
     {
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("profile")));
         if(!fieldValue.is_null())
         {
-            std::shared_ptr<V2ScreeningDetail_profile> refVal_setProfile;
+            std::shared_ptr<V2ScreeningDetail_organisation> refVal_setProfile;
             ok &= ModelBase::fromJson(fieldValue, refVal_setProfile);
             setProfile(refVal_setProfile);
             
@@ -232,6 +248,10 @@ void V2ScreeningDetail::toMultipart(std::shared_ptr<MultipartFormData> multipart
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("status")), m_Status));
     }
+    if(m_Organisation.has_value())
+    {
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("organisation")), m_Organisation.get()));
+    }
     if(m_Profile.has_value())
     {
         multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("profile")), m_Profile.get()));
@@ -287,9 +307,15 @@ bool V2ScreeningDetail::fromMultiPart(std::shared_ptr<MultipartFormData> multipa
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("status"))), refVal_setStatus );
         setStatus(refVal_setStatus);
     }
+    if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("organisation"))))
+    {
+        std::shared_ptr<V2ScreeningDetail_organisation> refVal_setOrganisation;
+        ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("organisation"))), refVal_setOrganisation );
+        setOrganisation(refVal_setOrganisation);
+    }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("profile"))))
     {
-        std::shared_ptr<V2ScreeningDetail_profile> refVal_setProfile;
+        std::shared_ptr<V2ScreeningDetail_organisation> refVal_setProfile;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("profile"))), refVal_setProfile );
         setProfile(refVal_setProfile);
     }
@@ -381,13 +407,33 @@ void V2ScreeningDetail::unsetStatus()
 {
     m_StatusIsSet = false;
 }
-std::shared_ptr<V2ScreeningDetail_profile> V2ScreeningDetail::getProfile() const
+std::shared_ptr<V2ScreeningDetail_organisation> V2ScreeningDetail::getOrganisation() const
+{
+    return m_Organisation.get();
+}
+
+
+void V2ScreeningDetail::setOrganisation(const std::shared_ptr<V2ScreeningDetail_organisation>& value)
+{
+    m_Organisation = value;
+}
+
+bool V2ScreeningDetail::organisationIsSet() const
+{
+    return m_Organisation.has_value();
+}
+
+void V2ScreeningDetail::unsetOrganisation()
+{
+    m_Organisation.reset();
+}
+std::shared_ptr<V2ScreeningDetail_organisation> V2ScreeningDetail::getProfile() const
 {
     return m_Profile.get();
 }
 
 
-void V2ScreeningDetail::setProfile(const std::shared_ptr<V2ScreeningDetail_profile>& value)
+void V2ScreeningDetail::setProfile(const std::shared_ptr<V2ScreeningDetail_organisation>& value)
 {
     m_Profile = value;
 }

@@ -34,6 +34,10 @@ import {
     V2ScreeningDetailToJSON,
 } from '../models/V2ScreeningDetail';
 
+export interface V2ScreeningsCloseCreateRequest {
+    id: string;
+}
+
 export interface V2ScreeningsCreateRequest {
     v2ScreeningCreate: V2ScreeningCreate;
 }
@@ -45,6 +49,7 @@ export interface V2ScreeningsDocumentsListRequest {
 }
 
 export interface V2ScreeningsListRequest {
+    organisation?: string;
     page?: number;
     pageSize?: number;
     paginate?: boolean;
@@ -61,6 +66,30 @@ export interface V2ScreeningsRetrieveRequest {
  * @interface ScreeningsApiInterface
  */
 export interface ScreeningsApiInterface {
+    /**
+     * Creates request options for v2ScreeningsCloseCreate without sending the request
+     * @param {string} id A UUID string identifying this screening.
+     * @throws {RequiredError}
+     * @memberof ScreeningsApiInterface
+     */
+    v2ScreeningsCloseCreateRequestOpts(requestParameters: V2ScreeningsCloseCreateRequest): Promise<runtime.RequestOpts>;
+
+    /**
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @summary Close a screening
+     * @param {string} id A UUID string identifying this screening.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ScreeningsApiInterface
+     */
+    v2ScreeningsCloseCreateRaw(requestParameters: V2ScreeningsCloseCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V2ScreeningDetail>>;
+
+    /**
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * Close a screening
+     */
+    v2ScreeningsCloseCreate(requestParameters: V2ScreeningsCloseCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V2ScreeningDetail>;
+
     /**
      * Creates request options for v2ScreeningsCreate without sending the request
      * @param {V2ScreeningCreate} v2ScreeningCreate 
@@ -112,6 +141,7 @@ export interface ScreeningsApiInterface {
 
     /**
      * Creates request options for v2ScreeningsList without sending the request
+     * @param {string} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings.
      * @param {number} [page] A page number within the paginated result set.
      * @param {number} [pageSize] Number of results to return per page.
      * @param {boolean} [paginate] Enable/disable pagination. When false, max 500 records returned.
@@ -122,6 +152,7 @@ export interface ScreeningsApiInterface {
 
     /**
      * 
+     * @param {string} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department\&#39;s screenings.
      * @param {number} [page] A page number within the paginated result set.
      * @param {number} [pageSize] Number of results to return per page.
      * @param {boolean} [paginate] Enable/disable pagination. When false, max 500 records returned.
@@ -162,6 +193,58 @@ export interface ScreeningsApiInterface {
  * 
  */
 export class ScreeningsApi extends runtime.BaseAPI implements ScreeningsApiInterface {
+
+    /**
+     * Creates request options for v2ScreeningsCloseCreate without sending the request
+     */
+    async v2ScreeningsCloseCreateRequestOpts(requestParameters: V2ScreeningsCloseCreateRequest): Promise<runtime.RequestOpts> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling v2ScreeningsCloseCreate().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = `Bearer ${await this.configuration.accessToken("oauth2", ["read:api", "create:api", "update:api"])}`;
+        }
+
+
+        let urlPath = `/api/v2/screenings/{id}/close/`;
+        urlPath = urlPath.replace('{id}', encodeURIComponent(String(requestParameters['id'])));
+
+        return {
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        };
+    }
+
+    /**
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * Close a screening
+     */
+    async v2ScreeningsCloseCreateRaw(requestParameters: V2ScreeningsCloseCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<V2ScreeningDetail>> {
+        const requestOptions = await this.v2ScreeningsCloseCreateRequestOpts(requestParameters);
+        const response = await this.request(requestOptions, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => V2ScreeningDetailFromJSON(jsonValue));
+    }
+
+    /**
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * Close a screening
+     */
+    async v2ScreeningsCloseCreate(requestParameters: V2ScreeningsCloseCreateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<V2ScreeningDetail> {
+        const response = await this.v2ScreeningsCloseCreateRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      * Creates request options for v2ScreeningsCreate without sending the request
@@ -278,6 +361,10 @@ export class ScreeningsApi extends runtime.BaseAPI implements ScreeningsApiInter
      */
     async v2ScreeningsListRequestOpts(requestParameters: V2ScreeningsListRequest): Promise<runtime.RequestOpts> {
         const queryParameters: any = {};
+
+        if (requestParameters['organisation'] != null) {
+            queryParameters['organisation'] = requestParameters['organisation'];
+        }
 
         if (requestParameters['page'] != null) {
             queryParameters['page'] = requestParameters['page'];

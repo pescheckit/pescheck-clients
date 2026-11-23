@@ -23,7 +23,7 @@ class V2ProfileCheck {
      * Constructs a new <code>V2ProfileCheck</code>.
      * Input serializer for one &#x60;{check_type, config}&#x60; profile-check entry.  Used by profile create directly. Subclass with &#x60;PARTIAL_CONFIG &#x3D; True&#x60; for screening overrides where only the fields actually being changed should be validated.
      * @alias module:model/V2ProfileCheck
-     * @param checkType {module:model/V2ProfileCheck.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param checkType {module:model/V2ProfileCheck.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      */
     constructor(checkType) { 
         
@@ -86,7 +86,7 @@ class V2ProfileCheck {
 V2ProfileCheck.RequiredProperties = ["check_type"];
 
 /**
- * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+ * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
  * @member {module:model/V2ProfileCheck.CheckTypeEnum} check_type
  */
 V2ProfileCheck.prototype['check_type'] = undefined;
@@ -118,12 +118,6 @@ V2ProfileCheck['CheckTypeEnum'] = {
      * @const
      */
     "adversemedia2check": "adversemedia2check",
-
-    /**
-     * value: "adversemediacheck"
-     * @const
-     */
-    "adversemediacheck": "adversemediacheck",
 
     /**
      * value: "bigcheck"
@@ -160,6 +154,12 @@ V2ProfileCheck['CheckTypeEnum'] = {
      * @const
      */
     "edrcheck": "edrcheck",
+
+    /**
+     * value: "ibancheck"
+     * @const
+     */
+    "ibancheck": "ibancheck",
 
     /**
      * value: "id2check"

@@ -33,9 +33,7 @@ V2Candidate::V2Candidate()
     m_Gender = utility::conversions::to_string_t("");
     m_GenderIsSet = false;
     m_NationalityIsSet = false;
-    m_Postal_code = utility::conversions::to_string_t("");
     m_Postal_codeIsSet = false;
-    m_House_number = utility::conversions::to_string_t("");
     m_House_numberIsSet = false;
     m_Extension = utility::conversions::to_string_t("");
     m_ExtensionIsSet = false;
@@ -195,7 +193,7 @@ bool V2Candidate::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("postal_code")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setPostalCode;
+            std::shared_ptr<V2Candidate_postal_code> refVal_setPostalCode;
             ok &= ModelBase::fromJson(fieldValue, refVal_setPostalCode);
             setPostalCode(refVal_setPostalCode);
             
@@ -206,7 +204,7 @@ bool V2Candidate::fromJson(const web::json::value& val)
         const web::json::value& fieldValue = val.at(utility::conversions::to_string_t(_XPLATSTR("house_number")));
         if(!fieldValue.is_null())
         {
-            utility::string_t refVal_setHouseNumber;
+            std::shared_ptr<V2Candidate_house_number> refVal_setHouseNumber;
             ok &= ModelBase::fromJson(fieldValue, refVal_setHouseNumber);
             setHouseNumber(refVal_setHouseNumber);
             
@@ -328,13 +326,13 @@ bool V2Candidate::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, co
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("postal_code"))))
     {
-        utility::string_t refVal_setPostalCode;
+        std::shared_ptr<V2Candidate_postal_code> refVal_setPostalCode;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("postal_code"))), refVal_setPostalCode );
         setPostalCode(refVal_setPostalCode);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("house_number"))))
     {
-        utility::string_t refVal_setHouseNumber;
+        std::shared_ptr<V2Candidate_house_number> refVal_setHouseNumber;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("house_number"))), refVal_setHouseNumber );
         setHouseNumber(refVal_setHouseNumber);
     }
@@ -376,10 +374,6 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
     
     if (value == utility::conversions::to_string_t("AM")) {
         return NationalityEnum::AM;
-    }
-    
-    if (value == utility::conversions::to_string_t("AN")) {
-        return NationalityEnum::AN;
     }
     
     if (value == utility::conversions::to_string_t("AO")) {
@@ -468,6 +462,10 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
     
     if (value == utility::conversions::to_string_t("BO")) {
         return NationalityEnum::BO;
+    }
+    
+    if (value == utility::conversions::to_string_t("BQ")) {
+        return NationalityEnum::BQ;
     }
     
     if (value == utility::conversions::to_string_t("BR")) {
@@ -910,6 +908,10 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
         return NationalityEnum::ME;
     }
     
+    if (value == utility::conversions::to_string_t("MF")) {
+        return NationalityEnum::MF;
+    }
+    
     if (value == utility::conversions::to_string_t("MG")) {
         return NationalityEnum::MG;
     }
@@ -1174,12 +1176,20 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
         return NationalityEnum::SR;
     }
     
+    if (value == utility::conversions::to_string_t("SS")) {
+        return NationalityEnum::SS;
+    }
+    
     if (value == utility::conversions::to_string_t("ST")) {
         return NationalityEnum::ST;
     }
     
     if (value == utility::conversions::to_string_t("SV")) {
         return NationalityEnum::SV;
+    }
+    
+    if (value == utility::conversions::to_string_t("SX")) {
+        return NationalityEnum::SX;
     }
     
     if (value == utility::conversions::to_string_t("SY")) {
@@ -1365,8 +1375,6 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::AM: return utility::conversions::to_string_t("AM");
         
-        case NationalityEnum::AN: return utility::conversions::to_string_t("AN");
-        
         case NationalityEnum::AO: return utility::conversions::to_string_t("AO");
         
         case NationalityEnum::AQ: return utility::conversions::to_string_t("AQ");
@@ -1410,6 +1418,8 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         case NationalityEnum::BN: return utility::conversions::to_string_t("BN");
         
         case NationalityEnum::BO: return utility::conversions::to_string_t("BO");
+        
+        case NationalityEnum::BQ: return utility::conversions::to_string_t("BQ");
         
         case NationalityEnum::BR: return utility::conversions::to_string_t("BR");
         
@@ -1631,6 +1641,8 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::ME: return utility::conversions::to_string_t("ME");
         
+        case NationalityEnum::MF: return utility::conversions::to_string_t("MF");
+        
         case NationalityEnum::MG: return utility::conversions::to_string_t("MG");
         
         case NationalityEnum::MH: return utility::conversions::to_string_t("MH");
@@ -1763,9 +1775,13 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::SR: return utility::conversions::to_string_t("SR");
         
+        case NationalityEnum::SS: return utility::conversions::to_string_t("SS");
+        
         case NationalityEnum::ST: return utility::conversions::to_string_t("ST");
         
         case NationalityEnum::SV: return utility::conversions::to_string_t("SV");
+        
+        case NationalityEnum::SX: return utility::conversions::to_string_t("SX");
         
         case NationalityEnum::SY: return utility::conversions::to_string_t("SY");
         
@@ -1998,13 +2014,13 @@ void V2Candidate::unsetNationality()
 {
     m_NationalityIsSet = false;
 }
-utility::string_t V2Candidate::getPostalCode() const
+std::shared_ptr<V2Candidate_postal_code> V2Candidate::getPostalCode() const
 {
     return m_Postal_code;
 }
 
 
-void V2Candidate::setPostalCode(const utility::string_t& value)
+void V2Candidate::setPostalCode(const std::shared_ptr<V2Candidate_postal_code>& value)
 {
     m_Postal_code = value;
     m_Postal_codeIsSet = true;
@@ -2019,13 +2035,13 @@ void V2Candidate::unsetPostal_code()
 {
     m_Postal_codeIsSet = false;
 }
-utility::string_t V2Candidate::getHouseNumber() const
+std::shared_ptr<V2Candidate_house_number> V2Candidate::getHouseNumber() const
 {
     return m_House_number;
 }
 
 
-void V2Candidate::setHouseNumber(const utility::string_t& value)
+void V2Candidate::setHouseNumber(const std::shared_ptr<V2Candidate_house_number>& value)
 {
     m_House_number = value;
     m_House_numberIsSet = true;
