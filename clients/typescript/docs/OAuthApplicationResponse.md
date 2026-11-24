@@ -13,6 +13,8 @@ Name | Type
 `clientSecret` | string
 `clientType` | string
 `authorizationGrantType` | string
+`organisation` | string
+`organisationId` | string
 `created` | Date
 `updated` | Date
 
@@ -29,6 +31,8 @@ const example = {
   "clientSecret": null,
   "clientType": null,
   "authorizationGrantType": null,
+  "organisation": null,
+  "organisationId": null,
   "created": null,
   "updated": null,
 } satisfies OAuthApplicationResponse

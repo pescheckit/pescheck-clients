@@ -68,13 +68,14 @@ public:
     enum class Authorization_grant_typeEnum
     {
         AUTHORIZATION_CODE,
+        URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE,
         IMPLICIT,
         PASSWORD,
         CLIENT_CREDENTIALS,
         OPENID_HYBRID,
     };
     /// <summary>
-    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
     /// </summary>
 
     Client_typeEnum toClient_typeEnum(const utility::string_t& value) const;
@@ -114,12 +115,22 @@ public:
     void setClientType(const Client_typeEnum value);
 
     /// <summary>
-    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
     /// </summary>
     Authorization_grant_typeEnum getAuthorizationGrantType() const;
     bool authorizationGrantTypeIsSet() const;
     void unsetAuthorization_grant_type();
     void setAuthorizationGrantType(const Authorization_grant_typeEnum value);
+
+    utility::string_t getOrganisation() const;
+    bool organisationIsSet() const;
+    void unsetOrganisation();
+    void setOrganisation(const utility::string_t& value);
+
+    utility::string_t getOrganisationId() const;
+    bool organisationIdIsSet() const;
+    void unsetOrganisation_id();
+    void setOrganisationId(const utility::string_t& value);
 
     utility::datetime getCreated() const;
     bool createdIsSet() const;
@@ -150,6 +161,12 @@ protected:
 
     Authorization_grant_typeEnum m_Authorization_grant_type;
     bool m_Authorization_grant_typeIsSet;
+
+    utility::string_t m_Organisation;
+    bool m_OrganisationIsSet;
+
+    utility::string_t m_Organisation_id;
+    bool m_Organisation_idIsSet;
 
     utility::datetime m_Created;
     bool m_CreatedIsSet;

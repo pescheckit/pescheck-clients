@@ -73,6 +73,15 @@ namespace Pescheck.Client.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Organisation'
+        /// </summary>
+        [Fact]
+        public void OrganisationTest()
+        {
+            // TODO unit test for the property 'Organisation'
+        }
+
+        /// <summary>
         /// Test the property 'Profile'
         /// </summary>
         [Fact]

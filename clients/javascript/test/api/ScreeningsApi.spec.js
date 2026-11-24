@@ -48,6 +48,16 @@
   }
 
   describe('ScreeningsApi', function() {
+    describe('v2ScreeningsCloseCreate', function() {
+      it('should call v2ScreeningsCloseCreate successfully', function(done) {
+        //uncomment below and update the code to test v2ScreeningsCloseCreate
+        //instance.v2ScreeningsCloseCreate(function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('v2ScreeningsCreate', function() {
       it('should call v2ScreeningsCreate successfully', function(done) {
         //uncomment below and update the code to test v2ScreeningsCreate

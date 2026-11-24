@@ -20,6 +20,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCheck;
+import io.pescheck.client.model.V2ScreeningNoteInput;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,6 +65,22 @@ public class V2ScreeningCreateTest {
     @Test
     public void checksTest() {
         // TODO: test checks
+    }
+
+    /**
+     * Test the property 'screeningNotes'
+     */
+    @Test
+    public void screeningNotesTest() {
+        // TODO: test screeningNotes
+    }
+
+    /**
+     * Test the property 'divisionId'
+     */
+    @Test
+    public void divisionIdTest() {
+        // TODO: test divisionId
     }
 
 }

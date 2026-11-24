@@ -13,6 +13,8 @@
 | **supported_countries_of_work** | **Array&lt;String&gt;** |  | [readonly] |
 | **supported_countries_of_residence** | **Array&lt;String&gt;** |  | [readonly] |
 | **candidate_fields** | **Array&lt;Object&gt;** |  | [readonly] |
+| **creates_as_draft** | **Boolean** |  | [readonly] |
+| **draft_reasons** | **Array&lt;String&gt;** |  | [readonly] |
 | **created_at** | **Time** |  | [readonly] |
 | **updated_at** | **Time** |  | [readonly] |
 
@@ -31,6 +33,8 @@ instance = Pescheck::V2ProfileDetail.new(
   supported_countries_of_work: null,
   supported_countries_of_residence: null,
   candidate_fields: null,
+  creates_as_draft: null,
+  draft_reasons: null,
   created_at: null,
   updated_at: null
 )

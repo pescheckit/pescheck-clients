@@ -14,7 +14,6 @@
 package io.pescheck.client.api;
 
 import io.pescheck.client.ApiException;
-import io.pescheck.client.model.CustomTokenObtainPair;
 import io.pescheck.client.model.JWTGeneration;
 import io.pescheck.client.model.JWTResponse;
 import io.pescheck.client.model.TokenRefresh;
@@ -35,7 +34,7 @@ public class AuthenticationApiTest {
     private final AuthenticationApi api = new AuthenticationApi();
 
     /**
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
      *
      * @throws ApiException if the Api call fails
      */
@@ -43,18 +42,6 @@ public class AuthenticationApiTest {
     public void generateJWTToken2Test() throws ApiException {
         JWTGeneration jwTGeneration = null;
         JWTResponse response = api.generateJWTToken2(jwTGeneration);
-        // TODO: test validations
-    }
-
-    /**
-     * Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
-     *
-     * @throws ApiException if the Api call fails
-     */
-    @Test
-    public void jwtCreateTest() throws ApiException {
-        CustomTokenObtainPair customTokenObtainPair = null;
-        CustomTokenObtainPair response = api.jwtCreate(customTokenObtainPair);
         // TODO: test validations
     }
 

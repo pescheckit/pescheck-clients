@@ -64,10 +64,22 @@ describe Pescheck::OAuthApplicationResponse do
   describe 'test attribute "authorization_grant_type"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
       # validator.allowable_values.each do |value|
       #   expect { instance.authorization_grant_type = value }.not_to raise_error
       # end
+    end
+  end
+
+  describe 'test attribute "organisation"' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
+  describe 'test attribute "organisation_id"' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end
   end
 

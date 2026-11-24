@@ -37,7 +37,10 @@ class TestV2ScreeningListItem(unittest.TestCase):
             return V2ScreeningListItem(
                 id = '',
                 status = '',
-                profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                    id = '', 
+                    name = '', ),
+                profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                     id = '', 
                     name = '', ),
                 candidate = pescheck.models.v2_candidate.V2Candidate(
@@ -65,7 +68,10 @@ class TestV2ScreeningListItem(unittest.TestCase):
         else:
             return V2ScreeningListItem(
                 id = '',
-                profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                    id = '', 
+                    name = '', ),
+                profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                     id = '', 
                     name = '', ),
                 candidate = pescheck.models.v2_candidate.V2Candidate(

@@ -98,6 +98,15 @@ class V2ScreeningDetailTest extends TestCase
     }
 
     /**
+     * Test attribute "organisation"
+     */
+    public function testPropertyOrganisation()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "profile"
      */
     public function testPropertyProfile()
@@ -119,6 +128,15 @@ class V2ScreeningDetailTest extends TestCase
      * Test attribute "checks"
      */
     public function testPropertyChecks()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "screening_notes"
+     */
+    public function testPropertyScreeningNotes()
     {
         // TODO: implement
         self::markTestIncomplete('Not implemented');

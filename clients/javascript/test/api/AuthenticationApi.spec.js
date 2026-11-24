@@ -58,16 +58,6 @@
         done();
       });
     });
-    describe('jwtCreate', function() {
-      it('should call jwtCreate successfully', function(done) {
-        //uncomment below and update the code to test jwtCreate
-        //instance.jwtCreate(function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('jwtRefreshCreate', function() {
       it('should call jwtRefreshCreate successfully', function(done) {
         //uncomment below and update the code to test jwtRefreshCreate

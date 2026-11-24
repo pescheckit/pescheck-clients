@@ -136,6 +136,24 @@ namespace Pescheck.Client.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'CreatesAsDraft'
+        /// </summary>
+        [Fact]
+        public void CreatesAsDraftTest()
+        {
+            // TODO unit test for the property 'CreatesAsDraft'
+        }
+
+        /// <summary>
+        /// Test the property 'DraftReasons'
+        /// </summary>
+        [Fact]
+        public void DraftReasonsTest()
+        {
+            // TODO unit test for the property 'DraftReasons'
+        }
+
+        /// <summary>
         /// Test the property 'CreatedAt'
         /// </summary>
         [Fact]

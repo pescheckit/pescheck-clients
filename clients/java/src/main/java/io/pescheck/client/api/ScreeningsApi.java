@@ -77,6 +77,137 @@ public class ScreeningsApi {
     }
 
     /**
+     * Build call for v2ScreeningsCloseCreate
+     * @param id A UUID string identifying this screening. (required)
+     * @param _callback Callback for upload/download progress
+     * @return Call to execute
+     * @throws ApiException If fail to serialize the request body object
+     * @http.response.details
+     <table border="1">
+       <caption>Response Details</caption>
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call v2ScreeningsCloseCreateCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+        String basePath = null;
+        // Operation Servers
+        String[] localBasePaths = new String[] {  };
+
+        // Determine Base Path to Use
+        if (localCustomBaseUrl != null){
+            basePath = localCustomBaseUrl;
+        } else if ( localBasePaths.length > 0 ) {
+            basePath = localBasePaths[localHostIndex];
+        } else {
+            basePath = null;
+        }
+
+        Object localVarPostBody = null;
+
+        // create path and map variables
+        String localVarPath = "/api/v2/screenings/{id}/close/"
+            .replace("{" + "id" + "}", localVarApiClient.escapeString(id.toString()));
+
+        List<Pair> localVarQueryParams = new ArrayList<Pair>();
+        List<Pair> localVarCollectionQueryParams = new ArrayList<Pair>();
+        Map<String, String> localVarHeaderParams = new HashMap<String, String>();
+        Map<String, String> localVarCookieParams = new HashMap<String, String>();
+        Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        final String[] localVarAccepts = {
+            "application/json"
+        };
+        final String localVarAccept = localVarApiClient.selectHeaderAccept(localVarAccepts);
+        if (localVarAccept != null) {
+            localVarHeaderParams.put("Accept", localVarAccept);
+        }
+
+        final String[] localVarContentTypes = {
+        };
+        final String localVarContentType = localVarApiClient.selectHeaderContentType(localVarContentTypes);
+        if (localVarContentType != null) {
+            localVarHeaderParams.put("Content-Type", localVarContentType);
+        }
+
+        String[] localVarAuthNames = new String[] { "oauth2" };
+        return localVarApiClient.buildCall(basePath, localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarCookieParams, localVarFormParams, localVarAuthNames, _callback);
+    }
+
+    @SuppressWarnings("rawtypes")
+    private okhttp3.Call v2ScreeningsCloseCreateValidateBeforeCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+        // verify the required parameter 'id' is set
+        if (id == null) {
+            throw new ApiException("Missing the required parameter 'id' when calling v2ScreeningsCloseCreate(Async)");
+        }
+
+        return v2ScreeningsCloseCreateCall(id, _callback);
+
+    }
+
+    /**
+     * Close a screening
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param id A UUID string identifying this screening. (required)
+     * @return V2ScreeningDetail
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table border="1">
+       <caption>Response Details</caption>
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+     </table>
+     */
+    public V2ScreeningDetail v2ScreeningsCloseCreate(@javax.annotation.Nonnull UUID id) throws ApiException {
+        ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsCloseCreateWithHttpInfo(id);
+        return localVarResp.getData();
+    }
+
+    /**
+     * Close a screening
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param id A UUID string identifying this screening. (required)
+     * @return ApiResponse&lt;V2ScreeningDetail&gt;
+     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+     * @http.response.details
+     <table border="1">
+       <caption>Response Details</caption>
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+     </table>
+     */
+    public ApiResponse<V2ScreeningDetail> v2ScreeningsCloseCreateWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+        okhttp3.Call localVarCall = v2ScreeningsCloseCreateValidateBeforeCall(id, null);
+        Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
+        return localVarApiClient.execute(localVarCall, localVarReturnType);
+    }
+
+    /**
+     * Close a screening (asynchronously)
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param id A UUID string identifying this screening. (required)
+     * @param _callback The callback to be executed when the API call finishes
+     * @return The request call
+     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @http.response.details
+     <table border="1">
+       <caption>Response Details</caption>
+        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+     </table>
+     */
+    public okhttp3.Call v2ScreeningsCloseCreateAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2ScreeningsCloseCreateValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+    /**
      * Build call for v2ScreeningsCreate
      * @param v2ScreeningCreate  (required)
      * @param _callback Callback for upload/download progress
@@ -349,6 +480,7 @@ public class ScreeningsApi {
     }
     /**
      * Build call for v2ScreeningsList
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -362,7 +494,7 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -386,6 +518,10 @@ public class ScreeningsApi {
         Map<String, String> localVarHeaderParams = new HashMap<String, String>();
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
         Map<String, Object> localVarFormParams = new HashMap<String, Object>();
+
+        if (organisation != null) {
+            localVarQueryParams.addAll(localVarApiClient.parameterToPair("organisation", organisation));
+        }
 
         if (page != null) {
             localVarQueryParams.addAll(localVarApiClient.parameterToPair("page", page));
@@ -419,14 +555,15 @@ public class ScreeningsApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call v2ScreeningsListValidateBeforeCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
-        return v2ScreeningsListCall(page, pageSize, paginate, _callback);
+    private okhttp3.Call v2ScreeningsListValidateBeforeCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+        return v2ScreeningsListCall(organisation, page, pageSize, paginate, _callback);
 
     }
 
     /**
      * 
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -439,14 +576,15 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public PaginatedV2ScreeningListItemList v2ScreeningsList(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+    public PaginatedV2ScreeningListItemList v2ScreeningsList(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+        ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
         return localVarResp.getData();
     }
 
     /**
      * 
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -459,8 +597,8 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(page, pageSize, paginate, null);
+    public ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, null);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -468,6 +606,7 @@ public class ScreeningsApi {
     /**
      *  (asynchronously)
      * 
+     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param page A page number within the paginated result set. (optional, default to 1)
      * @param pageSize Number of results to return per page. (optional, default to 50)
      * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -481,9 +620,9 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
+    public okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(page, pageSize, paginate, _callback);
+        okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, _callback);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;

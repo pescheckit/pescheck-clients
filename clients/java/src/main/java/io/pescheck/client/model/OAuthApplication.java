@@ -114,11 +114,13 @@ public class OAuthApplication {
   private ClientTypeEnum clientType = ClientTypeEnum.CONFIDENTIAL;
 
   /**
-   * Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+   * Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
    */
   @JsonAdapter(AuthorizationGrantTypeEnum.Adapter.class)
   public enum AuthorizationGrantTypeEnum {
     AUTHORIZATION_CODE("authorization-code"),
+    
+    URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE("urn:ietf:params:oauth:grant-type:device_code"),
     
     IMPLICIT("implicit"),
     
@@ -233,7 +235,7 @@ public class OAuthApplication {
   }
 
   /**
-   * Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+   * Grant type (client_credentials for API access)  * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
    * @return authorizationGrantType
    */
   @javax.annotation.Nullable

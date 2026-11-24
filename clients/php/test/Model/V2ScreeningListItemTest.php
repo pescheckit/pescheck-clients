@@ -98,6 +98,15 @@ class V2ScreeningListItemTest extends TestCase
     }
 
     /**
+     * Test attribute "organisation"
+     */
+    public function testPropertyOrganisation()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "profile"
      */
     public function testPropertyProfile()

@@ -39,7 +39,9 @@ class TestV2CheckField(unittest.TestCase):
                 type = '',
                 required = True,
                 choices = [
-                    ''
+                    {
+                        'key' : null
+                        }
                     ],
                 help_text = ''
             )
@@ -49,7 +51,9 @@ class TestV2CheckField(unittest.TestCase):
                 type = '',
                 required = True,
                 choices = [
-                    ''
+                    {
+                        'key' : null
+                        }
                     ],
                 help_text = '',
         )

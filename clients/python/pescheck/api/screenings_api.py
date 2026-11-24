@@ -43,6 +43,270 @@ class ScreeningsApi:
 
 
     @validate_call
+    def v2_screenings_close_create(
+        self,
+        id: Annotated[UUID, Field(description="A UUID string identifying this screening.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> V2ScreeningDetail:
+        """Close a screening
+
+        Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+        :param id: A UUID string identifying this screening. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_screenings_close_create_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2ScreeningDetail",
+            '409': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def v2_screenings_close_create_with_http_info(
+        self,
+        id: Annotated[UUID, Field(description="A UUID string identifying this screening.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[V2ScreeningDetail]:
+        """Close a screening
+
+        Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+        :param id: A UUID string identifying this screening. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_screenings_close_create_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2ScreeningDetail",
+            '409': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def v2_screenings_close_create_without_preload_content(
+        self,
+        id: Annotated[UUID, Field(description="A UUID string identifying this screening.")],
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """Close a screening
+
+        Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+        :param id: A UUID string identifying this screening. (required)
+        :type id: UUID
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._v2_screenings_close_create_serialize(
+            id=id,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "V2ScreeningDetail",
+            '409': None,
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _v2_screenings_close_create_serialize(
+        self,
+        id,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        if id is not None:
+            _path_params['id'] = id
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'oauth2'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/api/v2/screenings/{id}/close/',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def v2_screenings_create(
         self,
         v2_screening_create: V2ScreeningCreate,
@@ -612,6 +876,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -631,6 +896,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -660,6 +927,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -686,6 +954,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list_with_http_info(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -705,6 +974,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -734,6 +1005,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -760,6 +1032,7 @@ class ScreeningsApi:
     @validate_call
     def v2_screenings_list_without_preload_content(
         self,
+        organisation: Annotated[Optional[UUID], Field(description="Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.")] = None,
         page: Annotated[Optional[Annotated[int, Field(strict=True, ge=1)]], Field(description="A page number within the paginated result set.")] = None,
         page_size: Annotated[Optional[Annotated[int, Field(le=100, strict=True, ge=1)]], Field(description="Number of results to return per page.")] = None,
         paginate: Annotated[Optional[StrictBool], Field(description="Enable/disable pagination. When false, max 500 records returned.")] = None,
@@ -779,6 +1052,8 @@ class ScreeningsApi:
         """v2_screenings_list
 
 
+        :param organisation: Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+        :type organisation: UUID
         :param page: A page number within the paginated result set.
         :type page: int
         :param page_size: Number of results to return per page.
@@ -808,6 +1083,7 @@ class ScreeningsApi:
         """ # noqa: E501
 
         _param = self._v2_screenings_list_serialize(
+            organisation=organisation,
             page=page,
             page_size=page_size,
             paginate=paginate,
@@ -829,6 +1105,7 @@ class ScreeningsApi:
 
     def _v2_screenings_list_serialize(
         self,
+        organisation,
         page,
         page_size,
         paginate,
@@ -854,6 +1131,10 @@ class ScreeningsApi:
 
         # process the path parameters
         # process the query parameters
+        if organisation is not None:
+            
+            _query_params.append(('organisation', organisation))
+            
         if page is not None:
             
             _query_params.append(('page', page))

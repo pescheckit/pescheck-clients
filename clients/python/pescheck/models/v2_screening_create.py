@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from pescheck.models.v2_candidate import V2Candidate
@@ -35,7 +35,8 @@ class V2ScreeningCreate(BaseModel):
     candidate: V2Candidate
     checks: Optional[List[V2ScreeningCheck]] = None
     screening_notes: Optional[List[V2ScreeningNoteInput]] = None
-    __properties: ClassVar[List[str]] = ["profile_id", "candidate", "checks", "screening_notes"]
+    division_id: Optional[UUID] = Field(default=None, description="Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.")
+    __properties: ClassVar[List[str]] = ["profile_id", "candidate", "checks", "screening_notes", "division_id"]
 
     model_config = ConfigDict(
         validate_by_name=True,
@@ -108,7 +109,8 @@ class V2ScreeningCreate(BaseModel):
             "profile_id": obj.get("profile_id"),
             "candidate": V2Candidate.from_dict(obj["candidate"]) if obj.get("candidate") is not None else None,
             "checks": [V2ScreeningCheck.from_dict(_item) for _item in obj["checks"]] if obj.get("checks") is not None else None,
-            "screening_notes": [V2ScreeningNoteInput.from_dict(_item) for _item in obj["screening_notes"]] if obj.get("screening_notes") is not None else None
+            "screening_notes": [V2ScreeningNoteInput.from_dict(_item) for _item in obj["screening_notes"]] if obj.get("screening_notes") is not None else None,
+            "division_id": obj.get("division_id")
         })
         return _obj
 

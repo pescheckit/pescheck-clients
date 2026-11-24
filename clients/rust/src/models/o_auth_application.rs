@@ -20,7 +20,7 @@ pub struct OAuthApplication {
     /// Client type (confidential recommended for server-to-server)  * `confidential` - Confidential * `public` - Public
     #[serde(rename = "client_type", skip_serializing_if = "Option::is_none")]
     pub client_type: Option<ClientType>,
-    /// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+    /// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
     #[serde(rename = "authorization_grant_type", skip_serializing_if = "Option::is_none")]
     pub authorization_grant_type: Option<AuthorizationGrantType>,
     /// Space-separated redirect URIs (optional for client_credentials)
@@ -57,11 +57,13 @@ impl Default for ClientType {
         Self::Confidential
     }
 }
-/// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+/// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AuthorizationGrantType {
     #[serde(rename = "authorization-code")]
     AuthorizationCode,
+    #[serde(rename = "urn:ietf:params:oauth:grant-type:device_code")]
+    UrnColonIetfColonParamsColonOauthColonGrantTypeColonDeviceCode,
     #[serde(rename = "implicit")]
     Implicit,
     #[serde(rename = "password")]

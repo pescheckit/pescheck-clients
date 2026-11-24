@@ -108,6 +108,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property createsAsDraft (base name: "creates_as_draft")', function() {
+      // uncomment below and update the code to test the property createsAsDraft
+      //var instance = new PescheckApi.V2ProfileDetail();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property draftReasons (base name: "draft_reasons")', function() {
+      // uncomment below and update the code to test the property draftReasons
+      //var instance = new PescheckApi.V2ProfileDetail();
+      //expect(instance).to.be();
+    });
+
     it('should have the property createdAt (base name: "created_at")', function() {
       // uncomment below and update the code to test the property createdAt
       //var instance = new PescheckApi.V2ProfileDetail();

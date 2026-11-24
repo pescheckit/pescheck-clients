@@ -30,7 +30,7 @@ describe Pescheck::V2ScreeningCheck do
   describe 'test attribute "check_type"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["addresscheck", "adversemediacheck", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "id2check", "integritycheck", "openhealthcarecheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('String', ["addresscheck", "adversemedia2check", "bigcheck", "criminalrecordscheck", "criminalrecordsuploadcheck", "customintegritycheck", "cvcheck", "edrcheck", "ibancheck", "id2check", "integritycheck", "openhealthcarecheck", "qualificationcheck", "righttoworkcheck", "vogcheck", "watchlist2check", "watchlistcheck", "workreferencecheck", "worldwidecreditcheck"])
       # validator.allowable_values.each do |value|
       #   expect { instance.check_type = value }.not_to raise_error
       # end

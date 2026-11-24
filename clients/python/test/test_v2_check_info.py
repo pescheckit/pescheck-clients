@@ -58,7 +58,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ],
@@ -68,7 +70,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ],
@@ -78,7 +82,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ]
@@ -108,7 +114,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ],
@@ -118,7 +126,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ],
@@ -128,7 +138,9 @@ class TestV2CheckInfo(unittest.TestCase):
                         type = '', 
                         required = True, 
                         choices = [
-                            ''
+                            {
+                                'key' : null
+                                }
                             ], 
                         help_text = '', )
                     ],

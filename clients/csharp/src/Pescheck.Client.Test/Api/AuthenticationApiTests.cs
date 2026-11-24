@@ -66,18 +66,6 @@ namespace Pescheck.Client.Test.Api
         }
 
         /// <summary>
-        /// Test JwtCreate
-        /// </summary>
-        [Fact]
-        public void JwtCreateTest()
-        {
-            // TODO uncomment below to test the method and replace null with proper value
-            //CustomTokenObtainPair customTokenObtainPair = null;
-            //var response = instance.JwtCreate(customTokenObtainPair);
-            //Assert.IsType<CustomTokenObtainPair>(response);
-        }
-
-        /// <summary>
         /// Test JwtRefreshCreate
         /// </summary>
         [Fact]

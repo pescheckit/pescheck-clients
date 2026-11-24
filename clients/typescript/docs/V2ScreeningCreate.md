@@ -10,6 +10,7 @@ Name | Type
 `candidate` | [V2Candidate](V2Candidate.md)
 `checks` | [Array&lt;V2ScreeningCheck&gt;](V2ScreeningCheck.md)
 `screeningNotes` | [Array&lt;V2ScreeningNoteInput&gt;](V2ScreeningNoteInput.md)
+`divisionId` | string
 
 ## Example
 
@@ -22,6 +23,7 @@ const example = {
   "candidate": null,
   "checks": null,
   "screeningNotes": null,
+  "divisionId": null,
 } satisfies V2ScreeningCreate
 
 console.log(example)

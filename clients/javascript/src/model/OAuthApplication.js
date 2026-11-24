@@ -126,7 +126,7 @@ OAuthApplication.prototype['name'] = undefined;
 OAuthApplication.prototype['client_type'] = 'confidential';
 
 /**
- * Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+ * Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
  * @member {module:model/OAuthApplication.AuthorizationGrantTypeEnum} authorization_grant_type
  * @default 'client-credentials'
  */
@@ -181,6 +181,12 @@ OAuthApplication['AuthorizationGrantTypeEnum'] = {
      * @const
      */
     "authorization-code": "authorization-code",
+
+    /**
+     * value: "urn:ietf:params:oauth:grant-type:device_code"
+     * @const
+     */
+    "urn:ietf:params:oauth:grant-type:device_code": "urn:ietf:params:oauth:grant-type:device_code",
 
     /**
      * value: "implicit"

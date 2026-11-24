@@ -80,5 +80,23 @@ namespace Pescheck.Client.Test.Model
         {
             // TODO unit test for the property 'Checks'
         }
+
+        /// <summary>
+        /// Test the property 'ScreeningNotes'
+        /// </summary>
+        [Fact]
+        public void ScreeningNotesTest()
+        {
+            // TODO unit test for the property 'ScreeningNotes'
+        }
+
+        /// <summary>
+        /// Test the property 'DivisionId'
+        /// </summary>
+        [Fact]
+        public void DivisionIdTest()
+        {
+            // TODO unit test for the property 'DivisionId'
+        }
     }
 }

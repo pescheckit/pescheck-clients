@@ -63,6 +63,10 @@ class TestV2ProfileDetail(unittest.TestCase):
                 candidate_fields = [
                     None
                     ],
+                creates_as_draft = True,
+                draft_reasons = [
+                    ''
+                    ],
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
@@ -94,6 +98,10 @@ class TestV2ProfileDetail(unittest.TestCase):
                     ],
                 candidate_fields = [
                     None
+                    ],
+                creates_as_draft = True,
+                draft_reasons = [
+                    ''
                     ],
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),

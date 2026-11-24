@@ -36,6 +36,20 @@ public class ScreeningsApiTest {
     private final ScreeningsApi api = new ScreeningsApi();
 
     /**
+     * Close a screening
+     *
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     *
+     * @throws ApiException if the Api call fails
+     */
+    @Test
+    public void v2ScreeningsCloseCreateTest() throws ApiException {
+        UUID id = null;
+        V2ScreeningDetail response = api.v2ScreeningsCloseCreate(id);
+        // TODO: test validations
+    }
+
+    /**
      * @throws ApiException if the Api call fails
      */
     @Test
@@ -66,10 +80,11 @@ public class ScreeningsApiTest {
      */
     @Test
     public void v2ScreeningsListTest() throws ApiException {
+        UUID organisation = null;
         Integer page = null;
         Integer pageSize = null;
         Boolean paginate = null;
-        PaginatedV2ScreeningListItemList response = api.v2ScreeningsList(page, pageSize, paginate);
+        PaginatedV2ScreeningListItemList response = api.v2ScreeningsList(organisation, page, pageSize, paginate);
         // TODO: test validations
     }
 

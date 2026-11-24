@@ -92,8 +92,8 @@ class DivisionReadOnly implements ModelInterface, ArrayAccess, \JsonSerializable
         'postal' => null,
         'phone' => null,
         'contact_name' => null,
-        'contact_email' => 'email',
-        'invoice_email' => 'email',
+        'contact_email' => null,
+        'invoice_email' => null,
         'use_parent_on_email' => null,
         'use_parent_on_billing' => null,
         'use_parent_on_report' => null

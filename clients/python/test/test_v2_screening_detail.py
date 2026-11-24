@@ -37,7 +37,10 @@ class TestV2ScreeningDetail(unittest.TestCase):
             return V2ScreeningDetail(
                 id = '',
                 status = '',
-                profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                    id = '', 
+                    name = '', ),
+                profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                     id = '', 
                     name = '', ),
                 candidate = pescheck.models.v2_candidate.V2Candidate(
@@ -63,6 +66,13 @@ class TestV2ScreeningDetail(unittest.TestCase):
                         output = { }, 
                         candidate_wizard_url = '', )
                     ],
+                screening_notes = [
+                    pescheck.models.v2_screening_note.V2ScreeningNote(
+                        note = '', 
+                        check_type = '', 
+                        check_id = '', 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
+                    ],
                 candidate_wizard_url = '',
                 dashboard_url = '',
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
@@ -72,7 +82,10 @@ class TestV2ScreeningDetail(unittest.TestCase):
             return V2ScreeningDetail(
                 id = '',
                 status = '',
-                profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                    id = '', 
+                    name = '', ),
+                profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                     id = '', 
                     name = '', ),
                 candidate = pescheck.models.v2_candidate.V2Candidate(
@@ -97,6 +110,13 @@ class TestV2ScreeningDetail(unittest.TestCase):
                         input = { }, 
                         output = { }, 
                         candidate_wizard_url = '', )
+                    ],
+                screening_notes = [
+                    pescheck.models.v2_screening_note.V2ScreeningNote(
+                        note = '', 
+                        check_type = '', 
+                        check_id = '', 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
                     ],
                 candidate_wizard_url = '',
                 dashboard_url = '',

@@ -33,6 +33,10 @@ module Pescheck
 
     attr_accessor :candidate_fields
 
+    attr_accessor :creates_as_draft
+
+    attr_accessor :draft_reasons
+
     attr_accessor :created_at
 
     attr_accessor :updated_at
@@ -49,6 +53,8 @@ module Pescheck
         :'supported_countries_of_work' => :'supported_countries_of_work',
         :'supported_countries_of_residence' => :'supported_countries_of_residence',
         :'candidate_fields' => :'candidate_fields',
+        :'creates_as_draft' => :'creates_as_draft',
+        :'draft_reasons' => :'draft_reasons',
         :'created_at' => :'created_at',
         :'updated_at' => :'updated_at'
       }
@@ -76,6 +82,8 @@ module Pescheck
         :'supported_countries_of_work' => :'Array<String>',
         :'supported_countries_of_residence' => :'Array<String>',
         :'candidate_fields' => :'Array<Object>',
+        :'creates_as_draft' => :'Boolean',
+        :'draft_reasons' => :'Array<String>',
         :'created_at' => :'Time',
         :'updated_at' => :'Time'
       }
@@ -164,6 +172,20 @@ module Pescheck
         self.candidate_fields = nil
       end
 
+      if attributes.key?(:'creates_as_draft')
+        self.creates_as_draft = attributes[:'creates_as_draft']
+      else
+        self.creates_as_draft = nil
+      end
+
+      if attributes.key?(:'draft_reasons')
+        if (value = attributes[:'draft_reasons']).is_a?(Array)
+          self.draft_reasons = value
+        end
+      else
+        self.draft_reasons = nil
+      end
+
       if attributes.key?(:'created_at')
         self.created_at = attributes[:'created_at']
       else
@@ -210,6 +232,14 @@ module Pescheck
         invalid_properties.push('invalid value for "candidate_fields", candidate_fields cannot be nil.')
       end
 
+      if @creates_as_draft.nil?
+        invalid_properties.push('invalid value for "creates_as_draft", creates_as_draft cannot be nil.')
+      end
+
+      if @draft_reasons.nil?
+        invalid_properties.push('invalid value for "draft_reasons", draft_reasons cannot be nil.')
+      end
+
       if @created_at.nil?
         invalid_properties.push('invalid value for "created_at", created_at cannot be nil.')
       end
@@ -232,6 +262,8 @@ module Pescheck
       return false if @supported_countries_of_work.nil?
       return false if @supported_countries_of_residence.nil?
       return false if @candidate_fields.nil?
+      return false if @creates_as_draft.nil?
+      return false if @draft_reasons.nil?
       return false if @created_at.nil?
       return false if @updated_at.nil?
       true
@@ -308,6 +340,26 @@ module Pescheck
     end
 
     # Custom attribute writer method with validation
+    # @param [Object] creates_as_draft Value to be assigned
+    def creates_as_draft=(creates_as_draft)
+      if creates_as_draft.nil?
+        fail ArgumentError, 'creates_as_draft cannot be nil'
+      end
+
+      @creates_as_draft = creates_as_draft
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] draft_reasons Value to be assigned
+    def draft_reasons=(draft_reasons)
+      if draft_reasons.nil?
+        fail ArgumentError, 'draft_reasons cannot be nil'
+      end
+
+      @draft_reasons = draft_reasons
+    end
+
+    # Custom attribute writer method with validation
     # @param [Object] created_at Value to be assigned
     def created_at=(created_at)
       if created_at.nil?
@@ -341,6 +393,8 @@ module Pescheck
           supported_countries_of_work == o.supported_countries_of_work &&
           supported_countries_of_residence == o.supported_countries_of_residence &&
           candidate_fields == o.candidate_fields &&
+          creates_as_draft == o.creates_as_draft &&
+          draft_reasons == o.draft_reasons &&
           created_at == o.created_at &&
           updated_at == o.updated_at
     end
@@ -354,7 +408,7 @@ module Pescheck
     # Calculates hash code according to all attributes.
     # @return [Integer] Hash code
     def hash
-      [id, name, description, is_custom, checks, total_price, supported_countries_of_work, supported_countries_of_residence, candidate_fields, created_at, updated_at].hash
+      [id, name, description, is_custom, checks, total_price, supported_countries_of_work, supported_countries_of_residence, candidate_fields, creates_as_draft, draft_reasons, created_at, updated_at].hash
     end
 
     # Builds the object from hash

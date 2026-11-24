@@ -290,7 +290,6 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     public const NATIONALITY_AI = 'AI';
     public const NATIONALITY_AL = 'AL';
     public const NATIONALITY_AM = 'AM';
-    public const NATIONALITY_AN = 'AN';
     public const NATIONALITY_AO = 'AO';
     public const NATIONALITY_AQ = 'AQ';
     public const NATIONALITY_AR = 'AR';
@@ -313,6 +312,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     public const NATIONALITY_BM = 'BM';
     public const NATIONALITY_BN = 'BN';
     public const NATIONALITY_BO = 'BO';
+    public const NATIONALITY_BQ = 'BQ';
     public const NATIONALITY_BR = 'BR';
     public const NATIONALITY_BS = 'BS';
     public const NATIONALITY_BT = 'BT';
@@ -423,6 +423,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     public const NATIONALITY_MC = 'MC';
     public const NATIONALITY_MD = 'MD';
     public const NATIONALITY_ME = 'ME';
+    public const NATIONALITY_MF = 'MF';
     public const NATIONALITY_MG = 'MG';
     public const NATIONALITY_MH = 'MH';
     public const NATIONALITY_MK = 'MK';
@@ -489,8 +490,10 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     public const NATIONALITY_SN = 'SN';
     public const NATIONALITY_SO = 'SO';
     public const NATIONALITY_SR = 'SR';
+    public const NATIONALITY_SS = 'SS';
     public const NATIONALITY_ST = 'ST';
     public const NATIONALITY_SV = 'SV';
+    public const NATIONALITY_SX = 'SX';
     public const NATIONALITY_SY = 'SY';
     public const NATIONALITY_SZ = 'SZ';
     public const NATIONALITY_TC = 'TC';
@@ -547,7 +550,6 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
             self::NATIONALITY_AI,
             self::NATIONALITY_AL,
             self::NATIONALITY_AM,
-            self::NATIONALITY_AN,
             self::NATIONALITY_AO,
             self::NATIONALITY_AQ,
             self::NATIONALITY_AR,
@@ -570,6 +572,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
             self::NATIONALITY_BM,
             self::NATIONALITY_BN,
             self::NATIONALITY_BO,
+            self::NATIONALITY_BQ,
             self::NATIONALITY_BR,
             self::NATIONALITY_BS,
             self::NATIONALITY_BT,
@@ -680,6 +683,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
             self::NATIONALITY_MC,
             self::NATIONALITY_MD,
             self::NATIONALITY_ME,
+            self::NATIONALITY_MF,
             self::NATIONALITY_MG,
             self::NATIONALITY_MH,
             self::NATIONALITY_MK,
@@ -746,8 +750,10 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
             self::NATIONALITY_SN,
             self::NATIONALITY_SO,
             self::NATIONALITY_SR,
+            self::NATIONALITY_SS,
             self::NATIONALITY_ST,
             self::NATIONALITY_SV,
+            self::NATIONALITY_SX,
             self::NATIONALITY_SY,
             self::NATIONALITY_SZ,
             self::NATIONALITY_TC,
@@ -1085,7 +1091,7 @@ class V2Candidate implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets nationality
      *
-     * @param string|null $nationality ISO 3166-1 alpha-2 country code (e.g. \"NL\", \"DE\", \"US\").  * `AD` - AD * `AE` - AE * `AF` - AF * `AG` - AG * `AI` - AI * `AL` - AL * `AM` - AM * `AN` - AN * `AO` - AO * `AQ` - AQ * `AR` - AR * `AS` - AS * `AT` - AT * `AU` - AU * `AW` - AW * `AX` - AX * `AZ` - AZ * `BA` - BA * `BB` - BB * `BD` - BD * `BE` - BE * `BF` - BF * `BG` - BG * `BH` - BH * `BI` - BI * `BJ` - BJ * `BL` - BL * `BM` - BM * `BN` - BN * `BO` - BO * `BR` - BR * `BS` - BS * `BT` - BT * `BV` - BV * `BW` - BW * `BY` - BY * `BZ` - BZ * `CA` - CA * `CC` - CC * `CD` - CD * `CF` - CF * `CG` - CG * `CH` - CH * `CI` - CI * `CK` - CK * `CL` - CL * `CM` - CM * `CN` - CN * `CO` - CO * `CR` - CR * `CU` - CU * `CV` - CV * `CW` - CW * `CX` - CX * `CY` - CY * `CZ` - CZ * `DE` - DE * `DJ` - DJ * `DK` - DK * `DM` - DM * `DO` - DO * `DZ` - DZ * `EC` - EC * `EE` - EE * `EG` - EG * `EH` - EH * `ER` - ER * `ES` - ES * `ET` - ET * `FI` - FI * `FJ` - FJ * `FK` - FK * `FM` - FM * `FO` - FO * `FR` - FR * `GA` - GA * `GB` - GB * `GD` - GD * `GE` - GE * `GF` - GF * `GG` - GG * `GH` - GH * `GI` - GI * `GL` - GL * `GM` - GM * `GN` - GN * `GP` - GP * `GQ` - GQ * `GR` - GR * `GS` - GS * `GT` - GT * `GU` - GU * `GW` - GW * `GY` - GY * `HK` - HK * `HM` - HM * `HN` - HN * `HR` - HR * `HT` - HT * `HU` - HU * `ID` - ID * `IE` - IE * `IL` - IL * `IM` - IM * `IN` - IN * `IO` - IO * `IQ` - IQ * `IR` - IR * `IS` - IS * `IT` - IT * `JE` - JE * `JM` - JM * `JO` - JO * `JP` - JP * `KE` - KE * `KG` - KG * `KH` - KH * `KI` - KI * `KM` - KM * `KN` - KN * `KP` - KP * `KR` - KR * `KW` - KW * `KY` - KY * `KZ` - KZ * `LA` - LA * `LB` - LB * `LC` - LC * `LI` - LI * `LK` - LK * `LR` - LR * `LS` - LS * `LT` - LT * `LU` - LU * `LV` - LV * `LY` - LY * `MA` - MA * `MC` - MC * `MD` - MD * `ME` - ME * `MG` - MG * `MH` - MH * `MK` - MK * `ML` - ML * `MM` - MM * `MN` - MN * `MO` - MO * `MP` - MP * `MQ` - MQ * `MR` - MR * `MS` - MS * `MT` - MT * `MU` - MU * `MV` - MV * `MW` - MW * `MX` - MX * `MY` - MY * `MZ` - MZ * `NA` - NA * `NC` - NC * `NE` - NE * `NF` - NF * `NG` - NG * `NI` - NI * `NL` - NL * `NO` - NO * `NP` - NP * `NR` - NR * `NU` - NU * `NZ` - NZ * `OM` - OM * `PA` - PA * `PE` - PE * `PF` - PF * `PG` - PG * `PH` - PH * `PK` - PK * `PL` - PL * `PM` - PM * `PN` - PN * `PR` - PR * `PS` - PS * `PT` - PT * `PW` - PW * `PY` - PY * `QA` - QA * `RE` - RE * `RO` - RO * `RS` - RS * `RU` - RU * `RW` - RW * `SA` - SA * `SB` - SB * `SC` - SC * `SD` - SD * `SE` - SE * `SG` - SG * `SH` - SH * `SI` - SI * `SJ` - SJ * `SK` - SK * `SL` - SL * `SM` - SM * `SN` - SN * `SO` - SO * `SR` - SR * `ST` - ST * `SV` - SV * `SY` - SY * `SZ` - SZ * `TC` - TC * `TD` - TD * `TF` - TF * `TG` - TG * `TH` - TH * `TJ` - TJ * `TK` - TK * `TL` - TL * `TM` - TM * `TN` - TN * `TO` - TO * `TR` - TR * `TT` - TT * `TV` - TV * `TW` - TW * `TZ` - TZ * `UA` - UA * `UG` - UG * `UM` - UM * `US` - US * `UY` - UY * `UZ` - UZ * `VA` - VA * `VC` - VC * `VE` - VE * `VG` - VG * `VI` - VI * `VN` - VN * `VU` - VU * `WF` - WF * `WS` - WS * `XK` - XK * `YE` - YE * `YT` - YT * `ZA` - ZA * `ZM` - ZM * `ZW` - ZW
+     * @param string|null $nationality ISO 3166-1 alpha-2 country code (e.g. \"NL\", \"DE\", \"US\").  * `AD` - AD * `AE` - AE * `AF` - AF * `AG` - AG * `AI` - AI * `AL` - AL * `AM` - AM * `AO` - AO * `AQ` - AQ * `AR` - AR * `AS` - AS * `AT` - AT * `AU` - AU * `AW` - AW * `AX` - AX * `AZ` - AZ * `BA` - BA * `BB` - BB * `BD` - BD * `BE` - BE * `BF` - BF * `BG` - BG * `BH` - BH * `BI` - BI * `BJ` - BJ * `BL` - BL * `BM` - BM * `BN` - BN * `BO` - BO * `BQ` - BQ * `BR` - BR * `BS` - BS * `BT` - BT * `BV` - BV * `BW` - BW * `BY` - BY * `BZ` - BZ * `CA` - CA * `CC` - CC * `CD` - CD * `CF` - CF * `CG` - CG * `CH` - CH * `CI` - CI * `CK` - CK * `CL` - CL * `CM` - CM * `CN` - CN * `CO` - CO * `CR` - CR * `CU` - CU * `CV` - CV * `CW` - CW * `CX` - CX * `CY` - CY * `CZ` - CZ * `DE` - DE * `DJ` - DJ * `DK` - DK * `DM` - DM * `DO` - DO * `DZ` - DZ * `EC` - EC * `EE` - EE * `EG` - EG * `EH` - EH * `ER` - ER * `ES` - ES * `ET` - ET * `FI` - FI * `FJ` - FJ * `FK` - FK * `FM` - FM * `FO` - FO * `FR` - FR * `GA` - GA * `GB` - GB * `GD` - GD * `GE` - GE * `GF` - GF * `GG` - GG * `GH` - GH * `GI` - GI * `GL` - GL * `GM` - GM * `GN` - GN * `GP` - GP * `GQ` - GQ * `GR` - GR * `GS` - GS * `GT` - GT * `GU` - GU * `GW` - GW * `GY` - GY * `HK` - HK * `HM` - HM * `HN` - HN * `HR` - HR * `HT` - HT * `HU` - HU * `ID` - ID * `IE` - IE * `IL` - IL * `IM` - IM * `IN` - IN * `IO` - IO * `IQ` - IQ * `IR` - IR * `IS` - IS * `IT` - IT * `JE` - JE * `JM` - JM * `JO` - JO * `JP` - JP * `KE` - KE * `KG` - KG * `KH` - KH * `KI` - KI * `KM` - KM * `KN` - KN * `KP` - KP * `KR` - KR * `KW` - KW * `KY` - KY * `KZ` - KZ * `LA` - LA * `LB` - LB * `LC` - LC * `LI` - LI * `LK` - LK * `LR` - LR * `LS` - LS * `LT` - LT * `LU` - LU * `LV` - LV * `LY` - LY * `MA` - MA * `MC` - MC * `MD` - MD * `ME` - ME * `MF` - MF * `MG` - MG * `MH` - MH * `MK` - MK * `ML` - ML * `MM` - MM * `MN` - MN * `MO` - MO * `MP` - MP * `MQ` - MQ * `MR` - MR * `MS` - MS * `MT` - MT * `MU` - MU * `MV` - MV * `MW` - MW * `MX` - MX * `MY` - MY * `MZ` - MZ * `NA` - NA * `NC` - NC * `NE` - NE * `NF` - NF * `NG` - NG * `NI` - NI * `NL` - NL * `NO` - NO * `NP` - NP * `NR` - NR * `NU` - NU * `NZ` - NZ * `OM` - OM * `PA` - PA * `PE` - PE * `PF` - PF * `PG` - PG * `PH` - PH * `PK` - PK * `PL` - PL * `PM` - PM * `PN` - PN * `PR` - PR * `PS` - PS * `PT` - PT * `PW` - PW * `PY` - PY * `QA` - QA * `RE` - RE * `RO` - RO * `RS` - RS * `RU` - RU * `RW` - RW * `SA` - SA * `SB` - SB * `SC` - SC * `SD` - SD * `SE` - SE * `SG` - SG * `SH` - SH * `SI` - SI * `SJ` - SJ * `SK` - SK * `SL` - SL * `SM` - SM * `SN` - SN * `SO` - SO * `SR` - SR * `SS` - SS * `ST` - ST * `SV` - SV * `SX` - SX * `SY` - SY * `SZ` - SZ * `TC` - TC * `TD` - TD * `TF` - TF * `TG` - TG * `TH` - TH * `TJ` - TJ * `TK` - TK * `TL` - TL * `TM` - TM * `TN` - TN * `TO` - TO * `TR` - TR * `TT` - TT * `TV` - TV * `TW` - TW * `TZ` - TZ * `UA` - UA * `UG` - UG * `UM` - UM * `US` - US * `UY` - UY * `UZ` - UZ * `VA` - VA * `VC` - VC * `VE` - VE * `VG` - VG * `VI` - VI * `VN` - VN * `VU` - VU * `WF` - WF * `WS` - WS * `XK` - XK * `YE` - YE * `YT` - YT * `ZA` - ZA * `ZM` - ZM * `ZW` - ZW
      *
      * @return self
      */

@@ -9,7 +9,9 @@ Name | Type | Description | Notes
 **clientId** | **String** |  | [optional] 
 **clientSecret** | **String** |  | [readonly] 
 **clientType** | **String** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public | 
-**authorizationGrantType** | **String** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**authorizationGrantType** | **String** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid | 
+**organisation** | **String** |  | [readonly] 
+**organisationId** | **String** |  | [readonly] 
 **created** | **Date** |  | [readonly] 
 **updated** | **Date** |  | [readonly] 
 
@@ -30,6 +32,8 @@ Name | Type | Description | Notes
 
 
 * `authorization-code` (value: `"authorization-code"`)
+
+* `urn:ietf:params:oauth:grant-type:device_code` (value: `"urn:ietf:params:oauth:grant-type:device_code"`)
 
 * `implicit` (value: `"implicit"`)
 

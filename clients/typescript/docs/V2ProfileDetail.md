@@ -15,6 +15,8 @@ Name | Type
 `supportedCountriesOfWork` | Array&lt;string&gt;
 `supportedCountriesOfResidence` | Array&lt;string&gt;
 `candidateFields` | Array&lt;object&gt;
+`createsAsDraft` | boolean
+`draftReasons` | Array&lt;string&gt;
 `createdAt` | Date
 `updatedAt` | Date
 
@@ -34,6 +36,8 @@ const example = {
   "supportedCountriesOfWork": null,
   "supportedCountriesOfResidence": null,
   "candidateFields": null,
+  "createsAsDraft": null,
+  "draftReasons": null,
   "createdAt": null,
   "updatedAt": null,
 } satisfies V2ProfileDetail

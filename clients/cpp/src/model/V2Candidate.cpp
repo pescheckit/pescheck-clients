@@ -378,10 +378,6 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
         return NationalityEnum::AM;
     }
     
-    if (value == utility::conversions::to_string_t("AN")) {
-        return NationalityEnum::AN;
-    }
-    
     if (value == utility::conversions::to_string_t("AO")) {
         return NationalityEnum::AO;
     }
@@ -468,6 +464,10 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
     
     if (value == utility::conversions::to_string_t("BO")) {
         return NationalityEnum::BO;
+    }
+    
+    if (value == utility::conversions::to_string_t("BQ")) {
+        return NationalityEnum::BQ;
     }
     
     if (value == utility::conversions::to_string_t("BR")) {
@@ -910,6 +910,10 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
         return NationalityEnum::ME;
     }
     
+    if (value == utility::conversions::to_string_t("MF")) {
+        return NationalityEnum::MF;
+    }
+    
     if (value == utility::conversions::to_string_t("MG")) {
         return NationalityEnum::MG;
     }
@@ -1174,12 +1178,20 @@ V2Candidate::NationalityEnum V2Candidate::toNationalityEnum(const utility::strin
         return NationalityEnum::SR;
     }
     
+    if (value == utility::conversions::to_string_t("SS")) {
+        return NationalityEnum::SS;
+    }
+    
     if (value == utility::conversions::to_string_t("ST")) {
         return NationalityEnum::ST;
     }
     
     if (value == utility::conversions::to_string_t("SV")) {
         return NationalityEnum::SV;
+    }
+    
+    if (value == utility::conversions::to_string_t("SX")) {
+        return NationalityEnum::SX;
     }
     
     if (value == utility::conversions::to_string_t("SY")) {
@@ -1365,8 +1377,6 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::AM: return utility::conversions::to_string_t("AM");
         
-        case NationalityEnum::AN: return utility::conversions::to_string_t("AN");
-        
         case NationalityEnum::AO: return utility::conversions::to_string_t("AO");
         
         case NationalityEnum::AQ: return utility::conversions::to_string_t("AQ");
@@ -1410,6 +1420,8 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         case NationalityEnum::BN: return utility::conversions::to_string_t("BN");
         
         case NationalityEnum::BO: return utility::conversions::to_string_t("BO");
+        
+        case NationalityEnum::BQ: return utility::conversions::to_string_t("BQ");
         
         case NationalityEnum::BR: return utility::conversions::to_string_t("BR");
         
@@ -1631,6 +1643,8 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::ME: return utility::conversions::to_string_t("ME");
         
+        case NationalityEnum::MF: return utility::conversions::to_string_t("MF");
+        
         case NationalityEnum::MG: return utility::conversions::to_string_t("MG");
         
         case NationalityEnum::MH: return utility::conversions::to_string_t("MH");
@@ -1763,9 +1777,13 @@ const utility::string_t V2Candidate::fromNationalityEnum(const NationalityEnum v
         
         case NationalityEnum::SR: return utility::conversions::to_string_t("SR");
         
+        case NationalityEnum::SS: return utility::conversions::to_string_t("SS");
+        
         case NationalityEnum::ST: return utility::conversions::to_string_t("ST");
         
         case NationalityEnum::SV: return utility::conversions::to_string_t("SV");
+        
+        case NationalityEnum::SX: return utility::conversions::to_string_t("SX");
         
         case NationalityEnum::SY: return utility::conversions::to_string_t("SY");
         

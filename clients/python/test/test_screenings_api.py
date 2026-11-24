@@ -26,6 +26,13 @@ class TestScreeningsApi(unittest.TestCase):
     def tearDown(self) -> None:
         pass
 
+    def test_v2_screenings_close_create(self) -> None:
+        """Test case for v2_screenings_close_create
+
+        Close a screening
+        """
+        pass
+
     def test_v2_screenings_create(self) -> None:
         """Test case for v2_screenings_create
 

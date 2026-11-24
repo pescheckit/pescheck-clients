@@ -39,6 +39,12 @@ describe Pescheck::V2ScreeningListItem do
     end
   end
 
+  describe 'test attribute "organisation"' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   describe 'test attribute "profile"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/

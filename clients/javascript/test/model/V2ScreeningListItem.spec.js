@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property organisation (base name: "organisation")', function() {
+      // uncomment below and update the code to test the property organisation
+      //var instance = new PescheckApi.V2ScreeningListItem();
+      //expect(instance).to.be();
+    });
+
     it('should have the property profile (base name: "profile")', function() {
       // uncomment below and update the code to test the property profile
       //var instance = new PescheckApi.V2ScreeningListItem();

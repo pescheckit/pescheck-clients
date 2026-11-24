@@ -109,6 +109,24 @@ namespace Pescheck.Client.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Organisation'
+        /// </summary>
+        [Fact]
+        public void OrganisationTest()
+        {
+            // TODO unit test for the property 'Organisation'
+        }
+
+        /// <summary>
+        /// Test the property 'OrganisationId'
+        /// </summary>
+        [Fact]
+        public void OrganisationIdTest()
+        {
+            // TODO unit test for the property 'OrganisationId'
+        }
+
+        /// <summary>
         /// Test the property 'Created'
         /// </summary>
         [Fact]

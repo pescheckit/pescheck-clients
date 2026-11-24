@@ -7,7 +7,6 @@ All URIs are relative to https://api.pescheck.io, except if the operation define
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**generateJWTToken2()**](AuthenticationApi.md#generateJWTToken2) | **POST** /api/v2/jwt/generate/ |  |
-| [**jwtCreate()**](AuthenticationApi.md#jwtCreate) | **POST** /api/jwt/ |  |
 | [**jwtRefreshCreate()**](AuthenticationApi.md#jwtRefreshCreate) | **POST** /api/jwt/refresh/ |  |
 
 
@@ -57,66 +56,6 @@ try {
 ### Return type
 
 [**\Pescheck\Client\Model\JWTResponse**](../Model/JWTResponse.md)
-
-### Authorization
-
-[oauth2](../../README.md#oauth2)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`, `multipart/form-data`
-- **Accept**: `application/json`
-
-[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
-[[Back to Model list]](../../README.md#models)
-[[Back to README]](../../README.md)
-
-## `jwtCreate()`
-
-```php
-jwtCreate($custom_token_obtain_pair): \Pescheck\Client\Model\CustomTokenObtainPair
-```
-
-
-
-Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-
-### Example
-
-```php
-<?php
-require_once(__DIR__ . '/vendor/autoload.php');
-
-
-// Configure OAuth2 access token for authorization: oauth2
-$config = Pescheck\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
-
-
-$apiInstance = new Pescheck\Client\Api\AuthenticationApi(
-    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
-    // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client(),
-    $config
-);
-$custom_token_obtain_pair = new \Pescheck\Client\Model\CustomTokenObtainPair(); // \Pescheck\Client\Model\CustomTokenObtainPair
-
-try {
-    $result = $apiInstance->jwtCreate($custom_token_obtain_pair);
-    print_r($result);
-} catch (Exception $e) {
-    echo 'Exception when calling AuthenticationApi->jwtCreate: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Parameters
-
-| Name | Type | Description  | Notes |
-| ------------- | ------------- | ------------- | ------------- |
-| **custom_token_obtain_pair** | [**\Pescheck\Client\Model\CustomTokenObtainPair**](../Model/CustomTokenObtainPair.md)|  | |
-
-### Return type
-
-[**\Pescheck\Client\Model\CustomTokenObtainPair**](../Model/CustomTokenObtainPair.md)
 
 ### Authorization
 
