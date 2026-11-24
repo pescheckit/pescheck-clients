@@ -180,7 +180,7 @@ jobs:
         uses: ./.github/actions/get-token
         with: { base_url: "${{ env.PESCHECK_BASE_URL }}", client_id: "${{ secrets.PESCHECK_CLIENT_ID }}", client_secret: "${{ secrets.PESCHECK_CLIENT_SECRET }}" }
       - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev cmake g++
-      - run: cmake -S examples/cpp-crud -B build-crud -DCMAKE_CXX_FLAGS="-Wno-return-type" && cmake --build build-crud -j
+      - run: cmake -S examples/cpp-crud -B build-crud -DCMAKE_CXX_FLAGS="-Wno-return-type" && cmake --build build-crud -j"$(nproc)"
       - name: Integration test (ctest)
         run: ctest --test-dir build-crud --output-on-failure
         env:
