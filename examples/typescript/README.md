@@ -3,6 +3,8 @@
 Minimal smoke test for the `@pescheckit/pescheck-client` TypeScript client
 (typescript-fetch): lists the supported check types via `GET /api/v2/checks/`.
 
+Get a client ID and secret by creating a test account at [dashboard-staging.pescheck.io](https://dashboard-staging.pescheck.io/) (enable the **API & MCP Access** add-on under *Settings → Add-ons*, then *Development → Add app*), and exchange them for an access token as shown in the [main README](../../README.md#quickstart).
+
 ## Environment
 
 | Variable | Description |

@@ -452,17 +452,178 @@ try {
 }
 console.log(`postprocess: Rust request params derive Default (${rustParams} struct(s))`);
 
-// Tell registry readers (PyPI, npm, NuGet, ...) about PESCHECK_BASE_URL: the
-// generated README only says the host "defaults to https://api.pescheck.io"
-// and its examples set the host explicitly, which would override the variable.
-const ENV_NOTE =
-  "> **Choosing the environment:** the default host is read from the `PESCHECK_BASE_URL` " +
-  "environment variable and falls back to production (`https://api.pescheck.io`). Set " +
-  "`PESCHECK_BASE_URL=https://api-staging.pescheck.io` while integrating, then unset it to go " +
-  "live, with no code change. Request your OAuth2 token from the same host " +
-  "(`$PESCHECK_BASE_URL/api/o/token/`). Setting the host explicitly in code, as some examples " +
-  "below do, overrides the variable.\n\n";
-let envNoted = 0;
+// A Quickstart in the client's own language, right under the banner of every
+// generated client README (what PyPI, npm, NuGet... show): how to get
+// credentials on the staging dashboard, get a token, pick the environment and
+// make a first call. It sits between markers and is rewritten on every run, so
+// editing the text here updates every README.
+const QUICKSTART_CODE = {
+  python: ["python", `import os
+import pescheck
+
+config = pescheck.Configuration() # host from PESCHECK_BASE_URL
+config.access_token = os.environ["PESCHECK_ACCESS_TOKEN"]
+
+with pescheck.ApiClient(config) as client:
+    checks = pescheck.ChecksApi(client).v2_checks_list()
+    print(f"{len(checks)} check types available")`],
+  typescript: ["typescript", `// Run as an ES module ("type": "module" in package.json), e.g. npx tsx quickstart.ts
+import { ChecksApi, Configuration } from "@pescheckit/pescheck-client";
+
+// Host from PESCHECK_BASE_URL.
+const checksApi = new ChecksApi(new Configuration({ accessToken: process.env.PESCHECK_ACCESS_TOKEN }));
+const checks = await checksApi.v2ChecksList();
+console.log(\`\${checks.length} check types available\`);`],
+  javascript: ["javascript", `const Pescheck = require("@pescheckit/pescheck-client-js");
+
+const client = new Pescheck.ApiClient(); // host from PESCHECK_BASE_URL
+client.authentications.oauth2.accessToken = process.env.PESCHECK_ACCESS_TOKEN;
+
+new Pescheck.ChecksApi(client).v2ChecksList({}).then((checks) => {
+  console.log(\`\${checks.length} check types available\`);
+});`],
+  java: ["java", `import io.pescheck.client.ApiClient;
+import io.pescheck.client.Configuration;
+import io.pescheck.client.api.ChecksApi;
+import io.pescheck.client.model.V2CheckInfo;
+import java.util.List;
+
+public class Quickstart {
+  public static void main(String[] args) throws Exception {
+    ApiClient client = Configuration.getDefaultApiClient(); // host from PESCHECK_BASE_URL
+    client.setAccessToken(System.getenv("PESCHECK_ACCESS_TOKEN"));
+
+    List<V2CheckInfo> checks = new ChecksApi(client).v2ChecksList().execute();
+    System.out.println(checks.size() + " check types available");
+  }
+}`],
+  csharp: ["csharp", `using Pescheck.Client.Api;
+using Pescheck.Client.Client;
+
+// Host from PESCHECK_BASE_URL.
+var token = Environment.GetEnvironmentVariable("PESCHECK_ACCESS_TOKEN")
+    ?? throw new InvalidOperationException("Set PESCHECK_ACCESS_TOKEN");
+var config = new Configuration { AccessToken = token };
+var checks = new ChecksApi(config).V2ChecksList();
+Console.WriteLine($"{checks.Count} check types available");`],
+  go: ["go", `package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+
+    pescheck "github.com/pescheckit/pescheck-clients/clients/go"
+)
+
+func main() {
+    client := pescheck.NewAPIClient(pescheck.NewConfiguration()) // host from PESCHECK_BASE_URL
+    ctx := context.WithValue(context.Background(), pescheck.ContextAccessToken, os.Getenv("PESCHECK_ACCESS_TOKEN"))
+
+    checks, _, err := client.ChecksAPI.V2ChecksList(ctx).Execute()
+    if err != nil {
+        panic(err)
+    }
+    fmt.Printf("%d check types available\\n", len(checks))
+}`],
+  php: ["php", `<?php
+require 'vendor/autoload.php';
+
+use Pescheck\\Client\\Api\\ChecksApi;
+use Pescheck\\Client\\Configuration;
+
+$config = (new Configuration())->setAccessToken(getenv('PESCHECK_ACCESS_TOKEN')); // host from PESCHECK_BASE_URL
+$checks = (new ChecksApi(null, $config))->v2ChecksList();
+echo count($checks) . " check types available\\n";`],
+  ruby: ["ruby", `require 'pescheck-client'
+
+config = Pescheck::Configuration.new # host from PESCHECK_BASE_URL
+config.access_token = ENV.fetch('PESCHECK_ACCESS_TOKEN')
+
+checks = Pescheck::ChecksApi.new(Pescheck::ApiClient.new(config)).v2_checks_list
+puts "#{checks.length} check types available"`],
+  rust: ["rust", `use pescheck_client::apis::{checks_api, configuration::Configuration};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut config = Configuration::new(); // host from PESCHECK_BASE_URL
+    config.oauth_access_token = Some(std::env::var("PESCHECK_ACCESS_TOKEN")?);
+
+    let checks = checks_api::v2_checks_list(&config, Default::default()).await?;
+    println!("{} check types available", checks.len());
+    Ok(())
+}`],
+  cpp: ["cpp", `#include <cstdlib>
+#include <iostream>
+#include <memory>
+#include <PescheckApi/ApiClient.h>
+#include <PescheckApi/ApiConfiguration.h>
+#include <PescheckApi/api/ChecksApi.h>
+
+using namespace org::openapitools::client::api;
+
+int main() {
+    const char* token = std::getenv("PESCHECK_ACCESS_TOKEN");
+    if (!token) {
+        std::cerr << "Set PESCHECK_ACCESS_TOKEN" << std::endl;
+        return 1;
+    }
+    auto config = std::make_shared<ApiConfiguration>(); // host from PESCHECK_BASE_URL
+    config->getDefaultHeaders()[utility::conversions::to_string_t("Authorization")] =
+        utility::conversions::to_string_t(std::string("Bearer ") + token);
+
+    ChecksApi checksApi(std::make_shared<ApiClient>(config));
+    auto checks = checksApi.v2ChecksList(boost::none).get();
+    std::cout << checks.size() << " check types available" << std::endl;
+}`],
+};
+const QS_START = "<!-- pescheck-quickstart:start (generated by scripts/postprocess.mjs) -->";
+const QS_END = "<!-- pescheck-quickstart:end -->";
+function quickstart(lang) {
+  const entry = QUICKSTART_CODE[lang];
+  if (!entry) return "";
+  const [fence, code] = entry;
+  return [
+    QS_START,
+    "",
+    "## Quickstart",
+    "",
+    "**1. Get API credentials.** Create a test account at [dashboard-staging.pescheck.io](https://dashboard-staging.pescheck.io/). In the dashboard, enable the **API & MCP Access** add-on (*Settings → Add-ons*), then create an app under *Development → Add app*. You get a client ID and a client secret.",
+    "",
+    "**2. Get an access token** from the environment you want to use (staging while you integrate):",
+    "",
+    "```bash",
+    "curl -X POST https://api-staging.pescheck.io/api/o/token/ \\",
+    "  -d grant_type=client_credentials \\",
+    "  -d client_id=YOUR_CLIENT_ID \\",
+    "  -d client_secret=YOUR_CLIENT_SECRET",
+    "```",
+    "",
+    "Copy the `access_token` from the response (it is valid for one hour), and point the client at the same environment:",
+    "",
+    "```bash",
+    "export PESCHECK_BASE_URL=https://api-staging.pescheck.io",
+    "export PESCHECK_ACCESS_TOKEN=paste-the-access-token-here",
+    "```",
+    "",
+    "**3. Make your first call:**",
+    "",
+    "```" + fence,
+    code,
+    "```",
+    "",
+    "**4. Go live.** Use your production credentials and request the token from `https://api.pescheck.io/api/o/token/`. Then unset `PESCHECK_BASE_URL`: the client uses production by default. Your code does not change.",
+    "",
+    "Setting the host in code (as some examples below do) overrides `PESCHECK_BASE_URL`.",
+    "",
+    QS_END,
+    "",
+    "",
+  ].join("\n");
+}
+// Earlier versions put these notes as quote blocks under the banner; drop them.
+const LEGACY_NOTE_PREFIXES = ["> **Getting API credentials:**", "> **Choosing the environment:**", "> **Quickstart**"];
+let quickstarts = 0;
 try {
   for (const lang of readdirSync(resolve(root, "clients"))) {
     const readme = resolve(root, "clients", lang, "README.md");
@@ -472,15 +633,29 @@ try {
     } catch {
       continue;
     }
-    if (!c.includes("PESCHECK_BASE_URL") && c.startsWith(OFFICIAL_BANNER)) {
-      writeFileSync(readme, OFFICIAL_BANNER + ENV_NOTE + c.slice(OFFICIAL_BANNER.length));
-      envNoted++;
+    if (!c.startsWith(OFFICIAL_BANNER)) continue;
+    let rest = c.slice(OFFICIAL_BANNER.length);
+    const end = rest.indexOf(QS_END);
+    if (rest.startsWith(QS_START) && end !== -1) {
+      rest = rest.slice(end + QS_END.length).replace(/^\n+/, "");
+    }
+    while (LEGACY_NOTE_PREFIXES.some((p) => rest.startsWith(p))) {
+      const lines = rest.split("\n");
+      let k = 0;
+      while (k < lines.length && lines[k].startsWith(">")) k++;
+      while (k < lines.length && lines[k] === "") k++;
+      rest = lines.slice(k).join("\n");
+    }
+    const updated = OFFICIAL_BANNER + quickstart(lang) + rest;
+    if (updated !== c) {
+      writeFileSync(readme, updated);
+      quickstarts++;
     }
   }
 } catch {
   /* no clients */
 }
-console.log(`postprocess: PESCHECK_BASE_URL note added to ${envNoted} client README(s)`);
+console.log(`postprocess: quickstart written in ${quickstarts} client README(s)`);
 
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
