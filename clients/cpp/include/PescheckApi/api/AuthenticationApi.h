@@ -22,7 +22,6 @@
 
 #include "PescheckApi/ApiClient.h"
 
-#include "PescheckApi/model/CustomTokenObtainPair.h"
 #include "PescheckApi/model/JWTGeneration.h"
 #include "PescheckApi/model/JWTResponse.h"
 #include "PescheckApi/model/TokenRefresh.h"
@@ -54,16 +53,6 @@ public:
     /// <param name="jWTGeneration"></param>
     pplx::task<std::shared_ptr<JWTResponse>> generateJWTToken2(
         std::shared_ptr<JWTGeneration> jWTGeneration
-    ) const;
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <remarks>
-    /// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-    /// </remarks>
-    /// <param name="customTokenObtainPair"></param>
-    pplx::task<std::shared_ptr<CustomTokenObtainPair>> jwtCreate(
-        std::shared_ptr<CustomTokenObtainPair> customTokenObtainPair
     ) const;
     /// <summary>
     /// 

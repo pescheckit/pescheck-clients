@@ -161,6 +161,24 @@ class V2ProfileDetailTest extends TestCase
     }
 
     /**
+     * Test attribute "creates_as_draft"
+     */
+    public function testPropertyCreatesAsDraft()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "draft_reasons"
+     */
+    public function testPropertyDraftReasons()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "created_at"
      */
     public function testPropertyCreatedAt()

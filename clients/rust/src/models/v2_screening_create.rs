@@ -21,6 +21,9 @@ pub struct V2ScreeningCreate {
     pub checks: Option<Vec<models::V2ScreeningCheck>>,
     #[serde(rename = "screening_notes", skip_serializing_if = "Option::is_none")]
     pub screening_notes: Option<Vec<models::V2ScreeningNoteInput>>,
+    /// Create the screening for this department instead of the token's own organisation. Omit for the usual case. Same field as on webhook and OAuth application creation.
+    #[serde(rename = "division_id", skip_serializing_if = "Option::is_none")]
+    pub division_id: Option<uuid::Uuid>,
 }
 
 impl V2ScreeningCreate {
@@ -30,6 +33,7 @@ impl V2ScreeningCreate {
             candidate: Box::new(candidate),
             checks: None,
             screening_notes: None,
+            division_id: None,
         }
     }
 }

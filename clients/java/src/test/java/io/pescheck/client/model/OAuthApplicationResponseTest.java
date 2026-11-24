@@ -88,6 +88,22 @@ public class OAuthApplicationResponseTest {
     }
 
     /**
+     * Test the property 'organisation'
+     */
+    @Test
+    public void organisationTest() {
+        // TODO: test organisation
+    }
+
+    /**
+     * Test the property 'organisationId'
+     */
+    @Test
+    public void organisationIdTest() {
+        // TODO: test organisationId
+    }
+
+    /**
      * Test the property 'created'
      */
     @Test

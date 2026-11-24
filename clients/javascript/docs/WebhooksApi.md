@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 
 
-Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.started&#x60; - Check has been initiated         - &#x60;check.completed&#x60; - Check has been completed successfully         - &#x60;check.failed&#x60; - Check has failed         - &#x60;screening.created&#x60; - New screening has been created         - &#x60;screening.completed&#x60; - Screening has been completed         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
+Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.status_changed&#x60; - Check status has changed (new status in payload)         - &#x60;screening.status_changed&#x60; - Screening status has changed (new status in payload)         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;profile.created&#x60; - New profile has been created         - &#x60;profile.updated&#x60; - Profile has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
 
 ### Example
 
@@ -29,7 +29,7 @@ let oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 let apiInstance = new PescheckApi.WebhooksApi();
-let webhook = {"name":"My Event Webhook","url":"https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3","events":["check.completed","screening.created","screening.completed"],"active":true,"division_id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}; // Webhook | 
+let webhook = {"name":"My Event Webhook","url":"https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3","events":["check.status_changed","screening.status_changed"],"active":true,"division_id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}; // Webhook | 
 let opts = {
   'xOrganizationId': "xOrganizationId_example", // String | Organization ID (for JWT/Session auth only)
   'organizationId': "organizationId_example" // String | Organization ID (for JWT/Session auth only)

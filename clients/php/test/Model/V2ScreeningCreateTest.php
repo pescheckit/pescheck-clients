@@ -105,4 +105,22 @@ class V2ScreeningCreateTest extends TestCase
         // TODO: implement
         self::markTestIncomplete('Not implemented');
     }
+
+    /**
+     * Test attribute "screening_notes"
+     */
+    public function testPropertyScreeningNotes()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "division_id"
+     */
+    public function testPropertyDivisionId()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
 }

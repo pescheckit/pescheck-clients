@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property organisation (base name: "organisation")', function() {
+      // uncomment below and update the code to test the property organisation
+      //var instance = new PescheckApi.V2ScreeningDetail();
+      //expect(instance).to.be();
+    });
+
     it('should have the property profile (base name: "profile")', function() {
       // uncomment below and update the code to test the property profile
       //var instance = new PescheckApi.V2ScreeningDetail();
@@ -80,6 +86,12 @@
 
     it('should have the property checks (base name: "checks")', function() {
       // uncomment below and update the code to test the property checks
+      //var instance = new PescheckApi.V2ScreeningDetail();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property screeningNotes (base name: "screening_notes")', function() {
+      // uncomment below and update the code to test the property screeningNotes
       //var instance = new PescheckApi.V2ScreeningDetail();
       //expect(instance).to.be();
     });

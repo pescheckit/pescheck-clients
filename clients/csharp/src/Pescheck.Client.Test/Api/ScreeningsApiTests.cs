@@ -54,6 +54,18 @@ namespace Pescheck.Client.Test.Api
         }
 
         /// <summary>
+        /// Test V2ScreeningsCloseCreate
+        /// </summary>
+        [Fact]
+        public void V2ScreeningsCloseCreateTest()
+        {
+            // TODO uncomment below to test the method and replace null with proper value
+            //Guid id = null;
+            //var response = instance.V2ScreeningsCloseCreate(id);
+            //Assert.IsType<V2ScreeningDetail>(response);
+        }
+
+        /// <summary>
         /// Test V2ScreeningsCreate
         /// </summary>
         [Fact]
@@ -86,10 +98,11 @@ namespace Pescheck.Client.Test.Api
         public void V2ScreeningsListTest()
         {
             // TODO uncomment below to test the method and replace null with proper value
+            //Guid? organisation = null;
             //int? page = null;
             //int? pageSize = null;
             //bool? paginate = null;
-            //var response = instance.V2ScreeningsList(page, pageSize, paginate);
+            //var response = instance.V2ScreeningsList(organisation, page, pageSize, paginate);
             //Assert.IsType<PaginatedV2ScreeningListItemList>(response);
         }
 

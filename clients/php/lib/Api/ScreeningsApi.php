@@ -74,6 +74,9 @@ class ScreeningsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'v2ScreeningsCloseCreate' => [
+            'application/json',
+        ],
         'v2ScreeningsCreate' => [
             'application/json',
             'multipart/form-data',
@@ -133,6 +136,278 @@ class ScreeningsApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation v2ScreeningsCloseCreate
+     *
+     * Close a screening
+     *
+     * @param  string $id A UUID string identifying this screening. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['v2ScreeningsCloseCreate'] to see the possible values for this operation
+     *
+     * @throws \Pescheck\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \Pescheck\Client\Model\V2ScreeningDetail
+     */
+    public function v2ScreeningsCloseCreate($id, string $contentType = self::contentTypes['v2ScreeningsCloseCreate'][0])
+    {
+        list($response) = $this->v2ScreeningsCloseCreateWithHttpInfo($id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation v2ScreeningsCloseCreateWithHttpInfo
+     *
+     * Close a screening
+     *
+     * @param  string $id A UUID string identifying this screening. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['v2ScreeningsCloseCreate'] to see the possible values for this operation
+     *
+     * @throws \Pescheck\Client\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \Pescheck\Client\Model\V2ScreeningDetail, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function v2ScreeningsCloseCreateWithHttpInfo($id, string $contentType = self::contentTypes['v2ScreeningsCloseCreate'][0])
+    {
+        $request = $this->v2ScreeningsCloseCreateRequest($id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\Pescheck\Client\Model\V2ScreeningDetail',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\Pescheck\Client\Model\V2ScreeningDetail',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\Pescheck\Client\Model\V2ScreeningDetail',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation v2ScreeningsCloseCreateAsync
+     *
+     * Close a screening
+     *
+     * @param  string $id A UUID string identifying this screening. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['v2ScreeningsCloseCreate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function v2ScreeningsCloseCreateAsync($id, string $contentType = self::contentTypes['v2ScreeningsCloseCreate'][0])
+    {
+        return $this->v2ScreeningsCloseCreateAsyncWithHttpInfo($id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation v2ScreeningsCloseCreateAsyncWithHttpInfo
+     *
+     * Close a screening
+     *
+     * @param  string $id A UUID string identifying this screening. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['v2ScreeningsCloseCreate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function v2ScreeningsCloseCreateAsyncWithHttpInfo($id, string $contentType = self::contentTypes['v2ScreeningsCloseCreate'][0])
+    {
+        $returnType = '\Pescheck\Client\Model\V2ScreeningDetail';
+        $request = $this->v2ScreeningsCloseCreateRequest($id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'v2ScreeningsCloseCreate'
+     *
+     * @param  string $id A UUID string identifying this screening. (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['v2ScreeningsCloseCreate'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function v2ScreeningsCloseCreateRequest($id, string $contentType = self::contentTypes['v2ScreeningsCloseCreate'][0])
+    {
+
+        // verify the required parameter 'id' is set
+        if ($id === null || (is_array($id) && count($id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $id when calling v2ScreeningsCloseCreate'
+            );
+        }
+
+
+        $resourcePath = '/api/v2/screenings/{id}/close/';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($id !== null) {
+            $resourcePath = str_replace(
+                '{id}',
+                ObjectSerializer::toPathValue($id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires OAuth (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -703,6 +978,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsList
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -712,15 +988,16 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \Pescheck\Client\Model\PaginatedV2ScreeningListItemList
      */
-    public function v2ScreeningsList($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsList($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        list($response) = $this->v2ScreeningsListWithHttpInfo($page, $page_size, $paginate, $contentType);
+        list($response) = $this->v2ScreeningsListWithHttpInfo($organisation, $page, $page_size, $paginate, $contentType);
         return $response;
     }
 
     /**
      * Operation v2ScreeningsListWithHttpInfo
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -730,9 +1007,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return array of \Pescheck\Client\Model\PaginatedV2ScreeningListItemList, HTTP status code, HTTP response headers (array of strings)
      */
-    public function v2ScreeningsListWithHttpInfo($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListWithHttpInfo($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        $request = $this->v2ScreeningsListRequest($page, $page_size, $paginate, $contentType);
+        $request = $this->v2ScreeningsListRequest($organisation, $page, $page_size, $paginate, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -806,6 +1083,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsListAsync
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -814,9 +1092,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function v2ScreeningsListAsync($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListAsync($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
-        return $this->v2ScreeningsListAsyncWithHttpInfo($page, $page_size, $paginate, $contentType)
+        return $this->v2ScreeningsListAsyncWithHttpInfo($organisation, $page, $page_size, $paginate, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -827,6 +1105,7 @@ class ScreeningsApi
     /**
      * Operation v2ScreeningsListAsyncWithHttpInfo
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -835,10 +1114,10 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function v2ScreeningsListAsyncWithHttpInfo($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListAsyncWithHttpInfo($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
         $returnType = '\Pescheck\Client\Model\PaginatedV2ScreeningListItemList';
-        $request = $this->v2ScreeningsListRequest($page, $page_size, $paginate, $contentType);
+        $request = $this->v2ScreeningsListRequest($organisation, $page, $page_size, $paginate, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -879,6 +1158,7 @@ class ScreeningsApi
     /**
      * Create request for operation 'v2ScreeningsList'
      *
+     * @param  string|null $organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
      * @param  int|null $page A page number within the paginated result set. (optional, default to 1)
      * @param  int|null $page_size Number of results to return per page. (optional, default to 50)
      * @param  bool|null $paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
@@ -887,8 +1167,9 @@ class ScreeningsApi
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function v2ScreeningsListRequest($page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
+    public function v2ScreeningsListRequest($organisation = null, $page = 1, $page_size = 50, $paginate = true, string $contentType = self::contentTypes['v2ScreeningsList'][0])
     {
+
 
         if ($page !== null && $page < 1) {
             throw new \InvalidArgumentException('invalid value for "$page" when calling ScreeningsApi.v2ScreeningsList, must be bigger than or equal to 1.');
@@ -910,6 +1191,15 @@ class ScreeningsApi
         $httpBody = '';
         $multipart = false;
 
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $organisation,
+            'organisation', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $page,

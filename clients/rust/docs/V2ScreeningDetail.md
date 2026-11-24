@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **uuid::Uuid** |  | [readonly]
 **status** | **String** |  | [readonly]
-**profile** | Option<[**models::V2ScreeningDetailProfile**](V2ScreeningDetailProfile.md)> |  | 
+**organisation** | Option<[**models::V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md)> |  | 
+**profile** | Option<[**models::V2ScreeningDetailOrganisation**](V2ScreeningDetailOrganisation.md)> |  | 
 **candidate** | [**models::V2Candidate**](V2Candidate.md) |  | [readonly]
 **checks** | [**Vec<models::V2ScreeningCheckEntry>**](V2ScreeningCheckEntry.md) |  | [readonly]
 **screening_notes** | [**Vec<models::V2ScreeningNote>**](V2ScreeningNote.md) |  | [readonly]

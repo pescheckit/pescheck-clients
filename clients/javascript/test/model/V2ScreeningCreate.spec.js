@@ -72,6 +72,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property screeningNotes (base name: "screening_notes")', function() {
+      // uncomment below and update the code to test the property screeningNotes
+      //var instance = new PescheckApi.V2ScreeningCreate();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property divisionId (base name: "division_id")', function() {
+      // uncomment below and update the code to test the property divisionId
+      //var instance = new PescheckApi.V2ScreeningCreate();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

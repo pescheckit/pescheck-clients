@@ -20,7 +20,7 @@ createWebhook2($webhook, $x_organization_id, $organization_id): \Pescheck\Client
 
 
 
-Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter          **Valid Events:**         - `check.started` - Check has been initiated         - `check.completed` - Check has been completed successfully         - `check.failed` - Check has failed         - `screening.created` - New screening has been created         - `screening.completed` - Screening has been completed         - `screening.archived` - Screening has been archived         - `package.created` - New package has been created         - `package.updated` - Package has been updated         - `division.created` - New division has been created         - `division.updated` - Division has been updated          Limited to 5 webhooks per organization/division.
+Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter          **Valid Events:**         - `check.status_changed` - Check status has changed (new status in payload)         - `screening.status_changed` - Screening status has changed (new status in payload)         - `screening.archived` - Screening has been archived         - `package.created` - New package has been created         - `package.updated` - Package has been updated         - `profile.created` - New profile has been created         - `profile.updated` - Profile has been updated         - `division.created` - New division has been created         - `division.updated` - Division has been updated          Limited to 5 webhooks per organization/division.
 
 ### Example
 
@@ -39,7 +39,7 @@ $apiInstance = new Pescheck\Client\Api\WebhooksApi(
     new GuzzleHttp\Client(),
     $config
 );
-$webhook = {"name":"My Event Webhook","url":"https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3","events":["check.completed","screening.created","screening.completed"],"active":true,"division_id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}; // \Pescheck\Client\Model\Webhook
+$webhook = {"name":"My Event Webhook","url":"https://webhook.site/4a33d2f6-48a8-4b49-b6c4-a7bb044c8cb3","events":["check.status_changed","screening.status_changed"],"active":true,"division_id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}; // \Pescheck\Client\Model\Webhook
 $x_organization_id = 'x_organization_id_example'; // string | Organization ID (for JWT/Session auth only)
 $organization_id = 'organization_id_example'; // string | Organization ID (for JWT/Session auth only)
 

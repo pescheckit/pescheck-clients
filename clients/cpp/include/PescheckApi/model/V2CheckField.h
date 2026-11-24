@@ -22,7 +22,9 @@
 
 #include "PescheckApi/ModelBase.h"
 
+#include "PescheckApi/AnyType.h"
 #include <cpprest/details/basic_types.h>
+#include <map>
 #include <vector>
 
 namespace org {
@@ -80,12 +82,12 @@ public:
     void setRequired(bool value);
 
     /// <summary>
-    /// Allowed values, or null if the field isn&#39;t constrained to a set.
+    /// Allowed values, or null if the field isn&#39;t constrained to a set. Each choice has \&quot;value\&quot; (what to send), \&quot;label\&quot; (human-readable), and possibly check-specific extras such as \&quot;description\&quot;.
     /// </summary>
-    std::vector<utility::string_t> getChoices() const;
+    std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>> getChoices() const;
     bool choicesIsSet() const;
     void unsetChoices();
-    void setChoices(const std::vector<utility::string_t>& value);
+    void setChoices(const std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>>& value);
 
     utility::string_t getHelpText() const;
     bool helpTextIsSet() const;
@@ -103,7 +105,7 @@ protected:
     bool m_Required;
     bool m_RequiredIsSet;
 
-    boost::optional<std::vector<utility::string_t>> m_Choices;
+    boost::optional<std::vector<std::map<utility::string_t, std::shared_ptr<AnyType>>>> m_Choices;
 
     boost::optional<utility::string_t> m_Help_text;
 

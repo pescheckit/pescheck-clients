@@ -4,11 +4,82 @@ All URIs are relative to *https://api.pescheck.io*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**V2ScreeningsCloseCreate**](ScreeningsAPI.md#V2ScreeningsCloseCreate) | **Post** /api/v2/screenings/{id}/close/ | Close a screening
 [**V2ScreeningsCreate**](ScreeningsAPI.md#V2ScreeningsCreate) | **Post** /api/v2/screenings/ | 
 [**V2ScreeningsDocumentsList**](ScreeningsAPI.md#V2ScreeningsDocumentsList) | **Get** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
 [**V2ScreeningsList**](ScreeningsAPI.md#V2ScreeningsList) | **Get** /api/v2/screenings/ | 
 [**V2ScreeningsRetrieve**](ScreeningsAPI.md#V2ScreeningsRetrieve) | **Get** /api/v2/screenings/{id}/ | 
 
+
+
+## V2ScreeningsCloseCreate
+
+> V2ScreeningDetail V2ScreeningsCloseCreate(ctx, id).Execute()
+
+Close a screening
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/pescheckit/pescheck-clients/clients/go"
+)
+
+func main() {
+	id := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | A UUID string identifying this screening.
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ScreeningsAPI.V2ScreeningsCloseCreate(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScreeningsAPI.V2ScreeningsCloseCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `V2ScreeningsCloseCreate`: V2ScreeningDetail
+	fmt.Fprintf(os.Stdout, "Response from `ScreeningsAPI.V2ScreeningsCloseCreate`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | A UUID string identifying this screening. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiV2ScreeningsCloseCreateRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**V2ScreeningDetail**](V2ScreeningDetail.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## V2ScreeningsCreate
@@ -151,7 +222,7 @@ Name | Type | Description  | Notes
 
 ## V2ScreeningsList
 
-> PaginatedV2ScreeningListItemList V2ScreeningsList(ctx).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
+> PaginatedV2ScreeningListItemList V2ScreeningsList(ctx).Organisation(organisation).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
 
 
 
@@ -168,13 +239,14 @@ import (
 )
 
 func main() {
+	organisation := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings. (optional)
 	page := int32(1) // int32 | A page number within the paginated result set. (optional) (default to 1)
 	pageSize := int32(50) // int32 | Number of results to return per page. (optional) (default to 50)
 	paginate := true // bool | Enable/disable pagination. When false, max 500 records returned. (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ScreeningsAPI.V2ScreeningsList(context.Background()).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
+	resp, r, err := apiClient.ScreeningsAPI.V2ScreeningsList(context.Background()).Organisation(organisation).Page(page).PageSize(pageSize).Paginate(paginate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ScreeningsAPI.V2ScreeningsList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -195,6 +267,7 @@ Other parameters are passed through a pointer to a apiV2ScreeningsListRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **organisation** | **string** | Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. | 
  **page** | **int32** | A page number within the paginated result set. | [default to 1]
  **pageSize** | **int32** | Number of results to return per page. | [default to 50]
  **paginate** | **bool** | Enable/disable pagination. When false, max 500 records returned. | [default to true]

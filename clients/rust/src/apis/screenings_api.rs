@@ -15,6 +15,14 @@ use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
 
+/// struct for typed errors of method [`v2_screenings_close_create`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum V2ScreeningsCloseCreateError {
+    Status409(),
+    UnknownValue(serde_json::Value),
+}
+
 /// struct for typed errors of method [`v2_screenings_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -43,6 +51,46 @@ pub enum V2ScreeningsRetrieveError {
     UnknownValue(serde_json::Value),
 }
 
+
+/// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+pub async fn v2_screenings_close_create(configuration: &configuration::Configuration, id: &str) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCloseCreateError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!("{}/api/v2/screenings/{id}/close/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.oauth_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => return Err(Error::from(serde_json::Error::custom("Received `text/plain` content type response that cannot be converted to `models::V2ScreeningDetail`"))),
+            ContentType::Unsupported(unknown_type) => return Err(Error::from(serde_json::Error::custom(format!("Received `{unknown_type}` content type response that cannot be converted to `models::V2ScreeningDetail`")))),
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<V2ScreeningsCloseCreateError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent { status, content, entity }))
+    }
+}
 
 pub async fn v2_screenings_create(configuration: &configuration::Configuration, v2_screening_create: models::V2ScreeningCreate) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCreateError>> {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -132,8 +180,9 @@ pub async fn v2_screenings_documents_list(configuration: &configuration::Configu
     }
 }
 
-pub async fn v2_screenings_list(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
+pub async fn v2_screenings_list(configuration: &configuration::Configuration, organisation: Option<&str>, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
     // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_organisation = organisation;
     let p_query_page = page;
     let p_query_page_size = page_size;
     let p_query_paginate = paginate;
@@ -141,6 +190,9 @@ pub async fn v2_screenings_list(configuration: &configuration::Configuration, pa
     let uri_str = format!("{}/api/v2/screenings/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(ref param_value) = p_query_organisation {
+        req_builder = req_builder.query(&[("organisation", &param_value.to_string())]);
+    }
     if let Some(ref param_value) = p_query_page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }

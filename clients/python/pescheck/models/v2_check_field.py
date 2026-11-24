@@ -30,7 +30,7 @@ class V2CheckField(BaseModel):
     name: StrictStr
     type: StrictStr = Field(description="\"string\" | \"integer\" | \"number\" | \"boolean\" | \"array\" | \"object\"")
     required: StrictBool = Field(description="Whether the request body must include this field.")
-    choices: Optional[List[StrictStr]] = Field(description="Allowed values, or null if the field isn't constrained to a set.")
+    choices: Optional[List[Dict[str, Any]]] = Field(description="Allowed values, or null if the field isn't constrained to a set. Each choice has \"value\" (what to send), \"label\" (human-readable), and possibly check-specific extras such as \"description\".")
     help_text: Optional[StrictStr]
     __properties: ClassVar[List[str]] = ["name", "type", "required", "choices", "help_text"]
 

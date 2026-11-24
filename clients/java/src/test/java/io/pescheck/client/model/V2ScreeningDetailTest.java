@@ -20,7 +20,8 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import io.pescheck.client.model.V2Candidate;
 import io.pescheck.client.model.V2ScreeningCheckEntry;
-import io.pescheck.client.model.V2ScreeningDetailProfile;
+import io.pescheck.client.model.V2ScreeningDetailOrganisation;
+import io.pescheck.client.model.V2ScreeningNote;
 import java.io.IOException;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -62,6 +63,14 @@ public class V2ScreeningDetailTest {
     }
 
     /**
+     * Test the property 'organisation'
+     */
+    @Test
+    public void organisationTest() {
+        // TODO: test organisation
+    }
+
+    /**
      * Test the property 'profile'
      */
     @Test
@@ -83,6 +92,14 @@ public class V2ScreeningDetailTest {
     @Test
     public void checksTest() {
         // TODO: test checks
+    }
+
+    /**
+     * Test the property 'screeningNotes'
+     */
+    @Test
+    public void screeningNotesTest() {
+        // TODO: test screeningNotes
     }
 
     /**

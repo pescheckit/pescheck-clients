@@ -84,18 +84,6 @@ class AuthenticationApiTest extends TestCase
     }
 
     /**
-     * Test case for jwtCreate
-     *
-     * .
-     *
-     */
-    public function testJwtCreate()
-    {
-        // TODO: implement
-        self::markTestIncomplete('Not implemented');
-    }
-
-    /**
      * Test case for jwtRefreshCreate
      *
      * .

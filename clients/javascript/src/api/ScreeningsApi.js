@@ -39,6 +39,54 @@ export default class ScreeningsApi {
 
 
     /**
+     * Close a screening
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param {String} id A UUID string identifying this screening.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/V2ScreeningDetail} and HTTP response
+     */
+    v2ScreeningsCloseCreateWithHttpInfo(id) {
+      let postBody = null;
+      // verify the required parameter 'id' is set
+      if (id === undefined || id === null) {
+        throw new Error("Missing the required parameter 'id' when calling v2ScreeningsCloseCreate");
+      }
+
+      let pathParams = {
+        'id': id
+      };
+      let queryParams = {
+      };
+      let headerParams = {
+      };
+      let formParams = {
+      };
+
+      let authNames = ['oauth2'];
+      let contentTypes = [];
+      let accepts = ['application/json'];
+      let returnType = V2ScreeningDetail;
+      return this.apiClient.callApi(
+        '/api/v2/screenings/{id}/close/', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType, null
+      );
+    }
+
+    /**
+     * Close a screening
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param {String} id A UUID string identifying this screening.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/V2ScreeningDetail}
+     */
+    v2ScreeningsCloseCreate(id) {
+      return this.v2ScreeningsCloseCreateWithHttpInfo(id)
+        .then(function(response_and_data) {
+          return response_and_data.data;
+        });
+    }
+
+
+    /**
      * @param {module:model/V2ScreeningCreate} v2ScreeningCreate 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with an object containing data of type {@link module:model/V2ScreeningDetail} and HTTP response
      */
@@ -140,6 +188,7 @@ export default class ScreeningsApi {
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} [organisation] Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
      * @param {Number} [page = 1)] A page number within the paginated result set.
      * @param {Number} [pageSize = 50)] Number of results to return per page.
      * @param {Boolean} [paginate = true)] Enable/disable pagination. When false, max 500 records returned.
@@ -152,6 +201,7 @@ export default class ScreeningsApi {
       let pathParams = {
       };
       let queryParams = {
+        'organisation': opts['organisation'],
         'page': opts['page'],
         'page_size': opts['pageSize'],
         'paginate': opts['paginate']
@@ -174,6 +224,7 @@ export default class ScreeningsApi {
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} opts.organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
      * @param {Number} opts.page A page number within the paginated result set. (default to 1)
      * @param {Number} opts.pageSize Number of results to return per page. (default to 50)
      * @param {Boolean} opts.paginate Enable/disable pagination. When false, max 500 records returned. (default to true)

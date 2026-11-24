@@ -73,6 +73,15 @@ namespace Pescheck.Client.Test.Model
         }
 
         /// <summary>
+        /// Test the property 'Organisation'
+        /// </summary>
+        [Fact]
+        public void OrganisationTest()
+        {
+            // TODO unit test for the property 'Organisation'
+        }
+
+        /// <summary>
         /// Test the property 'Profile'
         /// </summary>
         [Fact]
@@ -97,6 +106,15 @@ namespace Pescheck.Client.Test.Model
         public void ChecksTest()
         {
             // TODO unit test for the property 'Checks'
+        }
+
+        /// <summary>
+        /// Test the property 'ScreeningNotes'
+        /// </summary>
+        [Fact]
+        public void ScreeningNotesTest()
+        {
+            // TODO unit test for the property 'ScreeningNotes'
         }
 
         /// <summary>

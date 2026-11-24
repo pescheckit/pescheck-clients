@@ -22,7 +22,7 @@ module Pescheck
     # Client type (confidential recommended for server-to-server)  * `confidential` - Confidential * `public` - Public
     attr_accessor :client_type
 
-    # Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+    # Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
     attr_accessor :authorization_grant_type
 
     # Space-separated redirect URIs (optional for client_credentials)
@@ -158,7 +158,7 @@ module Pescheck
       return false if @name.to_s.length > 255
       client_type_validator = EnumAttributeValidator.new('String', ["confidential", "public"])
       return false unless client_type_validator.valid?(@client_type)
-      authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
+      authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
       return false unless authorization_grant_type_validator.valid?(@authorization_grant_type)
       true
     end
@@ -190,7 +190,7 @@ module Pescheck
     # Custom attribute writer method checking allowed values (enum).
     # @param [Object] authorization_grant_type Object to be assigned
     def authorization_grant_type=(authorization_grant_type)
-      validator = EnumAttributeValidator.new('String', ["authorization-code", "implicit", "password", "client-credentials", "openid-hybrid"])
+      validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
       unless validator.valid?(authorization_grant_type)
         fail ArgumentError, "invalid value for \"authorization_grant_type\", must be one of #{validator.allowable_values}."
       end

@@ -18,6 +18,7 @@ __version__ = "0.1.0"
 
 # Define package exports
 __all__ = [
+    "AddOnsApi",
     "AuthenticationApi",
     "ChecksApi",
     "DivisionsApi",
@@ -34,17 +35,22 @@ __all__ = [
     "ApiKeyError",
     "ApiAttributeError",
     "ApiException",
-    "CustomTokenObtainPair",
+    "AddonPrice",
+    "DisabledDivision",
     "DivisionReadOnly",
     "DivisionWrite",
     "JWTGeneration",
     "JWTResponse",
     "OAuthApplication",
     "OAuthApplicationResponse",
+    "OrganisationAddon",
+    "OrganisationAddonUpdate",
+    "OrganisationAddonUpdateResult",
     "PaginatedDivisionReadOnlyList",
     "PaginatedV2ProfileListItemList",
     "PaginatedV2ScreeningListItemList",
     "PatchedDivisionWrite",
+    "PatchedOrganisationAddonUpdate",
     "PatchedV2ProfilePartialUpdate",
     "TokenRefresh",
     "V2Candidate",
@@ -65,7 +71,7 @@ __all__ = [
     "V2ScreeningCheckListItem",
     "V2ScreeningCreate",
     "V2ScreeningDetail",
-    "V2ScreeningDetailProfile",
+    "V2ScreeningDetailOrganisation",
     "V2ScreeningListItem",
     "V2ScreeningNote",
     "V2ScreeningNoteInput",
@@ -75,6 +81,7 @@ __all__ = [
 ]
 
 # import apis into sdk package
+from pescheck.api.add_ons_api import AddOnsApi as AddOnsApi
 from pescheck.api.authentication_api import AuthenticationApi as AuthenticationApi
 from pescheck.api.checks_api import ChecksApi as ChecksApi
 from pescheck.api.divisions_api import DivisionsApi as DivisionsApi
@@ -95,17 +102,22 @@ from pescheck.exceptions import ApiAttributeError as ApiAttributeError
 from pescheck.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from pescheck.models.custom_token_obtain_pair import CustomTokenObtainPair as CustomTokenObtainPair
+from pescheck.models.addon_price import AddonPrice as AddonPrice
+from pescheck.models.disabled_division import DisabledDivision as DisabledDivision
 from pescheck.models.division_read_only import DivisionReadOnly as DivisionReadOnly
 from pescheck.models.division_write import DivisionWrite as DivisionWrite
 from pescheck.models.jwt_generation import JWTGeneration as JWTGeneration
 from pescheck.models.jwt_response import JWTResponse as JWTResponse
 from pescheck.models.o_auth_application import OAuthApplication as OAuthApplication
 from pescheck.models.o_auth_application_response import OAuthApplicationResponse as OAuthApplicationResponse
+from pescheck.models.organisation_addon import OrganisationAddon as OrganisationAddon
+from pescheck.models.organisation_addon_update import OrganisationAddonUpdate as OrganisationAddonUpdate
+from pescheck.models.organisation_addon_update_result import OrganisationAddonUpdateResult as OrganisationAddonUpdateResult
 from pescheck.models.paginated_division_read_only_list import PaginatedDivisionReadOnlyList as PaginatedDivisionReadOnlyList
 from pescheck.models.paginated_v2_profile_list_item_list import PaginatedV2ProfileListItemList as PaginatedV2ProfileListItemList
 from pescheck.models.paginated_v2_screening_list_item_list import PaginatedV2ScreeningListItemList as PaginatedV2ScreeningListItemList
 from pescheck.models.patched_division_write import PatchedDivisionWrite as PatchedDivisionWrite
+from pescheck.models.patched_organisation_addon_update import PatchedOrganisationAddonUpdate as PatchedOrganisationAddonUpdate
 from pescheck.models.patched_v2_profile_partial_update import PatchedV2ProfilePartialUpdate as PatchedV2ProfilePartialUpdate
 from pescheck.models.token_refresh import TokenRefresh as TokenRefresh
 from pescheck.models.v2_candidate import V2Candidate as V2Candidate
@@ -126,7 +138,7 @@ from pescheck.models.v2_screening_check_entry import V2ScreeningCheckEntry as V2
 from pescheck.models.v2_screening_check_list_item import V2ScreeningCheckListItem as V2ScreeningCheckListItem
 from pescheck.models.v2_screening_create import V2ScreeningCreate as V2ScreeningCreate
 from pescheck.models.v2_screening_detail import V2ScreeningDetail as V2ScreeningDetail
-from pescheck.models.v2_screening_detail_profile import V2ScreeningDetailProfile as V2ScreeningDetailProfile
+from pescheck.models.v2_screening_detail_organisation import V2ScreeningDetailOrganisation as V2ScreeningDetailOrganisation
 from pescheck.models.v2_screening_list_item import V2ScreeningListItem as V2ScreeningListItem
 from pescheck.models.v2_screening_note import V2ScreeningNote as V2ScreeningNote
 from pescheck.models.v2_screening_note_input import V2ScreeningNoteInput as V2ScreeningNoteInput

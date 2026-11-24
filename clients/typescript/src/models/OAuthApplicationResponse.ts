@@ -52,6 +52,7 @@ export interface OAuthApplicationResponse {
     clientType: OAuthApplicationResponseClientTypeEnum;
     /**
      * * `authorization-code` - Authorization code
+     * * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
      * * `implicit` - Implicit
      * * `password` - Resource owner password-based
      * * `client-credentials` - Client credentials
@@ -60,6 +61,18 @@ export interface OAuthApplicationResponse {
      * @memberof OAuthApplicationResponse
      */
     authorizationGrantType: OAuthApplicationResponseAuthorizationGrantTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthApplicationResponse
+     */
+    readonly organisation: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OAuthApplicationResponse
+     */
+    readonly organisationId: string;
     /**
      * 
      * @type {Date}
@@ -89,6 +102,7 @@ export type OAuthApplicationResponseClientTypeEnum = typeof OAuthApplicationResp
  */
 export const OAuthApplicationResponseAuthorizationGrantTypeEnum = {
     AuthorizationCode: 'authorization-code',
+    UrnIetfParamsOauthGrantTypeDeviceCode: 'urn:ietf:params:oauth:grant-type:device_code',
     Implicit: 'implicit',
     Password: 'password',
     ClientCredentials: 'client-credentials',
@@ -105,6 +119,8 @@ export function instanceOfOAuthApplicationResponse(value: any): value is OAuthAp
     if ((!('clientSecret' in value) && !('client_secret' in value)) || (value['clientSecret'] === undefined && value['client_secret'] === undefined)) return false;
     if ((!('clientType' in value) && !('client_type' in value)) || (value['clientType'] === undefined && value['client_type'] === undefined)) return false;
     if ((!('authorizationGrantType' in value) && !('authorization_grant_type' in value)) || (value['authorizationGrantType'] === undefined && value['authorization_grant_type'] === undefined)) return false;
+    if (!('organisation' in value) || value['organisation'] === undefined) return false;
+    if ((!('organisationId' in value) && !('organisation_id' in value)) || (value['organisationId'] === undefined && value['organisation_id'] === undefined)) return false;
     if (!('created' in value) || value['created'] === undefined) return false;
     if (!('updated' in value) || value['updated'] === undefined) return false;
     return true;
@@ -126,6 +142,8 @@ export function OAuthApplicationResponseFromJSONTyped(json: any, ignoreDiscrimin
         'clientSecret': json['client_secret'],
         'clientType': json['client_type'],
         'authorizationGrantType': json['authorization_grant_type'],
+        'organisation': json['organisation'],
+        'organisationId': json['organisation_id'],
         'created': (new Date(json['created'])),
         'updated': (new Date(json['updated'])),
     };
@@ -135,7 +153,7 @@ export function OAuthApplicationResponseToJSON(json: any): OAuthApplicationRespo
     return OAuthApplicationResponseToJSONTyped(json, false);
 }
 
-export function OAuthApplicationResponseToJSONTyped(value?: Omit<OAuthApplicationResponse, 'id'|'client_secret'|'created'|'updated'> | null, ignoreDiscriminator: boolean = false): any {
+export function OAuthApplicationResponseToJSONTyped(value?: Omit<OAuthApplicationResponse, 'id'|'client_secret'|'organisation'|'organisation_id'|'created'|'updated'> | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }

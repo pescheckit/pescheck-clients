@@ -90,6 +90,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property organisation (base name: "organisation")', function() {
+      // uncomment below and update the code to test the property organisation
+      //var instance = new PescheckApi.OAuthApplicationResponse();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property organisationId (base name: "organisation_id")', function() {
+      // uncomment below and update the code to test the property organisationId
+      //var instance = new PescheckApi.OAuthApplicationResponse();
+      //expect(instance).to.be();
+    });
+
     it('should have the property created (base name: "created")', function() {
       // uncomment below and update the code to test the property created
       //var instance = new PescheckApi.OAuthApplicationResponse();

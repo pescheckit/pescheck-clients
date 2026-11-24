@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **supported_countries_of_work** | **Vec<String>** |  | [readonly]
 **supported_countries_of_residence** | **Vec<String>** |  | [readonly]
 **candidate_fields** | **Vec<serde_json::Value>** |  | [readonly]
+**creates_as_draft** | **bool** |  | [readonly]
+**draft_reasons** | **Vec<String>** |  | [readonly]
 **created_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 **updated_at** | **chrono::DateTime<chrono::FixedOffset>** |  | [readonly]
 

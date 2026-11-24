@@ -24,7 +24,7 @@ type OAuthApplication struct {
 	Name string `json:"name"`
 	// Client type (confidential recommended for server-to-server)  * `confidential` - Confidential * `public` - Public
 	ClientType *string `json:"client_type,omitempty"`
-	// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+	// Grant type (client_credentials for API access)  * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
 	AuthorizationGrantType *string `json:"authorization_grant_type,omitempty"`
 	// Space-separated redirect URIs (optional for client_credentials)
 	RedirectUris *string `json:"redirect_uris,omitempty"`

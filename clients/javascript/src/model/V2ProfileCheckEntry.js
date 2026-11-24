@@ -24,7 +24,7 @@ class V2ProfileCheckEntry {
      * Constructs a new <code>V2ProfileCheckEntry</code>.
      * @alias module:model/V2ProfileCheckEntry
      * @param id {String} 
-     * @param checkType {module:model/V2ProfileCheckEntry.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param checkType {module:model/V2ProfileCheckEntry.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
      * @param displayName {String} 
      * @param configuredPrice {module:model/V2Money} 
      * @param config {Object.<String, Object>} 
@@ -134,7 +134,7 @@ V2ProfileCheckEntry.RequiredProperties = ["id", "check_type", "display_name", "c
 V2ProfileCheckEntry.prototype['id'] = undefined;
 
 /**
- * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `focumcheck` - focumcheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+ * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
  * @member {module:model/V2ProfileCheckEntry.CheckTypeEnum} check_type
  */
 V2ProfileCheckEntry.prototype['check_type'] = undefined;
@@ -230,10 +230,10 @@ V2ProfileCheckEntry['CheckTypeEnum'] = {
     "edrcheck": "edrcheck",
 
     /**
-     * value: "focumcheck"
+     * value: "ibancheck"
      * @const
      */
-    "focumcheck": "focumcheck",
+    "ibancheck": "ibancheck",
 
     /**
      * value: "id2check"

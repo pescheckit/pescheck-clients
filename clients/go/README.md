@@ -75,8 +75,11 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsAPI* | [**V2OrganisationsAddonsList**](docs/AddOnsAPI.md#v2organisationsaddonslist) | **Get** /api/v2/organisations/addons/ |
+*AddOnsAPI* | [**V2OrganisationsAddonsPartialUpdate**](docs/AddOnsAPI.md#v2organisationsaddonspartialupdate) | **Patch** /api/v2/organisations/addons/{addon}/ |
+*AddOnsAPI* | [**V2OrganisationsAddonsRetrieve**](docs/AddOnsAPI.md#v2organisationsaddonsretrieve) | **Get** /api/v2/organisations/addons/{addon}/ |
+*AddOnsAPI* | [**V2OrganisationsAddonsUpdate**](docs/AddOnsAPI.md#v2organisationsaddonsupdate) | **Put** /api/v2/organisations/addons/{addon}/ |
 *AuthenticationAPI* | [**GenerateJWTToken2**](docs/AuthenticationAPI.md#generatejwttoken2) | **Post** /api/v2/jwt/generate/ |
-*AuthenticationAPI* | [**JwtCreate**](docs/AuthenticationAPI.md#jwtcreate) | **Post** /api/jwt/ |
 *AuthenticationAPI* | [**JwtRefreshCreate**](docs/AuthenticationAPI.md#jwtrefreshcreate) | **Post** /api/jwt/refresh/ |
 *ChecksAPI* | [**V2ChecksList**](docs/ChecksAPI.md#v2checkslist) | **Get** /api/v2/checks/ |
 *ChecksAPI* | [**V2ChecksRetrieve**](docs/ChecksAPI.md#v2checksretrieve) | **Get** /api/v2/checks/{check_type}/ |
@@ -94,6 +97,7 @@ Class | Method | HTTP request | Description
 *ProfilesAPI* | [**V2ProfilesPartialUpdate**](docs/ProfilesAPI.md#v2profilespartialupdate) | **Patch** /api/v2/profiles/{id}/ |
 *ProfilesAPI* | [**V2ProfilesRetrieve**](docs/ProfilesAPI.md#v2profilesretrieve) | **Get** /api/v2/profiles/{id}/ |
 *ProfilesAPI* | [**V2ProfilesUpdate**](docs/ProfilesAPI.md#v2profilesupdate) | **Put** /api/v2/profiles/{id}/ |
+*ScreeningsAPI* | [**V2ScreeningsCloseCreate**](docs/ScreeningsAPI.md#v2screeningsclosecreate) | **Post** /api/v2/screenings/{id}/close/ | Close a screening
 *ScreeningsAPI* | [**V2ScreeningsCreate**](docs/ScreeningsAPI.md#v2screeningscreate) | **Post** /api/v2/screenings/ |
 *ScreeningsAPI* | [**V2ScreeningsDocumentsList**](docs/ScreeningsAPI.md#v2screeningsdocumentslist) | **Get** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
 *ScreeningsAPI* | [**V2ScreeningsList**](docs/ScreeningsAPI.md#v2screeningslist) | **Get** /api/v2/screenings/ |
@@ -105,17 +109,22 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [AddonPrice](docs/AddonPrice.md)
+ - [DisabledDivision](docs/DisabledDivision.md)
  - [DivisionReadOnly](docs/DivisionReadOnly.md)
  - [DivisionWrite](docs/DivisionWrite.md)
  - [JWTGeneration](docs/JWTGeneration.md)
  - [JWTResponse](docs/JWTResponse.md)
  - [OAuthApplication](docs/OAuthApplication.md)
  - [OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [OrganisationAddon](docs/OrganisationAddon.md)
+ - [OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [TokenRefresh](docs/TokenRefresh.md)
  - [V2Candidate](docs/V2Candidate.md)
@@ -136,7 +145,7 @@ Class | Method | HTTP request | Description
  - [V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [V2ScreeningNote](docs/V2ScreeningNote.md)
  - [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)
@@ -185,9 +194,9 @@ r, err := client.Service.Operation(auth, args)
 - **Flow**: application
 - **Authorization URL**:
 - **Scopes**:
- - **read:api**: read groups
- - **create:api**: create groups
- - **update:api**: update groups
+ - **read:api**: Read access to API
+ - **create:api**: Create access to API
+ - **update:api**: Update access to API
 
 Example
 

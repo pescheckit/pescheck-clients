@@ -10,7 +10,7 @@ Name | Type
 `name` | string
 `type` | string
 `required` | boolean
-`choices` | Array&lt;string&gt;
+`choices` | Array&lt;{ [key: string]: any; }&gt;
 `helpText` | string
 
 ## Example

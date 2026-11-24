@@ -72,6 +72,18 @@ class ScreeningsApiTest extends TestCase
     }
 
     /**
+     * Test case for v2ScreeningsCloseCreate
+     *
+     * Close a screening.
+     *
+     */
+    public function testV2ScreeningsCloseCreate()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test case for v2ScreeningsCreate
      *
      * .

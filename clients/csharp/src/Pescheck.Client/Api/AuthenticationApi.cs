@@ -52,27 +52,6 @@ namespace Pescheck.Client.Api
         /// 
         /// </summary>
         /// <remarks>
-        /// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </remarks>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <returns>CustomTokenObtainPair</returns>
-        CustomTokenObtainPair JwtCreate(CustomTokenObtainPair customTokenObtainPair);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </remarks>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <returns>ApiResponse of CustomTokenObtainPair</returns>
-        ApiResponse<CustomTokenObtainPair> JwtCreateWithHttpInfo(CustomTokenObtainPair customTokenObtainPair);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
         /// Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
@@ -122,29 +101,6 @@ namespace Pescheck.Client.Api
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (JWTResponse)</returns>
         System.Threading.Tasks.Task<ApiResponse<JWTResponse>> GenerateJWTToken2WithHttpInfoAsync(JWTGeneration jWTGeneration, System.Threading.CancellationToken cancellationToken = default);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </remarks>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of CustomTokenObtainPair</returns>
-        System.Threading.Tasks.Task<CustomTokenObtainPair> JwtCreateAsync(CustomTokenObtainPair customTokenObtainPair, System.Threading.CancellationToken cancellationToken = default);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </remarks>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (CustomTokenObtainPair)</returns>
-        System.Threading.Tasks.Task<ApiResponse<CustomTokenObtainPair>> JwtCreateWithHttpInfoAsync(CustomTokenObtainPair customTokenObtainPair, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -506,137 +462,6 @@ namespace Pescheck.Client.Api
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GenerateJWTToken2", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        ///  Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </summary>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <returns>CustomTokenObtainPair</returns>
-        public CustomTokenObtainPair JwtCreate(CustomTokenObtainPair customTokenObtainPair)
-        {
-            Pescheck.Client.Client.ApiResponse<CustomTokenObtainPair> localVarResponse = JwtCreateWithHttpInfo(customTokenObtainPair);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        ///  Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </summary>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <returns>ApiResponse of CustomTokenObtainPair</returns>
-        public Pescheck.Client.Client.ApiResponse<CustomTokenObtainPair> JwtCreateWithHttpInfo(CustomTokenObtainPair customTokenObtainPair)
-        {
-            // verify the required parameter 'customTokenObtainPair' is set
-            if (customTokenObtainPair == null)
-                throw new Pescheck.Client.Client.ApiException(400, "Missing required parameter 'customTokenObtainPair' when calling AuthenticationApi->JwtCreate");
-
-            Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json",
-                "multipart/form-data"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-            var localVarContentType = Pescheck.Client.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-            var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-            localVarRequestOptions.Data = customTokenObtainPair;
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-            {
-                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-            }
-
-            // make the HTTP request
-            var localVarResponse = this.Client.Post<CustomTokenObtainPair>("/api/jwt/", localVarRequestOptions, this.Configuration);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("JwtCreate", localVarResponse);
-                if (_exception != null) throw _exception;
-            }
-
-            return localVarResponse;
-        }
-
-        /// <summary>
-        ///  Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </summary>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of CustomTokenObtainPair</returns>
-        public async System.Threading.Tasks.Task<CustomTokenObtainPair> JwtCreateAsync(CustomTokenObtainPair customTokenObtainPair, System.Threading.CancellationToken cancellationToken = default)
-        {
-            Pescheck.Client.Client.ApiResponse<CustomTokenObtainPair> localVarResponse = await JwtCreateWithHttpInfoAsync(customTokenObtainPair, cancellationToken).ConfigureAwait(false);
-            return localVarResponse.Data;
-        }
-
-        /// <summary>
-        ///  Log in with email + password. Returns a JWT pair scoped to one organization.  Pass organization_id to select the organization or division to act for; it is required when your account has access to more than one. Without it, your single organization is used.
-        /// </summary>
-        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="customTokenObtainPair"></param>
-        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (CustomTokenObtainPair)</returns>
-        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<CustomTokenObtainPair>> JwtCreateWithHttpInfoAsync(CustomTokenObtainPair customTokenObtainPair, System.Threading.CancellationToken cancellationToken = default)
-        {
-            // verify the required parameter 'customTokenObtainPair' is set
-            if (customTokenObtainPair == null)
-                throw new Pescheck.Client.Client.ApiException(400, "Missing required parameter 'customTokenObtainPair' when calling AuthenticationApi->JwtCreate");
-
-
-            Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
-
-            string[] _contentTypes = new string[] {
-                "application/json", 
-                "multipart/form-data"
-            };
-
-            // to determine the Accept header
-            string[] _accepts = new string[] {
-                "application/json"
-            };
-
-
-            var localVarContentType = Pescheck.Client.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-
-            var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-
-            localVarRequestOptions.Data = customTokenObtainPair;
-
-            // authentication (oauth2) required
-            // oauth required
-            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
-            {
-                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-            }
-
-            // make the HTTP request
-
-            var localVarResponse = await this.AsynchronousClient.PostAsync<CustomTokenObtainPair>("/api/jwt/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
-
-            if (this.ExceptionFactory != null)
-            {
-                Exception _exception = this.ExceptionFactory("JwtCreate", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

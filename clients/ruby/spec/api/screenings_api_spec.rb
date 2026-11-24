@@ -32,6 +32,18 @@ describe 'ScreeningsApi' do
     end
   end
 
+  # unit tests for v2_screenings_close_create
+  # Close a screening
+  # Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+  # @param id A UUID string identifying this screening.
+  # @param [Hash] opts the optional parameters
+  # @return [V2ScreeningDetail]
+  describe 'v2_screenings_close_create test' do
+    it 'should work' do
+      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
+    end
+  end
+
   # unit tests for v2_screenings_create
   # @param v2_screening_create 
   # @param [Hash] opts the optional parameters
@@ -58,6 +70,7 @@ describe 'ScreeningsApi' do
 
   # unit tests for v2_screenings_list
   # @param [Hash] opts the optional parameters
+  # @option opts [String] :organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
   # @option opts [Integer] :page A page number within the paginated result set.
   # @option opts [Integer] :page_size Number of results to return per page.
   # @option opts [Boolean] :paginate Enable/disable pagination. When false, max 500 records returned.

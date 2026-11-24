@@ -42,7 +42,10 @@ class TestPaginatedV2ScreeningListItemList(unittest.TestCase):
                     pescheck.models.v2_screening_list_item.V2ScreeningListItem(
                         id = '', 
                         status = '', 
-                        profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                        organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                            id = '', 
+                            name = '', ), 
+                        profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                             id = '', 
                             name = '', ), 
                         candidate = null, 
@@ -67,7 +70,10 @@ class TestPaginatedV2ScreeningListItemList(unittest.TestCase):
                     pescheck.models.v2_screening_list_item.V2ScreeningListItem(
                         id = '', 
                         status = '', 
-                        profile = pescheck.models.v2_screening_detail_profile.V2ScreeningDetail_profile(
+                        organisation = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
+                            id = '', 
+                            name = '', ), 
+                        profile = pescheck.models.v2_screening_detail_organisation.V2ScreeningDetail_organisation(
                             id = '', 
                             name = '', ), 
                         candidate = null, 

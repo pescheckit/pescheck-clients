@@ -23,6 +23,109 @@ import (
 // ScreeningsAPIService ScreeningsAPI service
 type ScreeningsAPIService service
 
+type ApiV2ScreeningsCloseCreateRequest struct {
+	ctx context.Context
+	ApiService *ScreeningsAPIService
+	id string
+}
+
+func (r ApiV2ScreeningsCloseCreateRequest) Execute() (*V2ScreeningDetail, *http.Response, error) {
+	return r.ApiService.V2ScreeningsCloseCreateExecute(r)
+}
+
+/*
+V2ScreeningsCloseCreate Close a screening
+
+Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id A UUID string identifying this screening.
+ @return ApiV2ScreeningsCloseCreateRequest
+*/
+func (a *ScreeningsAPIService) V2ScreeningsCloseCreate(ctx context.Context, id string) ApiV2ScreeningsCloseCreateRequest {
+	return ApiV2ScreeningsCloseCreateRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return V2ScreeningDetail
+func (a *ScreeningsAPIService) V2ScreeningsCloseCreateExecute(r ApiV2ScreeningsCloseCreateRequest) (*V2ScreeningDetail, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *V2ScreeningDetail
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScreeningsAPIService.V2ScreeningsCloseCreate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/screenings/{id}/close/"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiV2ScreeningsCreateRequest struct {
 	ctx context.Context
 	ApiService *ScreeningsAPIService
@@ -257,9 +360,16 @@ func (a *ScreeningsAPIService) V2ScreeningsDocumentsListExecute(r ApiV2Screening
 type ApiV2ScreeningsListRequest struct {
 	ctx context.Context
 	ApiService *ScreeningsAPIService
+	organisation *string
 	page *int32
 	pageSize *int32
 	paginate *bool
+}
+
+// Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
+func (r ApiV2ScreeningsListRequest) Organisation(organisation string) ApiV2ScreeningsListRequest {
+	r.organisation = &organisation
+	return r
 }
 
 // A page number within the paginated result set.
@@ -318,6 +428,9 @@ func (a *ScreeningsAPIService) V2ScreeningsListExecute(r ApiV2ScreeningsListRequ
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.organisation != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "organisation", r.organisation, "form", "")
+	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	} else {

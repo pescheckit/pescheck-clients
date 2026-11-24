@@ -29,8 +29,11 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AddOnsApi* | [**v2_organisations_addons_list**](docs/AddOnsApi.md#v2_organisations_addons_list) | **GET** /api/v2/organisations/addons/ |
+*AddOnsApi* | [**v2_organisations_addons_partial_update**](docs/AddOnsApi.md#v2_organisations_addons_partial_update) | **PATCH** /api/v2/organisations/addons/{addon}/ |
+*AddOnsApi* | [**v2_organisations_addons_retrieve**](docs/AddOnsApi.md#v2_organisations_addons_retrieve) | **GET** /api/v2/organisations/addons/{addon}/ |
+*AddOnsApi* | [**v2_organisations_addons_update**](docs/AddOnsApi.md#v2_organisations_addons_update) | **PUT** /api/v2/organisations/addons/{addon}/ |
 *AuthenticationApi* | [**generate_jwt_token2**](docs/AuthenticationApi.md#generate_jwt_token2) | **POST** /api/v2/jwt/generate/ |
-*AuthenticationApi* | [**jwt_create**](docs/AuthenticationApi.md#jwt_create) | **POST** /api/jwt/ |
 *AuthenticationApi* | [**jwt_refresh_create**](docs/AuthenticationApi.md#jwt_refresh_create) | **POST** /api/jwt/refresh/ |
 *ChecksApi* | [**v2_checks_list**](docs/ChecksApi.md#v2_checks_list) | **GET** /api/v2/checks/ |
 *ChecksApi* | [**v2_checks_retrieve**](docs/ChecksApi.md#v2_checks_retrieve) | **GET** /api/v2/checks/{check_type}/ |
@@ -48,6 +51,7 @@ Class | Method | HTTP request | Description
 *ProfilesApi* | [**v2_profiles_partial_update**](docs/ProfilesApi.md#v2_profiles_partial_update) | **PATCH** /api/v2/profiles/{id}/ |
 *ProfilesApi* | [**v2_profiles_retrieve**](docs/ProfilesApi.md#v2_profiles_retrieve) | **GET** /api/v2/profiles/{id}/ |
 *ProfilesApi* | [**v2_profiles_update**](docs/ProfilesApi.md#v2_profiles_update) | **PUT** /api/v2/profiles/{id}/ |
+*ScreeningsApi* | [**v2_screenings_close_create**](docs/ScreeningsApi.md#v2_screenings_close_create) | **POST** /api/v2/screenings/{id}/close/ | Close a screening
 *ScreeningsApi* | [**v2_screenings_create**](docs/ScreeningsApi.md#v2_screenings_create) | **POST** /api/v2/screenings/ |
 *ScreeningsApi* | [**v2_screenings_documents_list**](docs/ScreeningsApi.md#v2_screenings_documents_list) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
 *ScreeningsApi* | [**v2_screenings_list**](docs/ScreeningsApi.md#v2_screenings_list) | **GET** /api/v2/screenings/ |
@@ -59,17 +63,22 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [CustomTokenObtainPair](docs/CustomTokenObtainPair.md)
+ - [AddonPrice](docs/AddonPrice.md)
+ - [DisabledDivision](docs/DisabledDivision.md)
  - [DivisionReadOnly](docs/DivisionReadOnly.md)
  - [DivisionWrite](docs/DivisionWrite.md)
  - [JwtGeneration](docs/JwtGeneration.md)
  - [JwtResponse](docs/JwtResponse.md)
  - [OAuthApplication](docs/OAuthApplication.md)
  - [OAuthApplicationResponse](docs/OAuthApplicationResponse.md)
+ - [OrganisationAddon](docs/OrganisationAddon.md)
+ - [OrganisationAddonUpdate](docs/OrganisationAddonUpdate.md)
+ - [OrganisationAddonUpdateResult](docs/OrganisationAddonUpdateResult.md)
  - [PaginatedDivisionReadOnlyList](docs/PaginatedDivisionReadOnlyList.md)
  - [PaginatedV2ProfileListItemList](docs/PaginatedV2ProfileListItemList.md)
  - [PaginatedV2ScreeningListItemList](docs/PaginatedV2ScreeningListItemList.md)
  - [PatchedDivisionWrite](docs/PatchedDivisionWrite.md)
+ - [PatchedOrganisationAddonUpdate](docs/PatchedOrganisationAddonUpdate.md)
  - [PatchedV2ProfilePartialUpdate](docs/PatchedV2ProfilePartialUpdate.md)
  - [TokenRefresh](docs/TokenRefresh.md)
  - [V2Candidate](docs/V2Candidate.md)
@@ -90,7 +99,7 @@ Class | Method | HTTP request | Description
  - [V2ScreeningCheckListItem](docs/V2ScreeningCheckListItem.md)
  - [V2ScreeningCreate](docs/V2ScreeningCreate.md)
  - [V2ScreeningDetail](docs/V2ScreeningDetail.md)
- - [V2ScreeningDetailProfile](docs/V2ScreeningDetailProfile.md)
+ - [V2ScreeningDetailOrganisation](docs/V2ScreeningDetailOrganisation.md)
  - [V2ScreeningListItem](docs/V2ScreeningListItem.md)
  - [V2ScreeningNote](docs/V2ScreeningNote.md)
  - [V2ScreeningNoteInput](docs/V2ScreeningNoteInput.md)

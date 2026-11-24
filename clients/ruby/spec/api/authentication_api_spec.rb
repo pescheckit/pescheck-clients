@@ -33,22 +33,11 @@ describe 'AuthenticationApi' do
   end
 
   # unit tests for generate_jwt_token2
-  # Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id (defaults to your current org).  For a plain login, use POST /api/jwt/.
+  # Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
   # @param jwt_generation 
   # @param [Hash] opts the optional parameters
   # @return [JWTResponse]
   describe 'generate_jwt_token2 test' do
-    it 'should work' do
-      # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-    end
-  end
-
-  # unit tests for jwt_create
-  # Log in with email + password. Returns a JWT pair scoped to your current organization (last viewed, or first available).  For a token scoped to a specific org or division, use POST /api/v2/jwt/generate/.
-  # @param custom_token_obtain_pair 
-  # @param [Hash] opts the optional parameters
-  # @return [CustomTokenObtainPair]
-  describe 'jwt_create test' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
     end

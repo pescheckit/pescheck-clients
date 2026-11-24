@@ -28,6 +28,27 @@ namespace Pescheck.Client.Api
     {
         #region Synchronous Operations
         /// <summary>
+        /// Close a screening
+        /// </summary>
+        /// <remarks>
+        /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </remarks>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <returns>V2ScreeningDetail</returns>
+        V2ScreeningDetail V2ScreeningsCloseCreate(Guid id);
+
+        /// <summary>
+        /// Close a screening
+        /// </summary>
+        /// <remarks>
+        /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </remarks>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <returns>ApiResponse of V2ScreeningDetail</returns>
+        ApiResponse<V2ScreeningDetail> V2ScreeningsCloseCreateWithHttpInfo(Guid id);
+        /// <summary>
         /// 
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
@@ -74,11 +95,12 @@ namespace Pescheck.Client.Api
         /// 
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>PaginatedV2ScreeningListItemList</returns>
-        PaginatedV2ScreeningListItemList V2ScreeningsList(int? page = default, int? pageSize = default, bool? paginate = default);
+        PaginatedV2ScreeningListItemList V2ScreeningsList(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default);
 
         /// <summary>
         /// 
@@ -87,11 +109,12 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>ApiResponse of PaginatedV2ScreeningListItemList</returns>
-        ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(int? page = default, int? pageSize = default, bool? paginate = default);
+        ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default);
         /// <summary>
         /// 
         /// </summary>
@@ -119,6 +142,29 @@ namespace Pescheck.Client.Api
     public interface IScreeningsApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
+        /// <summary>
+        /// Close a screening
+        /// </summary>
+        /// <remarks>
+        /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </remarks>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of V2ScreeningDetail</returns>
+        System.Threading.Tasks.Task<V2ScreeningDetail> V2ScreeningsCloseCreateAsync(Guid id, System.Threading.CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Close a screening
+        /// </summary>
+        /// <remarks>
+        /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </remarks>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (V2ScreeningDetail)</returns>
+        System.Threading.Tasks.Task<ApiResponse<V2ScreeningDetail>> V2ScreeningsCloseCreateWithHttpInfoAsync(Guid id, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -176,12 +222,13 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PaginatedV2ScreeningListItemList</returns>
-        System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
 
         /// <summary>
         /// 
@@ -190,12 +237,13 @@ namespace Pescheck.Client.Api
         /// 
         /// </remarks>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PaginatedV2ScreeningListItemList)</returns>
-        System.Threading.Tasks.Task<ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
+        System.Threading.Tasks.Task<ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default);
         /// <summary>
         /// 
         /// </summary>
@@ -430,6 +478,125 @@ namespace Pescheck.Client.Api
                 return _exceptionFactory;
             }
             set { _exceptionFactory = value; }
+        }
+
+        /// <summary>
+        /// Close a screening Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </summary>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <returns>V2ScreeningDetail</returns>
+        public V2ScreeningDetail V2ScreeningsCloseCreate(Guid id)
+        {
+            Pescheck.Client.Client.ApiResponse<V2ScreeningDetail> localVarResponse = V2ScreeningsCloseCreateWithHttpInfo(id);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Close a screening Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </summary>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <returns>ApiResponse of V2ScreeningDetail</returns>
+        public Pescheck.Client.Client.ApiResponse<V2ScreeningDetail> V2ScreeningsCloseCreateWithHttpInfo(Guid id)
+        {
+            Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+            var localVarContentType = Pescheck.Client.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Pescheck.Client.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+            var localVarResponse = this.Client.Post<V2ScreeningDetail>("/api/v2/screenings/{id}/close/", localVarRequestOptions, this.Configuration);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("V2ScreeningsCloseCreate", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
+        }
+
+        /// <summary>
+        /// Close a screening Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </summary>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of V2ScreeningDetail</returns>
+        public async System.Threading.Tasks.Task<V2ScreeningDetail> V2ScreeningsCloseCreateAsync(Guid id, System.Threading.CancellationToken cancellationToken = default)
+        {
+            Pescheck.Client.Client.ApiResponse<V2ScreeningDetail> localVarResponse = await V2ScreeningsCloseCreateWithHttpInfoAsync(id, cancellationToken).ConfigureAwait(false);
+            return localVarResponse.Data;
+        }
+
+        /// <summary>
+        /// Close a screening Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+        /// </summary>
+        /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id">A UUID string identifying this screening.</param>
+        /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
+        /// <returns>Task of ApiResponse (V2ScreeningDetail)</returns>
+        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<V2ScreeningDetail>> V2ScreeningsCloseCreateWithHttpInfoAsync(Guid id, System.Threading.CancellationToken cancellationToken = default)
+        {
+
+            Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
+
+            string[] _contentTypes = new string[] {
+            };
+
+            // to determine the Accept header
+            string[] _accepts = new string[] {
+                "application/json"
+            };
+
+
+            var localVarContentType = Pescheck.Client.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
+
+            var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
+
+            localVarRequestOptions.PathParameters.Add("id", Pescheck.Client.Client.ClientUtils.ParameterToString(id)); // path parameter
+
+            // authentication (oauth2) required
+            // oauth required
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            {
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
+            }
+
+            // make the HTTP request
+
+            var localVarResponse = await this.AsynchronousClient.PostAsync<V2ScreeningDetail>("/api/v2/screenings/{id}/close/", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+
+            if (this.ExceptionFactory != null)
+            {
+                Exception _exception = this.ExceptionFactory("V2ScreeningsCloseCreate", localVarResponse);
+                if (_exception != null) throw _exception;
+            }
+
+            return localVarResponse;
         }
 
         /// <summary>
@@ -710,13 +877,14 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>PaginatedV2ScreeningListItemList</returns>
-        public PaginatedV2ScreeningListItemList V2ScreeningsList(int? page = default, int? pageSize = default, bool? paginate = default)
+        public PaginatedV2ScreeningListItemList V2ScreeningsList(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default)
         {
-            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = V2ScreeningsListWithHttpInfo(page, pageSize, paginate);
+            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = V2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
             return localVarResponse.Data;
         }
 
@@ -724,11 +892,12 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <returns>ApiResponse of PaginatedV2ScreeningListItemList</returns>
-        public Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(int? page = default, int? pageSize = default, bool? paginate = default)
+        public Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> V2ScreeningsListWithHttpInfo(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default)
         {
             Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
 
@@ -746,6 +915,10 @@ namespace Pescheck.Client.Api
             var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (organisation != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "organisation", organisation));
+            }
             if (page != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "page", page));
@@ -782,14 +955,15 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of PaginatedV2ScreeningListItemList</returns>
-        public async System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<PaginatedV2ScreeningListItemList> V2ScreeningsListAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
         {
-            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = await V2ScreeningsListWithHttpInfoAsync(page, pageSize, paginate, cancellationToken).ConfigureAwait(false);
+            Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList> localVarResponse = await V2ScreeningsListWithHttpInfoAsync(organisation, page, pageSize, paginate, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -797,12 +971,13 @@ namespace Pescheck.Client.Api
         ///  
         /// </summary>
         /// <exception cref="Pescheck.Client.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="organisation">Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)</param>
         /// <param name="page">A page number within the paginated result set. (optional, default to 1)</param>
         /// <param name="pageSize">Number of results to return per page. (optional, default to 50)</param>
         /// <param name="paginate">Enable/disable pagination. When false, max 500 records returned. (optional, default to true)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (PaginatedV2ScreeningListItemList)</returns>
-        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
+        public async System.Threading.Tasks.Task<Pescheck.Client.Client.ApiResponse<PaginatedV2ScreeningListItemList>> V2ScreeningsListWithHttpInfoAsync(Guid? organisation = default, int? page = default, int? pageSize = default, bool? paginate = default, System.Threading.CancellationToken cancellationToken = default)
         {
 
             Pescheck.Client.Client.RequestOptions localVarRequestOptions = new Pescheck.Client.Client.RequestOptions();
@@ -822,6 +997,10 @@ namespace Pescheck.Client.Api
             var localVarAccept = Pescheck.Client.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (organisation != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "organisation", organisation));
+            }
             if (page != null)
             {
                 localVarRequestOptions.QueryParameters.Add(Pescheck.Client.Client.ClientUtils.ParameterToMultiMap("", "page", page));

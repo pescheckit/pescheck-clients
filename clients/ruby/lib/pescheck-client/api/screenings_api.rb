@@ -19,6 +19,69 @@ module Pescheck
     def initialize(api_client = ApiClient.default)
       @api_client = api_client
     end
+    # Close a screening
+    # Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+    # @param id [String] A UUID string identifying this screening.
+    # @param [Hash] opts the optional parameters
+    # @return [V2ScreeningDetail]
+    def v2_screenings_close_create(id, opts = {})
+      data, _status_code, _headers = v2_screenings_close_create_with_http_info(id, opts)
+      data
+    end
+
+    # Close a screening
+    # Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+    # @param id [String] A UUID string identifying this screening.
+    # @param [Hash] opts the optional parameters
+    # @return [Array<(V2ScreeningDetail, Integer, Hash)>] V2ScreeningDetail data, response status code and response headers
+    def v2_screenings_close_create_with_http_info(id, opts = {})
+      if @api_client.config.debugging
+        @api_client.config.logger.debug 'Calling API: ScreeningsApi.v2_screenings_close_create ...'
+      end
+      # verify the required parameter 'id' is set
+      if @api_client.config.client_side_validation && id.nil?
+        fail ArgumentError, "Missing the required parameter 'id' when calling ScreeningsApi.v2_screenings_close_create"
+      end
+      # resource path
+      local_var_path = '/api/v2/screenings/{id}/close/'.sub('{id}', CGI.escape(id.to_s))
+
+      # query parameters
+      query_params = opts[:query_params] || {}
+
+      # header parameters
+      header_params = opts[:header_params] || {}
+      # HTTP header 'Accept' (if needed)
+      header_params['Accept'] = @api_client.select_header_accept(['application/json']) unless header_params['Accept']
+
+      # form parameters
+      form_params = opts[:form_params] || {}
+
+      # http body (model)
+      post_body = opts[:debug_body]
+
+      # return_type
+      return_type = opts[:debug_return_type] || 'V2ScreeningDetail'
+
+      # auth_names
+      auth_names = opts[:debug_auth_names] || ['oauth2']
+
+      new_options = opts.merge(
+        :operation => :"ScreeningsApi.v2_screenings_close_create",
+        :header_params => header_params,
+        :query_params => query_params,
+        :form_params => form_params,
+        :body => post_body,
+        :auth_names => auth_names,
+        :return_type => return_type
+      )
+
+      data, status_code, headers = @api_client.call_api(:POST, local_var_path, new_options)
+      if @api_client.config.debugging
+        @api_client.config.logger.debug "API called: ScreeningsApi#v2_screenings_close_create\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+      end
+      return data, status_code, headers
+    end
+
     # @param v2_screening_create [V2ScreeningCreate] 
     # @param [Hash] opts the optional parameters
     # @return [V2ScreeningDetail]
@@ -153,6 +216,7 @@ module Pescheck
     end
 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
     # @option opts [Integer] :page A page number within the paginated result set. (default to 1)
     # @option opts [Integer] :page_size Number of results to return per page. (default to 50)
     # @option opts [Boolean] :paginate Enable/disable pagination. When false, max 500 records returned. (default to true)
@@ -163,6 +227,7 @@ module Pescheck
     end
 
     # @param [Hash] opts the optional parameters
+    # @option opts [String] :organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings.
     # @option opts [Integer] :page A page number within the paginated result set. (default to 1)
     # @option opts [Integer] :page_size Number of results to return per page. (default to 50)
     # @option opts [Boolean] :paginate Enable/disable pagination. When false, max 500 records returned. (default to true)
@@ -188,6 +253,7 @@ module Pescheck
 
       # query parameters
       query_params = opts[:query_params] || {}
+      query_params[:'organisation'] = opts[:'organisation'] if !opts[:'organisation'].nil?
       query_params[:'page'] = opts[:'page'] if !opts[:'page'].nil?
       query_params[:'page_size'] = opts[:'page_size'] if !opts[:'page_size'].nil?
       query_params[:'paginate'] = opts[:'paginate'] if !opts[:'paginate'].nil?

@@ -41,6 +41,8 @@ class TestOAuthApplicationResponse(unittest.TestCase):
                 client_secret = '',
                 client_type = 'confidential',
                 authorization_grant_type = 'authorization-code',
+                organisation = '',
+                organisation_id = '',
                 created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
@@ -50,6 +52,8 @@ class TestOAuthApplicationResponse(unittest.TestCase):
                 client_secret = '',
                 client_type = 'confidential',
                 authorization_grant_type = 'authorization-code',
+                organisation = '',
+                organisation_id = '',
                 created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
                 updated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'),
         )

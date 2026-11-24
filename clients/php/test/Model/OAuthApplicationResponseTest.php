@@ -134,6 +134,24 @@ class OAuthApplicationResponseTest extends TestCase
     }
 
     /**
+     * Test attribute "organisation"
+     */
+    public function testPropertyOrganisation()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
+     * Test attribute "organisation_id"
+     */
+    public function testPropertyOrganisationId()
+    {
+        // TODO: implement
+        self::markTestIncomplete('Not implemented');
+    }
+
+    /**
      * Test attribute "created"
      */
     public function testPropertyCreated()

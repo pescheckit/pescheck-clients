@@ -116,6 +116,22 @@ public class V2ProfileDetailTest {
     }
 
     /**
+     * Test the property 'createsAsDraft'
+     */
+    @Test
+    public void createsAsDraftTest() {
+        // TODO: test createsAsDraft
+    }
+
+    /**
+     * Test the property 'draftReasons'
+     */
+    @Test
+    public void draftReasonsTest() {
+        // TODO: test draftReasons
+    }
+
+    /**
      * Test the property 'createdAt'
      */
     @Test

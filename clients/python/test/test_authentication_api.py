@@ -32,12 +32,6 @@ class TestAuthenticationApi(unittest.TestCase):
         """
         pass
 
-    def test_jwt_create(self) -> None:
-        """Test case for jwt_create
-
-        """
-        pass
-
     def test_jwt_refresh_create(self) -> None:
         """Test case for jwt_refresh_create
 

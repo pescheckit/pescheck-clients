@@ -55,7 +55,14 @@ class TestV2ScreeningCreate(unittest.TestCase):
                             }, 
                         profile_check_id = '', 
                         input = null, )
-                    ]
+                    ],
+                screening_notes = [
+                    pescheck.models.v2_screening_note_input.V2ScreeningNoteInput(
+                        note = '', 
+                        profile_check_id = '', 
+                        check_type = 'addresscheck', )
+                    ],
+                division_id = ''
             )
         else:
             return V2ScreeningCreate(
