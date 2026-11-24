@@ -58,10 +58,12 @@ export interface V2Document {
      * * `watchlistcheck` - watchlistcheck
      * * `workreferencecheck` - workreferencecheck
      * * `worldwidecreditcheck` - worldwidecreditcheck
-     * @type {V2DocumentCheckTypeEnum}
+     * 
+     * Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof V2Document
      */
-    readonly checkType: V2DocumentCheckTypeEnum;
+    readonly checkType: string;
     /**
      * 
      * @type {string}
@@ -87,38 +89,6 @@ export interface V2Document {
      */
     readonly metadata: { [key: string]: any; };
 }
-
-
-/**
- * @export
- */
-export const V2DocumentCheckTypeEnum = {
-    Addresscheck: 'addresscheck',
-    Adversemedia2check: 'adversemedia2check',
-    Adversemediacheck: 'adversemediacheck',
-    Bigcheck: 'bigcheck',
-    Criminalrecordscheck: 'criminalrecordscheck',
-    Criminalrecordsuploadcheck: 'criminalrecordsuploadcheck',
-    Customintegritycheck: 'customintegritycheck',
-    Cvcheck: 'cvcheck',
-    Edrcheck: 'edrcheck',
-    Ibancheck: 'ibancheck',
-    Id2check: 'id2check',
-    Idcheck: 'idcheck',
-    Integritycheck: 'integritycheck',
-    Openhealthcarecheck: 'openhealthcarecheck',
-    Permissioncheck: 'permissioncheck',
-    Pescheckadversemediacheck: 'pescheckadversemediacheck',
-    Qualificationcheck: 'qualificationcheck',
-    Righttoworkcheck: 'righttoworkcheck',
-    Vogcheck: 'vogcheck',
-    Watchlist2check: 'watchlist2check',
-    Watchlistcheck: 'watchlistcheck',
-    Workreferencecheck: 'workreferencecheck',
-    Worldwidecreditcheck: 'worldwidecreditcheck'
-} as const;
-export type V2DocumentCheckTypeEnum = typeof V2DocumentCheckTypeEnum[keyof typeof V2DocumentCheckTypeEnum];
-
 
 /**
  * Check if a given object implements the V2Document interface.

@@ -18,7 +18,6 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_OrganisationAddonUpdateResult_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_OrganisationAddonUpdateResult_H_
 
-#include <stdexcept>
 #include <boost/optional.hpp>
 
 #include "PescheckApi/ModelBase.h"
@@ -62,28 +61,14 @@ public:
     /////////////////////////////////////////////
     /// OrganisationAddonUpdateResult members
 
-    enum class AddonEnum
-    {
-        BRANDED_JOURNEY,
-        SSO,
-        API_ACCESS,
-        CONNECTED_ATS,
-    };
-    /// <summary>
-    /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
-    /// </summary>
-
-    AddonEnum toAddonEnum(const utility::string_t& value) const;
-    const utility::string_t fromAddonEnum(const AddonEnum value) const;
-
 
     /// <summary>
-    /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
+    /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
     /// </summary>
-    AddonEnum getAddon() const;
+    utility::string_t getAddon() const;
     bool addonIsSet() const;
     void unsetAddon();
-    void setAddon(const AddonEnum value);
+    void setAddon(const utility::string_t& value);
 
     utility::string_t getName() const;
     bool nameIsSet() const;
@@ -145,7 +130,7 @@ public:
 
 
 protected:
-    AddonEnum m_Addon;
+    utility::string_t m_Addon;
     bool m_AddonIsSet;
 
     utility::string_t m_Name;

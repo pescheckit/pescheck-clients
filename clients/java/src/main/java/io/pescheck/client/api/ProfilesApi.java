@@ -77,20 +77,7 @@ public class ProfilesApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for v2ProfilesCreate
-     * @param v2ProfileCreate  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesCreateCall(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesCreateCall(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -147,78 +134,109 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param v2ProfileCreate  (required)
-     * @return V2ProfileDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ProfileDetail v2ProfilesCreate(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate) throws ApiException {
-        ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesCreateWithHttpInfo(v2ProfileCreate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param v2ProfileCreate  (required)
-     * @return ApiResponse&lt;V2ProfileDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ProfileDetail> v2ProfilesCreateWithHttpInfo(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate) throws ApiException {
+    private ApiResponse<V2ProfileDetail> v2ProfilesCreateWithHttpInfo(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesCreateValidateBeforeCall(v2ProfileCreate, null);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param v2ProfileCreate  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesCreateAsync(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesCreateAsync(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ProfilesCreateValidateBeforeCall(v2ProfileCreate, _callback);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ProfilesCreateRequest {
+        @javax.annotation.Nonnull
+        private final V2ProfileCreate v2ProfileCreate;
+
+        private APIv2ProfilesCreateRequest(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate) {
+            this.v2ProfileCreate = v2ProfileCreate;
+        }
+
+        /**
+         * Build call for v2ProfilesCreate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesCreateCall(v2ProfileCreate, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesCreate request
+         * @return V2ProfileDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ProfileDetail execute() throws ApiException {
+            ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesCreateWithHttpInfo(v2ProfileCreate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ProfilesCreate request with HTTP info returned
+         * @return ApiResponse&lt;V2ProfileDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ProfileDetail> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesCreateWithHttpInfo(v2ProfileCreate);
+        }
+
+        /**
+         * Execute v2ProfilesCreate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+            return v2ProfilesCreateAsync(v2ProfileCreate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ProfilesDestroy
-     * @param id A UUID string identifying this profile. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * 
+     * @param v2ProfileCreate  (required)
+     * @return APIv2ProfilesCreateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesDestroyCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+    public APIv2ProfilesCreateRequest v2ProfilesCreate(@javax.annotation.Nonnull V2ProfileCreate v2ProfileCreate) {
+        return new APIv2ProfilesCreateRequest(v2ProfileCreate);
+    }
+    private okhttp3.Call v2ProfilesDestroyCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -273,80 +291,105 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public void v2ProfilesDestroy(@javax.annotation.Nonnull UUID id) throws ApiException {
-        v2ProfilesDestroyWithHttpInfo(id);
-    }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> v2ProfilesDestroyWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    private ApiResponse<Void> v2ProfilesDestroyWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesDestroyValidateBeforeCall(id, null);
         return localVarApiClient.execute(localVarCall);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesDestroyAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<Void> _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesDestroyAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ProfilesDestroyValidateBeforeCall(id, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
+
+    public class APIv2ProfilesDestroyRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+
+        private APIv2ProfilesDestroyRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for v2ProfilesDestroy
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesDestroyCall(id, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesDestroy request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute() throws ApiException {
+            v2ProfilesDestroyWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2ProfilesDestroy request with HTTP info returned
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesDestroyWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2ProfilesDestroy request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
+            return v2ProfilesDestroyAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ProfilesList
-     * @param checkType Restrict to profiles containing at least one check of this type. (optional)
-     * @param isCustom Restrict to custom (true) or system (false) profiles. (optional)
-     * @param name Restrict to profiles whose name contains this value (case-insensitive). (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param sort Which field to use when ordering the results. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * 
+     * @param id A UUID string identifying this profile. (required)
+     * @return APIv2ProfilesDestroyRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 204 </td><td> No response body </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesListCall(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort, final ApiCallback _callback) throws ApiException {
+    public APIv2ProfilesDestroyRequest v2ProfilesDestroy(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ProfilesDestroyRequest(id);
+    }
+    private okhttp3.Call v2ProfilesListCall(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -424,89 +467,178 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param checkType Restrict to profiles containing at least one check of this type. (optional)
-     * @param isCustom Restrict to custom (true) or system (false) profiles. (optional)
-     * @param name Restrict to profiles whose name contains this value (case-insensitive). (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param sort Which field to use when ordering the results. (optional)
-     * @return PaginatedV2ProfileListItemList
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public PaginatedV2ProfileListItemList v2ProfilesList(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort) throws ApiException {
-        ApiResponse<PaginatedV2ProfileListItemList> localVarResp = v2ProfilesListWithHttpInfo(checkType, isCustom, name, page, pageSize, paginate, sort);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param checkType Restrict to profiles containing at least one check of this type. (optional)
-     * @param isCustom Restrict to custom (true) or system (false) profiles. (optional)
-     * @param name Restrict to profiles whose name contains this value (case-insensitive). (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param sort Which field to use when ordering the results. (optional)
-     * @return ApiResponse&lt;PaginatedV2ProfileListItemList&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PaginatedV2ProfileListItemList> v2ProfilesListWithHttpInfo(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort) throws ApiException {
+    private ApiResponse<PaginatedV2ProfileListItemList> v2ProfilesListWithHttpInfo(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesListValidateBeforeCall(checkType, isCustom, name, page, pageSize, paginate, sort, null);
         Type localVarReturnType = new TypeToken<PaginatedV2ProfileListItemList>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param checkType Restrict to profiles containing at least one check of this type. (optional)
-     * @param isCustom Restrict to custom (true) or system (false) profiles. (optional)
-     * @param name Restrict to profiles whose name contains this value (case-insensitive). (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param sort Which field to use when ordering the results. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesListAsync(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort, final ApiCallback<PaginatedV2ProfileListItemList> _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesListAsync(@javax.annotation.Nullable String checkType, @javax.annotation.Nullable Boolean isCustom, @javax.annotation.Nullable String name, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, @javax.annotation.Nullable String sort, final ApiCallback<PaginatedV2ProfileListItemList> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ProfilesListValidateBeforeCall(checkType, isCustom, name, page, pageSize, paginate, sort, _callback);
         Type localVarReturnType = new TypeToken<PaginatedV2ProfileListItemList>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ProfilesListRequest {
+        @javax.annotation.Nullable
+        private String checkType;
+        @javax.annotation.Nullable
+        private Boolean isCustom;
+        @javax.annotation.Nullable
+        private String name;
+        @javax.annotation.Nullable
+        private Integer page;
+        @javax.annotation.Nullable
+        private Integer pageSize;
+        @javax.annotation.Nullable
+        private Boolean paginate;
+        @javax.annotation.Nullable
+        private String sort;
+
+        private APIv2ProfilesListRequest() {
+        }
+
+        /**
+         * Set checkType
+         * @param checkType Restrict to profiles containing at least one check of this type. (optional)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest checkType(@javax.annotation.Nullable String checkType) {
+            this.checkType = checkType;
+            return this;
+        }
+
+        /**
+         * Set isCustom
+         * @param isCustom Restrict to custom (true) or system (false) profiles. (optional)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest isCustom(@javax.annotation.Nullable Boolean isCustom) {
+            this.isCustom = isCustom;
+            return this;
+        }
+
+        /**
+         * Set name
+         * @param name Restrict to profiles whose name contains this value (case-insensitive). (optional)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest name(@javax.annotation.Nullable String name) {
+            this.name = name;
+            return this;
+        }
+
+        /**
+         * Set page
+         * @param page A page number within the paginated result set. (optional, default to 1)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest page(@javax.annotation.Nullable Integer page) {
+            this.page = page;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize Number of results to return per page. (optional, default to 50)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest pageSize(@javax.annotation.Nullable Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set paginate
+         * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest paginate(@javax.annotation.Nullable Boolean paginate) {
+            this.paginate = paginate;
+            return this;
+        }
+
+        /**
+         * Set sort
+         * @param sort Which field to use when ordering the results. (optional)
+         * @return APIv2ProfilesListRequest
+         */
+        public APIv2ProfilesListRequest sort(@javax.annotation.Nullable String sort) {
+            this.sort = sort;
+            return this;
+        }
+
+        /**
+         * Build call for v2ProfilesList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesListCall(checkType, isCustom, name, page, pageSize, paginate, sort, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesList request
+         * @return PaginatedV2ProfileListItemList
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public PaginatedV2ProfileListItemList execute() throws ApiException {
+            ApiResponse<PaginatedV2ProfileListItemList> localVarResp = v2ProfilesListWithHttpInfo(checkType, isCustom, name, page, pageSize, paginate, sort);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ProfilesList request with HTTP info returned
+         * @return ApiResponse&lt;PaginatedV2ProfileListItemList&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PaginatedV2ProfileListItemList> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesListWithHttpInfo(checkType, isCustom, name, page, pageSize, paginate, sort);
+        }
+
+        /**
+         * Execute v2ProfilesList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PaginatedV2ProfileListItemList> _callback) throws ApiException {
+            return v2ProfilesListAsync(checkType, isCustom, name, page, pageSize, paginate, sort, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ProfilesPartialUpdate
-     * @param id A UUID string identifying this profile. (required)
-     * @param patchedV2ProfilePartialUpdate  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * 
+     * @return APIv2ProfilesListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -514,7 +646,10 @@ public class ProfilesApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesPartialUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate, final ApiCallback _callback) throws ApiException {
+    public APIv2ProfilesListRequest v2ProfilesList() {
+        return new APIv2ProfilesListRequest();
+    }
+    private okhttp3.Call v2ProfilesPartialUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -572,73 +707,110 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * Update name and/or description only. Use PUT to change the check list.
-     * @param id A UUID string identifying this profile. (required)
-     * @param patchedV2ProfilePartialUpdate  (optional)
-     * @return V2ProfileDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ProfileDetail v2ProfilesPartialUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate) throws ApiException {
-        ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesPartialUpdateWithHttpInfo(id, patchedV2ProfilePartialUpdate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Update name and/or description only. Use PUT to change the check list.
-     * @param id A UUID string identifying this profile. (required)
-     * @param patchedV2ProfilePartialUpdate  (optional)
-     * @return ApiResponse&lt;V2ProfileDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ProfileDetail> v2ProfilesPartialUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate) throws ApiException {
+    private ApiResponse<V2ProfileDetail> v2ProfilesPartialUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesPartialUpdateValidateBeforeCall(id, patchedV2ProfilePartialUpdate, null);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Update name and/or description only. Use PUT to change the check list.
-     * @param id A UUID string identifying this profile. (required)
-     * @param patchedV2ProfilePartialUpdate  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesPartialUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesPartialUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ProfilesPartialUpdateValidateBeforeCall(id, patchedV2ProfilePartialUpdate, _callback);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ProfilesPartialUpdateRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+        @javax.annotation.Nullable
+        private PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate;
+
+        private APIv2ProfilesPartialUpdateRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set patchedV2ProfilePartialUpdate
+         * @param patchedV2ProfilePartialUpdate  (optional)
+         * @return APIv2ProfilesPartialUpdateRequest
+         */
+        public APIv2ProfilesPartialUpdateRequest patchedV2ProfilePartialUpdate(@javax.annotation.Nullable PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate) {
+            this.patchedV2ProfilePartialUpdate = patchedV2ProfilePartialUpdate;
+            return this;
+        }
+
+        /**
+         * Build call for v2ProfilesPartialUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesPartialUpdateCall(id, patchedV2ProfilePartialUpdate, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesPartialUpdate request
+         * @return V2ProfileDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ProfileDetail execute() throws ApiException {
+            ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesPartialUpdateWithHttpInfo(id, patchedV2ProfilePartialUpdate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ProfilesPartialUpdate request with HTTP info returned
+         * @return ApiResponse&lt;V2ProfileDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ProfileDetail> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesPartialUpdateWithHttpInfo(id, patchedV2ProfilePartialUpdate);
+        }
+
+        /**
+         * Execute v2ProfilesPartialUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+            return v2ProfilesPartialUpdateAsync(id, patchedV2ProfilePartialUpdate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ProfilesRetrieve
+     * 
+     * Update name and/or description only. Use PUT to change the check list.
      * @param id A UUID string identifying this profile. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2ProfilesPartialUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -646,7 +818,10 @@ public class ProfilesApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+    public APIv2ProfilesPartialUpdateRequest v2ProfilesPartialUpdate(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ProfilesPartialUpdateRequest(id);
+    }
+    private okhttp3.Call v2ProfilesRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -702,71 +877,98 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @return V2ProfileDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ProfileDetail v2ProfilesRetrieve(@javax.annotation.Nonnull UUID id) throws ApiException {
-        ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesRetrieveWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @return ApiResponse&lt;V2ProfileDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ProfileDetail> v2ProfilesRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    private ApiResponse<V2ProfileDetail> v2ProfilesRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesRetrieveValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param id A UUID string identifying this profile. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ProfilesRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+    private okhttp3.Call v2ProfilesRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ProfilesRetrieveValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ProfilesRetrieveRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+
+        private APIv2ProfilesRetrieveRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for v2ProfilesRetrieve
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesRetrieveCall(id, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesRetrieve request
+         * @return V2ProfileDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ProfileDetail execute() throws ApiException {
+            ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesRetrieveWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ProfilesRetrieve request with HTTP info returned
+         * @return ApiResponse&lt;V2ProfileDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ProfileDetail> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesRetrieveWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2ProfilesRetrieve request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+            return v2ProfilesRetrieveAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ProfilesUpdate
+     * 
+     * 
      * @param id A UUID string identifying this profile. (required)
-     * @param v2ProfileUpdate  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2ProfilesRetrieveRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -774,7 +976,10 @@ public class ProfilesApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate, final ApiCallback _callback) throws ApiException {
+    public APIv2ProfilesRetrieveRequest v2ProfilesRetrieve(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ProfilesRetrieveRequest(id);
+    }
+    private okhttp3.Call v2ProfilesUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -837,53 +1042,102 @@ public class ProfilesApi {
 
     }
 
-    /**
-     * 
-     * Replace the profile. Checks matched by profile_check_id are updated in place; entries without one are added; existing checks not referenced in the request are removed.
-     * @param id A UUID string identifying this profile. (required)
-     * @param v2ProfileUpdate  (required)
-     * @return V2ProfileDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ProfileDetail v2ProfilesUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate) throws ApiException {
-        ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesUpdateWithHttpInfo(id, v2ProfileUpdate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Replace the profile. Checks matched by profile_check_id are updated in place; entries without one are added; existing checks not referenced in the request are removed.
-     * @param id A UUID string identifying this profile. (required)
-     * @param v2ProfileUpdate  (required)
-     * @return ApiResponse&lt;V2ProfileDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ProfileDetail> v2ProfilesUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate) throws ApiException {
+    private ApiResponse<V2ProfileDetail> v2ProfilesUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate) throws ApiException {
         okhttp3.Call localVarCall = v2ProfilesUpdateValidateBeforeCall(id, v2ProfileUpdate, null);
         Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call v2ProfilesUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2ProfilesUpdateValidateBeforeCall(id, v2ProfileUpdate, _callback);
+        Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIv2ProfilesUpdateRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+        @javax.annotation.Nonnull
+        private final V2ProfileUpdate v2ProfileUpdate;
+
+        private APIv2ProfilesUpdateRequest(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate) {
+            this.id = id;
+            this.v2ProfileUpdate = v2ProfileUpdate;
+        }
+
+        /**
+         * Build call for v2ProfilesUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ProfilesUpdateCall(id, v2ProfileUpdate, _callback);
+        }
+
+        /**
+         * Execute v2ProfilesUpdate request
+         * @return V2ProfileDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ProfileDetail execute() throws ApiException {
+            ApiResponse<V2ProfileDetail> localVarResp = v2ProfilesUpdateWithHttpInfo(id, v2ProfileUpdate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ProfilesUpdate request with HTTP info returned
+         * @return ApiResponse&lt;V2ProfileDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ProfileDetail> executeWithHttpInfo() throws ApiException {
+            return v2ProfilesUpdateWithHttpInfo(id, v2ProfileUpdate);
+        }
+
+        /**
+         * Execute v2ProfilesUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
+            return v2ProfilesUpdateAsync(id, v2ProfileUpdate, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * Replace the profile. Checks matched by profile_check_id are updated in place; entries without one are added; existing checks not referenced in the request are removed.
      * @param id A UUID string identifying this profile. (required)
      * @param v2ProfileUpdate  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIv2ProfilesUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -891,11 +1145,7 @@ public class ProfilesApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ProfilesUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate, final ApiCallback<V2ProfileDetail> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = v2ProfilesUpdateValidateBeforeCall(id, v2ProfileUpdate, _callback);
-        Type localVarReturnType = new TypeToken<V2ProfileDetail>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIv2ProfilesUpdateRequest v2ProfilesUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull V2ProfileUpdate v2ProfileUpdate) {
+        return new APIv2ProfilesUpdateRequest(id, v2ProfileUpdate);
     }
 }

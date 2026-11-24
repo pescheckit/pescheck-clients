@@ -54,66 +54,10 @@ import io.pescheck.client.JSON;
  */
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.23.0")
 public class OrganisationAddonUpdateResult {
-  /**
-   * Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
-   */
-  @JsonAdapter(AddonEnum.Adapter.class)
-  public enum AddonEnum {
-    BRANDED_JOURNEY("branded_journey"),
-    
-    SSO("sso"),
-    
-    API_ACCESS("api_access"),
-    
-    CONNECTED_ATS("connected_ats");
-
-    private String value;
-
-    AddonEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static AddonEnum fromValue(String value) {
-      for (AddonEnum b : AddonEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<AddonEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AddonEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public AddonEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return AddonEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      AddonEnum.fromValue(value);
-    }
-  }
-
   public static final String SERIALIZED_NAME_ADDON = "addon";
   @SerializedName(SERIALIZED_NAME_ADDON)
   @javax.annotation.Nonnull
-  private AddonEnum addon;
+  private String addon;
 
   public static final String SERIALIZED_NAME_NAME = "name";
   @SerializedName(SERIALIZED_NAME_NAME)
@@ -158,21 +102,21 @@ public class OrganisationAddonUpdateResult {
   public OrganisationAddonUpdateResult() {
   }
 
-  public OrganisationAddonUpdateResult addon(@javax.annotation.Nonnull AddonEnum addon) {
+  public OrganisationAddonUpdateResult addon(@javax.annotation.Nonnull String addon) {
     this.addon = addon;
     return this;
   }
 
   /**
-   * Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
+   * Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
    * @return addon
    */
   @javax.annotation.Nonnull
-  public AddonEnum getAddon() {
+  public String getAddon() {
     return addon;
   }
 
-  public void setAddon(@javax.annotation.Nonnull AddonEnum addon) {
+  public void setAddon(@javax.annotation.Nonnull String addon) {
     this.addon = addon;
   }
 
@@ -469,8 +413,6 @@ public class OrganisationAddonUpdateResult {
       if (!jsonObj.get("addon").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `addon` to be a primitive type in the JSON string but got `%s`", jsonObj.get("addon").toString()));
       }
-      // validate the required field `addon`
-      AddonEnum.validateJsonElement(jsonObj.get("addon"));
       if (!jsonObj.get("name").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
       }

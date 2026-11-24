@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional]
 **client_id** | **string** |  | [optional]
 **client_secret** | **string** |  | [readonly]
-**client_type** | **string** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public |
-**authorization_grant_type** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid |
+**client_type** | **string** | * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values. |
+**authorization_grant_type** | **string** | * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values. |
 **organisation** | **string** |  | [readonly]
 **organisation_id** | **string** |  | [readonly]
 **created** | **\DateTime** |  | [readonly]

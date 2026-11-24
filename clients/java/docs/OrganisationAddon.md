@@ -8,7 +8,7 @@ One add-on for one organisation, built from ``addon_service.addon_cards``.
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-|**addon** | [**AddonEnum**](#AddonEnum) | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go |  |
+|**addon** | **String** | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values. |  |
 |**name** | **String** |  |  |
 |**description** | **String** |  |  |
 |**enabled** | **Boolean** | Switched on (and billed) for this organisation. |  |
@@ -16,17 +16,6 @@ One add-on for one organisation, built from ``addon_service.addon_cards``.
 |**blockedByParent** | **Boolean** | Only the missing add-on on the parent organisation stands in the way. |  |
 |**monthlyPrice** | [**AddonPrice**](AddonPrice.md) | What this organisation pays per month; the division price for a division. Null when unpriced. |  |
 |**priceIsIndicative** | **Boolean** | The price is a starting price (\&quot;from\&quot;). |  |
-
-
-
-## Enum: AddonEnum
-
-| Name | Value |
-|---- | -----|
-| BRANDED_JOURNEY | &quot;branded_journey&quot; |
-| SSO | &quot;sso&quot; |
-| API_ACCESS | &quot;api_access&quot; |
-| CONNECTED_ATS | &quot;connected_ats&quot; |
 
 
 

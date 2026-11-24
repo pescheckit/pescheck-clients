@@ -18,7 +18,7 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
@@ -34,27 +34,13 @@ class OAuthApplicationResponse(BaseModel):
     name: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     client_id: Optional[Annotated[str, Field(strict=True, max_length=255)]] = None
     client_secret: StrictStr
-    client_type: StrictStr = Field(description="* `confidential` - Confidential * `public` - Public")
-    authorization_grant_type: StrictStr = Field(description="* `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid")
+    client_type: StrictStr = Field(description="* `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.")
+    authorization_grant_type: StrictStr = Field(description="* `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.")
     organisation: StrictStr
     organisation_id: UUID
     created: datetime
     updated: datetime
     __properties: ClassVar[List[str]] = ["id", "name", "client_id", "client_secret", "client_type", "authorization_grant_type", "organisation", "organisation_id", "created", "updated"]
-
-    @field_validator('client_type')
-    def client_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['confidential', 'public']):
-            raise ValueError("must be one of enum values ('confidential', 'public')")
-        return value
-
-    @field_validator('authorization_grant_type')
-    def authorization_grant_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid']):
-            raise ValueError("must be one of enum values ('authorization-code', 'urn:ietf:params:oauth:grant-type:device_code', 'implicit', 'password', 'client-credentials', 'openid-hybrid')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

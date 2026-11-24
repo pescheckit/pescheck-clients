@@ -54,6 +54,26 @@ jobs:
       - name: Complete Go go.sum
         run: cd clients/go && go mod tidy
 
+      # Classify the API change (oasdiff): breaking -> new major version.
+      # Writes the PR body and picks the label.
+      - name: Classify the API change
+        id: apidiff
+        run: |
+          result=$(bash scripts/api-diff.sh "" spec/openapi.v2.yaml "$RUNNER_TEMP/api-changes.md")
+          echo "$result" >> "$GITHUB_OUTPUT"
+          if [ "$result" = "breaking=true" ]; then
+            echo "label=breaking-change" >> "$GITHUB_OUTPUT"
+          else
+            echo "label=non-breaking" >> "$GITHUB_OUTPUT"
+          fi
+          {
+            echo "The upstream Pescheck OpenAPI schema (staging) changed, so this pull request regenerates \`spec/\` and the 10 clients."
+            echo
+            cat "$RUNNER_TEMP/api-changes.md"
+            echo
+            echo "The pull request checks (build, generated code up to date, contract tests) start automatically. Merge once they pass. If a contract test or example needs a fix, push it to this branch and merge promptly: the next regeneration replaces the branch."
+          } > "$RUNNER_TEMP/pr-body.md"
+
       # Opens (or updates) a PR only if spec/ or clients/ actually changed;
       # a no-op when there's no drift. Review the diff and merge to adopt.
       - name: Open PR if the clients drifted
@@ -68,20 +88,11 @@ jobs:
             clients
           commit-message: "chore: regenerate clients from latest OpenAPI schema"
           title: "Regenerate clients from latest OpenAPI schema"
-          body: |
-            The upstream Pescheck OpenAPI schema changed, so the scheduled
-            **Regenerate clients** workflow regenerated `spec/` + the 10 clients.
-
-            Review the diff and merge to adopt the changes. If nothing here looks
-            intentional, close the PR and investigate the upstream schema change.
-
-            The PR checks (build, generated code up to date, contract tests) are
-            started on this branch automatically; merge once they pass. If a
-            contract test or example no longer compiles because the API changed
-            (e.g. a new parameter), push the fix to this branch.
+          body-path: ${{ runner.temp }}/pr-body.md
           labels: |
             automated
             codegen
+            ${{ steps.apidiff.outputs.label }}
 
       # Events made with GITHUB_TOKEN (like the push/PR above) do not start other
       # workflows - except workflow_dispatch. So start the checks explicitly; their

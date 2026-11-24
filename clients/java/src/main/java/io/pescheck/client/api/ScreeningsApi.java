@@ -76,21 +76,7 @@ public class ScreeningsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for v2ScreeningsCloseCreate
-     * @param id A UUID string identifying this screening. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ScreeningsCloseCreateCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call v2ScreeningsCloseCreateCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -146,81 +132,114 @@ public class ScreeningsApi {
 
     }
 
-    /**
-     * Close a screening
-     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
-     * @param id A UUID string identifying this screening. (required)
-     * @return V2ScreeningDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ScreeningDetail v2ScreeningsCloseCreate(@javax.annotation.Nonnull UUID id) throws ApiException {
-        ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsCloseCreateWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Close a screening
-     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
-     * @param id A UUID string identifying this screening. (required)
-     * @return ApiResponse&lt;V2ScreeningDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ScreeningDetail> v2ScreeningsCloseCreateWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    private ApiResponse<V2ScreeningDetail> v2ScreeningsCloseCreateWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = v2ScreeningsCloseCreateValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Close a screening (asynchronously)
-     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
-     * @param id A UUID string identifying this screening. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ScreeningsCloseCreateAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+    private okhttp3.Call v2ScreeningsCloseCreateAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ScreeningsCloseCreateValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ScreeningsCloseCreateRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+
+        private APIv2ScreeningsCloseCreateRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for v2ScreeningsCloseCreate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ScreeningsCloseCreateCall(id, _callback);
+        }
+
+        /**
+         * Execute v2ScreeningsCloseCreate request
+         * @return V2ScreeningDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ScreeningDetail execute() throws ApiException {
+            ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsCloseCreateWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ScreeningsCloseCreate request with HTTP info returned
+         * @return ApiResponse&lt;V2ScreeningDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ScreeningDetail> executeWithHttpInfo() throws ApiException {
+            return v2ScreeningsCloseCreateWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2ScreeningsCloseCreate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+            return v2ScreeningsCloseCreateAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ScreeningsCreate
-     * @param v2ScreeningCreate  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Close a screening
+     * Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
+     * @param id A UUID string identifying this screening. (required)
+     * @return APIv2ScreeningsCloseCreateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> No response body </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsCreateCall(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate, final ApiCallback _callback) throws ApiException {
+    public APIv2ScreeningsCloseCreateRequest v2ScreeningsCloseCreate(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ScreeningsCloseCreateRequest(id);
+    }
+    private okhttp3.Call v2ScreeningsCreateCall(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -277,80 +296,109 @@ public class ScreeningsApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param v2ScreeningCreate  (required)
-     * @return V2ScreeningDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ScreeningDetail v2ScreeningsCreate(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate) throws ApiException {
-        ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsCreateWithHttpInfo(v2ScreeningCreate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param v2ScreeningCreate  (required)
-     * @return ApiResponse&lt;V2ScreeningDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ScreeningDetail> v2ScreeningsCreateWithHttpInfo(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate) throws ApiException {
+    private ApiResponse<V2ScreeningDetail> v2ScreeningsCreateWithHttpInfo(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate) throws ApiException {
         okhttp3.Call localVarCall = v2ScreeningsCreateValidateBeforeCall(v2ScreeningCreate, null);
         Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param v2ScreeningCreate  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ScreeningsCreateAsync(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+    private okhttp3.Call v2ScreeningsCreateAsync(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ScreeningsCreateValidateBeforeCall(v2ScreeningCreate, _callback);
         Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ScreeningsCreateRequest {
+        @javax.annotation.Nonnull
+        private final V2ScreeningCreate v2ScreeningCreate;
+
+        private APIv2ScreeningsCreateRequest(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate) {
+            this.v2ScreeningCreate = v2ScreeningCreate;
+        }
+
+        /**
+         * Build call for v2ScreeningsCreate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ScreeningsCreateCall(v2ScreeningCreate, _callback);
+        }
+
+        /**
+         * Execute v2ScreeningsCreate request
+         * @return V2ScreeningDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ScreeningDetail execute() throws ApiException {
+            ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsCreateWithHttpInfo(v2ScreeningCreate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ScreeningsCreate request with HTTP info returned
+         * @return ApiResponse&lt;V2ScreeningDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ScreeningDetail> executeWithHttpInfo() throws ApiException {
+            return v2ScreeningsCreateWithHttpInfo(v2ScreeningCreate);
+        }
+
+        /**
+         * Execute v2ScreeningsCreate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+            return v2ScreeningsCreateAsync(v2ScreeningCreate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ScreeningsDocumentsList
-     * @param id  (required)
-     * @param checkId Only documents from the check with this id. (optional)
-     * @param checkType Only documents from checks of this type. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * 
+     * @param v2ScreeningCreate  (required)
+     * @return APIv2ScreeningsCreateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsDocumentsListCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType, final ApiCallback _callback) throws ApiException {
+    public APIv2ScreeningsCreateRequest v2ScreeningsCreate(@javax.annotation.Nonnull V2ScreeningCreate v2ScreeningCreate) {
+        return new APIv2ScreeningsCreateRequest(v2ScreeningCreate);
+    }
+    private okhttp3.Call v2ScreeningsDocumentsListCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -414,79 +462,122 @@ public class ScreeningsApi {
 
     }
 
-    /**
-     * Retrieve screening documents
-     * Documents attached to the screening&#39;s checks. Files are delivered inline as Base64 in &#x60;content&#x60;. Narrow the result with &#x60;check_id&#x60; or &#x60;check_type&#x60;.
-     * @param id  (required)
-     * @param checkId Only documents from the check with this id. (optional)
-     * @param checkType Only documents from checks of this type. (optional)
-     * @return List&lt;V2Document&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<V2Document> v2ScreeningsDocumentsList(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType) throws ApiException {
-        ApiResponse<List<V2Document>> localVarResp = v2ScreeningsDocumentsListWithHttpInfo(id, checkId, checkType);
-        return localVarResp.getData();
-    }
 
-    /**
-     * Retrieve screening documents
-     * Documents attached to the screening&#39;s checks. Files are delivered inline as Base64 in &#x60;content&#x60;. Narrow the result with &#x60;check_id&#x60; or &#x60;check_type&#x60;.
-     * @param id  (required)
-     * @param checkId Only documents from the check with this id. (optional)
-     * @param checkType Only documents from checks of this type. (optional)
-     * @return ApiResponse&lt;List&lt;V2Document&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<V2Document>> v2ScreeningsDocumentsListWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType) throws ApiException {
+    private ApiResponse<List<V2Document>> v2ScreeningsDocumentsListWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType) throws ApiException {
         okhttp3.Call localVarCall = v2ScreeningsDocumentsListValidateBeforeCall(id, checkId, checkType, null);
         Type localVarReturnType = new TypeToken<List<V2Document>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     * Retrieve screening documents (asynchronously)
-     * Documents attached to the screening&#39;s checks. Files are delivered inline as Base64 in &#x60;content&#x60;. Narrow the result with &#x60;check_id&#x60; or &#x60;check_type&#x60;.
-     * @param id  (required)
-     * @param checkId Only documents from the check with this id. (optional)
-     * @param checkType Only documents from checks of this type. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ScreeningsDocumentsListAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType, final ApiCallback<List<V2Document>> _callback) throws ApiException {
+    private okhttp3.Call v2ScreeningsDocumentsListAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable UUID checkId, @javax.annotation.Nullable String checkType, final ApiCallback<List<V2Document>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ScreeningsDocumentsListValidateBeforeCall(id, checkId, checkType, _callback);
         Type localVarReturnType = new TypeToken<List<V2Document>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ScreeningsDocumentsListRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+        @javax.annotation.Nullable
+        private UUID checkId;
+        @javax.annotation.Nullable
+        private String checkType;
+
+        private APIv2ScreeningsDocumentsListRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set checkId
+         * @param checkId Only documents from the check with this id. (optional)
+         * @return APIv2ScreeningsDocumentsListRequest
+         */
+        public APIv2ScreeningsDocumentsListRequest checkId(@javax.annotation.Nullable UUID checkId) {
+            this.checkId = checkId;
+            return this;
+        }
+
+        /**
+         * Set checkType
+         * @param checkType Only documents from checks of this type. (optional)
+         * @return APIv2ScreeningsDocumentsListRequest
+         */
+        public APIv2ScreeningsDocumentsListRequest checkType(@javax.annotation.Nullable String checkType) {
+            this.checkType = checkType;
+            return this;
+        }
+
+        /**
+         * Build call for v2ScreeningsDocumentsList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ScreeningsDocumentsListCall(id, checkId, checkType, _callback);
+        }
+
+        /**
+         * Execute v2ScreeningsDocumentsList request
+         * @return List&lt;V2Document&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<V2Document> execute() throws ApiException {
+            ApiResponse<List<V2Document>> localVarResp = v2ScreeningsDocumentsListWithHttpInfo(id, checkId, checkType);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ScreeningsDocumentsList request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;V2Document&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<V2Document>> executeWithHttpInfo() throws ApiException {
+            return v2ScreeningsDocumentsListWithHttpInfo(id, checkId, checkType);
+        }
+
+        /**
+         * Execute v2ScreeningsDocumentsList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<V2Document>> _callback) throws ApiException {
+            return v2ScreeningsDocumentsListAsync(id, checkId, checkType, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ScreeningsList
-     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * Retrieve screening documents
+     * Documents attached to the screening&#39;s checks. Files are delivered inline as Base64 in &#x60;content&#x60;. Narrow the result with &#x60;check_id&#x60; or &#x60;check_type&#x60;.
+     * @param id  (required)
+     * @return APIv2ScreeningsDocumentsListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -494,7 +585,10 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+    public APIv2ScreeningsDocumentsListRequest v2ScreeningsDocumentsList(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ScreeningsDocumentsListRequest(id);
+    }
+    private okhttp3.Call v2ScreeningsListCall(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -560,79 +654,142 @@ public class ScreeningsApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @return PaginatedV2ScreeningListItemList
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public PaginatedV2ScreeningListItemList v2ScreeningsList(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @return ApiResponse&lt;PaginatedV2ScreeningListItemList&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+    private ApiResponse<PaginatedV2ScreeningListItemList> v2ScreeningsListWithHttpInfo(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
         okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, null);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * 
-     * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
+    private okhttp3.Call v2ScreeningsListAsync(@javax.annotation.Nullable UUID organisation, @javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ScreeningsListValidateBeforeCall(organisation, page, pageSize, paginate, _callback);
         Type localVarReturnType = new TypeToken<PaginatedV2ScreeningListItemList>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ScreeningsListRequest {
+        @javax.annotation.Nullable
+        private UUID organisation;
+        @javax.annotation.Nullable
+        private Integer page;
+        @javax.annotation.Nullable
+        private Integer pageSize;
+        @javax.annotation.Nullable
+        private Boolean paginate;
+
+        private APIv2ScreeningsListRequest() {
+        }
+
+        /**
+         * Set organisation
+         * @param organisation Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department&#39;s screenings. (optional)
+         * @return APIv2ScreeningsListRequest
+         */
+        public APIv2ScreeningsListRequest organisation(@javax.annotation.Nullable UUID organisation) {
+            this.organisation = organisation;
+            return this;
+        }
+
+        /**
+         * Set page
+         * @param page A page number within the paginated result set. (optional, default to 1)
+         * @return APIv2ScreeningsListRequest
+         */
+        public APIv2ScreeningsListRequest page(@javax.annotation.Nullable Integer page) {
+            this.page = page;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize Number of results to return per page. (optional, default to 50)
+         * @return APIv2ScreeningsListRequest
+         */
+        public APIv2ScreeningsListRequest pageSize(@javax.annotation.Nullable Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set paginate
+         * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
+         * @return APIv2ScreeningsListRequest
+         */
+        public APIv2ScreeningsListRequest paginate(@javax.annotation.Nullable Boolean paginate) {
+            this.paginate = paginate;
+            return this;
+        }
+
+        /**
+         * Build call for v2ScreeningsList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ScreeningsListCall(organisation, page, pageSize, paginate, _callback);
+        }
+
+        /**
+         * Execute v2ScreeningsList request
+         * @return PaginatedV2ScreeningListItemList
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public PaginatedV2ScreeningListItemList execute() throws ApiException {
+            ApiResponse<PaginatedV2ScreeningListItemList> localVarResp = v2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ScreeningsList request with HTTP info returned
+         * @return ApiResponse&lt;PaginatedV2ScreeningListItemList&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PaginatedV2ScreeningListItemList> executeWithHttpInfo() throws ApiException {
+            return v2ScreeningsListWithHttpInfo(organisation, page, pageSize, paginate);
+        }
+
+        /**
+         * Execute v2ScreeningsList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PaginatedV2ScreeningListItemList> _callback) throws ApiException {
+            return v2ScreeningsListAsync(organisation, page, pageSize, paginate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ScreeningsRetrieve
-     * @param id A UUID string identifying this screening. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * 
+     * @return APIv2ScreeningsListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -640,7 +797,10 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+    public APIv2ScreeningsListRequest v2ScreeningsList() {
+        return new APIv2ScreeningsListRequest();
+    }
+    private okhttp3.Call v2ScreeningsRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -696,50 +856,98 @@ public class ScreeningsApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this screening. (required)
-     * @return V2ScreeningDetail
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2ScreeningDetail v2ScreeningsRetrieve(@javax.annotation.Nonnull UUID id) throws ApiException {
-        ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsRetrieveWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param id A UUID string identifying this screening. (required)
-     * @return ApiResponse&lt;V2ScreeningDetail&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2ScreeningDetail> v2ScreeningsRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    private ApiResponse<V2ScreeningDetail> v2ScreeningsRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = v2ScreeningsRetrieveValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call v2ScreeningsRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2ScreeningsRetrieveValidateBeforeCall(id, _callback);
+        Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIv2ScreeningsRetrieveRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+
+        private APIv2ScreeningsRetrieveRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for v2ScreeningsRetrieve
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ScreeningsRetrieveCall(id, _callback);
+        }
+
+        /**
+         * Execute v2ScreeningsRetrieve request
+         * @return V2ScreeningDetail
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2ScreeningDetail execute() throws ApiException {
+            ApiResponse<V2ScreeningDetail> localVarResp = v2ScreeningsRetrieveWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ScreeningsRetrieve request with HTTP info returned
+         * @return ApiResponse&lt;V2ScreeningDetail&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2ScreeningDetail> executeWithHttpInfo() throws ApiException {
+            return v2ScreeningsRetrieveWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2ScreeningsRetrieve request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
+            return v2ScreeningsRetrieveAsync(id, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * 
      * @param id A UUID string identifying this screening. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIv2ScreeningsRetrieveRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -747,11 +955,7 @@ public class ScreeningsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ScreeningsRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<V2ScreeningDetail> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = v2ScreeningsRetrieveValidateBeforeCall(id, _callback);
-        Type localVarReturnType = new TypeToken<V2ScreeningDetail>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIv2ScreeningsRetrieveRequest v2ScreeningsRetrieve(@javax.annotation.Nonnull UUID id) {
+        return new APIv2ScreeningsRetrieveRequest(id);
     }
 }

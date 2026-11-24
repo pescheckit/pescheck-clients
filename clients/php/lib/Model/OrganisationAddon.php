@@ -271,25 +271,6 @@ class OrganisationAddon implements ModelInterface, ArrayAccess, \JsonSerializabl
         return self::$openAPIModelName;
     }
 
-    public const ADDON_BRANDED_JOURNEY = 'branded_journey';
-    public const ADDON_SSO = 'sso';
-    public const ADDON_API_ACCESS = 'api_access';
-    public const ADDON_CONNECTED_ATS = 'connected_ats';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getAddonAllowableValues()
-    {
-        return [
-            self::ADDON_BRANDED_JOURNEY,
-            self::ADDON_SSO,
-            self::ADDON_API_ACCESS,
-            self::ADDON_CONNECTED_ATS,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -346,15 +327,6 @@ class OrganisationAddon implements ModelInterface, ArrayAccess, \JsonSerializabl
         if ($this->container['addon'] === null) {
             $invalidProperties[] = "'addon' can't be null";
         }
-        $allowedValues = $this->getAddonAllowableValues();
-        if (!is_null($this->container['addon']) && !in_array($this->container['addon'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'addon', must be one of '%s'",
-                $this->container['addon'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['name'] === null) {
             $invalidProperties[] = "'name' can't be null";
         }
@@ -404,7 +376,7 @@ class OrganisationAddon implements ModelInterface, ArrayAccess, \JsonSerializabl
     /**
      * Sets addon
      *
-     * @param string $addon Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+     * @param string $addon Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
      *
      * @return self
      */
@@ -412,16 +384,6 @@ class OrganisationAddon implements ModelInterface, ArrayAccess, \JsonSerializabl
     {
         if (is_null($addon)) {
             throw new \InvalidArgumentException('non-nullable addon cannot be null');
-        }
-        $allowedValues = $this->getAddonAllowableValues();
-        if (!in_array($addon, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'addon', must be one of '%s'",
-                    $addon,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['addon'] = $addon;
 

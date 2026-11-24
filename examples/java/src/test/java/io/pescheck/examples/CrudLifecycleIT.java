@@ -106,7 +106,7 @@ class CrudLifecycleIT {
     // best-effort cleanup of the profile we created
     if (profileId != null) {
       try {
-        profiles.v2ProfilesDestroy(profileId);
+        profiles.v2ProfilesDestroy(profileId).execute();
       } catch (Exception ignored) {
         // best-effort
       }
@@ -149,10 +149,10 @@ class CrudLifecycleIT {
   @DisplayName("full v2 CRUD lifecycle against the live API")
   void crudLifecycle() throws Exception {
     // --- checks: list -> retrieve one ---
-    List<V2CheckInfo> checkList = withRetry(() -> checks.v2ChecksList(null));
+    List<V2CheckInfo> checkList = withRetry(() -> checks.v2ChecksList().execute());
     assertFalse(checkList.isEmpty(), "expected at least one check type");
     String checkType = checkList.get(0).getCheckType();
-    V2CheckInfo retrievedCheck = checks.v2ChecksRetrieve(checkType);
+    V2CheckInfo retrievedCheck = checks.v2ChecksRetrieve(checkType).execute();
     assertNotNull(retrievedCheck, "retrieved check should not be null");
 
     // --- profile: create -> retrieve -> patch -> appears in list ---
@@ -161,19 +161,20 @@ class CrudLifecycleIT {
             .name("E2E test profile " + SUFFIX)
             .description("created by e2e")
             .checks(List.of(new V2ProfileCheck()
-                .checkType(V2ProfileCheck.CheckTypeEnum.fromValue(checkType)))));
+                .checkType(V2ProfileCheck.CheckTypeEnum.fromValue(checkType))))).execute();
     profileId = created.getId();
     assertNotNull(profileId, "created profile should have an id");
     assertEquals("E2E test profile " + SUFFIX, created.getName(),
         "created profile name should round-trip");
 
-    V2ProfileDetail fetched = profiles.v2ProfilesRetrieve(profileId);
+    V2ProfileDetail fetched = profiles.v2ProfilesRetrieve(profileId).execute();
     assertEquals(profileId, fetched.getId(), "retrieved profile id should match");
     assertEquals("E2E test profile " + SUFFIX, fetched.getName(),
         "retrieved profile name should match");
 
-    V2ProfileDetail patched = profiles.v2ProfilesPartialUpdate(
-        profileId, new PatchedV2ProfilePartialUpdate().description("updated by e2e"));
+    V2ProfileDetail patched = profiles.v2ProfilesPartialUpdate(profileId)
+        .patchedV2ProfilePartialUpdate(new PatchedV2ProfilePartialUpdate().description("updated by e2e"))
+        .execute();
     assertEquals("updated by e2e", patched.getDescription(),
         "patched profile description should be updated");
 
@@ -189,14 +190,14 @@ class CrudLifecycleIT {
             .description("put updated by e2e")
             .checks(List.of(new V2ProfileUpdateCheck()
                 .checkType(V2ProfileUpdateCheck.CheckTypeEnum.fromValue(checkType))
-                .profileCheckId(existingCheckId))));
+                .profileCheckId(existingCheckId)))).execute();
     assertEquals("E2E test profile renamed " + SUFFIX, putUpdated.getName(),
         "PUT-updated profile name should be replaced");
     assertEquals("put updated by e2e", putUpdated.getDescription(),
         "PUT-updated profile description should be replaced");
 
     boolean inList = withRetry(() ->
-            profiles.v2ProfilesList(null, null, null, null, null, null, null))
+            profiles.v2ProfilesList().execute())
         .getResults().stream()
         .anyMatch(p -> profileId.equals(p.getId()));
     assertTrue(inList, "created profile should appear in the list");
@@ -206,21 +207,21 @@ class CrudLifecycleIT {
         new V2ScreeningCreate()
             .profileId(profileId)
             .candidate(new V2Candidate()
-                .firstName("E2E").lastName("Tester").email(testEmail)));
+                .firstName("E2E").lastName("Tester").email(testEmail))).execute();
     assertNotNull(screening.getId(), "created screening should have an id");
     assertNotNull(screening.getStatus(), "created screening should have a status");
 
-    V2ScreeningDetail fetchedScreening = screenings.v2ScreeningsRetrieve(screening.getId());
+    V2ScreeningDetail fetchedScreening = screenings.v2ScreeningsRetrieve(screening.getId()).execute();
     assertEquals(screening.getId(), fetchedScreening.getId(),
         "retrieved screening id should match");
     assertNotNull(fetchedScreening.getCandidate(), "screening should expose its candidate");
     assertEquals(testEmail, fetchedScreening.getCandidate().getEmail(),
         "screening candidate email should match the test email");
-    screenings.v2ScreeningsDocumentsList(screening.getId(), null, null);
+    screenings.v2ScreeningsDocumentsList(screening.getId()).execute();
 
-    // screenings: list (page, pageSize, paginate) -> created screening should be present
+    // screenings: list -> created screening should be present
     List<V2ScreeningListItem> screeningResults =
-        withRetry(() -> screenings.v2ScreeningsList(null, null, null, null)).getResults();
+        withRetry(() -> screenings.v2ScreeningsList().execute()).getResults();
     assertFalse(screeningResults.isEmpty(), "screening list should not be empty");
     boolean screeningListed = screeningResults.stream()
         .anyMatch(s -> screening.getId().equals(s.getId()));
@@ -231,22 +232,22 @@ class CrudLifecycleIT {
         new Webhook()
             .name("E2E webhook " + SUFFIX)
             .url(URI.create("https://example.com/e2e-hook-" + SUFFIX))
-            .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))),
-        null, null);
+            .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))))
+        .execute();
     assertNotNull(hook.getId(), "created webhook should have an id");
     assertEquals(URI.create("https://example.com/e2e-hook-" + SUFFIX), hook.getUrl(),
         "created webhook url should round-trip");
     assertNotNull(hook.getEvents(), "created webhook should expose its events");
 
-    boolean hookListed = webhooks.listWebhooks2().stream()
+    boolean hookListed = webhooks.listWebhooks2().execute().stream()
         .anyMatch(w -> hook.getId().equals(w.getId()));
     assertTrue(hookListed, "created webhook should appear in the list");
     // webhook id deserializes as a UUID; the delete path param wants a string.
-    webhooks.deleteWebhook2(hook.getId().toString());
+    webhooks.deleteWebhook2(hook.getId().toString()).execute();
 
     // --- division: list -> reuse-or-create by name -> patch ---
     List<DivisionReadOnly> existing =
-        withRetry(() -> divisions.v2OrganisationsDivisionsList(null, null, null)).getResults();
+        withRetry(() -> divisions.v2OrganisationsDivisionsList().execute()).getResults();
     UUID divisionId = null;
     for (DivisionReadOnly d : existing) {
       if (DIVISION_NAME.equals(d.getName())) {
@@ -259,7 +260,7 @@ class CrudLifecycleIT {
           new DivisionWrite()
               .name(DIVISION_NAME).city("Amsterdam").address("Teststraat 1")
               .postal("1011AA").phone("+31200000000").contactName("E2E")
-              .contactEmail(testEmail).invoiceEmail(testEmail));
+              .contactEmail(testEmail).invoiceEmail(testEmail)).execute();
       divisionId = div.getId();
     }
     assertNotNull(divisionId, "division id should be resolved");
@@ -267,7 +268,7 @@ class CrudLifecycleIT {
     // division: retrieve by id
     final UUID divisionIdFinal = divisionId;
     DivisionReadOnly fetchedDivision =
-        withRetry(() -> divisions.v2OrganisationsDivisionsRetrieve(divisionIdFinal));
+        withRetry(() -> divisions.v2OrganisationsDivisionsRetrieve(divisionIdFinal).execute());
     assertEquals(divisionId, fetchedDivision.getId(), "retrieved division id should match");
     assertEquals(DIVISION_NAME, fetchedDivision.getName(), "retrieved division name should match");
 
@@ -277,13 +278,13 @@ class CrudLifecycleIT {
         new DivisionWrite()
             .name(DIVISION_NAME).city("Utrecht").address("Teststraat 1")
             .postal("1011AA").phone("+31200000000").contactName("E2E")
-            .contactEmail(testEmail).invoiceEmail(testEmail));
+            .contactEmail(testEmail).invoiceEmail(testEmail)).execute();
     assertEquals("Utrecht", divPut.getCity(), "PUT-updated division city should be Utrecht");
 
     // division: PATCH (partial) -> city becomes Rotterdam
     PatchedDivisionWrite divPatch = new PatchedDivisionWrite().city("Rotterdam");
     DivisionWrite divPatched =
-        divisions.v2OrganisationsDivisionsPartialUpdate(divisionId, divPatch);
+        divisions.v2OrganisationsDivisionsPartialUpdate(divisionId).patchedDivisionWrite(divPatch).execute();
     assertEquals("Rotterdam", divPatched.getCity(), "PATCH-updated division city should be Rotterdam");
   }
 
@@ -299,7 +300,7 @@ class CrudLifecycleIT {
     ((OAuth) badClient.getAuthentication("oauth2")).setAccessToken("invalid");
     ChecksApi unauthChecks = new ChecksApi(badClient);
 
-    ApiException e = assertThrows(ApiException.class, () -> unauthChecks.v2ChecksList(null));
+    ApiException e = assertThrows(ApiException.class, () -> unauthChecks.v2ChecksList().execute());
     assertEquals(401, e.getCode(), "unauthorized request should fail with HTTP 401");
   }
 
@@ -311,7 +312,7 @@ class CrudLifecycleIT {
 
     UUID missing = UUID.randomUUID();
     ApiException e =
-        assertThrows(ApiException.class, () -> profiles.v2ProfilesRetrieve(missing));
+        assertThrows(ApiException.class, () -> profiles.v2ProfilesRetrieve(missing).execute());
     assertEquals(404, e.getCode(), "retrieving an unknown profile should fail with HTTP 404");
   }
 }

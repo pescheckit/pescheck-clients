@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from typing import Optional, Set
@@ -29,16 +29,9 @@ class V2ScreeningCheckListItem(BaseModel):
     Minimal check entry shape for screening list items. No config/input/etc.
     """ # noqa: E501
     id: UUID
-    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck")
+    check_type: StrictStr = Field(description="* `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.")
     status: StrictStr
     __properties: ClassVar[List[str]] = ["id", "check_type", "status"]
-
-    @field_validator('check_type')
-    def check_type_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'ibancheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck']):
-            raise ValueError("must be one of enum values ('addresscheck', 'adversemedia2check', 'adversemediacheck', 'bigcheck', 'criminalrecordscheck', 'criminalrecordsuploadcheck', 'customintegritycheck', 'cvcheck', 'edrcheck', 'ibancheck', 'id2check', 'idcheck', 'integritycheck', 'openhealthcarecheck', 'permissioncheck', 'pescheckadversemediacheck', 'qualificationcheck', 'righttoworkcheck', 'vogcheck', 'watchlist2check', 'watchlistcheck', 'workreferencecheck', 'worldwidecreditcheck')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

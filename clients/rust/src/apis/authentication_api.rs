@@ -14,6 +14,18 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`generate_jwt_token2`]
+#[derive(Clone, Debug, Default)]
+pub struct GenerateJwtToken2Params {
+    pub jwt_generation: models::JwtGeneration
+}
+
+/// struct for passing parameters to the method [`jwt_refresh_create`]
+#[derive(Clone, Debug, Default)]
+pub struct JwtRefreshCreateParams {
+    pub token_refresh: models::TokenRefresh
+}
+
 
 /// struct for typed errors of method [`generate_jwt_token2`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -34,9 +46,7 @@ pub enum JwtRefreshCreateError {
 
 
 /// Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
-pub async fn generate_jwt_token2(configuration: &configuration::Configuration, jwt_generation: models::JwtGeneration) -> Result<models::JwtResponse, Error<GenerateJwtToken2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_jwt_generation = jwt_generation;
+pub async fn generate_jwt_token2(configuration: &configuration::Configuration, params: GenerateJwtToken2Params) -> Result<models::JwtResponse, Error<GenerateJwtToken2Error>> {
 
     let uri_str = format!("{}/api/v2/jwt/generate/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -47,7 +57,7 @@ pub async fn generate_jwt_token2(configuration: &configuration::Configuration, j
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_jwt_generation);
+    req_builder = req_builder.json(&params.jwt_generation);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -75,9 +85,7 @@ pub async fn generate_jwt_token2(configuration: &configuration::Configuration, j
 }
 
 /// Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-pub async fn jwt_refresh_create(configuration: &configuration::Configuration, token_refresh: models::TokenRefresh) -> Result<models::TokenRefresh, Error<JwtRefreshCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_token_refresh = token_refresh;
+pub async fn jwt_refresh_create(configuration: &configuration::Configuration, params: JwtRefreshCreateParams) -> Result<models::TokenRefresh, Error<JwtRefreshCreateError>> {
 
     let uri_str = format!("{}/api/jwt/refresh/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -88,7 +96,7 @@ pub async fn jwt_refresh_create(configuration: &configuration::Configuration, to
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_token_refresh);
+    req_builder = req_builder.json(&params.token_refresh);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

@@ -40,8 +40,8 @@ public class Example {
 
     try {
       ChecksApi checksApi = new ChecksApi(client);
-      // checkType = null lists all check types.
-      List<V2CheckInfo> checks = checksApi.v2ChecksList(null);
+      // No checkType filter: lists all check types.
+      List<V2CheckInfo> checks = checksApi.v2ChecksList().execute();
       System.out.println("E2E OK: " + checks.size() + " check types");
     } catch (ApiException e) {
       System.err.println("Exception when calling ChecksApi#v2ChecksList");

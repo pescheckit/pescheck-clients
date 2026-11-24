@@ -18,7 +18,6 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_V2Document_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_V2Document_H_
 
-#include <stdexcept>
 #include <boost/optional.hpp>
 
 #include "PescheckApi/ModelBase.h"
@@ -61,39 +60,6 @@ public:
     /////////////////////////////////////////////
     /// V2Document members
 
-    enum class Check_typeEnum
-    {
-        ADDRESSCHECK,
-        ADVERSEMEDIA2CHECK,
-        ADVERSEMEDIACHECK,
-        BIGCHECK,
-        CRIMINALRECORDSCHECK,
-        CRIMINALRECORDSUPLOADCHECK,
-        CUSTOMINTEGRITYCHECK,
-        CVCHECK,
-        EDRCHECK,
-        IBANCHECK,
-        ID2CHECK,
-        IDCHECK,
-        INTEGRITYCHECK,
-        OPENHEALTHCARECHECK,
-        PERMISSIONCHECK,
-        PESCHECKADVERSEMEDIACHECK,
-        QUALIFICATIONCHECK,
-        RIGHTTOWORKCHECK,
-        VOGCHECK,
-        WATCHLIST2CHECK,
-        WATCHLISTCHECK,
-        WORKREFERENCECHECK,
-        WORLDWIDECREDITCHECK,
-    };
-    /// <summary>
-    /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
-    /// </summary>
-
-    Check_typeEnum toCheck_typeEnum(const utility::string_t& value) const;
-    const utility::string_t fromCheck_typeEnum(const Check_typeEnum value) const;
-
 
     utility::string_t getCheckId() const;
     bool checkIdIsSet() const;
@@ -101,12 +67,12 @@ public:
     void setCheckId(const utility::string_t& value);
 
     /// <summary>
-    /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
+    /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
     /// </summary>
-    Check_typeEnum getCheckType() const;
+    utility::string_t getCheckType() const;
     bool checkTypeIsSet() const;
     void unsetCheck_type();
-    void setCheckType(const Check_typeEnum value);
+    void setCheckType(const utility::string_t& value);
 
     utility::string_t getFilename() const;
     bool filenameIsSet() const;
@@ -132,7 +98,7 @@ public:
 protected:
     boost::optional<utility::string_t> m_Check_id;
 
-    Check_typeEnum m_Check_type;
+    utility::string_t m_Check_type;
     bool m_Check_typeIsSet;
 
     utility::string_t m_Filename;

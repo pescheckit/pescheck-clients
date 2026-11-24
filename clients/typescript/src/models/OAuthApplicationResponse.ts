@@ -46,10 +46,12 @@ export interface OAuthApplicationResponse {
     /**
      * * `confidential` - Confidential
      * * `public` - Public
-     * @type {OAuthApplicationResponseClientTypeEnum}
+     * 
+     * Known values: confidential, public. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof OAuthApplicationResponse
      */
-    clientType: OAuthApplicationResponseClientTypeEnum;
+    clientType: string;
     /**
      * * `authorization-code` - Authorization code
      * * `urn:ietf:params:oauth:grant-type:device_code` - Device Code
@@ -57,10 +59,12 @@ export interface OAuthApplicationResponse {
      * * `password` - Resource owner password-based
      * * `client-credentials` - Client credentials
      * * `openid-hybrid` - OpenID connect hybrid
-     * @type {OAuthApplicationResponseAuthorizationGrantTypeEnum}
+     * 
+     * Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof OAuthApplicationResponse
      */
-    authorizationGrantType: OAuthApplicationResponseAuthorizationGrantTypeEnum;
+    authorizationGrantType: string;
     /**
      * 
      * @type {string}
@@ -86,30 +90,6 @@ export interface OAuthApplicationResponse {
      */
     readonly updated: Date;
 }
-
-
-/**
- * @export
- */
-export const OAuthApplicationResponseClientTypeEnum = {
-    Confidential: 'confidential',
-    Public: 'public'
-} as const;
-export type OAuthApplicationResponseClientTypeEnum = typeof OAuthApplicationResponseClientTypeEnum[keyof typeof OAuthApplicationResponseClientTypeEnum];
-
-/**
- * @export
- */
-export const OAuthApplicationResponseAuthorizationGrantTypeEnum = {
-    AuthorizationCode: 'authorization-code',
-    UrnIetfParamsOauthGrantTypeDeviceCode: 'urn:ietf:params:oauth:grant-type:device_code',
-    Implicit: 'implicit',
-    Password: 'password',
-    ClientCredentials: 'client-credentials',
-    OpenidHybrid: 'openid-hybrid'
-} as const;
-export type OAuthApplicationResponseAuthorizationGrantTypeEnum = typeof OAuthApplicationResponseAuthorizationGrantTypeEnum[keyof typeof OAuthApplicationResponseAuthorizationGrantTypeEnum];
-
 
 /**
  * Check if a given object implements the OAuthApplicationResponse interface.

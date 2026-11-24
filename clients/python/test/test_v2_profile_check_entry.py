@@ -36,7 +36,7 @@ class TestV2ProfileCheckEntry(unittest.TestCase):
         if include_optional:
             return V2ProfileCheckEntry(
                 id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 display_name = '',
                 configured_price = pescheck.models.v2_money.V2Money(
                     amount = '-80728880015280217.09', 
@@ -50,7 +50,7 @@ class TestV2ProfileCheckEntry(unittest.TestCase):
         else:
             return V2ProfileCheckEntry(
                 id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 display_name = '',
                 configured_price = pescheck.models.v2_money.V2Money(
                     amount = '-80728880015280217.09', 

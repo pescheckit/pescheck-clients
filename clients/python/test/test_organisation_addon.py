@@ -35,7 +35,7 @@ class TestOrganisationAddon(unittest.TestCase):
         model = OrganisationAddon()
         if include_optional:
             return OrganisationAddon(
-                addon = 'branded_journey',
+                addon = '',
                 name = '',
                 description = '',
                 enabled = True,
@@ -48,7 +48,7 @@ class TestOrganisationAddon(unittest.TestCase):
             )
         else:
             return OrganisationAddon(
-                addon = 'branded_journey',
+                addon = '',
                 name = '',
                 description = '',
                 enabled = True,

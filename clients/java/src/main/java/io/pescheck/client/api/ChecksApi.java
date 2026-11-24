@@ -72,20 +72,7 @@ public class ChecksApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for v2ChecksList
-     * @param checkType Restrict the list to a single check type. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ChecksListCall(@javax.annotation.Nullable String checkType, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call v2ChecksListCall(@javax.annotation.Nullable String checkType, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -139,70 +126,106 @@ public class ChecksApi {
 
     }
 
-    /**
-     * 
-     * List the check types this API supports. The list is bounded metadata about the available check types (not a paginated collection), so the response is a flat array.
-     * @param checkType Restrict the list to a single check type. (optional)
-     * @return List&lt;V2CheckInfo&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<V2CheckInfo> v2ChecksList(@javax.annotation.Nullable String checkType) throws ApiException {
-        ApiResponse<List<V2CheckInfo>> localVarResp = v2ChecksListWithHttpInfo(checkType);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * List the check types this API supports. The list is bounded metadata about the available check types (not a paginated collection), so the response is a flat array.
-     * @param checkType Restrict the list to a single check type. (optional)
-     * @return ApiResponse&lt;List&lt;V2CheckInfo&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<V2CheckInfo>> v2ChecksListWithHttpInfo(@javax.annotation.Nullable String checkType) throws ApiException {
+    private ApiResponse<List<V2CheckInfo>> v2ChecksListWithHttpInfo(@javax.annotation.Nullable String checkType) throws ApiException {
         okhttp3.Call localVarCall = v2ChecksListValidateBeforeCall(checkType, null);
         Type localVarReturnType = new TypeToken<List<V2CheckInfo>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * List the check types this API supports. The list is bounded metadata about the available check types (not a paginated collection), so the response is a flat array.
-     * @param checkType Restrict the list to a single check type. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2ChecksListAsync(@javax.annotation.Nullable String checkType, final ApiCallback<List<V2CheckInfo>> _callback) throws ApiException {
+    private okhttp3.Call v2ChecksListAsync(@javax.annotation.Nullable String checkType, final ApiCallback<List<V2CheckInfo>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2ChecksListValidateBeforeCall(checkType, _callback);
         Type localVarReturnType = new TypeToken<List<V2CheckInfo>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2ChecksListRequest {
+        @javax.annotation.Nullable
+        private String checkType;
+
+        private APIv2ChecksListRequest() {
+        }
+
+        /**
+         * Set checkType
+         * @param checkType Restrict the list to a single check type. (optional)
+         * @return APIv2ChecksListRequest
+         */
+        public APIv2ChecksListRequest checkType(@javax.annotation.Nullable String checkType) {
+            this.checkType = checkType;
+            return this;
+        }
+
+        /**
+         * Build call for v2ChecksList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ChecksListCall(checkType, _callback);
+        }
+
+        /**
+         * Execute v2ChecksList request
+         * @return List&lt;V2CheckInfo&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<V2CheckInfo> execute() throws ApiException {
+            ApiResponse<List<V2CheckInfo>> localVarResp = v2ChecksListWithHttpInfo(checkType);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ChecksList request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;V2CheckInfo&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<V2CheckInfo>> executeWithHttpInfo() throws ApiException {
+            return v2ChecksListWithHttpInfo(checkType);
+        }
+
+        /**
+         * Execute v2ChecksList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<V2CheckInfo>> _callback) throws ApiException {
+            return v2ChecksListAsync(checkType, _callback);
+        }
+    }
+
     /**
-     * Build call for v2ChecksRetrieve
-     * @param checkType  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * List the check types this API supports. The list is bounded metadata about the available check types (not a paginated collection), so the response is a flat array.
+     * @return APIv2ChecksListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -210,7 +233,10 @@ public class ChecksApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ChecksRetrieveCall(@javax.annotation.Nonnull String checkType, final ApiCallback _callback) throws ApiException {
+    public APIv2ChecksListRequest v2ChecksList() {
+        return new APIv2ChecksListRequest();
+    }
+    private okhttp3.Call v2ChecksRetrieveCall(@javax.annotation.Nonnull String checkType, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -266,50 +292,98 @@ public class ChecksApi {
 
     }
 
-    /**
-     * 
-     * 
-     * @param checkType  (required)
-     * @return V2CheckInfo
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public V2CheckInfo v2ChecksRetrieve(@javax.annotation.Nonnull String checkType) throws ApiException {
-        ApiResponse<V2CheckInfo> localVarResp = v2ChecksRetrieveWithHttpInfo(checkType);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * 
-     * @param checkType  (required)
-     * @return ApiResponse&lt;V2CheckInfo&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<V2CheckInfo> v2ChecksRetrieveWithHttpInfo(@javax.annotation.Nonnull String checkType) throws ApiException {
+    private ApiResponse<V2CheckInfo> v2ChecksRetrieveWithHttpInfo(@javax.annotation.Nonnull String checkType) throws ApiException {
         okhttp3.Call localVarCall = v2ChecksRetrieveValidateBeforeCall(checkType, null);
         Type localVarReturnType = new TypeToken<V2CheckInfo>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call v2ChecksRetrieveAsync(@javax.annotation.Nonnull String checkType, final ApiCallback<V2CheckInfo> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2ChecksRetrieveValidateBeforeCall(checkType, _callback);
+        Type localVarReturnType = new TypeToken<V2CheckInfo>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIv2ChecksRetrieveRequest {
+        @javax.annotation.Nonnull
+        private final String checkType;
+
+        private APIv2ChecksRetrieveRequest(@javax.annotation.Nonnull String checkType) {
+            this.checkType = checkType;
+        }
+
+        /**
+         * Build call for v2ChecksRetrieve
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2ChecksRetrieveCall(checkType, _callback);
+        }
+
+        /**
+         * Execute v2ChecksRetrieve request
+         * @return V2CheckInfo
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public V2CheckInfo execute() throws ApiException {
+            ApiResponse<V2CheckInfo> localVarResp = v2ChecksRetrieveWithHttpInfo(checkType);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2ChecksRetrieve request with HTTP info returned
+         * @return ApiResponse&lt;V2CheckInfo&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<V2CheckInfo> executeWithHttpInfo() throws ApiException {
+            return v2ChecksRetrieveWithHttpInfo(checkType);
+        }
+
+        /**
+         * Execute v2ChecksRetrieve request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<V2CheckInfo> _callback) throws ApiException {
+            return v2ChecksRetrieveAsync(checkType, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * 
      * @param checkType  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIv2ChecksRetrieveRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -317,11 +391,7 @@ public class ChecksApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2ChecksRetrieveAsync(@javax.annotation.Nonnull String checkType, final ApiCallback<V2CheckInfo> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = v2ChecksRetrieveValidateBeforeCall(checkType, _callback);
-        Type localVarReturnType = new TypeToken<V2CheckInfo>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIv2ChecksRetrieveRequest v2ChecksRetrieve(@javax.annotation.Nonnull String checkType) {
+        return new APIv2ChecksRetrieveRequest(checkType);
     }
 }

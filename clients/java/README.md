@@ -101,7 +101,9 @@ public class Example {
     AddOnsApi apiInstance = new AddOnsApi(defaultClient);
     String divisionId = "divisionId_example"; // String | Act on this division instead of the organisation the token belongs to.
     try {
-      List<OrganisationAddon> result = apiInstance.v2OrganisationsAddonsList(divisionId);
+      List<OrganisationAddon> result = apiInstance.v2OrganisationsAddonsList()
+            .divisionId(divisionId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AddOnsApi#v2OrganisationsAddonsList");

@@ -82,9 +82,9 @@ public class CrudLifecycle {
     UUID profileId = null;
     try {
       // --- checks ---
-      List<V2CheckInfo> checkList = checks.v2ChecksList(null);
+      List<V2CheckInfo> checkList = checks.v2ChecksList().execute();
       String checkType = checkList.get(0).getCheckType();
-      checks.v2ChecksRetrieve(checkType);
+      checks.v2ChecksRetrieve(checkType).execute();
       step("checks: " + checkList.size() + " types, retrieved '" + checkType + "'");
 
       // --- profile: create -> retrieve -> patch ---
@@ -93,11 +93,12 @@ public class CrudLifecycle {
               .name("E2E test profile " + SUFFIX)
               .description("created by e2e")
               .checks(List.of(new V2ProfileCheck()
-                  .checkType(V2ProfileCheck.CheckTypeEnum.fromValue(checkType)))));
+                  .checkType(V2ProfileCheck.CheckTypeEnum.fromValue(checkType))))).execute();
       profileId = created.getId();
-      profiles.v2ProfilesRetrieve(profileId);
-      profiles.v2ProfilesPartialUpdate(
-          profileId, new PatchedV2ProfilePartialUpdate().description("updated by e2e"));
+      profiles.v2ProfilesRetrieve(profileId).execute();
+      profiles.v2ProfilesPartialUpdate(profileId)
+          .patchedV2ProfilePartialUpdate(new PatchedV2ProfilePartialUpdate().description("updated by e2e"))
+          .execute();
       step("profile: created+retrieved+patched (" + profileId + ")");
 
       // --- screening: create -> retrieve -> documents ---
@@ -105,9 +106,9 @@ public class CrudLifecycle {
           new V2ScreeningCreate()
               .profileId(profileId)
               .candidate(new V2Candidate()
-                  .firstName("E2E").lastName("Tester").email(testEmail)));
-      screenings.v2ScreeningsRetrieve(screening.getId());
-      screenings.v2ScreeningsDocumentsList(screening.getId(), null, null);
+                  .firstName("E2E").lastName("Tester").email(testEmail))).execute();
+      screenings.v2ScreeningsRetrieve(screening.getId()).execute();
+      screenings.v2ScreeningsDocumentsList(screening.getId()).execute();
       step("screening: created+retrieved (" + screening.getId()
           + ", status=" + screening.getStatus() + ")");
 
@@ -116,16 +117,16 @@ public class CrudLifecycle {
           new Webhook()
               .name("E2E webhook " + SUFFIX)
               .url(URI.create("https://example.com/e2e-hook-" + SUFFIX))
-              .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))),
-          null, null);
-      webhooks.listWebhooks2();
+              .events(List.of(Webhook.EventsEnum.fromValue("screening.status_changed"))))
+          .execute();
+      webhooks.listWebhooks2().execute();
       // webhook id deserializes as a UUID; the delete path param wants a string.
-      webhooks.deleteWebhook2(hook.getId().toString());
+      webhooks.deleteWebhook2(hook.getId().toString()).execute();
       step("webhook: created+listed+deleted (" + hook.getId() + ")");
 
       // --- division: list -> reuse-or-create -> patch ---
       List<DivisionReadOnly> existing =
-          divisions.v2OrganisationsDivisionsList(null, null, null).getResults();
+          divisions.v2OrganisationsDivisionsList().execute().getResults();
       UUID divisionId = null;
       String action;
       for (DivisionReadOnly d : existing) {
@@ -139,14 +140,15 @@ public class CrudLifecycle {
             new DivisionWrite()
                 .name(DIVISION_NAME).city("Amsterdam").address("Teststraat 1")
                 .postal("1011AA").phone("+31200000000").contactName("E2E")
-                .contactEmail(testEmail).invoiceEmail(testEmail));
+                .contactEmail(testEmail).invoiceEmail(testEmail)).execute();
         divisionId = div.getId();
         action = "created";
       } else {
         action = "reused";
       }
-      divisions.v2OrganisationsDivisionsPartialUpdate(
-          divisionId, new PatchedDivisionWrite().city("Rotterdam"));
+      divisions.v2OrganisationsDivisionsPartialUpdate(divisionId)
+          .patchedDivisionWrite(new PatchedDivisionWrite().city("Rotterdam"))
+          .execute();
       step("division: " + action + "+patched (" + divisionId + ")");
 
       System.out.println("E2E CRUD OK");
@@ -166,7 +168,7 @@ public class CrudLifecycle {
   static void cleanup(ProfilesApi profiles, UUID profileId) {
     if (profileId != null) {
       try {
-        profiles.v2ProfilesDestroy(profileId);
+        profiles.v2ProfilesDestroy(profileId).execute();
       } catch (Exception ignored) {
         // best-effort
       }

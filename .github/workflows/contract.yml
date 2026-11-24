@@ -8,8 +8,6 @@ name: Contract tests
 # credentials, no staging: same result locally (`make contract`) and in CI.
 on:
   pull_request:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 jobs:

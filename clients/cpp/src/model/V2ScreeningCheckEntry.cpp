@@ -22,6 +22,7 @@ V2ScreeningCheckEntry::V2ScreeningCheckEntry()
 {
     m_Id = utility::conversions::to_string_t("");
     m_IdIsSet = false;
+    m_Check_type = utility::conversions::to_string_t("");
     m_Check_typeIsSet = false;
     m_Display_name = utility::conversions::to_string_t("");
     m_Display_nameIsSet = false;
@@ -57,9 +58,7 @@ web::json::value V2ScreeningCheckEntry::toJson() const
     if(m_Check_typeIsSet)
     {
         
-        utility::string_t refVal = fromCheck_typeEnum(m_Check_type);
-        val[utility::conversions::to_string_t(_XPLATSTR("check_type"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("check_type"))] = ModelBase::toJson(m_Check_type);
     }
     if(m_Display_nameIsSet)
     {
@@ -127,8 +126,7 @@ bool V2ScreeningCheckEntry::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setCheckType;
             ok &= ModelBase::fromJson(fieldValue, refVal_setCheckType);
-            
-            setCheckType(toCheck_typeEnum(refVal_setCheckType));
+            setCheckType(refVal_setCheckType);
             
         }
     }
@@ -218,7 +216,7 @@ void V2ScreeningCheckEntry::toMultipart(std::shared_ptr<MultipartFormData> multi
     }
     if(m_Check_typeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("check_type")), fromCheck_typeEnum(m_Check_type)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("check_type")), m_Check_type));
     }
     if(m_Display_nameIsSet)
     {
@@ -271,7 +269,7 @@ bool V2ScreeningCheckEntry::fromMultiPart(std::shared_ptr<MultipartFormData> mul
     {
         utility::string_t refVal_setCheckType;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("check_type"))), refVal_setCheckType );
-        setCheckType(toCheck_typeEnum(refVal_setCheckType));
+        setCheckType(refVal_setCheckType);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("display_name"))))
     {
@@ -310,159 +308,6 @@ bool V2ScreeningCheckEntry::fromMultiPart(std::shared_ptr<MultipartFormData> mul
         setCandidateWizardUrl(refVal_setCandidateWizardUrl);
     }
     return ok;
-}
-
-V2ScreeningCheckEntry::Check_typeEnum V2ScreeningCheckEntry::toCheck_typeEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("addresscheck")) {
-        return Check_typeEnum::ADDRESSCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("adversemedia2check")) {
-        return Check_typeEnum::ADVERSEMEDIA2CHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("adversemediacheck")) {
-        return Check_typeEnum::ADVERSEMEDIACHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("bigcheck")) {
-        return Check_typeEnum::BIGCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("criminalrecordscheck")) {
-        return Check_typeEnum::CRIMINALRECORDSCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("criminalrecordsuploadcheck")) {
-        return Check_typeEnum::CRIMINALRECORDSUPLOADCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("customintegritycheck")) {
-        return Check_typeEnum::CUSTOMINTEGRITYCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("cvcheck")) {
-        return Check_typeEnum::CVCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("edrcheck")) {
-        return Check_typeEnum::EDRCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("ibancheck")) {
-        return Check_typeEnum::IBANCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("id2check")) {
-        return Check_typeEnum::ID2CHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("idcheck")) {
-        return Check_typeEnum::IDCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("integritycheck")) {
-        return Check_typeEnum::INTEGRITYCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("openhealthcarecheck")) {
-        return Check_typeEnum::OPENHEALTHCARECHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("permissioncheck")) {
-        return Check_typeEnum::PERMISSIONCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("pescheckadversemediacheck")) {
-        return Check_typeEnum::PESCHECKADVERSEMEDIACHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("qualificationcheck")) {
-        return Check_typeEnum::QUALIFICATIONCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("righttoworkcheck")) {
-        return Check_typeEnum::RIGHTTOWORKCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("vogcheck")) {
-        return Check_typeEnum::VOGCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("watchlist2check")) {
-        return Check_typeEnum::WATCHLIST2CHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("watchlistcheck")) {
-        return Check_typeEnum::WATCHLISTCHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("workreferencecheck")) {
-        return Check_typeEnum::WORKREFERENCECHECK;
-    }
-    
-    if (value == utility::conversions::to_string_t("worldwidecreditcheck")) {
-        return Check_typeEnum::WORLDWIDECREDITCHECK;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to Check_typeEnum");
-}
-
-
-const utility::string_t V2ScreeningCheckEntry::fromCheck_typeEnum(const Check_typeEnum value) const
-{
-    switch(value)
-    {
-        
-        case Check_typeEnum::ADDRESSCHECK: return utility::conversions::to_string_t("addresscheck");
-        
-        case Check_typeEnum::ADVERSEMEDIA2CHECK: return utility::conversions::to_string_t("adversemedia2check");
-        
-        case Check_typeEnum::ADVERSEMEDIACHECK: return utility::conversions::to_string_t("adversemediacheck");
-        
-        case Check_typeEnum::BIGCHECK: return utility::conversions::to_string_t("bigcheck");
-        
-        case Check_typeEnum::CRIMINALRECORDSCHECK: return utility::conversions::to_string_t("criminalrecordscheck");
-        
-        case Check_typeEnum::CRIMINALRECORDSUPLOADCHECK: return utility::conversions::to_string_t("criminalrecordsuploadcheck");
-        
-        case Check_typeEnum::CUSTOMINTEGRITYCHECK: return utility::conversions::to_string_t("customintegritycheck");
-        
-        case Check_typeEnum::CVCHECK: return utility::conversions::to_string_t("cvcheck");
-        
-        case Check_typeEnum::EDRCHECK: return utility::conversions::to_string_t("edrcheck");
-        
-        case Check_typeEnum::IBANCHECK: return utility::conversions::to_string_t("ibancheck");
-        
-        case Check_typeEnum::ID2CHECK: return utility::conversions::to_string_t("id2check");
-        
-        case Check_typeEnum::IDCHECK: return utility::conversions::to_string_t("idcheck");
-        
-        case Check_typeEnum::INTEGRITYCHECK: return utility::conversions::to_string_t("integritycheck");
-        
-        case Check_typeEnum::OPENHEALTHCARECHECK: return utility::conversions::to_string_t("openhealthcarecheck");
-        
-        case Check_typeEnum::PERMISSIONCHECK: return utility::conversions::to_string_t("permissioncheck");
-        
-        case Check_typeEnum::PESCHECKADVERSEMEDIACHECK: return utility::conversions::to_string_t("pescheckadversemediacheck");
-        
-        case Check_typeEnum::QUALIFICATIONCHECK: return utility::conversions::to_string_t("qualificationcheck");
-        
-        case Check_typeEnum::RIGHTTOWORKCHECK: return utility::conversions::to_string_t("righttoworkcheck");
-        
-        case Check_typeEnum::VOGCHECK: return utility::conversions::to_string_t("vogcheck");
-        
-        case Check_typeEnum::WATCHLIST2CHECK: return utility::conversions::to_string_t("watchlist2check");
-        
-        case Check_typeEnum::WATCHLISTCHECK: return utility::conversions::to_string_t("watchlistcheck");
-        
-        case Check_typeEnum::WORKREFERENCECHECK: return utility::conversions::to_string_t("workreferencecheck");
-        
-        case Check_typeEnum::WORLDWIDECREDITCHECK: return utility::conversions::to_string_t("worldwidecreditcheck");
-        
-    }
 }
 
 
@@ -507,13 +352,13 @@ void V2ScreeningCheckEntry::unsetProfile_check_id()
 {
     m_Profile_check_id.reset();
 }
-V2ScreeningCheckEntry::Check_typeEnum V2ScreeningCheckEntry::getCheckType() const
+utility::string_t V2ScreeningCheckEntry::getCheckType() const
 {
     return m_Check_type;
 }
 
 
-void V2ScreeningCheckEntry::setCheckType(const Check_typeEnum value)
+void V2ScreeningCheckEntry::setCheckType(const utility::string_t& value)
 {
     m_Check_type = value;
     m_Check_typeIsSet = true;

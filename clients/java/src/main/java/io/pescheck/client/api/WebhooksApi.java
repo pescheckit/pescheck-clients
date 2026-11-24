@@ -74,25 +74,7 @@ public class WebhooksApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for createWebhook2
-     * @param webhook  (required)
-     * @param xOrganizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param organizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createWebhook2Call(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createWebhook2Call(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -158,95 +140,148 @@ public class WebhooksApi {
 
     }
 
-    /**
-     * 
-     * Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.status_changed&#x60; - Check status has changed (new status in payload)         - &#x60;screening.status_changed&#x60; - Screening status has changed (new status in payload)         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;profile.created&#x60; - New profile has been created         - &#x60;profile.updated&#x60; - Profile has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
-     * @param webhook  (required)
-     * @param xOrganizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param organizationId Organization ID (for JWT/Session auth only) (optional)
-     * @return WebhookResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
-     </table>
-     */
-    public WebhookResponse createWebhook2(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId) throws ApiException {
-        ApiResponse<WebhookResponse> localVarResp = createWebhook2WithHttpInfo(webhook, xOrganizationId, organizationId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.status_changed&#x60; - Check status has changed (new status in payload)         - &#x60;screening.status_changed&#x60; - Screening status has changed (new status in payload)         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;profile.created&#x60; - New profile has been created         - &#x60;profile.updated&#x60; - Profile has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
-     * @param webhook  (required)
-     * @param xOrganizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param organizationId Organization ID (for JWT/Session auth only) (optional)
-     * @return ApiResponse&lt;WebhookResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<WebhookResponse> createWebhook2WithHttpInfo(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId) throws ApiException {
+    private ApiResponse<WebhookResponse> createWebhook2WithHttpInfo(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId) throws ApiException {
         okhttp3.Call localVarCall = createWebhook2ValidateBeforeCall(webhook, xOrganizationId, organizationId, null);
         Type localVarReturnType = new TypeToken<WebhookResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.status_changed&#x60; - Check status has changed (new status in payload)         - &#x60;screening.status_changed&#x60; - Screening status has changed (new status in payload)         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;profile.created&#x60; - New profile has been created         - &#x60;profile.updated&#x60; - Profile has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
-     * @param webhook  (required)
-     * @param xOrganizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param organizationId Organization ID (for JWT/Session auth only) (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
-        <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createWebhook2Async(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId, final ApiCallback<WebhookResponse> _callback) throws ApiException {
+    private okhttp3.Call createWebhook2Async(@javax.annotation.Nonnull Webhook webhook, @javax.annotation.Nullable String xOrganizationId, @javax.annotation.Nullable String organizationId, final ApiCallback<WebhookResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createWebhook2ValidateBeforeCall(webhook, xOrganizationId, organizationId, _callback);
         Type localVarReturnType = new TypeToken<WebhookResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateWebhook2Request {
+        @javax.annotation.Nonnull
+        private final Webhook webhook;
+        @javax.annotation.Nullable
+        private String xOrganizationId;
+        @javax.annotation.Nullable
+        private String organizationId;
+
+        private APIcreateWebhook2Request(@javax.annotation.Nonnull Webhook webhook) {
+            this.webhook = webhook;
+        }
+
+        /**
+         * Set xOrganizationId
+         * @param xOrganizationId Organization ID (for JWT/Session auth only) (optional)
+         * @return APIcreateWebhook2Request
+         */
+        public APIcreateWebhook2Request xOrganizationId(@javax.annotation.Nullable String xOrganizationId) {
+            this.xOrganizationId = xOrganizationId;
+            return this;
+        }
+
+        /**
+         * Set organizationId
+         * @param organizationId Organization ID (for JWT/Session auth only) (optional)
+         * @return APIcreateWebhook2Request
+         */
+        public APIcreateWebhook2Request organizationId(@javax.annotation.Nullable String organizationId) {
+            this.organizationId = organizationId;
+            return this;
+        }
+
+        /**
+         * Build call for createWebhook2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createWebhook2Call(webhook, xOrganizationId, organizationId, _callback);
+        }
+
+        /**
+         * Execute createWebhook2 request
+         * @return WebhookResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
+         </table>
+         */
+        public WebhookResponse execute() throws ApiException {
+            ApiResponse<WebhookResponse> localVarResp = createWebhook2WithHttpInfo(webhook, xOrganizationId, organizationId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createWebhook2 request with HTTP info returned
+         * @return ApiResponse&lt;WebhookResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<WebhookResponse> executeWithHttpInfo() throws ApiException {
+            return createWebhook2WithHttpInfo(webhook, xOrganizationId, organizationId);
+        }
+
+        /**
+         * Execute createWebhook2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
+            <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<WebhookResponse> _callback) throws ApiException {
+            return createWebhook2Async(webhook, xOrganizationId, organizationId, _callback);
+        }
+    }
+
     /**
-     * Build call for deleteWebhook2
-     * @param webhookId Webhook ID to delete (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via &#x60;X-Organization-Id&#x60; header or &#x60;organization_id&#x60; query parameter          **Valid Events:**         - &#x60;check.status_changed&#x60; - Check status has changed (new status in payload)         - &#x60;screening.status_changed&#x60; - Screening status has changed (new status in payload)         - &#x60;screening.archived&#x60; - Screening has been archived         - &#x60;package.created&#x60; - New package has been created         - &#x60;package.updated&#x60; - Package has been updated         - &#x60;profile.created&#x60; - New profile has been created         - &#x60;profile.updated&#x60; - Profile has been updated         - &#x60;division.created&#x60; - New division has been created         - &#x60;division.updated&#x60; - Division has been updated          Limited to 5 webhooks per organization/division.
+     * @param webhook  (required)
+     * @return APIcreateWebhook2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden - Organization not found or no permission </td><td>  -  </td></tr>
+        <tr><td> 409 </td><td> Conflict - Max webhooks reached </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteWebhook2Call(@javax.annotation.Nonnull String webhookId, final ApiCallback _callback) throws ApiException {
+    public APIcreateWebhook2Request createWebhook2(@javax.annotation.Nonnull Webhook webhook) {
+        return new APIcreateWebhook2Request(webhook);
+    }
+    private okhttp3.Call deleteWebhook2Call(@javax.annotation.Nonnull String webhookId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -301,80 +336,115 @@ public class WebhooksApi {
 
     }
 
-    /**
-     * 
-     * Delete a webhook
-     * @param webhookId Webhook ID to delete (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteWebhook2(@javax.annotation.Nonnull String webhookId) throws ApiException {
-        deleteWebhook2WithHttpInfo(webhookId);
-    }
 
-    /**
-     * 
-     * Delete a webhook
-     * @param webhookId Webhook ID to delete (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteWebhook2WithHttpInfo(@javax.annotation.Nonnull String webhookId) throws ApiException {
+    private ApiResponse<Void> deleteWebhook2WithHttpInfo(@javax.annotation.Nonnull String webhookId) throws ApiException {
         okhttp3.Call localVarCall = deleteWebhook2ValidateBeforeCall(webhookId, null);
         return localVarApiClient.execute(localVarCall);
     }
 
-    /**
-     *  (asynchronously)
-     * Delete a webhook
-     * @param webhookId Webhook ID to delete (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteWebhook2Async(@javax.annotation.Nonnull String webhookId, final ApiCallback<Void> _callback) throws ApiException {
+    private okhttp3.Call deleteWebhook2Async(@javax.annotation.Nonnull String webhookId, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteWebhook2ValidateBeforeCall(webhookId, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
+
+    public class APIdeleteWebhook2Request {
+        @javax.annotation.Nonnull
+        private final String webhookId;
+
+        private APIdeleteWebhook2Request(@javax.annotation.Nonnull String webhookId) {
+            this.webhookId = webhookId;
+        }
+
+        /**
+         * Build call for deleteWebhook2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteWebhook2Call(webhookId, _callback);
+        }
+
+        /**
+         * Execute deleteWebhook2 request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute() throws ApiException {
+            deleteWebhook2WithHttpInfo(webhookId);
+        }
+
+        /**
+         * Execute deleteWebhook2 request with HTTP info returned
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
+            return deleteWebhook2WithHttpInfo(webhookId);
+        }
+
+        /**
+         * Execute deleteWebhook2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
+            return deleteWebhook2Async(webhookId, _callback);
+        }
+    }
+
     /**
-     * Build call for listWebhooks2
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Delete a webhook
+     * @param webhookId Webhook ID to delete (required)
+     * @return APIdeleteWebhook2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 204 </td><td> Webhook deleted </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listWebhooks2Call(final ApiCallback _callback) throws ApiException {
+    public APIdeleteWebhook2Request deleteWebhook2(@javax.annotation.Nonnull String webhookId) {
+        return new APIdeleteWebhook2Request(webhookId);
+    }
+    private okhttp3.Call listWebhooks2Call(final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -424,81 +494,110 @@ public class WebhooksApi {
 
     }
 
-    /**
-     * 
-     * List webhooks for the organization
-     * @return List&lt;WebhookResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<WebhookResponse> listWebhooks2() throws ApiException {
-        ApiResponse<List<WebhookResponse>> localVarResp = listWebhooks2WithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * List webhooks for the organization
-     * @return ApiResponse&lt;List&lt;WebhookResponse&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<WebhookResponse>> listWebhooks2WithHttpInfo() throws ApiException {
+    private ApiResponse<List<WebhookResponse>> listWebhooks2WithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listWebhooks2ValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<List<WebhookResponse>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * List webhooks for the organization
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call listWebhooks2Async(final ApiCallback<List<WebhookResponse>> _callback) throws ApiException {
+    private okhttp3.Call listWebhooks2Async(final ApiCallback<List<WebhookResponse>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = listWebhooks2ValidateBeforeCall(_callback);
         Type localVarReturnType = new TypeToken<List<WebhookResponse>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIlistWebhooks2Request {
+
+        private APIlistWebhooks2Request() {
+        }
+
+        /**
+         * Build call for listWebhooks2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listWebhooks2Call(_callback);
+        }
+
+        /**
+         * Execute listWebhooks2 request
+         * @return List&lt;WebhookResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<WebhookResponse> execute() throws ApiException {
+            ApiResponse<List<WebhookResponse>> localVarResp = listWebhooks2WithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listWebhooks2 request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;WebhookResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<WebhookResponse>> executeWithHttpInfo() throws ApiException {
+            return listWebhooks2WithHttpInfo();
+        }
+
+        /**
+         * Execute listWebhooks2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<WebhookResponse>> _callback) throws ApiException {
+            return listWebhooks2Async(_callback);
+        }
+    }
+
     /**
-     * Build call for verifyWebhook2
-     * @param webhookId Webhook ID (required)
-     * @param verifyWebhook  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * List webhooks for the organization
+     * @return APIlistWebhooks2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call verifyWebhook2Call(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook, final ApiCallback _callback) throws ApiException {
+    public APIlistWebhooks2Request listWebhooks2() {
+        return new APIlistWebhooks2Request();
+    }
+    private okhttp3.Call verifyWebhook2Call(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -560,54 +659,106 @@ public class WebhooksApi {
 
     }
 
-    /**
-     * 
-     * Verify webhook ownership
-     * @param webhookId Webhook ID (required)
-     * @param verifyWebhook  (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public void verifyWebhook2(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook) throws ApiException {
-        verifyWebhook2WithHttpInfo(webhookId, verifyWebhook);
-    }
 
-    /**
-     * 
-     * Verify webhook ownership
-     * @param webhookId Webhook ID (required)
-     * @param verifyWebhook  (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> verifyWebhook2WithHttpInfo(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook) throws ApiException {
+    private ApiResponse<Void> verifyWebhook2WithHttpInfo(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook) throws ApiException {
         okhttp3.Call localVarCall = verifyWebhook2ValidateBeforeCall(webhookId, verifyWebhook, null);
         return localVarApiClient.execute(localVarCall);
     }
 
+    private okhttp3.Call verifyWebhook2Async(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook, final ApiCallback<Void> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = verifyWebhook2ValidateBeforeCall(webhookId, verifyWebhook, _callback);
+        localVarApiClient.executeAsync(localVarCall, _callback);
+        return localVarCall;
+    }
+
+    public class APIverifyWebhook2Request {
+        @javax.annotation.Nonnull
+        private final String webhookId;
+        @javax.annotation.Nonnull
+        private final VerifyWebhook verifyWebhook;
+
+        private APIverifyWebhook2Request(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook) {
+            this.webhookId = webhookId;
+            this.verifyWebhook = verifyWebhook;
+        }
+
+        /**
+         * Build call for verifyWebhook2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return verifyWebhook2Call(webhookId, verifyWebhook, _callback);
+        }
+
+        /**
+         * Execute verifyWebhook2 request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute() throws ApiException {
+            verifyWebhook2WithHttpInfo(webhookId, verifyWebhook);
+        }
+
+        /**
+         * Execute verifyWebhook2 request with HTTP info returned
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
+            return verifyWebhook2WithHttpInfo(webhookId, verifyWebhook);
+        }
+
+        /**
+         * Execute verifyWebhook2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td> Webhook verified </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Invalid verification code </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
+            return verifyWebhook2Async(webhookId, verifyWebhook, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * Verify webhook ownership
      * @param webhookId Webhook ID (required)
      * @param verifyWebhook  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIverifyWebhook2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -617,10 +768,7 @@ public class WebhooksApi {
         <tr><td> 404 </td><td> Webhook not found </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call verifyWebhook2Async(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook, final ApiCallback<Void> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = verifyWebhook2ValidateBeforeCall(webhookId, verifyWebhook, _callback);
-        localVarApiClient.executeAsync(localVarCall, _callback);
-        return localVarCall;
+    public APIverifyWebhook2Request verifyWebhook2(@javax.annotation.Nonnull String webhookId, @javax.annotation.Nonnull VerifyWebhook verifyWebhook) {
+        return new APIverifyWebhook2Request(webhookId, verifyWebhook);
     }
 }

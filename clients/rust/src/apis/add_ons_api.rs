@@ -14,6 +14,42 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`v2_organisations_addons_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsAddonsListParams {
+    /// Act on this division instead of the organisation the token belongs to.
+    pub division_id: Option<String>
+}
+
+/// struct for passing parameters to the method [`v2_organisations_addons_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsAddonsPartialUpdateParams {
+    /// The add-on to act on.
+    pub addon: String,
+    /// Act on this division instead of the organisation the token belongs to.
+    pub division_id: Option<String>,
+    pub patched_organisation_addon_update: Option<models::PatchedOrganisationAddonUpdate>
+}
+
+/// struct for passing parameters to the method [`v2_organisations_addons_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsAddonsRetrieveParams {
+    /// The add-on to act on.
+    pub addon: String,
+    /// Act on this division instead of the organisation the token belongs to.
+    pub division_id: Option<String>
+}
+
+/// struct for passing parameters to the method [`v2_organisations_addons_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsAddonsUpdateParams {
+    /// The add-on to act on.
+    pub addon: String,
+    pub organisation_addon_update: models::OrganisationAddonUpdate,
+    /// Act on this division instead of the organisation the token belongs to.
+    pub division_id: Option<String>
+}
+
 
 /// struct for typed errors of method [`v2_organisations_addons_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -45,14 +81,12 @@ pub enum V2OrganisationsAddonsUpdateError {
 
 
 /// List every add-on with whether it is enabled for the organisation.
-pub async fn v2_organisations_addons_list(configuration: &configuration::Configuration, division_id: Option<&str>) -> Result<Vec<models::OrganisationAddon>, Error<V2OrganisationsAddonsListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_division_id = division_id;
+pub async fn v2_organisations_addons_list(configuration: &configuration::Configuration, params: V2OrganisationsAddonsListParams) -> Result<Vec<models::OrganisationAddon>, Error<V2OrganisationsAddonsListError>> {
 
     let uri_str = format!("{}/api/v2/organisations/addons/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_division_id {
+    if let Some(ref param_value) = params.division_id {
         req_builder = req_builder.query(&[("division_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -88,16 +122,12 @@ pub async fn v2_organisations_addons_list(configuration: &configuration::Configu
 }
 
 /// Switch an add-on on or off. Enabling is billed monthly from today.
-pub async fn v2_organisations_addons_partial_update(configuration: &configuration::Configuration, addon: &str, division_id: Option<&str>, patched_organisation_addon_update: Option<models::PatchedOrganisationAddonUpdate>) -> Result<models::OrganisationAddonUpdateResult, Error<V2OrganisationsAddonsPartialUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_addon = addon;
-    let p_query_division_id = division_id;
-    let p_body_patched_organisation_addon_update = patched_organisation_addon_update;
+pub async fn v2_organisations_addons_partial_update(configuration: &configuration::Configuration, params: V2OrganisationsAddonsPartialUpdateParams) -> Result<models::OrganisationAddonUpdateResult, Error<V2OrganisationsAddonsPartialUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(p_path_addon));
+    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(params.addon));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
-    if let Some(ref param_value) = p_query_division_id {
+    if let Some(ref param_value) = params.division_id {
         req_builder = req_builder.query(&[("division_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -106,7 +136,7 @@ pub async fn v2_organisations_addons_partial_update(configuration: &configuratio
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_patched_organisation_addon_update);
+    req_builder = req_builder.json(&params.patched_organisation_addon_update);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -134,15 +164,12 @@ pub async fn v2_organisations_addons_partial_update(configuration: &configuratio
 }
 
 /// Get one add-on's state for the organisation.
-pub async fn v2_organisations_addons_retrieve(configuration: &configuration::Configuration, addon: &str, division_id: Option<&str>) -> Result<models::OrganisationAddon, Error<V2OrganisationsAddonsRetrieveError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_addon = addon;
-    let p_query_division_id = division_id;
+pub async fn v2_organisations_addons_retrieve(configuration: &configuration::Configuration, params: V2OrganisationsAddonsRetrieveParams) -> Result<models::OrganisationAddon, Error<V2OrganisationsAddonsRetrieveError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(p_path_addon));
+    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(params.addon));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_division_id {
+    if let Some(ref param_value) = params.division_id {
         req_builder = req_builder.query(&[("division_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -178,16 +205,12 @@ pub async fn v2_organisations_addons_retrieve(configuration: &configuration::Con
 }
 
 /// Switch an add-on on or off. Enabling is billed monthly from today.
-pub async fn v2_organisations_addons_update(configuration: &configuration::Configuration, addon: &str, organisation_addon_update: models::OrganisationAddonUpdate, division_id: Option<&str>) -> Result<models::OrganisationAddonUpdateResult, Error<V2OrganisationsAddonsUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_addon = addon;
-    let p_body_organisation_addon_update = organisation_addon_update;
-    let p_query_division_id = division_id;
+pub async fn v2_organisations_addons_update(configuration: &configuration::Configuration, params: V2OrganisationsAddonsUpdateParams) -> Result<models::OrganisationAddonUpdateResult, Error<V2OrganisationsAddonsUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(p_path_addon));
+    let uri_str = format!("{}/api/v2/organisations/addons/{addon}/", configuration.base_path, addon=crate::apis::urlencode(params.addon));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
-    if let Some(ref param_value) = p_query_division_id {
+    if let Some(ref param_value) = params.division_id {
         req_builder = req_builder.query(&[("division_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -196,7 +219,7 @@ pub async fn v2_organisations_addons_update(configuration: &configuration::Confi
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_organisation_addon_update);
+    req_builder = req_builder.json(&params.organisation_addon_update);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

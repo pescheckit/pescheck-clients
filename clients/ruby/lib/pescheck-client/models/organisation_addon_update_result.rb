@@ -16,7 +16,7 @@ require 'time'
 module Pescheck
   # One add-on for one organisation, built from ``addon_service.addon_cards``.
   class OrganisationAddonUpdateResult < ApiModelBase
-    # Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+    # Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
     attr_accessor :addon
 
     attr_accessor :name
@@ -40,28 +40,6 @@ module Pescheck
 
     # Divisions that were switched off too, because the add-on was switched off on their parent.
     attr_accessor :disabled_divisions
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -228,8 +206,6 @@ module Pescheck
     def valid?
       warn '[DEPRECATED] the `valid?` method is obsolete'
       return false if @addon.nil?
-      addon_validator = EnumAttributeValidator.new('String', ["branded_journey", "sso", "api_access", "connected_ats"])
-      return false unless addon_validator.valid?(@addon)
       return false if @name.nil?
       return false if @description.nil?
       return false if @enabled.nil?
@@ -240,13 +216,13 @@ module Pescheck
       true
     end
 
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] addon Object to be assigned
+    # Custom attribute writer method with validation
+    # @param [Object] addon Value to be assigned
     def addon=(addon)
-      validator = EnumAttributeValidator.new('String', ["branded_journey", "sso", "api_access", "connected_ats"])
-      unless validator.valid?(addon)
-        fail ArgumentError, "invalid value for \"addon\", must be one of #{validator.allowable_values}."
+      if addon.nil?
+        fail ArgumentError, 'addon cannot be nil'
       end
+
       @addon = addon
     end
 

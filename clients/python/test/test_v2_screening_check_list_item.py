@@ -36,13 +36,13 @@ class TestV2ScreeningCheckListItem(unittest.TestCase):
         if include_optional:
             return V2ScreeningCheckListItem(
                 id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 status = ''
             )
         else:
             return V2ScreeningCheckListItem(
                 id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 status = '',
         )
         """

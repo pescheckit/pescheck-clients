@@ -42,7 +42,8 @@ public class ProfilesApiTest {
     @Test
     public void v2ProfilesCreateTest() throws ApiException {
         V2ProfileCreate v2ProfileCreate = null;
-        V2ProfileDetail response = api.v2ProfilesCreate(v2ProfileCreate);
+        V2ProfileDetail response = api.v2ProfilesCreate(v2ProfileCreate)
+                .execute();
         // TODO: test validations
     }
 
@@ -52,7 +53,8 @@ public class ProfilesApiTest {
     @Test
     public void v2ProfilesDestroyTest() throws ApiException {
         UUID id = null;
-        api.v2ProfilesDestroy(id);
+        api.v2ProfilesDestroy(id)
+                .execute();
         // TODO: test validations
     }
 
@@ -68,7 +70,15 @@ public class ProfilesApiTest {
         Integer pageSize = null;
         Boolean paginate = null;
         String sort = null;
-        PaginatedV2ProfileListItemList response = api.v2ProfilesList(checkType, isCustom, name, page, pageSize, paginate, sort);
+        PaginatedV2ProfileListItemList response = api.v2ProfilesList()
+                .checkType(checkType)
+                .isCustom(isCustom)
+                .name(name)
+                .page(page)
+                .pageSize(pageSize)
+                .paginate(paginate)
+                .sort(sort)
+                .execute();
         // TODO: test validations
     }
 
@@ -81,7 +91,9 @@ public class ProfilesApiTest {
     public void v2ProfilesPartialUpdateTest() throws ApiException {
         UUID id = null;
         PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate = null;
-        V2ProfileDetail response = api.v2ProfilesPartialUpdate(id, patchedV2ProfilePartialUpdate);
+        V2ProfileDetail response = api.v2ProfilesPartialUpdate(id)
+                .patchedV2ProfilePartialUpdate(patchedV2ProfilePartialUpdate)
+                .execute();
         // TODO: test validations
     }
 
@@ -91,7 +103,8 @@ public class ProfilesApiTest {
     @Test
     public void v2ProfilesRetrieveTest() throws ApiException {
         UUID id = null;
-        V2ProfileDetail response = api.v2ProfilesRetrieve(id);
+        V2ProfileDetail response = api.v2ProfilesRetrieve(id)
+                .execute();
         // TODO: test validations
     }
 
@@ -104,7 +117,8 @@ public class ProfilesApiTest {
     public void v2ProfilesUpdateTest() throws ApiException {
         UUID id = null;
         V2ProfileUpdate v2ProfileUpdate = null;
-        V2ProfileDetail response = api.v2ProfilesUpdate(id, v2ProfileUpdate);
+        V2ProfileDetail response = api.v2ProfilesUpdate(id, v2ProfileUpdate)
+                .execute();
         // TODO: test validations
     }
 

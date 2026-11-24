@@ -48,13 +48,19 @@ async fn run(
     let suffix = Uuid::new_v4().simple().to_string()[..8].to_string();
 
     // --- checks ---
-    let check_list = checks_api::v2_checks_list(cfg, None).await?;
+    let check_list = checks_api::v2_checks_list(cfg, Default::default()).await?;
     let check_type = check_list
         .first()
         .ok_or("no check types returned")?
         .check_type
         .clone();
-    checks_api::v2_checks_retrieve(cfg, &check_type).await?;
+    checks_api::v2_checks_retrieve(
+        cfg,
+        checks_api::V2ChecksRetrieveParams {
+            check_type: check_type.clone(),
+        },
+    )
+    .await?;
     // V2ProfileCheck wants the CheckType enum; the list gives the wire string.
     let check_type_enum: CheckType =
         serde_json::from_value(serde_json::Value::String(check_type.clone()))?;
@@ -66,27 +72,37 @@ async fn run(
     // --- profile: create -> retrieve -> patch ---
     let created = profiles_api::v2_profiles_create(
         cfg,
-        V2ProfileCreate {
-            name: format!("E2E test profile {suffix}"),
-            description: Some("created by e2e".to_string()),
-            checks: vec![V2ProfileCheck {
-                check_type: check_type_enum,
-                config: None,
-            }],
+        profiles_api::V2ProfilesCreateParams {
+            v2_profile_create: V2ProfileCreate {
+                name: format!("E2E test profile {suffix}"),
+                description: Some("created by e2e".to_string()),
+                checks: vec![V2ProfileCheck {
+                    check_type: check_type_enum,
+                    config: None,
+                }],
+            },
         },
     )
     .await?;
     let profile_uuid = created.id;
     let profile_id = profile_uuid.to_string();
     *profile_id_out = Some(profile_id.clone());
-    profiles_api::v2_profiles_retrieve(cfg, &profile_id).await?;
+    profiles_api::v2_profiles_retrieve(
+        cfg,
+        profiles_api::V2ProfilesRetrieveParams {
+            id: profile_id.clone(),
+        },
+    )
+    .await?;
     profiles_api::v2_profiles_partial_update(
         cfg,
-        &profile_id,
-        Some(PatchedV2ProfilePartialUpdate {
-            name: None,
-            description: Some("updated by e2e".to_string()),
-        }),
+        profiles_api::V2ProfilesPartialUpdateParams {
+            id: profile_id.clone(),
+            patched_v2_profile_partial_update: Some(PatchedV2ProfilePartialUpdate {
+                name: None,
+                description: Some("updated by e2e".to_string()),
+            }),
+        },
     )
     .await?;
     step(&format!("profile: created+retrieved+patched ({profile_id})"));
@@ -94,22 +110,37 @@ async fn run(
     // --- screening: create -> retrieve -> documents ---
     let screening = screenings_api::v2_screenings_create(
         cfg,
-        V2ScreeningCreate {
-            profile_id: profile_uuid,
-            candidate: Box::new(V2Candidate {
-                first_name: "E2E".to_string(),
-                last_name: "Tester".to_string(),
-                email: test_email.to_string(),
+        screenings_api::V2ScreeningsCreateParams {
+            v2_screening_create: V2ScreeningCreate {
+                profile_id: profile_uuid,
+                candidate: Box::new(V2Candidate {
+                    first_name: "E2E".to_string(),
+                    last_name: "Tester".to_string(),
+                    email: test_email.to_string(),
+                    ..Default::default()
+                }),
+                checks: None,
                 ..Default::default()
-            }),
-            checks: None,
-            ..Default::default()
+            },
         },
     )
     .await?;
     let screening_id = screening.id.to_string();
-    screenings_api::v2_screenings_retrieve(cfg, &screening_id).await?;
-    screenings_api::v2_screenings_documents_list(cfg, &screening_id, None, None).await?;
+    screenings_api::v2_screenings_retrieve(
+        cfg,
+        screenings_api::V2ScreeningsRetrieveParams {
+            id: screening_id.clone(),
+        },
+    )
+    .await?;
+    screenings_api::v2_screenings_documents_list(
+        cfg,
+        screenings_api::V2ScreeningsDocumentsListParams {
+            id: screening_id.clone(),
+            ..Default::default()
+        },
+    )
+    .await?;
     step(&format!(
         "screening: created+retrieved ({screening_id}, status={})",
         screening.status
@@ -118,23 +149,30 @@ async fn run(
     // --- webhook: create -> list -> delete ---
     let hook = webhooks_api::create_webhook2(
         cfg,
-        Webhook {
-            name: format!("E2E webhook {suffix}"),
-            url: format!("https://example.com/e2e-hook-{}", suffix),
-            events: vec![Events::ScreeningStatusChanged],
-            active: None,
-            division_id: None,
+        webhooks_api::CreateWebhook2Params {
+            webhook: Webhook {
+                name: format!("E2E webhook {suffix}"),
+                url: format!("https://example.com/e2e-hook-{}", suffix),
+                events: vec![Events::ScreeningStatusChanged],
+                active: None,
+                division_id: None,
+            },
+            ..Default::default()
         },
-        None,
-        None,
     )
     .await?;
     webhooks_api::list_webhooks2(cfg).await?;
-    webhooks_api::delete_webhook2(cfg, &hook.id.to_string()).await?;
+    webhooks_api::delete_webhook2(
+        cfg,
+        webhooks_api::DeleteWebhook2Params {
+            webhook_id: hook.id.to_string(),
+        },
+    )
+    .await?;
     step(&format!("webhook: created+listed+deleted ({})", hook.id));
 
     // --- division: list -> reuse-or-create -> patch ---
-    let existing = divisions_api::v2_organisations_divisions_list(cfg, None, None, None)
+    let existing = divisions_api::v2_organisations_divisions_list(cfg, Default::default())
         .await?
         .results;
     let found = existing.iter().find(|d| {
@@ -149,19 +187,21 @@ async fn run(
         None => {
             let created_div = divisions_api::v2_organisations_divisions_create(
                 cfg,
-                DivisionWrite {
-                    id: None,
-                    name: DIVISION_NAME.to_string(),
-                    city: "Amsterdam".to_string(),
-                    address: "Teststraat 1".to_string(),
-                    postal: "1011AA".to_string(),
-                    phone: "+31200000000".to_string(),
-                    contact_name: "E2E".to_string(),
-                    contact_email: "e2e@example.com".to_string(),
-                    invoice_email: "e2e@example.com".to_string(),
-                    use_parent_on_email: None,
-                    use_parent_on_billing: None,
-                    use_parent_on_report: None,
+                divisions_api::V2OrganisationsDivisionsCreateParams {
+                    division_write: DivisionWrite {
+                        id: None,
+                        name: DIVISION_NAME.to_string(),
+                        city: "Amsterdam".to_string(),
+                        address: "Teststraat 1".to_string(),
+                        postal: "1011AA".to_string(),
+                        phone: "+31200000000".to_string(),
+                        contact_name: "E2E".to_string(),
+                        contact_email: "e2e@example.com".to_string(),
+                        invoice_email: "e2e@example.com".to_string(),
+                        use_parent_on_email: None,
+                        use_parent_on_billing: None,
+                        use_parent_on_report: None,
+                    },
                 },
             )
             .await?;
@@ -173,11 +213,13 @@ async fn run(
     };
     divisions_api::v2_organisations_divisions_partial_update(
         cfg,
-        &div_id,
-        Some(PatchedDivisionWrite {
-            city: Some("Rotterdam".to_string()),
-            ..Default::default()
-        }),
+        divisions_api::V2OrganisationsDivisionsPartialUpdateParams {
+            id: div_id.clone(),
+            patched_division_write: Some(PatchedDivisionWrite {
+                city: Some("Rotterdam".to_string()),
+                ..Default::default()
+            }),
+        },
     )
     .await?;
     step(&format!("division: {action}+patched ({div_id})"));
@@ -205,7 +247,11 @@ async fn main() {
 
     // Best-effort cleanup of the profile we created.
     if let Some(pid) = &profile_id {
-        let _ = profiles_api::v2_profiles_destroy(&cfg, pid).await;
+        let _ = profiles_api::v2_profiles_destroy(
+            &cfg,
+            profiles_api::V2ProfilesDestroyParams { id: pid.clone() },
+        )
+        .await;
     }
 
     match result {

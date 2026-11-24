@@ -14,9 +14,9 @@ use serde::{Deserialize, Serialize};
 /// OrganisationAddonUpdateResult : One add-on for one organisation, built from ``addon_service.addon_cards``.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OrganisationAddonUpdateResult {
-    /// Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+    /// Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
     #[serde(rename = "addon")]
-    pub addon: Addon,
+    pub addon: String,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description")]
@@ -43,7 +43,7 @@ pub struct OrganisationAddonUpdateResult {
 
 impl OrganisationAddonUpdateResult {
     /// One add-on for one organisation, built from ``addon_service.addon_cards``.
-    pub fn new(addon: Addon, name: String, description: String, enabled: bool, active: bool, blocked_by_parent: bool, monthly_price: Option<models::AddonPrice>, price_is_indicative: bool, disabled_divisions: Vec<models::DisabledDivision>) -> OrganisationAddonUpdateResult {
+    pub fn new(addon: String, name: String, description: String, enabled: bool, active: bool, blocked_by_parent: bool, monthly_price: Option<models::AddonPrice>, price_is_indicative: bool, disabled_divisions: Vec<models::DisabledDivision>) -> OrganisationAddonUpdateResult {
         OrganisationAddonUpdateResult {
             addon,
             name,
@@ -55,24 +55,6 @@ impl OrganisationAddonUpdateResult {
             price_is_indicative,
             disabled_divisions,
         }
-    }
-}
-/// Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Addon {
-    #[serde(rename = "branded_journey")]
-    BrandedJourney,
-    #[serde(rename = "sso")]
-    Sso,
-    #[serde(rename = "api_access")]
-    ApiAccess,
-    #[serde(rename = "connected_ats")]
-    ConnectedAts,
-}
-
-impl Default for Addon {
-    fn default() -> Addon {
-        Self::BrandedJourney
     }
 }
 

@@ -43,15 +43,15 @@ class ContractTest {
   @Test
   void checks() throws ApiException {
     ChecksApi checks = new ChecksApi();
-    assertNotNull(checks.v2ChecksList(null));
-    assertNotNull(checks.v2ChecksRetrieve("id2check"));
+    assertNotNull(checks.v2ChecksList().execute());
+    assertNotNull(checks.v2ChecksRetrieve("id2check").execute());
   }
 
   @Test
   void addons() throws ApiException {
     AddOnsApi addons = new AddOnsApi();
-    assertNotNull(addons.v2OrganisationsAddonsList(null));
-    assertNotNull(addons.v2OrganisationsAddonsRetrieve("api_access", null));
+    assertNotNull(addons.v2OrganisationsAddonsList().execute());
+    assertNotNull(addons.v2OrganisationsAddonsRetrieve("api_access").execute());
   }
 
   @Test
@@ -59,11 +59,12 @@ class ContractTest {
     ProfilesApi profiles = new ProfilesApi();
     assertNotNull(profiles.v2ProfilesCreate(new V2ProfileCreate()
         .name("Contract test")
-        .checks(List.of(new V2ProfileCheck().checkType(V2ProfileCheck.CheckTypeEnum.ID2CHECK)))));
-    assertNotNull(profiles.v2ProfilesList(null, null, null, null, null, null, null));
-    assertNotNull(profiles.v2ProfilesRetrieve(ID));
-    assertNotNull(profiles.v2ProfilesPartialUpdate(ID,
-        new PatchedV2ProfilePartialUpdate().description("updated")));
+        .checks(List.of(new V2ProfileCheck().checkType(V2ProfileCheck.CheckTypeEnum.ID2CHECK)))).execute());
+    assertNotNull(profiles.v2ProfilesList().execute());
+    assertNotNull(profiles.v2ProfilesRetrieve(ID).execute());
+    assertNotNull(profiles.v2ProfilesPartialUpdate(ID)
+        .patchedV2ProfilePartialUpdate(new PatchedV2ProfilePartialUpdate().description("updated"))
+        .execute());
   }
 
   @Test
@@ -71,10 +72,10 @@ class ContractTest {
     ScreeningsApi screenings = new ScreeningsApi();
     assertNotNull(screenings.v2ScreeningsCreate(new V2ScreeningCreate()
         .profileId(ID)
-        .candidate(new V2Candidate().firstName("Contract").lastName("Test").email(EMAIL))));
-    assertNotNull(screenings.v2ScreeningsList(null, null, null, null));
-    assertNotNull(screenings.v2ScreeningsRetrieve(ID));
-    assertNotNull(screenings.v2ScreeningsDocumentsList(ID, null, null));
+        .candidate(new V2Candidate().firstName("Contract").lastName("Test").email(EMAIL))).execute());
+    assertNotNull(screenings.v2ScreeningsList().execute());
+    assertNotNull(screenings.v2ScreeningsRetrieve(ID).execute());
+    assertNotNull(screenings.v2ScreeningsDocumentsList(ID).execute());
   }
 
   @Test
@@ -83,8 +84,8 @@ class ContractTest {
     assertNotNull(webhooks.createWebhook2(new Webhook()
         .name("Contract test")
         .url(URI.create("https://example.invalid/hook"))
-        .events(List.of(Webhook.EventsEnum.SCREENING_STATUS_CHANGED)), null, null));
-    assertNotNull(webhooks.listWebhooks2());
+        .events(List.of(Webhook.EventsEnum.SCREENING_STATUS_CHANGED))).execute());
+    assertNotNull(webhooks.listWebhooks2().execute());
   }
 
   @Test
@@ -98,15 +99,15 @@ class ContractTest {
         .phone("0301234567")
         .contactName("Contract Test")
         .contactEmail(EMAIL)
-        .invoiceEmail(EMAIL)));
-    assertNotNull(divisions.v2OrganisationsDivisionsList(null, null, null));
+        .invoiceEmail(EMAIL)).execute());
+    assertNotNull(divisions.v2OrganisationsDivisionsList().execute());
   }
 
   @Test
   void unauthorized() {
     ProfilesApi anonymous = new ProfilesApi(new ApiClient()); // no token
     ApiException e = assertThrows(ApiException.class,
-        () -> anonymous.v2ProfilesList(null, null, null, null, null, null, null));
+        () -> anonymous.v2ProfilesList().execute());
     assertEquals(401, e.getCode());
   }
 }

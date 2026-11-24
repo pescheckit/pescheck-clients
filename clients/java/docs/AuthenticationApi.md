@@ -10,7 +10,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="generateJWTToken2"></a>
 # **generateJWTToken2**
-> JWTResponse generateJWTToken2(jwTGeneration)
+> JWTResponse generateJWTToken2(jwTGeneration).execute();
 
 
 
@@ -38,7 +38,8 @@ public class Example {
     AuthenticationApi apiInstance = new AuthenticationApi(defaultClient);
     JWTGeneration jwTGeneration = new JWTGeneration(); // JWTGeneration | 
     try {
-      JWTResponse result = apiInstance.generateJWTToken2(jwTGeneration);
+      JWTResponse result = apiInstance.generateJWTToken2(jwTGeneration)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AuthenticationApi#generateJWTToken2");
@@ -80,7 +81,7 @@ public class Example {
 
 <a id="jwtRefreshCreate"></a>
 # **jwtRefreshCreate**
-> TokenRefresh jwtRefreshCreate(tokenRefresh)
+> TokenRefresh jwtRefreshCreate(tokenRefresh).execute();
 
 
 
@@ -108,7 +109,8 @@ public class Example {
     AuthenticationApi apiInstance = new AuthenticationApi(defaultClient);
     TokenRefresh tokenRefresh = new TokenRefresh(); // TokenRefresh | 
     try {
-      TokenRefresh result = apiInstance.jwtRefreshCreate(tokenRefresh);
+      TokenRefresh result = apiInstance.jwtRefreshCreate(tokenRefresh)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AuthenticationApi#jwtRefreshCreate");

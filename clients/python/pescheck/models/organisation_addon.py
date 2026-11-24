@@ -17,7 +17,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from pescheck.models.addon_price import AddonPrice
 from typing import Optional, Set
@@ -28,7 +28,7 @@ class OrganisationAddon(BaseModel):
     """
     One add-on for one organisation, built from ``addon_service.addon_cards``.
     """ # noqa: E501
-    addon: StrictStr = Field(description="Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go")
+    addon: StrictStr = Field(description="Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.")
     name: StrictStr
     description: StrictStr
     enabled: StrictBool = Field(description="Switched on (and billed) for this organisation.")
@@ -37,13 +37,6 @@ class OrganisationAddon(BaseModel):
     monthly_price: Optional[AddonPrice] = Field(description="What this organisation pays per month; the division price for a division. Null when unpriced.")
     price_is_indicative: StrictBool = Field(description="The price is a starting price (\"from\").")
     __properties: ClassVar[List[str]] = ["addon", "name", "description", "enabled", "active", "blocked_by_parent", "monthly_price", "price_is_indicative"]
-
-    @field_validator('addon')
-    def addon_validate_enum(cls, value):
-        """Validates the enum"""
-        if value not in set(['branded_journey', 'sso', 'api_access', 'connected_ats']):
-            raise ValueError("must be one of enum values ('branded_journey', 'sso', 'api_access', 'connected_ats')")
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

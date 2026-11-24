@@ -25,8 +25,8 @@ class OAuthApplicationResponse {
      * @alias module:model/OAuthApplicationResponse
      * @param id {String} 
      * @param clientSecret {String} 
-     * @param clientType {module:model/OAuthApplicationResponse.ClientTypeEnum} * `confidential` - Confidential * `public` - Public
-     * @param authorizationGrantType {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param clientType {String} * `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.
+     * @param authorizationGrantType {String} * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
      * @param organisation {String} 
      * @param organisationId {String} 
      * @param created {Date} 
@@ -172,14 +172,14 @@ OAuthApplicationResponse.prototype['client_id'] = undefined;
 OAuthApplicationResponse.prototype['client_secret'] = undefined;
 
 /**
- * * `confidential` - Confidential * `public` - Public
- * @member {module:model/OAuthApplicationResponse.ClientTypeEnum} client_type
+ * * `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.
+ * @member {String} client_type
  */
 OAuthApplicationResponse.prototype['client_type'] = undefined;
 
 /**
- * * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
- * @member {module:model/OAuthApplicationResponse.AuthorizationGrantTypeEnum} authorization_grant_type
+ * * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
+ * @member {String} authorization_grant_type
  */
 OAuthApplicationResponse.prototype['authorization_grant_type'] = undefined;
 
@@ -205,72 +205,6 @@ OAuthApplicationResponse.prototype['updated'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>client_type</code> property.
- * @enum {String}
- * @readonly
- */
-OAuthApplicationResponse['ClientTypeEnum'] = {
-
-    /**
-     * value: "confidential"
-     * @const
-     */
-    "confidential": "confidential",
-
-    /**
-     * value: "public"
-     * @const
-     */
-    "public": "public"
-};
-
-
-/**
- * Allowed values for the <code>authorization_grant_type</code> property.
- * @enum {String}
- * @readonly
- */
-OAuthApplicationResponse['AuthorizationGrantTypeEnum'] = {
-
-    /**
-     * value: "authorization-code"
-     * @const
-     */
-    "authorization-code": "authorization-code",
-
-    /**
-     * value: "urn:ietf:params:oauth:grant-type:device_code"
-     * @const
-     */
-    "urn:ietf:params:oauth:grant-type:device_code": "urn:ietf:params:oauth:grant-type:device_code",
-
-    /**
-     * value: "implicit"
-     * @const
-     */
-    "implicit": "implicit",
-
-    /**
-     * value: "password"
-     * @const
-     */
-    "password": "password",
-
-    /**
-     * value: "client-credentials"
-     * @const
-     */
-    "client-credentials": "client-credentials",
-
-    /**
-     * value: "openid-hybrid"
-     * @const
-     */
-    "openid-hybrid": "openid-hybrid"
-};
 
 
 

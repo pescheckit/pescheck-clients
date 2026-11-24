@@ -28,7 +28,9 @@ OAuthApplicationResponse::OAuthApplicationResponse()
     m_Client_idIsSet = false;
     m_Client_secret = utility::conversions::to_string_t("");
     m_Client_secretIsSet = false;
+    m_Client_type = utility::conversions::to_string_t("");
     m_Client_typeIsSet = false;
+    m_Authorization_grant_type = utility::conversions::to_string_t("");
     m_Authorization_grant_typeIsSet = false;
     m_Organisation = utility::conversions::to_string_t("");
     m_OrganisationIsSet = false;
@@ -75,16 +77,12 @@ web::json::value OAuthApplicationResponse::toJson() const
     if(m_Client_typeIsSet)
     {
         
-        utility::string_t refVal = fromClient_typeEnum(m_Client_type);
-        val[utility::conversions::to_string_t(_XPLATSTR("client_type"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("client_type"))] = ModelBase::toJson(m_Client_type);
     }
     if(m_Authorization_grant_typeIsSet)
     {
         
-        utility::string_t refVal = fromAuthorization_grant_typeEnum(m_Authorization_grant_type);
-        val[utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))] = ModelBase::toJson(m_Authorization_grant_type);
     }
     if(m_OrganisationIsSet)
     {
@@ -164,8 +162,7 @@ bool OAuthApplicationResponse::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setClientType;
             ok &= ModelBase::fromJson(fieldValue, refVal_setClientType);
-            
-            setClientType(toClient_typeEnum(refVal_setClientType));
+            setClientType(refVal_setClientType);
             
         }
     }
@@ -176,8 +173,7 @@ bool OAuthApplicationResponse::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setAuthorizationGrantType;
             ok &= ModelBase::fromJson(fieldValue, refVal_setAuthorizationGrantType);
-            
-            setAuthorizationGrantType(toAuthorization_grant_typeEnum(refVal_setAuthorizationGrantType));
+            setAuthorizationGrantType(refVal_setAuthorizationGrantType);
             
         }
     }
@@ -253,11 +249,11 @@ void OAuthApplicationResponse::toMultipart(std::shared_ptr<MultipartFormData> mu
     }
     if(m_Client_typeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("client_type")), fromClient_typeEnum(m_Client_type)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("client_type")), m_Client_type));
     }
     if(m_Authorization_grant_typeIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type")), fromAuthorization_grant_typeEnum(m_Authorization_grant_type)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type")), m_Authorization_grant_type));
     }
     if(m_OrganisationIsSet)
     {
@@ -314,13 +310,13 @@ bool OAuthApplicationResponse::fromMultiPart(std::shared_ptr<MultipartFormData> 
     {
         utility::string_t refVal_setClientType;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("client_type"))), refVal_setClientType );
-        setClientType(toClient_typeEnum(refVal_setClientType));
+        setClientType(refVal_setClientType);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))))
     {
         utility::string_t refVal_setAuthorizationGrantType;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("authorization_grant_type"))), refVal_setAuthorizationGrantType );
-        setAuthorizationGrantType(toAuthorization_grant_typeEnum(refVal_setAuthorizationGrantType));
+        setAuthorizationGrantType(refVal_setAuthorizationGrantType);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("organisation"))))
     {
@@ -347,84 +343,6 @@ bool OAuthApplicationResponse::fromMultiPart(std::shared_ptr<MultipartFormData> 
         setUpdated(refVal_setUpdated);
     }
     return ok;
-}
-
-OAuthApplicationResponse::Client_typeEnum OAuthApplicationResponse::toClient_typeEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("confidential")) {
-        return Client_typeEnum::CONFIDENTIAL;
-    }
-    
-    if (value == utility::conversions::to_string_t("public")) {
-        return Client_typeEnum::PUBLIC;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to Client_typeEnum");
-}
-
-
-const utility::string_t OAuthApplicationResponse::fromClient_typeEnum(const Client_typeEnum value) const
-{
-    switch(value)
-    {
-        
-        case Client_typeEnum::CONFIDENTIAL: return utility::conversions::to_string_t("confidential");
-        
-        case Client_typeEnum::PUBLIC: return utility::conversions::to_string_t("public");
-        
-    }
-}
-
-OAuthApplicationResponse::Authorization_grant_typeEnum OAuthApplicationResponse::toAuthorization_grant_typeEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("authorization-code")) {
-        return Authorization_grant_typeEnum::AUTHORIZATION_CODE;
-    }
-    
-    if (value == utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code")) {
-        return Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE;
-    }
-    
-    if (value == utility::conversions::to_string_t("implicit")) {
-        return Authorization_grant_typeEnum::IMPLICIT;
-    }
-    
-    if (value == utility::conversions::to_string_t("password")) {
-        return Authorization_grant_typeEnum::PASSWORD;
-    }
-    
-    if (value == utility::conversions::to_string_t("client-credentials")) {
-        return Authorization_grant_typeEnum::CLIENT_CREDENTIALS;
-    }
-    
-    if (value == utility::conversions::to_string_t("openid-hybrid")) {
-        return Authorization_grant_typeEnum::OPENID_HYBRID;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to Authorization_grant_typeEnum");
-}
-
-
-const utility::string_t OAuthApplicationResponse::fromAuthorization_grant_typeEnum(const Authorization_grant_typeEnum value) const
-{
-    switch(value)
-    {
-        
-        case Authorization_grant_typeEnum::AUTHORIZATION_CODE: return utility::conversions::to_string_t("authorization-code");
-        
-        case Authorization_grant_typeEnum::URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE: return utility::conversions::to_string_t("urn:ietf:params:oauth:grant-type:device_code");
-        
-        case Authorization_grant_typeEnum::IMPLICIT: return utility::conversions::to_string_t("implicit");
-        
-        case Authorization_grant_typeEnum::PASSWORD: return utility::conversions::to_string_t("password");
-        
-        case Authorization_grant_typeEnum::CLIENT_CREDENTIALS: return utility::conversions::to_string_t("client-credentials");
-        
-        case Authorization_grant_typeEnum::OPENID_HYBRID: return utility::conversions::to_string_t("openid-hybrid");
-        
-    }
 }
 
 
@@ -512,13 +430,13 @@ void OAuthApplicationResponse::unsetClient_secret()
 {
     m_Client_secretIsSet = false;
 }
-OAuthApplicationResponse::Client_typeEnum OAuthApplicationResponse::getClientType() const
+utility::string_t OAuthApplicationResponse::getClientType() const
 {
     return m_Client_type;
 }
 
 
-void OAuthApplicationResponse::setClientType(const Client_typeEnum value)
+void OAuthApplicationResponse::setClientType(const utility::string_t& value)
 {
     m_Client_type = value;
     m_Client_typeIsSet = true;
@@ -533,13 +451,13 @@ void OAuthApplicationResponse::unsetClient_type()
 {
     m_Client_typeIsSet = false;
 }
-OAuthApplicationResponse::Authorization_grant_typeEnum OAuthApplicationResponse::getAuthorizationGrantType() const
+utility::string_t OAuthApplicationResponse::getAuthorizationGrantType() const
 {
     return m_Authorization_grant_type;
 }
 
 
-void OAuthApplicationResponse::setAuthorizationGrantType(const Authorization_grant_typeEnum value)
+void OAuthApplicationResponse::setAuthorizationGrantType(const utility::string_t& value)
 {
     m_Authorization_grant_type = value;
     m_Authorization_grant_typeIsSet = true;

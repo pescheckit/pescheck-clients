@@ -37,7 +37,7 @@ class TestV2ScreeningCheckEntry(unittest.TestCase):
             return V2ScreeningCheckEntry(
                 id = '',
                 profile_check_id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 display_name = '',
                 status = '',
                 config = { },
@@ -49,7 +49,7 @@ class TestV2ScreeningCheckEntry(unittest.TestCase):
             return V2ScreeningCheckEntry(
                 id = '',
                 profile_check_id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 display_name = '',
                 status = '',
                 config = { },

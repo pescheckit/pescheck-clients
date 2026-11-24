@@ -17,3 +17,7 @@ additionalProperties:
   # makes every model throw on an unknown field, so any new field added to an
   # API response would break all Java integrations. Found by contract/java.
   disallowAdditionalPropertiesIfNotPresent: false
+  # One request object per call instead of one argument per parameter, so a new
+  # optional API parameter is a new field, not a signature change that breaks
+  # every existing call.
+  useSingleRequestParameter: true

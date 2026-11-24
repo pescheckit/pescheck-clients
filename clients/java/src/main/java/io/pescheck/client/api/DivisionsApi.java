@@ -76,20 +76,7 @@ public class DivisionsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for v2OrganisationsDivisionsCreate
-     * @param divisionWrite  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsDivisionsCreateCall(@javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsDivisionsCreateCall(@javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -146,80 +133,109 @@ public class DivisionsApi {
 
     }
 
-    /**
-     * 
-     * Create a division (a child organisation under the current parent org). Divisions are an advanced, rarely-needed feature: create one ONLY when the user has clearly stated they want to manage a separate business unit, location, or legal entity under their account. Do NOT create a division just to organise screenings, for a single-person or single-member organisation, or without an explicit request to do so. When in doubt, ask the user to confirm before calling this tool.
-     * @param divisionWrite  (required)
-     * @return DivisionWrite
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public DivisionWrite v2OrganisationsDivisionsCreate(@javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
-        ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsCreateWithHttpInfo(divisionWrite);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Create a division (a child organisation under the current parent org). Divisions are an advanced, rarely-needed feature: create one ONLY when the user has clearly stated they want to manage a separate business unit, location, or legal entity under their account. Do NOT create a division just to organise screenings, for a single-person or single-member organisation, or without an explicit request to do so. When in doubt, ask the user to confirm before calling this tool.
-     * @param divisionWrite  (required)
-     * @return ApiResponse&lt;DivisionWrite&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<DivisionWrite> v2OrganisationsDivisionsCreateWithHttpInfo(@javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
+    private ApiResponse<DivisionWrite> v2OrganisationsDivisionsCreateWithHttpInfo(@javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsDivisionsCreateValidateBeforeCall(divisionWrite, null);
         Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Create a division (a child organisation under the current parent org). Divisions are an advanced, rarely-needed feature: create one ONLY when the user has clearly stated they want to manage a separate business unit, location, or legal entity under their account. Do NOT create a division just to organise screenings, for a single-person or single-member organisation, or without an explicit request to do so. When in doubt, ask the user to confirm before calling this tool.
-     * @param divisionWrite  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsDivisionsCreateAsync(@javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsDivisionsCreateAsync(@javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsDivisionsCreateValidateBeforeCall(divisionWrite, _callback);
         Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsDivisionsCreateRequest {
+        @javax.annotation.Nonnull
+        private final DivisionWrite divisionWrite;
+
+        private APIv2OrganisationsDivisionsCreateRequest(@javax.annotation.Nonnull DivisionWrite divisionWrite) {
+            this.divisionWrite = divisionWrite;
+        }
+
+        /**
+         * Build call for v2OrganisationsDivisionsCreate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsDivisionsCreateCall(divisionWrite, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsCreate request
+         * @return DivisionWrite
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public DivisionWrite execute() throws ApiException {
+            ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsCreateWithHttpInfo(divisionWrite);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsCreate request with HTTP info returned
+         * @return ApiResponse&lt;DivisionWrite&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<DivisionWrite> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsDivisionsCreateWithHttpInfo(divisionWrite);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsCreate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<DivisionWrite> _callback) throws ApiException {
+            return v2OrganisationsDivisionsCreateAsync(divisionWrite, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsDivisionsList
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Create a division (a child organisation under the current parent org). Divisions are an advanced, rarely-needed feature: create one ONLY when the user has clearly stated they want to manage a separate business unit, location, or legal entity under their account. Do NOT create a division just to organise screenings, for a single-person or single-member organisation, or without an explicit request to do so. When in doubt, ask the user to confirm before calling this tool.
+     * @param divisionWrite  (required)
+     * @return APIv2OrganisationsDivisionsCreateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsDivisionsListCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsDivisionsCreateRequest v2OrganisationsDivisionsCreate(@javax.annotation.Nonnull DivisionWrite divisionWrite) {
+        return new APIv2OrganisationsDivisionsCreateRequest(divisionWrite);
+    }
+    private okhttp3.Call v2OrganisationsDivisionsListCall(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -281,77 +297,130 @@ public class DivisionsApi {
 
     }
 
-    /**
-     * 
-     * List method that handles both paginated and unpaginated responses and enforces the max_total_records limit (500).
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @return PaginatedDivisionReadOnlyList
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public PaginatedDivisionReadOnlyList v2OrganisationsDivisionsList(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
-        ApiResponse<PaginatedDivisionReadOnlyList> localVarResp = v2OrganisationsDivisionsListWithHttpInfo(page, pageSize, paginate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * List method that handles both paginated and unpaginated responses and enforces the max_total_records limit (500).
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @return ApiResponse&lt;PaginatedDivisionReadOnlyList&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<PaginatedDivisionReadOnlyList> v2OrganisationsDivisionsListWithHttpInfo(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
+    private ApiResponse<PaginatedDivisionReadOnlyList> v2OrganisationsDivisionsListWithHttpInfo(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsDivisionsListValidateBeforeCall(page, pageSize, paginate, null);
         Type localVarReturnType = new TypeToken<PaginatedDivisionReadOnlyList>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * List method that handles both paginated and unpaginated responses and enforces the max_total_records limit (500).
-     * @param page A page number within the paginated result set. (optional, default to 1)
-     * @param pageSize Number of results to return per page. (optional, default to 50)
-     * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsDivisionsListAsync(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedDivisionReadOnlyList> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsDivisionsListAsync(@javax.annotation.Nullable Integer page, @javax.annotation.Nullable Integer pageSize, @javax.annotation.Nullable Boolean paginate, final ApiCallback<PaginatedDivisionReadOnlyList> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsDivisionsListValidateBeforeCall(page, pageSize, paginate, _callback);
         Type localVarReturnType = new TypeToken<PaginatedDivisionReadOnlyList>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsDivisionsListRequest {
+        @javax.annotation.Nullable
+        private Integer page;
+        @javax.annotation.Nullable
+        private Integer pageSize;
+        @javax.annotation.Nullable
+        private Boolean paginate;
+
+        private APIv2OrganisationsDivisionsListRequest() {
+        }
+
+        /**
+         * Set page
+         * @param page A page number within the paginated result set. (optional, default to 1)
+         * @return APIv2OrganisationsDivisionsListRequest
+         */
+        public APIv2OrganisationsDivisionsListRequest page(@javax.annotation.Nullable Integer page) {
+            this.page = page;
+            return this;
+        }
+
+        /**
+         * Set pageSize
+         * @param pageSize Number of results to return per page. (optional, default to 50)
+         * @return APIv2OrganisationsDivisionsListRequest
+         */
+        public APIv2OrganisationsDivisionsListRequest pageSize(@javax.annotation.Nullable Integer pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Set paginate
+         * @param paginate Enable/disable pagination. When false, max 500 records returned. (optional, default to true)
+         * @return APIv2OrganisationsDivisionsListRequest
+         */
+        public APIv2OrganisationsDivisionsListRequest paginate(@javax.annotation.Nullable Boolean paginate) {
+            this.paginate = paginate;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsDivisionsList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsDivisionsListCall(page, pageSize, paginate, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsList request
+         * @return PaginatedDivisionReadOnlyList
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public PaginatedDivisionReadOnlyList execute() throws ApiException {
+            ApiResponse<PaginatedDivisionReadOnlyList> localVarResp = v2OrganisationsDivisionsListWithHttpInfo(page, pageSize, paginate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsList request with HTTP info returned
+         * @return ApiResponse&lt;PaginatedDivisionReadOnlyList&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<PaginatedDivisionReadOnlyList> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsDivisionsListWithHttpInfo(page, pageSize, paginate);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<PaginatedDivisionReadOnlyList> _callback) throws ApiException {
+            return v2OrganisationsDivisionsListAsync(page, pageSize, paginate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsDivisionsPartialUpdate
-     * @param id A UUID string identifying this organisation. (required)
-     * @param patchedDivisionWrite  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * List method that handles both paginated and unpaginated responses and enforces the max_total_records limit (500).
+     * @return APIv2OrganisationsDivisionsListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -359,7 +428,10 @@ public class DivisionsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsDivisionsPartialUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsDivisionsListRequest v2OrganisationsDivisionsList() {
+        return new APIv2OrganisationsDivisionsListRequest();
+    }
+    private okhttp3.Call v2OrganisationsDivisionsPartialUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -417,73 +489,110 @@ public class DivisionsApi {
 
     }
 
-    /**
-     * 
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param patchedDivisionWrite  (optional)
-     * @return DivisionWrite
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public DivisionWrite v2OrganisationsDivisionsPartialUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite) throws ApiException {
-        ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsPartialUpdateWithHttpInfo(id, patchedDivisionWrite);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param patchedDivisionWrite  (optional)
-     * @return ApiResponse&lt;DivisionWrite&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<DivisionWrite> v2OrganisationsDivisionsPartialUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite) throws ApiException {
+    private ApiResponse<DivisionWrite> v2OrganisationsDivisionsPartialUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsDivisionsPartialUpdateValidateBeforeCall(id, patchedDivisionWrite, null);
         Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param patchedDivisionWrite  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsDivisionsPartialUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsDivisionsPartialUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsDivisionsPartialUpdateValidateBeforeCall(id, patchedDivisionWrite, _callback);
         Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsDivisionsPartialUpdateRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+        @javax.annotation.Nullable
+        private PatchedDivisionWrite patchedDivisionWrite;
+
+        private APIv2OrganisationsDivisionsPartialUpdateRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Set patchedDivisionWrite
+         * @param patchedDivisionWrite  (optional)
+         * @return APIv2OrganisationsDivisionsPartialUpdateRequest
+         */
+        public APIv2OrganisationsDivisionsPartialUpdateRequest patchedDivisionWrite(@javax.annotation.Nullable PatchedDivisionWrite patchedDivisionWrite) {
+            this.patchedDivisionWrite = patchedDivisionWrite;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsDivisionsPartialUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsDivisionsPartialUpdateCall(id, patchedDivisionWrite, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsPartialUpdate request
+         * @return DivisionWrite
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public DivisionWrite execute() throws ApiException {
+            ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsPartialUpdateWithHttpInfo(id, patchedDivisionWrite);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsPartialUpdate request with HTTP info returned
+         * @return ApiResponse&lt;DivisionWrite&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<DivisionWrite> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsDivisionsPartialUpdateWithHttpInfo(id, patchedDivisionWrite);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsPartialUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<DivisionWrite> _callback) throws ApiException {
+            return v2OrganisationsDivisionsPartialUpdateAsync(id, patchedDivisionWrite, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsDivisionsRetrieve
+     * 
+     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
      * @param id A UUID string identifying this organisation. (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2OrganisationsDivisionsPartialUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -491,7 +600,10 @@ public class DivisionsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsDivisionsRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsDivisionsPartialUpdateRequest v2OrganisationsDivisionsPartialUpdate(@javax.annotation.Nonnull UUID id) {
+        return new APIv2OrganisationsDivisionsPartialUpdateRequest(id);
+    }
+    private okhttp3.Call v2OrganisationsDivisionsRetrieveCall(@javax.annotation.Nonnull UUID id, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -547,71 +659,98 @@ public class DivisionsApi {
 
     }
 
-    /**
-     * 
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @return DivisionReadOnly
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public DivisionReadOnly v2OrganisationsDivisionsRetrieve(@javax.annotation.Nonnull UUID id) throws ApiException {
-        ApiResponse<DivisionReadOnly> localVarResp = v2OrganisationsDivisionsRetrieveWithHttpInfo(id);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @return ApiResponse&lt;DivisionReadOnly&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<DivisionReadOnly> v2OrganisationsDivisionsRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
+    private ApiResponse<DivisionReadOnly> v2OrganisationsDivisionsRetrieveWithHttpInfo(@javax.annotation.Nonnull UUID id) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsDivisionsRetrieveValidateBeforeCall(id, null);
         Type localVarReturnType = new TypeToken<DivisionReadOnly>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsDivisionsRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<DivisionReadOnly> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsDivisionsRetrieveAsync(@javax.annotation.Nonnull UUID id, final ApiCallback<DivisionReadOnly> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsDivisionsRetrieveValidateBeforeCall(id, _callback);
         Type localVarReturnType = new TypeToken<DivisionReadOnly>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsDivisionsRetrieveRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+
+        private APIv2OrganisationsDivisionsRetrieveRequest(@javax.annotation.Nonnull UUID id) {
+            this.id = id;
+        }
+
+        /**
+         * Build call for v2OrganisationsDivisionsRetrieve
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsDivisionsRetrieveCall(id, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsRetrieve request
+         * @return DivisionReadOnly
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public DivisionReadOnly execute() throws ApiException {
+            ApiResponse<DivisionReadOnly> localVarResp = v2OrganisationsDivisionsRetrieveWithHttpInfo(id);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsRetrieve request with HTTP info returned
+         * @return ApiResponse&lt;DivisionReadOnly&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<DivisionReadOnly> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsDivisionsRetrieveWithHttpInfo(id);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsRetrieve request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<DivisionReadOnly> _callback) throws ApiException {
+            return v2OrganisationsDivisionsRetrieveAsync(id, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsDivisionsUpdate
+     * 
+     * A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
      * @param id A UUID string identifying this organisation. (required)
-     * @param divisionWrite  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2OrganisationsDivisionsRetrieveRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -619,7 +758,10 @@ public class DivisionsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsDivisionsUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsDivisionsRetrieveRequest v2OrganisationsDivisionsRetrieve(@javax.annotation.Nonnull UUID id) {
+        return new APIv2OrganisationsDivisionsRetrieveRequest(id);
+    }
+    private okhttp3.Call v2OrganisationsDivisionsUpdateCall(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -682,53 +824,102 @@ public class DivisionsApi {
 
     }
 
-    /**
-     * 
-     * Update an existing division&#39;s contact, billing, and address details.  Override also triggers a webhook on successful PUT and PATCH requests.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param divisionWrite  (required)
-     * @return DivisionWrite
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public DivisionWrite v2OrganisationsDivisionsUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
-        ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsUpdateWithHttpInfo(id, divisionWrite);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Update an existing division&#39;s contact, billing, and address details.  Override also triggers a webhook on successful PUT and PATCH requests.
-     * @param id A UUID string identifying this organisation. (required)
-     * @param divisionWrite  (required)
-     * @return ApiResponse&lt;DivisionWrite&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<DivisionWrite> v2OrganisationsDivisionsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
+    private ApiResponse<DivisionWrite> v2OrganisationsDivisionsUpdateWithHttpInfo(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsDivisionsUpdateValidateBeforeCall(id, divisionWrite, null);
         Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call v2OrganisationsDivisionsUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2OrganisationsDivisionsUpdateValidateBeforeCall(id, divisionWrite, _callback);
+        Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIv2OrganisationsDivisionsUpdateRequest {
+        @javax.annotation.Nonnull
+        private final UUID id;
+        @javax.annotation.Nonnull
+        private final DivisionWrite divisionWrite;
+
+        private APIv2OrganisationsDivisionsUpdateRequest(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite) {
+            this.id = id;
+            this.divisionWrite = divisionWrite;
+        }
+
+        /**
+         * Build call for v2OrganisationsDivisionsUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsDivisionsUpdateCall(id, divisionWrite, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsUpdate request
+         * @return DivisionWrite
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public DivisionWrite execute() throws ApiException {
+            ApiResponse<DivisionWrite> localVarResp = v2OrganisationsDivisionsUpdateWithHttpInfo(id, divisionWrite);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsUpdate request with HTTP info returned
+         * @return ApiResponse&lt;DivisionWrite&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<DivisionWrite> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsDivisionsUpdateWithHttpInfo(id, divisionWrite);
+        }
+
+        /**
+         * Execute v2OrganisationsDivisionsUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<DivisionWrite> _callback) throws ApiException {
+            return v2OrganisationsDivisionsUpdateAsync(id, divisionWrite, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * Update an existing division&#39;s contact, billing, and address details.  Override also triggers a webhook on successful PUT and PATCH requests.
      * @param id A UUID string identifying this organisation. (required)
      * @param divisionWrite  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIv2OrganisationsDivisionsUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -736,11 +927,7 @@ public class DivisionsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsDivisionsUpdateAsync(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite, final ApiCallback<DivisionWrite> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = v2OrganisationsDivisionsUpdateValidateBeforeCall(id, divisionWrite, _callback);
-        Type localVarReturnType = new TypeToken<DivisionWrite>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIv2OrganisationsDivisionsUpdateRequest v2OrganisationsDivisionsUpdate(@javax.annotation.Nonnull UUID id, @javax.annotation.Nonnull DivisionWrite divisionWrite) {
+        return new APIv2OrganisationsDivisionsUpdateRequest(id, divisionWrite);
     }
 }

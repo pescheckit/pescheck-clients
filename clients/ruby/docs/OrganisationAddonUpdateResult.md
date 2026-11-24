@@ -4,7 +4,7 @@
 
 | Name | Type | Description | Notes |
 | ---- | ---- | ----------- | ----- |
-| **addon** | **String** | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go |  |
+| **addon** | **String** | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values. |  |
 | **name** | **String** |  |  |
 | **description** | **String** |  |  |
 | **enabled** | **Boolean** | Switched on (and billed) for this organisation. |  |

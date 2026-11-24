@@ -50,14 +50,14 @@ class TestV2ScreeningListItem(unittest.TestCase):
                     initials = '', 
                     date_of_birth = '', 
                     gender = '', 
-                    nationality = 'AD', 
+                    nationality = '', 
                     postal_code = '', 
                     house_number = '', 
                     extension = '', ),
                 checks = [
                     pescheck.models.v2_screening_check_list_item.V2ScreeningCheckListItem(
                         id = '', 
-                        check_type = 'addresscheck', 
+                        check_type = '', 
                         status = '', )
                     ],
                 candidate_wizard_url = '',
@@ -81,14 +81,14 @@ class TestV2ScreeningListItem(unittest.TestCase):
                     initials = '', 
                     date_of_birth = '', 
                     gender = '', 
-                    nationality = 'AD', 
+                    nationality = '', 
                     postal_code = '', 
                     house_number = '', 
                     extension = '', ),
                 checks = [
                     pescheck.models.v2_screening_check_list_item.V2ScreeningCheckListItem(
                         id = '', 
-                        check_type = 'addresscheck', 
+                        check_type = '', 
                         status = '', )
                     ],
                 candidate_wizard_url = '',

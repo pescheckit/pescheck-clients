@@ -14,6 +14,49 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`v2_screenings_close_create`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ScreeningsCloseCreateParams {
+    /// A UUID string identifying this screening.
+    pub id: String
+}
+
+/// struct for passing parameters to the method [`v2_screenings_create`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ScreeningsCreateParams {
+    pub v2_screening_create: models::V2ScreeningCreate
+}
+
+/// struct for passing parameters to the method [`v2_screenings_documents_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ScreeningsDocumentsListParams {
+    pub id: String,
+    /// Only documents from the check with this id.
+    pub check_id: Option<String>,
+    /// Only documents from checks of this type.
+    pub check_type: Option<String>
+}
+
+/// struct for passing parameters to the method [`v2_screenings_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ScreeningsListParams {
+    /// Restrict to screenings owned by this organisation. Use it with a parent-organisation token to list a single department's screenings.
+    pub organisation: Option<String>,
+    /// A page number within the paginated result set.
+    pub page: Option<i32>,
+    /// Number of results to return per page.
+    pub page_size: Option<i32>,
+    /// Enable/disable pagination. When false, max 500 records returned.
+    pub paginate: Option<bool>
+}
+
+/// struct for passing parameters to the method [`v2_screenings_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ScreeningsRetrieveParams {
+    /// A UUID string identifying this screening.
+    pub id: String
+}
+
 
 /// struct for typed errors of method [`v2_screenings_close_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -53,11 +96,9 @@ pub enum V2ScreeningsRetrieveError {
 
 
 /// Stop a running screening (status OPEN, HOLD, WAITING or ATTENTION). Every check that has not finished is rejected, no more checks are done and the screening becomes FINISHED. This cannot be undone. The screening is still invoiced. Returns 409 when the screening is not running, for example a draft or a finished screening.
-pub async fn v2_screenings_close_create(configuration: &configuration::Configuration, id: &str) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCloseCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
+pub async fn v2_screenings_close_create(configuration: &configuration::Configuration, params: V2ScreeningsCloseCreateParams) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCloseCreateError>> {
 
-    let uri_str = format!("{}/api/v2/screenings/{id}/close/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/screenings/{id}/close/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -92,9 +133,7 @@ pub async fn v2_screenings_close_create(configuration: &configuration::Configura
     }
 }
 
-pub async fn v2_screenings_create(configuration: &configuration::Configuration, v2_screening_create: models::V2ScreeningCreate) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_v2_screening_create = v2_screening_create;
+pub async fn v2_screenings_create(configuration: &configuration::Configuration, params: V2ScreeningsCreateParams) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsCreateError>> {
 
     let uri_str = format!("{}/api/v2/screenings/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -105,7 +144,7 @@ pub async fn v2_screenings_create(configuration: &configuration::Configuration, 
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_v2_screening_create);
+    req_builder = req_builder.json(&params.v2_screening_create);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -133,19 +172,15 @@ pub async fn v2_screenings_create(configuration: &configuration::Configuration, 
 }
 
 /// Documents attached to the screening's checks. Files are delivered inline as Base64 in `content`. Narrow the result with `check_id` or `check_type`.
-pub async fn v2_screenings_documents_list(configuration: &configuration::Configuration, id: &str, check_id: Option<&str>, check_type: Option<&str>) -> Result<Vec<models::V2Document>, Error<V2ScreeningsDocumentsListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_query_check_id = check_id;
-    let p_query_check_type = check_type;
+pub async fn v2_screenings_documents_list(configuration: &configuration::Configuration, params: V2ScreeningsDocumentsListParams) -> Result<Vec<models::V2Document>, Error<V2ScreeningsDocumentsListError>> {
 
-    let uri_str = format!("{}/api/v2/screenings/{id}/documents/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/screenings/{id}/documents/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_check_id {
+    if let Some(ref param_value) = params.check_id {
         req_builder = req_builder.query(&[("check_id", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_check_type {
+    if let Some(ref param_value) = params.check_type {
         req_builder = req_builder.query(&[("check_type", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -180,26 +215,21 @@ pub async fn v2_screenings_documents_list(configuration: &configuration::Configu
     }
 }
 
-pub async fn v2_screenings_list(configuration: &configuration::Configuration, organisation: Option<&str>, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_organisation = organisation;
-    let p_query_page = page;
-    let p_query_page_size = page_size;
-    let p_query_paginate = paginate;
+pub async fn v2_screenings_list(configuration: &configuration::Configuration, params: V2ScreeningsListParams) -> Result<models::PaginatedV2ScreeningListItemList, Error<V2ScreeningsListError>> {
 
     let uri_str = format!("{}/api/v2/screenings/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_organisation {
+    if let Some(ref param_value) = params.organisation {
         req_builder = req_builder.query(&[("organisation", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page {
+    if let Some(ref param_value) = params.page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page_size {
+    if let Some(ref param_value) = params.page_size {
         req_builder = req_builder.query(&[("page_size", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_paginate {
+    if let Some(ref param_value) = params.paginate {
         req_builder = req_builder.query(&[("paginate", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -234,11 +264,9 @@ pub async fn v2_screenings_list(configuration: &configuration::Configuration, or
     }
 }
 
-pub async fn v2_screenings_retrieve(configuration: &configuration::Configuration, id: &str) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsRetrieveError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
+pub async fn v2_screenings_retrieve(configuration: &configuration::Configuration, params: V2ScreeningsRetrieveParams) -> Result<models::V2ScreeningDetail, Error<V2ScreeningsRetrieveError>> {
 
-    let uri_str = format!("{}/api/v2/screenings/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/screenings/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {

@@ -49,10 +49,12 @@ export interface V2ScreeningCheckListItem {
      * * `watchlistcheck` - watchlistcheck
      * * `workreferencecheck` - workreferencecheck
      * * `worldwidecreditcheck` - worldwidecreditcheck
-     * @type {V2ScreeningCheckListItemCheckTypeEnum}
+     * 
+     * Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof V2ScreeningCheckListItem
      */
-    readonly checkType: V2ScreeningCheckListItemCheckTypeEnum;
+    readonly checkType: string;
     /**
      * 
      * @type {string}
@@ -60,38 +62,6 @@ export interface V2ScreeningCheckListItem {
      */
     readonly status: string;
 }
-
-
-/**
- * @export
- */
-export const V2ScreeningCheckListItemCheckTypeEnum = {
-    Addresscheck: 'addresscheck',
-    Adversemedia2check: 'adversemedia2check',
-    Adversemediacheck: 'adversemediacheck',
-    Bigcheck: 'bigcheck',
-    Criminalrecordscheck: 'criminalrecordscheck',
-    Criminalrecordsuploadcheck: 'criminalrecordsuploadcheck',
-    Customintegritycheck: 'customintegritycheck',
-    Cvcheck: 'cvcheck',
-    Edrcheck: 'edrcheck',
-    Ibancheck: 'ibancheck',
-    Id2check: 'id2check',
-    Idcheck: 'idcheck',
-    Integritycheck: 'integritycheck',
-    Openhealthcarecheck: 'openhealthcarecheck',
-    Permissioncheck: 'permissioncheck',
-    Pescheckadversemediacheck: 'pescheckadversemediacheck',
-    Qualificationcheck: 'qualificationcheck',
-    Righttoworkcheck: 'righttoworkcheck',
-    Vogcheck: 'vogcheck',
-    Watchlist2check: 'watchlist2check',
-    Watchlistcheck: 'watchlistcheck',
-    Workreferencecheck: 'workreferencecheck',
-    Worldwidecreditcheck: 'worldwidecreditcheck'
-} as const;
-export type V2ScreeningCheckListItemCheckTypeEnum = typeof V2ScreeningCheckListItemCheckTypeEnum[keyof typeof V2ScreeningCheckListItemCheckTypeEnum];
-
 
 /**
  * Check if a given object implements the V2ScreeningCheckListItem interface.

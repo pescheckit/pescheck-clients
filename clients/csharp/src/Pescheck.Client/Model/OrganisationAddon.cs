@@ -33,45 +33,6 @@ namespace Pescheck.Client.Model
     public partial class OrganisationAddon : IValidatableObject
     {
         /// <summary>
-        /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
-        /// </summary>
-        /// <value>Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum AddonEnum
-        {
-            /// <summary>
-            /// Enum BrandedJourney for value: branded_journey
-            /// </summary>
-            [EnumMember(Value = "branded_journey")]
-            BrandedJourney = 1,
-
-            /// <summary>
-            /// Enum Sso for value: sso
-            /// </summary>
-            [EnumMember(Value = "sso")]
-            Sso = 2,
-
-            /// <summary>
-            /// Enum ApiAccess for value: api_access
-            /// </summary>
-            [EnumMember(Value = "api_access")]
-            ApiAccess = 3,
-
-            /// <summary>
-            /// Enum ConnectedAts for value: connected_ats
-            /// </summary>
-            [EnumMember(Value = "connected_ats")]
-            ConnectedAts = 4
-        }
-
-
-        /// <summary>
-        /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go
-        /// </summary>
-        /// <value>Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go</value>
-        [DataMember(Name = "addon", IsRequired = true, EmitDefaultValue = true)]
-        public AddonEnum Addon { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="OrganisationAddon" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -79,7 +40,7 @@ namespace Pescheck.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="OrganisationAddon" /> class.
         /// </summary>
-        /// <param name="addon">Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go (required).</param>
+        /// <param name="addon">Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values. (required).</param>
         /// <param name="name">name (required).</param>
         /// <param name="description">description (required).</param>
         /// <param name="enabled">Switched on (and billed) for this organisation. (required).</param>
@@ -87,8 +48,13 @@ namespace Pescheck.Client.Model
         /// <param name="blockedByParent">Only the missing add-on on the parent organisation stands in the way. (required).</param>
         /// <param name="monthlyPrice">What this organisation pays per month; the division price for a division. Null when unpriced. (required).</param>
         /// <param name="priceIsIndicative">The price is a starting price (\&quot;from\&quot;). (required).</param>
-        public OrganisationAddon(AddonEnum addon = default, string name = default, string description = default, bool enabled = default, bool active = default, bool blockedByParent = default, AddonPrice monthlyPrice = default, bool priceIsIndicative = default)
+        public OrganisationAddon(string addon = default, string name = default, string description = default, bool enabled = default, bool active = default, bool blockedByParent = default, AddonPrice monthlyPrice = default, bool priceIsIndicative = default)
         {
+            // to ensure "addon" is required (not null)
+            if (addon == null)
+            {
+                throw new ArgumentNullException("addon is a required property for OrganisationAddon and cannot be null");
+            }
             this.Addon = addon;
             // to ensure "name" is required (not null)
             if (name == null)
@@ -113,6 +79,13 @@ namespace Pescheck.Client.Model
             this.MonthlyPrice = monthlyPrice;
             this.PriceIsIndicative = priceIsIndicative;
         }
+
+        /// <summary>
+        /// Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
+        /// </summary>
+        /// <value>Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.</value>
+        [DataMember(Name = "addon", IsRequired = true, EmitDefaultValue = true)]
+        public string Addon { get; set; }
 
         /// <summary>
         /// Gets or Sets Name

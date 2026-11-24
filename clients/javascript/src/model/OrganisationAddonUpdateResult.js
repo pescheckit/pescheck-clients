@@ -25,7 +25,7 @@ class OrganisationAddonUpdateResult {
      * Constructs a new <code>OrganisationAddonUpdateResult</code>.
      * One add-on for one organisation, built from &#x60;&#x60;addon_service.addon_cards&#x60;&#x60;.
      * @alias module:model/OrganisationAddonUpdateResult
-     * @param addon {module:model/OrganisationAddonUpdateResult.AddonEnum} Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+     * @param addon {String} Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
      * @param name {String} 
      * @param description {String} 
      * @param enabled {Boolean} Switched on (and billed) for this organisation.
@@ -147,8 +147,8 @@ class OrganisationAddonUpdateResult {
 OrganisationAddonUpdateResult.RequiredProperties = ["addon", "name", "description", "enabled", "active", "blocked_by_parent", "monthly_price", "price_is_indicative", "disabled_divisions"];
 
 /**
- * Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
- * @member {module:model/OrganisationAddonUpdateResult.AddonEnum} addon
+ * Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
+ * @member {String} addon
  */
 OrganisationAddonUpdateResult.prototype['addon'] = undefined;
 
@@ -200,39 +200,6 @@ OrganisationAddonUpdateResult.prototype['disabled_divisions'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>addon</code> property.
- * @enum {String}
- * @readonly
- */
-OrganisationAddonUpdateResult['AddonEnum'] = {
-
-    /**
-     * value: "branded_journey"
-     * @const
-     */
-    "branded_journey": "branded_journey",
-
-    /**
-     * value: "sso"
-     * @const
-     */
-    "sso": "sso",
-
-    /**
-     * value: "api_access"
-     * @const
-     */
-    "api_access": "api_access",
-
-    /**
-     * value: "connected_ats"
-     * @const
-     */
-    "connected_ats": "connected_ats"
-};
 
 
 

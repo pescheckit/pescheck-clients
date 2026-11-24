@@ -25,9 +25,9 @@ type OAuthApplicationResponse struct {
 	Name *string `json:"name,omitempty"`
 	ClientId *string `json:"client_id,omitempty"`
 	ClientSecret string `json:"client_secret"`
-	// * `confidential` - Confidential * `public` - Public
+	// * `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.
 	ClientType string `json:"client_type"`
-	// * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+	// * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
 	AuthorizationGrantType string `json:"authorization_grant_type"`
 	Organisation string `json:"organisation"`
 	OrganisationId string `json:"organisation_id"`

@@ -10,7 +10,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="v2ChecksList"></a>
 # **v2ChecksList**
-> List&lt;V2CheckInfo&gt; v2ChecksList(checkType)
+> List&lt;V2CheckInfo&gt; v2ChecksList().checkType(checkType).execute();
 
 
 
@@ -38,7 +38,9 @@ public class Example {
     ChecksApi apiInstance = new ChecksApi(defaultClient);
     String checkType = "checkType_example"; // String | Restrict the list to a single check type.
     try {
-      List<V2CheckInfo> result = apiInstance.v2ChecksList(checkType);
+      List<V2CheckInfo> result = apiInstance.v2ChecksList()
+            .checkType(checkType)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ChecksApi#v2ChecksList");
@@ -77,7 +79,7 @@ public class Example {
 
 <a id="v2ChecksRetrieve"></a>
 # **v2ChecksRetrieve**
-> V2CheckInfo v2ChecksRetrieve(checkType)
+> V2CheckInfo v2ChecksRetrieve(checkType).execute();
 
 
 
@@ -103,7 +105,8 @@ public class Example {
     ChecksApi apiInstance = new ChecksApi(defaultClient);
     String checkType = "checkType_example"; // String | 
     try {
-      V2CheckInfo result = apiInstance.v2ChecksRetrieve(checkType);
+      V2CheckInfo result = apiInstance.v2ChecksRetrieve(checkType)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ChecksApi#v2ChecksRetrieve");
