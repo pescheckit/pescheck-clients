@@ -1,0 +1,15 @@
+{
+  "name": "pescheck-contract-javascript",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Contract test: the JavaScript client against the mock API (see contract/README.md)",
+  "scripts": {
+    "test": "mocha test/contract.spec.js"
+  },
+  "dependencies": {
+    "@pescheckit/pescheck-client-js": "file:../../clients/javascript"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0"
+  }
+}

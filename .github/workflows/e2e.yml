@@ -1,11 +1,14 @@
 name: E2E tests
 
-# Real end-to-end integration tests: every client runs its native test suite
-# (pytest/unittest, mocha, vitest, rspec, phpunit, go test, JUnit, dotnet test,
-# cargo test, ctest) against the staging API using an OAuth2 client-credentials
-# token. The tests assert the full CRUD lifecycle (checks, profiles, screenings,
-# webhooks, divisions). Without a token the same suites skip cleanly (see
-# unit-tests.yml). Each test depends on the generated client in clients/<lang>.
+# Live end-to-end tests: every client runs its native test suite in examples/
+# against the REAL staging API (full CRUD lifecycle: checks, profiles,
+# screenings, webhooks, divisions) with an OAuth2 client-credentials token.
+#
+# This is NOT a pull-request check: staging changes on its own, so a failure here
+# usually means "the API changed", not "a PR broke something". Pull requests are
+# gated by contract.yml (mock API from the committed spec) instead. This runs
+# nightly, after merges to main, and as the gate before publishing; a failing
+# nightly/post-merge run opens a GitHub issue (closed again when green).
 #
 # Requires repo secrets PESCHECK_CLIENT_ID + PESCHECK_CLIENT_SECRET and
 # (optional) repo variables PESCHECK_BASE_URL / PESCHECK_TEST_EMAIL.
@@ -182,3 +185,33 @@ jobs:
         run: ctest --test-dir build-crud --output-on-failure
         env:
           PESCHECK_ACCESS_TOKEN: ${{ steps.token.outputs.token }}
+
+  # Make a red run visible: open (or comment on) one issue when the nightly or
+  # post-merge run fails, and close it when the tests are green again.
+  report:
+    if: always() && (github.event_name == 'schedule' || github.event_name == 'push')
+    needs: [python, javascript, typescript, ruby, php, go, java, csharp, rust, cpp]
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Open or close the E2E failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          FAILED: ${{ contains(needs.*.result, 'failure') }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="E2E tests against staging are failing"
+          issue=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ "$FAILED" = "true" ]; then
+            if [ -n "$issue" ]; then
+              gh issue comment "$issue" --body "Still failing: $RUN_URL"
+            else
+              gh issue create --title "$title" --body "The live E2E tests against staging failed: $RUN_URL
+
+          This usually means the staging API changed. Check for an open **Regenerate clients** pull request (or run the Regenerate clients workflow), or check whether staging is down."
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "Green again: $RUN_URL"
+          fi

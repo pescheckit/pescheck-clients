@@ -419,6 +419,17 @@ envPatched += patchFile("clients/cpp/src/ApiConfiguration.cpp", [
 ]);
 console.log(`postprocess: PESCHECK_BASE_URL default host wired into ${envPatched} client(s)`);
 
+// PHP: send query-string booleans as true/false, like the other clients and as
+// the spec declares them. The generator defaults to 1/0 (`paginate=1`), which a
+// spec-validating server rejects; found by the contract tests (contract/php).
+const phpBool = patchFile("clients/php/lib/Configuration.php", [
+  [
+    "protected $booleanFormatForQueryString = self::BOOLEAN_FORMAT_INT;",
+    "protected $booleanFormatForQueryString = self::BOOLEAN_FORMAT_STRING;",
+  ],
+]);
+console.log(`postprocess: PHP query booleans as true/false in ${phpBool} file(s)`);
+
 // Tell registry readers (PyPI, npm, NuGet, ...) about PESCHECK_BASE_URL: the
 // generated README only says the host "defaults to https://api.pescheck.io"
 // and its examples set the host explicitly, which would override the variable.

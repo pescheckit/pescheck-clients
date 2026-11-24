@@ -24,6 +24,14 @@ runs:
         PESCHECK_CLIENT_ID: ${{ inputs.client_id }}
         PESCHECK_CLIENT_SECRET: ${{ inputs.client_secret }}
       run: |
+        # Pull requests from forks get no secrets: hand back an empty token so the
+        # integration tests skip (they do when PESCHECK_ACCESS_TOKEN is empty)
+        # instead of failing the run.
+        if [ -z "$PESCHECK_CLIENT_ID" ] || [ -z "$PESCHECK_CLIENT_SECRET" ]; then
+          echo "::warning::No Pescheck API credentials available; integration tests will be skipped."
+          echo "token=" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
         TOKEN="$(bash scripts/get-token.sh)"
         echo "::add-mask::$TOKEN"
         echo "token=$TOKEN" >> "$GITHUB_OUTPUT"

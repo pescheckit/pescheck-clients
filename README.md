@@ -77,24 +77,39 @@ Complete, runnable examples for every language are in [`examples/`](examples/). 
 
 ## For maintainers
 
-> **The clients are generated from the staging schema.** `scripts/fetch-spec.sh` fetches `https://api-staging.pescheck.io/api/schema/`, so the clients can include endpoints that are not on production yet. Before publishing a release, make sure production has caught up. The URL used is recorded in `spec/SOURCE`.
+> **The clients are generated from the staging schema.** The schema is fetched from `https://api-staging.pescheck.io/api/schema/` and committed in `spec/`, so the clients can include endpoints that are not on production yet. Before publishing a release, make sure production has caught up.
 
-Everything in `clients/` is generated: do not edit it by hand. Fixes to the generated code go in `scripts/postprocess.mjs`, and schema adjustments go in `scripts/filter-spec.mjs`. Both run on every regeneration.
+Everything in `clients/` is generated: do not edit it by hand. Fixes to the generated code go in `scripts/postprocess.mjs`, schema adjustments in `scripts/filter-spec.mjs`. Both run on every generation.
+
+### Working on this repo
+
+`spec/` is the source of truth. Everything except the daily regeneration works from the committed spec, so your local result is the same as CI.
 
 ```bash
 npm install # once
-make build # fetch schema, filter to v2, generate all 10 clients
-PESCHECK_SCHEMA_URL=http://localhost/api/schema/ make build # generate from a local API
+make regenerate # regenerate clients/ from the committed spec/ (no network)
+make contract # test every client against a mock API built from spec/
 ```
 
-**Automation**
+Change a script or config, run `make regenerate`, commit the regenerated `clients/` with your change, and run `make contract`. A pull request is green when its own changes are correct:
 
-- `generate.yml` runs daily (and on `repository_dispatch: openapi-schema-changed`). When the schema changed, it opens or updates a pull request and starts the build and e2e checks on it.
-- `e2e.yml` runs the integration tests in `examples/` against staging every day, and gates publishing.
-- `build.yml` builds every client on pull requests.
-- `publish.yml` publishes each client to its registry when a `vX.Y.Z` release is created.
+| Pull request check | What it verifies |
+| --- | --- |
+| Build clients | every client compiles |
+| Generated code up to date | `clients/` is exactly what `make regenerate` produces |
+| Contract tests | every client sends valid requests and parses the responses of a mock API built from `spec/` ([details](contract/README.md)) |
 
-**Run the integration tests locally**
+### When the API changes
+
+1. `generate.yml` runs daily, and on `repository_dispatch: openapi-schema-changed` (send it from the API repository after a staging deploy). It fetches the staging schema and, when it changed, opens a **Regenerate clients** pull request with the new `spec/` and `clients/`, and starts the pull request checks on it.
+2. If a contract test or example no longer compiles (for example, a new parameter), push the fix to that pull request. Merge it promptly: the next regeneration replaces the branch.
+3. Merge when green.
+
+To regenerate from another environment: `PESCHECK_SCHEMA_URL=http://localhost/api/schema/ make build`. The output does not depend on the environment, only on the API.
+
+### Live tests against staging
+
+`e2e.yml` runs the tests in `examples/` against the real staging API every night, after every merge, and before publishing. It is not a pull request check, because staging changes on its own. When it fails, it opens a GitHub issue, which usually means the API changed. To run it locally:
 
 ```bash
 export PESCHECK_BASE_URL=https://api-staging.pescheck.io
@@ -104,4 +119,6 @@ pip install -e clients/python
 cd examples/python && python -m unittest test_crud_integration -v
 ```
 
-The tests skip when `PESCHECK_ACCESS_TOKEN` is not set.
+### Releasing
+
+`publish.yml` publishes every client to its registry when a `vX.Y.Z` release is created, after the live tests pass.

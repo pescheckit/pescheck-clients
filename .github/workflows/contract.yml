@@ -1,0 +1,124 @@
+name: Contract tests
+
+# Every client runs the same calls (contract/README.md) against a mock API built
+# from the committed spec/openapi.v2.yaml (Prism, via scripts/with-mock.sh). The
+# mock rejects requests that do not match the spec and answers with responses
+# that do, including unknown extra fields. So a PR is red only when a client
+# sends a wrong request or cannot parse a documented response. No network, no
+# credentials, no staging: same result locally (`make contract`) and in CI.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: actions/setup-python@v6
+        with: { python-version: "3.12" }
+      - run: pip install -e clients/python
+      - run: cd contract/python && ../../scripts/with-mock.sh python -m unittest test_contract -v
+
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - run: cd clients/typescript && npm install
+      - run: cd contract/typescript && npm install && ../../scripts/with-mock.sh npm test
+
+  javascript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - run: cd clients/javascript && npm install
+      - run: cd contract/javascript && npm install && ../../scripts/with-mock.sh npm test
+
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: ruby/setup-ruby@v1
+        with: { ruby-version: "3.3" }
+      - run: cd clients/ruby && gem build *.gemspec && gem install ./pescheck-client-*.gem && gem install rspec
+      - run: cd contract/ruby && ../../scripts/with-mock.sh rspec -I ../../clients/ruby/lib contract_spec.rb
+
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: shivammathur/setup-php@v2
+        with: { php-version: "8.2", extensions: "curl, mbstring, json" }
+      - run: cd contract/php && composer install --no-interaction && ../../scripts/with-mock.sh vendor/bin/phpunit
+
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: actions/setup-go@v6
+        with: { go-version: "1.23", cache: false }
+      - run: cd contract/go && go mod tidy && ../../scripts/with-mock.sh go test ./... -v
+
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: actions/setup-java@v5
+        with: { distribution: temurin, java-version: "17", cache: maven }
+      - run: mvn -q -B -f clients/java -DskipTests -Dmaven.javadoc.skip=true install
+      - run: scripts/with-mock.sh mvn -B -f contract/java test
+
+  csharp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: actions/setup-dotnet@v5
+        with: { dotnet-version: "8.0.x" }
+      - run: scripts/with-mock.sh dotnet test contract/csharp
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cd contract/rust && ../../scripts/with-mock.sh cargo test
+
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with: { node-version: "20" }
+      - run: npm ci # Prism
+      - run: sudo apt-get update && sudo apt-get install -y libcpprest-dev libboost-dev libssl-dev cmake g++
+      - run: cmake -S contract/cpp -B build/contract-cpp && cmake --build build/contract-cpp -j"$(nproc)"
+      - run: scripts/with-mock.sh ctest --test-dir build/contract-cpp --output-on-failure

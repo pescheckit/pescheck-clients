@@ -1,0 +1,10 @@
+[package]
+name = "pescheck-contract"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+pescheck-client = { path = "../../clients/rust" }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+uuid = "1"
