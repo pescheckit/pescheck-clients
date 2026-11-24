@@ -11,6 +11,8 @@
 
 #include "PescheckApi/ApiConfiguration.h"
 
+#include <cstdlib>
+
 namespace org {
 namespace openapitools {
 namespace client {
@@ -18,6 +20,11 @@ namespace api {
 
 ApiConfiguration::ApiConfiguration()
 {
+    // Default base URL: $PESCHECK_BASE_URL if set, else production.
+    const char* envBaseUrl = std::getenv("PESCHECK_BASE_URL");
+    std::string baseUrl = (envBaseUrl && *envBaseUrl) ? envBaseUrl : "https://api.pescheck.io";
+    while (!baseUrl.empty() && baseUrl.back() == '/') baseUrl.pop_back();
+    m_BaseUrl = utility::conversions::to_string_t(baseUrl);
 }
 
 ApiConfiguration::~ApiConfiguration()

@@ -1,5 +1,7 @@
 > **Official Pescheck API client** - part of the [pescheck-clients](https://github.com/pescheckit/pescheck-clients) SDKs.
 
+> **Choosing the environment:** the default host is read from the `PESCHECK_BASE_URL` environment variable and falls back to production (`https://api.pescheck.io`). Set `PESCHECK_BASE_URL=https://api-staging.pescheck.io` while integrating, then unset it to go live, with no code change. Request your OAuth2 token from the same host (`$PESCHECK_BASE_URL/api/o/token/`). Setting the host explicitly in code, as some examples below do, overrides the variable.
+
 # C++ API client
 
 Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.
@@ -48,6 +50,3 @@ C++ tools for CMake' is selected in the 'Installation Details' section.
 Also be sure to review the CMakeLists.txt file. Edits are likely required.*
 
 ## Author
-
-
-

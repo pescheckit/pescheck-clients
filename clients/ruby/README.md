@@ -1,5 +1,7 @@
 > **Official Pescheck API client** - part of the [pescheck-clients](https://github.com/pescheckit/pescheck-clients) SDKs.
 
+> **Choosing the environment:** the default host is read from the `PESCHECK_BASE_URL` environment variable and falls back to production (`https://api.pescheck.io`). Set `PESCHECK_BASE_URL=https://api-staging.pescheck.io` while integrating, then unset it to go live, with no code change. Request your OAuth2 token from the same host (`$PESCHECK_BASE_URL/api/o/token/`). Setting the host explicitly in code, as some examples below do, overrides the variable.
+
 # pescheck-client
 
 Pescheck - the Ruby gem for the Pescheck API
@@ -64,13 +66,13 @@ Pescheck.configure do |config|
   # Configure OAuth2 access token for authorization: oauth2
   config.access_token = 'YOUR ACCESS TOKEN'
   # Configure a proc to get access tokens in lieu of the static access_token configuration
-  config.access_token_getter = -> { 'YOUR TOKEN GETTER PROC' } 
+  config.access_token_getter = -> { 'YOUR TOKEN GETTER PROC' }
   # Configure faraday connection
   config.configure_faraday_connection { |connection| 'YOUR CONNECTION CONFIG PROC' }
 end
 
 api_instance = Pescheck::AuthenticationApi.new
-jwt_generation = Pescheck::JWTGeneration.new({email: 'email_example', password: 'password_example'}) # JWTGeneration | 
+jwt_generation = Pescheck::JWTGeneration.new({email: 'email_example', password: 'password_example'}) # JWTGeneration |
 
 begin
   result = api_instance.generate_jwt_token2(jwt_generation)
@@ -87,34 +89,33 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*Pescheck::AuthenticationApi* | [**generate_jwt_token2**](docs/AuthenticationApi.md#generate_jwt_token2) | **POST** /api/v2/jwt/generate/ | 
-*Pescheck::AuthenticationApi* | [**jwt_create**](docs/AuthenticationApi.md#jwt_create) | **POST** /api/jwt/ | 
-*Pescheck::AuthenticationApi* | [**jwt_refresh_create**](docs/AuthenticationApi.md#jwt_refresh_create) | **POST** /api/jwt/refresh/ | 
-*Pescheck::ChecksApi* | [**v2_checks_list**](docs/ChecksApi.md#v2_checks_list) | **GET** /api/v2/checks/ | 
-*Pescheck::ChecksApi* | [**v2_checks_retrieve**](docs/ChecksApi.md#v2_checks_retrieve) | **GET** /api/v2/checks/{check_type}/ | 
-*Pescheck::DivisionsApi* | [**v2_organisations_divisions_create**](docs/DivisionsApi.md#v2_organisations_divisions_create) | **POST** /api/v2/organisations/divisions/ | 
-*Pescheck::DivisionsApi* | [**v2_organisations_divisions_list**](docs/DivisionsApi.md#v2_organisations_divisions_list) | **GET** /api/v2/organisations/divisions/ | 
-*Pescheck::DivisionsApi* | [**v2_organisations_divisions_partial_update**](docs/DivisionsApi.md#v2_organisations_divisions_partial_update) | **PATCH** /api/v2/organisations/divisions/{id}/ | 
-*Pescheck::DivisionsApi* | [**v2_organisations_divisions_retrieve**](docs/DivisionsApi.md#v2_organisations_divisions_retrieve) | **GET** /api/v2/organisations/divisions/{id}/ | 
-*Pescheck::DivisionsApi* | [**v2_organisations_divisions_update**](docs/DivisionsApi.md#v2_organisations_divisions_update) | **PUT** /api/v2/organisations/divisions/{id}/ | 
-*Pescheck::OAuthApi* | [**create_o_auth_application2**](docs/OAuthApi.md#create_o_auth_application2) | **POST** /api/v2/oauth/applications/ | 
-*Pescheck::OAuthApi* | [**delete_o_auth_application2**](docs/OAuthApi.md#delete_o_auth_application2) | **DELETE** /api/v2/oauth/applications/{application_id}/ | 
-*Pescheck::OAuthApi* | [**list_o_auth_applications2**](docs/OAuthApi.md#list_o_auth_applications2) | **GET** /api/v2/oauth/applications/list/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_create**](docs/ProfilesApi.md#v2_profiles_create) | **POST** /api/v2/profiles/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_destroy**](docs/ProfilesApi.md#v2_profiles_destroy) | **DELETE** /api/v2/profiles/{id}/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_list**](docs/ProfilesApi.md#v2_profiles_list) | **GET** /api/v2/profiles/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_partial_update**](docs/ProfilesApi.md#v2_profiles_partial_update) | **PATCH** /api/v2/profiles/{id}/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_retrieve**](docs/ProfilesApi.md#v2_profiles_retrieve) | **GET** /api/v2/profiles/{id}/ | 
-*Pescheck::ProfilesApi* | [**v2_profiles_update**](docs/ProfilesApi.md#v2_profiles_update) | **PUT** /api/v2/profiles/{id}/ | 
-*Pescheck::ScreeningsApi* | [**v2_screenings_create**](docs/ScreeningsApi.md#v2_screenings_create) | **POST** /api/v2/screenings/ | 
+*Pescheck::AuthenticationApi* | [**generate_jwt_token2**](docs/AuthenticationApi.md#generate_jwt_token2) | **POST** /api/v2/jwt/generate/ |
+*Pescheck::AuthenticationApi* | [**jwt_create**](docs/AuthenticationApi.md#jwt_create) | **POST** /api/jwt/ |
+*Pescheck::AuthenticationApi* | [**jwt_refresh_create**](docs/AuthenticationApi.md#jwt_refresh_create) | **POST** /api/jwt/refresh/ |
+*Pescheck::ChecksApi* | [**v2_checks_list**](docs/ChecksApi.md#v2_checks_list) | **GET** /api/v2/checks/ |
+*Pescheck::ChecksApi* | [**v2_checks_retrieve**](docs/ChecksApi.md#v2_checks_retrieve) | **GET** /api/v2/checks/{check_type}/ |
+*Pescheck::DivisionsApi* | [**v2_organisations_divisions_create**](docs/DivisionsApi.md#v2_organisations_divisions_create) | **POST** /api/v2/organisations/divisions/ |
+*Pescheck::DivisionsApi* | [**v2_organisations_divisions_list**](docs/DivisionsApi.md#v2_organisations_divisions_list) | **GET** /api/v2/organisations/divisions/ |
+*Pescheck::DivisionsApi* | [**v2_organisations_divisions_partial_update**](docs/DivisionsApi.md#v2_organisations_divisions_partial_update) | **PATCH** /api/v2/organisations/divisions/{id}/ |
+*Pescheck::DivisionsApi* | [**v2_organisations_divisions_retrieve**](docs/DivisionsApi.md#v2_organisations_divisions_retrieve) | **GET** /api/v2/organisations/divisions/{id}/ |
+*Pescheck::DivisionsApi* | [**v2_organisations_divisions_update**](docs/DivisionsApi.md#v2_organisations_divisions_update) | **PUT** /api/v2/organisations/divisions/{id}/ |
+*Pescheck::OAuthApi* | [**create_o_auth_application2**](docs/OAuthApi.md#create_o_auth_application2) | **POST** /api/v2/oauth/applications/ |
+*Pescheck::OAuthApi* | [**delete_o_auth_application2**](docs/OAuthApi.md#delete_o_auth_application2) | **DELETE** /api/v2/oauth/applications/{application_id}/ |
+*Pescheck::OAuthApi* | [**list_o_auth_applications2**](docs/OAuthApi.md#list_o_auth_applications2) | **GET** /api/v2/oauth/applications/list/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_create**](docs/ProfilesApi.md#v2_profiles_create) | **POST** /api/v2/profiles/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_destroy**](docs/ProfilesApi.md#v2_profiles_destroy) | **DELETE** /api/v2/profiles/{id}/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_list**](docs/ProfilesApi.md#v2_profiles_list) | **GET** /api/v2/profiles/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_partial_update**](docs/ProfilesApi.md#v2_profiles_partial_update) | **PATCH** /api/v2/profiles/{id}/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_retrieve**](docs/ProfilesApi.md#v2_profiles_retrieve) | **GET** /api/v2/profiles/{id}/ |
+*Pescheck::ProfilesApi* | [**v2_profiles_update**](docs/ProfilesApi.md#v2_profiles_update) | **PUT** /api/v2/profiles/{id}/ |
+*Pescheck::ScreeningsApi* | [**v2_screenings_create**](docs/ScreeningsApi.md#v2_screenings_create) | **POST** /api/v2/screenings/ |
 *Pescheck::ScreeningsApi* | [**v2_screenings_documents_list**](docs/ScreeningsApi.md#v2_screenings_documents_list) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
-*Pescheck::ScreeningsApi* | [**v2_screenings_list**](docs/ScreeningsApi.md#v2_screenings_list) | **GET** /api/v2/screenings/ | 
-*Pescheck::ScreeningsApi* | [**v2_screenings_retrieve**](docs/ScreeningsApi.md#v2_screenings_retrieve) | **GET** /api/v2/screenings/{id}/ | 
-*Pescheck::WebhooksApi* | [**create_webhook2**](docs/WebhooksApi.md#create_webhook2) | **POST** /api/v2/webhooks/ | 
-*Pescheck::WebhooksApi* | [**delete_webhook2**](docs/WebhooksApi.md#delete_webhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ | 
-*Pescheck::WebhooksApi* | [**list_webhooks2**](docs/WebhooksApi.md#list_webhooks2) | **GET** /api/v2/webhooks/list/ | 
-*Pescheck::WebhooksApi* | [**verify_webhook2**](docs/WebhooksApi.md#verify_webhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ | 
-
+*Pescheck::ScreeningsApi* | [**v2_screenings_list**](docs/ScreeningsApi.md#v2_screenings_list) | **GET** /api/v2/screenings/ |
+*Pescheck::ScreeningsApi* | [**v2_screenings_retrieve**](docs/ScreeningsApi.md#v2_screenings_retrieve) | **GET** /api/v2/screenings/{id}/ |
+*Pescheck::WebhooksApi* | [**create_webhook2**](docs/WebhooksApi.md#create_webhook2) | **POST** /api/v2/webhooks/ |
+*Pescheck::WebhooksApi* | [**delete_webhook2**](docs/WebhooksApi.md#delete_webhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ |
+*Pescheck::WebhooksApi* | [**list_webhooks2**](docs/WebhooksApi.md#list_webhooks2) | **GET** /api/v2/webhooks/list/ |
+*Pescheck::WebhooksApi* | [**verify_webhook2**](docs/WebhooksApi.md#verify_webhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ |
 
 ## Documentation for Models
 
@@ -157,17 +158,14 @@ Class | Method | HTTP request | Description
  - [Pescheck::Webhook](docs/Webhook.md)
  - [Pescheck::WebhookResponse](docs/WebhookResponse.md)
 
-
 ## Documentation for Authorization
-
 
 Authentication schemes defined for the API:
 ### cookieAuth
 
-
 - **Type**: API key
 - **API key parameter name**: __Secure-sessionid
-- **Location**: 
+- **Location**:
 
 ### jwtAuth
 
@@ -175,12 +173,10 @@ Authentication schemes defined for the API:
 
 ### oauth2
 
-
 - **Type**: OAuth
 - **Flow**: application
-- **Authorization URL**: 
-- **Scopes**: 
+- **Authorization URL**:
+- **Scopes**:
   - read:api: read groups
   - create:api: create groups
   - update:api: update groups
-

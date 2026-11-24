@@ -111,6 +111,35 @@ function stripDecimalFormat(node) {
 }
 stripDecimalFormat(doc.components?.schemas ?? {});
 
+// 5b2. Collapse string-only oneOf/anyOf into a plain string. The API models
+// "a valid value OR blank" as e.g.
+//   oneOf: [{type: string, pattern: "^[0-9]+$"}, {type: string, maxLength: 0}]
+// (postal_code, house_number, contact/invoice email). Some generators emit one
+// variant per branch with the same name (Rust: `String(String)` twice, a compile
+// error). Every branch is a string, so the field is just a string; drop
+// pattern/format so blank stays valid, keep the largest maxLength.
+let stringUnionsCollapsed = 0;
+function collapseStringUnions(node) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) return node.forEach(collapseStringUnions);
+  for (const key of ["oneOf", "anyOf"]) {
+    const branches = node[key];
+    if (
+      Array.isArray(branches) &&
+      branches.length > 1 &&
+      branches.every((b) => b && typeof b === "object" && b.type === "string" && !b.$ref && !b.enum)
+    ) {
+      const lengths = branches.map((b) => b.maxLength).filter((n) => typeof n === "number");
+      delete node[key];
+      node.type = "string";
+      if (lengths.length === branches.length) node.maxLength = Math.max(...lengths);
+      stringUnionsCollapsed++;
+    }
+  }
+  for (const v of Object.values(node)) collapseStringUnions(v);
+}
+collapseStringUnions(doc.components?.schemas ?? {});
+
 // 5c. Relax over-strict `required` fields. The webhook *list* endpoint omits
 // `token` and `organisation_name` (it doesn't leak tokens in a list), but the
 // spec marks them required on WebhookResponse, so strict clients fail to
@@ -216,6 +245,32 @@ if (oauth2?.flows) {
   }
 }
 
+// 5h. Make the spec independent of the environment it was fetched from. The
+// backend writes request-specific values into its schema: OAuth URLs use the
+// host that served it (api.pescheck.io / api-staging... / localhost), and the
+// session cookie is only `__Secure-`-prefixed over HTTPS. Pin them to the
+// production values so generating from prod, staging or localhost yields
+// byte-identical clients and a regen diff means the API itself changed. At
+// runtime the host still comes from PESCHECK_BASE_URL (see postprocess.mjs).
+const PROD_ORIGIN = "https://api.pescheck.io";
+let envValuesPinned = 0;
+for (const scheme of Object.values(doc.components?.securitySchemes ?? {})) {
+  for (const flow of Object.values(scheme?.flows ?? {})) {
+    for (const key of ["authorizationUrl", "tokenUrl", "refreshUrl"]) {
+      if (typeof flow[key] !== "string") continue;
+      const pinned = PROD_ORIGIN + new URL(flow[key], PROD_ORIGIN).pathname;
+      if (pinned !== flow[key]) {
+        flow[key] = pinned;
+        envValuesPinned++;
+      }
+    }
+  }
+  if (scheme?.type === "apiKey" && scheme.in === "cookie" && scheme.name === "sessionid") {
+    scheme.name = "__Secure-sessionid";
+    envValuesPinned++;
+  }
+}
+
 const out = yaml.dump(doc, { lineWidth: -1, noRefs: true, sortKeys: false });
 writeFileSync(outputPath, out);
 
@@ -223,6 +278,8 @@ console.log(`Filtered spec written to ${outputPath}`);
 console.log(`  paths kept:     ${Object.keys(keptPaths).length} (dropped ${droppedCount})`);
 console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length} (pruned ${prunedSchemas})`);
 console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);
+console.log(`  env-specific values pinned to production: ${envValuesPinned}`);
 console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);
+console.log(`  string unions: collapsed ${stringUnionsCollapsed} string-only oneOf/anyOf to plain string`);
 console.log(`  relaxed required: ${relaxedRequired} field(s); readOnly-required stripped: ${readOnlyRequiredStripped}`);
 console.log(`  tolerant (additionalProperties) schemas: ${tolerated}`);

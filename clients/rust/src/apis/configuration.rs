@@ -39,7 +39,7 @@ impl Configuration {
 impl Default for Configuration {
     fn default() -> Self {
         Configuration {
-            base_path: "https://api.pescheck.io".to_owned(),
+            base_path: std::env::var("PESCHECK_BASE_URL").ok().filter(|v| !v.is_empty()).map(|v| v.trim_end_matches('/').to_owned()).unwrap_or_else(|| "https://api.pescheck.io".to_owned()),
             user_agent: Some("OpenAPI-Generator/2.0.0/rust".to_owned()),
             client: reqwest_middleware::ClientBuilder::new(reqwest::Client::new()).build(),
             basic_auth: None,

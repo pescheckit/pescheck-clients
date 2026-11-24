@@ -1,5 +1,7 @@
 > **Official Pescheck API client** - part of the [pescheck-clients](https://github.com/pescheckit/pescheck-clients) SDKs.
 
+> **Choosing the environment:** the default host is read from the `PESCHECK_BASE_URL` environment variable and falls back to production (`https://api.pescheck.io`). Set `PESCHECK_BASE_URL=https://api-staging.pescheck.io` while integrating, then unset it to go live, with no code change. Request your OAuth2 token from the same host (`$PESCHECK_BASE_URL/api/o/token/`). Setting the host explicitly in code, as some examples below do, overrides the variable.
+
 # Pescheck.Client - the C# library for the Pescheck API
 
 Official client library for the Pescheck API (v2), generated from the OpenAPI specification. Authenticate with OAuth2 client credentials and use the checks, profiles, screenings, webhooks and divisions endpoints. See https://github.com/pescheckit/pescheck-clients for installation and usage.
@@ -89,7 +91,6 @@ services.AddHttpClient<YourApiClass>(httpClient =>
    new PetApi(httpClient));
 ```
 
-
 <a id="getting-started"></a>
 ## Getting Started
 
@@ -117,7 +118,7 @@ namespace Example
             HttpClient httpClient = new HttpClient();
             HttpClientHandler httpClientHandler = new HttpClientHandler();
             var apiInstance = new AuthenticationApi(httpClient, config, httpClientHandler);
-            var jWTGeneration = new JWTGeneration(); // JWTGeneration | 
+            var jWTGeneration = new JWTGeneration(); // JWTGeneration |
 
             try
             {
@@ -143,34 +144,33 @@ All URIs are relative to *https://api.pescheck.io*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthenticationApi* | [**GenerateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ | 
-*AuthenticationApi* | [**JwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ | 
-*AuthenticationApi* | [**JwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ | 
-*ChecksApi* | [**V2ChecksList**](docs/ChecksApi.md#v2checkslist) | **GET** /api/v2/checks/ | 
-*ChecksApi* | [**V2ChecksRetrieve**](docs/ChecksApi.md#v2checksretrieve) | **GET** /api/v2/checks/{check_type}/ | 
-*DivisionsApi* | [**V2OrganisationsDivisionsCreate**](docs/DivisionsApi.md#v2organisationsdivisionscreate) | **POST** /api/v2/organisations/divisions/ | 
-*DivisionsApi* | [**V2OrganisationsDivisionsList**](docs/DivisionsApi.md#v2organisationsdivisionslist) | **GET** /api/v2/organisations/divisions/ | 
-*DivisionsApi* | [**V2OrganisationsDivisionsPartialUpdate**](docs/DivisionsApi.md#v2organisationsdivisionspartialupdate) | **PATCH** /api/v2/organisations/divisions/{id}/ | 
-*DivisionsApi* | [**V2OrganisationsDivisionsRetrieve**](docs/DivisionsApi.md#v2organisationsdivisionsretrieve) | **GET** /api/v2/organisations/divisions/{id}/ | 
-*DivisionsApi* | [**V2OrganisationsDivisionsUpdate**](docs/DivisionsApi.md#v2organisationsdivisionsupdate) | **PUT** /api/v2/organisations/divisions/{id}/ | 
-*OAuthApi* | [**CreateOAuthApplication2**](docs/OAuthApi.md#createoauthapplication2) | **POST** /api/v2/oauth/applications/ | 
-*OAuthApi* | [**DeleteOAuthApplication2**](docs/OAuthApi.md#deleteoauthapplication2) | **DELETE** /api/v2/oauth/applications/{application_id}/ | 
-*OAuthApi* | [**ListOAuthApplications2**](docs/OAuthApi.md#listoauthapplications2) | **GET** /api/v2/oauth/applications/list/ | 
-*ProfilesApi* | [**V2ProfilesCreate**](docs/ProfilesApi.md#v2profilescreate) | **POST** /api/v2/profiles/ | 
-*ProfilesApi* | [**V2ProfilesDestroy**](docs/ProfilesApi.md#v2profilesdestroy) | **DELETE** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**V2ProfilesList**](docs/ProfilesApi.md#v2profileslist) | **GET** /api/v2/profiles/ | 
-*ProfilesApi* | [**V2ProfilesPartialUpdate**](docs/ProfilesApi.md#v2profilespartialupdate) | **PATCH** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**V2ProfilesRetrieve**](docs/ProfilesApi.md#v2profilesretrieve) | **GET** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**V2ProfilesUpdate**](docs/ProfilesApi.md#v2profilesupdate) | **PUT** /api/v2/profiles/{id}/ | 
-*ScreeningsApi* | [**V2ScreeningsCreate**](docs/ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ | 
+*AuthenticationApi* | [**GenerateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ |
+*AuthenticationApi* | [**JwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ |
+*AuthenticationApi* | [**JwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ |
+*ChecksApi* | [**V2ChecksList**](docs/ChecksApi.md#v2checkslist) | **GET** /api/v2/checks/ |
+*ChecksApi* | [**V2ChecksRetrieve**](docs/ChecksApi.md#v2checksretrieve) | **GET** /api/v2/checks/{check_type}/ |
+*DivisionsApi* | [**V2OrganisationsDivisionsCreate**](docs/DivisionsApi.md#v2organisationsdivisionscreate) | **POST** /api/v2/organisations/divisions/ |
+*DivisionsApi* | [**V2OrganisationsDivisionsList**](docs/DivisionsApi.md#v2organisationsdivisionslist) | **GET** /api/v2/organisations/divisions/ |
+*DivisionsApi* | [**V2OrganisationsDivisionsPartialUpdate**](docs/DivisionsApi.md#v2organisationsdivisionspartialupdate) | **PATCH** /api/v2/organisations/divisions/{id}/ |
+*DivisionsApi* | [**V2OrganisationsDivisionsRetrieve**](docs/DivisionsApi.md#v2organisationsdivisionsretrieve) | **GET** /api/v2/organisations/divisions/{id}/ |
+*DivisionsApi* | [**V2OrganisationsDivisionsUpdate**](docs/DivisionsApi.md#v2organisationsdivisionsupdate) | **PUT** /api/v2/organisations/divisions/{id}/ |
+*OAuthApi* | [**CreateOAuthApplication2**](docs/OAuthApi.md#createoauthapplication2) | **POST** /api/v2/oauth/applications/ |
+*OAuthApi* | [**DeleteOAuthApplication2**](docs/OAuthApi.md#deleteoauthapplication2) | **DELETE** /api/v2/oauth/applications/{application_id}/ |
+*OAuthApi* | [**ListOAuthApplications2**](docs/OAuthApi.md#listoauthapplications2) | **GET** /api/v2/oauth/applications/list/ |
+*ProfilesApi* | [**V2ProfilesCreate**](docs/ProfilesApi.md#v2profilescreate) | **POST** /api/v2/profiles/ |
+*ProfilesApi* | [**V2ProfilesDestroy**](docs/ProfilesApi.md#v2profilesdestroy) | **DELETE** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**V2ProfilesList**](docs/ProfilesApi.md#v2profileslist) | **GET** /api/v2/profiles/ |
+*ProfilesApi* | [**V2ProfilesPartialUpdate**](docs/ProfilesApi.md#v2profilespartialupdate) | **PATCH** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**V2ProfilesRetrieve**](docs/ProfilesApi.md#v2profilesretrieve) | **GET** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**V2ProfilesUpdate**](docs/ProfilesApi.md#v2profilesupdate) | **PUT** /api/v2/profiles/{id}/ |
+*ScreeningsApi* | [**V2ScreeningsCreate**](docs/ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ |
 *ScreeningsApi* | [**V2ScreeningsDocumentsList**](docs/ScreeningsApi.md#v2screeningsdocumentslist) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
-*ScreeningsApi* | [**V2ScreeningsList**](docs/ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ | 
-*ScreeningsApi* | [**V2ScreeningsRetrieve**](docs/ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ | 
-*WebhooksApi* | [**CreateWebhook2**](docs/WebhooksApi.md#createwebhook2) | **POST** /api/v2/webhooks/ | 
-*WebhooksApi* | [**DeleteWebhook2**](docs/WebhooksApi.md#deletewebhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ | 
-*WebhooksApi* | [**ListWebhooks2**](docs/WebhooksApi.md#listwebhooks2) | **GET** /api/v2/webhooks/list/ | 
-*WebhooksApi* | [**VerifyWebhook2**](docs/WebhooksApi.md#verifywebhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ | 
-
+*ScreeningsApi* | [**V2ScreeningsList**](docs/ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ |
+*ScreeningsApi* | [**V2ScreeningsRetrieve**](docs/ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ |
+*WebhooksApi* | [**CreateWebhook2**](docs/WebhooksApi.md#createwebhook2) | **POST** /api/v2/webhooks/ |
+*WebhooksApi* | [**DeleteWebhook2**](docs/WebhooksApi.md#deletewebhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ |
+*WebhooksApi* | [**ListWebhooks2**](docs/WebhooksApi.md#listwebhooks2) | **GET** /api/v2/webhooks/list/ |
+*WebhooksApi* | [**VerifyWebhook2**](docs/WebhooksApi.md#verifywebhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ |
 
 <a id="documentation-for-models"></a>
 ## Documentation for Models
@@ -214,10 +214,8 @@ Class | Method | HTTP request | Description
  - [Model.Webhook](docs/Webhook.md)
  - [Model.WebhookResponse](docs/WebhookResponse.md)
 
-
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
-
 
 Authentication schemes defined for the API:
 <a id="cookieAuth"></a>
@@ -225,7 +223,7 @@ Authentication schemes defined for the API:
 
 - **Type**: API key
 - **API key parameter name**: __Secure-sessionid
-- **Location**: 
+- **Location**:
 
 <a id="jwtAuth"></a>
 ### jwtAuth
@@ -237,9 +235,8 @@ Authentication schemes defined for the API:
 
 - **Type**: OAuth
 - **Flow**: application
-- **Authorization URL**: 
-- **Scopes**: 
+- **Authorization URL**:
+- **Scopes**:
   - read:api: read groups
   - create:api: create groups
   - update:api: update groups
-

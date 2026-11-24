@@ -118,7 +118,9 @@ namespace Pescheck.Client.Client
         {
             Proxy = null;
             UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/0.1.0/csharp");
-            BasePath = "https://api.pescheck.io";
+            // Default host: $PESCHECK_BASE_URL if set, else production.
+            var envBasePath = Environment.GetEnvironmentVariable("PESCHECK_BASE_URL");
+            BasePath = string.IsNullOrEmpty(envBasePath) ? "https://api.pescheck.io" : envBasePath.TrimEnd('/');
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();

@@ -10,6 +10,7 @@ filter:
 	node scripts/filter-spec.mjs
 
 generate:
+	node scripts/clean-clients.mjs
 	npx openapi-generator-cli batch config/*.yaml
 	node scripts/postprocess.mjs
 

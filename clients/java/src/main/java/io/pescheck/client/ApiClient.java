@@ -66,7 +66,14 @@ import io.pescheck.client.auth.OAuthFlow;
  */
 public class ApiClient {
 
-    protected String basePath = "https://api.pescheck.io";
+    protected String basePath = envBasePath() != null ? envBasePath() : "https://api.pescheck.io";
+
+    /** $PESCHECK_BASE_URL without trailing slashes, or null when unset. */
+    private static String envBasePath() {
+        String env = System.getenv("PESCHECK_BASE_URL");
+        return (env != null && !env.isEmpty()) ? env.replaceAll("/+$", "") : null;
+    }
+
     protected List<ServerConfiguration> servers = new ArrayList<ServerConfiguration>(Arrays.asList(
     new ServerConfiguration(
       "https://api.pescheck.io",
@@ -79,7 +86,7 @@ public class ApiClient {
       new HashMap<String, ServerVariable>()
     )
   ));
-    protected Integer serverIndex = 0;
+    protected Integer serverIndex = envBasePath() != null ? null : 0;
     protected Map<String, String> serverVariables = null;
     protected boolean debugging = false;
     protected Map<String, String> defaultHeaderMap = new HashMap<String, String>();
@@ -177,10 +184,10 @@ public class ApiClient {
     public ApiClient(String basePath, String clientId, String clientSecret, Map<String, String> parameters) {
         init();
         if (basePath != null) {
-            this.basePath = basePath;
+            setBasePath(basePath);
         }
 
-        String tokenUrl = "https://api.pescheck.io/api/o/token/";
+        String tokenUrl = getBasePath() + "/api/o/token/";
         if (!"".equals(tokenUrl) && !URI.create(tokenUrl).isAbsolute()) {
             URI uri = URI.create(getBasePath());
             tokenUrl = uri.getScheme() + ":" +

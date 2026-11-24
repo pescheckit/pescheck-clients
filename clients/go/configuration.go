@@ -14,6 +14,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -91,6 +92,14 @@ type Configuration struct {
 	HTTPClient       *http.Client
 }
 
+// defaultBaseURL returns $PESCHECK_BASE_URL if set, else production.
+func defaultBaseURL() string {
+	if v := os.Getenv("PESCHECK_BASE_URL"); v != "" {
+		return strings.TrimRight(v, "/")
+	}
+	return "https://api.pescheck.io"
+}
+
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
@@ -99,8 +108,8 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://api.pescheck.io",
-				Description: "Production",
+				URL: defaultBaseURL(),
+				Description: "Default: $PESCHECK_BASE_URL, else Production",
 			},
 			{
 				URL: "https://api-staging.pescheck.io",

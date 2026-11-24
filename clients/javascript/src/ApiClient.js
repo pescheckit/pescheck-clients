@@ -32,7 +32,7 @@ class ApiClient {
      * Overrides the default value set in spec file if present
      * @param {String} basePath
      */
-    constructor(basePath = 'https://api.pescheck.io') {
+    constructor(basePath = ((typeof process !== 'undefined' && process.env && process.env.PESCHECK_BASE_URL) || 'https://api.pescheck.io').replace(/\/+$/, '')) {
         /**
          * The base URL against which to resolve every API call's (relative) path.
          * @type {String}

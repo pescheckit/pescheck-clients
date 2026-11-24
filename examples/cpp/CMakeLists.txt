@@ -21,7 +21,9 @@ add_subdirectory(
 # OpenSSL and Boost symbols; link them explicitly into the executable.
 find_package(cpprestsdk REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(Boost REQUIRED COMPONENTS system)
+# Boost >= 1.89 made Boost.System header-only and dropped its CMake package
+# (boost_system), so only link Boost::system where it still exists.
+find_package(Boost REQUIRED OPTIONAL_COMPONENTS system)
 
 add_executable(e2e main.cpp)
 target_link_libraries(e2e PRIVATE
@@ -29,5 +31,5 @@ target_link_libraries(e2e PRIVATE
     cpprestsdk::cpprest
     OpenSSL::SSL
     OpenSSL::Crypto
-    Boost::system
+    $<$<TARGET_EXISTS:Boost::system>:Boost::system>
 )
