@@ -13,3 +13,7 @@ additionalProperties:
   apiPackage: io.pescheck.client.api
   modelPackage: io.pescheck.client.model
   hideGenerationTimestamp: "true"
+  # Accept response fields the client does not know yet. The default (true)
+  # makes every model throw on an unknown field, so any new field added to an
+  # API response would break all Java integrations. Found by contract/java.
+  disallowAdditionalPropertiesIfNotPresent: false

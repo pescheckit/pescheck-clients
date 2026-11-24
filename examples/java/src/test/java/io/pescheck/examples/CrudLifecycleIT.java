@@ -220,7 +220,7 @@ class CrudLifecycleIT {
 
     // screenings: list (page, pageSize, paginate) -> created screening should be present
     List<V2ScreeningListItem> screeningResults =
-        withRetry(() -> screenings.v2ScreeningsList(null, null, null)).getResults();
+        withRetry(() -> screenings.v2ScreeningsList(null, null, null, null)).getResults();
     assertFalse(screeningResults.isEmpty(), "screening list should not be empty");
     boolean screeningListed = screeningResults.stream()
         .anyMatch(s -> screening.getId().equals(s.getId()));

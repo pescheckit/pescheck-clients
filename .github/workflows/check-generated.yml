@@ -1,0 +1,52 @@
+name: Generated code up to date
+
+# Regenerate the clients from the COMMITTED spec/ snapshot (no network fetch,
+# so it is deterministic) and fail if the result differs from what is
+# committed. This catches a PR that changes scripts/ or config/ without
+# committing the regenerated clients: locally, in CI and on main the clients
+# are then always exactly what the scripts produce.
+#
+# Fix a failure by running `make regenerate` (or `npm run regenerate`) and
+# committing the changes.
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: "1.23"
+          cache: false
+
+      - name: Install tooling
+        run: npm ci
+
+      - name: Regenerate from committed spec
+        run: npm run regenerate
+
+      - name: Complete Go go.sum
+        run: cd clients/go && go mod tidy
+
+      - name: Compare with committed clients
+        run: |
+          if [ -n "$(git status --porcelain -- spec clients)" ]; then
+            echo "::error::The committed clients are not what scripts/ and config/ generate. Run 'make regenerate' and commit the result."
+            git status --short -- spec clients | head -50
+            git diff --stat -- spec clients | tail -5
+            exit 1
+          fi
+          echo "Committed clients match the generator output."

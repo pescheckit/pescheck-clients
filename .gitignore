@@ -35,3 +35,6 @@ examples/**/package-lock.json
 examples/**/*.class
 examples/cpp/build/
 cp.txt
+
+# contract test build output
+build/

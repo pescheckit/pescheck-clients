@@ -3,8 +3,9 @@ name: Regenerate clients
 # Re-fetch the upstream OpenAPI (Swagger) schema, filter it to v2, regenerate all
 # 10 clients with openapi-generator, and - if that drifts from what's committed
 # (the upstream API changed) - open/update a PULL REQUEST with the regenerated
-# spec/ + clients/, then run the build + e2e checks on it. A human merges, so you
-# stay in control. Does NOT commit to main directly.
+# spec/ + clients/, then run the same checks any PR gets (build, generated code
+# up to date, contract tests against a mock of the new spec). A human merges, so
+# you stay in control. Does NOT commit to main directly.
 on:
   workflow_dispatch:
   # Let the API repo trigger a regen right after it deploys to staging:
@@ -19,7 +20,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write # dispatch build/e2e on the regen PR (see last step)
+  actions: write # dispatch the PR checks on the regen PR (see last step)
 
 jobs:
   regenerate:
@@ -74,8 +75,10 @@ jobs:
             Review the diff and merge to adopt the changes. If nothing here looks
             intentional, close the PR and investigate the upstream schema change.
 
-            The **Build clients** and **E2E tests** checks are started on this
-            branch automatically by the regenerate workflow; merge once they pass.
+            The PR checks (build, generated code up to date, contract tests) are
+            started on this branch automatically; merge once they pass. If a
+            contract test or example no longer compiles because the API changed
+            (e.g. a new parameter), push the fix to this branch.
           labels: |
             automated
             codegen
@@ -83,12 +86,13 @@ jobs:
       # Events made with GITHUB_TOKEN (like the push/PR above) do not start other
       # workflows - except workflow_dispatch. So start the checks explicitly; their
       # runs are attached to the PR's head commit and show up on the PR.
-      - name: Run build + e2e on the regen PR
+      - name: Run the PR checks on the regen PR
         if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
         env:
           GH_TOKEN: ${{ github.token }}
           BRANCH: automated/regenerate-clients
         run: |
-          gh workflow run build.yml --ref "$BRANCH"
-          gh workflow run e2e.yml --ref "$BRANCH"
-          echo "Started build + e2e on $BRANCH for PR ${{ steps.cpr.outputs.pull-request-url }}"
+          for wf in build.yml check-generated.yml contract.yml; do
+            gh workflow run "$wf" --ref "$BRANCH"
+          done
+          echo "Started PR checks on $BRANCH for ${{ steps.cpr.outputs.pull-request-url }}"

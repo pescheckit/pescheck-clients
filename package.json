@@ -8,10 +8,12 @@
     "fetch": "bash scripts/fetch-spec.sh",
     "filter": "node scripts/filter-spec.mjs",
     "generate": "node scripts/clean-clients.mjs && openapi-generator-cli batch config/*.yaml && node scripts/postprocess.mjs",
-    "build": "npm run fetch && npm run filter && npm run generate"
+    "regenerate": "npm run filter && npm run generate",
+    "build": "npm run fetch && npm run regenerate"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.21.5",
+    "@stoplight/prism-cli": "5.16.0",
     "js-yaml": "4.1.0"
   }
 }

@@ -220,7 +220,7 @@ async fn run_lifecycle(
 
     // List screenings (trailing args are page/page_size/paginate) and confirm
     // the one we just created shows up.
-    let screening_list = retry_5xx!(screenings_api::v2_screenings_list(cfg, None, None, None))?
+    let screening_list = retry_5xx!(screenings_api::v2_screenings_list(cfg, None, None, None, None))?
         .results;
     assert!(
         !screening_list.is_empty(),
