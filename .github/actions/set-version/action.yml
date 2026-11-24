@@ -19,10 +19,14 @@ runs:
         ECO: ${{ inputs.ecosystem }}
       run: |
         set -euo pipefail
-        case "${GITHUB_REF_NAME:-}" in
-          v[0-9]*) VER="${GITHUB_REF_NAME#v}" ;;
-          *) echo "Not a release tag (${GITHUB_REF_NAME:-none}) - keeping committed version"; exit 0 ;;
-        esac
+        if [ -n "${RELEASE_VERSION:-}" ]; then
+          VER="${RELEASE_VERSION#v}" # manual run with an explicit version
+        else
+          case "${GITHUB_REF_NAME:-}" in
+            v[0-9]*) VER="${GITHUB_REF_NAME#v}" ;;
+            *) echo "Not a release tag (${GITHUB_REF_NAME:-none}) - keeping committed version"; exit 0 ;;
+          esac
+        fi
         echo "Stamping $ECO version -> $VER"
         case "$ECO" in
           npm)

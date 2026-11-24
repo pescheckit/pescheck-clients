@@ -6,13 +6,33 @@ name: Publish clients
 # back FROM the registry (retries for propagation, clear error if truly missing).
 #
 # Tokens/flags (Settings -> Secrets and variables -> Actions):
-#   NPM_TOKEN  CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PACKAGIST_TOKEN  (secrets)
+#   CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PACKAGIST_TOKEN  (secrets)
 #   PUBLISH_NUGET=true  PUBLISH_PYPI=true  (variables, OIDC trusted publishing)
+# npm (TypeScript + JavaScript) uses OIDC trusted publishing: no token. It is
+# configured per package on npmjs.com (Settings -> Trusted Publisher: GitHub
+# Actions, pescheckit/pescheck-clients, publish.yml). npm write tokens expire
+# after at most 90 days, which is why the token-based publish broke.
+#
+# Manual run (workflow_dispatch): re-publish an existing release, e.g. after a
+# registry failed: version=0.5.0, only=npm publishes just the npm packages.
 # Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      version:
+        description: Version to publish (X.Y.Z). Empty = the committed version.
+        required: false
+      only:
+        description: Publish only these registries
+        type: choice
+        options: [all, npm]
+        default: all
+
+env:
+  # Explicit version for a manual run; set-version prefers it over the ref name.
+  RELEASE_VERSION: ${{ inputs.version }}
 
 jobs:
   # Build + test everything first. If the e2e suite fails, no publish job runs.
@@ -23,12 +43,13 @@ jobs:
   typescript:
     runs-on: ubuntu-latest
     needs: test
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC)
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
-        with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - uses: actions/setup-node@v6 # Node 24 ships npm 11 (trusted publishing needs >= 11.5.1)
+        with: { node-version: "24", registry-url: "https://registry.npmjs.org" }
       - name: Set version from tag
         uses: ./.github/actions/set-version
         with: { ecosystem: npm, path: clients/typescript }
@@ -39,7 +60,6 @@ jobs:
         working-directory: clients/typescript
         run: npm run build
       - name: Publish
-        if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/typescript
         run: |
           VER=$(node -p "require('./package.json').version")
@@ -49,22 +69,22 @@ jobs:
             npm publish --access public
           fi
       - name: Verify from registry (exact version)
-        if: env.NODE_AUTH_TOKEN != ''
         uses: ./.github/actions/verify-from-registry
         with:
           ecosystem: npm
           package: "@pescheckit/pescheck-client"
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   javascript:
     runs-on: ubuntu-latest
     needs: test
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    permissions:
+      contents: read
+      id-token: write # npm trusted publishing (OIDC)
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
-        with: { node-version: "20", registry-url: "https://registry.npmjs.org" }
+      - uses: actions/setup-node@v6 # Node 24 ships npm 11 (trusted publishing needs >= 11.5.1)
+        with: { node-version: "24", registry-url: "https://registry.npmjs.org" }
       - name: Set version from tag
         uses: ./.github/actions/set-version
         with: { ecosystem: npm, path: clients/javascript }
@@ -72,7 +92,6 @@ jobs:
         working-directory: clients/javascript
         run: npm install
       - name: Publish
-        if: env.NODE_AUTH_TOKEN != ''
         working-directory: clients/javascript
         run: |
           VER=$(node -p "require('./package.json').version")
@@ -82,15 +101,15 @@ jobs:
             npm publish --access public
           fi
       - name: Verify from registry (exact version)
-        if: env.NODE_AUTH_TOKEN != ''
         uses: ./.github/actions/verify-from-registry
         with:
           ecosystem: npm
           package: "@pescheckit/pescheck-client-js"
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   ruby:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     env:
       RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
@@ -126,10 +145,11 @@ jobs:
         with:
           ecosystem: rubygems
           package: pescheck-client
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   rust:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     env:
       CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
@@ -158,10 +178,11 @@ jobs:
         with:
           ecosystem: cargo
           package: pescheck-client
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   php:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     steps:
       - uses: actions/checkout@v7
@@ -180,10 +201,11 @@ jobs:
         with:
           ecosystem: packagist
           package: pescheckit/pescheck-client
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   csharp:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     permissions:
       id-token: write # NuGet trusted publishing (OIDC)
@@ -217,10 +239,11 @@ jobs:
         with:
           ecosystem: nuget
           package: Pescheck.Client
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   python:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     permissions:
       id-token: write # PyPI trusted publishing (OIDC) - no token, no nag summary
@@ -249,11 +272,12 @@ jobs:
         with:
           ecosystem: pypi
           package: pescheck-client
-          version: ${{ github.event.release.tag_name || github.ref_name }}
+          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
 
   # Java -> GitHub Packages (built-in token). Maven Central later (needs GPG).
   java:
     runs-on: ubuntu-latest
+    if: inputs.only != 'npm'
     needs: test
     permissions:
       contents: read
