@@ -21,35 +21,40 @@ Each language has its own README under [`clients/`](clients/) with every endpoin
 
 ## Quickstart
 
-**1. Get API credentials.** Ask your Pescheck contact for an OAuth2 client ID and secret. Staging and production use separate credentials.
+**1. Get API credentials.** Create a test account at [dashboard-staging.pescheck.io](https://dashboard-staging.pescheck.io/). In the dashboard, enable the **API & MCP Access** add-on (*Settings → Add-ons*), then create an app under *Development → Add app*. You get a client ID and a client secret.
 
-**2. Choose the environment.** All clients read the API address from `PESCHECK_BASE_URL`. If it is not set, they use production.
-
-```bash
-export PESCHECK_BASE_URL=https://api-staging.pescheck.io
-```
-
-**3. Get an access token.**
+**2. Get an access token** from the environment you want to use (staging while you integrate):
 
 ```bash
-curl -X POST "$PESCHECK_BASE_URL/api/o/token/" \
+curl -X POST https://api-staging.pescheck.io/api/o/token/ \
   -d grant_type=client_credentials \
   -d client_id=YOUR_CLIENT_ID \
   -d client_secret=YOUR_CLIENT_SECRET
 # {"access_token": "...", "token_type": "Bearer", "expires_in": 3600}
 ```
 
-**4. Call the API.** Python shown; the other languages work the same way.
+Copy the `access_token` (it is valid for one hour), and point the client at the same environment:
+
+```bash
+export PESCHECK_BASE_URL=https://api-staging.pescheck.io
+export PESCHECK_ACCESS_TOKEN=paste-the-access-token-here
+```
+
+**3. Make your first call.** Python shown; every client's README (under [`clients/`](clients/), and on its package registry) has the same quickstart in its own language.
 
 ```python
+import os
 import pescheck
-from pescheck.api.checks_api import ChecksApi
 
-cfg = pescheck.Configuration() # uses PESCHECK_BASE_URL
-cfg.access_token = "YOUR_ACCESS_TOKEN"
-with pescheck.ApiClient(cfg) as client:
-    print(ChecksApi(client).v2_checks_list())
+config = pescheck.Configuration() # host from PESCHECK_BASE_URL
+config.access_token = os.environ["PESCHECK_ACCESS_TOKEN"]
+
+with pescheck.ApiClient(config) as client:
+    checks = pescheck.ChecksApi(client).v2_checks_list()
+    print(f"{len(checks)} check types available")
 ```
+
+**4. Go live.** Use your production credentials and request the token from `https://api.pescheck.io/api/o/token/`. Then unset `PESCHECK_BASE_URL`: the clients use production by default. Your code does not change.
 
 ## Environments
 
