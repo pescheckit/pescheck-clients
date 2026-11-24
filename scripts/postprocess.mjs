@@ -265,7 +265,8 @@ function patchFile(rel, pairs) {
   let changed = false;
   for (const [from, to] of pairs) {
     if (s.includes(to)) continue; // already patched
-    if (!s.includes(from)) {
+    const found = from instanceof RegExp ? from.test(s) : s.includes(from);
+    if (!found) {
       throw new Error(`postprocess: PESCHECK_BASE_URL anchor not found in ${rel}:\n${from}`);
     }
     s = s.replace(from, to);
@@ -394,9 +395,10 @@ envPatched += patchFile("clients/java/src/main/java/io/pescheck/client/ApiClient
     `    protected Integer serverIndex = envBasePath() != null ? null : 0;\n`,
   ],
   // OAuth token endpoint must follow the API host, or staging users would
-  // fetch tokens from production.
+  // fetch tokens from production. The generator bakes in the tokenUrl of
+  // whichever schema was fetched (prod, staging, localhost...), so match any.
   [
-    `String tokenUrl = "${PROD}/api/o/token/";`,
+    /String tokenUrl = "[^"]*\/api\/o\/token\/";/,
     `String tokenUrl = getBasePath() + "/api/o/token/";`,
   ],
 ]);
