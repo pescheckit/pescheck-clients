@@ -235,12 +235,24 @@ jobs:
           dotnet nuget push "./artifacts/*.nupkg" \
             --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json --skip-duplicate
-      - name: Verify from registry (exact version)
-        uses: ./.github/actions/verify-from-registry
-        with:
-          ecosystem: nuget
-          package: Pescheck.Client
-          version: ${{ github.event.release.tag_name || inputs.version || github.ref_name }}
+      # NuGet scans every upload for 10+ minutes before it can be installed, so
+      # don't wait for that: a rejected push already fails the step above, and
+      # this only checks that NuGet knows this exact version.
+      - name: Check published on NuGet
+        working-directory: clients/csharp
+        run: |
+          VER=$(grep -oPm1 '(?<=<Version>)[^<]+' src/Pescheck.Client/Pescheck.Client.csproj)
+          PAGE="https://www.nuget.org/packages/Pescheck.Client/$VER"
+          for i in 1 2 3; do
+            if curl -fsS -o /dev/null "https://api.nuget.org/v3/registration5-semver1/pescheck.client/$VER.json"; then
+              echo "Published: $PAGE"; exit 0
+            fi
+            if curl -fsSL "$PAGE" | grep -q "Pescheck.Client $VER" && ! curl -fsSL "$PAGE" | grep -q "version $VER was not found"; then
+              echo "Published (NuGet is still scanning it): $PAGE"; exit 0
+            fi
+            sleep 10
+          done
+          echo "::warning::NuGet accepted the push of Pescheck.Client $VER but does not list it yet (still processing): $PAGE"
 
   python:
     runs-on: ubuntu-latest
