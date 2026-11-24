@@ -6,7 +6,7 @@ and list check types via `GET /api/v2/checks/`.
 ## Environment
 
 | Variable | Description |
-| -------- | ----------- |
+| --- | --- |
 | `PESCHECK_BASE_URL` | API base URL, e.g. `https://api.pescheck.io` |
 | `PESCHECK_ACCESS_TOKEN` | OAuth2 / JWT bearer access token |
 

@@ -454,3 +454,51 @@ console.log(
     `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +
     `manifest metadata fixed in ${manifests} file(s)`
 );
+
+// Tidy whitespace in every README (root, examples/, and the generated client
+// READMEs, which openapi-generator emits with trailing spaces, tabs, padded
+// cells and runs of blank lines). Runs on every regen so it never comes back.
+//   - trailing spaces/tabs removed
+//   - tabs -> 4 spaces (leading) or a single space (inline)
+//   - runs of 2+ spaces inside a line -> one space (indentation is kept)
+//   - markdown table cells unpadded, separator rows -> `---`
+//   - 2+ blank lines -> 1, file ends with exactly one newline
+function tidyMarkdown(text) {
+  const lines = text.replace(/\r\n/g, "\n").split("\n").map((line) => {
+    const indent = line.match(/^[ \t]*/)[0].replace(/\t/g, "    ");
+    let body = line.slice(line.match(/^[ \t]*/)[0].length).replace(/[ \t]+$/, "");
+    body = body.replace(/\t/g, " ").replace(/ {2,}/g, " ");
+    if (/^\|.*\|$/.test(body)) {
+      const cells = body.slice(1, -1).split("|").map((c) => c.trim());
+      const sep = cells.every((c) => /^:?-+:?$/.test(c));
+      body = "| " + cells.map((c) => (sep ? c.replace(/-+/, "---") : c)).join(" | ") + " |";
+    }
+    return body ? indent + body : "";
+  });
+  return lines.join("\n").replace(/\n{3,}/g, "\n\n").replace(/\n*$/, "\n");
+}
+let tidied = 0;
+const readmes = [resolve(root, "README.md")];
+for (const base of ["clients", "examples"]) {
+  try {
+    for (const d of readdirSync(resolve(root, base), { withFileTypes: true })) {
+      if (d.isDirectory()) readmes.push(resolve(root, base, d.name, "README.md"));
+    }
+  } catch {
+    /* dir missing */
+  }
+}
+for (const file of readmes) {
+  let c;
+  try {
+    c = readFileSync(file, "utf8");
+  } catch {
+    continue;
+  }
+  const t = tidyMarkdown(c);
+  if (t !== c) {
+    writeFileSync(file, t);
+    tidied++;
+  }
+}
+console.log(`postprocess: tidied whitespace in ${tidied} README(s)`);

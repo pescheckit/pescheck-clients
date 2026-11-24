@@ -16,7 +16,6 @@ npm install @pescheckit/pescheck-client --save
 
 Next, try it out.
 
-
 ```ts
 import {
   Configuration,
@@ -26,7 +25,7 @@ import type { GenerateJWTToken2Request } from '@pescheckit/pescheck-client';
 
 async function example() {
   console.log("🚀 Testing @pescheckit/pescheck-client SDK...");
-  const config = new Configuration({ 
+  const config = new Configuration({
     // To configure OAuth2 access token for authorization: oauth2 application
     accessToken: "YOUR ACCESS TOKEN",
   });
@@ -49,7 +48,6 @@ async function example() {
 example().catch(console.error);
 ```
 
-
 ## Documentation
 
 ### API Endpoints
@@ -58,34 +56,33 @@ All URIs are relative to *https://api.pescheck.io*
 
 | Class | Method | HTTP request | Description
 | ----- | ------ | ------------ | -------------
-*AuthenticationApi* | [**generateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ | 
-*AuthenticationApi* | [**jwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ | 
-*AuthenticationApi* | [**jwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ | 
-*ChecksApi* | [**v2ChecksList**](docs/ChecksApi.md#v2checkslist) | **GET** /api/v2/checks/ | 
-*ChecksApi* | [**v2ChecksRetrieve**](docs/ChecksApi.md#v2checksretrieve) | **GET** /api/v2/checks/{check_type}/ | 
-*DivisionsApi* | [**v2OrganisationsDivisionsCreate**](docs/DivisionsApi.md#v2organisationsdivisionscreate) | **POST** /api/v2/organisations/divisions/ | 
-*DivisionsApi* | [**v2OrganisationsDivisionsList**](docs/DivisionsApi.md#v2organisationsdivisionslist) | **GET** /api/v2/organisations/divisions/ | 
-*DivisionsApi* | [**v2OrganisationsDivisionsPartialUpdate**](docs/DivisionsApi.md#v2organisationsdivisionspartialupdate) | **PATCH** /api/v2/organisations/divisions/{id}/ | 
-*DivisionsApi* | [**v2OrganisationsDivisionsRetrieve**](docs/DivisionsApi.md#v2organisationsdivisionsretrieve) | **GET** /api/v2/organisations/divisions/{id}/ | 
-*DivisionsApi* | [**v2OrganisationsDivisionsUpdate**](docs/DivisionsApi.md#v2organisationsdivisionsupdate) | **PUT** /api/v2/organisations/divisions/{id}/ | 
-*OAuthApi* | [**createOAuthApplication2**](docs/OAuthApi.md#createoauthapplication2) | **POST** /api/v2/oauth/applications/ | 
-*OAuthApi* | [**deleteOAuthApplication2**](docs/OAuthApi.md#deleteoauthapplication2) | **DELETE** /api/v2/oauth/applications/{application_id}/ | 
-*OAuthApi* | [**listOAuthApplications2**](docs/OAuthApi.md#listoauthapplications2) | **GET** /api/v2/oauth/applications/list/ | 
-*ProfilesApi* | [**v2ProfilesCreate**](docs/ProfilesApi.md#v2profilescreate) | **POST** /api/v2/profiles/ | 
-*ProfilesApi* | [**v2ProfilesDestroy**](docs/ProfilesApi.md#v2profilesdestroy) | **DELETE** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**v2ProfilesList**](docs/ProfilesApi.md#v2profileslist) | **GET** /api/v2/profiles/ | 
-*ProfilesApi* | [**v2ProfilesPartialUpdate**](docs/ProfilesApi.md#v2profilespartialupdate) | **PATCH** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**v2ProfilesRetrieve**](docs/ProfilesApi.md#v2profilesretrieve) | **GET** /api/v2/profiles/{id}/ | 
-*ProfilesApi* | [**v2ProfilesUpdate**](docs/ProfilesApi.md#v2profilesupdate) | **PUT** /api/v2/profiles/{id}/ | 
-*ScreeningsApi* | [**v2ScreeningsCreate**](docs/ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ | 
+*AuthenticationApi* | [**generateJWTToken2**](docs/AuthenticationApi.md#generatejwttoken2) | **POST** /api/v2/jwt/generate/ |
+*AuthenticationApi* | [**jwtCreate**](docs/AuthenticationApi.md#jwtcreate) | **POST** /api/jwt/ |
+*AuthenticationApi* | [**jwtRefreshCreate**](docs/AuthenticationApi.md#jwtrefreshcreate) | **POST** /api/jwt/refresh/ |
+*ChecksApi* | [**v2ChecksList**](docs/ChecksApi.md#v2checkslist) | **GET** /api/v2/checks/ |
+*ChecksApi* | [**v2ChecksRetrieve**](docs/ChecksApi.md#v2checksretrieve) | **GET** /api/v2/checks/{check_type}/ |
+*DivisionsApi* | [**v2OrganisationsDivisionsCreate**](docs/DivisionsApi.md#v2organisationsdivisionscreate) | **POST** /api/v2/organisations/divisions/ |
+*DivisionsApi* | [**v2OrganisationsDivisionsList**](docs/DivisionsApi.md#v2organisationsdivisionslist) | **GET** /api/v2/organisations/divisions/ |
+*DivisionsApi* | [**v2OrganisationsDivisionsPartialUpdate**](docs/DivisionsApi.md#v2organisationsdivisionspartialupdate) | **PATCH** /api/v2/organisations/divisions/{id}/ |
+*DivisionsApi* | [**v2OrganisationsDivisionsRetrieve**](docs/DivisionsApi.md#v2organisationsdivisionsretrieve) | **GET** /api/v2/organisations/divisions/{id}/ |
+*DivisionsApi* | [**v2OrganisationsDivisionsUpdate**](docs/DivisionsApi.md#v2organisationsdivisionsupdate) | **PUT** /api/v2/organisations/divisions/{id}/ |
+*OAuthApi* | [**createOAuthApplication2**](docs/OAuthApi.md#createoauthapplication2) | **POST** /api/v2/oauth/applications/ |
+*OAuthApi* | [**deleteOAuthApplication2**](docs/OAuthApi.md#deleteoauthapplication2) | **DELETE** /api/v2/oauth/applications/{application_id}/ |
+*OAuthApi* | [**listOAuthApplications2**](docs/OAuthApi.md#listoauthapplications2) | **GET** /api/v2/oauth/applications/list/ |
+*ProfilesApi* | [**v2ProfilesCreate**](docs/ProfilesApi.md#v2profilescreate) | **POST** /api/v2/profiles/ |
+*ProfilesApi* | [**v2ProfilesDestroy**](docs/ProfilesApi.md#v2profilesdestroy) | **DELETE** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**v2ProfilesList**](docs/ProfilesApi.md#v2profileslist) | **GET** /api/v2/profiles/ |
+*ProfilesApi* | [**v2ProfilesPartialUpdate**](docs/ProfilesApi.md#v2profilespartialupdate) | **PATCH** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**v2ProfilesRetrieve**](docs/ProfilesApi.md#v2profilesretrieve) | **GET** /api/v2/profiles/{id}/ |
+*ProfilesApi* | [**v2ProfilesUpdate**](docs/ProfilesApi.md#v2profilesupdate) | **PUT** /api/v2/profiles/{id}/ |
+*ScreeningsApi* | [**v2ScreeningsCreate**](docs/ScreeningsApi.md#v2screeningscreate) | **POST** /api/v2/screenings/ |
 *ScreeningsApi* | [**v2ScreeningsDocumentsList**](docs/ScreeningsApi.md#v2screeningsdocumentslist) | **GET** /api/v2/screenings/{id}/documents/ | Retrieve screening documents
-*ScreeningsApi* | [**v2ScreeningsList**](docs/ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ | 
-*ScreeningsApi* | [**v2ScreeningsRetrieve**](docs/ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ | 
-*WebhooksApi* | [**createWebhook2**](docs/WebhooksApi.md#createwebhook2) | **POST** /api/v2/webhooks/ | 
-*WebhooksApi* | [**deleteWebhook2**](docs/WebhooksApi.md#deletewebhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ | 
-*WebhooksApi* | [**listWebhooks2**](docs/WebhooksApi.md#listwebhooks2) | **GET** /api/v2/webhooks/list/ | 
-*WebhooksApi* | [**verifyWebhook2**](docs/WebhooksApi.md#verifywebhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ | 
-
+*ScreeningsApi* | [**v2ScreeningsList**](docs/ScreeningsApi.md#v2screeningslist) | **GET** /api/v2/screenings/ |
+*ScreeningsApi* | [**v2ScreeningsRetrieve**](docs/ScreeningsApi.md#v2screeningsretrieve) | **GET** /api/v2/screenings/{id}/ |
+*WebhooksApi* | [**createWebhook2**](docs/WebhooksApi.md#createwebhook2) | **POST** /api/v2/webhooks/ |
+*WebhooksApi* | [**deleteWebhook2**](docs/WebhooksApi.md#deletewebhook2) | **DELETE** /api/v2/webhooks/{webhook_id}/ |
+*WebhooksApi* | [**listWebhooks2**](docs/WebhooksApi.md#listwebhooks2) | **GET** /api/v2/webhooks/list/ |
+*WebhooksApi* | [**verifyWebhook2**](docs/WebhooksApi.md#verifywebhook2) | **POST** /api/v2/webhooks/{webhook_id}/verify/ |
 
 ### Models
 
@@ -130,28 +127,24 @@ All URIs are relative to *https://api.pescheck.io*
 
 ### Authorization
 
-
 Authentication schemes defined for the API:
 <a id="cookieAuth"></a>
 #### cookieAuth
 
-
 - **Type**: API key
 - **API key parameter name**: `__Secure-sessionid`
-- **Location**: 
+- **Location**:
 <a id="jwtAuth"></a>
 #### jwtAuth
-
 
 - **Type**: HTTP Bearer Token authentication (JWT)
 <a id="oauth2-application"></a>
 #### oauth2 application
 
-
 - **Type**: OAuth
 - **Flow**: application
-- **Authorization URL**: 
-- **Scopes**: 
+- **Authorization URL**:
+- **Scopes**:
   - `read:api`: read groups
   - `create:api`: create groups
   - `update:api`: update groups
@@ -179,7 +172,6 @@ The generated npm module supports the following:
 - Module systems
   * CommonJS
   * ES6 module system
-
 
 ## Development
 

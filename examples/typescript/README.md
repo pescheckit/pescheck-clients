@@ -6,7 +6,7 @@ Minimal smoke test for the `@pescheckit/pescheck-client` TypeScript client
 ## Environment
 
 | Variable | Description |
-| -------- | ----------- |
+| --- | --- |
 | `PESCHECK_BASE_URL` | API base URL, e.g. `https://api.pescheck.io` |
 | `PESCHECK_ACCESS_TOKEN` | OAuth2 / JWT bearer access token |
 
