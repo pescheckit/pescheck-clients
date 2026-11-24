@@ -7,14 +7,16 @@ name: Publish clients
 #
 # Tokens/flags (Settings -> Secrets and variables -> Actions):
 #   CARGO_REGISTRY_TOKEN  RUBYGEMS_API_KEY  PACKAGIST_TOKEN  (secrets)
-#   PUBLISH_NUGET=true  PUBLISH_PYPI=true  (variables, OIDC trusted publishing)
+# PyPI and NuGet use OIDC trusted publishing too (configured on pypi.org and
+# nuget.org for this repo + publish.yml), so they always publish: no switch.
 # npm (TypeScript + JavaScript) uses OIDC trusted publishing: no token. It is
 # configured per package on npmjs.com (Settings -> Trusted Publisher: GitHub
 # Actions, pescheckit/pescheck-clients, publish.yml). npm write tokens expire
 # after at most 90 days, which is why the token-based publish broke.
 #
 # Manual run (workflow_dispatch): re-publish an existing release, e.g. after a
-# registry failed: version=0.5.0, only=npm publishes just the npm packages.
+# registry failed: version=0.5.0, only=npm publishes just the npm packages
+# (only=python: just PyPI).
 # Java -> GitHub Packages, Go -> tag, C++ -> release asset use the built-in token.
 on:
   release:
@@ -27,7 +29,7 @@ on:
       only:
         description: Publish only these registries
         type: choice
-        options: [all, npm]
+        options: [all, npm, python]
         default: all
 
 env:
@@ -42,6 +44,7 @@ jobs:
 
   typescript:
     runs-on: ubuntu-latest
+    if: (!inputs.only || inputs.only == 'all' || inputs.only == 'npm')
     needs: test
     permissions:
       contents: read
@@ -77,6 +80,7 @@ jobs:
 
   javascript:
     runs-on: ubuntu-latest
+    if: (!inputs.only || inputs.only == 'all' || inputs.only == 'npm')
     needs: test
     permissions:
       contents: read
@@ -109,7 +113,7 @@ jobs:
 
   ruby:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all')
     needs: test
     env:
       RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
@@ -149,7 +153,7 @@ jobs:
 
   rust:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all')
     needs: test
     env:
       CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
@@ -182,7 +186,7 @@ jobs:
 
   php:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all')
     needs: test
     steps:
       - uses: actions/checkout@v7
@@ -205,7 +209,7 @@ jobs:
 
   csharp:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all')
     needs: test
     permissions:
       id-token: write # NuGet trusted publishing (OIDC)
@@ -221,12 +225,10 @@ jobs:
         run: dotnet build -c Release
       - name: NuGet login (OIDC trusted publishing)
         id: nugetlogin
-        if: vars.PUBLISH_NUGET == 'true'
         uses: NuGet/login@v1
         with:
           user: pescheck-bram
       - name: Publish
-        if: vars.PUBLISH_NUGET == 'true'
         working-directory: clients/csharp
         run: |
           dotnet pack -c Release -o ./artifacts
@@ -234,7 +236,6 @@ jobs:
             --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}" \
             --source https://api.nuget.org/v3/index.json --skip-duplicate
       - name: Verify from registry (exact version)
-        if: vars.PUBLISH_NUGET == 'true'
         uses: ./.github/actions/verify-from-registry
         with:
           ecosystem: nuget
@@ -243,7 +244,7 @@ jobs:
 
   python:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all' || inputs.only == 'python')
     needs: test
     permissions:
       id-token: write # PyPI trusted publishing (OIDC) - no token, no nag summary
@@ -261,13 +262,11 @@ jobs:
           python -m pip install --upgrade build
           python -m build
       - name: Publish (OIDC trusted publishing)
-        if: vars.PUBLISH_PYPI == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           packages-dir: clients/python/dist
           skip-existing: true
       - name: Verify from registry (exact version)
-        if: vars.PUBLISH_PYPI == 'true'
         uses: ./.github/actions/verify-from-registry
         with:
           ecosystem: pypi
@@ -277,7 +276,7 @@ jobs:
   # Java -> GitHub Packages (built-in token). Maven Central later (needs GPG).
   java:
     runs-on: ubuntu-latest
-    if: inputs.only != 'npm'
+    if: (!inputs.only || inputs.only == 'all')
     needs: test
     permissions:
       contents: read
