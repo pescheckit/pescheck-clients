@@ -77,13 +77,7 @@ runs:
         # new version can lag well beyond any reasonable CI wait. The tag is the
         # source of truth, so for packagist we do a short check and treat a
         # not-yet-crawled version as a WARNING, not a failure.
-        # NuGet validates and scans every upload before it can be installed; that
-        # regularly takes 10-15 minutes, so it gets a longer window.
-        case "$ECO" in
-          packagist) ATTEMPTS=2; SLEEP=15 ;;
-          nuget)     ATTEMPTS=20; SLEEP=60 ;;
-          *)         ATTEMPTS=6; SLEEP=60 ;;
-        esac
+        if [ "$ECO" = "packagist" ]; then ATTEMPTS=2; SLEEP=15; else ATTEMPTS=6; SLEEP=60; fi
 
         # Retry BOTH the exact-version install and the registry version-list check
         # (each absorbs propagation lag independently).
