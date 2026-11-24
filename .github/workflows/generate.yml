@@ -1,18 +1,25 @@
 name: Regenerate clients
 
-# Re-fetch the upstream OpenAPI schema, filter it to v2, regenerate all 10
-# clients, and - if that drifts from what's committed (the upstream API changed) -
-# open a PULL REQUEST with the regenerated spec/ + clients/ for review. CI does
-# the regeneration; a human reviews + merges, so you stay in control. Does NOT
-# commit to main directly.
+# Re-fetch the upstream OpenAPI (Swagger) schema, filter it to v2, regenerate all
+# 10 clients with openapi-generator, and - if that drifts from what's committed
+# (the upstream API changed) - open/update a PULL REQUEST with the regenerated
+# spec/ + clients/, then run the build + e2e checks on it. A human merges, so you
+# stay in control. Does NOT commit to main directly.
 on:
   workflow_dispatch:
+  # Let the API repo trigger a regen right after it deploys to staging:
+  #   gh api repos/pescheckit/pescheck-clients/dispatches -f event_type=openapi-schema-changed
+  repository_dispatch:
+    types: [openapi-schema-changed]
   schedule:
-    - cron: "0 6 * * 1" # every Monday 06:00 UTC
+    # Daily, one hour BEFORE the daily e2e run (05:00 UTC), so an API change on
+    # staging gets a regen PR the same day instead of up to a week of red e2e.
+    - cron: "0 4 * * *"
 
 permissions:
   contents: write
   pull-requests: write
+  actions: write # dispatch build/e2e on the regen PR (see last step)
 
 jobs:
   regenerate:
@@ -49,6 +56,7 @@ jobs:
       # Opens (or updates) a PR only if spec/ or clients/ actually changed;
       # a no-op when there's no drift. Review the diff and merge to adopt.
       - name: Open PR if the clients drifted
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -66,9 +74,21 @@ jobs:
             Review the diff and merge to adopt the changes. If nothing here looks
             intentional, close the PR and investigate the upstream schema change.
 
-            > Note: this PR is created with the built-in `GITHUB_TOKEN`, so the
-            > e2e/build checks do not auto-run on it (GitHub blocks token-created
-            > PRs from triggering workflows). They run on `main` after you merge.
+            The **Build clients** and **E2E tests** checks are started on this
+            branch automatically by the regenerate workflow; merge once they pass.
           labels: |
             automated
             codegen
+
+      # Events made with GITHUB_TOKEN (like the push/PR above) do not start other
+      # workflows - except workflow_dispatch. So start the checks explicitly; their
+      # runs are attached to the PR's head commit and show up on the PR.
+      - name: Run build + e2e on the regen PR
+        if: steps.cpr.outputs.pull-request-operation == 'created' || steps.cpr.outputs.pull-request-operation == 'updated'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: automated/regenerate-clients
+        run: |
+          gh workflow run build.yml --ref "$BRANCH"
+          gh workflow run e2e.yml --ref "$BRANCH"
+          echo "Started build + e2e on $BRANCH for PR ${{ steps.cpr.outputs.pull-request-url }}"

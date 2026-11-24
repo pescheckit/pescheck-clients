@@ -419,6 +419,36 @@ envPatched += patchFile("clients/cpp/src/ApiConfiguration.cpp", [
 ]);
 console.log(`postprocess: PESCHECK_BASE_URL default host wired into ${envPatched} client(s)`);
 
+// Tell registry readers (PyPI, npm, NuGet, ...) about PESCHECK_BASE_URL: the
+// generated README only says the host "defaults to https://api.pescheck.io"
+// and its examples set the host explicitly, which would override the variable.
+const ENV_NOTE =
+  "> **Choosing the environment:** the default host is read from the `PESCHECK_BASE_URL` " +
+  "environment variable and falls back to production (`https://api.pescheck.io`). Set " +
+  "`PESCHECK_BASE_URL=https://api-staging.pescheck.io` while integrating, then unset it to go " +
+  "live, with no code change. Request your OAuth2 token from the same host " +
+  "(`$PESCHECK_BASE_URL/api/o/token/`). Setting the host explicitly in code, as some examples " +
+  "below do, overrides the variable.\n\n";
+let envNoted = 0;
+try {
+  for (const lang of readdirSync(resolve(root, "clients"))) {
+    const readme = resolve(root, "clients", lang, "README.md");
+    let c;
+    try {
+      c = readFileSync(readme, "utf8");
+    } catch {
+      continue;
+    }
+    if (!c.includes("PESCHECK_BASE_URL") && c.startsWith(OFFICIAL_BANNER)) {
+      writeFileSync(readme, OFFICIAL_BANNER + ENV_NOTE + c.slice(OFFICIAL_BANNER.length));
+      envNoted++;
+    }
+  }
+} catch {
+  /* no clients */
+}
+console.log(`postprocess: PESCHECK_BASE_URL note added to ${envNoted} client README(s)`);
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
     `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +

@@ -65,7 +65,7 @@ the OAuth2 token exchange themselves - obtain a token first, then set it on the 
 ### OAuth2 client credentials
 
 ```bash
-curl -X POST https://api.pescheck.io/api/o/token/ \
+curl -X POST "${PESCHECK_BASE_URL:-https://api.pescheck.io}/api/o/token/" \
   -d grant_type=client_credentials \
   -d client_id=YOUR_CLIENT_ID \
   -d client_secret=YOUR_CLIENT_SECRET
@@ -78,7 +78,7 @@ Use the returned `access_token` as the bearer token. Example (Python):
 import pescheck
 from pescheck.api.checks_api import ChecksApi
 
-cfg = pescheck.Configuration(host="https://api.pescheck.io")
+cfg = pescheck.Configuration()          # host: $PESCHECK_BASE_URL, else production
 cfg.access_token = "YOUR_ACCESS_TOKEN"   # from the token endpoint above
 with pescheck.ApiClient(cfg) as client:
     print(ChecksApi(client).v2_checks_list())
@@ -87,7 +87,7 @@ with pescheck.ApiClient(cfg) as client:
 ### JWT bearer (user-scoped)
 
 ```bash
-curl -X POST https://api.pescheck.io/api/jwt/ \
+curl -X POST "${PESCHECK_BASE_URL:-https://api.pescheck.io}/api/jwt/" \
   -H "Content-Type: application/json" \
   -d '{"email":"you@example.com","password":"…"}'
 # -> { "access": "<jwt>", "refresh": "<jwt>" }
