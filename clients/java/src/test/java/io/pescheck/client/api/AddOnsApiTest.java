@@ -42,7 +42,9 @@ public class AddOnsApiTest {
     @Test
     public void v2OrganisationsAddonsListTest() throws ApiException {
         String divisionId = null;
-        List<OrganisationAddon> response = api.v2OrganisationsAddonsList(divisionId);
+        List<OrganisationAddon> response = api.v2OrganisationsAddonsList()
+                .divisionId(divisionId)
+                .execute();
         // TODO: test validations
     }
 
@@ -56,7 +58,10 @@ public class AddOnsApiTest {
         String addon = null;
         String divisionId = null;
         PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate = null;
-        OrganisationAddonUpdateResult response = api.v2OrganisationsAddonsPartialUpdate(addon, divisionId, patchedOrganisationAddonUpdate);
+        OrganisationAddonUpdateResult response = api.v2OrganisationsAddonsPartialUpdate(addon)
+                .divisionId(divisionId)
+                .patchedOrganisationAddonUpdate(patchedOrganisationAddonUpdate)
+                .execute();
         // TODO: test validations
     }
 
@@ -69,7 +74,9 @@ public class AddOnsApiTest {
     public void v2OrganisationsAddonsRetrieveTest() throws ApiException {
         String addon = null;
         String divisionId = null;
-        OrganisationAddon response = api.v2OrganisationsAddonsRetrieve(addon, divisionId);
+        OrganisationAddon response = api.v2OrganisationsAddonsRetrieve(addon)
+                .divisionId(divisionId)
+                .execute();
         // TODO: test validations
     }
 
@@ -83,7 +90,9 @@ public class AddOnsApiTest {
         String addon = null;
         OrganisationAddonUpdate organisationAddonUpdate = null;
         String divisionId = null;
-        OrganisationAddonUpdateResult response = api.v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate, divisionId);
+        OrganisationAddonUpdateResult response = api.v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate)
+                .divisionId(divisionId)
+                .execute();
         // TODO: test validations
     }
 

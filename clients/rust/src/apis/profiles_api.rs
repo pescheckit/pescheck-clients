@@ -14,6 +14,61 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`v2_profiles_create`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesCreateParams {
+    pub v2_profile_create: models::V2ProfileCreate
+}
+
+/// struct for passing parameters to the method [`v2_profiles_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesDestroyParams {
+    /// A UUID string identifying this profile.
+    pub id: String
+}
+
+/// struct for passing parameters to the method [`v2_profiles_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesListParams {
+    /// Restrict to profiles containing at least one check of this type.
+    pub check_type: Option<String>,
+    /// Restrict to custom (true) or system (false) profiles.
+    pub is_custom: Option<bool>,
+    /// Restrict to profiles whose name contains this value (case-insensitive).
+    pub name: Option<String>,
+    /// A page number within the paginated result set.
+    pub page: Option<i32>,
+    /// Number of results to return per page.
+    pub page_size: Option<i32>,
+    /// Enable/disable pagination. When false, max 500 records returned.
+    pub paginate: Option<bool>,
+    /// Which field to use when ordering the results.
+    pub sort: Option<String>
+}
+
+/// struct for passing parameters to the method [`v2_profiles_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesPartialUpdateParams {
+    /// A UUID string identifying this profile.
+    pub id: String,
+    pub patched_v2_profile_partial_update: Option<models::PatchedV2ProfilePartialUpdate>
+}
+
+/// struct for passing parameters to the method [`v2_profiles_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesRetrieveParams {
+    /// A UUID string identifying this profile.
+    pub id: String
+}
+
+/// struct for passing parameters to the method [`v2_profiles_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ProfilesUpdateParams {
+    /// A UUID string identifying this profile.
+    pub id: String,
+    pub v2_profile_update: models::V2ProfileUpdate
+}
+
 
 /// struct for typed errors of method [`v2_profiles_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -58,9 +113,7 @@ pub enum V2ProfilesUpdateError {
 }
 
 
-pub async fn v2_profiles_create(configuration: &configuration::Configuration, v2_profile_create: models::V2ProfileCreate) -> Result<models::V2ProfileDetail, Error<V2ProfilesCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_v2_profile_create = v2_profile_create;
+pub async fn v2_profiles_create(configuration: &configuration::Configuration, params: V2ProfilesCreateParams) -> Result<models::V2ProfileDetail, Error<V2ProfilesCreateError>> {
 
     let uri_str = format!("{}/api/v2/profiles/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -71,7 +124,7 @@ pub async fn v2_profiles_create(configuration: &configuration::Configuration, v2
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_v2_profile_create);
+    req_builder = req_builder.json(&params.v2_profile_create);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -98,11 +151,9 @@ pub async fn v2_profiles_create(configuration: &configuration::Configuration, v2
     }
 }
 
-pub async fn v2_profiles_destroy(configuration: &configuration::Configuration, id: &str) -> Result<(), Error<V2ProfilesDestroyError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
+pub async fn v2_profiles_destroy(configuration: &configuration::Configuration, params: V2ProfilesDestroyParams) -> Result<(), Error<V2ProfilesDestroyError>> {
 
-    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -126,38 +177,30 @@ pub async fn v2_profiles_destroy(configuration: &configuration::Configuration, i
     }
 }
 
-pub async fn v2_profiles_list(configuration: &configuration::Configuration, check_type: Option<&str>, is_custom: Option<bool>, name: Option<&str>, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>, sort: Option<&str>) -> Result<models::PaginatedV2ProfileListItemList, Error<V2ProfilesListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_check_type = check_type;
-    let p_query_is_custom = is_custom;
-    let p_query_name = name;
-    let p_query_page = page;
-    let p_query_page_size = page_size;
-    let p_query_paginate = paginate;
-    let p_query_sort = sort;
+pub async fn v2_profiles_list(configuration: &configuration::Configuration, params: V2ProfilesListParams) -> Result<models::PaginatedV2ProfileListItemList, Error<V2ProfilesListError>> {
 
     let uri_str = format!("{}/api/v2/profiles/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_check_type {
+    if let Some(ref param_value) = params.check_type {
         req_builder = req_builder.query(&[("check_type", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_is_custom {
+    if let Some(ref param_value) = params.is_custom {
         req_builder = req_builder.query(&[("is_custom", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_name {
+    if let Some(ref param_value) = params.name {
         req_builder = req_builder.query(&[("name", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page {
+    if let Some(ref param_value) = params.page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page_size {
+    if let Some(ref param_value) = params.page_size {
         req_builder = req_builder.query(&[("page_size", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_paginate {
+    if let Some(ref param_value) = params.paginate {
         req_builder = req_builder.query(&[("paginate", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_sort {
+    if let Some(ref param_value) = params.sort {
         req_builder = req_builder.query(&[("sort", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -193,12 +236,9 @@ pub async fn v2_profiles_list(configuration: &configuration::Configuration, chec
 }
 
 /// Update name and/or description only. Use PUT to change the check list.
-pub async fn v2_profiles_partial_update(configuration: &configuration::Configuration, id: &str, patched_v2_profile_partial_update: Option<models::PatchedV2ProfilePartialUpdate>) -> Result<models::V2ProfileDetail, Error<V2ProfilesPartialUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_patched_v2_profile_partial_update = patched_v2_profile_partial_update;
+pub async fn v2_profiles_partial_update(configuration: &configuration::Configuration, params: V2ProfilesPartialUpdateParams) -> Result<models::V2ProfileDetail, Error<V2ProfilesPartialUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -207,7 +247,7 @@ pub async fn v2_profiles_partial_update(configuration: &configuration::Configura
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_patched_v2_profile_partial_update);
+    req_builder = req_builder.json(&params.patched_v2_profile_partial_update);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -234,11 +274,9 @@ pub async fn v2_profiles_partial_update(configuration: &configuration::Configura
     }
 }
 
-pub async fn v2_profiles_retrieve(configuration: &configuration::Configuration, id: &str) -> Result<models::V2ProfileDetail, Error<V2ProfilesRetrieveError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
+pub async fn v2_profiles_retrieve(configuration: &configuration::Configuration, params: V2ProfilesRetrieveParams) -> Result<models::V2ProfileDetail, Error<V2ProfilesRetrieveError>> {
 
-    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -274,12 +312,9 @@ pub async fn v2_profiles_retrieve(configuration: &configuration::Configuration, 
 }
 
 /// Replace the profile. Checks matched by profile_check_id are updated in place; entries without one are added; existing checks not referenced in the request are removed.
-pub async fn v2_profiles_update(configuration: &configuration::Configuration, id: &str, v2_profile_update: models::V2ProfileUpdate) -> Result<models::V2ProfileDetail, Error<V2ProfilesUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_v2_profile_update = v2_profile_update;
+pub async fn v2_profiles_update(configuration: &configuration::Configuration, params: V2ProfilesUpdateParams) -> Result<models::V2ProfileDetail, Error<V2ProfilesUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/profiles/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -288,7 +323,7 @@ pub async fn v2_profiles_update(configuration: &configuration::Configuration, id
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_v2_profile_update);
+    req_builder = req_builder.json(&params.v2_profile_update);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

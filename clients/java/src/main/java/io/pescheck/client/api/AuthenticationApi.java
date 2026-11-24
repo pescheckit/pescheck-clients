@@ -74,23 +74,7 @@ public class AuthenticationApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for generateJWTToken2
-     * @param jwTGeneration  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call generateJWTToken2Call(@javax.annotation.Nonnull JWTGeneration jwTGeneration, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call generateJWTToken2Call(@javax.annotation.Nonnull JWTGeneration jwTGeneration, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -147,87 +131,124 @@ public class AuthenticationApi {
 
     }
 
-    /**
-     * 
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
-     * @param jwTGeneration  (required)
-     * @return JWTResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public JWTResponse generateJWTToken2(@javax.annotation.Nonnull JWTGeneration jwTGeneration) throws ApiException {
-        ApiResponse<JWTResponse> localVarResp = generateJWTToken2WithHttpInfo(jwTGeneration);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
-     * @param jwTGeneration  (required)
-     * @return ApiResponse&lt;JWTResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<JWTResponse> generateJWTToken2WithHttpInfo(@javax.annotation.Nonnull JWTGeneration jwTGeneration) throws ApiException {
+    private ApiResponse<JWTResponse> generateJWTToken2WithHttpInfo(@javax.annotation.Nonnull JWTGeneration jwTGeneration) throws ApiException {
         okhttp3.Call localVarCall = generateJWTToken2ValidateBeforeCall(jwTGeneration, null);
         Type localVarReturnType = new TypeToken<JWTResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
-     * @param jwTGeneration  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call generateJWTToken2Async(@javax.annotation.Nonnull JWTGeneration jwTGeneration, final ApiCallback<JWTResponse> _callback) throws ApiException {
+    private okhttp3.Call generateJWTToken2Async(@javax.annotation.Nonnull JWTGeneration jwTGeneration, final ApiCallback<JWTResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = generateJWTToken2ValidateBeforeCall(jwTGeneration, _callback);
         Type localVarReturnType = new TypeToken<JWTResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIgenerateJWTToken2Request {
+        @javax.annotation.Nonnull
+        private final JWTGeneration jwTGeneration;
+
+        private APIgenerateJWTToken2Request(@javax.annotation.Nonnull JWTGeneration jwTGeneration) {
+            this.jwTGeneration = jwTGeneration;
+        }
+
+        /**
+         * Build call for generateJWTToken2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return generateJWTToken2Call(jwTGeneration, _callback);
+        }
+
+        /**
+         * Execute generateJWTToken2 request
+         * @return JWTResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public JWTResponse execute() throws ApiException {
+            ApiResponse<JWTResponse> localVarResp = generateJWTToken2WithHttpInfo(jwTGeneration);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute generateJWTToken2 request with HTTP info returned
+         * @return ApiResponse&lt;JWTResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<JWTResponse> executeWithHttpInfo() throws ApiException {
+            return generateJWTToken2WithHttpInfo(jwTGeneration);
+        }
+
+        /**
+         * Execute generateJWTToken2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<JWTResponse> _callback) throws ApiException {
+            return generateJWTToken2Async(jwTGeneration, _callback);
+        }
+    }
+
     /**
-     * Build call for jwtRefreshCreate
-     * @param tokenRefresh  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Log in with email + password. Returns a JWT pair scoped to the organization or division specified by organisation_id/division_id. Without it, your single organization is used; accounts with access to more than one organization must specify one.  For a plain login, use POST /api/jwt/.
+     * @param jwTGeneration  (required)
+     * @return APIgenerateJWTToken2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+        <tr><td> 401 </td><td> Unauthorized </td><td>  -  </td></tr>
+        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call jwtRefreshCreateCall(@javax.annotation.Nonnull TokenRefresh tokenRefresh, final ApiCallback _callback) throws ApiException {
+    public APIgenerateJWTToken2Request generateJWTToken2(@javax.annotation.Nonnull JWTGeneration jwTGeneration) {
+        return new APIgenerateJWTToken2Request(jwTGeneration);
+    }
+    private okhttp3.Call jwtRefreshCreateCall(@javax.annotation.Nonnull TokenRefresh tokenRefresh, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -284,50 +305,98 @@ public class AuthenticationApi {
 
     }
 
-    /**
-     * 
-     * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-     * @param tokenRefresh  (required)
-     * @return TokenRefresh
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public TokenRefresh jwtRefreshCreate(@javax.annotation.Nonnull TokenRefresh tokenRefresh) throws ApiException {
-        ApiResponse<TokenRefresh> localVarResp = jwtRefreshCreateWithHttpInfo(tokenRefresh);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
-     * @param tokenRefresh  (required)
-     * @return ApiResponse&lt;TokenRefresh&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<TokenRefresh> jwtRefreshCreateWithHttpInfo(@javax.annotation.Nonnull TokenRefresh tokenRefresh) throws ApiException {
+    private ApiResponse<TokenRefresh> jwtRefreshCreateWithHttpInfo(@javax.annotation.Nonnull TokenRefresh tokenRefresh) throws ApiException {
         okhttp3.Call localVarCall = jwtRefreshCreateValidateBeforeCall(tokenRefresh, null);
         Type localVarReturnType = new TypeToken<TokenRefresh>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call jwtRefreshCreateAsync(@javax.annotation.Nonnull TokenRefresh tokenRefresh, final ApiCallback<TokenRefresh> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = jwtRefreshCreateValidateBeforeCall(tokenRefresh, _callback);
+        Type localVarReturnType = new TypeToken<TokenRefresh>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIjwtRefreshCreateRequest {
+        @javax.annotation.Nonnull
+        private final TokenRefresh tokenRefresh;
+
+        private APIjwtRefreshCreateRequest(@javax.annotation.Nonnull TokenRefresh tokenRefresh) {
+            this.tokenRefresh = tokenRefresh;
+        }
+
+        /**
+         * Build call for jwtRefreshCreate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return jwtRefreshCreateCall(tokenRefresh, _callback);
+        }
+
+        /**
+         * Execute jwtRefreshCreate request
+         * @return TokenRefresh
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public TokenRefresh execute() throws ApiException {
+            ApiResponse<TokenRefresh> localVarResp = jwtRefreshCreateWithHttpInfo(tokenRefresh);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute jwtRefreshCreate request with HTTP info returned
+         * @return ApiResponse&lt;TokenRefresh&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<TokenRefresh> executeWithHttpInfo() throws ApiException {
+            return jwtRefreshCreateWithHttpInfo(tokenRefresh);
+        }
+
+        /**
+         * Execute jwtRefreshCreate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<TokenRefresh> _callback) throws ApiException {
+            return jwtRefreshCreateAsync(tokenRefresh, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * Takes a refresh type JSON web token and returns an access type JSON web token if the refresh token is valid.
      * @param tokenRefresh  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIjwtRefreshCreateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -335,11 +404,7 @@ public class AuthenticationApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call jwtRefreshCreateAsync(@javax.annotation.Nonnull TokenRefresh tokenRefresh, final ApiCallback<TokenRefresh> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = jwtRefreshCreateValidateBeforeCall(tokenRefresh, _callback);
-        Type localVarReturnType = new TypeToken<TokenRefresh>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIjwtRefreshCreateRequest jwtRefreshCreate(@javax.annotation.Nonnull TokenRefresh tokenRefresh) {
+        return new APIjwtRefreshCreateRequest(tokenRefresh);
     }
 }

@@ -264,63 +264,6 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
         return self::$openAPIModelName;
     }
 
-    public const CHECK_TYPE_ADDRESSCHECK = 'addresscheck';
-    public const CHECK_TYPE_ADVERSEMEDIA2CHECK = 'adversemedia2check';
-    public const CHECK_TYPE_ADVERSEMEDIACHECK = 'adversemediacheck';
-    public const CHECK_TYPE_BIGCHECK = 'bigcheck';
-    public const CHECK_TYPE_CRIMINALRECORDSCHECK = 'criminalrecordscheck';
-    public const CHECK_TYPE_CRIMINALRECORDSUPLOADCHECK = 'criminalrecordsuploadcheck';
-    public const CHECK_TYPE_CUSTOMINTEGRITYCHECK = 'customintegritycheck';
-    public const CHECK_TYPE_CVCHECK = 'cvcheck';
-    public const CHECK_TYPE_EDRCHECK = 'edrcheck';
-    public const CHECK_TYPE_IBANCHECK = 'ibancheck';
-    public const CHECK_TYPE_ID2CHECK = 'id2check';
-    public const CHECK_TYPE_IDCHECK = 'idcheck';
-    public const CHECK_TYPE_INTEGRITYCHECK = 'integritycheck';
-    public const CHECK_TYPE_OPENHEALTHCARECHECK = 'openhealthcarecheck';
-    public const CHECK_TYPE_PERMISSIONCHECK = 'permissioncheck';
-    public const CHECK_TYPE_PESCHECKADVERSEMEDIACHECK = 'pescheckadversemediacheck';
-    public const CHECK_TYPE_QUALIFICATIONCHECK = 'qualificationcheck';
-    public const CHECK_TYPE_RIGHTTOWORKCHECK = 'righttoworkcheck';
-    public const CHECK_TYPE_VOGCHECK = 'vogcheck';
-    public const CHECK_TYPE_WATCHLIST2CHECK = 'watchlist2check';
-    public const CHECK_TYPE_WATCHLISTCHECK = 'watchlistcheck';
-    public const CHECK_TYPE_WORKREFERENCECHECK = 'workreferencecheck';
-    public const CHECK_TYPE_WORLDWIDECREDITCHECK = 'worldwidecreditcheck';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getCheckTypeAllowableValues()
-    {
-        return [
-            self::CHECK_TYPE_ADDRESSCHECK,
-            self::CHECK_TYPE_ADVERSEMEDIA2CHECK,
-            self::CHECK_TYPE_ADVERSEMEDIACHECK,
-            self::CHECK_TYPE_BIGCHECK,
-            self::CHECK_TYPE_CRIMINALRECORDSCHECK,
-            self::CHECK_TYPE_CRIMINALRECORDSUPLOADCHECK,
-            self::CHECK_TYPE_CUSTOMINTEGRITYCHECK,
-            self::CHECK_TYPE_CVCHECK,
-            self::CHECK_TYPE_EDRCHECK,
-            self::CHECK_TYPE_IBANCHECK,
-            self::CHECK_TYPE_ID2CHECK,
-            self::CHECK_TYPE_IDCHECK,
-            self::CHECK_TYPE_INTEGRITYCHECK,
-            self::CHECK_TYPE_OPENHEALTHCARECHECK,
-            self::CHECK_TYPE_PERMISSIONCHECK,
-            self::CHECK_TYPE_PESCHECKADVERSEMEDIACHECK,
-            self::CHECK_TYPE_QUALIFICATIONCHECK,
-            self::CHECK_TYPE_RIGHTTOWORKCHECK,
-            self::CHECK_TYPE_VOGCHECK,
-            self::CHECK_TYPE_WATCHLIST2CHECK,
-            self::CHECK_TYPE_WATCHLISTCHECK,
-            self::CHECK_TYPE_WORKREFERENCECHECK,
-            self::CHECK_TYPE_WORLDWIDECREDITCHECK,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -379,15 +322,6 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
         if ($this->container['check_type'] === null) {
             $invalidProperties[] = "'check_type' can't be null";
         }
-        $allowedValues = $this->getCheckTypeAllowableValues();
-        if (!is_null($this->container['check_type']) && !in_array($this->container['check_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'check_type', must be one of '%s'",
-                $this->container['check_type'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['display_name'] === null) {
             $invalidProperties[] = "'display_name' can't be null";
         }
@@ -465,7 +399,7 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets check_type
      *
-     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param string $check_type * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
      *
      * @return self
      */
@@ -473,16 +407,6 @@ class V2ProfileCheckEntry implements ModelInterface, ArrayAccess, \JsonSerializa
     {
         if (is_null($check_type)) {
             throw new \InvalidArgumentException('non-nullable check_type cannot be null');
-        }
-        $allowedValues = $this->getCheckTypeAllowableValues();
-        if (!in_array($check_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'check_type', must be one of '%s'",
-                    $check_type,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['check_type'] = $check_type;
 

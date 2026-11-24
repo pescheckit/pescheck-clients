@@ -85,7 +85,7 @@ async fn crud_lifecycle() {
 
     // Best-effort cleanup of the profile we created.
     if let Some(pid) = &profile_id {
-        let _ = profiles_api::v2_profiles_destroy(&cfg, pid).await;
+        let _ = profiles_api::v2_profiles_destroy(&cfg, profiles_api::V2ProfilesDestroyParams { id: pid.clone() }).await;
     }
 
     result.expect("CRUD lifecycle failed");
@@ -101,10 +101,10 @@ async fn run_lifecycle(
     let suffix = Uuid::new_v4().simple().to_string()[..8].to_string();
 
     // --- checks: list (non-empty) -> retrieve one ---
-    let check_list = retry_5xx!(checks_api::v2_checks_list(cfg, None))?;
+    let check_list = retry_5xx!(checks_api::v2_checks_list(cfg, Default::default()))?;
     assert!(!check_list.is_empty(), "checks list should be non-empty");
     let check_type = check_list[0].check_type.clone();
-    retry_5xx!(checks_api::v2_checks_retrieve(cfg, &check_type))?;
+    retry_5xx!(checks_api::v2_checks_retrieve(cfg, checks_api::V2ChecksRetrieveParams { check_type: check_type.clone() }))?;
     // V2ProfileCheck wants the CheckType enum; the list gives the wire string.
     let check_type_enum: CheckType =
         serde_json::from_value(serde_json::Value::String(check_type.clone()))?;
@@ -113,31 +113,33 @@ async fn run_lifecycle(
     let profile_name = format!("E2E test profile {suffix}");
     let created = profiles_api::v2_profiles_create(
         cfg,
-        V2ProfileCreate {
+        profiles_api::V2ProfilesCreateParams { v2_profile_create: V2ProfileCreate {
             name: profile_name.clone(),
             description: Some("created by e2e".to_string()),
             checks: vec![V2ProfileCheck {
                 check_type: check_type_enum,
                 config: None,
             }],
-        },
+        } },
     )
     .await?;
     let profile_uuid = created.id;
     let profile_id = profile_uuid.to_string();
     *profile_id_out = Some(profile_id.clone());
 
-    let retrieved = retry_5xx!(profiles_api::v2_profiles_retrieve(cfg, &profile_id))?;
+    let retrieved = retry_5xx!(profiles_api::v2_profiles_retrieve(cfg, profiles_api::V2ProfilesRetrieveParams { id: profile_id.clone() }))?;
     assert_eq!(retrieved.id, profile_uuid, "retrieved profile id mismatch");
     assert_eq!(retrieved.name, profile_name, "retrieved profile name mismatch");
 
     let patched = profiles_api::v2_profiles_partial_update(
         cfg,
-        &profile_id,
-        Some(PatchedV2ProfilePartialUpdate {
-            name: None,
-            description: Some("updated by e2e".to_string()),
-        }),
+        profiles_api::V2ProfilesPartialUpdateParams {
+            id: profile_id.clone(),
+            patched_v2_profile_partial_update: Some(PatchedV2ProfilePartialUpdate {
+                description: Some("updated by e2e".to_string()),
+                ..Default::default()
+            }),
+        },
     )
     .await?;
     assert_eq!(
@@ -157,8 +159,7 @@ async fn run_lifecycle(
     let put_name = format!("E2E test profile {suffix} v2");
     let put_updated = profiles_api::v2_profiles_update(
         cfg,
-        &profile_id,
-        V2ProfileUpdate {
+        profiles_api::V2ProfilesUpdateParams { id: profile_id.clone(), v2_profile_update: V2ProfileUpdate {
             name: put_name.clone(),
             description: Some("put-updated by e2e".to_string()),
             checks: vec![V2ProfileUpdateCheck {
@@ -166,7 +167,7 @@ async fn run_lifecycle(
                 config: None,
                 profile_check_id: existing_check_id,
             }],
-        },
+        } },
     )
     .await?;
     assert_eq!(put_updated.name, put_name, "PUT profile name not applied");
@@ -176,9 +177,7 @@ async fn run_lifecycle(
         "PUT profile description not applied"
     );
 
-    let profiles = retry_5xx!(profiles_api::v2_profiles_list(
-        cfg, None, None, None, None, None, None, None
-    ))?
+    let profiles = retry_5xx!(profiles_api::v2_profiles_list(cfg, Default::default()))?
     .results;
     assert!(
         profiles.iter().any(|p| p.id == profile_uuid),
@@ -188,7 +187,7 @@ async fn run_lifecycle(
     // --- screening: create -> retrieve -> documents ---
     let screening = screenings_api::v2_screenings_create(
         cfg,
-        V2ScreeningCreate {
+        screenings_api::V2ScreeningsCreateParams { v2_screening_create: V2ScreeningCreate {
             profile_id: profile_uuid,
             candidate: Box::new(V2Candidate {
                 first_name: "E2E".to_string(),
@@ -198,7 +197,7 @@ async fn run_lifecycle(
             }),
             checks: None,
             ..Default::default()
-        },
+        } },
     )
     .await?;
     let screening_id = screening.id.to_string();
@@ -207,7 +206,7 @@ async fn run_lifecycle(
         "screening should have a status"
     );
 
-    let retrieved_screening = retry_5xx!(screenings_api::v2_screenings_retrieve(cfg, &screening_id))?;
+    let retrieved_screening = retry_5xx!(screenings_api::v2_screenings_retrieve(cfg, screenings_api::V2ScreeningsRetrieveParams { id: screening_id.clone() }))?;
     assert_eq!(
         retrieved_screening.id, screening.id,
         "retrieved screening id mismatch"
@@ -216,11 +215,10 @@ async fn run_lifecycle(
         retrieved_screening.candidate.email, test_email,
         "retrieved screening candidate email mismatch"
     );
-    retry_5xx!(screenings_api::v2_screenings_documents_list(cfg, &screening_id, None, None))?;
+    retry_5xx!(screenings_api::v2_screenings_documents_list(cfg, screenings_api::V2ScreeningsDocumentsListParams { id: screening_id.clone(), ..Default::default() }))?;
 
-    // List screenings (trailing args are page/page_size/paginate) and confirm
-    // the one we just created shows up.
-    let screening_list = retry_5xx!(screenings_api::v2_screenings_list(cfg, None, None, None, None))?
+    // List screenings and confirm the one we just created shows up.
+    let screening_list = retry_5xx!(screenings_api::v2_screenings_list(cfg, Default::default()))?
         .results;
     assert!(
         !screening_list.is_empty(),
@@ -234,15 +232,13 @@ async fn run_lifecycle(
     // --- webhook: create -> list -> delete ---
     let hook = webhooks_api::create_webhook2(
         cfg,
-        Webhook {
+        webhooks_api::CreateWebhook2Params { webhook: Webhook {
             name: format!("E2E webhook {suffix}"),
             url: format!("https://example.com/e2e-hook-{suffix}"),
             events: vec![Events::ScreeningStatusChanged],
             active: None,
             division_id: None,
-        },
-        None,
-        None,
+        }, ..Default::default() },
     )
     .await?;
     let hook_url = format!("https://example.com/e2e-hook-{suffix}");
@@ -261,10 +257,10 @@ async fn run_lifecycle(
         listed.events.is_some(),
         "listed webhook should report its events"
     );
-    webhooks_api::delete_webhook2(cfg, &hook.id.to_string()).await?;
+    webhooks_api::delete_webhook2(cfg, webhooks_api::DeleteWebhook2Params { webhook_id: hook.id.to_string() }).await?;
 
     // --- division: list -> reuse-or-create -> patch ---
-    let existing = retry_5xx!(divisions_api::v2_organisations_divisions_list(cfg, None, None, None))?
+    let existing = retry_5xx!(divisions_api::v2_organisations_divisions_list(cfg, Default::default()))?
         .results;
     let found = existing.iter().find(|d| {
         d.name
@@ -278,7 +274,7 @@ async fn run_lifecycle(
         None => {
             let created_div = divisions_api::v2_organisations_divisions_create(
                 cfg,
-                DivisionWrite {
+                divisions_api::V2OrganisationsDivisionsCreateParams { division_write: DivisionWrite {
                     id: None,
                     name: DIVISION_NAME.to_string(),
                     city: "Amsterdam".to_string(),
@@ -291,7 +287,7 @@ async fn run_lifecycle(
                     use_parent_on_email: None,
                     use_parent_on_billing: None,
                     use_parent_on_report: None,
-                },
+                } },
             )
             .await?;
             created_div
@@ -302,11 +298,13 @@ async fn run_lifecycle(
     };
     divisions_api::v2_organisations_divisions_partial_update(
         cfg,
-        &div_id,
-        Some(PatchedDivisionWrite {
-            city: Some("Rotterdam".to_string()),
-            ..Default::default()
-        }),
+        divisions_api::V2OrganisationsDivisionsPartialUpdateParams {
+            id: div_id.clone(),
+            patched_division_write: Some(PatchedDivisionWrite {
+                city: Some("Rotterdam".to_string()),
+                ..Default::default()
+            }),
+        },
     )
     .await?;
 
@@ -314,8 +312,7 @@ async fn run_lifecycle(
     // landed and the name is unchanged.
     divisions_api::v2_organisations_divisions_update(
         cfg,
-        &div_id,
-        DivisionWrite {
+        divisions_api::V2OrganisationsDivisionsUpdateParams { id: div_id.clone(), division_write: DivisionWrite {
             id: None,
             name: DIVISION_NAME.to_string(),
             city: "Utrecht".to_string(),
@@ -328,11 +325,11 @@ async fn run_lifecycle(
             use_parent_on_email: None,
             use_parent_on_billing: None,
             use_parent_on_report: None,
-        },
+        } },
     )
     .await?;
 
-    let div = retry_5xx!(divisions_api::v2_organisations_divisions_retrieve(cfg, &div_id))?;
+    let div = retry_5xx!(divisions_api::v2_organisations_divisions_retrieve(cfg, divisions_api::V2OrganisationsDivisionsRetrieveParams { id: div_id.clone() }))?;
     assert_eq!(div.id.to_string(), div_id, "retrieved division id mismatch");
     assert_eq!(
         div.name.flatten(),
@@ -375,7 +372,7 @@ async fn unauthorized_returns_401() {
     cfg.base_path = base_url();
     cfg.oauth_access_token = Some("invalid".to_string());
 
-    let err = checks_api::v2_checks_list(&cfg, None)
+    let err = checks_api::v2_checks_list(&cfg, Default::default())
         .await
         .expect_err("expected an error from an unauthorized request");
     match err {
@@ -405,7 +402,7 @@ async fn retrieve_missing_profile_returns_404() {
     cfg.oauth_access_token = Some(std::env::var("PESCHECK_ACCESS_TOKEN").unwrap_or_default());
 
     let random_id = Uuid::new_v4().to_string();
-    let err = profiles_api::v2_profiles_retrieve(&cfg, &random_id)
+    let err = profiles_api::v2_profiles_retrieve(&cfg, profiles_api::V2ProfilesRetrieveParams { id: random_id.clone() })
         .await
         .expect_err("expected an error retrieving a random profile id");
     match err {

@@ -14,6 +14,31 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`create_webhook2`]
+#[derive(Clone, Debug, Default)]
+pub struct CreateWebhook2Params {
+    pub webhook: models::Webhook,
+    /// Organization ID (for JWT/Session auth only)
+    pub x_organization_id: Option<String>,
+    /// Organization ID (for JWT/Session auth only)
+    pub organization_id: Option<String>
+}
+
+/// struct for passing parameters to the method [`delete_webhook2`]
+#[derive(Clone, Debug, Default)]
+pub struct DeleteWebhook2Params {
+    /// Webhook ID to delete
+    pub webhook_id: String
+}
+
+/// struct for passing parameters to the method [`verify_webhook2`]
+#[derive(Clone, Debug, Default)]
+pub struct VerifyWebhook2Params {
+    /// Webhook ID
+    pub webhook_id: String,
+    pub verify_webhook: models::VerifyWebhook
+}
+
 
 /// struct for typed errors of method [`create_webhook2`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -53,28 +78,24 @@ pub enum VerifyWebhook2Error {
 
 
 /// Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter          **Valid Events:**         - `check.status_changed` - Check status has changed (new status in payload)         - `screening.status_changed` - Screening status has changed (new status in payload)         - `screening.archived` - Screening has been archived         - `package.created` - New package has been created         - `package.updated` - Package has been updated         - `profile.created` - New profile has been created         - `profile.updated` - Profile has been updated         - `division.created` - New division has been created         - `division.updated` - Division has been updated          Limited to 5 webhooks per organization/division.
-pub async fn create_webhook2(configuration: &configuration::Configuration, webhook: models::Webhook, x_organization_id: Option<&str>, organization_id: Option<&str>) -> Result<models::WebhookResponse, Error<CreateWebhook2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_webhook = webhook;
-    let p_header_x_organization_id = x_organization_id;
-    let p_query_organization_id = organization_id;
+pub async fn create_webhook2(configuration: &configuration::Configuration, params: CreateWebhook2Params) -> Result<models::WebhookResponse, Error<CreateWebhook2Error>> {
 
     let uri_str = format!("{}/api/v2/webhooks/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_organization_id {
+    if let Some(ref param_value) = params.organization_id {
         req_builder = req_builder.query(&[("organization_id", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
-    if let Some(param_value) = p_header_x_organization_id {
+    if let Some(param_value) = params.x_organization_id {
         req_builder = req_builder.header("X-Organization-Id", param_value.to_string());
     }
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_webhook);
+    req_builder = req_builder.json(&params.webhook);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -102,11 +123,9 @@ pub async fn create_webhook2(configuration: &configuration::Configuration, webho
 }
 
 /// Delete a webhook
-pub async fn delete_webhook2(configuration: &configuration::Configuration, webhook_id: &str) -> Result<(), Error<DeleteWebhook2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_webhook_id = webhook_id;
+pub async fn delete_webhook2(configuration: &configuration::Configuration, params: DeleteWebhook2Params) -> Result<(), Error<DeleteWebhook2Error>> {
 
-    let uri_str = format!("{}/api/v2/webhooks/{webhook_id}/", configuration.base_path, webhook_id=crate::apis::urlencode(p_path_webhook_id));
+    let uri_str = format!("{}/api/v2/webhooks/{webhook_id}/", configuration.base_path, webhook_id=crate::apis::urlencode(params.webhook_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -131,7 +150,7 @@ pub async fn delete_webhook2(configuration: &configuration::Configuration, webho
 }
 
 /// List webhooks for the organization
-pub async fn list_webhooks2(configuration: &configuration::Configuration, ) -> Result<Vec<models::WebhookResponse>, Error<ListWebhooks2Error>> {
+pub async fn list_webhooks2(configuration: &configuration::Configuration) -> Result<Vec<models::WebhookResponse>, Error<ListWebhooks2Error>> {
 
     let uri_str = format!("{}/api/v2/webhooks/list/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
@@ -169,12 +188,9 @@ pub async fn list_webhooks2(configuration: &configuration::Configuration, ) -> R
 }
 
 /// Verify webhook ownership
-pub async fn verify_webhook2(configuration: &configuration::Configuration, webhook_id: &str, verify_webhook: models::VerifyWebhook) -> Result<(), Error<VerifyWebhook2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_webhook_id = webhook_id;
-    let p_body_verify_webhook = verify_webhook;
+pub async fn verify_webhook2(configuration: &configuration::Configuration, params: VerifyWebhook2Params) -> Result<(), Error<VerifyWebhook2Error>> {
 
-    let uri_str = format!("{}/api/v2/webhooks/{webhook_id}/verify/", configuration.base_path, webhook_id=crate::apis::urlencode(p_path_webhook_id));
+    let uri_str = format!("{}/api/v2/webhooks/{webhook_id}/verify/", configuration.base_path, webhook_id=crate::apis::urlencode(params.webhook_id));
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -183,7 +199,7 @@ pub async fn verify_webhook2(configuration: &configuration::Configuration, webho
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_verify_webhook);
+    req_builder = req_builder.json(&params.verify_webhook);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

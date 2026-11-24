@@ -42,7 +42,7 @@ class TestV2ProfileDetail(unittest.TestCase):
                 checks = [
                     pescheck.models.v2_profile_check_entry.V2ProfileCheckEntry(
                         id = '', 
-                        check_type = 'addresscheck', 
+                        check_type = '', 
                         display_name = '', 
                         configured_price = null, 
                         config = { }, 
@@ -78,7 +78,7 @@ class TestV2ProfileDetail(unittest.TestCase):
                 checks = [
                     pescheck.models.v2_profile_check_entry.V2ProfileCheckEntry(
                         id = '', 
-                        check_type = 'addresscheck', 
+                        check_type = '', 
                         display_name = '', 
                         configured_price = null, 
                         config = { }, 

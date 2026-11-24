@@ -39,7 +39,9 @@ public class ChecksApiTest {
     @Test
     public void v2ChecksListTest() throws ApiException {
         String checkType = null;
-        List<V2CheckInfo> response = api.v2ChecksList(checkType);
+        List<V2CheckInfo> response = api.v2ChecksList()
+                .checkType(checkType)
+                .execute();
         // TODO: test validations
     }
 
@@ -49,7 +51,8 @@ public class ChecksApiTest {
     @Test
     public void v2ChecksRetrieveTest() throws ApiException {
         String checkType = null;
-        V2CheckInfo response = api.v2ChecksRetrieve(checkType);
+        V2CheckInfo response = api.v2ChecksRetrieve(checkType)
+                .execute();
         // TODO: test validations
     }
 

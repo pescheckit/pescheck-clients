@@ -73,23 +73,7 @@ public class OAuthApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for createOAuthApplication2
-     * @param oauthApplication  (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createOAuthApplication2Call(@javax.annotation.Nonnull OAuthApplication oauthApplication, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call createOAuthApplication2Call(@javax.annotation.Nonnull OAuthApplication oauthApplication, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -146,89 +130,124 @@ public class OAuthApi {
 
     }
 
-    /**
-     * 
-     * Create OAuth application for API access
-     * @param oauthApplication  (required)
-     * @return OAuthApplicationResponse
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
-     </table>
-     */
-    public OAuthApplicationResponse createOAuthApplication2(@javax.annotation.Nonnull OAuthApplication oauthApplication) throws ApiException {
-        ApiResponse<OAuthApplicationResponse> localVarResp = createOAuthApplication2WithHttpInfo(oauthApplication);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Create OAuth application for API access
-     * @param oauthApplication  (required)
-     * @return ApiResponse&lt;OAuthApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OAuthApplicationResponse> createOAuthApplication2WithHttpInfo(@javax.annotation.Nonnull OAuthApplication oauthApplication) throws ApiException {
+    private ApiResponse<OAuthApplicationResponse> createOAuthApplication2WithHttpInfo(@javax.annotation.Nonnull OAuthApplication oauthApplication) throws ApiException {
         okhttp3.Call localVarCall = createOAuthApplication2ValidateBeforeCall(oauthApplication, null);
         Type localVarReturnType = new TypeToken<OAuthApplicationResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Create OAuth application for API access
-     * @param oauthApplication  (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call createOAuthApplication2Async(@javax.annotation.Nonnull OAuthApplication oauthApplication, final ApiCallback<OAuthApplicationResponse> _callback) throws ApiException {
+    private okhttp3.Call createOAuthApplication2Async(@javax.annotation.Nonnull OAuthApplication oauthApplication, final ApiCallback<OAuthApplicationResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createOAuthApplication2ValidateBeforeCall(oauthApplication, _callback);
         Type localVarReturnType = new TypeToken<OAuthApplicationResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIcreateOAuthApplication2Request {
+        @javax.annotation.Nonnull
+        private final OAuthApplication oauthApplication;
+
+        private APIcreateOAuthApplication2Request(@javax.annotation.Nonnull OAuthApplication oauthApplication) {
+            this.oauthApplication = oauthApplication;
+        }
+
+        /**
+         * Build call for createOAuthApplication2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return createOAuthApplication2Call(oauthApplication, _callback);
+        }
+
+        /**
+         * Execute createOAuthApplication2 request
+         * @return OAuthApplicationResponse
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
+         </table>
+         */
+        public OAuthApplicationResponse execute() throws ApiException {
+            ApiResponse<OAuthApplicationResponse> localVarResp = createOAuthApplication2WithHttpInfo(oauthApplication);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute createOAuthApplication2 request with HTTP info returned
+         * @return ApiResponse&lt;OAuthApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OAuthApplicationResponse> executeWithHttpInfo() throws ApiException {
+            return createOAuthApplication2WithHttpInfo(oauthApplication);
+        }
+
+        /**
+         * Execute createOAuthApplication2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OAuthApplicationResponse> _callback) throws ApiException {
+            return createOAuthApplication2Async(oauthApplication, _callback);
+        }
+    }
+
     /**
-     * Build call for deleteOAuthApplication2
-     * @param applicationId Application ID to delete (required)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Create OAuth application for API access
+     * @param oauthApplication  (required)
+     * @return APIcreateOAuthApplication2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
+        <tr><td> 201 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 400 </td><td> Bad Request </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
+        <tr><td> 429 </td><td> Rate limit exceeded </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deleteOAuthApplication2Call(@javax.annotation.Nonnull String applicationId, final ApiCallback _callback) throws ApiException {
+    public APIcreateOAuthApplication2Request createOAuthApplication2(@javax.annotation.Nonnull OAuthApplication oauthApplication) {
+        return new APIcreateOAuthApplication2Request(oauthApplication);
+    }
+    private okhttp3.Call deleteOAuthApplication2Call(@javax.annotation.Nonnull String applicationId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -283,80 +302,115 @@ public class OAuthApi {
 
     }
 
-    /**
-     * 
-     * Delete an OAuth application
-     * @param applicationId Application ID to delete (required)
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public void deleteOAuthApplication2(@javax.annotation.Nonnull String applicationId) throws ApiException {
-        deleteOAuthApplication2WithHttpInfo(applicationId);
-    }
 
-    /**
-     * 
-     * Delete an OAuth application
-     * @param applicationId Application ID to delete (required)
-     * @return ApiResponse&lt;Void&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<Void> deleteOAuthApplication2WithHttpInfo(@javax.annotation.Nonnull String applicationId) throws ApiException {
+    private ApiResponse<Void> deleteOAuthApplication2WithHttpInfo(@javax.annotation.Nonnull String applicationId) throws ApiException {
         okhttp3.Call localVarCall = deleteOAuthApplication2ValidateBeforeCall(applicationId, null);
         return localVarApiClient.execute(localVarCall);
     }
 
-    /**
-     *  (asynchronously)
-     * Delete an OAuth application
-     * @param applicationId Application ID to delete (required)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-        <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call deleteOAuthApplication2Async(@javax.annotation.Nonnull String applicationId, final ApiCallback<Void> _callback) throws ApiException {
+    private okhttp3.Call deleteOAuthApplication2Async(@javax.annotation.Nonnull String applicationId, final ApiCallback<Void> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = deleteOAuthApplication2ValidateBeforeCall(applicationId, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
+
+    public class APIdeleteOAuthApplication2Request {
+        @javax.annotation.Nonnull
+        private final String applicationId;
+
+        private APIdeleteOAuthApplication2Request(@javax.annotation.Nonnull String applicationId) {
+            this.applicationId = applicationId;
+        }
+
+        /**
+         * Build call for deleteOAuthApplication2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return deleteOAuthApplication2Call(applicationId, _callback);
+        }
+
+        /**
+         * Execute deleteOAuthApplication2 request
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public void execute() throws ApiException {
+            deleteOAuthApplication2WithHttpInfo(applicationId);
+        }
+
+        /**
+         * Execute deleteOAuthApplication2 request with HTTP info returned
+         * @return ApiResponse&lt;Void&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<Void> executeWithHttpInfo() throws ApiException {
+            return deleteOAuthApplication2WithHttpInfo(applicationId);
+        }
+
+        /**
+         * Execute deleteOAuthApplication2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+            <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<Void> _callback) throws ApiException {
+            return deleteOAuthApplication2Async(applicationId, _callback);
+        }
+    }
+
     /**
-     * Build call for listOAuthApplications2
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * Delete an OAuth application
+     * @param applicationId Application ID to delete (required)
+     * @return APIdeleteOAuthApplication2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
         <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+        <tr><td> 204 </td><td> Application deleted </td><td>  -  </td></tr>
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+        <tr><td> 404 </td><td> Application not found </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listOAuthApplications2Call(final ApiCallback _callback) throws ApiException {
+    public APIdeleteOAuthApplication2Request deleteOAuthApplication2(@javax.annotation.Nonnull String applicationId) {
+        return new APIdeleteOAuthApplication2Request(applicationId);
+    }
+    private okhttp3.Call listOAuthApplications2Call(final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -406,49 +460,98 @@ public class OAuthApi {
 
     }
 
-    /**
-     * 
-     * List OAuth applications for the organization
-     * @return List&lt;OAuthApplicationResponse&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<OAuthApplicationResponse> listOAuthApplications2() throws ApiException {
-        ApiResponse<List<OAuthApplicationResponse>> localVarResp = listOAuthApplications2WithHttpInfo();
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * List OAuth applications for the organization
-     * @return ApiResponse&lt;List&lt;OAuthApplicationResponse&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-        <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<OAuthApplicationResponse>> listOAuthApplications2WithHttpInfo() throws ApiException {
+    private ApiResponse<List<OAuthApplicationResponse>> listOAuthApplications2WithHttpInfo() throws ApiException {
         okhttp3.Call localVarCall = listOAuthApplications2ValidateBeforeCall(null);
         Type localVarReturnType = new TypeToken<List<OAuthApplicationResponse>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call listOAuthApplications2Async(final ApiCallback<List<OAuthApplicationResponse>> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = listOAuthApplications2ValidateBeforeCall(_callback);
+        Type localVarReturnType = new TypeToken<List<OAuthApplicationResponse>>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIlistOAuthApplications2Request {
+
+        private APIlistOAuthApplications2Request() {
+        }
+
+        /**
+         * Build call for listOAuthApplications2
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return listOAuthApplications2Call(_callback);
+        }
+
+        /**
+         * Execute listOAuthApplications2 request
+         * @return List&lt;OAuthApplicationResponse&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<OAuthApplicationResponse> execute() throws ApiException {
+            ApiResponse<List<OAuthApplicationResponse>> localVarResp = listOAuthApplications2WithHttpInfo();
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute listOAuthApplications2 request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;OAuthApplicationResponse&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<OAuthApplicationResponse>> executeWithHttpInfo() throws ApiException {
+            return listOAuthApplications2WithHttpInfo();
+        }
+
+        /**
+         * Execute listOAuthApplications2 request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+            <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<OAuthApplicationResponse>> _callback) throws ApiException {
+            return listOAuthApplications2Async(_callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * List OAuth applications for the organization
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIlistOAuthApplications2Request
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -457,11 +560,7 @@ public class OAuthApi {
         <tr><td> 403 </td><td> Forbidden </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call listOAuthApplications2Async(final ApiCallback<List<OAuthApplicationResponse>> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = listOAuthApplications2ValidateBeforeCall(_callback);
-        Type localVarReturnType = new TypeToken<List<OAuthApplicationResponse>>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIlistOAuthApplications2Request listOAuthApplications2() {
+        return new APIlistOAuthApplications2Request();
     }
 }

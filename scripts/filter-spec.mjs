@@ -140,6 +140,46 @@ function collapseStringUnions(node) {
 }
 collapseStringUnions(doc.components?.schemas ?? {});
 
+// 5b3. Open enums in responses. When the API adds a value to a response enum
+// (a new check type, status, add-on...), clients with a closed enum crash while
+// parsing the response, in most of our languages. Adding a value is not a
+// breaking API change, so every schema reachable from a response gets plain
+// strings instead of enums; the known values stay in the description. Enums
+// that only appear in requests stay typed, so callers still get help choosing
+// a valid value. The contract mock then returns unknown values too, so this
+// stays tested.
+const schemasForEnums = doc.components?.schemas ?? {};
+const responseSchemaNames = new Set();
+const enumQueue = [];
+for (const item of Object.values(doc.paths ?? {})) {
+  for (const op of Object.values(item ?? {})) {
+    if (op && typeof op === "object" && op.responses) {
+      for (const r of collectRefs(op.responses, new Set())) enumQueue.push(r);
+    }
+  }
+}
+while (enumQueue.length) {
+  const parsed = refKey(enumQueue.pop());
+  if (!parsed || parsed.bucket !== "schemas" || responseSchemaNames.has(parsed.name)) continue;
+  responseSchemaNames.add(parsed.name);
+  for (const r of collectRefs(schemasForEnums[parsed.name], new Set())) enumQueue.push(r);
+}
+let responseEnumsOpened = 0;
+function openEnums(node) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) return node.forEach(openEnums);
+  if (Array.isArray(node.enum) && node.enum.every((v) => typeof v === "string" || v === null)) {
+    const known = node.enum.filter((v) => v !== null).join(", ");
+    const note = `Known values: ${known}. New values may be added; handle unknown values.`;
+    node.description = node.description ? `${node.description}\n\n${note}` : note;
+    node.type = node.type ?? "string";
+    delete node.enum;
+    responseEnumsOpened++;
+  }
+  for (const [k, v] of Object.entries(node)) if (k !== "$ref") openEnums(v);
+}
+for (const name of responseSchemaNames) openEnums(schemasForEnums[name]);
+
 // 5c. Relax over-strict `required` fields. The webhook *list* endpoint omits
 // `token` and `organisation_name` (it doesn't leak tokens in a list), but the
 // spec marks them required on WebhookResponse, so strict clients fail to
@@ -281,5 +321,6 @@ console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`
 console.log(`  env-specific values pinned to production: ${envValuesPinned}`);
 console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);
 console.log(`  string unions: collapsed ${stringUnionsCollapsed} string-only oneOf/anyOf to plain string`);
+console.log(`  response enums: opened ${responseEnumsOpened} to plain strings (known values kept in the description)`);
 console.log(`  relaxed required: ${relaxedRequired} field(s); readOnly-required stripped: ${readOnlyRequiredStripped}`);
 console.log(`  tolerant (additionalProperties) schemas: ${tolerated}`);

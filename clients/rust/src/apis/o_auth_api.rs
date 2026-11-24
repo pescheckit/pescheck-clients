@@ -14,6 +14,19 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`create_o_auth_application2`]
+#[derive(Clone, Debug, Default)]
+pub struct CreateOAuthApplication2Params {
+    pub o_auth_application: models::OAuthApplication
+}
+
+/// struct for passing parameters to the method [`delete_o_auth_application2`]
+#[derive(Clone, Debug, Default)]
+pub struct DeleteOAuthApplication2Params {
+    /// Application ID to delete
+    pub application_id: String
+}
+
 
 /// struct for typed errors of method [`create_o_auth_application2`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -44,9 +57,7 @@ pub enum ListOAuthApplications2Error {
 
 
 /// Create OAuth application for API access
-pub async fn create_o_auth_application2(configuration: &configuration::Configuration, o_auth_application: models::OAuthApplication) -> Result<models::OAuthApplicationResponse, Error<CreateOAuthApplication2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_o_auth_application = o_auth_application;
+pub async fn create_o_auth_application2(configuration: &configuration::Configuration, params: CreateOAuthApplication2Params) -> Result<models::OAuthApplicationResponse, Error<CreateOAuthApplication2Error>> {
 
     let uri_str = format!("{}/api/v2/oauth/applications/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -57,7 +68,7 @@ pub async fn create_o_auth_application2(configuration: &configuration::Configura
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_o_auth_application);
+    req_builder = req_builder.json(&params.o_auth_application);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -85,11 +96,9 @@ pub async fn create_o_auth_application2(configuration: &configuration::Configura
 }
 
 /// Delete an OAuth application
-pub async fn delete_o_auth_application2(configuration: &configuration::Configuration, application_id: &str) -> Result<(), Error<DeleteOAuthApplication2Error>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_application_id = application_id;
+pub async fn delete_o_auth_application2(configuration: &configuration::Configuration, params: DeleteOAuthApplication2Params) -> Result<(), Error<DeleteOAuthApplication2Error>> {
 
-    let uri_str = format!("{}/api/v2/oauth/applications/{application_id}/", configuration.base_path, application_id=crate::apis::urlencode(p_path_application_id));
+    let uri_str = format!("{}/api/v2/oauth/applications/{application_id}/", configuration.base_path, application_id=crate::apis::urlencode(params.application_id));
     let mut req_builder = configuration.client.request(reqwest::Method::DELETE, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -114,7 +123,7 @@ pub async fn delete_o_auth_application2(configuration: &configuration::Configura
 }
 
 /// List OAuth applications for the organization
-pub async fn list_o_auth_applications2(configuration: &configuration::Configuration, ) -> Result<Vec<models::OAuthApplicationResponse>, Error<ListOAuthApplications2Error>> {
+pub async fn list_o_auth_applications2(configuration: &configuration::Configuration) -> Result<Vec<models::OAuthApplicationResponse>, Error<ListOAuthApplications2Error>> {
 
     let uri_str = format!("{}/api/v2/oauth/applications/list/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);

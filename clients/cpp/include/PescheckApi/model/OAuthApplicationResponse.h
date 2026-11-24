@@ -18,7 +18,6 @@
 #ifndef ORG_OPENAPITOOLS_CLIENT_MODEL_OAuthApplicationResponse_H_
 #define ORG_OPENAPITOOLS_CLIENT_MODEL_OAuthApplicationResponse_H_
 
-#include <stdexcept>
 #include <boost/optional.hpp>
 
 #include "PescheckApi/ModelBase.h"
@@ -57,34 +56,6 @@ public:
     /////////////////////////////////////////////
     /// OAuthApplicationResponse members
 
-    enum class Client_typeEnum
-    {
-        CONFIDENTIAL,
-        PUBLIC,
-    };
-    /// <summary>
-    /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
-    /// </summary>
-    enum class Authorization_grant_typeEnum
-    {
-        AUTHORIZATION_CODE,
-        URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE,
-        IMPLICIT,
-        PASSWORD,
-        CLIENT_CREDENTIALS,
-        OPENID_HYBRID,
-    };
-    /// <summary>
-    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
-    /// </summary>
-
-    Client_typeEnum toClient_typeEnum(const utility::string_t& value) const;
-    const utility::string_t fromClient_typeEnum(const Client_typeEnum value) const;
-
-
-    Authorization_grant_typeEnum toAuthorization_grant_typeEnum(const utility::string_t& value) const;
-    const utility::string_t fromAuthorization_grant_typeEnum(const Authorization_grant_typeEnum value) const;
-
 
     utility::string_t getId() const;
     bool idIsSet() const;
@@ -107,20 +78,20 @@ public:
     void setClientSecret(const utility::string_t& value);
 
     /// <summary>
-    /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
+    /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values.
     /// </summary>
-    Client_typeEnum getClientType() const;
+    utility::string_t getClientType() const;
     bool clientTypeIsSet() const;
     void unsetClient_type();
-    void setClientType(const Client_typeEnum value);
+    void setClientType(const utility::string_t& value);
 
     /// <summary>
-    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+    /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
     /// </summary>
-    Authorization_grant_typeEnum getAuthorizationGrantType() const;
+    utility::string_t getAuthorizationGrantType() const;
     bool authorizationGrantTypeIsSet() const;
     void unsetAuthorization_grant_type();
-    void setAuthorizationGrantType(const Authorization_grant_typeEnum value);
+    void setAuthorizationGrantType(const utility::string_t& value);
 
     utility::string_t getOrganisation() const;
     bool organisationIsSet() const;
@@ -156,10 +127,10 @@ protected:
     utility::string_t m_Client_secret;
     bool m_Client_secretIsSet;
 
-    Client_typeEnum m_Client_type;
+    utility::string_t m_Client_type;
     bool m_Client_typeIsSet;
 
-    Authorization_grant_typeEnum m_Authorization_grant_type;
+    utility::string_t m_Authorization_grant_type;
     bool m_Authorization_grant_typeIsSet;
 
     utility::string_t m_Organisation;

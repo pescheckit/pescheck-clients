@@ -13,7 +13,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="v2OrganisationsDivisionsCreate"></a>
 # **v2OrganisationsDivisionsCreate**
-> DivisionWrite v2OrganisationsDivisionsCreate(divisionWrite)
+> DivisionWrite v2OrganisationsDivisionsCreate(divisionWrite).execute();
 
 
 
@@ -41,7 +41,8 @@ public class Example {
     DivisionsApi apiInstance = new DivisionsApi(defaultClient);
     DivisionWrite divisionWrite = new DivisionWrite(); // DivisionWrite | 
     try {
-      DivisionWrite result = apiInstance.v2OrganisationsDivisionsCreate(divisionWrite);
+      DivisionWrite result = apiInstance.v2OrganisationsDivisionsCreate(divisionWrite)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DivisionsApi#v2OrganisationsDivisionsCreate");
@@ -80,7 +81,7 @@ public class Example {
 
 <a id="v2OrganisationsDivisionsList"></a>
 # **v2OrganisationsDivisionsList**
-> PaginatedDivisionReadOnlyList v2OrganisationsDivisionsList(page, pageSize, paginate)
+> PaginatedDivisionReadOnlyList v2OrganisationsDivisionsList().page(page).pageSize(pageSize).paginate(paginate).execute();
 
 
 
@@ -110,7 +111,11 @@ public class Example {
     Integer pageSize = 50; // Integer | Number of results to return per page.
     Boolean paginate = true; // Boolean | Enable/disable pagination. When false, max 500 records returned.
     try {
-      PaginatedDivisionReadOnlyList result = apiInstance.v2OrganisationsDivisionsList(page, pageSize, paginate);
+      PaginatedDivisionReadOnlyList result = apiInstance.v2OrganisationsDivisionsList()
+            .page(page)
+            .pageSize(pageSize)
+            .paginate(paginate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DivisionsApi#v2OrganisationsDivisionsList");
@@ -151,7 +156,7 @@ public class Example {
 
 <a id="v2OrganisationsDivisionsPartialUpdate"></a>
 # **v2OrganisationsDivisionsPartialUpdate**
-> DivisionWrite v2OrganisationsDivisionsPartialUpdate(id, patchedDivisionWrite)
+> DivisionWrite v2OrganisationsDivisionsPartialUpdate(id).patchedDivisionWrite(patchedDivisionWrite).execute();
 
 
 
@@ -180,7 +185,9 @@ public class Example {
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this organisation.
     PatchedDivisionWrite patchedDivisionWrite = new PatchedDivisionWrite(); // PatchedDivisionWrite | 
     try {
-      DivisionWrite result = apiInstance.v2OrganisationsDivisionsPartialUpdate(id, patchedDivisionWrite);
+      DivisionWrite result = apiInstance.v2OrganisationsDivisionsPartialUpdate(id)
+            .patchedDivisionWrite(patchedDivisionWrite)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DivisionsApi#v2OrganisationsDivisionsPartialUpdate");
@@ -220,7 +227,7 @@ public class Example {
 
 <a id="v2OrganisationsDivisionsRetrieve"></a>
 # **v2OrganisationsDivisionsRetrieve**
-> DivisionReadOnly v2OrganisationsDivisionsRetrieve(id)
+> DivisionReadOnly v2OrganisationsDivisionsRetrieve(id).execute();
 
 
 
@@ -248,7 +255,8 @@ public class Example {
     DivisionsApi apiInstance = new DivisionsApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this organisation.
     try {
-      DivisionReadOnly result = apiInstance.v2OrganisationsDivisionsRetrieve(id);
+      DivisionReadOnly result = apiInstance.v2OrganisationsDivisionsRetrieve(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DivisionsApi#v2OrganisationsDivisionsRetrieve");
@@ -287,7 +295,7 @@ public class Example {
 
 <a id="v2OrganisationsDivisionsUpdate"></a>
 # **v2OrganisationsDivisionsUpdate**
-> DivisionWrite v2OrganisationsDivisionsUpdate(id, divisionWrite)
+> DivisionWrite v2OrganisationsDivisionsUpdate(id, divisionWrite).execute();
 
 
 
@@ -316,7 +324,8 @@ public class Example {
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this organisation.
     DivisionWrite divisionWrite = new DivisionWrite(); // DivisionWrite | 
     try {
-      DivisionWrite result = apiInstance.v2OrganisationsDivisionsUpdate(id, divisionWrite);
+      DivisionWrite result = apiInstance.v2OrganisationsDivisionsUpdate(id, divisionWrite)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling DivisionsApi#v2OrganisationsDivisionsUpdate");

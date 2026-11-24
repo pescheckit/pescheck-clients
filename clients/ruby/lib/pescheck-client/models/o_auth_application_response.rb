@@ -24,10 +24,10 @@ module Pescheck
 
     attr_accessor :client_secret
 
-    # * `confidential` - Confidential * `public` - Public
+    # * `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.
     attr_accessor :client_type
 
-    # * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+    # * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
     attr_accessor :authorization_grant_type
 
     attr_accessor :organisation
@@ -37,28 +37,6 @@ module Pescheck
     attr_accessor :created
 
     attr_accessor :updated
-
-    class EnumAttributeValidator
-      attr_reader :datatype
-      attr_reader :allowable_values
-
-      def initialize(datatype, allowable_values)
-        @allowable_values = allowable_values.map do |value|
-          case datatype.to_s
-          when /Integer/i
-            value.to_i
-          when /Float/i
-            value.to_f
-          else
-            value
-          end
-        end
-      end
-
-      def valid?(value)
-        !value || allowable_values.include?(value)
-      end
-    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -238,11 +216,7 @@ module Pescheck
       return false if !@client_id.nil? && @client_id.to_s.length > 255
       return false if @client_secret.nil?
       return false if @client_type.nil?
-      client_type_validator = EnumAttributeValidator.new('String', ["confidential", "public"])
-      return false unless client_type_validator.valid?(@client_type)
       return false if @authorization_grant_type.nil?
-      authorization_grant_type_validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
-      return false unless authorization_grant_type_validator.valid?(@authorization_grant_type)
       return false if @organisation.nil?
       return false if @organisation_id.nil?
       return false if @created.nil?
@@ -298,23 +272,23 @@ module Pescheck
       @client_secret = client_secret
     end
 
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] client_type Object to be assigned
+    # Custom attribute writer method with validation
+    # @param [Object] client_type Value to be assigned
     def client_type=(client_type)
-      validator = EnumAttributeValidator.new('String', ["confidential", "public"])
-      unless validator.valid?(client_type)
-        fail ArgumentError, "invalid value for \"client_type\", must be one of #{validator.allowable_values}."
+      if client_type.nil?
+        fail ArgumentError, 'client_type cannot be nil'
       end
+
       @client_type = client_type
     end
 
-    # Custom attribute writer method checking allowed values (enum).
-    # @param [Object] authorization_grant_type Object to be assigned
+    # Custom attribute writer method with validation
+    # @param [Object] authorization_grant_type Value to be assigned
     def authorization_grant_type=(authorization_grant_type)
-      validator = EnumAttributeValidator.new('String', ["authorization-code", "urn:ietf:params:oauth:grant-type:device_code", "implicit", "password", "client-credentials", "openid-hybrid"])
-      unless validator.valid?(authorization_grant_type)
-        fail ArgumentError, "invalid value for \"authorization_grant_type\", must be one of #{validator.allowable_values}."
+      if authorization_grant_type.nil?
+        fail ArgumentError, 'authorization_grant_type cannot be nil'
       end
+
       @authorization_grant_type = authorization_grant_type
     end
 

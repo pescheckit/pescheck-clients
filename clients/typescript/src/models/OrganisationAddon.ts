@@ -34,10 +34,12 @@ export interface OrganisationAddon {
      * * `sso` - Single Sign-On (SSO)
      * * `api_access` - API & MCP Access
      * * `connected_ats` - Connected ATS - Click & Go
-     * @type {OrganisationAddonAddonEnum}
+     * 
+     * Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof OrganisationAddon
      */
-    addon: OrganisationAddonAddonEnum;
+    addon: string;
     /**
      * 
      * @type {string}
@@ -81,19 +83,6 @@ export interface OrganisationAddon {
      */
     priceIsIndicative: boolean;
 }
-
-
-/**
- * @export
- */
-export const OrganisationAddonAddonEnum = {
-    BrandedJourney: 'branded_journey',
-    Sso: 'sso',
-    ApiAccess: 'api_access',
-    ConnectedAts: 'connected_ats'
-} as const;
-export type OrganisationAddonAddonEnum = typeof OrganisationAddonAddonEnum[keyof typeof OrganisationAddonAddonEnum];
-
 
 /**
  * Check if a given object implements the OrganisationAddon interface.

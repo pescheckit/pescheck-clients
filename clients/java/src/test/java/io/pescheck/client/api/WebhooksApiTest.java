@@ -43,7 +43,10 @@ public class WebhooksApiTest {
         Webhook webhook = null;
         String xOrganizationId = null;
         String organizationId = null;
-        WebhookResponse response = api.createWebhook2(webhook, xOrganizationId, organizationId);
+        WebhookResponse response = api.createWebhook2(webhook)
+                .xOrganizationId(xOrganizationId)
+                .organizationId(organizationId)
+                .execute();
         // TODO: test validations
     }
 
@@ -55,7 +58,8 @@ public class WebhooksApiTest {
     @Test
     public void deleteWebhook2Test() throws ApiException {
         String webhookId = null;
-        api.deleteWebhook2(webhookId);
+        api.deleteWebhook2(webhookId)
+                .execute();
         // TODO: test validations
     }
 
@@ -66,7 +70,8 @@ public class WebhooksApiTest {
      */
     @Test
     public void listWebhooks2Test() throws ApiException {
-        List<WebhookResponse> response = api.listWebhooks2();
+        List<WebhookResponse> response = api.listWebhooks2()
+                .execute();
         // TODO: test validations
     }
 
@@ -79,7 +84,8 @@ public class WebhooksApiTest {
     public void verifyWebhook2Test() throws ApiException {
         String webhookId = null;
         VerifyWebhook verifyWebhook = null;
-        api.verifyWebhook2(webhookId, verifyWebhook);
+        api.verifyWebhook2(webhookId, verifyWebhook)
+                .execute();
         // TODO: test validations
     }
 

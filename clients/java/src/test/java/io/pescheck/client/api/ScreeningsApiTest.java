@@ -45,7 +45,8 @@ public class ScreeningsApiTest {
     @Test
     public void v2ScreeningsCloseCreateTest() throws ApiException {
         UUID id = null;
-        V2ScreeningDetail response = api.v2ScreeningsCloseCreate(id);
+        V2ScreeningDetail response = api.v2ScreeningsCloseCreate(id)
+                .execute();
         // TODO: test validations
     }
 
@@ -55,7 +56,8 @@ public class ScreeningsApiTest {
     @Test
     public void v2ScreeningsCreateTest() throws ApiException {
         V2ScreeningCreate v2ScreeningCreate = null;
-        V2ScreeningDetail response = api.v2ScreeningsCreate(v2ScreeningCreate);
+        V2ScreeningDetail response = api.v2ScreeningsCreate(v2ScreeningCreate)
+                .execute();
         // TODO: test validations
     }
 
@@ -71,7 +73,10 @@ public class ScreeningsApiTest {
         UUID id = null;
         UUID checkId = null;
         String checkType = null;
-        List<V2Document> response = api.v2ScreeningsDocumentsList(id, checkId, checkType);
+        List<V2Document> response = api.v2ScreeningsDocumentsList(id)
+                .checkId(checkId)
+                .checkType(checkType)
+                .execute();
         // TODO: test validations
     }
 
@@ -84,7 +89,12 @@ public class ScreeningsApiTest {
         Integer page = null;
         Integer pageSize = null;
         Boolean paginate = null;
-        PaginatedV2ScreeningListItemList response = api.v2ScreeningsList(organisation, page, pageSize, paginate);
+        PaginatedV2ScreeningListItemList response = api.v2ScreeningsList()
+                .organisation(organisation)
+                .page(page)
+                .pageSize(pageSize)
+                .paginate(paginate)
+                .execute();
         // TODO: test validations
     }
 
@@ -94,7 +104,8 @@ public class ScreeningsApiTest {
     @Test
     public void v2ScreeningsRetrieveTest() throws ApiException {
         UUID id = null;
-        V2ScreeningDetail response = api.v2ScreeningsRetrieve(id);
+        V2ScreeningDetail response = api.v2ScreeningsRetrieve(id)
+                .execute();
         // TODO: test validations
     }
 

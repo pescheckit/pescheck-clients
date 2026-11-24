@@ -57,10 +57,12 @@ export interface V2ProfileCheckEntry {
      * * `watchlistcheck` - watchlistcheck
      * * `workreferencecheck` - workreferencecheck
      * * `worldwidecreditcheck` - worldwidecreditcheck
-     * @type {V2ProfileCheckEntryCheckTypeEnum}
+     * 
+     * Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof V2ProfileCheckEntry
      */
-    readonly checkType: V2ProfileCheckEntryCheckTypeEnum;
+    readonly checkType: string;
     /**
      * 
      * @type {string}
@@ -92,38 +94,6 @@ export interface V2ProfileCheckEntry {
      */
     readonly isSystemManaged: boolean;
 }
-
-
-/**
- * @export
- */
-export const V2ProfileCheckEntryCheckTypeEnum = {
-    Addresscheck: 'addresscheck',
-    Adversemedia2check: 'adversemedia2check',
-    Adversemediacheck: 'adversemediacheck',
-    Bigcheck: 'bigcheck',
-    Criminalrecordscheck: 'criminalrecordscheck',
-    Criminalrecordsuploadcheck: 'criminalrecordsuploadcheck',
-    Customintegritycheck: 'customintegritycheck',
-    Cvcheck: 'cvcheck',
-    Edrcheck: 'edrcheck',
-    Ibancheck: 'ibancheck',
-    Id2check: 'id2check',
-    Idcheck: 'idcheck',
-    Integritycheck: 'integritycheck',
-    Openhealthcarecheck: 'openhealthcarecheck',
-    Permissioncheck: 'permissioncheck',
-    Pescheckadversemediacheck: 'pescheckadversemediacheck',
-    Qualificationcheck: 'qualificationcheck',
-    Righttoworkcheck: 'righttoworkcheck',
-    Vogcheck: 'vogcheck',
-    Watchlist2check: 'watchlist2check',
-    Watchlistcheck: 'watchlistcheck',
-    Workreferencecheck: 'workreferencecheck',
-    Worldwidecreditcheck: 'worldwidecreditcheck'
-} as const;
-export type V2ProfileCheckEntryCheckTypeEnum = typeof V2ProfileCheckEntryCheckTypeEnum[keyof typeof V2ProfileCheckEntryCheckTypeEnum];
-
 
 /**
  * Check if a given object implements the V2ProfileCheckEntry interface.

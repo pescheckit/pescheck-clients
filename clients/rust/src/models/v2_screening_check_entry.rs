@@ -17,9 +17,9 @@ pub struct V2ScreeningCheckEntry {
     pub id: uuid::Uuid,
     #[serde(rename = "profile_check_id", deserialize_with = "Option::deserialize")]
     pub profile_check_id: Option<uuid::Uuid>,
-    /// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+    /// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
     #[serde(rename = "check_type")]
-    pub check_type: CheckType,
+    pub check_type: String,
     #[serde(rename = "display_name")]
     pub display_name: String,
     #[serde(rename = "status")]
@@ -36,7 +36,7 @@ pub struct V2ScreeningCheckEntry {
 }
 
 impl V2ScreeningCheckEntry {
-    pub fn new(id: uuid::Uuid, profile_check_id: Option<uuid::Uuid>, check_type: CheckType, display_name: String, status: String, config: std::collections::HashMap<String, serde_json::Value>, input: std::collections::HashMap<String, serde_json::Value>, output: std::collections::HashMap<String, serde_json::Value>, candidate_wizard_url: Option<String>) -> V2ScreeningCheckEntry {
+    pub fn new(id: uuid::Uuid, profile_check_id: Option<uuid::Uuid>, check_type: String, display_name: String, status: String, config: std::collections::HashMap<String, serde_json::Value>, input: std::collections::HashMap<String, serde_json::Value>, output: std::collections::HashMap<String, serde_json::Value>, candidate_wizard_url: Option<String>) -> V2ScreeningCheckEntry {
         V2ScreeningCheckEntry {
             id,
             profile_check_id,
@@ -48,62 +48,6 @@ impl V2ScreeningCheckEntry {
             output,
             candidate_wizard_url,
         }
-    }
-}
-/// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum CheckType {
-    #[serde(rename = "addresscheck")]
-    Addresscheck,
-    #[serde(rename = "adversemedia2check")]
-    Adversemedia2check,
-    #[serde(rename = "adversemediacheck")]
-    Adversemediacheck,
-    #[serde(rename = "bigcheck")]
-    Bigcheck,
-    #[serde(rename = "criminalrecordscheck")]
-    Criminalrecordscheck,
-    #[serde(rename = "criminalrecordsuploadcheck")]
-    Criminalrecordsuploadcheck,
-    #[serde(rename = "customintegritycheck")]
-    Customintegritycheck,
-    #[serde(rename = "cvcheck")]
-    Cvcheck,
-    #[serde(rename = "edrcheck")]
-    Edrcheck,
-    #[serde(rename = "ibancheck")]
-    Ibancheck,
-    #[serde(rename = "id2check")]
-    Id2check,
-    #[serde(rename = "idcheck")]
-    Idcheck,
-    #[serde(rename = "integritycheck")]
-    Integritycheck,
-    #[serde(rename = "openhealthcarecheck")]
-    Openhealthcarecheck,
-    #[serde(rename = "permissioncheck")]
-    Permissioncheck,
-    #[serde(rename = "pescheckadversemediacheck")]
-    Pescheckadversemediacheck,
-    #[serde(rename = "qualificationcheck")]
-    Qualificationcheck,
-    #[serde(rename = "righttoworkcheck")]
-    Righttoworkcheck,
-    #[serde(rename = "vogcheck")]
-    Vogcheck,
-    #[serde(rename = "watchlist2check")]
-    Watchlist2check,
-    #[serde(rename = "watchlistcheck")]
-    Watchlistcheck,
-    #[serde(rename = "workreferencecheck")]
-    Workreferencecheck,
-    #[serde(rename = "worldwidecreditcheck")]
-    Worldwidecreditcheck,
-}
-
-impl Default for CheckType {
-    fn default() -> CheckType {
-        Self::Addresscheck
     }
 }
 

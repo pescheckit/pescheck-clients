@@ -72,127 +72,15 @@ public class OAuthApplicationResponse {
   @javax.annotation.Nonnull
   private String clientSecret;
 
-  /**
-   * * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
-   */
-  @JsonAdapter(ClientTypeEnum.Adapter.class)
-  public enum ClientTypeEnum {
-    CONFIDENTIAL("confidential"),
-    
-    PUBLIC("public");
-
-    private String value;
-
-    ClientTypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ClientTypeEnum fromValue(String value) {
-      for (ClientTypeEnum b : ClientTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<ClientTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ClientTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ClientTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return ClientTypeEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      ClientTypeEnum.fromValue(value);
-    }
-  }
-
   public static final String SERIALIZED_NAME_CLIENT_TYPE = "client_type";
   @SerializedName(SERIALIZED_NAME_CLIENT_TYPE)
   @javax.annotation.Nonnull
-  private ClientTypeEnum clientType;
-
-  /**
-   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
-   */
-  @JsonAdapter(AuthorizationGrantTypeEnum.Adapter.class)
-  public enum AuthorizationGrantTypeEnum {
-    AUTHORIZATION_CODE("authorization-code"),
-    
-    URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE("urn:ietf:params:oauth:grant-type:device_code"),
-    
-    IMPLICIT("implicit"),
-    
-    PASSWORD("password"),
-    
-    CLIENT_CREDENTIALS("client-credentials"),
-    
-    OPENID_HYBRID("openid-hybrid");
-
-    private String value;
-
-    AuthorizationGrantTypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static AuthorizationGrantTypeEnum fromValue(String value) {
-      for (AuthorizationGrantTypeEnum b : AuthorizationGrantTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<AuthorizationGrantTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AuthorizationGrantTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public AuthorizationGrantTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return AuthorizationGrantTypeEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      AuthorizationGrantTypeEnum.fromValue(value);
-    }
-  }
+  private String clientType;
 
   public static final String SERIALIZED_NAME_AUTHORIZATION_GRANT_TYPE = "authorization_grant_type";
   @SerializedName(SERIALIZED_NAME_AUTHORIZATION_GRANT_TYPE)
   @javax.annotation.Nonnull
-  private AuthorizationGrantTypeEnum authorizationGrantType;
+  private String authorizationGrantType;
 
   public static final String SERIALIZED_NAME_ORGANISATION = "organisation";
   @SerializedName(SERIALIZED_NAME_ORGANISATION)
@@ -294,40 +182,40 @@ public class OAuthApplicationResponse {
 
 
 
-  public OAuthApplicationResponse clientType(@javax.annotation.Nonnull ClientTypeEnum clientType) {
+  public OAuthApplicationResponse clientType(@javax.annotation.Nonnull String clientType) {
     this.clientType = clientType;
     return this;
   }
 
   /**
-   * * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
+   * * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values.
    * @return clientType
    */
   @javax.annotation.Nonnull
-  public ClientTypeEnum getClientType() {
+  public String getClientType() {
     return clientType;
   }
 
-  public void setClientType(@javax.annotation.Nonnull ClientTypeEnum clientType) {
+  public void setClientType(@javax.annotation.Nonnull String clientType) {
     this.clientType = clientType;
   }
 
 
-  public OAuthApplicationResponse authorizationGrantType(@javax.annotation.Nonnull AuthorizationGrantTypeEnum authorizationGrantType) {
+  public OAuthApplicationResponse authorizationGrantType(@javax.annotation.Nonnull String authorizationGrantType) {
     this.authorizationGrantType = authorizationGrantType;
     return this;
   }
 
   /**
-   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
+   * * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
    * @return authorizationGrantType
    */
   @javax.annotation.Nonnull
-  public AuthorizationGrantTypeEnum getAuthorizationGrantType() {
+  public String getAuthorizationGrantType() {
     return authorizationGrantType;
   }
 
-  public void setAuthorizationGrantType(@javax.annotation.Nonnull AuthorizationGrantTypeEnum authorizationGrantType) {
+  public void setAuthorizationGrantType(@javax.annotation.Nonnull String authorizationGrantType) {
     this.authorizationGrantType = authorizationGrantType;
   }
 
@@ -522,13 +410,9 @@ public class OAuthApplicationResponse {
       if (!jsonObj.get("client_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `client_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("client_type").toString()));
       }
-      // validate the required field `client_type`
-      ClientTypeEnum.validateJsonElement(jsonObj.get("client_type"));
       if (!jsonObj.get("authorization_grant_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `authorization_grant_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("authorization_grant_type").toString()));
       }
-      // validate the required field `authorization_grant_type`
-      AuthorizationGrantTypeEnum.validateJsonElement(jsonObj.get("authorization_grant_type"));
       if (!jsonObj.get("organisation").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `organisation` to be a primitive type in the JSON string but got `%s`", jsonObj.get("organisation").toString()));
       }

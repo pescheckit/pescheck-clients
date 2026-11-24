@@ -2340,8 +2340,8 @@ components:
         name: name
         client_id: client_id
         client_secret: client_secret
-        client_type: confidential
-        authorization_grant_type: authorization-code
+        client_type: client_type
+        authorization_grant_type: authorization_grant_type
         organisation: organisation
         organisation_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         created: 2000-01-23T04:56:07.000+00:00
@@ -2364,9 +2364,8 @@ components:
           description: |-
             * `confidential` - Confidential
             * `public` - Public
-          enum:
-          - confidential
-          - public
+
+            Known values: confidential, public. New values may be added; handle unknown values.
           type: string
           x-spec-enum-id: 6de8a18fd0ba1b55
         authorization_grant_type:
@@ -2377,13 +2376,8 @@ components:
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
             * `openid-hybrid` - OpenID connect hybrid
-          enum:
-          - authorization-code
-          - urn:ietf:params:oauth:grant-type:device_code
-          - implicit
-          - password
-          - client-credentials
-          - openid-hybrid
+
+            Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
           type: string
           x-spec-enum-id: 520f84b4eb7c22d1
         organisation:
@@ -2414,7 +2408,7 @@ components:
     OrganisationAddon:
       description: "One add-on for one organisation, built from ``addon_service.addon_cards``."
       example:
-        addon: branded_journey
+        addon: addon
         name: name
         description: description
         enabled: true
@@ -2431,11 +2425,8 @@ components:
             * `sso` - Single Sign-On (SSO)
             * `api_access` - API & MCP Access
             * `connected_ats` - Connected ATS - Click & Go
-          enum:
-          - branded_journey
-          - sso
-          - api_access
-          - connected_ats
+
+            Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
           type: string
           x-spec-enum-id: d4f33289658c4259
         name:
@@ -2486,7 +2477,7 @@ components:
     OrganisationAddonUpdateResult:
       description: "One add-on for one organisation, built from ``addon_service.addon_cards``."
       example:
-        addon: branded_journey
+        addon: addon
         name: name
         description: description
         enabled: true
@@ -2508,11 +2499,8 @@ components:
             * `sso` - Single Sign-On (SSO)
             * `api_access` - API & MCP Access
             * `connected_ats` - Connected ATS - Click & Go
-          enum:
-          - branded_journey
-          - sso
-          - api_access
-          - connected_ats
+
+            Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
           type: string
           x-spec-enum-id: d4f33289658c4259
         name:
@@ -2681,10 +2669,10 @@ components:
           candidate: ""
           checks:
           - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            check_type: addresscheck
+            check_type: check_type
             status: status
           - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            check_type: addresscheck
+            check_type: check_type
             status: status
           candidate_wizard_url: https://openapi-generator.tech
           dashboard_url: https://openapi-generator.tech
@@ -2701,10 +2689,10 @@ components:
           candidate: ""
           checks:
           - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            check_type: addresscheck
+            check_type: check_type
             status: status
           - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            check_type: addresscheck
+            check_type: check_type
             status: status
           candidate_wizard_url: https://openapi-generator.tech
           dashboard_url: https://openapi-generator.tech
@@ -2835,7 +2823,7 @@ components:
         initials: initials
         date_of_birth: date_of_birth
         gender: gender
-        nationality: AD
+        nationality: nationality
         postal_code: postal_code
         house_number: house_number
         extension: extension
@@ -3110,258 +3098,8 @@ components:
             * `ZA` - ZA
             * `ZM` - ZM
             * `ZW` - ZW
-          enum:
-          - AD
-          - AE
-          - AF
-          - AG
-          - AI
-          - AL
-          - AM
-          - AO
-          - AQ
-          - AR
-          - AS
-          - AT
-          - AU
-          - AW
-          - AX
-          - AZ
-          - BA
-          - BB
-          - BD
-          - BE
-          - BF
-          - BG
-          - BH
-          - BI
-          - BJ
-          - BL
-          - BM
-          - BN
-          - BO
-          - BQ
-          - BR
-          - BS
-          - BT
-          - BV
-          - BW
-          - BY
-          - BZ
-          - CA
-          - CC
-          - CD
-          - CF
-          - CG
-          - CH
-          - CI
-          - CK
-          - CL
-          - CM
-          - CN
-          - CO
-          - CR
-          - CU
-          - CV
-          - CW
-          - CX
-          - CY
-          - CZ
-          - DE
-          - DJ
-          - DK
-          - DM
-          - DO
-          - DZ
-          - EC
-          - EE
-          - EG
-          - EH
-          - ER
-          - ES
-          - ET
-          - FI
-          - FJ
-          - FK
-          - FM
-          - FO
-          - FR
-          - GA
-          - GB
-          - GD
-          - GE
-          - GF
-          - GG
-          - GH
-          - GI
-          - GL
-          - GM
-          - GN
-          - GP
-          - GQ
-          - GR
-          - GS
-          - GT
-          - GU
-          - GW
-          - GY
-          - HK
-          - HM
-          - HN
-          - HR
-          - HT
-          - HU
-          - ID
-          - IE
-          - IL
-          - IM
-          - IN
-          - IO
-          - IQ
-          - IR
-          - IS
-          - IT
-          - JE
-          - JM
-          - JO
-          - JP
-          - KE
-          - KG
-          - KH
-          - KI
-          - KM
-          - KN
-          - KP
-          - KR
-          - KW
-          - KY
-          - KZ
-          - LA
-          - LB
-          - LC
-          - LI
-          - LK
-          - LR
-          - LS
-          - LT
-          - LU
-          - LV
-          - LY
-          - MA
-          - MC
-          - MD
-          - ME
-          - MF
-          - MG
-          - MH
-          - MK
-          - ML
-          - MM
-          - MN
-          - MO
-          - MP
-          - MQ
-          - MR
-          - MS
-          - MT
-          - MU
-          - MV
-          - MW
-          - MX
-          - MY
-          - MZ
-          - NA
-          - NC
-          - NE
-          - NF
-          - NG
-          - NI
-          - NL
-          - "NO"
-          - NP
-          - NR
-          - NU
-          - NZ
-          - OM
-          - PA
-          - PE
-          - PF
-          - PG
-          - PH
-          - PK
-          - PL
-          - PM
-          - PN
-          - PR
-          - PS
-          - PT
-          - PW
-          - PY
-          - QA
-          - RE
-          - RO
-          - RS
-          - RU
-          - RW
-          - SA
-          - SB
-          - SC
-          - SD
-          - SE
-          - SG
-          - SH
-          - SI
-          - SJ
-          - SK
-          - SL
-          - SM
-          - SN
-          - SO
-          - SR
-          - SS
-          - ST
-          - SV
-          - SX
-          - SY
-          - SZ
-          - TC
-          - TD
-          - TF
-          - TG
-          - TH
-          - TJ
-          - TK
-          - TL
-          - TM
-          - TN
-          - TO
-          - TR
-          - TT
-          - TV
-          - TW
-          - TZ
-          - UA
-          - UG
-          - UM
-          - US
-          - UY
-          - UZ
-          - VA
-          - VC
-          - VE
-          - VG
-          - VI
-          - VN
-          - VU
-          - WF
-          - WS
-          - XK
-          - YE
-          - YT
-          - ZA
-          - ZM
-          - ZW
-          - ""
+
+            Known values: AD, AE, AF, AG, AI, AL, AM, AO, AQ, AR, AS, AT, AU, AW, AX, AZ, BA, BB, BD, BE, BF, BG, BH, BI, BJ, BL, BM, BN, BO, BQ, BR, BS, BT, BV, BW, BY, BZ, CA, CC, CD, CF, CG, CH, CI, CK, CL, CM, CN, CO, CR, CU, CV, CW, CX, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, EH, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GA, GB, GD, GE, GF, GG, GH, GI, GL, GM, GN, GP, GQ, GR, GS, GT, GU, GW, GY, HK, HM, HN, HR, HT, HU, ID, IE, IL, IM, IN, IO, IQ, IR, IS, IT, JE, JM, JO, JP, KE, KG, KH, KI, KM, KN, KP, KR, KW, KY, KZ, LA, LB, LC, LI, LK, LR, LS, LT, LU, LV, LY, MA, MC, MD, ME, MF, MG, MH, MK, ML, MM, MN, MO, MP, MQ, MR, MS, MT, MU, MV, MW, MX, MY, MZ, NA, NC, NE, NF, NG, NI, NL, NO, NP, NR, NU, NZ, OM, PA, PE, PF, PG, PH, PK, PL, PM, PN, PR, PS, PT, PW, PY, QA, RE, RO, RS, RU, RW, SA, SB, SC, SD, SE, SG, SH, SI, SJ, SK, SL, SM, SN, SO, SR, SS, ST, SV, SX, SY, SZ, TC, TD, TF, TG, TH, TJ, TK, TL, TM, TN, TO, TR, TT, TV, TW, TZ, UA, UG, UM, US, UY, UZ, VA, VC, VE, VG, VI, VN, VU, WF, WS, XK, YE, YT, ZA, ZM, ZW, . New values may be added; handle unknown values.
           type: string
           x-spec-enum-id: 1a26a677cd317db4
         postal_code:
@@ -3560,7 +3298,7 @@ components:
         check-specific extras and may be empty.
       example:
         check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        check_type: addresscheck
+        check_type: check_type
         filename: filename
         extension: extension
         content: ""
@@ -3597,30 +3335,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          enum:
-          - addresscheck
-          - adversemedia2check
-          - adversemediacheck
-          - bigcheck
-          - criminalrecordscheck
-          - criminalrecordsuploadcheck
-          - customintegritycheck
-          - cvcheck
-          - edrcheck
-          - ibancheck
-          - id2check
-          - idcheck
-          - integritycheck
-          - openhealthcarecheck
-          - permissioncheck
-          - pescheckadversemediacheck
-          - qualificationcheck
-          - righttoworkcheck
-          - vogcheck
-          - watchlist2check
-          - watchlistcheck
-          - workreferencecheck
-          - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           readOnly: true
           type: string
           x-spec-enum-id: a17734d06d185738
@@ -3736,7 +3452,7 @@ components:
     V2ProfileCheckEntry:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        check_type: addresscheck
+        check_type: check_type
         display_name: display_name
         configured_price: ""
         config:
@@ -3776,30 +3492,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          enum:
-          - addresscheck
-          - adversemedia2check
-          - adversemediacheck
-          - bigcheck
-          - criminalrecordscheck
-          - criminalrecordsuploadcheck
-          - customintegritycheck
-          - cvcheck
-          - edrcheck
-          - ibancheck
-          - id2check
-          - idcheck
-          - integritycheck
-          - openhealthcarecheck
-          - permissioncheck
-          - pescheckadversemediacheck
-          - qualificationcheck
-          - righttoworkcheck
-          - vogcheck
-          - watchlist2check
-          - watchlistcheck
-          - workreferencecheck
-          - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           readOnly: true
           type: string
           x-spec-enum-id: a17734d06d185738
@@ -3865,7 +3559,7 @@ components:
         is_custom: true
         checks:
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           display_name: display_name
           configured_price: ""
           config:
@@ -3875,7 +3569,7 @@ components:
           - "{}"
           is_system_managed: true
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           display_name: display_name
           configured_price: ""
           config:
@@ -4183,7 +3877,7 @@ components:
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         profile_check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        check_type: addresscheck
+        check_type: check_type
         display_name: display_name
         status: status
         config:
@@ -4228,30 +3922,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          enum:
-          - addresscheck
-          - adversemedia2check
-          - adversemediacheck
-          - bigcheck
-          - criminalrecordscheck
-          - criminalrecordsuploadcheck
-          - customintegritycheck
-          - cvcheck
-          - edrcheck
-          - ibancheck
-          - id2check
-          - idcheck
-          - integritycheck
-          - openhealthcarecheck
-          - permissioncheck
-          - pescheckadversemediacheck
-          - qualificationcheck
-          - righttoworkcheck
-          - vogcheck
-          - watchlist2check
-          - watchlistcheck
-          - workreferencecheck
-          - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           readOnly: true
           type: string
           x-spec-enum-id: a17734d06d185738
@@ -4295,7 +3967,7 @@ components:
       description: Minimal check entry shape for screening list items. No config/input/etc.
       example:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        check_type: addresscheck
+        check_type: check_type
         status: status
       properties:
         id:
@@ -4327,30 +3999,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
-          enum:
-          - addresscheck
-          - adversemedia2check
-          - adversemediacheck
-          - bigcheck
-          - criminalrecordscheck
-          - criminalrecordsuploadcheck
-          - customintegritycheck
-          - cvcheck
-          - edrcheck
-          - ibancheck
-          - id2check
-          - idcheck
-          - integritycheck
-          - openhealthcarecheck
-          - permissioncheck
-          - pescheckadversemediacheck
-          - qualificationcheck
-          - righttoworkcheck
-          - vogcheck
-          - watchlist2check
-          - watchlistcheck
-          - workreferencecheck
-          - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           readOnly: true
           type: string
           x-spec-enum-id: a17734d06d185738
@@ -4372,7 +4022,7 @@ components:
           initials: initials
           date_of_birth: date_of_birth
           gender: gender
-          nationality: AD
+          nationality: nationality
           postal_code: postal_code
           house_number: house_number
           extension: extension
@@ -4433,7 +4083,7 @@ components:
         checks:
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           profile_check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           display_name: display_name
           status: status
           config:
@@ -4445,7 +4095,7 @@ components:
           candidate_wizard_url: https://openapi-generator.tech
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           profile_check_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           display_name: display_name
           status: status
           config:
@@ -4544,10 +4194,10 @@ components:
         candidate: ""
         checks:
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           status: status
         - id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          check_type: addresscheck
+          check_type: check_type
           status: status
         candidate_wizard_url: https://openapi-generator.tech
         dashboard_url: https://openapi-generator.tech

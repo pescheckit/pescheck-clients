@@ -5,7 +5,7 @@ One add-on for one organisation, built from ``addon_service.addon_cards``.
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Addon** | **string** | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go | 
+**Addon** | **string** | Add-on identifier, used in the URL.  * &#x60;branded_journey&#x60; - Branded Journey * &#x60;sso&#x60; - Single Sign-On (SSO) * &#x60;api_access&#x60; - API &amp; MCP Access * &#x60;connected_ats&#x60; - Connected ATS - Click &amp; Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values. | 
 **Name** | **string** |  | 
 **Description** | **string** |  | 
 **Enabled** | **bool** | Switched on (and billed) for this organisation. | 

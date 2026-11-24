@@ -14,7 +14,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="v2ProfilesCreate"></a>
 # **v2ProfilesCreate**
-> V2ProfileDetail v2ProfilesCreate(v2ProfileCreate)
+> V2ProfileDetail v2ProfilesCreate(v2ProfileCreate).execute();
 
 
 
@@ -40,7 +40,8 @@ public class Example {
     ProfilesApi apiInstance = new ProfilesApi(defaultClient);
     V2ProfileCreate v2ProfileCreate = new V2ProfileCreate(); // V2ProfileCreate | 
     try {
-      V2ProfileDetail result = apiInstance.v2ProfilesCreate(v2ProfileCreate);
+      V2ProfileDetail result = apiInstance.v2ProfilesCreate(v2ProfileCreate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesCreate");
@@ -79,7 +80,7 @@ public class Example {
 
 <a id="v2ProfilesDestroy"></a>
 # **v2ProfilesDestroy**
-> v2ProfilesDestroy(id)
+> v2ProfilesDestroy(id).execute();
 
 
 
@@ -105,7 +106,8 @@ public class Example {
     ProfilesApi apiInstance = new ProfilesApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this profile.
     try {
-      apiInstance.v2ProfilesDestroy(id);
+      apiInstance.v2ProfilesDestroy(id)
+            .execute();
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesDestroy");
       System.err.println("Status code: " + e.getCode());
@@ -143,7 +145,7 @@ null (empty response body)
 
 <a id="v2ProfilesList"></a>
 # **v2ProfilesList**
-> PaginatedV2ProfileListItemList v2ProfilesList(checkType, isCustom, name, page, pageSize, paginate, sort)
+> PaginatedV2ProfileListItemList v2ProfilesList().checkType(checkType).isCustom(isCustom).name(name).page(page).pageSize(pageSize).paginate(paginate).sort(sort).execute();
 
 
 
@@ -175,7 +177,15 @@ public class Example {
     Boolean paginate = true; // Boolean | Enable/disable pagination. When false, max 500 records returned.
     String sort = "sort_example"; // String | Which field to use when ordering the results.
     try {
-      PaginatedV2ProfileListItemList result = apiInstance.v2ProfilesList(checkType, isCustom, name, page, pageSize, paginate, sort);
+      PaginatedV2ProfileListItemList result = apiInstance.v2ProfilesList()
+            .checkType(checkType)
+            .isCustom(isCustom)
+            .name(name)
+            .page(page)
+            .pageSize(pageSize)
+            .paginate(paginate)
+            .sort(sort)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesList");
@@ -220,7 +230,7 @@ public class Example {
 
 <a id="v2ProfilesPartialUpdate"></a>
 # **v2ProfilesPartialUpdate**
-> V2ProfileDetail v2ProfilesPartialUpdate(id, patchedV2ProfilePartialUpdate)
+> V2ProfileDetail v2ProfilesPartialUpdate(id).patchedV2ProfilePartialUpdate(patchedV2ProfilePartialUpdate).execute();
 
 
 
@@ -249,7 +259,9 @@ public class Example {
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this profile.
     PatchedV2ProfilePartialUpdate patchedV2ProfilePartialUpdate = new PatchedV2ProfilePartialUpdate(); // PatchedV2ProfilePartialUpdate | 
     try {
-      V2ProfileDetail result = apiInstance.v2ProfilesPartialUpdate(id, patchedV2ProfilePartialUpdate);
+      V2ProfileDetail result = apiInstance.v2ProfilesPartialUpdate(id)
+            .patchedV2ProfilePartialUpdate(patchedV2ProfilePartialUpdate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesPartialUpdate");
@@ -289,7 +301,7 @@ public class Example {
 
 <a id="v2ProfilesRetrieve"></a>
 # **v2ProfilesRetrieve**
-> V2ProfileDetail v2ProfilesRetrieve(id)
+> V2ProfileDetail v2ProfilesRetrieve(id).execute();
 
 
 
@@ -315,7 +327,8 @@ public class Example {
     ProfilesApi apiInstance = new ProfilesApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this profile.
     try {
-      V2ProfileDetail result = apiInstance.v2ProfilesRetrieve(id);
+      V2ProfileDetail result = apiInstance.v2ProfilesRetrieve(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesRetrieve");
@@ -354,7 +367,7 @@ public class Example {
 
 <a id="v2ProfilesUpdate"></a>
 # **v2ProfilesUpdate**
-> V2ProfileDetail v2ProfilesUpdate(id, v2ProfileUpdate)
+> V2ProfileDetail v2ProfilesUpdate(id, v2ProfileUpdate).execute();
 
 
 
@@ -383,7 +396,8 @@ public class Example {
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this profile.
     V2ProfileUpdate v2ProfileUpdate = new V2ProfileUpdate(); // V2ProfileUpdate | 
     try {
-      V2ProfileDetail result = apiInstance.v2ProfilesUpdate(id, v2ProfileUpdate);
+      V2ProfileDetail result = apiInstance.v2ProfilesUpdate(id, v2ProfileUpdate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ProfilesApi#v2ProfilesUpdate");

@@ -41,10 +41,12 @@ export interface OrganisationAddonUpdateResult {
      * * `sso` - Single Sign-On (SSO)
      * * `api_access` - API & MCP Access
      * * `connected_ats` - Connected ATS - Click & Go
-     * @type {OrganisationAddonUpdateResultAddonEnum}
+     * 
+     * Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
+     * @type {string}
      * @memberof OrganisationAddonUpdateResult
      */
-    addon: OrganisationAddonUpdateResultAddonEnum;
+    addon: string;
     /**
      * 
      * @type {string}
@@ -94,19 +96,6 @@ export interface OrganisationAddonUpdateResult {
      */
     disabledDivisions: Array<DisabledDivision>;
 }
-
-
-/**
- * @export
- */
-export const OrganisationAddonUpdateResultAddonEnum = {
-    BrandedJourney: 'branded_journey',
-    Sso: 'sso',
-    ApiAccess: 'api_access',
-    ConnectedAts: 'connected_ats'
-} as const;
-export type OrganisationAddonUpdateResultAddonEnum = typeof OrganisationAddonUpdateResultAddonEnum[keyof typeof OrganisationAddonUpdateResultAddonEnum];
-
 
 /**
  * Check if a given object implements the OrganisationAddonUpdateResult interface.

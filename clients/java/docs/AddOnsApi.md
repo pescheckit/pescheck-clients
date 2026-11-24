@@ -12,7 +12,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="v2OrganisationsAddonsList"></a>
 # **v2OrganisationsAddonsList**
-> List&lt;OrganisationAddon&gt; v2OrganisationsAddonsList(divisionId)
+> List&lt;OrganisationAddon&gt; v2OrganisationsAddonsList().divisionId(divisionId).execute();
 
 
 
@@ -40,7 +40,9 @@ public class Example {
     AddOnsApi apiInstance = new AddOnsApi(defaultClient);
     String divisionId = "divisionId_example"; // String | Act on this division instead of the organisation the token belongs to.
     try {
-      List<OrganisationAddon> result = apiInstance.v2OrganisationsAddonsList(divisionId);
+      List<OrganisationAddon> result = apiInstance.v2OrganisationsAddonsList()
+            .divisionId(divisionId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AddOnsApi#v2OrganisationsAddonsList");
@@ -79,7 +81,7 @@ public class Example {
 
 <a id="v2OrganisationsAddonsPartialUpdate"></a>
 # **v2OrganisationsAddonsPartialUpdate**
-> OrganisationAddonUpdateResult v2OrganisationsAddonsPartialUpdate(addon, divisionId, patchedOrganisationAddonUpdate)
+> OrganisationAddonUpdateResult v2OrganisationsAddonsPartialUpdate(addon).divisionId(divisionId).patchedOrganisationAddonUpdate(patchedOrganisationAddonUpdate).execute();
 
 
 
@@ -109,7 +111,10 @@ public class Example {
     String divisionId = "divisionId_example"; // String | Act on this division instead of the organisation the token belongs to.
     PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate = new PatchedOrganisationAddonUpdate(); // PatchedOrganisationAddonUpdate | 
     try {
-      OrganisationAddonUpdateResult result = apiInstance.v2OrganisationsAddonsPartialUpdate(addon, divisionId, patchedOrganisationAddonUpdate);
+      OrganisationAddonUpdateResult result = apiInstance.v2OrganisationsAddonsPartialUpdate(addon)
+            .divisionId(divisionId)
+            .patchedOrganisationAddonUpdate(patchedOrganisationAddonUpdate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AddOnsApi#v2OrganisationsAddonsPartialUpdate");
@@ -150,7 +155,7 @@ public class Example {
 
 <a id="v2OrganisationsAddonsRetrieve"></a>
 # **v2OrganisationsAddonsRetrieve**
-> OrganisationAddon v2OrganisationsAddonsRetrieve(addon, divisionId)
+> OrganisationAddon v2OrganisationsAddonsRetrieve(addon).divisionId(divisionId).execute();
 
 
 
@@ -179,7 +184,9 @@ public class Example {
     String addon = "api_access"; // String | The add-on to act on.
     String divisionId = "divisionId_example"; // String | Act on this division instead of the organisation the token belongs to.
     try {
-      OrganisationAddon result = apiInstance.v2OrganisationsAddonsRetrieve(addon, divisionId);
+      OrganisationAddon result = apiInstance.v2OrganisationsAddonsRetrieve(addon)
+            .divisionId(divisionId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AddOnsApi#v2OrganisationsAddonsRetrieve");
@@ -219,7 +226,7 @@ public class Example {
 
 <a id="v2OrganisationsAddonsUpdate"></a>
 # **v2OrganisationsAddonsUpdate**
-> OrganisationAddonUpdateResult v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate, divisionId)
+> OrganisationAddonUpdateResult v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate).divisionId(divisionId).execute();
 
 
 
@@ -249,7 +256,9 @@ public class Example {
     OrganisationAddonUpdate organisationAddonUpdate = new OrganisationAddonUpdate(); // OrganisationAddonUpdate | 
     String divisionId = "divisionId_example"; // String | Act on this division instead of the organisation the token belongs to.
     try {
-      OrganisationAddonUpdateResult result = apiInstance.v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate, divisionId);
+      OrganisationAddonUpdateResult result = apiInstance.v2OrganisationsAddonsUpdate(addon, organisationAddonUpdate)
+            .divisionId(divisionId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling AddOnsApi#v2OrganisationsAddonsUpdate");

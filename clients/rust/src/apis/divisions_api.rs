@@ -14,6 +14,46 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`v2_organisations_divisions_create`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsDivisionsCreateParams {
+    pub division_write: models::DivisionWrite
+}
+
+/// struct for passing parameters to the method [`v2_organisations_divisions_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsDivisionsListParams {
+    /// A page number within the paginated result set.
+    pub page: Option<i32>,
+    /// Number of results to return per page.
+    pub page_size: Option<i32>,
+    /// Enable/disable pagination. When false, max 500 records returned.
+    pub paginate: Option<bool>
+}
+
+/// struct for passing parameters to the method [`v2_organisations_divisions_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsDivisionsPartialUpdateParams {
+    /// A UUID string identifying this organisation.
+    pub id: String,
+    pub patched_division_write: Option<models::PatchedDivisionWrite>
+}
+
+/// struct for passing parameters to the method [`v2_organisations_divisions_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsDivisionsRetrieveParams {
+    /// A UUID string identifying this organisation.
+    pub id: String
+}
+
+/// struct for passing parameters to the method [`v2_organisations_divisions_update`]
+#[derive(Clone, Debug, Default)]
+pub struct V2OrganisationsDivisionsUpdateParams {
+    /// A UUID string identifying this organisation.
+    pub id: String,
+    pub division_write: models::DivisionWrite
+}
+
 
 /// struct for typed errors of method [`v2_organisations_divisions_create`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -52,9 +92,7 @@ pub enum V2OrganisationsDivisionsUpdateError {
 
 
 /// Create a division (a child organisation under the current parent org). Divisions are an advanced, rarely-needed feature: create one ONLY when the user has clearly stated they want to manage a separate business unit, location, or legal entity under their account. Do NOT create a division just to organise screenings, for a single-person or single-member organisation, or without an explicit request to do so. When in doubt, ask the user to confirm before calling this tool.
-pub async fn v2_organisations_divisions_create(configuration: &configuration::Configuration, division_write: models::DivisionWrite) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsCreateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_division_write = division_write;
+pub async fn v2_organisations_divisions_create(configuration: &configuration::Configuration, params: V2OrganisationsDivisionsCreateParams) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsCreateError>> {
 
     let uri_str = format!("{}/api/v2/organisations/divisions/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::POST, &uri_str);
@@ -65,7 +103,7 @@ pub async fn v2_organisations_divisions_create(configuration: &configuration::Co
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_division_write);
+    req_builder = req_builder.json(&params.division_write);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -93,22 +131,18 @@ pub async fn v2_organisations_divisions_create(configuration: &configuration::Co
 }
 
 /// List method that handles both paginated and unpaginated responses and enforces the max_total_records limit (500).
-pub async fn v2_organisations_divisions_list(configuration: &configuration::Configuration, page: Option<i32>, page_size: Option<i32>, paginate: Option<bool>) -> Result<models::PaginatedDivisionReadOnlyList, Error<V2OrganisationsDivisionsListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_page = page;
-    let p_query_page_size = page_size;
-    let p_query_paginate = paginate;
+pub async fn v2_organisations_divisions_list(configuration: &configuration::Configuration, params: V2OrganisationsDivisionsListParams) -> Result<models::PaginatedDivisionReadOnlyList, Error<V2OrganisationsDivisionsListError>> {
 
     let uri_str = format!("{}/api/v2/organisations/divisions/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_page {
+    if let Some(ref param_value) = params.page {
         req_builder = req_builder.query(&[("page", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_page_size {
+    if let Some(ref param_value) = params.page_size {
         req_builder = req_builder.query(&[("page_size", &param_value.to_string())]);
     }
-    if let Some(ref param_value) = p_query_paginate {
+    if let Some(ref param_value) = params.paginate {
         req_builder = req_builder.query(&[("paginate", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -144,12 +178,9 @@ pub async fn v2_organisations_divisions_list(configuration: &configuration::Conf
 }
 
 /// A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-pub async fn v2_organisations_divisions_partial_update(configuration: &configuration::Configuration, id: &str, patched_division_write: Option<models::PatchedDivisionWrite>) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsPartialUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_patched_division_write = patched_division_write;
+pub async fn v2_organisations_divisions_partial_update(configuration: &configuration::Configuration, params: V2OrganisationsDivisionsPartialUpdateParams) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsPartialUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::PATCH, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -158,7 +189,7 @@ pub async fn v2_organisations_divisions_partial_update(configuration: &configura
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_patched_division_write);
+    req_builder = req_builder.json(&params.patched_division_write);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -186,11 +217,9 @@ pub async fn v2_organisations_divisions_partial_update(configuration: &configura
 }
 
 /// A division is a child organisation under a parent org, used only when a customer needs to manage genuinely separate business units, locations, or legal entities under one account. The vast majority of organisations operate as a single entity and need no divisions. Only top-level (parent) organisations can have divisions.
-pub async fn v2_organisations_divisions_retrieve(configuration: &configuration::Configuration, id: &str) -> Result<models::DivisionReadOnly, Error<V2OrganisationsDivisionsRetrieveError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
+pub async fn v2_organisations_divisions_retrieve(configuration: &configuration::Configuration, params: V2OrganisationsDivisionsRetrieveParams) -> Result<models::DivisionReadOnly, Error<V2OrganisationsDivisionsRetrieveError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -226,12 +255,9 @@ pub async fn v2_organisations_divisions_retrieve(configuration: &configuration::
 }
 
 /// Update an existing division's contact, billing, and address details.  Override also triggers a webhook on successful PUT and PATCH requests.
-pub async fn v2_organisations_divisions_update(configuration: &configuration::Configuration, id: &str, division_write: models::DivisionWrite) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsUpdateError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_id = id;
-    let p_body_division_write = division_write;
+pub async fn v2_organisations_divisions_update(configuration: &configuration::Configuration, params: V2OrganisationsDivisionsUpdateParams) -> Result<models::DivisionWrite, Error<V2OrganisationsDivisionsUpdateError>> {
 
-    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(p_path_id));
+    let uri_str = format!("{}/api/v2/organisations/divisions/{id}/", configuration.base_path, id=crate::apis::urlencode(params.id));
     let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
@@ -240,7 +266,7 @@ pub async fn v2_organisations_divisions_update(configuration: &configuration::Co
     if let Some(ref token) = configuration.oauth_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_division_write);
+    req_builder = req_builder.json(&params.division_write);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

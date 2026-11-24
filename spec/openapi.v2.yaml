@@ -2092,22 +2092,14 @@ components:
           type: string
           readOnly: true
         client_type:
-          enum:
-            - confidential
-            - public
           type: string
           description: |-
             * `confidential` - Confidential
             * `public` - Public
+
+            Known values: confidential, public. New values may be added; handle unknown values.
           x-spec-enum-id: 6de8a18fd0ba1b55
         authorization_grant_type:
-          enum:
-            - authorization-code
-            - urn:ietf:params:oauth:grant-type:device_code
-            - implicit
-            - password
-            - client-credentials
-            - openid-hybrid
           type: string
           description: |-
             * `authorization-code` - Authorization code
@@ -2116,6 +2108,8 @@ components:
             * `password` - Resource owner password-based
             * `client-credentials` - Client credentials
             * `openid-hybrid` - OpenID connect hybrid
+
+            Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
           x-spec-enum-id: 520f84b4eb7c22d1
         organisation:
           type: string
@@ -2146,11 +2140,6 @@ components:
       description: One add-on for one organisation, built from ``addon_service.addon_cards``.
       properties:
         addon:
-          enum:
-            - branded_journey
-            - sso
-            - api_access
-            - connected_ats
           type: string
           x-spec-enum-id: d4f33289658c4259
           description: |-
@@ -2160,6 +2149,8 @@ components:
             * `sso` - Single Sign-On (SSO)
             * `api_access` - API & MCP Access
             * `connected_ats` - Connected ATS - Click & Go
+
+            Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
         name:
           type: string
         description:
@@ -2203,11 +2194,6 @@ components:
       description: One add-on for one organisation, built from ``addon_service.addon_cards``.
       properties:
         addon:
-          enum:
-            - branded_journey
-            - sso
-            - api_access
-            - connected_ats
           type: string
           x-spec-enum-id: d4f33289658c4259
           description: |-
@@ -2217,6 +2203,8 @@ components:
             * `sso` - Single Sign-On (SSO)
             * `api_access` - API & MCP Access
             * `connected_ats` - Connected ATS - Click & Go
+
+            Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
         name:
           type: string
         description:
@@ -2419,258 +2407,6 @@ components:
         gender:
           type: string
         nationality:
-          enum:
-            - AD
-            - AE
-            - AF
-            - AG
-            - AI
-            - AL
-            - AM
-            - AO
-            - AQ
-            - AR
-            - AS
-            - AT
-            - AU
-            - AW
-            - AX
-            - AZ
-            - BA
-            - BB
-            - BD
-            - BE
-            - BF
-            - BG
-            - BH
-            - BI
-            - BJ
-            - BL
-            - BM
-            - BN
-            - BO
-            - BQ
-            - BR
-            - BS
-            - BT
-            - BV
-            - BW
-            - BY
-            - BZ
-            - CA
-            - CC
-            - CD
-            - CF
-            - CG
-            - CH
-            - CI
-            - CK
-            - CL
-            - CM
-            - CN
-            - CO
-            - CR
-            - CU
-            - CV
-            - CW
-            - CX
-            - CY
-            - CZ
-            - DE
-            - DJ
-            - DK
-            - DM
-            - DO
-            - DZ
-            - EC
-            - EE
-            - EG
-            - EH
-            - ER
-            - ES
-            - ET
-            - FI
-            - FJ
-            - FK
-            - FM
-            - FO
-            - FR
-            - GA
-            - GB
-            - GD
-            - GE
-            - GF
-            - GG
-            - GH
-            - GI
-            - GL
-            - GM
-            - GN
-            - GP
-            - GQ
-            - GR
-            - GS
-            - GT
-            - GU
-            - GW
-            - GY
-            - HK
-            - HM
-            - HN
-            - HR
-            - HT
-            - HU
-            - ID
-            - IE
-            - IL
-            - IM
-            - IN
-            - IO
-            - IQ
-            - IR
-            - IS
-            - IT
-            - JE
-            - JM
-            - JO
-            - JP
-            - KE
-            - KG
-            - KH
-            - KI
-            - KM
-            - KN
-            - KP
-            - KR
-            - KW
-            - KY
-            - KZ
-            - LA
-            - LB
-            - LC
-            - LI
-            - LK
-            - LR
-            - LS
-            - LT
-            - LU
-            - LV
-            - LY
-            - MA
-            - MC
-            - MD
-            - ME
-            - MF
-            - MG
-            - MH
-            - MK
-            - ML
-            - MM
-            - MN
-            - MO
-            - MP
-            - MQ
-            - MR
-            - MS
-            - MT
-            - MU
-            - MV
-            - MW
-            - MX
-            - MY
-            - MZ
-            - NA
-            - NC
-            - NE
-            - NF
-            - NG
-            - NI
-            - NL
-            - 'NO'
-            - NP
-            - NR
-            - NU
-            - NZ
-            - OM
-            - PA
-            - PE
-            - PF
-            - PG
-            - PH
-            - PK
-            - PL
-            - PM
-            - PN
-            - PR
-            - PS
-            - PT
-            - PW
-            - PY
-            - QA
-            - RE
-            - RO
-            - RS
-            - RU
-            - RW
-            - SA
-            - SB
-            - SC
-            - SD
-            - SE
-            - SG
-            - SH
-            - SI
-            - SJ
-            - SK
-            - SL
-            - SM
-            - SN
-            - SO
-            - SR
-            - SS
-            - ST
-            - SV
-            - SX
-            - SY
-            - SZ
-            - TC
-            - TD
-            - TF
-            - TG
-            - TH
-            - TJ
-            - TK
-            - TL
-            - TM
-            - TN
-            - TO
-            - TR
-            - TT
-            - TV
-            - TW
-            - TZ
-            - UA
-            - UG
-            - UM
-            - US
-            - UY
-            - UZ
-            - VA
-            - VC
-            - VE
-            - VG
-            - VI
-            - VN
-            - VU
-            - WF
-            - WS
-            - XK
-            - YE
-            - YT
-            - ZA
-            - ZM
-            - ZW
-            - ''
           type: string
           x-spec-enum-id: 1a26a677cd317db4
           description: |-
@@ -2926,6 +2662,8 @@ components:
             * `ZA` - ZA
             * `ZM` - ZM
             * `ZW` - ZW
+
+            Known values: AD, AE, AF, AG, AI, AL, AM, AO, AQ, AR, AS, AT, AU, AW, AX, AZ, BA, BB, BD, BE, BF, BG, BH, BI, BJ, BL, BM, BN, BO, BQ, BR, BS, BT, BV, BW, BY, BZ, CA, CC, CD, CF, CG, CH, CI, CK, CL, CM, CN, CO, CR, CU, CV, CW, CX, CY, CZ, DE, DJ, DK, DM, DO, DZ, EC, EE, EG, EH, ER, ES, ET, FI, FJ, FK, FM, FO, FR, GA, GB, GD, GE, GF, GG, GH, GI, GL, GM, GN, GP, GQ, GR, GS, GT, GU, GW, GY, HK, HM, HN, HR, HT, HU, ID, IE, IL, IM, IN, IO, IQ, IR, IS, IT, JE, JM, JO, JP, KE, KG, KH, KI, KM, KN, KP, KR, KW, KY, KZ, LA, LB, LC, LI, LK, LR, LS, LT, LU, LV, LY, MA, MC, MD, ME, MF, MG, MH, MK, ML, MM, MN, MO, MP, MQ, MR, MS, MT, MU, MV, MW, MX, MY, MZ, NA, NC, NE, NF, NG, NI, NL, NO, NP, NR, NU, NZ, OM, PA, PE, PF, PG, PH, PK, PL, PM, PN, PR, PS, PT, PW, PY, QA, RE, RO, RS, RU, RW, SA, SB, SC, SD, SE, SG, SH, SI, SJ, SK, SL, SM, SN, SO, SR, SS, ST, SV, SX, SY, SZ, TC, TD, TF, TG, TH, TJ, TK, TL, TM, TN, TO, TR, TT, TV, TW, TZ, UA, UG, UM, US, UY, UZ, VA, VC, VE, VG, VI, VN, VU, WF, WS, XK, YE, YT, ZA, ZM, ZW, . New values may be added; handle unknown values.
         postal_code:
           type: string
           maxLength: 255
@@ -3054,30 +2792,6 @@ components:
           readOnly: true
           nullable: true
         check_type:
-          enum:
-            - addresscheck
-            - adversemedia2check
-            - adversemediacheck
-            - bigcheck
-            - criminalrecordscheck
-            - criminalrecordsuploadcheck
-            - customintegritycheck
-            - cvcheck
-            - edrcheck
-            - ibancheck
-            - id2check
-            - idcheck
-            - integritycheck
-            - openhealthcarecheck
-            - permissioncheck
-            - pescheckadversemediacheck
-            - qualificationcheck
-            - righttoworkcheck
-            - vogcheck
-            - watchlist2check
-            - watchlistcheck
-            - workreferencecheck
-            - worldwidecreditcheck
           type: string
           description: |-
             * `addresscheck` - addresscheck
@@ -3103,6 +2817,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           x-spec-enum-id: a17734d06d185738
           readOnly: true
         filename:
@@ -3218,30 +2934,6 @@ components:
           readOnly: true
           nullable: true
         check_type:
-          enum:
-            - addresscheck
-            - adversemedia2check
-            - adversemediacheck
-            - bigcheck
-            - criminalrecordscheck
-            - criminalrecordsuploadcheck
-            - customintegritycheck
-            - cvcheck
-            - edrcheck
-            - ibancheck
-            - id2check
-            - idcheck
-            - integritycheck
-            - openhealthcarecheck
-            - permissioncheck
-            - pescheckadversemediacheck
-            - qualificationcheck
-            - righttoworkcheck
-            - vogcheck
-            - watchlist2check
-            - watchlistcheck
-            - workreferencecheck
-            - worldwidecreditcheck
           type: string
           description: |-
             * `addresscheck` - addresscheck
@@ -3267,6 +2959,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           x-spec-enum-id: a17734d06d185738
           readOnly: true
         display_name:
@@ -3571,30 +3265,6 @@ components:
           readOnly: true
           nullable: true
         check_type:
-          enum:
-            - addresscheck
-            - adversemedia2check
-            - adversemediacheck
-            - bigcheck
-            - criminalrecordscheck
-            - criminalrecordsuploadcheck
-            - customintegritycheck
-            - cvcheck
-            - edrcheck
-            - ibancheck
-            - id2check
-            - idcheck
-            - integritycheck
-            - openhealthcarecheck
-            - permissioncheck
-            - pescheckadversemediacheck
-            - qualificationcheck
-            - righttoworkcheck
-            - vogcheck
-            - watchlist2check
-            - watchlistcheck
-            - workreferencecheck
-            - worldwidecreditcheck
           type: string
           description: |-
             * `addresscheck` - addresscheck
@@ -3620,6 +3290,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           x-spec-enum-id: a17734d06d185738
           readOnly: true
         display_name:
@@ -3665,30 +3337,6 @@ components:
           format: uuid
           readOnly: true
         check_type:
-          enum:
-            - addresscheck
-            - adversemedia2check
-            - adversemediacheck
-            - bigcheck
-            - criminalrecordscheck
-            - criminalrecordsuploadcheck
-            - customintegritycheck
-            - cvcheck
-            - edrcheck
-            - ibancheck
-            - id2check
-            - idcheck
-            - integritycheck
-            - openhealthcarecheck
-            - permissioncheck
-            - pescheckadversemediacheck
-            - qualificationcheck
-            - righttoworkcheck
-            - vogcheck
-            - watchlist2check
-            - watchlistcheck
-            - workreferencecheck
-            - worldwidecreditcheck
           type: string
           description: |-
             * `addresscheck` - addresscheck
@@ -3714,6 +3362,8 @@ components:
             * `watchlistcheck` - watchlistcheck
             * `workreferencecheck` - workreferencecheck
             * `worldwidecreditcheck` - worldwidecreditcheck
+
+            Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
           x-spec-enum-id: a17734d06d185738
           readOnly: true
         status:

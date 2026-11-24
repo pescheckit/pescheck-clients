@@ -25,7 +25,7 @@ class V2Document {
      * One document attached to a screening&#39;s check. &#x60;metadata&#x60; carries check-specific extras and may be empty.
      * @alias module:model/V2Document
      * @param checkId {String} 
-     * @param checkType {module:model/V2Document.CheckTypeEnum} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+     * @param checkType {String} * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
      * @param filename {String} 
      * @param extension {String} 
      * @param content {module:model/V2DocumentContent} 
@@ -130,8 +130,8 @@ V2Document.RequiredProperties = ["check_id", "check_type", "filename", "extensio
 V2Document.prototype['check_id'] = undefined;
 
 /**
- * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
- * @member {module:model/V2Document.CheckTypeEnum} check_type
+ * * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
+ * @member {String} check_type
  */
 V2Document.prototype['check_type'] = undefined;
 
@@ -157,153 +157,6 @@ V2Document.prototype['metadata'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>check_type</code> property.
- * @enum {String}
- * @readonly
- */
-V2Document['CheckTypeEnum'] = {
-
-    /**
-     * value: "addresscheck"
-     * @const
-     */
-    "addresscheck": "addresscheck",
-
-    /**
-     * value: "adversemedia2check"
-     * @const
-     */
-    "adversemedia2check": "adversemedia2check",
-
-    /**
-     * value: "adversemediacheck"
-     * @const
-     */
-    "adversemediacheck": "adversemediacheck",
-
-    /**
-     * value: "bigcheck"
-     * @const
-     */
-    "bigcheck": "bigcheck",
-
-    /**
-     * value: "criminalrecordscheck"
-     * @const
-     */
-    "criminalrecordscheck": "criminalrecordscheck",
-
-    /**
-     * value: "criminalrecordsuploadcheck"
-     * @const
-     */
-    "criminalrecordsuploadcheck": "criminalrecordsuploadcheck",
-
-    /**
-     * value: "customintegritycheck"
-     * @const
-     */
-    "customintegritycheck": "customintegritycheck",
-
-    /**
-     * value: "cvcheck"
-     * @const
-     */
-    "cvcheck": "cvcheck",
-
-    /**
-     * value: "edrcheck"
-     * @const
-     */
-    "edrcheck": "edrcheck",
-
-    /**
-     * value: "ibancheck"
-     * @const
-     */
-    "ibancheck": "ibancheck",
-
-    /**
-     * value: "id2check"
-     * @const
-     */
-    "id2check": "id2check",
-
-    /**
-     * value: "idcheck"
-     * @const
-     */
-    "idcheck": "idcheck",
-
-    /**
-     * value: "integritycheck"
-     * @const
-     */
-    "integritycheck": "integritycheck",
-
-    /**
-     * value: "openhealthcarecheck"
-     * @const
-     */
-    "openhealthcarecheck": "openhealthcarecheck",
-
-    /**
-     * value: "permissioncheck"
-     * @const
-     */
-    "permissioncheck": "permissioncheck",
-
-    /**
-     * value: "pescheckadversemediacheck"
-     * @const
-     */
-    "pescheckadversemediacheck": "pescheckadversemediacheck",
-
-    /**
-     * value: "qualificationcheck"
-     * @const
-     */
-    "qualificationcheck": "qualificationcheck",
-
-    /**
-     * value: "righttoworkcheck"
-     * @const
-     */
-    "righttoworkcheck": "righttoworkcheck",
-
-    /**
-     * value: "vogcheck"
-     * @const
-     */
-    "vogcheck": "vogcheck",
-
-    /**
-     * value: "watchlist2check"
-     * @const
-     */
-    "watchlist2check": "watchlist2check",
-
-    /**
-     * value: "watchlistcheck"
-     * @const
-     */
-    "watchlistcheck": "watchlistcheck",
-
-    /**
-     * value: "workreferencecheck"
-     * @const
-     */
-    "workreferencecheck": "workreferencecheck",
-
-    /**
-     * value: "worldwidecreditcheck"
-     * @const
-     */
-    "worldwidecreditcheck": "worldwidecreditcheck"
-};
 
 
 

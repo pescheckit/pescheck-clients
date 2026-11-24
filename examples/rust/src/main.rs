@@ -28,7 +28,7 @@ async fn main() {
     configuration.base_path = base_path;
     configuration.oauth_access_token = Some(token);
 
-    match checks_api::v2_checks_list(&configuration, None).await {
+    match checks_api::v2_checks_list(&configuration, Default::default()).await {
         Ok(checks) => {
             println!("E2E OK: {} check types", checks.len());
         }

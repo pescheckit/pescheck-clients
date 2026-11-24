@@ -283,44 +283,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         return self::$openAPIModelName;
     }
 
-    public const CLIENT_TYPE_CONFIDENTIAL = 'confidential';
-    public const CLIENT_TYPE__PUBLIC = 'public';
-    public const AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE = 'authorization-code';
-    public const AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE = 'urn:ietf:params:oauth:grant-type:device_code';
-    public const AUTHORIZATION_GRANT_TYPE_IMPLICIT = 'implicit';
-    public const AUTHORIZATION_GRANT_TYPE_PASSWORD = 'password';
-    public const AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS = 'client-credentials';
-    public const AUTHORIZATION_GRANT_TYPE_OPENID_HYBRID = 'openid-hybrid';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getClientTypeAllowableValues()
-    {
-        return [
-            self::CLIENT_TYPE_CONFIDENTIAL,
-            self::CLIENT_TYPE__PUBLIC,
-        ];
-    }
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getAuthorizationGrantTypeAllowableValues()
-    {
-        return [
-            self::AUTHORIZATION_GRANT_TYPE_AUTHORIZATION_CODE,
-            self::AUTHORIZATION_GRANT_TYPE_URN_IETF_PARAMS_OAUTH_GRANT_TYPE_DEVICE_CODE,
-            self::AUTHORIZATION_GRANT_TYPE_IMPLICIT,
-            self::AUTHORIZATION_GRANT_TYPE_PASSWORD,
-            self::AUTHORIZATION_GRANT_TYPE_CLIENT_CREDENTIALS,
-            self::AUTHORIZATION_GRANT_TYPE_OPENID_HYBRID,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -393,27 +355,9 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
         if ($this->container['client_type'] === null) {
             $invalidProperties[] = "'client_type' can't be null";
         }
-        $allowedValues = $this->getClientTypeAllowableValues();
-        if (!is_null($this->container['client_type']) && !in_array($this->container['client_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'client_type', must be one of '%s'",
-                $this->container['client_type'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['authorization_grant_type'] === null) {
             $invalidProperties[] = "'authorization_grant_type' can't be null";
         }
-        $allowedValues = $this->getAuthorizationGrantTypeAllowableValues();
-        if (!is_null($this->container['authorization_grant_type']) && !in_array($this->container['authorization_grant_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'authorization_grant_type', must be one of '%s'",
-                $this->container['authorization_grant_type'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if ($this->container['organisation'] === null) {
             $invalidProperties[] = "'organisation' can't be null";
         }
@@ -570,7 +514,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets client_type
      *
-     * @param string $client_type * `confidential` - Confidential * `public` - Public
+     * @param string $client_type * `confidential` - Confidential * `public` - Public  Known values: confidential, public. New values may be added; handle unknown values.
      *
      * @return self
      */
@@ -578,16 +522,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     {
         if (is_null($client_type)) {
             throw new \InvalidArgumentException('non-nullable client_type cannot be null');
-        }
-        $allowedValues = $this->getClientTypeAllowableValues();
-        if (!in_array($client_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'client_type', must be one of '%s'",
-                    $client_type,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['client_type'] = $client_type;
 
@@ -607,7 +541,7 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     /**
      * Sets authorization_grant_type
      *
-     * @param string $authorization_grant_type * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid
+     * @param string $authorization_grant_type * `authorization-code` - Authorization code * `urn:ietf:params:oauth:grant-type:device_code` - Device Code * `implicit` - Implicit * `password` - Resource owner password-based * `client-credentials` - Client credentials * `openid-hybrid` - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
      *
      * @return self
      */
@@ -615,16 +549,6 @@ class OAuthApplicationResponse implements ModelInterface, ArrayAccess, \JsonSeri
     {
         if (is_null($authorization_grant_type)) {
             throw new \InvalidArgumentException('non-nullable authorization_grant_type cannot be null');
-        }
-        $allowedValues = $this->getAuthorizationGrantTypeAllowableValues();
-        if (!in_array($authorization_grant_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'authorization_grant_type', must be one of '%s'",
-                    $authorization_grant_type,
-                    implode("', '", $allowedValues)
-                )
-            );
         }
         $this->container['authorization_grant_type'] = $authorization_grant_type;
 

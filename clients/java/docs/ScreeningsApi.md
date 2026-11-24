@@ -13,7 +13,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="v2ScreeningsCloseCreate"></a>
 # **v2ScreeningsCloseCreate**
-> V2ScreeningDetail v2ScreeningsCloseCreate(id)
+> V2ScreeningDetail v2ScreeningsCloseCreate(id).execute();
 
 Close a screening
 
@@ -41,7 +41,8 @@ public class Example {
     ScreeningsApi apiInstance = new ScreeningsApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this screening.
     try {
-      V2ScreeningDetail result = apiInstance.v2ScreeningsCloseCreate(id);
+      V2ScreeningDetail result = apiInstance.v2ScreeningsCloseCreate(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsCloseCreate");
@@ -81,7 +82,7 @@ public class Example {
 
 <a id="v2ScreeningsCreate"></a>
 # **v2ScreeningsCreate**
-> V2ScreeningDetail v2ScreeningsCreate(v2ScreeningCreate)
+> V2ScreeningDetail v2ScreeningsCreate(v2ScreeningCreate).execute();
 
 
 
@@ -107,7 +108,8 @@ public class Example {
     ScreeningsApi apiInstance = new ScreeningsApi(defaultClient);
     V2ScreeningCreate v2ScreeningCreate = new V2ScreeningCreate(); // V2ScreeningCreate | 
     try {
-      V2ScreeningDetail result = apiInstance.v2ScreeningsCreate(v2ScreeningCreate);
+      V2ScreeningDetail result = apiInstance.v2ScreeningsCreate(v2ScreeningCreate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsCreate");
@@ -146,7 +148,7 @@ public class Example {
 
 <a id="v2ScreeningsDocumentsList"></a>
 # **v2ScreeningsDocumentsList**
-> List&lt;V2Document&gt; v2ScreeningsDocumentsList(id, checkId, checkType)
+> List&lt;V2Document&gt; v2ScreeningsDocumentsList(id).checkId(checkId).checkType(checkType).execute();
 
 Retrieve screening documents
 
@@ -176,7 +178,10 @@ public class Example {
     UUID checkId = UUID.randomUUID(); // UUID | Only documents from the check with this id.
     String checkType = "checkType_example"; // String | Only documents from checks of this type.
     try {
-      List<V2Document> result = apiInstance.v2ScreeningsDocumentsList(id, checkId, checkType);
+      List<V2Document> result = apiInstance.v2ScreeningsDocumentsList(id)
+            .checkId(checkId)
+            .checkType(checkType)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsDocumentsList");
@@ -217,7 +222,7 @@ public class Example {
 
 <a id="v2ScreeningsList"></a>
 # **v2ScreeningsList**
-> PaginatedV2ScreeningListItemList v2ScreeningsList(organisation, page, pageSize, paginate)
+> PaginatedV2ScreeningListItemList v2ScreeningsList().organisation(organisation).page(page).pageSize(pageSize).paginate(paginate).execute();
 
 
 
@@ -246,7 +251,12 @@ public class Example {
     Integer pageSize = 50; // Integer | Number of results to return per page.
     Boolean paginate = true; // Boolean | Enable/disable pagination. When false, max 500 records returned.
     try {
-      PaginatedV2ScreeningListItemList result = apiInstance.v2ScreeningsList(organisation, page, pageSize, paginate);
+      PaginatedV2ScreeningListItemList result = apiInstance.v2ScreeningsList()
+            .organisation(organisation)
+            .page(page)
+            .pageSize(pageSize)
+            .paginate(paginate)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsList");
@@ -288,7 +298,7 @@ public class Example {
 
 <a id="v2ScreeningsRetrieve"></a>
 # **v2ScreeningsRetrieve**
-> V2ScreeningDetail v2ScreeningsRetrieve(id)
+> V2ScreeningDetail v2ScreeningsRetrieve(id).execute();
 
 
 
@@ -314,7 +324,8 @@ public class Example {
     ScreeningsApi apiInstance = new ScreeningsApi(defaultClient);
     UUID id = UUID.randomUUID(); // UUID | A UUID string identifying this screening.
     try {
-      V2ScreeningDetail result = apiInstance.v2ScreeningsRetrieve(id);
+      V2ScreeningDetail result = apiInstance.v2ScreeningsRetrieve(id)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling ScreeningsApi#v2ScreeningsRetrieve");

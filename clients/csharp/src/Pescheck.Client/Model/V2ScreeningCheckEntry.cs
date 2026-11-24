@@ -33,168 +33,6 @@ namespace Pescheck.Client.Model
     public partial class V2ScreeningCheckEntry : IValidatableObject
     {
         /// <summary>
-        /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
-        /// </summary>
-        /// <value>* &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum CheckTypeEnum
-        {
-            /// <summary>
-            /// Enum Addresscheck for value: addresscheck
-            /// </summary>
-            [EnumMember(Value = "addresscheck")]
-            Addresscheck = 1,
-
-            /// <summary>
-            /// Enum Adversemedia2check for value: adversemedia2check
-            /// </summary>
-            [EnumMember(Value = "adversemedia2check")]
-            Adversemedia2check = 2,
-
-            /// <summary>
-            /// Enum Adversemediacheck for value: adversemediacheck
-            /// </summary>
-            [EnumMember(Value = "adversemediacheck")]
-            Adversemediacheck = 3,
-
-            /// <summary>
-            /// Enum Bigcheck for value: bigcheck
-            /// </summary>
-            [EnumMember(Value = "bigcheck")]
-            Bigcheck = 4,
-
-            /// <summary>
-            /// Enum Criminalrecordscheck for value: criminalrecordscheck
-            /// </summary>
-            [EnumMember(Value = "criminalrecordscheck")]
-            Criminalrecordscheck = 5,
-
-            /// <summary>
-            /// Enum Criminalrecordsuploadcheck for value: criminalrecordsuploadcheck
-            /// </summary>
-            [EnumMember(Value = "criminalrecordsuploadcheck")]
-            Criminalrecordsuploadcheck = 6,
-
-            /// <summary>
-            /// Enum Customintegritycheck for value: customintegritycheck
-            /// </summary>
-            [EnumMember(Value = "customintegritycheck")]
-            Customintegritycheck = 7,
-
-            /// <summary>
-            /// Enum Cvcheck for value: cvcheck
-            /// </summary>
-            [EnumMember(Value = "cvcheck")]
-            Cvcheck = 8,
-
-            /// <summary>
-            /// Enum Edrcheck for value: edrcheck
-            /// </summary>
-            [EnumMember(Value = "edrcheck")]
-            Edrcheck = 9,
-
-            /// <summary>
-            /// Enum Ibancheck for value: ibancheck
-            /// </summary>
-            [EnumMember(Value = "ibancheck")]
-            Ibancheck = 10,
-
-            /// <summary>
-            /// Enum Id2check for value: id2check
-            /// </summary>
-            [EnumMember(Value = "id2check")]
-            Id2check = 11,
-
-            /// <summary>
-            /// Enum Idcheck for value: idcheck
-            /// </summary>
-            [EnumMember(Value = "idcheck")]
-            Idcheck = 12,
-
-            /// <summary>
-            /// Enum Integritycheck for value: integritycheck
-            /// </summary>
-            [EnumMember(Value = "integritycheck")]
-            Integritycheck = 13,
-
-            /// <summary>
-            /// Enum Openhealthcarecheck for value: openhealthcarecheck
-            /// </summary>
-            [EnumMember(Value = "openhealthcarecheck")]
-            Openhealthcarecheck = 14,
-
-            /// <summary>
-            /// Enum Permissioncheck for value: permissioncheck
-            /// </summary>
-            [EnumMember(Value = "permissioncheck")]
-            Permissioncheck = 15,
-
-            /// <summary>
-            /// Enum Pescheckadversemediacheck for value: pescheckadversemediacheck
-            /// </summary>
-            [EnumMember(Value = "pescheckadversemediacheck")]
-            Pescheckadversemediacheck = 16,
-
-            /// <summary>
-            /// Enum Qualificationcheck for value: qualificationcheck
-            /// </summary>
-            [EnumMember(Value = "qualificationcheck")]
-            Qualificationcheck = 17,
-
-            /// <summary>
-            /// Enum Righttoworkcheck for value: righttoworkcheck
-            /// </summary>
-            [EnumMember(Value = "righttoworkcheck")]
-            Righttoworkcheck = 18,
-
-            /// <summary>
-            /// Enum Vogcheck for value: vogcheck
-            /// </summary>
-            [EnumMember(Value = "vogcheck")]
-            Vogcheck = 19,
-
-            /// <summary>
-            /// Enum Watchlist2check for value: watchlist2check
-            /// </summary>
-            [EnumMember(Value = "watchlist2check")]
-            Watchlist2check = 20,
-
-            /// <summary>
-            /// Enum Watchlistcheck for value: watchlistcheck
-            /// </summary>
-            [EnumMember(Value = "watchlistcheck")]
-            Watchlistcheck = 21,
-
-            /// <summary>
-            /// Enum Workreferencecheck for value: workreferencecheck
-            /// </summary>
-            [EnumMember(Value = "workreferencecheck")]
-            Workreferencecheck = 22,
-
-            /// <summary>
-            /// Enum Worldwidecreditcheck for value: worldwidecreditcheck
-            /// </summary>
-            [EnumMember(Value = "worldwidecreditcheck")]
-            Worldwidecreditcheck = 23
-        }
-
-
-        /// <summary>
-        /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
-        /// </summary>
-        /// <value>* &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck</value>
-        [DataMember(Name = "check_type", IsRequired = true, EmitDefaultValue = true)]
-        public CheckTypeEnum CheckType { get; set; }
-
-        /// <summary>
-        /// Returns false as CheckType should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeCheckType()
-        {
-            return false;
-        }
-        /// <summary>
         /// Initializes a new instance of the <see cref="V2ScreeningCheckEntry" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -227,6 +65,21 @@ namespace Pescheck.Client.Model
         /// </summary>
         /// <returns>false (boolean)</returns>
         public bool ShouldSerializeProfileCheckId()
+        {
+            return false;
+        }
+        /// <summary>
+        /// * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
+        /// </summary>
+        /// <value>* &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.</value>
+        [DataMember(Name = "check_type", IsRequired = true, EmitDefaultValue = true)]
+        public string CheckType { get; private set; }
+
+        /// <summary>
+        /// Returns false as CheckType should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeCheckType()
         {
             return false;
         }

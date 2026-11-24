@@ -40,7 +40,8 @@ public class OAuthApiTest {
     @Test
     public void createOAuthApplication2Test() throws ApiException {
         OAuthApplication oauthApplication = null;
-        OAuthApplicationResponse response = api.createOAuthApplication2(oauthApplication);
+        OAuthApplicationResponse response = api.createOAuthApplication2(oauthApplication)
+                .execute();
         // TODO: test validations
     }
 
@@ -52,7 +53,8 @@ public class OAuthApiTest {
     @Test
     public void deleteOAuthApplication2Test() throws ApiException {
         String applicationId = null;
-        api.deleteOAuthApplication2(applicationId);
+        api.deleteOAuthApplication2(applicationId)
+                .execute();
         // TODO: test validations
     }
 
@@ -63,7 +65,8 @@ public class OAuthApiTest {
      */
     @Test
     public void listOAuthApplications2Test() throws ApiException {
-        List<OAuthApplicationResponse> response = api.listOAuthApplications2();
+        List<OAuthApplicationResponse> response = api.listOAuthApplications2()
+                .execute();
         // TODO: test validations
     }
 

@@ -41,7 +41,7 @@ class TestV2Candidate(unittest.TestCase):
                 initials = '',
                 date_of_birth = '',
                 gender = '',
-                nationality = 'AD',
+                nationality = '',
                 postal_code = '',
                 house_number = '',
                 extension = ''

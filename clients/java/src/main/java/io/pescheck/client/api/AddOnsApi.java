@@ -75,20 +75,7 @@ public class AddOnsApi {
         this.localCustomBaseUrl = customBaseUrl;
     }
 
-    /**
-     * Build call for v2OrganisationsAddonsList
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsAddonsListCall(@javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsAddonsListCall(@javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -142,72 +129,106 @@ public class AddOnsApi {
 
     }
 
-    /**
-     * 
-     * List every add-on with whether it is enabled for the organisation.
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return List&lt;OrganisationAddon&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public List<OrganisationAddon> v2OrganisationsAddonsList(@javax.annotation.Nullable String divisionId) throws ApiException {
-        ApiResponse<List<OrganisationAddon>> localVarResp = v2OrganisationsAddonsListWithHttpInfo(divisionId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * List every add-on with whether it is enabled for the organisation.
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return ApiResponse&lt;List&lt;OrganisationAddon&gt;&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<List<OrganisationAddon>> v2OrganisationsAddonsListWithHttpInfo(@javax.annotation.Nullable String divisionId) throws ApiException {
+    private ApiResponse<List<OrganisationAddon>> v2OrganisationsAddonsListWithHttpInfo(@javax.annotation.Nullable String divisionId) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsAddonsListValidateBeforeCall(divisionId, null);
         Type localVarReturnType = new TypeToken<List<OrganisationAddon>>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * List every add-on with whether it is enabled for the organisation.
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsAddonsListAsync(@javax.annotation.Nullable String divisionId, final ApiCallback<List<OrganisationAddon>> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsAddonsListAsync(@javax.annotation.Nullable String divisionId, final ApiCallback<List<OrganisationAddon>> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsAddonsListValidateBeforeCall(divisionId, _callback);
         Type localVarReturnType = new TypeToken<List<OrganisationAddon>>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsAddonsListRequest {
+        @javax.annotation.Nullable
+        private String divisionId;
+
+        private APIv2OrganisationsAddonsListRequest() {
+        }
+
+        /**
+         * Set divisionId
+         * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
+         * @return APIv2OrganisationsAddonsListRequest
+         */
+        public APIv2OrganisationsAddonsListRequest divisionId(@javax.annotation.Nullable String divisionId) {
+            this.divisionId = divisionId;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsAddonsList
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsAddonsListCall(divisionId, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsList request
+         * @return List&lt;OrganisationAddon&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public List<OrganisationAddon> execute() throws ApiException {
+            ApiResponse<List<OrganisationAddon>> localVarResp = v2OrganisationsAddonsListWithHttpInfo(divisionId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsList request with HTTP info returned
+         * @return ApiResponse&lt;List&lt;OrganisationAddon&gt;&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<List<OrganisationAddon>> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsAddonsListWithHttpInfo(divisionId);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsList request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<List<OrganisationAddon>> _callback) throws ApiException {
+            return v2OrganisationsAddonsListAsync(divisionId, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsAddonsPartialUpdate
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param patchedOrganisationAddonUpdate  (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * 
+     * List every add-on with whether it is enabled for the organisation.
+     * @return APIv2OrganisationsAddonsListRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -215,7 +236,10 @@ public class AddOnsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsAddonsPartialUpdateCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsAddonsListRequest v2OrganisationsAddonsList() {
+        return new APIv2OrganisationsAddonsListRequest();
+    }
+    private okhttp3.Call v2OrganisationsAddonsPartialUpdateCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -277,77 +301,122 @@ public class AddOnsApi {
 
     }
 
-    /**
-     * 
-     * Switch an add-on on or off. Enabling is billed monthly from today.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param patchedOrganisationAddonUpdate  (optional)
-     * @return OrganisationAddonUpdateResult
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrganisationAddonUpdateResult v2OrganisationsAddonsPartialUpdate(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate) throws ApiException {
-        ApiResponse<OrganisationAddonUpdateResult> localVarResp = v2OrganisationsAddonsPartialUpdateWithHttpInfo(addon, divisionId, patchedOrganisationAddonUpdate);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Switch an add-on on or off. Enabling is billed monthly from today.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param patchedOrganisationAddonUpdate  (optional)
-     * @return ApiResponse&lt;OrganisationAddonUpdateResult&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrganisationAddonUpdateResult> v2OrganisationsAddonsPartialUpdateWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate) throws ApiException {
+    private ApiResponse<OrganisationAddonUpdateResult> v2OrganisationsAddonsPartialUpdateWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsAddonsPartialUpdateValidateBeforeCall(addon, divisionId, patchedOrganisationAddonUpdate, null);
         Type localVarReturnType = new TypeToken<OrganisationAddonUpdateResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Switch an add-on on or off. Enabling is billed monthly from today.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param patchedOrganisationAddonUpdate  (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsAddonsPartialUpdateAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate, final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsAddonsPartialUpdateAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, @javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate, final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsAddonsPartialUpdateValidateBeforeCall(addon, divisionId, patchedOrganisationAddonUpdate, _callback);
         Type localVarReturnType = new TypeToken<OrganisationAddonUpdateResult>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsAddonsPartialUpdateRequest {
+        @javax.annotation.Nonnull
+        private final String addon;
+        @javax.annotation.Nullable
+        private String divisionId;
+        @javax.annotation.Nullable
+        private PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate;
+
+        private APIv2OrganisationsAddonsPartialUpdateRequest(@javax.annotation.Nonnull String addon) {
+            this.addon = addon;
+        }
+
+        /**
+         * Set divisionId
+         * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
+         * @return APIv2OrganisationsAddonsPartialUpdateRequest
+         */
+        public APIv2OrganisationsAddonsPartialUpdateRequest divisionId(@javax.annotation.Nullable String divisionId) {
+            this.divisionId = divisionId;
+            return this;
+        }
+
+        /**
+         * Set patchedOrganisationAddonUpdate
+         * @param patchedOrganisationAddonUpdate  (optional)
+         * @return APIv2OrganisationsAddonsPartialUpdateRequest
+         */
+        public APIv2OrganisationsAddonsPartialUpdateRequest patchedOrganisationAddonUpdate(@javax.annotation.Nullable PatchedOrganisationAddonUpdate patchedOrganisationAddonUpdate) {
+            this.patchedOrganisationAddonUpdate = patchedOrganisationAddonUpdate;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsAddonsPartialUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsAddonsPartialUpdateCall(addon, divisionId, patchedOrganisationAddonUpdate, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsPartialUpdate request
+         * @return OrganisationAddonUpdateResult
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public OrganisationAddonUpdateResult execute() throws ApiException {
+            ApiResponse<OrganisationAddonUpdateResult> localVarResp = v2OrganisationsAddonsPartialUpdateWithHttpInfo(addon, divisionId, patchedOrganisationAddonUpdate);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsPartialUpdate request with HTTP info returned
+         * @return ApiResponse&lt;OrganisationAddonUpdateResult&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OrganisationAddonUpdateResult> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsAddonsPartialUpdateWithHttpInfo(addon, divisionId, patchedOrganisationAddonUpdate);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsPartialUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
+            return v2OrganisationsAddonsPartialUpdateAsync(addon, divisionId, patchedOrganisationAddonUpdate, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsAddonsRetrieve
+     * 
+     * Switch an add-on on or off. Enabling is billed monthly from today.
      * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2OrganisationsAddonsPartialUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -355,7 +424,10 @@ public class AddOnsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsAddonsRetrieveCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsAddonsPartialUpdateRequest v2OrganisationsAddonsPartialUpdate(@javax.annotation.Nonnull String addon) {
+        return new APIv2OrganisationsAddonsPartialUpdateRequest(addon);
+    }
+    private okhttp3.Call v2OrganisationsAddonsRetrieveCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -415,75 +487,110 @@ public class AddOnsApi {
 
     }
 
-    /**
-     * 
-     * Get one add-on&#39;s state for the organisation.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return OrganisationAddon
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrganisationAddon v2OrganisationsAddonsRetrieve(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId) throws ApiException {
-        ApiResponse<OrganisationAddon> localVarResp = v2OrganisationsAddonsRetrieveWithHttpInfo(addon, divisionId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Get one add-on&#39;s state for the organisation.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return ApiResponse&lt;OrganisationAddon&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrganisationAddon> v2OrganisationsAddonsRetrieveWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId) throws ApiException {
+    private ApiResponse<OrganisationAddon> v2OrganisationsAddonsRetrieveWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsAddonsRetrieveValidateBeforeCall(addon, divisionId, null);
         Type localVarReturnType = new TypeToken<OrganisationAddon>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
-    /**
-     *  (asynchronously)
-     * Get one add-on&#39;s state for the organisation.
-     * @param addon The add-on to act on. (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public okhttp3.Call v2OrganisationsAddonsRetrieveAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, final ApiCallback<OrganisationAddon> _callback) throws ApiException {
+    private okhttp3.Call v2OrganisationsAddonsRetrieveAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nullable String divisionId, final ApiCallback<OrganisationAddon> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = v2OrganisationsAddonsRetrieveValidateBeforeCall(addon, divisionId, _callback);
         Type localVarReturnType = new TypeToken<OrganisationAddon>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
+
+    public class APIv2OrganisationsAddonsRetrieveRequest {
+        @javax.annotation.Nonnull
+        private final String addon;
+        @javax.annotation.Nullable
+        private String divisionId;
+
+        private APIv2OrganisationsAddonsRetrieveRequest(@javax.annotation.Nonnull String addon) {
+            this.addon = addon;
+        }
+
+        /**
+         * Set divisionId
+         * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
+         * @return APIv2OrganisationsAddonsRetrieveRequest
+         */
+        public APIv2OrganisationsAddonsRetrieveRequest divisionId(@javax.annotation.Nullable String divisionId) {
+            this.divisionId = divisionId;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsAddonsRetrieve
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsAddonsRetrieveCall(addon, divisionId, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsRetrieve request
+         * @return OrganisationAddon
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public OrganisationAddon execute() throws ApiException {
+            ApiResponse<OrganisationAddon> localVarResp = v2OrganisationsAddonsRetrieveWithHttpInfo(addon, divisionId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsRetrieve request with HTTP info returned
+         * @return ApiResponse&lt;OrganisationAddon&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OrganisationAddon> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsAddonsRetrieveWithHttpInfo(addon, divisionId);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsRetrieve request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OrganisationAddon> _callback) throws ApiException {
+            return v2OrganisationsAddonsRetrieveAsync(addon, divisionId, _callback);
+        }
+    }
+
     /**
-     * Build call for v2OrganisationsAddonsUpdate
+     * 
+     * Get one add-on&#39;s state for the organisation.
      * @param addon The add-on to act on. (required)
-     * @param organisationAddonUpdate  (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback Callback for upload/download progress
-     * @return Call to execute
-     * @throws ApiException If fail to serialize the request body object
+     * @return APIv2OrganisationsAddonsRetrieveRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -491,7 +598,10 @@ public class AddOnsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsAddonsUpdateCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
+    public APIv2OrganisationsAddonsRetrieveRequest v2OrganisationsAddonsRetrieve(@javax.annotation.Nonnull String addon) {
+        return new APIv2OrganisationsAddonsRetrieveRequest(addon);
+    }
+    private okhttp3.Call v2OrganisationsAddonsUpdateCall(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId, final ApiCallback _callback) throws ApiException {
         String basePath = null;
         // Operation Servers
         String[] localBasePaths = new String[] {  };
@@ -558,56 +668,114 @@ public class AddOnsApi {
 
     }
 
-    /**
-     * 
-     * Switch an add-on on or off. Enabling is billed monthly from today.
-     * @param addon The add-on to act on. (required)
-     * @param organisationAddonUpdate  (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return OrganisationAddonUpdateResult
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public OrganisationAddonUpdateResult v2OrganisationsAddonsUpdate(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId) throws ApiException {
-        ApiResponse<OrganisationAddonUpdateResult> localVarResp = v2OrganisationsAddonsUpdateWithHttpInfo(addon, organisationAddonUpdate, divisionId);
-        return localVarResp.getData();
-    }
 
-    /**
-     * 
-     * Switch an add-on on or off. Enabling is billed monthly from today.
-     * @param addon The add-on to act on. (required)
-     * @param organisationAddonUpdate  (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @return ApiResponse&lt;OrganisationAddonUpdateResult&gt;
-     * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
-     * @http.response.details
-     <table border="1">
-       <caption>Response Details</caption>
-        <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
-        <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
-     </table>
-     */
-    public ApiResponse<OrganisationAddonUpdateResult> v2OrganisationsAddonsUpdateWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId) throws ApiException {
+    private ApiResponse<OrganisationAddonUpdateResult> v2OrganisationsAddonsUpdateWithHttpInfo(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId) throws ApiException {
         okhttp3.Call localVarCall = v2OrganisationsAddonsUpdateValidateBeforeCall(addon, organisationAddonUpdate, divisionId, null);
         Type localVarReturnType = new TypeToken<OrganisationAddonUpdateResult>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
+    private okhttp3.Call v2OrganisationsAddonsUpdateAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId, final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
+
+        okhttp3.Call localVarCall = v2OrganisationsAddonsUpdateValidateBeforeCall(addon, organisationAddonUpdate, divisionId, _callback);
+        Type localVarReturnType = new TypeToken<OrganisationAddonUpdateResult>(){}.getType();
+        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
+        return localVarCall;
+    }
+
+    public class APIv2OrganisationsAddonsUpdateRequest {
+        @javax.annotation.Nonnull
+        private final String addon;
+        @javax.annotation.Nonnull
+        private final OrganisationAddonUpdate organisationAddonUpdate;
+        @javax.annotation.Nullable
+        private String divisionId;
+
+        private APIv2OrganisationsAddonsUpdateRequest(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate) {
+            this.addon = addon;
+            this.organisationAddonUpdate = organisationAddonUpdate;
+        }
+
+        /**
+         * Set divisionId
+         * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
+         * @return APIv2OrganisationsAddonsUpdateRequest
+         */
+        public APIv2OrganisationsAddonsUpdateRequest divisionId(@javax.annotation.Nullable String divisionId) {
+            this.divisionId = divisionId;
+            return this;
+        }
+
+        /**
+         * Build call for v2OrganisationsAddonsUpdate
+         * @param _callback ApiCallback API callback
+         * @return Call to execute
+         * @throws ApiException If fail to serialize the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call buildCall(final ApiCallback _callback) throws ApiException {
+            return v2OrganisationsAddonsUpdateCall(addon, organisationAddonUpdate, divisionId, _callback);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsUpdate request
+         * @return OrganisationAddonUpdateResult
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public OrganisationAddonUpdateResult execute() throws ApiException {
+            ApiResponse<OrganisationAddonUpdateResult> localVarResp = v2OrganisationsAddonsUpdateWithHttpInfo(addon, organisationAddonUpdate, divisionId);
+            return localVarResp.getData();
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsUpdate request with HTTP info returned
+         * @return ApiResponse&lt;OrganisationAddonUpdateResult&gt;
+         * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public ApiResponse<OrganisationAddonUpdateResult> executeWithHttpInfo() throws ApiException {
+            return v2OrganisationsAddonsUpdateWithHttpInfo(addon, organisationAddonUpdate, divisionId);
+        }
+
+        /**
+         * Execute v2OrganisationsAddonsUpdate request (asynchronously)
+         * @param _callback The callback to be executed when the API call finishes
+         * @return The request call
+         * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+         * @http.response.details
+         <table border="1">
+       <caption>Response Details</caption>
+            <tr><td> Status Code </td><td> Description </td><td> Response Headers </td></tr>
+            <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
+         </table>
+         */
+        public okhttp3.Call executeAsync(final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
+            return v2OrganisationsAddonsUpdateAsync(addon, organisationAddonUpdate, divisionId, _callback);
+        }
+    }
+
     /**
-     *  (asynchronously)
+     * 
      * Switch an add-on on or off. Enabling is billed monthly from today.
      * @param addon The add-on to act on. (required)
      * @param organisationAddonUpdate  (required)
-     * @param divisionId Act on this division instead of the organisation the token belongs to. (optional)
-     * @param _callback The callback to be executed when the API call finishes
-     * @return The request call
-     * @throws ApiException If fail to process the API call, e.g. serializing the request body object
+     * @return APIv2OrganisationsAddonsUpdateRequest
      * @http.response.details
      <table border="1">
        <caption>Response Details</caption>
@@ -615,11 +783,7 @@ public class AddOnsApi {
         <tr><td> 200 </td><td>  </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call v2OrganisationsAddonsUpdateAsync(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate, @javax.annotation.Nullable String divisionId, final ApiCallback<OrganisationAddonUpdateResult> _callback) throws ApiException {
-
-        okhttp3.Call localVarCall = v2OrganisationsAddonsUpdateValidateBeforeCall(addon, organisationAddonUpdate, divisionId, _callback);
-        Type localVarReturnType = new TypeToken<OrganisationAddonUpdateResult>(){}.getType();
-        localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
-        return localVarCall;
+    public APIv2OrganisationsAddonsUpdateRequest v2OrganisationsAddonsUpdate(@javax.annotation.Nonnull String addon, @javax.annotation.Nonnull OrganisationAddonUpdate organisationAddonUpdate) {
+        return new APIv2OrganisationsAddonsUpdateRequest(addon, organisationAddonUpdate);
     }
 }

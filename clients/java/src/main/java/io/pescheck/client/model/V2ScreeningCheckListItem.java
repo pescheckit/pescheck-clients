@@ -56,104 +56,10 @@ public class V2ScreeningCheckListItem {
   @javax.annotation.Nonnull
   private UUID id;
 
-  /**
-   * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
-   */
-  @JsonAdapter(CheckTypeEnum.Adapter.class)
-  public enum CheckTypeEnum {
-    ADDRESSCHECK("addresscheck"),
-    
-    ADVERSEMEDIA2CHECK("adversemedia2check"),
-    
-    ADVERSEMEDIACHECK("adversemediacheck"),
-    
-    BIGCHECK("bigcheck"),
-    
-    CRIMINALRECORDSCHECK("criminalrecordscheck"),
-    
-    CRIMINALRECORDSUPLOADCHECK("criminalrecordsuploadcheck"),
-    
-    CUSTOMINTEGRITYCHECK("customintegritycheck"),
-    
-    CVCHECK("cvcheck"),
-    
-    EDRCHECK("edrcheck"),
-    
-    IBANCHECK("ibancheck"),
-    
-    ID2CHECK("id2check"),
-    
-    IDCHECK("idcheck"),
-    
-    INTEGRITYCHECK("integritycheck"),
-    
-    OPENHEALTHCARECHECK("openhealthcarecheck"),
-    
-    PERMISSIONCHECK("permissioncheck"),
-    
-    PESCHECKADVERSEMEDIACHECK("pescheckadversemediacheck"),
-    
-    QUALIFICATIONCHECK("qualificationcheck"),
-    
-    RIGHTTOWORKCHECK("righttoworkcheck"),
-    
-    VOGCHECK("vogcheck"),
-    
-    WATCHLIST2CHECK("watchlist2check"),
-    
-    WATCHLISTCHECK("watchlistcheck"),
-    
-    WORKREFERENCECHECK("workreferencecheck"),
-    
-    WORLDWIDECREDITCHECK("worldwidecreditcheck");
-
-    private String value;
-
-    CheckTypeEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static CheckTypeEnum fromValue(String value) {
-      for (CheckTypeEnum b : CheckTypeEnum.values()) {
-        if (b.value.equals(value)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + value + "'");
-    }
-
-    public static class Adapter extends TypeAdapter<CheckTypeEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final CheckTypeEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public CheckTypeEnum read(final JsonReader jsonReader) throws IOException {
-        String value =  jsonReader.nextString();
-        return CheckTypeEnum.fromValue(value);
-      }
-    }
-
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      String value = jsonElement.getAsString();
-      CheckTypeEnum.fromValue(value);
-    }
-  }
-
   public static final String SERIALIZED_NAME_CHECK_TYPE = "check_type";
   @SerializedName(SERIALIZED_NAME_CHECK_TYPE)
   @javax.annotation.Nonnull
-  private CheckTypeEnum checkType;
+  private String checkType;
 
   public static final String SERIALIZED_NAME_STATUS = "status";
   @SerializedName(SERIALIZED_NAME_STATUS)
@@ -165,7 +71,7 @@ public class V2ScreeningCheckListItem {
 
   public V2ScreeningCheckListItem(
      UUID id, 
-     CheckTypeEnum checkType, 
+     String checkType, 
      String status
   ) {
     this();
@@ -186,11 +92,11 @@ public class V2ScreeningCheckListItem {
 
 
   /**
-   * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck
+   * * &#x60;addresscheck&#x60; - addresscheck * &#x60;adversemedia2check&#x60; - adversemedia2check * &#x60;adversemediacheck&#x60; - adversemediacheck * &#x60;bigcheck&#x60; - bigcheck * &#x60;criminalrecordscheck&#x60; - criminalrecordscheck * &#x60;criminalrecordsuploadcheck&#x60; - criminalrecordsuploadcheck * &#x60;customintegritycheck&#x60; - customintegritycheck * &#x60;cvcheck&#x60; - cvcheck * &#x60;edrcheck&#x60; - edrcheck * &#x60;ibancheck&#x60; - ibancheck * &#x60;id2check&#x60; - id2check * &#x60;idcheck&#x60; - idcheck * &#x60;integritycheck&#x60; - integritycheck * &#x60;openhealthcarecheck&#x60; - openhealthcarecheck * &#x60;permissioncheck&#x60; - permissioncheck * &#x60;pescheckadversemediacheck&#x60; - pescheckadversemediacheck * &#x60;qualificationcheck&#x60; - qualificationcheck * &#x60;righttoworkcheck&#x60; - righttoworkcheck * &#x60;vogcheck&#x60; - vogcheck * &#x60;watchlist2check&#x60; - watchlist2check * &#x60;watchlistcheck&#x60; - watchlistcheck * &#x60;workreferencecheck&#x60; - workreferencecheck * &#x60;worldwidecreditcheck&#x60; - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
    * @return checkType
    */
   @javax.annotation.Nonnull
-  public CheckTypeEnum getCheckType() {
+  public String getCheckType() {
     return checkType;
   }
 
@@ -330,8 +236,6 @@ public class V2ScreeningCheckListItem {
       if (!jsonObj.get("check_type").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `check_type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("check_type").toString()));
       }
-      // validate the required field `check_type`
-      CheckTypeEnum.validateJsonElement(jsonObj.get("check_type"));
       if (!jsonObj.get("status").isJsonPrimitive()) {
         throw new IllegalArgumentException(String.format(java.util.Locale.ROOT, "Expected the field `status` to be a primitive type in the JSON string but got `%s`", jsonObj.get("status").toString()));
       }

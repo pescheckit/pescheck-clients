@@ -36,7 +36,7 @@ class TestV2Document(unittest.TestCase):
         if include_optional:
             return V2Document(
                 check_id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 filename = '',
                 extension = '',
                 content = pescheck.models.v2_document_content.V2DocumentContent(
@@ -49,7 +49,7 @@ class TestV2Document(unittest.TestCase):
         else:
             return V2Document(
                 check_id = '',
-                check_type = 'addresscheck',
+                check_type = '',
                 filename = '',
                 extension = '',
                 content = pescheck.models.v2_document_content.V2DocumentContent(

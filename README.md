@@ -102,8 +102,17 @@ Change a script or config, run `make regenerate`, commit the regenerated `client
 ### When the API changes
 
 1. `generate.yml` runs daily, and on `repository_dispatch: openapi-schema-changed` (send it from the API repository after a staging deploy). It fetches the staging schema and, when it changed, opens a **Regenerate clients** pull request with the new `spec/` and `clients/`, and starts the pull request checks on it.
-2. If a contract test or example no longer compiles (for example, a new parameter), push the fix to that pull request. Merge it promptly: the next regeneration replaces the branch.
-3. Merge when green.
+2. The pull request is labelled **breaking-change** or **non-breaking** by [oasdiff](https://github.com/oasdiff/oasdiff), with a list of every change in its description. Run it yourself with `scripts/api-diff.sh`.
+3. A non-breaking change must not need any change in `examples/` or `contract/`. A breaking change needs fixes there (push them to that pull request and merge promptly: the next regeneration replaces the branch) and a new major version.
+4. Merge when green.
+
+### Keeping additive API changes non-breaking
+
+Adding things to the API must never break a customer's code. The generator is configured for that, and the contract tests check it:
+
+- **New optional parameters:** every call takes its parameters by name or in one request object (Java builders, Rust `Params` structs with `..Default::default()`), never as a fixed argument list. C++ has no such option in its generator; there a new parameter changes the call.
+- **New response fields:** all clients ignore fields they don't know (the mock adds some to every response).
+- **New enum values in responses:** response enums are plain strings with the known values documented, so a new value can't crash a client. Request enums stay typed.
 
 To regenerate from another environment: `PESCHECK_SCHEMA_URL=http://localhost/api/schema/ make build`. The output does not depend on the environment, only on the API.
 

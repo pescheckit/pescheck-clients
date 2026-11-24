@@ -52,7 +52,7 @@ class TestPaginatedV2ScreeningListItemList(unittest.TestCase):
                         checks = [
                             pescheck.models.v2_screening_check_list_item.V2ScreeningCheckListItem(
                                 id = '', 
-                                check_type = 'addresscheck', 
+                                check_type = '', 
                                 status = '', )
                             ], 
                         candidate_wizard_url = '', 
@@ -80,7 +80,7 @@ class TestPaginatedV2ScreeningListItemList(unittest.TestCase):
                         checks = [
                             pescheck.models.v2_screening_check_list_item.V2ScreeningCheckListItem(
                                 id = '', 
-                                check_type = 'addresscheck', 
+                                check_type = '', 
                                 status = '', )
                             ], 
                         candidate_wizard_url = '', 

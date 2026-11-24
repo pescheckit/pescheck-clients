@@ -43,7 +43,8 @@ public class DivisionsApiTest {
     @Test
     public void v2OrganisationsDivisionsCreateTest() throws ApiException {
         DivisionWrite divisionWrite = null;
-        DivisionWrite response = api.v2OrganisationsDivisionsCreate(divisionWrite);
+        DivisionWrite response = api.v2OrganisationsDivisionsCreate(divisionWrite)
+                .execute();
         // TODO: test validations
     }
 
@@ -57,7 +58,11 @@ public class DivisionsApiTest {
         Integer page = null;
         Integer pageSize = null;
         Boolean paginate = null;
-        PaginatedDivisionReadOnlyList response = api.v2OrganisationsDivisionsList(page, pageSize, paginate);
+        PaginatedDivisionReadOnlyList response = api.v2OrganisationsDivisionsList()
+                .page(page)
+                .pageSize(pageSize)
+                .paginate(paginate)
+                .execute();
         // TODO: test validations
     }
 
@@ -70,7 +75,9 @@ public class DivisionsApiTest {
     public void v2OrganisationsDivisionsPartialUpdateTest() throws ApiException {
         UUID id = null;
         PatchedDivisionWrite patchedDivisionWrite = null;
-        DivisionWrite response = api.v2OrganisationsDivisionsPartialUpdate(id, patchedDivisionWrite);
+        DivisionWrite response = api.v2OrganisationsDivisionsPartialUpdate(id)
+                .patchedDivisionWrite(patchedDivisionWrite)
+                .execute();
         // TODO: test validations
     }
 
@@ -82,7 +89,8 @@ public class DivisionsApiTest {
     @Test
     public void v2OrganisationsDivisionsRetrieveTest() throws ApiException {
         UUID id = null;
-        DivisionReadOnly response = api.v2OrganisationsDivisionsRetrieve(id);
+        DivisionReadOnly response = api.v2OrganisationsDivisionsRetrieve(id)
+                .execute();
         // TODO: test validations
     }
 
@@ -95,7 +103,8 @@ public class DivisionsApiTest {
     public void v2OrganisationsDivisionsUpdateTest() throws ApiException {
         UUID id = null;
         DivisionWrite divisionWrite = null;
-        DivisionWrite response = api.v2OrganisationsDivisionsUpdate(id, divisionWrite);
+        DivisionWrite response = api.v2OrganisationsDivisionsUpdate(id, divisionWrite)
+                .execute();
         // TODO: test validations
     }
 

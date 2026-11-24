@@ -33,84 +33,6 @@ namespace Pescheck.Client.Model
     public partial class OAuthApplicationResponse : IValidatableObject
     {
         /// <summary>
-        /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
-        /// </summary>
-        /// <value>* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum ClientTypeEnum
-        {
-            /// <summary>
-            /// Enum Confidential for value: confidential
-            /// </summary>
-            [EnumMember(Value = "confidential")]
-            Confidential = 1,
-
-            /// <summary>
-            /// Enum Public for value: public
-            /// </summary>
-            [EnumMember(Value = "public")]
-            Public = 2
-        }
-
-
-        /// <summary>
-        /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public
-        /// </summary>
-        /// <value>* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public</value>
-        [DataMember(Name = "client_type", IsRequired = true, EmitDefaultValue = true)]
-        public ClientTypeEnum ClientType { get; set; }
-        /// <summary>
-        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
-        /// </summary>
-        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum AuthorizationGrantTypeEnum
-        {
-            /// <summary>
-            /// Enum AuthorizationCode for value: authorization-code
-            /// </summary>
-            [EnumMember(Value = "authorization-code")]
-            AuthorizationCode = 1,
-
-            /// <summary>
-            /// Enum UrnietfparamsoauthgrantTypedeviceCode for value: urn:ietf:params:oauth:grant-type:device_code
-            /// </summary>
-            [EnumMember(Value = "urn:ietf:params:oauth:grant-type:device_code")]
-            UrnietfparamsoauthgrantTypedeviceCode = 2,
-
-            /// <summary>
-            /// Enum Implicit for value: implicit
-            /// </summary>
-            [EnumMember(Value = "implicit")]
-            Implicit = 3,
-
-            /// <summary>
-            /// Enum Password for value: password
-            /// </summary>
-            [EnumMember(Value = "password")]
-            Password = 4,
-
-            /// <summary>
-            /// Enum ClientCredentials for value: client-credentials
-            /// </summary>
-            [EnumMember(Value = "client-credentials")]
-            ClientCredentials = 5,
-
-            /// <summary>
-            /// Enum OpenidHybrid for value: openid-hybrid
-            /// </summary>
-            [EnumMember(Value = "openid-hybrid")]
-            OpenidHybrid = 6
-        }
-
-
-        /// <summary>
-        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid
-        /// </summary>
-        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid</value>
-        [DataMember(Name = "authorization_grant_type", IsRequired = true, EmitDefaultValue = true)]
-        public AuthorizationGrantTypeEnum AuthorizationGrantType { get; set; }
-        /// <summary>
         /// Initializes a new instance of the <see cref="OAuthApplicationResponse" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -120,11 +42,21 @@ namespace Pescheck.Client.Model
         /// </summary>
         /// <param name="name">name.</param>
         /// <param name="clientId">clientId.</param>
-        /// <param name="clientType">* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public (required).</param>
-        /// <param name="authorizationGrantType">* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid (required).</param>
-        public OAuthApplicationResponse(string name = default, string clientId = default, ClientTypeEnum clientType = default, AuthorizationGrantTypeEnum authorizationGrantType = default)
+        /// <param name="clientType">* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values. (required).</param>
+        /// <param name="authorizationGrantType">* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values. (required).</param>
+        public OAuthApplicationResponse(string name = default, string clientId = default, string clientType = default, string authorizationGrantType = default)
         {
+            // to ensure "clientType" is required (not null)
+            if (clientType == null)
+            {
+                throw new ArgumentNullException("clientType is a required property for OAuthApplicationResponse and cannot be null");
+            }
             this.ClientType = clientType;
+            // to ensure "authorizationGrantType" is required (not null)
+            if (authorizationGrantType == null)
+            {
+                throw new ArgumentNullException("authorizationGrantType is a required property for OAuthApplicationResponse and cannot be null");
+            }
             this.AuthorizationGrantType = authorizationGrantType;
             this.Name = name;
             this.ClientId = clientId;
@@ -170,6 +102,20 @@ namespace Pescheck.Client.Model
         {
             return false;
         }
+        /// <summary>
+        /// * &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values.
+        /// </summary>
+        /// <value>* &#x60;confidential&#x60; - Confidential * &#x60;public&#x60; - Public  Known values: confidential, public. New values may be added; handle unknown values.</value>
+        [DataMember(Name = "client_type", IsRequired = true, EmitDefaultValue = true)]
+        public string ClientType { get; set; }
+
+        /// <summary>
+        /// * &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.
+        /// </summary>
+        /// <value>* &#x60;authorization-code&#x60; - Authorization code * &#x60;urn:ietf:params:oauth:grant-type:device_code&#x60; - Device Code * &#x60;implicit&#x60; - Implicit * &#x60;password&#x60; - Resource owner password-based * &#x60;client-credentials&#x60; - Client credentials * &#x60;openid-hybrid&#x60; - OpenID connect hybrid  Known values: authorization-code, urn:ietf:params:oauth:grant-type:device_code, implicit, password, client-credentials, openid-hybrid. New values may be added; handle unknown values.</value>
+        [DataMember(Name = "authorization_grant_type", IsRequired = true, EmitDefaultValue = true)]
+        public string AuthorizationGrantType { get; set; }
+
         /// <summary>
         /// Gets or Sets Organisation
         /// </summary>

@@ -20,7 +20,7 @@ var _ MappedNullable = &OrganisationAddon{}
 
 // OrganisationAddon One add-on for one organisation, built from ``addon_service.addon_cards``.
 type OrganisationAddon struct {
-	// Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+	// Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
 	Addon string `json:"addon"`
 	Name string `json:"name"`
 	Description string `json:"description"`

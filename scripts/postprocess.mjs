@@ -430,6 +430,28 @@ const phpBool = patchFile("clients/php/lib/Configuration.php", [
 ]);
 console.log(`postprocess: PHP query booleans as true/false in ${phpBool} file(s)`);
 
+// Rust: with useSingleRequestParameter every call takes a `<Op>Params` struct.
+// Derive Default so callers write `Params { page: Some(2), ..Default::default() }`
+// and keep compiling when the API adds an optional parameter (a new field).
+let rustParams = 0;
+try {
+  const apisDir = resolve(root, "clients/rust/src/apis");
+  for (const f of readdirSync(apisDir).filter((n) => n.endsWith(".rs"))) {
+    const file = resolve(apisDir, f);
+    const before = readFileSync(file, "utf8");
+    const after = before.replace(/#\[derive\(Clone, Debug\)\]\npub struct (\w+Params) \{/g, (m, name) => {
+      rustParams++;
+      return `#[derive(Clone, Debug, Default)]\npub struct ${name} {`;
+    });
+    if (after !== before) writeFileSync(file, after);
+    rustParams += (before.match(/#\[derive\(Clone, Debug, Default\)\]\npub struct \w+Params \{/g) || []).length;
+  }
+  if (rustParams === 0) throw new Error("postprocess: no Rust <Op>Params structs found to derive Default on");
+} catch (e) {
+  if (e.code !== "ENOENT") throw e;
+}
+console.log(`postprocess: Rust request params derive Default (${rustParams} struct(s))`);
+
 // Tell registry readers (PyPI, npm, NuGet, ...) about PESCHECK_BASE_URL: the
 // generated README only says the host "defaults to https://api.pescheck.io"
 // and its examples set the host explicitly, which would override the variable.

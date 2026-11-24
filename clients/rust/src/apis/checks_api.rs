@@ -14,6 +14,19 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
 
+/// struct for passing parameters to the method [`v2_checks_list`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ChecksListParams {
+    /// Restrict the list to a single check type.
+    pub check_type: Option<String>
+}
+
+/// struct for passing parameters to the method [`v2_checks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct V2ChecksRetrieveParams {
+    pub check_type: String
+}
+
 
 /// struct for typed errors of method [`v2_checks_list`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -31,14 +44,12 @@ pub enum V2ChecksRetrieveError {
 
 
 /// List the check types this API supports. The list is bounded metadata about the available check types (not a paginated collection), so the response is a flat array.
-pub async fn v2_checks_list(configuration: &configuration::Configuration, check_type: Option<&str>) -> Result<Vec<models::V2CheckInfo>, Error<V2ChecksListError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_check_type = check_type;
+pub async fn v2_checks_list(configuration: &configuration::Configuration, params: V2ChecksListParams) -> Result<Vec<models::V2CheckInfo>, Error<V2ChecksListError>> {
 
     let uri_str = format!("{}/api/v2/checks/", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_check_type {
+    if let Some(ref param_value) = params.check_type {
         req_builder = req_builder.query(&[("check_type", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
@@ -73,11 +84,9 @@ pub async fn v2_checks_list(configuration: &configuration::Configuration, check_
     }
 }
 
-pub async fn v2_checks_retrieve(configuration: &configuration::Configuration, check_type: &str) -> Result<models::V2CheckInfo, Error<V2ChecksRetrieveError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_check_type = check_type;
+pub async fn v2_checks_retrieve(configuration: &configuration::Configuration, params: V2ChecksRetrieveParams) -> Result<models::V2CheckInfo, Error<V2ChecksRetrieveError>> {
 
-    let uri_str = format!("{}/api/v2/checks/{check_type}/", configuration.base_path, check_type=crate::apis::urlencode(p_path_check_type));
+    let uri_str = format!("{}/api/v2/checks/{check_type}/", configuration.base_path, check_type=crate::apis::urlencode(params.check_type));
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {

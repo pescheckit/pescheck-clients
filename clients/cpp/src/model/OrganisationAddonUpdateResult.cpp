@@ -20,6 +20,7 @@ namespace model {
 
 OrganisationAddonUpdateResult::OrganisationAddonUpdateResult()
 {
+    m_Addon = utility::conversions::to_string_t("");
     m_AddonIsSet = false;
     m_Name = utility::conversions::to_string_t("");
     m_NameIsSet = false;
@@ -51,9 +52,7 @@ web::json::value OrganisationAddonUpdateResult::toJson() const
     if(m_AddonIsSet)
     {
         
-        utility::string_t refVal = fromAddonEnum(m_Addon);
-        val[utility::conversions::to_string_t(_XPLATSTR("addon"))] = ModelBase::toJson(refVal);
-        
+        val[utility::conversions::to_string_t(_XPLATSTR("addon"))] = ModelBase::toJson(m_Addon);
     }
     if(m_NameIsSet)
     {
@@ -109,8 +108,7 @@ bool OrganisationAddonUpdateResult::fromJson(const web::json::value& val)
         {
             utility::string_t refVal_setAddon;
             ok &= ModelBase::fromJson(fieldValue, refVal_setAddon);
-            
-            setAddon(toAddonEnum(refVal_setAddon));
+            setAddon(refVal_setAddon);
             
         }
     }
@@ -214,7 +212,7 @@ void OrganisationAddonUpdateResult::toMultipart(std::shared_ptr<MultipartFormDat
     }
     if(m_AddonIsSet)
     {
-        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("addon")), fromAddonEnum(m_Addon)));
+        multipart->add(ModelBase::toHttpContent(namePrefix + utility::conversions::to_string_t(_XPLATSTR("addon")), m_Addon));
     }
     if(m_NameIsSet)
     {
@@ -263,7 +261,7 @@ bool OrganisationAddonUpdateResult::fromMultiPart(std::shared_ptr<MultipartFormD
     {
         utility::string_t refVal_setAddon;
         ok &= ModelBase::fromHttpContent(multipart->getContent(utility::conversions::to_string_t(_XPLATSTR("addon"))), refVal_setAddon );
-        setAddon(toAddonEnum(refVal_setAddon));
+        setAddon(refVal_setAddon);
     }
     if(multipart->hasContent(utility::conversions::to_string_t(_XPLATSTR("name"))))
     {
@@ -316,53 +314,14 @@ bool OrganisationAddonUpdateResult::fromMultiPart(std::shared_ptr<MultipartFormD
     return ok;
 }
 
-OrganisationAddonUpdateResult::AddonEnum OrganisationAddonUpdateResult::toAddonEnum(const utility::string_t& value) const
-{
-    
-    if (value == utility::conversions::to_string_t("branded_journey")) {
-        return AddonEnum::BRANDED_JOURNEY;
-    }
-    
-    if (value == utility::conversions::to_string_t("sso")) {
-        return AddonEnum::SSO;
-    }
-    
-    if (value == utility::conversions::to_string_t("api_access")) {
-        return AddonEnum::API_ACCESS;
-    }
-    
-    if (value == utility::conversions::to_string_t("connected_ats")) {
-        return AddonEnum::CONNECTED_ATS;
-    }
-    
-    throw std::invalid_argument("Invalid value for conversion to AddonEnum");
-}
 
-
-const utility::string_t OrganisationAddonUpdateResult::fromAddonEnum(const AddonEnum value) const
-{
-    switch(value)
-    {
-        
-        case AddonEnum::BRANDED_JOURNEY: return utility::conversions::to_string_t("branded_journey");
-        
-        case AddonEnum::SSO: return utility::conversions::to_string_t("sso");
-        
-        case AddonEnum::API_ACCESS: return utility::conversions::to_string_t("api_access");
-        
-        case AddonEnum::CONNECTED_ATS: return utility::conversions::to_string_t("connected_ats");
-        
-    }
-}
-
-
-OrganisationAddonUpdateResult::AddonEnum OrganisationAddonUpdateResult::getAddon() const
+utility::string_t OrganisationAddonUpdateResult::getAddon() const
 {
     return m_Addon;
 }
 
 
-void OrganisationAddonUpdateResult::setAddon(const AddonEnum value)
+void OrganisationAddonUpdateResult::setAddon(const utility::string_t& value)
 {
     m_Addon = value;
     m_AddonIsSet = true;

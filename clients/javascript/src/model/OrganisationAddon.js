@@ -24,7 +24,7 @@ class OrganisationAddon {
      * Constructs a new <code>OrganisationAddon</code>.
      * One add-on for one organisation, built from &#x60;&#x60;addon_service.addon_cards&#x60;&#x60;.
      * @alias module:model/OrganisationAddon
-     * @param addon {module:model/OrganisationAddon.AddonEnum} Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
+     * @param addon {String} Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
      * @param name {String} 
      * @param description {String} 
      * @param enabled {Boolean} Switched on (and billed) for this organisation.
@@ -131,8 +131,8 @@ class OrganisationAddon {
 OrganisationAddon.RequiredProperties = ["addon", "name", "description", "enabled", "active", "blocked_by_parent", "monthly_price", "price_is_indicative"];
 
 /**
- * Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go
- * @member {module:model/OrganisationAddon.AddonEnum} addon
+ * Add-on identifier, used in the URL.  * `branded_journey` - Branded Journey * `sso` - Single Sign-On (SSO) * `api_access` - API & MCP Access * `connected_ats` - Connected ATS - Click & Go  Known values: branded_journey, sso, api_access, connected_ats. New values may be added; handle unknown values.
+ * @member {String} addon
  */
 OrganisationAddon.prototype['addon'] = undefined;
 
@@ -178,39 +178,6 @@ OrganisationAddon.prototype['price_is_indicative'] = undefined;
 
 
 
-
-
-/**
- * Allowed values for the <code>addon</code> property.
- * @enum {String}
- * @readonly
- */
-OrganisationAddon['AddonEnum'] = {
-
-    /**
-     * value: "branded_journey"
-     * @const
-     */
-    "branded_journey": "branded_journey",
-
-    /**
-     * value: "sso"
-     * @const
-     */
-    "sso": "sso",
-
-    /**
-     * value: "api_access"
-     * @const
-     */
-    "api_access": "api_access",
-
-    /**
-     * value: "connected_ats"
-     * @const
-     */
-    "connected_ats": "connected_ats"
-};
 
 
 

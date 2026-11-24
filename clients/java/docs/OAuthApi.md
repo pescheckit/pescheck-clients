@@ -11,7 +11,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="createOAuthApplication2"></a>
 # **createOAuthApplication2**
-> OAuthApplicationResponse createOAuthApplication2(oauthApplication)
+> OAuthApplicationResponse createOAuthApplication2(oauthApplication).execute();
 
 
 
@@ -39,7 +39,8 @@ public class Example {
     OAuthApi apiInstance = new OAuthApi(defaultClient);
     OAuthApplication oauthApplication = new OAuthApplication(); // OAuthApplication | 
     try {
-      OAuthApplicationResponse result = apiInstance.createOAuthApplication2(oauthApplication);
+      OAuthApplicationResponse result = apiInstance.createOAuthApplication2(oauthApplication)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling OAuthApi#createOAuthApplication2");
@@ -81,7 +82,7 @@ public class Example {
 
 <a id="deleteOAuthApplication2"></a>
 # **deleteOAuthApplication2**
-> deleteOAuthApplication2(applicationId)
+> deleteOAuthApplication2(applicationId).execute();
 
 
 
@@ -109,7 +110,8 @@ public class Example {
     OAuthApi apiInstance = new OAuthApi(defaultClient);
     String applicationId = "applicationId_example"; // String | Application ID to delete
     try {
-      apiInstance.deleteOAuthApplication2(applicationId);
+      apiInstance.deleteOAuthApplication2(applicationId)
+            .execute();
     } catch (ApiException e) {
       System.err.println("Exception when calling OAuthApi#deleteOAuthApplication2");
       System.err.println("Status code: " + e.getCode());
@@ -149,7 +151,7 @@ null (empty response body)
 
 <a id="listOAuthApplications2"></a>
 # **listOAuthApplications2**
-> List&lt;OAuthApplicationResponse&gt; listOAuthApplications2()
+> List&lt;OAuthApplicationResponse&gt; listOAuthApplications2().execute();
 
 
 
@@ -176,7 +178,8 @@ public class Example {
 
     OAuthApi apiInstance = new OAuthApi(defaultClient);
     try {
-      List<OAuthApplicationResponse> result = apiInstance.listOAuthApplications2();
+      List<OAuthApplicationResponse> result = apiInstance.listOAuthApplications2()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling OAuthApi#listOAuthApplications2");

@@ -41,7 +41,8 @@ public class AuthenticationApiTest {
     @Test
     public void generateJWTToken2Test() throws ApiException {
         JWTGeneration jwTGeneration = null;
-        JWTResponse response = api.generateJWTToken2(jwTGeneration);
+        JWTResponse response = api.generateJWTToken2(jwTGeneration)
+                .execute();
         // TODO: test validations
     }
 
@@ -53,7 +54,8 @@ public class AuthenticationApiTest {
     @Test
     public void jwtRefreshCreateTest() throws ApiException {
         TokenRefresh tokenRefresh = null;
-        TokenRefresh response = api.jwtRefreshCreate(tokenRefresh);
+        TokenRefresh response = api.jwtRefreshCreate(tokenRefresh)
+                .execute();
         // TODO: test validations
     }
 

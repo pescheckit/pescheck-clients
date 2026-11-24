@@ -15,9 +15,9 @@ use serde::{Deserialize, Serialize};
 pub struct V2ProfileCheckEntry {
     #[serde(rename = "id", deserialize_with = "Option::deserialize")]
     pub id: Option<uuid::Uuid>,
-    /// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
+    /// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck  Known values: addresscheck, adversemedia2check, adversemediacheck, bigcheck, criminalrecordscheck, criminalrecordsuploadcheck, customintegritycheck, cvcheck, edrcheck, ibancheck, id2check, idcheck, integritycheck, openhealthcarecheck, permissioncheck, pescheckadversemediacheck, qualificationcheck, righttoworkcheck, vogcheck, watchlist2check, watchlistcheck, workreferencecheck, worldwidecreditcheck. New values may be added; handle unknown values.
     #[serde(rename = "check_type")]
-    pub check_type: CheckType,
+    pub check_type: String,
     #[serde(rename = "display_name")]
     pub display_name: String,
     #[serde(rename = "configured_price")]
@@ -31,7 +31,7 @@ pub struct V2ProfileCheckEntry {
 }
 
 impl V2ProfileCheckEntry {
-    pub fn new(id: Option<uuid::Uuid>, check_type: CheckType, display_name: String, configured_price: models::V2Money, config: std::collections::HashMap<String, serde_json::Value>, input_fields: Vec<serde_json::Value>, is_system_managed: bool) -> V2ProfileCheckEntry {
+    pub fn new(id: Option<uuid::Uuid>, check_type: String, display_name: String, configured_price: models::V2Money, config: std::collections::HashMap<String, serde_json::Value>, input_fields: Vec<serde_json::Value>, is_system_managed: bool) -> V2ProfileCheckEntry {
         V2ProfileCheckEntry {
             id,
             check_type,
@@ -41,62 +41,6 @@ impl V2ProfileCheckEntry {
             input_fields,
             is_system_managed,
         }
-    }
-}
-/// * `addresscheck` - addresscheck * `adversemedia2check` - adversemedia2check * `adversemediacheck` - adversemediacheck * `bigcheck` - bigcheck * `criminalrecordscheck` - criminalrecordscheck * `criminalrecordsuploadcheck` - criminalrecordsuploadcheck * `customintegritycheck` - customintegritycheck * `cvcheck` - cvcheck * `edrcheck` - edrcheck * `ibancheck` - ibancheck * `id2check` - id2check * `idcheck` - idcheck * `integritycheck` - integritycheck * `openhealthcarecheck` - openhealthcarecheck * `permissioncheck` - permissioncheck * `pescheckadversemediacheck` - pescheckadversemediacheck * `qualificationcheck` - qualificationcheck * `righttoworkcheck` - righttoworkcheck * `vogcheck` - vogcheck * `watchlist2check` - watchlist2check * `watchlistcheck` - watchlistcheck * `workreferencecheck` - workreferencecheck * `worldwidecreditcheck` - worldwidecreditcheck
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum CheckType {
-    #[serde(rename = "addresscheck")]
-    Addresscheck,
-    #[serde(rename = "adversemedia2check")]
-    Adversemedia2check,
-    #[serde(rename = "adversemediacheck")]
-    Adversemediacheck,
-    #[serde(rename = "bigcheck")]
-    Bigcheck,
-    #[serde(rename = "criminalrecordscheck")]
-    Criminalrecordscheck,
-    #[serde(rename = "criminalrecordsuploadcheck")]
-    Criminalrecordsuploadcheck,
-    #[serde(rename = "customintegritycheck")]
-    Customintegritycheck,
-    #[serde(rename = "cvcheck")]
-    Cvcheck,
-    #[serde(rename = "edrcheck")]
-    Edrcheck,
-    #[serde(rename = "ibancheck")]
-    Ibancheck,
-    #[serde(rename = "id2check")]
-    Id2check,
-    #[serde(rename = "idcheck")]
-    Idcheck,
-    #[serde(rename = "integritycheck")]
-    Integritycheck,
-    #[serde(rename = "openhealthcarecheck")]
-    Openhealthcarecheck,
-    #[serde(rename = "permissioncheck")]
-    Permissioncheck,
-    #[serde(rename = "pescheckadversemediacheck")]
-    Pescheckadversemediacheck,
-    #[serde(rename = "qualificationcheck")]
-    Qualificationcheck,
-    #[serde(rename = "righttoworkcheck")]
-    Righttoworkcheck,
-    #[serde(rename = "vogcheck")]
-    Vogcheck,
-    #[serde(rename = "watchlist2check")]
-    Watchlist2check,
-    #[serde(rename = "watchlistcheck")]
-    Watchlistcheck,
-    #[serde(rename = "workreferencecheck")]
-    Workreferencecheck,
-    #[serde(rename = "worldwidecreditcheck")]
-    Worldwidecreditcheck,
-}
-
-impl Default for CheckType {
-    fn default() -> CheckType {
-        Self::Addresscheck
     }
 }
 

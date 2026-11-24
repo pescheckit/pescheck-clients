@@ -12,7 +12,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 <a id="createWebhook2"></a>
 # **createWebhook2**
-> WebhookResponse createWebhook2(webhook, xOrganizationId, organizationId)
+> WebhookResponse createWebhook2(webhook).xOrganizationId(xOrganizationId).organizationId(organizationId).execute();
 
 
 
@@ -42,7 +42,10 @@ public class Example {
     String xOrganizationId = "xOrganizationId_example"; // String | Organization ID (for JWT/Session auth only)
     String organizationId = "organizationId_example"; // String | Organization ID (for JWT/Session auth only)
     try {
-      WebhookResponse result = apiInstance.createWebhook2(webhook, xOrganizationId, organizationId);
+      WebhookResponse result = apiInstance.createWebhook2(webhook)
+            .xOrganizationId(xOrganizationId)
+            .organizationId(organizationId)
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WebhooksApi#createWebhook2");
@@ -86,7 +89,7 @@ public class Example {
 
 <a id="deleteWebhook2"></a>
 # **deleteWebhook2**
-> deleteWebhook2(webhookId)
+> deleteWebhook2(webhookId).execute();
 
 
 
@@ -114,7 +117,8 @@ public class Example {
     WebhooksApi apiInstance = new WebhooksApi(defaultClient);
     String webhookId = "webhookId_example"; // String | Webhook ID to delete
     try {
-      apiInstance.deleteWebhook2(webhookId);
+      apiInstance.deleteWebhook2(webhookId)
+            .execute();
     } catch (ApiException e) {
       System.err.println("Exception when calling WebhooksApi#deleteWebhook2");
       System.err.println("Status code: " + e.getCode());
@@ -154,7 +158,7 @@ null (empty response body)
 
 <a id="listWebhooks2"></a>
 # **listWebhooks2**
-> List&lt;WebhookResponse&gt; listWebhooks2()
+> List&lt;WebhookResponse&gt; listWebhooks2().execute();
 
 
 
@@ -181,7 +185,8 @@ public class Example {
 
     WebhooksApi apiInstance = new WebhooksApi(defaultClient);
     try {
-      List<WebhookResponse> result = apiInstance.listWebhooks2();
+      List<WebhookResponse> result = apiInstance.listWebhooks2()
+            .execute();
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling WebhooksApi#listWebhooks2");
@@ -218,7 +223,7 @@ This endpoint does not need any parameter.
 
 <a id="verifyWebhook2"></a>
 # **verifyWebhook2**
-> verifyWebhook2(webhookId, verifyWebhook)
+> verifyWebhook2(webhookId, verifyWebhook).execute();
 
 
 
@@ -247,7 +252,8 @@ public class Example {
     String webhookId = "webhookId_example"; // String | Webhook ID
     VerifyWebhook verifyWebhook = new VerifyWebhook(); // VerifyWebhook | 
     try {
-      apiInstance.verifyWebhook2(webhookId, verifyWebhook);
+      apiInstance.verifyWebhook2(webhookId, verifyWebhook)
+            .execute();
     } catch (ApiException e) {
       System.err.println("Exception when calling WebhooksApi#verifyWebhook2");
       System.err.println("Status code: " + e.getCode());
