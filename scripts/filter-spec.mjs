@@ -245,6 +245,32 @@ if (oauth2?.flows) {
   }
 }
 
+// 5h. Make the spec independent of the environment it was fetched from. The
+// backend writes request-specific values into its schema: OAuth URLs use the
+// host that served it (api.pescheck.io / api-staging... / localhost), and the
+// session cookie is only `__Secure-`-prefixed over HTTPS. Pin them to the
+// production values so generating from prod, staging or localhost yields
+// byte-identical clients and a regen diff means the API itself changed. At
+// runtime the host still comes from PESCHECK_BASE_URL (see postprocess.mjs).
+const PROD_ORIGIN = "https://api.pescheck.io";
+let envValuesPinned = 0;
+for (const scheme of Object.values(doc.components?.securitySchemes ?? {})) {
+  for (const flow of Object.values(scheme?.flows ?? {})) {
+    for (const key of ["authorizationUrl", "tokenUrl", "refreshUrl"]) {
+      if (typeof flow[key] !== "string") continue;
+      const pinned = PROD_ORIGIN + new URL(flow[key], PROD_ORIGIN).pathname;
+      if (pinned !== flow[key]) {
+        flow[key] = pinned;
+        envValuesPinned++;
+      }
+    }
+  }
+  if (scheme?.type === "apiKey" && scheme.in === "cookie" && scheme.name === "sessionid") {
+    scheme.name = "__Secure-sessionid";
+    envValuesPinned++;
+  }
+}
+
 const out = yaml.dump(doc, { lineWidth: -1, noRefs: true, sortKeys: false });
 writeFileSync(outputPath, out);
 
@@ -252,6 +278,7 @@ console.log(`Filtered spec written to ${outputPath}`);
 console.log(`  paths kept:     ${Object.keys(keptPaths).length} (dropped ${droppedCount})`);
 console.log(`  schemas kept:   ${Object.keys(newComponents.schemas ?? {}).length} (pruned ${prunedSchemas})`);
 console.log(`  oauth2 flows:   trimmed ${trimmedFlows} (kept clientCredentials)`);
+console.log(`  env-specific values pinned to production: ${envValuesPinned}`);
 console.log(`  decimal format: stripped from ${decimalFormatsStripped} string field(s)`);
 console.log(`  string unions: collapsed ${stringUnionsCollapsed} string-only oneOf/anyOf to plain string`);
 console.log(`  relaxed required: ${relaxedRequired} field(s); readOnly-required stripped: ${readOnlyRequiredStripped}`);
