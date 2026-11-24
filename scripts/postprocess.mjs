@@ -246,6 +246,177 @@ try {
 }
 console.log(`postprocess: branded ${branded} client README(s) as official`);
 
+// Runtime base URL from the environment. Integrators typically build against
+// staging first and then switch to production; that should be a deploy-time
+// setting, not a code change. Every client's DEFAULT host becomes
+// $PESCHECK_BASE_URL (e.g. https://api-staging.pescheck.io), falling back to
+// production. A host set explicitly in code still wins.
+// Each patch is idempotent and THROWS if its anchor is gone (e.g. a generator
+// upgrade changed the template), so the env var can never silently stop working.
+const PROD = "https://api.pescheck.io";
+function patchFile(rel, pairs) {
+  const file = resolve(root, rel);
+  let s;
+  try {
+    s = readFileSync(file, "utf8");
+  } catch {
+    return 0; // client not generated in this run
+  }
+  let changed = false;
+  for (const [from, to] of pairs) {
+    if (s.includes(to)) continue; // already patched
+    if (!s.includes(from)) {
+      throw new Error(`postprocess: PESCHECK_BASE_URL anchor not found in ${rel}:\n${from}`);
+    }
+    s = s.replace(from, to);
+    changed = true;
+  }
+  if (changed) writeFileSync(file, s);
+  return changed ? 1 : 0;
+}
+
+const rubyConfig = (() => {
+  try {
+    const lib = resolve(root, "clients/ruby/lib");
+    const sub = readdirSync(lib, { withFileTypes: true }).find((d) => d.isDirectory());
+    return sub ? `clients/ruby/lib/${sub.name}/configuration.rb` : null;
+  } catch {
+    return null;
+  }
+})();
+
+let envPatched = 0;
+envPatched += patchFile("clients/python/pescheck/configuration.py", [
+  ["import copy\n", "import copy\nimport os\n"],
+  // Treat the env var exactly like a caller-supplied `host`: with host=None the
+  // generator falls back to server_index 0 (hard-coded production), ignoring
+  // _base_path, so setting _base_path alone would not work.
+  [
+    `        self._base_path = "${PROD}" if host is None else host`,
+    `        if host is None and os.environ.get("PESCHECK_BASE_URL"):\n` +
+      `            host = os.environ["PESCHECK_BASE_URL"].rstrip("/")\n` +
+      `        self._base_path = "${PROD}" if host is None else host`,
+  ],
+]);
+envPatched += patchFile("clients/typescript/src/runtime.ts", [
+  [
+    `export const BASE_PATH = "${PROD}".replace(/\\/+$/, "");`,
+    `export const BASE_PATH = ((globalThis as any).process?.env?.PESCHECK_BASE_URL as string | undefined || "${PROD}").replace(/\\/+$/, "");`,
+  ],
+]);
+envPatched += patchFile("clients/javascript/src/ApiClient.js", [
+  [
+    `constructor(basePath = '${PROD}') {`,
+    `constructor(basePath = ((typeof process !== 'undefined' && process.env && process.env.PESCHECK_BASE_URL) || '${PROD}').replace(/\\/+$/, '')) {`,
+  ],
+]);
+envPatched += patchFile("clients/go/configuration.go", [
+  [`"net/http"\n\t"strings"`, `"net/http"\n\t"os"\n\t"strings"`],
+  [
+    `URL: "${PROD}",\n\t\t\t\tDescription: "Production",`,
+    `URL: defaultBaseURL(),\n\t\t\t\tDescription: "Default: $PESCHECK_BASE_URL, else Production",`,
+  ],
+  [
+    `// NewConfiguration returns a new Configuration object`,
+    `// defaultBaseURL returns $PESCHECK_BASE_URL if set, else production.\n` +
+      `func defaultBaseURL() string {\n` +
+      `\tif v := os.Getenv("PESCHECK_BASE_URL"); v != "" {\n` +
+      `\t\treturn strings.TrimRight(v, "/")\n` +
+      `\t}\n` +
+      `\treturn "${PROD}"\n` +
+      `}\n\n` +
+      `// NewConfiguration returns a new Configuration object`,
+  ],
+]);
+envPatched += patchFile("clients/rust/src/apis/configuration.rs", [
+  [
+    `base_path: "${PROD}".to_owned(),`,
+    `base_path: std::env::var("PESCHECK_BASE_URL").ok().filter(|v| !v.is_empty()).map(|v| v.trim_end_matches('/').to_owned()).unwrap_or_else(|| "${PROD}".to_owned()),`,
+  ],
+]);
+if (rubyConfig) {
+  envPatched += patchFile(rubyConfig, [
+    [
+      `      @host = 'api.pescheck.io'\n      @base_path = ''\n`,
+      `      @host = 'api.pescheck.io'\n      @base_path = ''\n` +
+        `      # Default host: $PESCHECK_BASE_URL if set, else production.\n` +
+        `      if (env_url = ENV['PESCHECK_BASE_URL']) && !env_url.empty?\n` +
+        `        require 'uri'\n` +
+        `        uri = URI.parse(env_url)\n` +
+        `        @scheme = uri.scheme\n` +
+        `        @host = uri.port == uri.default_port ? uri.host : "#{uri.host}:#{uri.port}"\n` +
+        `        @base_path = uri.path.sub(%r{/+\\z}, '')\n` +
+        `      end\n`,
+    ],
+  ]);
+}
+envPatched += patchFile("clients/php/lib/Configuration.php", [
+  [
+    `        $this->tempFolderPath = sys_get_temp_dir();\n    }`,
+    `        $this->tempFolderPath = sys_get_temp_dir();\n` +
+      `        // Default host: $PESCHECK_BASE_URL if set, else production.\n` +
+      `        $envHost = getenv('PESCHECK_BASE_URL');\n` +
+      `        if ($envHost !== false && $envHost !== '') {\n` +
+      `            $this->host = rtrim($envHost, '/');\n` +
+      `        }\n    }`,
+  ],
+]);
+envPatched += patchFile("clients/csharp/src/Pescheck.Client/Client/Configuration.cs", [
+  [
+    `            BasePath = "${PROD}";\n            DefaultHeaders`,
+    `            // Default host: $PESCHECK_BASE_URL if set, else production.\n` +
+      `            var envBasePath = Environment.GetEnvironmentVariable("PESCHECK_BASE_URL");\n` +
+      `            BasePath = string.IsNullOrEmpty(envBasePath) ? "${PROD}" : envBasePath.TrimEnd('/');\n` +
+      `            DefaultHeaders`,
+  ],
+]);
+envPatched += patchFile("clients/java/src/main/java/io/pescheck/client/ApiClient.java", [
+  [
+    `    protected String basePath = "${PROD}";\n`,
+    `    protected String basePath = envBasePath() != null ? envBasePath() : "${PROD}";\n\n` +
+      `    /** $PESCHECK_BASE_URL without trailing slashes, or null when unset. */\n` +
+      `    private static String envBasePath() {\n` +
+      `        String env = System.getenv("PESCHECK_BASE_URL");\n` +
+      `        return (env != null && !env.isEmpty()) ? env.replaceAll("/+$", "") : null;\n` +
+      `    }\n\n`,
+  ],
+  // The OAuth constructor assigned basePath directly, leaving serverIndex 0 so
+  // an explicit basePath was ignored for API calls. Use the setter (it clears
+  // serverIndex) so API calls and the token URL below hit the same host.
+  [
+    `        if (basePath != null) {\n            this.basePath = basePath;\n        }\n\n        String tokenUrl`,
+    `        if (basePath != null) {\n            setBasePath(basePath);\n        }\n\n        String tokenUrl`,
+  ],
+  // serverIndex 0 (hard-coded production) takes precedence over basePath, so
+  // only default to it when the env var is not set.
+  [
+    `    protected Integer serverIndex = 0;\n`,
+    `    protected Integer serverIndex = envBasePath() != null ? null : 0;\n`,
+  ],
+  // OAuth token endpoint must follow the API host, or staging users would
+  // fetch tokens from production.
+  [
+    `String tokenUrl = "${PROD}/api/o/token/";`,
+    `String tokenUrl = getBasePath() + "/api/o/token/";`,
+  ],
+]);
+envPatched += patchFile("clients/cpp/src/ApiConfiguration.cpp", [
+  [
+    `#include "PescheckApi/ApiConfiguration.h"\n`,
+    `#include "PescheckApi/ApiConfiguration.h"\n\n#include <cstdlib>\n`,
+  ],
+  [
+    `ApiConfiguration::ApiConfiguration()\n{\n}`,
+    `ApiConfiguration::ApiConfiguration()\n{\n` +
+      `    // Default base URL: $PESCHECK_BASE_URL if set, else production.\n` +
+      `    const char* envBaseUrl = std::getenv("PESCHECK_BASE_URL");\n` +
+      `    std::string baseUrl = (envBaseUrl && *envBaseUrl) ? envBaseUrl : "${PROD}";\n` +
+      `    while (!baseUrl.empty() && baseUrl.back() == '/') baseUrl.pop_back();\n` +
+      `    m_BaseUrl = utility::conversions::to_string_t(baseUrl);\n}`,
+  ],
+]);
+console.log(`postprocess: PESCHECK_BASE_URL default host wired into ${envPatched} client(s)`);
+
 console.log(
   `postprocess: typescript instanceOf guards relaxed in ${guards} model file(s); ` +
     `Bearer prefix added in ${auth} api file(s); ruby auth_settings fixed in ${ruby} file(s); ` +

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-export const BASE_PATH = "https://api.pescheck.io".replace(/\/+$/, "");
+export const BASE_PATH = ((globalThis as any).process?.env?.PESCHECK_BASE_URL as string | undefined || "https://api.pescheck.io").replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path

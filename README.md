@@ -52,8 +52,9 @@ make filter          # write the v2-only spec/openapi.v2.yaml
 make generate        # run openapi-generator batch over config/*.yaml
 ```
 
-The schema URL defaults to production; override with `PESCHECK_SCHEMA_URL` (e.g. a localhost
-or staging instance). Per-language settings live in `config/<lang>.yaml`.
+The schema URL defaults to **staging** (`https://api-staging.pescheck.io/api/schema/`), the same
+environment the e2e tests run against; override with `PESCHECK_SCHEMA_URL` (e.g. a localhost
+instance). The URL used is recorded in `spec/SOURCE`. Per-language settings live in `config/<lang>.yaml`.
 
 ## Authentication
 
@@ -97,7 +98,19 @@ Set the `access` JWT as the client's bearer token the same way.
 ## Servers
 
 `https://api.pescheck.io` (production) and `https://api-staging.pescheck.io` (staging).
-Point a client at staging by setting its base URL / host in the client configuration.
+
+Every client reads its default host from the `PESCHECK_BASE_URL` environment variable and
+falls back to production when it is unset. Build your integration against staging, then
+switch to production by changing the environment only, with no code change:
+
+```bash
+export PESCHECK_BASE_URL=https://api-staging.pescheck.io   # while integrating
+unset PESCHECK_BASE_URL                                     # production (the default)
+```
+
+Request your OAuth2 token from the same environment (`$PESCHECK_BASE_URL/api/o/token/`):
+staging and production credentials are separate. A host set explicitly in code
+(e.g. Python `Configuration(host=...)`, Java `setBasePath(...)`) overrides the variable.
 
 ## Testing
 

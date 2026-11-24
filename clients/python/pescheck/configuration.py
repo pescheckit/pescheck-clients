@@ -11,6 +11,7 @@
 
 
 import copy
+import os
 import http.client as httplib
 import logging
 from logging import FileHandler
@@ -236,6 +237,8 @@ conf = pescheck.Configuration(
     ) -> None:
         """Constructor
         """
+        if host is None and os.environ.get("PESCHECK_BASE_URL"):
+            host = os.environ["PESCHECK_BASE_URL"].rstrip("/")
         self._base_path = "https://api.pescheck.io" if host is None else host
         """Default Base url
         """

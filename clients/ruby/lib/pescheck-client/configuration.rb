@@ -159,6 +159,14 @@ module Pescheck
       @scheme = 'https'
       @host = 'api.pescheck.io'
       @base_path = ''
+      # Default host: $PESCHECK_BASE_URL if set, else production.
+      if (env_url = ENV['PESCHECK_BASE_URL']) && !env_url.empty?
+        require 'uri'
+        uri = URI.parse(env_url)
+        @scheme = uri.scheme
+        @host = uri.port == uri.default_port ? uri.host : "#{uri.host}:#{uri.port}"
+        @base_path = uri.path.sub(%r{/+\z}, '')
+      end
       @server_index = nil
       @server_operation_index = {}
       @server_variables = {}

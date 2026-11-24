@@ -143,6 +143,11 @@ class Configuration
     public function __construct()
     {
         $this->tempFolderPath = sys_get_temp_dir();
+        // Default host: $PESCHECK_BASE_URL if set, else production.
+        $envHost = getenv('PESCHECK_BASE_URL');
+        if ($envHost !== false && $envHost !== '') {
+            $this->host = rtrim($envHost, '/');
+        }
     }
 
     /**
