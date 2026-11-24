@@ -63,6 +63,6 @@ contract-rust:
 	cd contract/rust && $(MOCK) cargo test
 
 contract-cpp:
-	cmake -S contract/cpp -B build/contract-cpp && cmake --build build/contract-cpp -j
+	cmake -S contract/cpp -B build/contract-cpp && cmake --build build/contract-cpp -j"$$(nproc)"
 	$(MOCK) ctest --test-dir build/contract-cpp --output-on-failure
 
