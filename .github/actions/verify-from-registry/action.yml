@@ -30,9 +30,11 @@ runs:
           exit 1
         fi
         echo "Verifying $PKG @ EXACT $VER from $ECO"
-        work=$(mktemp -d)
-
         install_exact() {
+          # A fresh, empty project dir per attempt: `npm init`, `cargo init`,
+          # `dotnet new` and composer refuse to run in a dir an earlier attempt
+          # already set up, which made every retry fail without retrying.
+          work=$(mktemp -d)
           case "$ECO" in
             npm)
               ( cd "$work" && npm init -y >/dev/null && npm install "$PKG@$VER" \
@@ -75,7 +77,13 @@ runs:
         # new version can lag well beyond any reasonable CI wait. The tag is the
         # source of truth, so for packagist we do a short check and treat a
         # not-yet-crawled version as a WARNING, not a failure.
-        if [ "$ECO" = "packagist" ]; then ATTEMPTS=2; SLEEP=15; else ATTEMPTS=6; SLEEP=60; fi
+        # NuGet validates and scans every upload before it can be installed; that
+        # regularly takes 10-15 minutes, so it gets a longer window.
+        case "$ECO" in
+          packagist) ATTEMPTS=2; SLEEP=15 ;;
+          nuget)     ATTEMPTS=20; SLEEP=60 ;;
+          *)         ATTEMPTS=6; SLEEP=60 ;;
+        esac
 
         # Retry BOTH the exact-version install and the registry version-list check
         # (each absorbs propagation lag independently).
