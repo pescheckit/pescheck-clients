@@ -253,15 +253,21 @@ class Webhook implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const EVENTS_CHECK_STATUS_CHANGED = 'check.status_changed';
     public const EVENTS_SCREENING_STATUS_CHANGED = 'screening.status_changed';
     public const EVENTS_SCREENING_ARCHIVED = 'screening.archived';
+    public const EVENTS_CHECK_STATUS_CHANGED = 'check.status_changed';
     public const EVENTS_PACKAGE_CREATED = 'package.created';
     public const EVENTS_PACKAGE_UPDATED = 'package.updated';
     public const EVENTS_PROFILE_CREATED = 'profile.created';
     public const EVENTS_PROFILE_UPDATED = 'profile.updated';
     public const EVENTS_DIVISION_CREATED = 'division.created';
     public const EVENTS_DIVISION_UPDATED = 'division.updated';
+    public const EVENTS_MAIL_SENT = 'mail.sent';
+    public const EVENTS_MAIL_DELIVERED = 'mail.delivered';
+    public const EVENTS_MAIL_BOUNCED = 'mail.bounced';
+    public const EVENTS_MAIL_OPENED = 'mail.opened';
+    public const EVENTS_NOTE_CREATED = 'note.created';
+    public const EVENTS_WATCHLIST_RESULT = 'watchlist.result';
 
     /**
      * Gets allowable values of the enum
@@ -271,15 +277,21 @@ class Webhook implements ModelInterface, ArrayAccess, \JsonSerializable
     public function getEventsAllowableValues()
     {
         return [
-            self::EVENTS_CHECK_STATUS_CHANGED,
             self::EVENTS_SCREENING_STATUS_CHANGED,
             self::EVENTS_SCREENING_ARCHIVED,
+            self::EVENTS_CHECK_STATUS_CHANGED,
             self::EVENTS_PACKAGE_CREATED,
             self::EVENTS_PACKAGE_UPDATED,
             self::EVENTS_PROFILE_CREATED,
             self::EVENTS_PROFILE_UPDATED,
             self::EVENTS_DIVISION_CREATED,
             self::EVENTS_DIVISION_UPDATED,
+            self::EVENTS_MAIL_SENT,
+            self::EVENTS_MAIL_DELIVERED,
+            self::EVENTS_MAIL_BOUNCED,
+            self::EVENTS_MAIL_OPENED,
+            self::EVENTS_NOTE_CREATED,
+            self::EVENTS_WATCHLIST_RESULT,
         ];
     }
 
@@ -431,7 +443,7 @@ class Webhook implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets events
      *
-     * @param string[] $events List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+     * @param string[] $events List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
      *
      * @return self
      */

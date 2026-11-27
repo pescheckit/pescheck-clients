@@ -16,7 +16,7 @@ All URIs are relative to *https://api.pescheck.io*
 
 
 
-Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter          **Valid Events:**         - `check.status_changed` - Check status has changed (new status in payload)         - `screening.status_changed` - Screening status has changed (new status in payload)         - `screening.archived` - Screening has been archived         - `package.created` - New package has been created         - `package.updated` - Package has been updated         - `profile.created` - New profile has been created         - `profile.updated` - Profile has been updated         - `division.created` - New division has been created         - `division.updated` - Division has been updated          Limited to 5 webhooks per organization/division.
+Create webhook for event notifications.          **Authentication Notes:**         - OAuth2: Organization is automatically determined from the OAuth application         - If your OAuth app has no organization set, pass it via `X-Organization-Id` header or `organization_id` query parameter          **Valid Events:**         - `check.status_changed` - Check status has changed (new status in payload)         - `screening.status_changed` - Screening status has changed (new status in payload)         - `screening.archived` - Screening has been archived         - `package.created` - New package has been created         - `package.updated` - Package has been updated         - `profile.created` - New profile has been created         - `profile.updated` - Profile has been updated         - `division.created` - New division has been created         - `division.updated` - Division has been updated         - `mail.sent` - An email about a screening has been sent         - `mail.delivered` - An email has been delivered         - `mail.bounced` - An email has bounced         - `mail.opened` - An email has been opened         - `note.created` - A note has been added to a screening         - `watchlist.result` - A watchlist check has a result          Limited to 5 webhooks per organization/division.
 
 ### Examples
 
@@ -30,7 +30,7 @@ Pescheck.configure do |config|
 end
 
 api_instance = Pescheck::WebhooksApi.new
-webhook = Pescheck::Webhook.new({name: 'name_example', url: 'url_example', events: ['check.status_changed']}) # Webhook | 
+webhook = Pescheck::Webhook.new({name: 'name_example', url: 'url_example', events: ['screening.status_changed']}) # Webhook | 
 opts = {
   x_organization_id: 'x_organization_id_example', # String | Organization ID (for JWT/Session auth only)
   organization_id: 'organization_id_example' # String | Organization ID (for JWT/Session auth only)

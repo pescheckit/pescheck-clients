@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Descriptive name for this webhook | 
 **Url** | **string** | HTTPS URL where webhook events will be sent | 
-**Events** | **List&lt;Webhook.EventsEnum&gt;** | List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated | 
+**Events** | **List&lt;Webhook.EventsEnum&gt;** | List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result | 
 **Active** | **bool** | Whether the webhook is active | [optional] [default to true]
 **DivisionId** | **Guid** | Division ID to create webhook for (optional) | [optional] 
 

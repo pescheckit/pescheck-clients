@@ -60,18 +60,24 @@ public:
 
     enum class EventsEnum
     {
-        CHECK_STATUS_CHANGED,
         SCREENING_STATUS_CHANGED,
         SCREENING_ARCHIVED,
+        CHECK_STATUS_CHANGED,
         PACKAGE_CREATED,
         PACKAGE_UPDATED,
         PROFILE_CREATED,
         PROFILE_UPDATED,
         DIVISION_CREATED,
         DIVISION_UPDATED,
+        MAIL_SENT,
+        MAIL_DELIVERED,
+        MAIL_BOUNCED,
+        MAIL_OPENED,
+        NOTE_CREATED,
+        WATCHLIST_RESULT,
     };
     /// <summary>
-    /// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+    /// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
     /// </summary>
     EventsEnum toEventsEnum(const utility::string_t& value) const;
     const utility::string_t fromEventsEnum(const EventsEnum value) const;
@@ -96,7 +102,7 @@ public:
     void setUrl(const utility::string_t& value);
 
     /// <summary>
-    /// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+    /// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
     /// </summary>
     std::vector<EventsEnum> getEvents() const;
     bool eventsIsSet() const;

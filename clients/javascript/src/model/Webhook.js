@@ -25,7 +25,7 @@ class Webhook {
      * @alias module:model/Webhook
      * @param name {String} Descriptive name for this webhook
      * @param url {String} HTTPS URL where webhook events will be sent
-     * @param events {Array.<module:model/Webhook.EventsEnum>} List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+     * @param events {Array.<module:model/Webhook.EventsEnum>} List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
      */
     constructor(name, url, events) { 
         
@@ -124,7 +124,7 @@ Webhook.prototype['name'] = undefined;
 Webhook.prototype['url'] = undefined;
 
 /**
- * List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+ * List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
  * @member {Array.<module:model/Webhook.EventsEnum>} events
  */
 Webhook.prototype['events'] = undefined;
@@ -154,12 +154,6 @@ Webhook.prototype['division_id'] = undefined;
 Webhook['EventsEnum'] = {
 
     /**
-     * value: "check.status_changed"
-     * @const
-     */
-    "check.status_changed": "check.status_changed",
-
-    /**
      * value: "screening.status_changed"
      * @const
      */
@@ -170,6 +164,12 @@ Webhook['EventsEnum'] = {
      * @const
      */
     "screening.archived": "screening.archived",
+
+    /**
+     * value: "check.status_changed"
+     * @const
+     */
+    "check.status_changed": "check.status_changed",
 
     /**
      * value: "package.created"
@@ -205,7 +205,43 @@ Webhook['EventsEnum'] = {
      * value: "division.updated"
      * @const
      */
-    "division.updated": "division.updated"
+    "division.updated": "division.updated",
+
+    /**
+     * value: "mail.sent"
+     * @const
+     */
+    "mail.sent": "mail.sent",
+
+    /**
+     * value: "mail.delivered"
+     * @const
+     */
+    "mail.delivered": "mail.delivered",
+
+    /**
+     * value: "mail.bounced"
+     * @const
+     */
+    "mail.bounced": "mail.bounced",
+
+    /**
+     * value: "mail.opened"
+     * @const
+     */
+    "mail.opened": "mail.opened",
+
+    /**
+     * value: "note.created"
+     * @const
+     */
+    "note.created": "note.created",
+
+    /**
+     * value: "watchlist.result"
+     * @const
+     */
+    "watchlist.result": "watchlist.result"
 };
 
 

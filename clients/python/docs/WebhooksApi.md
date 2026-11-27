@@ -29,6 +29,12 @@ Create webhook for event notifications.
         - `profile.updated` - Profile has been updated
         - `division.created` - New division has been created
         - `division.updated` - Division has been updated
+        - `mail.sent` - An email about a screening has been sent
+        - `mail.delivered` - An email has been delivered
+        - `mail.bounced` - An email has bounced
+        - `mail.opened` - An email has been opened
+        - `note.created` - A note has been added to a screening
+        - `watchlist.result` - A watchlist check has a result
 
         Limited to 5 webhooks per organization/division.
 
