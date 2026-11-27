@@ -38,7 +38,7 @@ class TestWebhook(unittest.TestCase):
                 name = '',
                 url = '',
                 events = [
-                    'check.status_changed'
+                    'screening.status_changed'
                     ],
                 active = True,
                 division_id = ''
@@ -48,7 +48,7 @@ class TestWebhook(unittest.TestCase):
                 name = '',
                 url = '',
                 events = [
-                    'check.status_changed'
+                    'screening.status_changed'
                     ],
         )
         """

@@ -24,7 +24,7 @@ type Webhook struct {
 	Name string `json:"name"`
 	// HTTPS URL where webhook events will be sent
 	Url string `json:"url"`
-	// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+	// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
 	Events []string `json:"events"`
 	// Whether the webhook is active
 	Active *bool `json:"active,omitempty"`

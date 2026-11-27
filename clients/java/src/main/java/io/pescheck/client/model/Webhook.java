@@ -65,15 +65,15 @@ public class Webhook {
   private URI url;
 
   /**
-   * * &#x60;check.status_changed&#x60; - check.status_changed * &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated
+   * * &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;check.status_changed&#x60; - check.status_changed * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated * &#x60;mail.sent&#x60; - mail.sent * &#x60;mail.delivered&#x60; - mail.delivered * &#x60;mail.bounced&#x60; - mail.bounced * &#x60;mail.opened&#x60; - mail.opened * &#x60;note.created&#x60; - note.created * &#x60;watchlist.result&#x60; - watchlist.result
    */
   @JsonAdapter(EventsEnum.Adapter.class)
   public enum EventsEnum {
-    CHECK_STATUS_CHANGED("check.status_changed"),
-    
     SCREENING_STATUS_CHANGED("screening.status_changed"),
     
     SCREENING_ARCHIVED("screening.archived"),
+    
+    CHECK_STATUS_CHANGED("check.status_changed"),
     
     PACKAGE_CREATED("package.created"),
     
@@ -85,7 +85,19 @@ public class Webhook {
     
     DIVISION_CREATED("division.created"),
     
-    DIVISION_UPDATED("division.updated");
+    DIVISION_UPDATED("division.updated"),
+    
+    MAIL_SENT("mail.sent"),
+    
+    MAIL_DELIVERED("mail.delivered"),
+    
+    MAIL_BOUNCED("mail.bounced"),
+    
+    MAIL_OPENED("mail.opened"),
+    
+    NOTE_CREATED("note.created"),
+    
+    WATCHLIST_RESULT("watchlist.result");
 
     private String value;
 
@@ -200,7 +212,7 @@ public class Webhook {
   }
 
   /**
-   * List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+   * List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
    * @return events
    */
   @javax.annotation.Nonnull

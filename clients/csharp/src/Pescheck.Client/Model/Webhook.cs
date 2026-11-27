@@ -33,29 +33,29 @@ namespace Pescheck.Client.Model
     public partial class Webhook : IValidatableObject
     {
         /// <summary>
-        /// * &#x60;check.status_changed&#x60; - check.status_changed * &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated
+        /// * &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;check.status_changed&#x60; - check.status_changed * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated * &#x60;mail.sent&#x60; - mail.sent * &#x60;mail.delivered&#x60; - mail.delivered * &#x60;mail.bounced&#x60; - mail.bounced * &#x60;mail.opened&#x60; - mail.opened * &#x60;note.created&#x60; - note.created * &#x60;watchlist.result&#x60; - watchlist.result
         /// </summary>
-        /// <value>* &#x60;check.status_changed&#x60; - check.status_changed * &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated</value>
+        /// <value>* &#x60;screening.status_changed&#x60; - screening.status_changed * &#x60;screening.archived&#x60; - screening.archived * &#x60;check.status_changed&#x60; - check.status_changed * &#x60;package.created&#x60; - package.created * &#x60;package.updated&#x60; - package.updated * &#x60;profile.created&#x60; - profile.created * &#x60;profile.updated&#x60; - profile.updated * &#x60;division.created&#x60; - division.created * &#x60;division.updated&#x60; - division.updated * &#x60;mail.sent&#x60; - mail.sent * &#x60;mail.delivered&#x60; - mail.delivered * &#x60;mail.bounced&#x60; - mail.bounced * &#x60;mail.opened&#x60; - mail.opened * &#x60;note.created&#x60; - note.created * &#x60;watchlist.result&#x60; - watchlist.result</value>
         [JsonConverter(typeof(StringEnumConverter))]
         public enum EventsEnum
         {
             /// <summary>
-            /// Enum CheckStatusChanged for value: check.status_changed
-            /// </summary>
-            [EnumMember(Value = "check.status_changed")]
-            CheckStatusChanged = 1,
-
-            /// <summary>
             /// Enum ScreeningStatusChanged for value: screening.status_changed
             /// </summary>
             [EnumMember(Value = "screening.status_changed")]
-            ScreeningStatusChanged = 2,
+            ScreeningStatusChanged = 1,
 
             /// <summary>
             /// Enum ScreeningArchived for value: screening.archived
             /// </summary>
             [EnumMember(Value = "screening.archived")]
-            ScreeningArchived = 3,
+            ScreeningArchived = 2,
+
+            /// <summary>
+            /// Enum CheckStatusChanged for value: check.status_changed
+            /// </summary>
+            [EnumMember(Value = "check.status_changed")]
+            CheckStatusChanged = 3,
 
             /// <summary>
             /// Enum PackageCreated for value: package.created
@@ -91,7 +91,43 @@ namespace Pescheck.Client.Model
             /// Enum DivisionUpdated for value: division.updated
             /// </summary>
             [EnumMember(Value = "division.updated")]
-            DivisionUpdated = 9
+            DivisionUpdated = 9,
+
+            /// <summary>
+            /// Enum MailSent for value: mail.sent
+            /// </summary>
+            [EnumMember(Value = "mail.sent")]
+            MailSent = 10,
+
+            /// <summary>
+            /// Enum MailDelivered for value: mail.delivered
+            /// </summary>
+            [EnumMember(Value = "mail.delivered")]
+            MailDelivered = 11,
+
+            /// <summary>
+            /// Enum MailBounced for value: mail.bounced
+            /// </summary>
+            [EnumMember(Value = "mail.bounced")]
+            MailBounced = 12,
+
+            /// <summary>
+            /// Enum MailOpened for value: mail.opened
+            /// </summary>
+            [EnumMember(Value = "mail.opened")]
+            MailOpened = 13,
+
+            /// <summary>
+            /// Enum NoteCreated for value: note.created
+            /// </summary>
+            [EnumMember(Value = "note.created")]
+            NoteCreated = 14,
+
+            /// <summary>
+            /// Enum WatchlistResult for value: watchlist.result
+            /// </summary>
+            [EnumMember(Value = "watchlist.result")]
+            WatchlistResult = 15
         }
 
         /// <summary>
@@ -104,7 +140,7 @@ namespace Pescheck.Client.Model
         /// </summary>
         /// <param name="name">Descriptive name for this webhook (required).</param>
         /// <param name="url">HTTPS URL where webhook events will be sent (required).</param>
-        /// <param name="events">List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated (required).</param>
+        /// <param name="events">List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result (required).</param>
         /// <param name="active">Whether the webhook is active (default to true).</param>
         /// <param name="divisionId">Division ID to create webhook for (optional).</param>
         public Webhook(string name = default, string url = default, List<EventsEnum> events = default, bool active = true, Guid divisionId = default)
@@ -146,9 +182,9 @@ namespace Pescheck.Client.Model
         public string Url { get; set; }
 
         /// <summary>
-        /// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+        /// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
         /// </summary>
-        /// <value>List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated</value>
+        /// <value>List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result</value>
         [DataMember(Name = "events", IsRequired = true, EmitDefaultValue = true)]
         public List<Webhook.EventsEnum> Events { get; set; }
 

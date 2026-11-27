@@ -31,7 +31,7 @@ class Webhook(BaseModel):
     """ # noqa: E501
     name: Annotated[str, Field(strict=True, max_length=255)] = Field(description="Descriptive name for this webhook")
     url: StrictStr = Field(description="HTTPS URL where webhook events will be sent")
-    events: List[StrictStr] = Field(description="List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated")
+    events: List[StrictStr] = Field(description="List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result")
     active: Optional[StrictBool] = Field(default=True, description="Whether the webhook is active")
     division_id: Optional[UUID] = Field(default=None, description="Division ID to create webhook for (optional)")
     __properties: ClassVar[List[str]] = ["name", "url", "events", "active", "division_id"]
@@ -40,8 +40,8 @@ class Webhook(BaseModel):
     def events_validate_enum(cls, value):
         """Validates the enum"""
         for i in value:
-            if i not in set(['check.status_changed', 'screening.status_changed', 'screening.archived', 'package.created', 'package.updated', 'profile.created', 'profile.updated', 'division.created', 'division.updated']):
-                raise ValueError("each list item must be one of ('check.status_changed', 'screening.status_changed', 'screening.archived', 'package.created', 'package.updated', 'profile.created', 'profile.updated', 'division.created', 'division.updated')")
+            if i not in set(['screening.status_changed', 'screening.archived', 'check.status_changed', 'package.created', 'package.updated', 'profile.created', 'profile.updated', 'division.created', 'division.updated', 'mail.sent', 'mail.delivered', 'mail.bounced', 'mail.opened', 'note.created', 'watchlist.result']):
+                raise ValueError("each list item must be one of ('screening.status_changed', 'screening.archived', 'check.status_changed', 'package.created', 'package.updated', 'profile.created', 'profile.updated', 'division.created', 'division.updated', 'mail.sent', 'mail.delivered', 'mail.bounced', 'mail.opened', 'note.created', 'watchlist.result')")
         return value
 
     model_config = ConfigDict(

@@ -32,7 +32,7 @@ export interface Webhook {
      */
     url: string;
     /**
-     * List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+     * List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
      * @type {Array<WebhookEventsEnum>}
      * @memberof Webhook
      */
@@ -56,15 +56,21 @@ export interface Webhook {
  * @export
  */
 export const WebhookEventsEnum = {
-    CheckStatusChanged: 'check.status_changed',
     ScreeningStatusChanged: 'screening.status_changed',
     ScreeningArchived: 'screening.archived',
+    CheckStatusChanged: 'check.status_changed',
     PackageCreated: 'package.created',
     PackageUpdated: 'package.updated',
     ProfileCreated: 'profile.created',
     ProfileUpdated: 'profile.updated',
     DivisionCreated: 'division.created',
-    DivisionUpdated: 'division.updated'
+    DivisionUpdated: 'division.updated',
+    MailSent: 'mail.sent',
+    MailDelivered: 'mail.delivered',
+    MailBounced: 'mail.bounced',
+    MailOpened: 'mail.opened',
+    NoteCreated: 'note.created',
+    WatchlistResult: 'watchlist.result'
 } as const;
 export type WebhookEventsEnum = typeof WebhookEventsEnum[keyof typeof WebhookEventsEnum];
 

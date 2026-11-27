@@ -20,7 +20,7 @@ pub struct Webhook {
     /// HTTPS URL where webhook events will be sent
     #[serde(rename = "url")]
     pub url: String,
-    /// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+    /// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
     #[serde(rename = "events")]
     pub events: Vec<Events>,
     /// Whether the webhook is active
@@ -43,15 +43,15 @@ impl Webhook {
         }
     }
 }
-/// List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+/// List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Events {
-    #[serde(rename = "check.status_changed")]
-    CheckStatusChanged,
     #[serde(rename = "screening.status_changed")]
     ScreeningStatusChanged,
     #[serde(rename = "screening.archived")]
     ScreeningArchived,
+    #[serde(rename = "check.status_changed")]
+    CheckStatusChanged,
     #[serde(rename = "package.created")]
     PackageCreated,
     #[serde(rename = "package.updated")]
@@ -64,11 +64,23 @@ pub enum Events {
     DivisionCreated,
     #[serde(rename = "division.updated")]
     DivisionUpdated,
+    #[serde(rename = "mail.sent")]
+    MailSent,
+    #[serde(rename = "mail.delivered")]
+    MailDelivered,
+    #[serde(rename = "mail.bounced")]
+    MailBounced,
+    #[serde(rename = "mail.opened")]
+    MailOpened,
+    #[serde(rename = "note.created")]
+    NoteCreated,
+    #[serde(rename = "watchlist.result")]
+    WatchlistResult,
 }
 
 impl Default for Events {
     fn default() -> Events {
-        Self::CheckStatusChanged
+        Self::ScreeningStatusChanged
     }
 }
 

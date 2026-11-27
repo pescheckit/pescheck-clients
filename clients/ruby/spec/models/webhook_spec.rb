@@ -42,7 +42,7 @@ describe Pescheck::Webhook do
   describe 'test attribute "events"' do
     it 'should work' do
       # assertion here. ref: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers/
-      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Array<String>', ["check.status_changed", "screening.status_changed", "screening.archived", "package.created", "package.updated", "profile.created", "profile.updated", "division.created", "division.updated"])
+      # validator = Petstore::EnumTest::EnumAttributeValidator.new('Array<String>', ["screening.status_changed", "screening.archived", "check.status_changed", "package.created", "package.updated", "profile.created", "profile.updated", "division.created", "division.updated", "mail.sent", "mail.delivered", "mail.bounced", "mail.opened", "note.created", "watchlist.result"])
       # validator.allowable_values.each do |value|
       #   expect { instance.events = value }.not_to raise_error
       # end

@@ -1713,6 +1713,12 @@ paths:
                 - `profile.updated` - Profile has been updated
                 - `division.created` - New division has been created
                 - `division.updated` - Division has been updated
+                - `mail.sent` - An email about a screening has been sent
+                - `mail.delivered` - An email has been delivered
+                - `mail.bounced` - An email has bounced
+                - `mail.opened` - An email has been opened
+                - `note.created` - A note has been added to a screening
+                - `watchlist.result` - A watchlist check has a result
 
                 Limited to 5 webhooks per organization/division.
       parameters:
@@ -3663,28 +3669,40 @@ components:
           type: array
           items:
             enum:
-              - check.status_changed
               - screening.status_changed
               - screening.archived
+              - check.status_changed
               - package.created
               - package.updated
               - profile.created
               - profile.updated
               - division.created
               - division.updated
+              - mail.sent
+              - mail.delivered
+              - mail.bounced
+              - mail.opened
+              - note.created
+              - watchlist.result
             type: string
             description: |-
-              * `check.status_changed` - check.status_changed
               * `screening.status_changed` - screening.status_changed
               * `screening.archived` - screening.archived
+              * `check.status_changed` - check.status_changed
               * `package.created` - package.created
               * `package.updated` - package.updated
               * `profile.created` - profile.created
               * `profile.updated` - profile.updated
               * `division.created` - division.created
               * `division.updated` - division.updated
-            x-spec-enum-id: a3d120e98c30fb30
-          description: 'List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated'
+              * `mail.sent` - mail.sent
+              * `mail.delivered` - mail.delivered
+              * `mail.bounced` - mail.bounced
+              * `mail.opened` - mail.opened
+              * `note.created` - note.created
+              * `watchlist.result` - watchlist.result
+            x-spec-enum-id: 416f26d0a79816e7
+          description: 'List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result'
         active:
           type: boolean
           default: true

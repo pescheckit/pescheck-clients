@@ -210,16 +210,16 @@ bool Webhook::fromMultiPart(std::shared_ptr<MultipartFormData> multipart, const 
 Webhook::EventsEnum Webhook::toEventsEnum(const utility::string_t& value) const
 {
     
-    if (value == utility::conversions::to_string_t("check.status_changed")) {
-        return EventsEnum::CHECK_STATUS_CHANGED;
-    }
-    
     if (value == utility::conversions::to_string_t("screening.status_changed")) {
         return EventsEnum::SCREENING_STATUS_CHANGED;
     }
     
     if (value == utility::conversions::to_string_t("screening.archived")) {
         return EventsEnum::SCREENING_ARCHIVED;
+    }
+    
+    if (value == utility::conversions::to_string_t("check.status_changed")) {
+        return EventsEnum::CHECK_STATUS_CHANGED;
     }
     
     if (value == utility::conversions::to_string_t("package.created")) {
@@ -246,6 +246,30 @@ Webhook::EventsEnum Webhook::toEventsEnum(const utility::string_t& value) const
         return EventsEnum::DIVISION_UPDATED;
     }
     
+    if (value == utility::conversions::to_string_t("mail.sent")) {
+        return EventsEnum::MAIL_SENT;
+    }
+    
+    if (value == utility::conversions::to_string_t("mail.delivered")) {
+        return EventsEnum::MAIL_DELIVERED;
+    }
+    
+    if (value == utility::conversions::to_string_t("mail.bounced")) {
+        return EventsEnum::MAIL_BOUNCED;
+    }
+    
+    if (value == utility::conversions::to_string_t("mail.opened")) {
+        return EventsEnum::MAIL_OPENED;
+    }
+    
+    if (value == utility::conversions::to_string_t("note.created")) {
+        return EventsEnum::NOTE_CREATED;
+    }
+    
+    if (value == utility::conversions::to_string_t("watchlist.result")) {
+        return EventsEnum::WATCHLIST_RESULT;
+    }
+    
     throw std::invalid_argument("Invalid value for conversion to std::vector<EventsEnum>");
 }
 
@@ -254,11 +278,11 @@ const utility::string_t Webhook::fromEventsEnum(const EventsEnum value) const
     switch(value)
     {
         
-        case EventsEnum::CHECK_STATUS_CHANGED: return utility::conversions::to_string_t("check.status_changed");
-        
         case EventsEnum::SCREENING_STATUS_CHANGED: return utility::conversions::to_string_t("screening.status_changed");
         
         case EventsEnum::SCREENING_ARCHIVED: return utility::conversions::to_string_t("screening.archived");
+        
+        case EventsEnum::CHECK_STATUS_CHANGED: return utility::conversions::to_string_t("check.status_changed");
         
         case EventsEnum::PACKAGE_CREATED: return utility::conversions::to_string_t("package.created");
         
@@ -271,6 +295,18 @@ const utility::string_t Webhook::fromEventsEnum(const EventsEnum value) const
         case EventsEnum::DIVISION_CREATED: return utility::conversions::to_string_t("division.created");
         
         case EventsEnum::DIVISION_UPDATED: return utility::conversions::to_string_t("division.updated");
+        
+        case EventsEnum::MAIL_SENT: return utility::conversions::to_string_t("mail.sent");
+        
+        case EventsEnum::MAIL_DELIVERED: return utility::conversions::to_string_t("mail.delivered");
+        
+        case EventsEnum::MAIL_BOUNCED: return utility::conversions::to_string_t("mail.bounced");
+        
+        case EventsEnum::MAIL_OPENED: return utility::conversions::to_string_t("mail.opened");
+        
+        case EventsEnum::NOTE_CREATED: return utility::conversions::to_string_t("note.created");
+        
+        case EventsEnum::WATCHLIST_RESULT: return utility::conversions::to_string_t("watchlist.result");
         
     }
 }

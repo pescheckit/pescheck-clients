@@ -22,7 +22,7 @@ module Pescheck
     # HTTPS URL where webhook events will be sent
     attr_accessor :url
 
-    # List of events to subscribe to. Valid events: check.status_changed, screening.status_changed, screening.archived, package.created, package.updated, profile.created, profile.updated, division.created, division.updated
+    # List of events to subscribe to. Valid events: screening.status_changed, screening.archived, check.status_changed, package.created, package.updated, profile.created, profile.updated, division.created, division.updated, mail.sent, mail.delivered, mail.bounced, mail.opened, note.created, watchlist.result
     attr_accessor :events
 
     # Whether the webhook is active
